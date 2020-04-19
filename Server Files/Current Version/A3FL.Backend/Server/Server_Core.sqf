@@ -115,41 +115,34 @@
 	} foreach nearestTerrainObjects [[6690.16,7330.15,0], [], 10000];
 },true] call Server_Setup_Compile;
 
-/*["Server_Core_Restart",
+["Server_Core_Restart",
 {
- 	"removed" serverCommand "#lock";
- 	[format [localize"STR_SERVER_CORE_RESTART10MN"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
- 	[format [localize"STR_SERVER_CORE_RESTART10MN"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
- 	[format [localize"STR_SERVER_CORE_RESTART10MN"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
- 	["A3PL_Common\effects\airalarm.ogg",2500,0,10] spawn A3PL_FD_FireStationAlarm;
+	[format [localize"STR_SERVER_CORE_RESTART10MN"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
+	[format [localize"STR_SERVER_CORE_RESTART10MN"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
+	[format [localize"STR_SERVER_CORE_RESTART10MN"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
+	["A3PL_Common\effects\airalarm.ogg",2500,0,10] spawn A3PL_FD_FireStationAlarm;
 
- 	0 setRain 1;
- 	0 setFog [0.3, 0.3, 8];
- 	setWind [10, 10, true];
- 	0 setGusts 1;
- 	0 setOvercast 1;
- 	0 setLightnings 1;
- 	forceWeatherChange;
- 	[4] remoteExec ["BIS_fnc_earthquake",-2];
+	0 setRain 1;
+	0 setFog [0.3, 0.3, 8];
+	setWind [10, 10, true];
+	0 setGusts 1;
+	0 setOvercast 1;
+	0 setLightnings 1;
+	forceWeatherChange;
+	[4] remoteExec ["BIS_fnc_earthquake",-2];
 
- 	for "_i" from 0 to 2 do {
- 		sleep 140;
- 		[4] remoteExec ["BIS_fnc_earthquake",-2];
- 		[format [localize"STR_SERVER_CORE_RESTARTNOW"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
- 		[format [localize"STR_SERVER_CORE_RESTARTNOW"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
- 		[format [localize"STR_SERVER_CORE_RESTARTNOW"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
- 		["A3PL_Common\effects\airalarm.ogg",2500,0,10] spawn A3PL_FD_FireStationAlarm;
- 	};
- 	sleep 120;
- 	{
- 		"removed" serverCommand format ["#kick %1",name _x];
- 	} forEach AllPlayers;
- 	sleep 10;
- 	"removed" serverCommand "#restartserver";
- },true] call Server_Setup_Compile;
+	for "_i" from 0 to 2 do {
+		sleep 140;
+		[4] remoteExec ["BIS_fnc_earthquake",-2];
+		[format [localize"STR_SERVER_CORE_RESTARTNOW"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
+		[format [localize"STR_SERVER_CORE_RESTARTNOW"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
+		[format [localize"STR_SERVER_CORE_RESTARTNOW"],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
+		["A3PL_Common\effects\airalarm.ogg",2500,0,10] spawn A3PL_FD_FireStationAlarm;
+	};
+	sleep 120;
 
-["Server_Core_BanPlayer",{"removed" serverCommand format["#exec ban '%1'", _this select 0];},true] call Server_Setup_Compile;
-["Server_Core_KickPlayer",{"removed" serverCommand format["#kick %1", _this select 0];},true] call Server_Setup_Compile;*/
+},true] call Server_Setup_Compile;
+
 
 ["Server_Core_Weather",
 {
@@ -251,7 +244,7 @@
 	[] spawn Server_Fuel_Save;
 },true] call Server_Setup_Compile;
 
-/*["Server_Core_RestartTimer",
+["Server_Core_RestartTimer",
 {
 	["The server will restart in 1 hour","yellow"] remoteExec ["A3PL_Player_Notification", -2];
 	sleep 900;
@@ -262,4 +255,4 @@
 	["The server will restart in 20 minutes","yellow"] remoteExec ["A3PL_Player_Notification", -2];
 	sleep 600;
 	[] call Server_Core_Restart;
-},true] call Server_Setup_Compile;*/
+},true] call Server_Setup_Compile;
