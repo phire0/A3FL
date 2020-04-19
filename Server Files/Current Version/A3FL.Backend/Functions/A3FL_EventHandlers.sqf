@@ -17,6 +17,10 @@
 		(findDisplay 46) displayAddEventHandler ["KeyUp", {_this call A3PL_EventHandlers_HandleUp;}];
 		player addEventHandler ["InventoryOpened", {_this call A3PL_Prevent_Patdown_Cloning;}];
 
+		["restartannoucement", {
+			[] remoteExec ["Server_Core_RestartTimer",2];
+		}, "adminLogged"] call CBA_fnc_registerChatCommand;	
+
 		["ArmA 3 Fishers Life","interaction_key", "Interaction Menu",
 		{
 			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
