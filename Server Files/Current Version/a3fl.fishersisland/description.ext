@@ -51,6 +51,73 @@ corpseLimit = 1;
 corpseRemovalMinTime = 30;
 corpseRemovalMaxTime = 60;
 
+#include "Dialogs\common.hpp"
+#include "Dialogs\marcos.hpp"
+#include "Dialogs\Dialog_ATM.hpp"
+#include "Dialogs\Dialog_Inventory.hpp"
+#include "Dialogs\Dialog_Shop.hpp"
+#include "Dialogs\dialog_PlayerGarage.hpp"
+#include "Dialogs\Dialog_NewPlayer.hpp"
+#include "Dialogs\Dialog_Loading.hpp"
+#include "Dialogs\Dialog_PoliceDatabase.hpp"
+#include "Dialogs\Dialog_PatDown.hpp"
+#include "Dialogs\Dialog_BowlingRegister.hpp"
+#include "Dialogs\Dialog_BowlingScoring.hpp"
+#include "Dialogs\Dialog_HouseBuy.hpp"
+#include "Dialogs\Dialog_HouseVirtual.hpp"
+#include "Dialogs\Dialog_ObjectStorage.hpp"
+#include "Dialogs\Dialog_NPC.hpp"
+#include "Dialogs\Dialog_interactionRadial.hpp"
+#include "Dialogs\Dialog_Medical.hpp"
+#include "Dialogs\Dialog_CreateTicket.hpp"
+#include "Dialogs\Dialog_ReceiveTicket.hpp"
+#include "Dialogs\Dialog_JailPlayer.hpp"
+#include "Dialogs\Dialog_Admin.hpp"
+#include "Dialogs\Dialog_UberAccept.hpp"
+#include "Dialogs\Dialog_Kane9.hpp"
+#include "Dialogs\Dialog_ATC.hpp"
+#include "Dialogs\Dialog_Transponder.hpp"
+#include "Dialogs\Dialog_Treasury.hpp"
+#include "Dialogs\Dialog_Twitter.hpp"
+#include "Dialogs\Dialog_BusinessRent.hpp"
+#include "Dialogs\Dialog_ItemSale.hpp"
+#include "Dialogs\Dialog_ItemBuy.hpp"
+#include "Dialogs\Dialog_Gasstation.hpp"
+#include "Dialogs\Dialog_Factory.hpp"
+#include "Dialogs\Dialog_Garage.hpp"
+#include "Dialogs\Dialog_FactionSetup.hpp"
+#include "Dialogs\Dialog_CCTV.hpp"
+#include "Dialogs\Dialog_TaxiMeter.hpp"
+#include "Dialogs\Dialog_IE.hpp"
+#include "Dialogs\Dialog_iPhone_X.hpp"
+#include "Dialogs\Dialog_DMV.hpp"
+#include "Dialogs\Dialog_BagWeed.hpp"
+#include "Dialogs\Dialog_CombineItems.hpp"
+#include "Dialogs\Dialog_realestate.hpp"
+#include "Dialogs\Dialog_laws.hpp"
+#include "Dialogs\dialog_company.hpp"
+#include "Dialogs\Dialog_Budget_Manage.hpp"
+#include "Dialogs\Dialog_Insurance.hpp"
+#include "Dialogs\Dialog_DeveloperDebug.hpp"
+#include "Dialogs\Dialog_ExecutiveMenu.hpp"
+#include "Dialogs\dialog_companybill.hpp"
+#include "Dialogs\dialog_vehiclestorage.hpp"
+#include "Dialogs\dialog_setname.hpp"
+#include "Dialogs\dialog_prospect.hpp"
+#include "Dialogs\dialog_prospectfound.hpp"
+#include "Dialogs\dialog_fakeid.hpp"
+
+class RscTitles {
+	#include "Dialogs\Dialog_HUD.hpp"
+	#include "Dialogs\Dialog_HUD_IDCard.hpp"
+	#include "Dialogs\Dialog_Hud_Overlay.hpp"
+	#include "Dialogs\Dialog_HUD_Twitter.hpp"
+	#include "Dialogs\Dialog_HUD_LoadAction.hpp"
+	#include "Dialogs\Dialog_mapfilter.hpp"
+	#include "Dialogs\Dialog_HUD_GPS.hpp"
+	#include "Dialogs\dialog_news.hpp"
+};
+
 class A3PL_mapAreas {
 	exclude[] = {"perk_store_marker","thingsperk_store_marker","perk_store_marker_2"};
 	filters[] = {
@@ -158,78 +225,7 @@ class CfgSounds {
 	};
 };
 
-#include "Dialogs\common.hpp"
-#include "Dialogs\marcos.hpp"
-#include "Dialogs\Dialog_ATM.hpp"
-#include "Dialogs\Dialog_Inventory.hpp"
-#include "Dialogs\Dialog_Shop.hpp"
-#include "Dialogs\dialog_PlayerGarage.hpp"
-#include "Dialogs\Dialog_NewPlayer.hpp"
-#include "Dialogs\Dialog_Loading.hpp"
-#include "Dialogs\Dialog_PoliceDatabase.hpp"
-#include "Dialogs\Dialog_PatDown.hpp"
-#include "Dialogs\Dialog_BowlingRegister.hpp"
-#include "Dialogs\Dialog_BowlingScoring.hpp"
-#include "Dialogs\Dialog_HouseBuy.hpp"
-#include "Dialogs\Dialog_HouseVirtual.hpp"
-#include "Dialogs\Dialog_ObjectStorage.hpp"
-#include "Dialogs\Dialog_NPC.hpp"
-#include "Dialogs\Dialog_interactionRadial.hpp"
-#include "Dialogs\Dialog_Medical.hpp"
-#include "Dialogs\Dialog_CreateTicket.hpp"
-#include "Dialogs\Dialog_ReceiveTicket.hpp"
-#include "Dialogs\Dialog_JailPlayer.hpp"
-#include "Dialogs\Dialog_Admin.hpp"
-#include "Dialogs\Dialog_UberAccept.hpp"
-#include "Dialogs\Dialog_Kane9.hpp"
-#include "Dialogs\Dialog_ATC.hpp"
-#include "Dialogs\Dialog_Transponder.hpp"
-#include "Dialogs\Dialog_Treasury.hpp"
-#include "Dialogs\Dialog_Twitter.hpp"
-#include "Dialogs\Dialog_BusinessRent.hpp"
-#include "Dialogs\Dialog_ItemSale.hpp"
-#include "Dialogs\Dialog_ItemBuy.hpp"
-#include "Dialogs\Dialog_Gasstation.hpp"
-#include "Dialogs\Dialog_Factory.hpp"
-#include "Dialogs\Dialog_Garage.hpp"
-#include "Dialogs\Dialog_FactionSetup.hpp"
-#include "Dialogs\Dialog_CCTV.hpp"
-#include "Dialogs\Dialog_TaxiMeter.hpp"
-#include "Dialogs\Dialog_IE.hpp"
-#include "Dialogs\Dialog_iPhone_X.hpp"
-#include "Dialogs\Dialog_DMV.hpp"
-#include "Dialogs\Dialog_BagWeed.hpp"
-#include "Dialogs\Dialog_CombineItems.hpp"
-#include "Dialogs\Dialog_realestate.hpp"
-#include "Dialogs\Dialog_laws.hpp"
-#include "Dialogs\dialog_company.hpp"
-#include "Dialogs\Dialog_Budget_Manage.hpp"
-#include "Dialogs\Dialog_Insurance.hpp"
-#include "Dialogs\Dialog_DeveloperDebug.hpp"
-#include "Dialogs\Dialog_ExecutiveMenu.hpp"
-#include "Dialogs\dialog_companybill.hpp"
-#include "Dialogs\dialog_vehiclestorage.hpp"
-#include "Dialogs\dialog_setname.hpp"
-#include "Dialogs\dialog_prospect.hpp"
-#include "Dialogs\dialog_prospectfound.hpp"
-#include "Dialogs\dialog_fakeid.hpp"
-
-class RscTitles {
-	#include "Dialogs\Dialog_HUD.hpp"
-	#include "Dialogs\Dialog_HUD_IDCard.hpp"
-	#include "Dialogs\Dialog_Hud_Overlay.hpp"
-	#include "Dialogs\Dialog_HUD_Twitter.hpp"
-	#include "Dialogs\Dialog_HUD_LoadAction.hpp"
-	#include "Dialogs\Dialog_mapfilter.hpp"
-	#include "Dialogs\Dialog_HUD_GPS.hpp"
-	#include "Dialogs\dialog_news.hpp"
-};
-
-/*
-    COMMANDS: ALLVARIABLES, COPYTOCLIPBOARD, SERVERCOMMANDEXECUTABLE, SERVERCOMMAND, LOADFILE, DRAWLINE3D
-*/
-
-/*class CfgDisabledCommands
+class CfgDisabledCommands
 {
     class ALLVARIABLES
     {
@@ -247,13 +243,13 @@ class RscTitles {
 
         class SYNTAX3
         {
-            targets[] = {0,1,0};
+            targets[] = {0,0,0};
             args[] = {{},{"NAMESPACE"}};
         };
 
         class SYNTAX4
         {
-            targets[] = {0,0,0};
+            targets[] = {0,1,0}; //TaskForceRadio (client)
             args[] = {{},{"OBJECT"}};
         };
 
@@ -271,7 +267,7 @@ class RscTitles {
 
         class SYNTAX7
         {
-            targets[] = {0,0,0};
+            targets[] = {0,1,0}; //TaskForceRadio (client)
             args[] = {{},{"LOCATION"}};
         };
     };
@@ -335,4 +331,4 @@ class RscTitles {
 			args[] = {{"OBJECT"},{"ARRAY"}};
 		};
 	};
-};*/
+};
