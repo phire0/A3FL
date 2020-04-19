@@ -226,7 +226,6 @@ Config_Police_Vehs = [
 	"A3PL_Taurus_PD",
 	"A3PL_Raptor_PD",
 	"A3PL_Raptor_PD_ST",
-	"A3PL_Knucklehead_PD",
 	"M_explorer"
 ];
 publicVariable "Config_Police_Vehs";
