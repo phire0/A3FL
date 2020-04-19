@@ -1,0 +1,2 @@
+D:\Downloads\A3Whitelissting-master\A3Whitelissting-master\obj\Release\Whitelist.csproj.CoreCompileInputs.cache
+D:\Downloads\A3Whitelissting-master\A3Whitelissting-master\obj\Release\Whitelist.csprojAssemblyReference.cache
