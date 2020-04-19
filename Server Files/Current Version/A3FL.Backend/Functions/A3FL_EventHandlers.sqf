@@ -19,7 +19,7 @@
 
 		["restartannoucement", {
 			[] remoteExec ["Server_Core_RestartTimer",2];
-		}, "adminLogged"] call CBA_fnc_registerChatCommand;	
+		}, "adminLogged"] call CBA_fnc_registerChatCommand;
 
 		["ArmA 3 Fishers Life","interaction_key", "Interaction Menu",
 		{
@@ -585,6 +585,14 @@
 		params ["_unit", "_container"];
 
 		if(_container isEqualTo A3FL_Seize_Storage) then {
+			_isLead = ["usms"] call A3PL_Government_isFactionLeader;
+			_isLocked = _container getVariable["locked",true];
+			if(!_isLead && _isLocked) exitWith {
+				["The storage is locked","red"] call A3PL_Player_Notification;
+				true;
+			};
+		};
+		if((player distance2D A3FL_Seize_Storage) < 5) then {
 			_isLead = ["usms"] call A3PL_Government_isFactionLeader;
 			_isLocked = _container getVariable["locked",true];
 			if(!_isLead && _isLocked) exitWith {

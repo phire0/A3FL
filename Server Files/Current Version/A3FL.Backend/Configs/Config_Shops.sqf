@@ -258,7 +258,7 @@ Config_Shops_Items = [
 	["Shop_DrugsDealerCartel",[["item","seed_marijuana",150,75,2]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
 	["Shop_Gang",[
-			["vest","A3PL_SuicideVest",300000,-1,10],
+			["vest","A3PL_SuicideVest",700000,-1,10],
 			["item","seed_marijuana",300,180,8],
 			["item","SMG_Part_Stock",50000,-1,0,0],
 			["item","SMG_Part_Body",50000,-1,0,0],

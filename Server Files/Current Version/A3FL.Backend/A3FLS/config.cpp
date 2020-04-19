@@ -186,6 +186,7 @@ class CfgRemoteExec
 		class Server_Core_KickPlayer{allowedTargets=2;};
 		class Server_Core_BanPlayer{allowedTargets=2;};
 		class Server_Core_Restart{allowedTargets=2;};
+		class Server_Core_RestartTimer{allowedTargets=2;};
 		class Server_Core_RestartDev{allowedTargets=2;};
 		class Server_Core_DblXP{allowedTargets=2;};
 		class Server_Core_WhitelistServer{allowedTargets=2;};

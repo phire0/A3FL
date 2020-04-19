@@ -592,6 +592,14 @@
 				true;
 			};
 		};
+		if((player distance2D A3FL_Seize_Storage) < 5) then {
+			_isLead = ["usms"] call A3PL_Government_isFactionLeader;
+			_isLocked = _container getVariable["locked",true];
+			if(!_isLead && _isLocked) exitWith {
+				["The storage is locked","red"] call A3PL_Player_Notification;
+				true;
+			};
+		};
 	}];
 }] call Server_Setup_Compile;
 
