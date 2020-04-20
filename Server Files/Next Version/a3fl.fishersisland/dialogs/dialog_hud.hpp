@@ -63,6 +63,17 @@ class Dialog_HUD
 			sizeEx = "0.05 * safezoneH";
 			style = 0x01;
 		};*/
+		class FactionCount: RscStructuredText
+		{
+			idc = 1001;
+			text = "";
+			x = 0.678905 * safezoneW + safezoneX;
+			y = 0.927 * safezoneH + safezoneY;
+			w = 0.2475 * safezoneW;
+			h = 0.044 * safezoneH;
+			sizeEx = "0.05 * safezoneH";
+			style = 0x01;
+		};
 		class HealthIcon: RscPicture
 		{
 			idc = 1200;
