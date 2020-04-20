@@ -878,3 +878,7 @@
 	profileNamespace setVariable ["rscdebugconsole_expression",""];
 	[getPlayerUID player,"DebugVariablesSet",[str(_var)]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
+
+["A3PL_Player_Restart",{
+	[] remoteExec ["Server_Core_RestartTimer",2];
+}] call Server_Setup_Compile;

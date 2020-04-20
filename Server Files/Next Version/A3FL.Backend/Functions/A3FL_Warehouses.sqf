@@ -88,7 +88,7 @@
 ["A3PL_Warehouses_Init",
 {
 	private ["_keys","_doorID","_keyID","_buildings","_marker","_text","_apt","_aptNumber"];
-	if (isServer) then {player setVariable ["keys",[],true];};
+
 	waituntil {sleep 1; _keys = player getVariable "keys"; !isNil "_keys"};
 	_keys = ["warehouse"] call A3PL_Housing_keyFilter;
 	_buildings = nearestObjects [[5000,5000,0], Config_Warehouses_List, 5000];

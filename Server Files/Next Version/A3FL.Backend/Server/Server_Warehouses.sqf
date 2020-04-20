@@ -172,7 +172,7 @@
 
 	//Generate a new key, it will take care of assigning it to the house aswell
 	//It will also take care of saving the player keys into the DB
-	_keyID = [_player,_object,"",false,"warehouse"] call Server_Housing_CreateKey;
+	_keyID = [_player,_object,"",true,"warehouse"] call Server_Housing_CreateKey;
 	//Insert into houses list, but only if it doesn't exist already
 	if (!(_object IN Server_WarehouseList)) then
 	{

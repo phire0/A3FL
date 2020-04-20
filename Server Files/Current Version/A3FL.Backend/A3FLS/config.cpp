@@ -67,6 +67,7 @@ class CfgRemoteExec
 		class A3PL_Player_Whitelist{allowedTargets=0;};
 		class A3PL_Player_SetMarkers{allowedTargets=0;};
 		class A3PL_Player_CheckWhitelistServer{allowedTargets=0;};
+		class A3PL_Player_Restart{allowedTargets=0;};
 		class Server_Player_Whitelist{allowedTargets=2;};
 		class Server_Player_AdminWatch{allowedTargets=2;};
 		class Server_Player_LocalityRequest{allowedTargets=2;};
