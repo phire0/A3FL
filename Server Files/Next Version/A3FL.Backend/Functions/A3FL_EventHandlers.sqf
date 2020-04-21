@@ -508,13 +508,6 @@
 				player removeItem _itemClass;
 			};
 		};
-
-		if (_itemClass IN ["U_B_CBRN_Suit_01_MTP_F","U_B_CBRN_Suit_01_Tropic_F","U_B_CBRN_Suit_01_Wdl_F","U_I_CBRN_Suit_01_AAF_F","U_I_E_CBRN_Suit_01_EAF_F","U_B_CombatUniform_mcam","U_I_E_Uniform_01_officer_F","U_I_E_Uniform_01_sweater_F","U_I_E_Uniform_01_tanktop_F","U_B_CTRG_Soldier_3_F","U_I_L_Uniform_01_deserter_F","U_O_R_Gorka_01_black_F","U_I_OfficerUniform","U_I_G_resistanceLeader_F","U_BG_Guerrilla_6_1","U_BG_Guerilla1_1","U_BG_leader","U_I_C_Soldier_Para_3_F","U_I_C_Soldier_Para_5_F","U_I_C_Soldier_Para_4_F","U_I_C_Soldier_Camo_F"]) then {
-			if (!(["criminal"] call A3PL_Lib_hasPerk)) then {
-				[localize"STR_EVENTHANDLERS_CriminalPerk","red"] call A3PL_Player_Notification;
-				if ((uniform player) == _itemClass) then {removeUniform player;};
-			};
-		};
 	}];
 }] call Server_Setup_Compile;
 
