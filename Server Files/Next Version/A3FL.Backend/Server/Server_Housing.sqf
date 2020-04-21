@@ -338,30 +338,29 @@
 	{
 		private ["_var"];
 		_name = _this select 2;
-		_var = _obj getVariable "doorID";
-		if (isNil "_var") then
-		{
-			_var = [];
-		};
+		_var = _obj getVariable ["doorID",[]];
+		_keyNames = ["door_1","door_2","door_3","door_4","door_5","door_6","door_7","door_8"];
+		_playerKeys = _player getVariable ["keys",[]];
 
 		{
-			if ((_x select 2) == _name) exitwith
-			{
-				_var deleteAt _forEachIndex;
+			if(_x IN _keyNames) then {
+				_playerKeys deleteAt _forEachIndex;
+				diag_log format ["deleting key %1",_x];
 			};
-		} foreach _var;
+		} forEach _playerKeys;
+
 		_id = _door;
 		_var pushback [[_uid],_door,_name];
 
 		_obj setVariable ["doorID",_var,true];
-		_player setVariable ["keys",nil,true];
+		_player setVariable["keys",_playerKeys,true];
 	};
 
 	if(_name == "warehouse") then {
 	_id = [8] call Server_Housing_GenerateID;
 	_obj setVariable ["doorID",[_uid,_id],true];
 	};
-	
+
 	if(_name == "house") then {
 	_id = [5] call Server_Housing_GenerateID;
 	_obj setVariable ["doorID",[_uid,_id],true];
@@ -372,7 +371,7 @@
 	_keys pushback _id;
 	_player setVariable ["keys",_keys,true];
 
-	if (_name == "") then
+	if (_name == "house") then
 	{
 		if (_saveKey) then
 		{

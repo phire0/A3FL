@@ -143,6 +143,11 @@
 
 	// ["itemAdd", ["Server_Loop_RestartAnnoucement",{[] spawn Server_Core_RestartTimer;}, 25200]] call BIS_fnc_loop;
 
+	["restartannoucement", {
+		[] spawn Server_Core_RestartTimer;
+		diag_log "annoucing restart";
+	}, "adminLogged"] call CBA_fnc_registerChatCommand;
+
 	//lastly load all the persistent vars from database
 	private _pVars = ["SELECT * FROM persistent_vars", 2, true] call Server_Database_Async;
 	{

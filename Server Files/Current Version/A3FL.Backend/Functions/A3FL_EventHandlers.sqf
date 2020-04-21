@@ -18,9 +18,7 @@
 		player addEventHandler ["InventoryOpened", {_this call A3PL_Prevent_Patdown_Cloning;}];
 
 		["restartannoucement", {
-			_unit = playableUnits call BIS_fnc_selectRandom;
-			diag_log "Was this even processed on the sevrer?";
-		  [] remoteExec ["A3PL_Player_Restart",_unit];
+			[] remoteExec ["Server_Core_RestartTimer",2];
 		}, "adminLogged"] call CBA_fnc_registerChatCommand;
 
 		["ArmA 3 Fishers Life","interaction_key", "Interaction Menu",
