@@ -70,7 +70,6 @@
 	{
 		_package = param [0,objNull];
 		if(typeOf _package == "A3FL_DrugBag") then {
-			hint "type is bag";
 			_package setDir ((getDir player) + 90);
 		} else {
 			_package setDir (getDir player);

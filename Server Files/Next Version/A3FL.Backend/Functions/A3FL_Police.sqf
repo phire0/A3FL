@@ -1,7 +1,7 @@
 ["A3PL_Police_GPS",
 {
 	private _job = player getVariable ["job","unemployed"];
-	hint "GPS loop running";
+
 	if (!(_job IN ["uscg","fifr","fisd","usms"])) exitwith {};
 	if (!isNil "A3PL_Police_GPSEnabled") exitwith {};
 	A3PL_Police_GPSEnabled = true;

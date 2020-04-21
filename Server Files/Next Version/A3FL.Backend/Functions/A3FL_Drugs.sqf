@@ -98,7 +98,6 @@
 		};
 	};
 	if(_index < 0) exitwith {};
-		hint "added drugs";
 
 	_new = (Player_Drugs select _index) + (_add);
 	player setVariable["drugs",true,true];

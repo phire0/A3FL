@@ -60,7 +60,6 @@
 ["A3PL_Items_Food",
 {
 	private ["_classname", "_quality", "_format"];
-	hint "food";
 
 	_classname = Player_ItemClass;
 	if (Player_ItemClass == "") exitwith
