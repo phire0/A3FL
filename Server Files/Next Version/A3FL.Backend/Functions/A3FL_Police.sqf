@@ -42,7 +42,7 @@
 								_vehicles pushback [_x,"EMS #","mil_dot",_id];
 								_found = true;
 							};
-							if((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Silverado_PD","A3PL_Charger_PD","A3PL_Raptor_PD"]) then {
+							if((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Silverado_PD","A3PL_Charger_PD","A3PL_Raptor_PD","A3PL_Taurus_PD"]) then {
 								if((["FIFR",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || (["VFD",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || (["FIRE",((getObjectTextures _x) select 0)] call BIS_fnc_inString)) then {
 									_id = ((netId _x) splitString ":") select 1;
 									_vehicles pushback [_x,"VL #","mil_dot",_id];
