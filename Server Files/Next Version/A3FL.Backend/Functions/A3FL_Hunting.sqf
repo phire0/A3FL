@@ -9,7 +9,7 @@
 	_animal setVariable ["skinning",true,true];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Skinning the animal...",10+random 2] spawn A3PL_Lib_LoadAction;
+	["Skinning the animal...",20] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	while {uiSleep 1.5; Player_ActionDoing } do {
 		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';

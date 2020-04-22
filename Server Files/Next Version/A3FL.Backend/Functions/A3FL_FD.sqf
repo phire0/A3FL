@@ -1030,7 +1030,7 @@
 	_building = param [0,objNull];
 	if(_building getVariable ["FireAlarmBroke",false]) then {
 		if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
-		["Alarm repair...",10+random 2] spawn A3PL_Lib_LoadAction;
+		["Alarm repair...",50] spawn A3PL_Lib_LoadAction;
 		_success = true;
 		while {uiSleep 1.5; Player_ActionDoing } do {
 			player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';

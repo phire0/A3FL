@@ -96,7 +96,7 @@
 	if (!(vehicle player == player)) exitwith {[localize"STR_CRIMINAL_YOUCANTWORKINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {["You are already performing an action","red"] call A3PL_Player_Notification;};
 
-	[localize"STR_CRIMINAL_LICENSEFACTORY",8] spawn A3PL_Lib_LoadAction;
+	[localize"STR_CRIMINAL_LICENSEFACTORY",50] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	player playMoveNow 'Acts_carFixingWheel';
@@ -139,7 +139,7 @@
 		private ["_car"];
 		_car = param [0,objNull];
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-		["Lockpicking...",6] spawn A3PL_Lib_LoadAction;
+		["Lockpicking...",45] spawn A3PL_Lib_LoadAction;
 		_success = true;
 		while {uiSleep 0.5; Player_ActionDoing } do {
 			if ((player distance2D _car) > 5) exitWith {[localize"STR_CRIMINAL_NEEDTOBENEARVEHICLE5M", "red"] call A3PL_Player_Notification; _success = false;};
@@ -286,7 +286,7 @@
 		private ["_target"];
 		_target = param [0,objNull];
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-		["Lockpicking handcuffs...",3] spawn A3PL_Lib_LoadAction;
+		["Lockpicking handcuffs...",30] spawn A3PL_Lib_LoadAction;
 		_success = true;
 		while {uiSleep 0.5; Player_ActionDoing } do {
 			if ((player distance2D _target) > 5) exitWith {[localize"STR_CRIMINAL_NEEDTOBENEAR5M", "red"] call A3PL_Player_Notification; _success = false;};

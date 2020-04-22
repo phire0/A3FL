@@ -152,7 +152,7 @@
 		_target = param [0,objNull];
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 		_targetPos = getpos _target;
-		["Pat down in progress...",3+random 2] spawn A3PL_Lib_LoadAction;
+		["Pat down in progress...",15] spawn A3PL_Lib_LoadAction;
 		_success = true;
 		while {uiSleep 2; Player_ActionDoing } do {
 			if ((player distance2D _target) > 5) exitWith {_success = false;};

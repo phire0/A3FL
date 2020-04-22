@@ -14,7 +14,7 @@
 	player setVariable ["Digging",true,true];
 	[player,"A3PL_Shovel_Dig"] remoteExec ["A3PL_Lib_SyncAnim", 0];
 
-	["Filling bucket...",2] spawn A3PL_Lib_LoadAction;
+	["Filling bucket...",10] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
 	while {Player_ActionDoing} do {
@@ -61,7 +61,7 @@
 
 	if (!Player_ActionCompleted) exitwith {[localize"STR_NewRessources_Action","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
-	["Picking...",1] spawn A3PL_Lib_LoadAction;
+	["Picking...",2] spawn A3PL_Lib_LoadAction;
 	while {uiSleep 1.5; !Player_ActionCompleted } do
 	{
 		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';

@@ -16,7 +16,7 @@
 
 	[getPlayerUID player,"portRobbery",[getPos _port]] remoteExec ["Server_Log_New",2];
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Robbing the port captain...",40] spawn A3PL_Lib_LoadAction;
+	["Robbing the port captain...",60] spawn A3PL_Lib_LoadAction;
 	waitUntil {Player_ActionDoing};
 	_success = true;
 	while {Player_ActionDoing} do {
@@ -143,7 +143,7 @@
 		playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _storage, false, getPosASL _storage, 1, 1, 200];
 
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-		["Lockpicking seizure storage...",13] spawn A3PL_Lib_LoadAction;
+		["Lockpicking seizure storage...",90] spawn A3PL_Lib_LoadAction;
 
 		_chance = random 100;
 		if(_chance >= 80) then {playSound3D ["A3PL_Common\effects\lockdown.ogg", objNull, false, [4783.52,6294.25,12], 3, 1, 1800];};

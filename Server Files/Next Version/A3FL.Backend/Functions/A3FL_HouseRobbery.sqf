@@ -3,7 +3,7 @@
 	_house = param [0,objNull];
 	_status = missionNamespace getVariable ["HouseCooldown",0];
 	_notify = 30;
-	_timeTaken = 22;
+	_timeTaken = 45;
 
 	if ((player getVariable ["house",objNull]) == cursorObject) exitWith{["You cannot rob your own house!","red"] call A3PL_Player_Notification;};
 	if (_status == 1) exitwith {["Another house robbery has taken place recently, you cannot rob this house!","red"] call A3PL_Player_Notification;};
@@ -17,7 +17,7 @@
 
 	if(count(_cops) < 5) then {
 		_notify = 10;
-		_timeTaken = 30;
+		_timeTaken = 60;
 	};
 
 	_notifyChance = random 100;

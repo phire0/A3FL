@@ -190,7 +190,7 @@
 				private ["_target"];
 				_target = param [0,objNull];
 				if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-				["Creating Cocaine Brick...",10] spawn A3PL_Lib_LoadAction;
+				["Creating Cocaine Brick...",60] spawn A3PL_Lib_LoadAction;
 				_success = true;
 				while {uiSleep 0.5; Player_ActionDoing } do {
 					if ((player distance2D _target) > 5) exitWith {[localize"STR_CRIMINAL_NEEDTOBENEAR5M", "red"] call A3PL_Player_Notification; _success = false;};
@@ -232,7 +232,7 @@
 			_target = param [0,objNull];
 			_near = param [1,objNull];
 			if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-			["Breaking down Cocaine Brick...",10] spawn A3PL_Lib_LoadAction;
+			["Breaking down Cocaine Brick...",60] spawn A3PL_Lib_LoadAction;
 			_success = true;
 			while {uiSleep 0.5; Player_ActionDoing } do {
 				if ((player distance2D _target) > 5) exitWith {["Someone moved the scale away!", "red"] call A3PL_Player_Notification; _success = false;};

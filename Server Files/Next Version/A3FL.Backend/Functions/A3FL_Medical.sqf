@@ -1105,9 +1105,9 @@
 				private ["_target"];
 				_target = param [0,objNull];
 				if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-				["CPR in progress...",5] spawn A3PL_Lib_LoadAction;
+				["CPR in progress...",30] spawn A3PL_Lib_LoadAction;
 				_success = true;
-				while {uiSleep 2; Player_ActionDoing } do {
+				while {uiSleep 1; Player_ActionDoing } do {
 					if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 					if (!(vehicle player == player)) exitwith {_success = false;};
 					if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};

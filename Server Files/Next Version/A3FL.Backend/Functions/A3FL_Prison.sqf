@@ -112,7 +112,7 @@
 	[getPlayerUID player,"lockpickCell",[getPos player]] remoteExec ["Server_Log_New",2];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Lockpicking...",6] spawn A3PL_Lib_LoadAction;
+	["Lockpicking...",45] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	while {uiSleep 0.5; Player_ActionDoing } do {
 		if (!(vehicle player == player)) exitwith {_success = false;};
@@ -147,7 +147,7 @@
 	["You are now searching the trash!", "yellow"] call A3PL_Player_Notification;
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Searching Trash...",6] spawn A3PL_Lib_LoadAction;
+	["Searching Trash...",30] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	while {uiSleep 1; Player_ActionDoing } do {
 		if (!(vehicle player == player)) exitwith {_success = false;};
@@ -201,7 +201,7 @@
 	player setVariable ["Digging",true,true];
 	[player,"A3PL_Shovel_Dig"] remoteExec ["A3PL_Lib_SyncAnim", 0];
 
-	["Digging out of jail...",13] spawn A3PL_Lib_LoadAction;
+	["Digging out of jail...",45] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
 	while {Player_ActionDoing} do {

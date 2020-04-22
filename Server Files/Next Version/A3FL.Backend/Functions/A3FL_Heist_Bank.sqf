@@ -224,7 +224,7 @@
 	_dist = player distance2D _bank;
 	if ((_bank animationSourcePhase "door_bankvault") < 0.95) exitwith {["The bank vault is closed, are you trying to open the deposit box through the walls...?"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {["You are already performing an action","red"] call A3PL_Player_Notification;};
-	["Lockpicking deposit box...",5+random 5] spawn A3PL_Lib_LoadAction;
+	["Lockpicking deposit box...",45] spawn A3PL_Lib_LoadAction;
 	Player_ActionCompleted = false;
 	//waitUntil {sleep 0.1; Player_ActionCompleted};
 
@@ -305,7 +305,7 @@
 	if (((_container getVariable ["bankCash",0]) + MONEYPERPILE) > MAXMONEYPERBAG) exitwith {["My bag is full of cash, I can't fit more money into the bag!","red"] call A3PL_Player_Notification;};
 
 	if (Player_ActionDoing) exitwith {["You are already performing an action","red"] call A3PL_Player_Notification;};
-	["Filling bag with money...",2+random 3] spawn A3PL_Lib_LoadAction;
+	["Filling bag with money...",10] spawn A3PL_Lib_LoadAction;
 	waitUntil {sleep 0.1; Player_ActionCompleted};
 	Player_ActionCompleted = false;
 

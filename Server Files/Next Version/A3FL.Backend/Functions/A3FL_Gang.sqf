@@ -237,7 +237,7 @@
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
-	["Capture...",20] spawn A3PL_Lib_LoadAction;
+	["Capture...",75] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
 	_animTime = diag_tickTime;

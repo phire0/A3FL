@@ -18,7 +18,7 @@
 			//wait
 			if (!Player_ActionCompleted) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
 			Player_ActionCompleted = false;
-			["Malt grinding...",2+random 2] spawn A3PL_Lib_LoadAction;
+			["Malt grinding...",20] spawn A3PL_Lib_LoadAction;
 			waitUntil{Player_ActionDoing};
 			_success = true;
 			while {Player_ActionDoing} do {
@@ -49,7 +49,7 @@
 			//wait
 			if (!Player_ActionCompleted) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
 			Player_ActionCompleted = false;
-			["Wheat grinding...",2+random 2] spawn A3PL_Lib_LoadAction;
+			["Wheat grinding...",20] spawn A3PL_Lib_LoadAction;
 			waitUntil{Player_ActionDoing};
 			while {Player_ActionDoing} do {
 				if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
@@ -79,7 +79,7 @@
 			//wait
 			if (!Player_ActionCompleted) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
 			Player_ActionCompleted = false;
-			["Corn grinding...",2+random 2] spawn A3PL_Lib_LoadAction;
+			["Corn grinding...",20] spawn A3PL_Lib_LoadAction;
 			waitUntil{Player_ActionDoing};
 			while {Player_ActionDoing} do {
 				if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};

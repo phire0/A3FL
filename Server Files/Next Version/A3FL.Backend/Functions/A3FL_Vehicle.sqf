@@ -747,7 +747,7 @@
 	if (animationstate player == "Acts_carFixingWheel") exitwith {[localize"STR_NewVehicle_13", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player == player)) exitwith {[localize"STR_NewVehicle_14", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_NewVehicle_15","red"] call A3PL_Player_Notification;};
-	["Repairing...",3] spawn A3PL_Lib_LoadAction;
+	["Repairing...",30] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	player playMoveNow 'Acts_carFixingWheel';
@@ -756,6 +756,7 @@
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 		if ((vehicle player) != player) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if (animationstate player == "Acts_carFixingWheel") then {player playMoveNow 'Acts_carFixingWheel';};
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewVehicle_16","red"] call A3PL_Player_Notification;};
 
@@ -1584,7 +1585,7 @@
 
 	Player_ActionCompleted = false;
 	_success = true;
-	["Unflip vehicle...",8] spawn A3PL_Lib_LoadAction;
+	["Unflip vehicle...",20] spawn A3PL_Lib_LoadAction;
 	while {sleep 0.5; !Player_ActionCompleted } do
 	{
 		if ((player distance2D _car) > 10) exitWith {[localize"STR_NewVehicle_53", "red"] call A3PL_Player_Notification; _success = false;};
