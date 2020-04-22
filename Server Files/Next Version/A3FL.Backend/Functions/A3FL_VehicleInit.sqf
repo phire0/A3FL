@@ -88,6 +88,7 @@
 			case ("M_explorer"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor_PD_ST"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Fatboy_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3PL_Taurus_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 		};
 		_veh call A3PL_Vehicle_Init_A3PL_Dealer;
 	};
@@ -705,6 +706,7 @@
 ["A3PL_Vehicle_Init_M_explorer",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_VetteZR1_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3PL_Taurus_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Init_A3PL_CVPI_Taxi",
 {

@@ -1707,6 +1707,6 @@
 	};
 	waituntil {!isNull findDisplay 46};
 	_forkskeys = (findDisplay 46) DisplayAddEventHandler ["keydown","_this call forksdokeyDown"];
-	waitUntil {!((typeOf (vehicle player)) IN ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST"])};
+	waitUntil {!((typeOf (vehicle player)) IN ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD"])};
 	(findDisplay 46) displayremoveeventhandler ["keydown",_forkskeys];
 }] call Server_Setup_Compile;
