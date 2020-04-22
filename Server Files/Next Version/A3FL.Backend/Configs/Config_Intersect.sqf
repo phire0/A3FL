@@ -920,7 +920,7 @@ Config_IntersectArray =
 	["ski",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)}],	 //Lock/Unlock Vehicle Doors
 
 	//police special co-driver (spotlight)
-	["Door_RF",localize"STR_INTSECT_ENTCODR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((typeOf player_objintersect) IN ["A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Taurus_PD"]) && !(player_objIntersect getVariable ["locked",true])}], //Enter as Co-Driver
+	["Door_RF",localize"STR_INTSECT_ENTCODR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((typeOf player_objintersect) IN ["A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop"]) && !(player_objIntersect getVariable ["locked",true])}], //Enter as Co-Driver
 
 	//fire truck
 	["scooter_driver",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && !(player_objIntersect getVariable ["locked",true])}], //Enter as Driver

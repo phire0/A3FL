@@ -448,6 +448,37 @@
 						_veh animate ["FT_Switch_37",0];
 					};
 				};
+				case 7 :
+				{
+	        if (_veh animationPhase "PD_Switch_9" < 0.5) then {
+	            _veh animate ["PD_Switch_9",1];
+							_veh animate ["DS_Floodlights",1];
+	        } else {
+	            _veh animate ["PD_Switch_9",0];
+							_veh animate ["DS_Floodlights",0];
+		        };
+				};
+				case 8 :
+				{
+					if (_veh animationPhase "PD_Switch_10" < 0.5) then {
+	            _veh animate ["PD_Switch_10",1];
+							_veh animate ["PS_Floodlights",1];
+	        } else {
+	            _veh animate ["PD_Switch_10",0];
+							_veh animate ["PS_Floodlights",0];
+	        };
+				};
+				case 9 :
+				{
+					if (_veh animationSourcePhase "Spotlight" < 0.5 && _veh animationPhase "Spotlight_Addon" > 0.5) then {
+					            _veh animateSource ["Spotlight",1];
+					   if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOn",_veh];};
+					        } else {
+					            _veh animateSource ["Spotlight",0];
+					   if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOff",_veh];};
+					        };
+
+				};
 			};
 		};
 		case "ems":

@@ -386,6 +386,7 @@
 
 		//save furniture
 		if (!isNil {_unit getVariable ["house",nil]}) then {[_unit,_uid] call Server_Housing_SaveItems;};
+		if (!isNil {_unit getVariable ["warehouse",nil]}) then {[_unit,_uid] call Server_Warehouses_SaveItems;};
 
 		//get rid of the assigned apt, if exist
 		_var = _unit getVariable "apt";
