@@ -430,7 +430,7 @@
 ["Server_Vehicle_Init_A3PL_Raptor_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_M_explorer",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
-["Server_Vehicle_Init_A3PL_Taurus_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3PL_Taurus_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 
 ["Server_Vehicle_Init_C_Van_02_transport_F",
 {
