@@ -29,28 +29,28 @@
 		[[3524.1,7612.33,0],[3523.01,7638.15,0],"Import Export"],
 		[[3532.81,7617.21,0],[3550.66,7611.17,0],"Import Export"],
 		[[4215.91,4848.48,0],[3842.27,4767.45,0],"Axel Avenue"],
-		[[4237.61,5259.22,0],[3627.38,5184.45,0],"Father Gaben Boulevard"], 
-		[[4315.62,5743.1,0],[4204.72,4438.77,0],"Gaben's Way"], 
-		[[3527.19,7533.99,0],[2726.55,5491.44,0],"Star Avenue"], 
+		[[4237.61,5259.22,0],[3627.38,5184.45,0],"Father Gaben Boulevard"],
+		[[4315.62,5743.1,0],[4204.72,4438.77,0],"Gaben's Way"],
+		[[3527.19,7533.99,0],[2726.55,5491.44,0],"Star Avenue"],
 		[[5938.67,5008.91,0],[5938.72,4932.71,0],"Freeman Court"],
-		[[6050.47,7524.44,0],[5929.36,7342.21,0],"Frost Avenue"], 
-		[[3507.16,7452.74,0],[3522.78,7603.98,0],"Winston Square"], 
+		[[6050.47,7524.44,0],[5929.36,7342.21,0],"Frost Avenue"],
+		[[3507.16,7452.74,0],[3522.78,7603.98,0],"Winston Square"],
 		[[3516.7,7604.31,0],[3436.22,7613.49,0],"Winston Square"],
-		[[3427.54,7617.92,0],[3412.11,7469.36,0],"Winston Square"], 
-		[[3420.55,7464.87,0],[3500.44,7455.85,0],"Winston Square"], 
-		[[3179.59,5488.41,0],[3058.81,5373.47,0],"Abrams Avenue"], 
-		[[3850.93,6662.29,0],[3431.82,6661.25,0],"Boomer Boulevard"], 
-		[[3294.7,5743.52,0],[3284.93,5742.37,0],"CarCrash Road"], 
-		[[2538.24,5623.26,0],[2712.87,5485.4,0],"Walkins Street"], 
-		[[8617.38,7930.56,0],[8565.61,6242.87,0],"Casey Boulevard"], 
-		[[4064.11,6010.22,0],[3578.01,6168.27,0],"Fronkfurt Avenue"], 
+		[[3427.54,7617.92,0],[3412.11,7469.36,0],"Winston Square"],
+		[[3420.55,7464.87,0],[3500.44,7455.85,0],"Winston Square"],
+		[[3179.59,5488.41,0],[3058.81,5373.47,0],"Abrams Avenue"],
+		[[3850.93,6662.29,0],[3431.82,6661.25,0],"Boomer Boulevard"],
+		[[3294.7,5743.52,0],[3284.93,5742.37,0],"CarCrash Road"],
+		[[2538.24,5623.26,0],[2712.87,5485.4,0],"Walkins Street"],
+		[[8617.38,7930.56,0],[8565.61,6242.87,0],"Casey Boulevard"],
+		[[4064.11,6010.22,0],[3578.01,6168.27,0],"Fronkfurt Avenue"],
 		[[6769.92,7162.73,0],[7231.74,7156.63,0],"Booker Street"],
-		[[2711.14,5473.4,0],[2583.13,5700.5,0],"Fred Weeks Loop"], 
-		[[2491.71,5399.38,0],[2757.28,5555.79,0],"Hardy Lane"], 
-		[[5932.59,6181.43,0],[8184.5,6238.16,0],"Dep's Road"], 
-		[[9603.15,8007.19,0],[10173,8203,0],"George Road"], 
-		[[5894.06,7251.83,0],[6830.36,7606.05,0],"Electric Avenue"], 
-		[[8800.9,6321.12,0],[8857.23,6325.6,0],"Jason Road"], 
+		[[2711.14,5473.4,0],[2583.13,5700.5,0],"Fred Weeks Loop"],
+		[[2491.71,5399.38,0],[2757.28,5555.79,0],"Hardy Lane"],
+		[[5932.59,6181.43,0],[8184.5,6238.16,0],"Dep's Road"],
+		[[9603.15,8007.19,0],[10173,8203,0],"George Road"],
+		[[5894.06,7251.83,0],[6830.36,7606.05,0],"Electric Avenue"],
+		[[8800.9,6321.12,0],[8857.23,6325.6,0],"Jason Road"],
 		[[3834.72,7083.22,0],[4145.77,6394.88,0],"DeLaware Avenue"],
 		[[3982.32,6414.85,0],[3904.88,6327.14,0],"Woody Avenue"],
 		[[6918.88,7013.3,0],[7228.06,7170.01,0],"Crimson Avenue"],
@@ -126,7 +126,7 @@
 	} forEach _Server_Roads_Data;
 	publicVariable "Server_Addresses_Roads";
 
-	/*_buidlingsArray = ["Land_A3PL_Bank","Land_A3PL_Capital","Land_A3PL_Sheriffpd","Land_Shop_DED_Shop_01_F","land_smallshop_ded_smallshop_01_f","land_market_ded_market_01_f","Land_Taco_DED_Taco_01_F","Land_A3PL_Gas_Station","Land_A3PL_Garage","Land_John_Hangar","Land_A3PL_CG_Station","land_a3pl_ch","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green"];
+	_buidlingsArray = ["Land_A3PL_Bank","Land_A3PL_Capital","Land_A3PL_Sheriffpd","Land_Shop_DED_Shop_01_F","land_smallshop_ded_smallshop_01_f","land_market_ded_market_01_f","Land_Taco_DED_Taco_01_F","Land_A3PL_Gas_Station","Land_A3PL_Garage","Land_John_Hangar","Land_A3PL_CG_Station","land_a3pl_ch","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green"];
 	_buildings = nearestObjects [[worldSize/2, worldsize/2, 0], _buidlingsArray, 5000000];
 	{
 		private["_x","_address","_number","_road","_city"];
@@ -135,7 +135,7 @@
 		_city = [_x] call Server_Addresses_GetAddressCity;
 		_address = format["%1 %2, %3", _number, _road, _city];
 		_x setVariable["Building_Address",_address,true];
-	} forEach _buildings;*/
+	} forEach _buildings;
 },true] call Server_Setup_Compile;
 
 ["Server_Addresses_GetAddressNb",

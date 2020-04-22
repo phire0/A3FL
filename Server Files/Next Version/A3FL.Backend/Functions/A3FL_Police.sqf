@@ -1,6 +1,6 @@
 ["A3PL_Police_GPS",
 {
-	private _job = player getVariable ["job","unemployed"];
+	private _job = player getVariable ["faction","unemployed"];
 
 	if (!(_job IN ["uscg","fifr","fisd","usms"])) exitwith {};
 	if (!isNil "A3PL_Police_GPSEnabled") exitwith {};
@@ -8,7 +8,7 @@
 	[_job] spawn {
 		private ["_vehicles","_markercolor"];
 		_job = param [0,"unemployed"];
-		while {(player getVariable ["job","unemployed"]) isEqualTo _job} do {
+		while {(player getVariable ["faction","unemployed"]) isEqualTo _job} do {
 			uiSleep 1;
 			if (visibleMap) then {
 				_vehicles = [];

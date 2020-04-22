@@ -157,7 +157,7 @@ class A3PL_mapAreas {
 			$STR_Description_Hunt, {"A3PL_Marker_HuntingText","A3PL_Marker_Hunting_2Text","A3PL_Marker_Hunting_2Text_1","A3PL_Marker_Hunting_1Text"}
 		},
 		{
-			$STR_Description_Resources, {"PickingAppleText_1","LumberJack_Area_marker","Sand1","PickingAppleText_2","PickingAppleText_3","PickingAppleText_4","Iron_Mine","Coal_Mine","Sulphur_Mine","Aluminium_Mine","Petrol_Mine"}
+			$STR_Description_Resources, {"PickingAppleText_1","LumberJack_Area_marker","Sand1","Sand2","PickingAppleText_2","PickingAppleText_3","PickingAppleText_4","Iron_Mine","Coal_Mine","Sulphur_Mine","Aluminium_Mine","Petrol_Mine"}
 		},
 		{
 			$STR_Description_ImpoundLots, {"impoundlot_1","impoundlot_2","impoundlot_3","impoundretrieve","impoundretrieve_1"}
