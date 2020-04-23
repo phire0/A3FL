@@ -1039,6 +1039,9 @@
    <Key ID="STR_INTSECT_CheckCureStatus">
       <Original>Check Cure Status</Original>
    </Key>
+   <Key ID="STR_INTSECT_RepairTrafficLight">
+      <Original>Repair Traffic Light</Original>
+   </Key>
    <Key ID="STR_INTSECT_BuyFurniture">
       <Original>Buy Furniture</Original>
    </Key>

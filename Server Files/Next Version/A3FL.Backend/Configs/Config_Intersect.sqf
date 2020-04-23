@@ -197,7 +197,7 @@ Config_IntersectArray =
 	//MERGE LATER
 	["item_pickup",localize"STR_INTSECT_STACKCONE",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(typeOf player_objintersect IN ["A3PL_RoadCone","A3PL_RoadCone_x10"])}], //Stack cone
 	["Pilot_Door",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && (vehicle player == player)&& !(player_objIntersect getVariable ["locked",true])}], //Enter as Driver
-  ["Pilot_Door",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && !(player_objIntersect getVariable ["locked",true]) && (!(vehicle player getVariable ["trapped",false]))}],		 //Exit Vehicle
+  	["Pilot_Door",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && !(player_objIntersect getVariable ["locked",true]) && (!(vehicle player getVariable ["trapped",false]))}],		 //Exit Vehicle
 	["Pilot_Door",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)}], //Lock/Unlock Vehicle Doors
 	["Pilot_Door",localize"STR_INTSECT_EJALLPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && ((speed player_objIntersect) < 5)}], //Eject All Passengers
 	["Pilot_Door",localize"STR_INTSECT_DETAINSUS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])}], //Detain Suspect
@@ -287,6 +287,8 @@ Config_IntersectArray =
 
 	//ATM
 	["Start",localize"STR_INTSECT_UseDistributor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'A3PL_John_ATM'}],
+
+	["repair_trafficlight",localize"STR_INTSECT_RepairTrafficLight",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect IN ["Land_A3FL_TrafficLight_A","Land_A3FL_TrafficLight_B"])}],
 
 	//Casino
 	["playpoker",localize"STR_INTSECT_CasinoPlayPoker",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
@@ -1728,7 +1730,6 @@ Config_IntersectArray =
 	["spine3",localize"STR_A3PL_Medical_ChestCompressions","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{(Player_ActionCompleted) && isPlayer player_objIntersect && !(player_objIntersect getVariable ["A3PL_Medical_Alive", true])}], //Chest Compressions
 	["spine3",localize"STR_INTSECT_OPENMEDICALMEN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && (Player_ActionCompleted) && isPlayer player_objIntersect}], //Open Medical Menu
 
-
 	//Ladder Actions
 	["Ladder_1",localize"STR_INTSECT_PICKUPLAD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeof player_objintersect == "A3PL_Ladder"}], //Pickup Ladder
 	["Ladder_1",format [localize"STR_INTSECT_CLIMBUPL",1],_dir+"IGUI\Cfg\Actions\ladderup_ca.paa",{true}], //Climb Up Ladder %1
@@ -2658,7 +2659,8 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_FactoryBoat",
 	localize"STR_QuickActionsNPC_AirbuyFactory",
 	localize"STR_INTSECT_TAKEBODY",
-	localize"STR_INTSECT_HIDEOUTSHOP"
+	localize"STR_INTSECT_HIDEOUTSHOP",
+	localize"STR_INTSECT_RepairTrafficLight"
 ];
 publicVariable "Config_GenArray";
 
