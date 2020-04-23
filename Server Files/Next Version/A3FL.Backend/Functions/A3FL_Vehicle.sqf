@@ -426,7 +426,7 @@
 				};
 				case 5 :
 				{
-					if (_veh animationPhase "SoundSource_3" < 0.5 && {!A3PL_Manual_KeyDown}) then
+					if (_veh animationPhase "SoundSource_3" < 0.5 && {A3PL_Manual_KeyDown}) then
 					{
 						_veh animate ["SoundSource_3",1, true];
 						_veh animate ["FT_Switch_36",1];
@@ -438,7 +438,7 @@
 				};
 				case 6 :
 				{
-					if (_veh animationPhase "SoundSource_4" < 0.5) then
+					if (_veh animationPhase "SoundSource_4" < 0.5 && {A3PL_Manual_KeyDown}) then
 					{
 						_veh animate ["SoundSource_4",1, true];
 						_veh animate ["FT_Switch_37",1];
@@ -470,14 +470,13 @@
 				};
 				case 9 :
 				{
-					if (_veh animationSourcePhase "Spotlight" < 0.5 && _veh animationPhase "Spotlight_Addon" > 0.5) then {
-					            _veh animateSource ["Spotlight",1];
-					   if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOn",_veh];};
-					        } else {
-					            _veh animateSource ["Spotlight",0];
-					   if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOff",_veh];};
-					        };
-
+	        if (_veh animationSourcePhase "Spotlight" < 0.5 && _veh animationPhase "Spotlight_Addon" > 0.5) then {
+	            _veh animateSource ["Spotlight",1];
+				if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOn",_veh];};
+	        } else {
+	            _veh animateSource ["Spotlight",0];
+				if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOff",_veh];};
+	        };
 				};
 			};
 		};

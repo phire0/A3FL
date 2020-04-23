@@ -150,10 +150,10 @@
 	_chance = random(100);
 	_nextweather = "";
 	switch(true) do {
-		case (_chance >= 5): {_nextWeather = "sunny";};
-		case (_chance >= 20): {_nextWeather = "thunder";};
-		case (_chance >= 50): {_nextWeather = "windy";};
-		case (_chance >= 70): {_nextWeather = "rainny";};
+		case (_chance < 20): {_nextWeather = "sunny";};
+		case (_chance >= 20 && _chance <= 49): {_nextWeather = "thunder";};
+		case (_chance >= 50 && _chance <= 69): {_nextWeather = "windy";};
+		case (_chance >= 70 && _chance <= 89): {_nextWeather = "rainny";};
 		case (_chance >= 90): {_nextWeather = "foggy";};
 	};
 	switch(_nextWeather) do {
