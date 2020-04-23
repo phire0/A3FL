@@ -879,20 +879,6 @@ Config_Shops_Items = [
 		],{[2942.43,5891.42,-0.75]}
 	],
 
-	["Shop_USCG_Car_Vendor",[
-			["vehicle","A3PL_CVPI_PD",20000,0,0],
-			["vehicle","A3PL_CVPI_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Tahoe_PD",20000,0,0],
-			["vehicle","A3PL_Tahoe_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Charger_PD",20000,0,0],
-			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Mustang_PD",20000,0,0],
-			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Silverado_PD",35000,0,0],
-			["vehicle","A3PL_Small_Boat_Trailer",20000,0,0]
-		],{[2942.43,5891.42,-0.75]}
-	],
-
 	["Shop_USCG_Boat_Vendor",[
 			["vehicle","A3PL_RHIB",15000,0,0],
 			["vehicle","A3PL_RBM",15000,0,0]
@@ -907,6 +893,21 @@ Config_Shops_Items = [
 		],{[2462.06,5249.26,0.00144243]}
 	],
 
+	["Shop_USCG_Car_Vendor",[
+			["vehicle","A3PL_CVPI_PD",20000,0,0],
+			["vehicle","A3PL_CVPI_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Tahoe_PD",20000,0,0],
+			["vehicle","A3PL_Tahoe_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Charger_PD",20000,0,0],
+			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Mustang_PD",20000,0,0],
+			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Silverado_PD",35000,0,0],
+			["vehicle","A3PL_Small_Boat_Trailer",20000,0,0],
+			["vehicle","A3PL_Raptor_PD",20000,0,0]
+		],{[2942.43,5891.42,-0.75]}
+	],
+
 	["Shop_DOC_Car_Vendor",[
 			["vehicle","A3PL_CVPI_PD",20000,0,0],
 			["vehicle","A3PL_CVPI_PD_Slicktop",20000,0,0],
@@ -916,7 +917,8 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Silverado_PD",20000,0,0]
+			["vehicle","A3PL_Silverado_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD",20000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	],
 
@@ -929,7 +931,8 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Tahoe_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Silverado_PD",20000,0,0]
+			["vehicle","A3PL_Silverado_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD",20000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	],
 
