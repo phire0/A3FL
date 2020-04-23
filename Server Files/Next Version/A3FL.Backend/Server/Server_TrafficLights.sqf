@@ -71,7 +71,7 @@
 	};
 },true] call Server_Setup_Compile;
 
-["Server_TrafficLights_Loop",
+["Server_TrafficLights_Start",
 {
 	private _terrainobj = nearestTerrainObjects [[2716.79,5477.64,0], [], 10000, false];
 	private _objectsA = _terrainobj select {typeOf _x isEqualTo "Land_A3FL_TrafficLight_A"};

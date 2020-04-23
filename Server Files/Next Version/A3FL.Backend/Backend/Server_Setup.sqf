@@ -63,6 +63,7 @@
 
 	[] call Server_IE_Init;
 	[] call Server_Setup_ResetPlayerDB;
+	[] spawn Server_TrafficLights_Start;
 
 	/*iPhoneX*/
 	A3PL_iPhoneX_ListNumber = [];
@@ -143,8 +144,6 @@
 
 	//["itemAdd", ["Server_Loop_RestartAnnoucement",{[] spawn Server_Core_RestartTimer;}, 25200]] call BIS_fnc_loop;
 
-	["itemAdd", ["Server_Loop_TrafficLights",{[] spawn Server_TrafficLights_Loop;}, 15]] call BIS_fnc_loop;
-
 	//lastly load all the persistent vars from database
 	private _pVars = ["SELECT * FROM persistent_vars", 2, true] call Server_Database_Async;
 	{
@@ -158,6 +157,7 @@
 	[] call Server_Company_LoadAll;
 	[] call Server_Police_SeizureLoad;
 	[] spawn Server_Gear_SaveLoop;
+
 	//check addons
 	Server_ModVersion = getNumber (configFile >> "CfgPatches" >> "A3PL_Common" >> "requiredVersion");
 	publicVariable "Server_ModVersion";
