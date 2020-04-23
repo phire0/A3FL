@@ -1,6 +1,6 @@
 ["Server_TrafficLights_A",
 {
-	params [["_trafficlight",objNull,[objNull]]];
+	params[["_trafficlight",objNull,[objNull]]];
 
 	if (!(typeOf _trafficlight isEqualTo "Land_A3FL_TrafficLight_A") || {isNull _trafficlight}) exitwith {};
 	uiSleep 3;
@@ -36,7 +36,7 @@
 
 ["Server_TrafficLights_B",
 {
-	params [["_trafficlight",objNull,[objNull]]];
+	params[["_trafficlight",objNull,[objNull]]];
 
 	if (!(typeOf _trafficlight isEqualTo "Land_A3FL_TrafficLight_B") || {isNull _trafficlight}) exitwith {};
 
