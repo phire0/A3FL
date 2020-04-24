@@ -141,7 +141,7 @@
 
 	["itemAdd", ["Server_Loop_Save",{[] spawn Server_Core_Save;}, 1800]] call BIS_fnc_loop;
 
-	//["itemAdd", ["Server_Loop_RestartAnnoucement",{[] spawn Server_Core_RestartTimer;}, 25200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_RestartAnnoucement",{[] spawn Server_Core_RestartLoop;}, 60]] call BIS_fnc_loop;
 
 	//["itemAdd", ["Server_Loop_TrafficLights",{[] spawn Server_TrafficLights_Loop;}, 60]] call BIS_fnc_loop;
 

@@ -143,6 +143,20 @@
 
 },true] call Server_Setup_Compile;
 
+// 11am EST = 3pm UTC
+["Server_Core_RestartLoop",{
+	_utcTime = "extDB3" callExtension "9:UTC_TIME";
+	_justTime = (parseSimpleArray _utcTime) select 1;
+
+	_restartTimes = [[15,00],[03,00]];
+	{
+		if(_hourMin isEqualTo _x) then {
+			[] spawn Server_Core_RestartTimer;
+		};
+	} forEach _restartTimes;
+
+},true] call Server_Setup_Compile;
+
 
 ["Server_Core_Weather",
 {

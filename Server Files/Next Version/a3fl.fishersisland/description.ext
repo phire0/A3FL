@@ -227,50 +227,6 @@ class CfgSounds {
 
 class CfgDisabledCommands
 {
-    class ALLVARIABLES
-    {
-        class SYNTAX1
-        {
-            targets[] = {0,0,0};
-            args[] = {{},{"CONTROL"}};
-        };
-
-        class SYNTAX2
-        {
-            targets[] = {0,0,0};
-            args[] = {{},{"TEAM_MEMBER"}};
-        };
-
-        class SYNTAX3
-        {
-            targets[] = {0,0,0};
-            args[] = {{},{"NAMESPACE"}};
-        };
-
-        class SYNTAX4
-        {
-            targets[] = {0,1,0}; //TaskForceRadio (client)
-            args[] = {{},{"OBJECT"}};
-        };
-
-        class SYNTAX5
-        {
-            targets[] = {0,0,0};
-            args[] = {{},{"GROUP"}};
-        };
-
-        class SYNTAX6
-        {
-            targets[] = {0,0,0};
-            args[] = {{},{"TASK"}};
-        };
-
-        class SYNTAX7
-        {
-            targets[] = {0,1,0}; //TaskForceRadio (client)
-            args[] = {{},{"LOCATION"}};
-        };
-    };
 
     class COPYTOCLIPBOARD
     {

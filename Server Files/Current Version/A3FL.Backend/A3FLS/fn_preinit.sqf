@@ -393,7 +393,7 @@ Server_Setup_Compile = {
 
 	["itemAdd", ["Server_Loop_Save",{[] spawn Server_Core_Save;}, 1800]] call BIS_fnc_loop;
 
-	//["itemAdd", ["Server_Loop_RestartAnnoucement",{[] spawn Server_Core_RestartTimer;}, 25200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_RestartAnnoucement",{[] spawn Server_Core_RestartLoop;}, 60]] call BIS_fnc_loop;
 
 	//lastly load all the persistent vars from database
 	private _pVars = ["SELECT * FROM persistent_vars", 2, true] call Server_Database_Async;
