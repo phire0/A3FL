@@ -78,6 +78,7 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Freight'],
 	['Functions', 'A3FL_Cocaine'],
 	['Functions', 'A3FL_Warehouses'],
+	['Functions', 'A3FL_TrafficLights'],
 
 	//Events Functions
 	//['Functions', 'A3FL_Halloween'],
@@ -124,6 +125,7 @@ Server_Setup_Files = [
 	['Server', 'Server_Gang'],
 	['Server', 'Server_Shrooms'],
 	['Server', 'Server_Warehouses'],
+	['Server', 'Server_TrafficLights'],
 
 	//Configs Files
 	['Configs', 'Config_Shops'],

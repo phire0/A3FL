@@ -1,6 +1,6 @@
 ["Server_TrafficLights_A",
 {
-	params [["_trafficlight",objNull,[objNull]]];
+	params[["_trafficlight",objNull,[objNull]]];
 
 	if (!(typeOf _trafficlight isEqualTo "Land_A3FL_TrafficLight_A") || {isNull _trafficlight}) exitwith {};
 	uiSleep 3;
@@ -36,7 +36,7 @@
 
 ["Server_TrafficLights_B",
 {
-	params [["_trafficlight",objNull,[objNull]]];
+	params[["_trafficlight",objNull,[objNull]]];
 
 	if (!(typeOf _trafficlight isEqualTo "Land_A3FL_TrafficLight_B") || {isNull _trafficlight}) exitwith {};
 
@@ -71,9 +71,9 @@
 	};
 },true] call Server_Setup_Compile;
 
-["Server_TrafficLights_Loop",
+["Server_TrafficLights_Start",
 {
-	private _terrainobj = nearestTerrainObjects [[6434.03,7579.4,0], [], 10000, false];
+	private _terrainobj = nearestTerrainObjects [[2716.79,5477.64,0], [], 10000, false];
 	private _objectsA = _terrainobj select {typeOf _x isEqualTo "Land_A3FL_TrafficLight_A"};
 	private _objectsB = _terrainobj select {typeOf _x isEqualTo "Land_A3FL_TrafficLight_B"};
 

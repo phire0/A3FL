@@ -183,6 +183,16 @@
 	{[player_objintersect] spawn A3PL_Shrooms_Pick;}
 ],
 [
+    "Land_A3FL_TrafficLight_A",
+    localize"STR_INTSECT_RepairTrafficLight",
+    {[player_objintersect] call A3PL_TrafficLights_Repair;}
+],
+[
+    "Land_A3FL_TrafficLight_B",
+    localize"STR_INTSECT_RepairTrafficLight",
+    {[player_objintersect] call A3PL_TrafficLights_Repair;}
+],
+[
     "Land_MetalCase_01_large_F",
     "",
     {[player_objintersect] call A3PL_Housing_VirtualOpen;}
