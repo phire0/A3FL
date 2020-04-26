@@ -147,11 +147,13 @@
 ["Server_Core_RestartLoop",{
 	_utcTime = "extDB3" callExtension "9:UTC_TIME";
 	_justTime = (parseSimpleArray _utcTime) select 1;
+	_hourMin = [(_justTime select 3),(_justTime select 4)];
 
-	_restartTimes = [[15,00],[03,00]];
+	_restartTimes = [[15,00],[03,00];
 	{
 		if(_hourMin isEqualTo _x) then {
 			[] spawn Server_Core_RestartTimer;
+			diag_log format ["Announced Restart At: %1",_hourMin];
 		};
 	} forEach _restartTimes;
 
