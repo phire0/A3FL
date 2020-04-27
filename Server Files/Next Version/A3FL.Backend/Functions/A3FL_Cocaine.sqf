@@ -104,7 +104,7 @@
 		["You will unlock this resource at level 12","red"] call A3PL_Player_Notification;
 	};
 
-  _barrel setVariable ["running",true];
+  _barrel setVariable ["running",true,true];
   ["You have started the process","green"] call A3PL_Player_Notification;
 
   _sound = createSoundSource ["A3PL_Boiling", (getpos _barrel), [], 0];
@@ -127,7 +127,7 @@
     if (_timeLeft < 1) exitwith {_succes = true; true;};
     uiSleep 1;
   };
-  _barrel setVariable ["running",nil,true];
+  _barrel setVariable ["running",false,true];
   deleteVehicle _sound;
 
   if (_succes) then
