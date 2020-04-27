@@ -4197,6 +4197,18 @@
    <Key ID="STR_INTER_RENTGH">
       <Original>Rent ($350)</Original>
    </Key>
+   <Key ID="STR_INTER_STORAGEWAREHOUSESPAWN">
+      <Original>Spawn Storage</Original>
+   </Key>
+   <Key ID="STR_INTER_STORAGEWAREHOUSESTORE">
+      <Original>Store Storage</Original>
+   </Key>
+   <Key ID="STR_INTER_STORAGESECURE">
+      <Original>Secure Storage</Original>
+   </Key>
+   <Key ID="STR_INTER_DEPLOYGASHOSE">
+      <Original>Deploy Gas Hose</Original>
+   </Key>
    <Key ID="STR_INTER_ANCHOR">
       <Original>Toggle Anchor</Original>
    </Key>

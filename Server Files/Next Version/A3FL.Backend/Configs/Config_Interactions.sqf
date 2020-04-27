@@ -880,7 +880,7 @@ A3PL_Interaction_Options =
 		{goggles player == "A3PL_FD_Mask"}
 	],
 	[
-		"Deploy Gas Hose",
+		localize"STR_INTER_DEPLOYGASHOSE",
 		{[50] call A3PL_FD_GasDeployHose;},
 		{(player_ItemClass == "FD_Hose")&& (player getVariable ["job","unemployed"] IN ["oil","uscg"])}
 	],
@@ -908,7 +908,9 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_CHECKBPMONEY",
-		{[] call A3PL_BHeist_CheckCash;},
+		{
+			[] call A3PL_BHeist_CheckCash;
+		},
 		{backpack player == "A3PL_Backpack_Money"}
 	],
 	[
@@ -934,7 +936,7 @@ A3PL_Interaction_Options =
 		{(player distance (nearestObject [player, "Box_GEN_Equip_F"]) < 10) && (player distance (player getVariable ["house",objNull]) < 10) }
 	],
 	[
-		"Spawn Storage",
+		localize"STR_INTER_STORAGEWAREHOUSESPAWN",
 		{
 			if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 			private _warehouse = (player getVariable ["warehouse",objNull]);
@@ -943,7 +945,7 @@ A3PL_Interaction_Options =
 		{(player distance (player getVariable ["warehouse",objNull]) < 10) && !(player distance (nearestObject [player, "Box_GEN_Equip_F"]) < 20)}
 	],
 	[
-		"Store Storage",
+		localize"STR_INTER_STORAGEWAREHOUSESTORE",
 		{
 			if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 			private _warehouse = (player getVariable ["warehouse",objNull]);
@@ -1034,7 +1036,7 @@ A3PL_Interaction_Options =
 		{(player_ItemClass == "v_lockpick") && (cursorObject isEqualTo A3FL_Seize_Storage)}
 	],
 	[
-		"Secure Storage",
+		localize"STR_INTER_STORAGESECURE",
 		{
 			cursorObject setVariable["locked",true,true];
 			_name = player getVariable["name","unknown"];
