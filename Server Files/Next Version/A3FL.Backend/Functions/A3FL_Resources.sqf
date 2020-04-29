@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Resources_StartDigging",
 {
 	private ["_inMarker","_eBucket","_s","_sBucket","_pos","_digProgress","_t"];

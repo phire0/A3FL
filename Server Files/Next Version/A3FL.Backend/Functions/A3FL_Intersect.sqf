@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 //Player_ObjIntersect replaces cursortarget and is more reliable (is Nil when there is no intersection or object distance > 20m)
 //Player_NameIntersect returns the memory interaction point if
 //1. 2D distance (player-interaction point/memory point) < 3m

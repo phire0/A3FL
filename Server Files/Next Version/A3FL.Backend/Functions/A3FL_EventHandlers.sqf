@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #include "\a3\editor_f\Data\Scripts\dikCodes.h"
 #define KINDOF_ARRAY(a,b) [##a,##b] call {_veh = _this select 0;_types = _this select 1;_res = false; {if (_veh isKindOf _x) exitWith { _res = true };} forEach _types;_res}
 
