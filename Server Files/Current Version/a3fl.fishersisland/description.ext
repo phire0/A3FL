@@ -249,7 +249,7 @@ class CfgDisabledCommands
 
         class SYNTAX4
         {
-            targets[] = {0,1,0}; //TaskForceRadio (client)
+            targets[] = {1,1,0}; //TaskForceRadio (client)
             args[] = {{},{"OBJECT"}};
         };
 

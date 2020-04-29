@@ -880,24 +880,19 @@
 	_player = param [1,missionNameSpace getVariable ["A3PL_MedicalVar_Target",objNull]];
 	_vars = _player getVariable ["A3PL_MedicalVars",[MAXBLOODLVL,"120/80",37]];
 
-	//exit if display is null
 	if (isNull _display) exitwith {};
 
-	//temperature
 	_control = _display displayCtrl 1101;
 	_control ctrlSetStructuredText parseText format ["<t size='1.3' align='center' font='PuristaSemiBold'>%1°C</t>",(_vars select 2)];
 
-	//blood presure
 	_control = _display displayCtrl 1102;
 	_control ctrlSetStructuredText parseText format ["<t size='1.3' align='center' font='PuristaSemiBold'>%1</t>",(_vars select 1)];
 
-	//load blood level
 	_control = _display displayCtrl 1103;
 	_control ctrlSetStructuredText parseText format ["<t size='1.3' align='center' font='PuristaSemiBold'>%1L</t>",(_vars select 0)/1000];
 
-	//Load Log
 	_control = _display displayCtrl 1500;
-	_log = [] append(_player getVariable ["A3PL_MedicalLog",[]]); //prevent editing original array
+	_log = [] + (_player getVariable ["A3PL_MedicalLog",[]]);
 	reverse _log;
 	lbClear _control;
 	{
@@ -905,13 +900,11 @@
 		 _control lbSetColor [_index,(_x select 1)];
 	} foreach _log;
 
-	//delete all previous images that display wounds on the base model
 	if (!isNil {missionNameSpace getVariable ["A3PL_MedicalVar_Controls",nil]}) then
 	{
 		{ctrlDelete _x;} foreach A3PL_MedicalVar_Controls;
 	};
 
-	//create new images of wounds on the base model
 	_wounds = _player getVariable ["A3PL_Wounds",[]];
 	if (count _wounds > 0) then
 	{
@@ -935,7 +928,6 @@
 			};
 			if (isNil "_img") exitwith {["Erreur Médicale Système: _img non défini dans Medical_LoadParts (Signaler cette erreur)"] call A3PL_Player_Notification;};
 
-			//color the part based on severity
 			_color = "";
 			for "_i" from 1 to (count _x-1) do
 			{
@@ -948,7 +940,6 @@
 				if (_color == "red") exitwith {};
 			};
 
-			//create the rscpicture
 			_control = _display ctrlCreate ["RscPicture",-1];
 			_control ctrlSetPosition (ctrlPosition (_display displayCtrl 1201));
 			_control ctrlCommit 0;
