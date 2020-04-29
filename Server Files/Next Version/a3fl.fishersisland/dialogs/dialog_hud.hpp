@@ -67,9 +67,9 @@ class Dialog_HUD
 		{
 			idc = 1001;
 			text = "";
-			x = 0.678905 * safezoneW + safezoneX;
-			y = 0.927 * safezoneH + safezoneY;
-			w = 0.2475 * safezoneW;
+			x = 0.876406 * safezoneW + safezoneX;
+			y = 0.643 * safezoneH + safezoneY;
+			w = 0.113437 * safezoneW;
 			h = 0.044 * safezoneH;
 			sizeEx = "0.05 * safezoneH";
 			style = 0x01;
