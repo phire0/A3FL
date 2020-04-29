@@ -1,9 +1,11 @@
-/**
-*	Author: Kane, Winston
-*	Website: https://www.arma3fisherslife.fr/
-*	Name: fn_preinit.sqf
-*	Description: Runs pre-init systems
-**/
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #include "Server_Macro.hpp"
 
 diag_log "RUNNING SERVER INIT";

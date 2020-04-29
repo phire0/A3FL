@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 Config_NPC_Text =
 [
 	["estate_initial", localize"STR_NPC_WELCOMEESTATE",[localize"STR_NPC_WELCOMEESTATE1",localize"str_NPC_WELCOMEESTATE2"],["if (player getVariable 'job' == 'RealEstate') exitwith {['estate_already'] call A3PL_NPC_Start;}; ['estate_work'] call A3PL_NPC_Start;",""]],
