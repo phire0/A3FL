@@ -360,7 +360,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_IMPUSC",
 		{[] call A3PL_Police_Impound;},
-		{(vehicle player == player) && (cursorObject isKindOf "Ship") AND ((player getvariable ["job","unemployed"]) == "uscg")}
+		{(vehicle player == player) && ((cursorObject isKindOf "Ship") || (cursorObject isKindOf "Plane") || (cursorObject isKindOf "Air")) AND ((player getvariable ["job","unemployed"]) == "uscg")}
 	],
 	[
 		localize "STR_INTER_MARKFORIMP",

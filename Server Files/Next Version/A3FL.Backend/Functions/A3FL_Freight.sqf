@@ -82,9 +82,9 @@
 		[format["Delivery successful! Your $%1 paycheck is waiting for you at your bank!",_pay],"green"] call A3PL_Player_Notification;
 		if(isNil "Player_Paycheck") then {Player_Paycheck = _pay;} else {Player_Paycheck = Player_Paycheck + _pay;};
 		[player, Player_Paycheck] remoteExec ["Server_Player_UpdatePaycheck",2];
-	};	
+	};
 	private _plane = player getVariable["deliveryPlane",objNull];
-	_plane setVariable["onDelivery",true,true];
+	_plane setVariable["onDelivery",false,true];
 	player setVariable["deliveryPlane",nil];
 	player setVariable["job","unemployed",true];
 }] call Server_Setup_Compile;

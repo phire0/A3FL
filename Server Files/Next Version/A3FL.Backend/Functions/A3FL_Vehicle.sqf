@@ -1655,7 +1655,7 @@
 		};
 	} forEach (_nearVeh);
 
-	if(count _cars == 0) exitWith {[format [localize"STR_NewVehicle_55"]] call A3PL_Player_notification;};
+	if(count _cars == 0) exitWith {[format [localize"STR_NewVehicle_55"]] call A3PL_Player_notification; closeDialog 0;};
 
 	_control = _display displayCtrl 1500;
 	_control ctrlAddEventhandler ["LBSelChanged",
