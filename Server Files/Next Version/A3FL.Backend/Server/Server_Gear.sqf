@@ -381,12 +381,14 @@
 		if (isNull _unit) exitwith {};
 		_var = _unit getVariable "name";
 		if (isNil "_var") exitwith {};
+		_jobVeh = _unit getVariable ["jobVehicle",nil];
 
 		[_unit,_uid] call Server_Housing_SaveKeys;
 
 		//save furniture
 		if (!isNil {_unit getVariable ["house",nil]}) then {[_unit,_uid] call Server_Housing_SaveItems;};
 		if (!isNil {_unit getVariable ["warehouse",nil]}) then {[_unit,_uid] call Server_Warehouses_SaveItems;};
+		if (!isNil {_jobVeh}) then {deleteVehicle _jobVeh;};
 
 		//get rid of the assigned apt, if exist
 		_var = _unit getVariable "apt";

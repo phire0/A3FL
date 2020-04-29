@@ -5,6 +5,7 @@
 		private _bargate = player_objintersect;
 		private _anim = (player_nameintersect splitstring "_") select 1;
 		private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
+		if(["keycard"] call A3PL_Inventory_Has) then {_canUse = true;};
 		if (!_canUse) exitwith {
 			[localize"STR_QuickActionsBuildings_JobDontAllowToUse","red"] call A3PL_Player_Notification;
 		};
@@ -22,6 +23,7 @@
 		private _bargate = player_objintersect;
 		private _anim = (player_nameintersect splitstring "_") select 1;
 		private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
+		if(["keycard"] call A3PL_Inventory_Has) then {_canUse = true;};
 		if (!_canUse) exitwith {
 			[localize"STR_QuickActionsBuildings_JobDontAllowToUse","red"] call A3PL_Player_Notification;
 		};
@@ -39,6 +41,7 @@
 		private _bargate = player_objintersect;
 		private _anim = (player_nameintersect splitstring "_") select 1;
 		private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
+		if(["keycard"] call A3PL_Inventory_Has) then {_canUse = true;};
 		if (!_canUse) exitwith {
 			[localize"STR_QuickActionsBuildings_JobDontAllowToUse","red"] call A3PL_Player_Notification;
 		};
