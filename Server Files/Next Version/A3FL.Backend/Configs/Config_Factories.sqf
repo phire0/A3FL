@@ -6,6 +6,9 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
+//id (f_ as in factory),parent,name to display ("inh" to take from configFile),picture to display ("inh" to take from configFile),craftable?,time to craft (sec),components required,output amount,faction("","uscg","FIFR","FIFR","police")
+//["factory_ID","parent","inh","inh","classname","type",craftable,time,[["required",3],["components",200]],output,faction]
+
 Config_Factories =
 [
 	["Chemical Plant",[3852.065,9212.537,0.168],
