@@ -148,6 +148,40 @@
 	}
 ],
 [
+	"land_a3fl_sheriffpd",
+	localize"STR_QuickActionsBuildings_UseSDButton",
+	{
+		private _name = player_nameintersect;
+		private _inter = player_objintersect;
+		switch (_name) do {
+			case "door3_button": {_anim = ["door_3","door_4"]};
+            case "door3_button2": {_anim = ["door_3","door_4"]};
+            case "door5_button": {_anim = ["door_5","door_6"]};
+            case "door5_button2": {_anim = ["door_5","door_6"]};
+            case "door7_button": {_anim = ["door_7","door_8"]};
+            case "door7_button2": {_anim = ["door_7","door_8"]};
+            case "door15_button": {_anim = ["door_15"]};
+            case "door15_button2": {_anim = ["door_15"]};
+            case "door13_button": {_anim = ["door_13","door_14"]};
+            case "door13_button2": {_anim = ["door_13","door_14"]};
+		};
+		if (typeName _anim == "ARRAY") exitwith {
+			{
+				if (_inter animationPhase _x < 0.1) then {
+					_inter animate [_x,1];
+				} else {
+					_inter animate [_x,0];
+				};
+			} foreach _anim;
+		};
+		if (_inter animationPhase _anim < 0.1) then {
+			_inter animate [_anim,1];
+		} else {
+			_inter animate [_anim,0];
+		};
+	}
+],
+[
 	"land_a3pl_sheriffpd",
 	localize"STR_QuickActionsBuildings_UseSDButton",
 	{

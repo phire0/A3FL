@@ -219,7 +219,7 @@
 	{
 		{
 			if ((_x getVariable ["bOwner","0"]) != "0") exitwith {_bFound = _x;};
-			if ((typeOf _x) IN ["Land_A3PL_Sheriffpd","Land_A3PL_Clinic","Land_A3PL_Firestation"]) exitwith {_bFound = _x;};
+			if ((typeOf _x) IN ["Land_A3PL_Sheriffpd","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_A3FL_SheriffPD"]) exitwith {_bFound = _x;};
 		} foreach nearestObjects [player,[],40];
 	};
 	if (isNil "_bFound") exitwith {[localize"STR_BUSINESS_NEARBUSINESSNEEDED","red"] call A3PL_Player_Notification;};
@@ -333,8 +333,8 @@
 	_correctLoc = false;
 	if (_factionBuy) then {
 		switch (player getVariable ["faction","citizen"]) do {
-			case ("fisd"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd"], 20])) > 0) then {_correctLoc = true;};};
-			case ("uscg"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd"], 20])) > 0) then {_correctLoc = true;};};
+			case ("fisd"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 20])) > 0) then {_correctLoc = true;};};
+			case ("uscg"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 20])) > 0) then {_correctLoc = true;};};
 			case ("fifr"): {if ((count (nearestObjects [player, ["Land_A3PL_Firestation"], 20])) > 0) then {_correctLoc = true;};};
 			case ("gov"): {if ((count (nearestObjects [player, ["land_a3pl_ch"], 20])) > 0) then {_correctLoc = true;};};
 		};
