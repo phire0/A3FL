@@ -1071,6 +1071,10 @@
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - _healPrice,true];
 	["Federal Reserve",_healPrice] remoteExec ["Server_Government_AddBalance",2];
 
+	["You must wait 2 minutes before being fully treated","orange"] call A3PL_Player_Notification;
+	sleep 120;
+	["You are completely treated","green"] call A3PL_Player_Notification;
+
 	player setDamage 0;
 	player setVariable ["A3PL_Wounds",[],true];
 	player setVariable ["A3PL_MedicalVars",[MAXBLOODLVL,"120/80",37],true];
