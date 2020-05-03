@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define RENTMINTIME 1
 #define RENTMAXTIME 720
 #define RENTCOSTPERMIN 35
@@ -5,7 +13,7 @@
 #define MaxBPriceDefault 900000
 #define BMinBPriceDefault 0
 #define BMaxBPriceDefault 900000
-#define BUSINESSOBJS ["Land_A3PL_Showroom","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station"]
+#define BUSINESSOBJS ["Land_A3PL_Showroom","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"]
 
 //Buy business
 ["A3PL_Business_Buy",
@@ -211,7 +219,7 @@
 	{
 		{
 			if ((_x getVariable ["bOwner","0"]) != "0") exitwith {_bFound = _x;};
-			if ((typeOf _x) IN ["Land_A3PL_Sheriffpd","Land_A3PL_Clinic","Land_A3PL_Firestation"]) exitwith {_bFound = _x;};
+			if ((typeOf _x) IN ["Land_A3PL_Sheriffpd","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_A3FL_SheriffPD"]) exitwith {_bFound = _x;};
 		} foreach nearestObjects [player,[],40];
 	};
 	if (isNil "_bFound") exitwith {[localize"STR_BUSINESS_NEARBUSINESSNEEDED","red"] call A3PL_Player_Notification;};
@@ -325,8 +333,8 @@
 	_correctLoc = false;
 	if (_factionBuy) then {
 		switch (player getVariable ["faction","citizen"]) do {
-			case ("fisd"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd"], 20])) > 0) then {_correctLoc = true;};};
-			case ("uscg"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd"], 20])) > 0) then {_correctLoc = true;};};
+			case ("fisd"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 20])) > 0) then {_correctLoc = true;};};
+			case ("uscg"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 20])) > 0) then {_correctLoc = true;};};
 			case ("fifr"): {if ((count (nearestObjects [player, ["Land_A3PL_Firestation"], 20])) > 0) then {_correctLoc = true;};};
 			case ("gov"): {if ((count (nearestObjects [player, ["land_a3pl_ch"], 20])) > 0) then {_correctLoc = true;};};
 		};

@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define CHARMAXLAWCOUNT 120
 #define FACTIONBALANCES ["Fire Rescue","US Coast Guard","Sheriff Department","Department of Motor Vehicles","Department of Justice","Marshals Service","Cartel"]
 #define FACTIONMINPAY 200

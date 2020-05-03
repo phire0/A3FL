@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 //Handle Vehicle Inits - Client Side
 //U stands for unloaded, the loading screen copies this (compileFinal to prevent hacking) into A3PL_HandleVehicleInit, this will run all vehicle inits located in config.cpp as soon as this function excists
 //Vehicle inits can simply be disabled by disabling this variable being copied in A3PL_Loading

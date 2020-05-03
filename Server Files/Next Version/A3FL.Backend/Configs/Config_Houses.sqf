@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 Config_Houses_List = [
 	"Land_Home1g_DED_Home1g_01_F",
 	"Land_Mansion01",
@@ -15,7 +23,7 @@ Config_Houses_List = [
 	"Land_John_House_Blue",
 	"Land_John_House_Red",
 	"Land_John_House_Green",
-	"Land_A3PL_ModernHouse"
+	"Land_A3FL_Mansion"
 ];
 publicVariable "Config_Houses_List";
 
@@ -51,8 +59,7 @@ Config_Houses_Prices = [
 	["Land_A3PL_ModernHouse2",550000],
 	["Land_A3PL_ModernHouse3",550000],
 
-	//One-story with 2 garages
-	["Land_A3PL_ModernHouse",550000]
+	["Land_A3FL_Mansion",550000]
 ];
 publicVariable "Config_Houses_Prices";
 

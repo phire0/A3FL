@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define LOGLIMIT 12
 #define MAXBLOODLVL 5000
 #define RESPAWNTIME 600
@@ -1062,6 +1070,10 @@
 
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - _healPrice,true];
 	["Federal Reserve",_healPrice] remoteExec ["Server_Government_AddBalance",2];
+
+	["You must wait 2 minutes before being fully treated","orange"] call A3PL_Player_Notification;
+	sleep 120;
+	["You are completely treated","green"] call A3PL_Player_Notification;
 
 	player setDamage 0;
 	player setVariable ["A3PL_Wounds",[],true];

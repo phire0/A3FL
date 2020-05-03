@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Police_GPS",
 {
 	private _job = player getVariable ["faction","unemployed"];
@@ -1550,7 +1558,7 @@
 {
 	params[["_target",objNull,[objNull]]];
 
-	_pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd"], 50];
+	_pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"], 50];
 
 	if(count _pd < 1) exitWith {[format[localize"STR_NewPolice_23"],"red"] call A3PL_Player_Notification;};
 
@@ -1578,7 +1586,7 @@
 	player setVariable ["jailed",false,true];
 	player setVariable ["jail_mark",false,true];
 
-	private _pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd"], 50];
+	private _pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 50];
 	if((count _pd) > 0) then {
 		player setPosATL [4743.79,6101.99,0.00143909];
 		player setDir 7;

@@ -1,5 +1,14 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define DOGSMELLDISTANCE 10
 #define ILLEGAL_ITEMS ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","coca_paste","cocaine_base","cocaine_hydrochloride","acetone","calcium_carbonate","potassium_permangate","ammonium_hydroxide"]
+
 ["A3PL_Dogs_OpenMenu",
 {
 	if(!(isNull(player getVariable["Player_Dog",objNull]))) exitwith {["You already have a dog","red"] call A3PL_Player_Notification;};

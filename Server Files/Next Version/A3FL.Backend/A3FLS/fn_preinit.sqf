@@ -1,9 +1,11 @@
-/**
-*	Author: Kane, Winston
-*	Website: https://www.arma3fisherslife.fr/
-*	Name: fn_preinit.sqf
-*	Description: Runs pre-init systems
-**/
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #include "Server_Macro.hpp"
 
 diag_log "RUNNING SERVER INIT";
@@ -803,7 +805,7 @@ Server_Setup_Compile = {
 		_pos = call compile (_x select 1);
 		_doorid = _x select 2;
 
-		_near = nearestObjects [_pos, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green"], 10,true];
+		_near = nearestObjects [_pos, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true];
 		if (count _near == 0) exitwith
 		{
 			_query = format ["CALL RemovedHouse('%1');",_pos];
@@ -986,3 +988,94 @@ Server_Setup_Compile = {
 	_camera CamSetTarget (_mapCam modelToWorld (_mapCam selectionPosition "cam_dir"));
 	_camera camCommit 0;
 },false,true] call Server_Setup_Compile;
+
+["Server_TrafficLights_Start",
+{
+	A3FL_fnc_TrafficLightA = {
+		params [
+			["_trafficlight",objNull,[objNull]]
+		];
+
+		if (!(typeOf _trafficlight isEqualTo "Land_A3FL_TrafficLight_A") || {isNull _trafficlight}) exitwith {};
+
+		uiSleep 3;
+
+		for "_i" from 0 to 1 step 0 do {
+			if (_trafficlight getVariable ["A3FL_LightBroken",false]) then {
+				for "_j" from 1 to 13 step 1 do {
+					_trafficlight animateSource ["red_light_source", 0, true];
+					_trafficlight animateSource ["orange_light_source", 1, true];
+					_trafficlight animateSource ["green_light_source", 0, true];
+					uiSleep 2;
+					_trafficlight animateSource ["red_light_source", 0, true];
+					_trafficlight animateSource ["orange_light_source", 0, true];
+					_trafficlight animateSource ["green_light_source", 0, true];
+					uiSleep 1;
+				};
+			} else {
+				_trafficlight animateSource ["green_light_source", 1, true];
+				_trafficlight animateSource ["orange_light_source", 0, true];
+				_trafficlight animateSource ["red_light_source", 0, true];
+				uiSleep 15;
+				_trafficlight animateSource ["red_light_source", 0, true];
+				_trafficlight animateSource ["green_light_source", 0, true];
+				_trafficlight animateSource ["orange_light_source", 1, true];
+				uiSleep 4;
+				_trafficlight animateSource ["red_light_source", 1, true];
+				_trafficlight animateSource ["orange_light_source", 0, true];
+				_trafficlight animateSource ["green_light_source", 0, true];
+				uiSleep 20;
+			};
+		};
+	};
+
+	A3FL_fnc_TrafficLightB = {
+		params [
+			["_trafficlight",objNull,[objNull]]
+		];
+
+		if (!(typeOf _trafficlight isEqualTo "Land_A3FL_TrafficLight_B") || {isNull _trafficlight}) exitwith {};
+
+		uiSleep 3;
+
+		for "_i" from 0 to 1 step 0 do {
+			if (_trafficlight getVariable ["A3FL_LightBroken",false]) then {
+				for "_j" from 1 to 13 step 1 do {
+					_trafficlight animateSource ["red_light_source", 0, true];
+					_trafficlight animateSource ["orange_light_source", 1, true];
+					_trafficlight animateSource ["green_light_source", 0, true];
+					uiSleep 2;
+					_trafficlight animateSource ["red_light_source", 0, true];
+					_trafficlight animateSource ["orange_light_source", 0, true];
+					_trafficlight animateSource ["green_light_source", 0, true];
+					uiSleep 1;
+				};
+			} else {
+				_trafficlight animateSource ["red_light_source", 1, true];
+				_trafficlight animateSource ["orange_light_source", 0, true];
+				_trafficlight animateSource ["green_light_source", 0, true];
+				uiSleep 20;
+				_trafficlight animateSource ["green_light_source", 1, true];
+				_trafficlight animateSource ["red_light_source", 0, true];
+				_trafficlight animateSource ["orange_light_source", 0, true];
+				uiSleep 15;
+				_trafficlight animateSource ["orange_light_source", 1, true];
+				_trafficlight animateSource ["green_light_source", 0, true];
+				_trafficlight animateSource ["red_light_source", 0, true];
+				uiSleep 4;
+			};
+		};
+	};
+	
+	private _terrainobj = nearestTerrainObjects [[2716.79,5477.64,0], [], 10000, false];
+	private _objectsA = _terrainobj select {typeOf _x isEqualTo "Land_A3FL_TrafficLight_A"};
+	private _objectsB = _terrainobj select {typeOf _x isEqualTo "Land_A3FL_TrafficLight_B"};
+
+	{
+		[_x] spawn A3FL_fnc_TrafficLightA;
+	} forEach _objectsA;
+
+	{
+		[_x] spawn A3FL_fnc_TrafficLightB;
+	} forEach _objectsB;
+},true] call Server_Setup_Compile;

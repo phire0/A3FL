@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 //variables that can be changed from client
 ['A3PL_Player_VariablesSetup',
 {
@@ -192,7 +200,7 @@
 ["A3PL_Player_BusinessTags",
 {
 	private ["_bus","_tags","_iTags","_items"];
-	_bus = nearestObjects [player, ["Land_A3PL_Showroom","Land_A3PL_Cinema","Land_A3PL_Gas_Station","Land_A3PL_Garage","land_smallshop_ded_smallshop_01_f","land_smallshop_ded_smallshop_02_f"], 50];
+	_bus = nearestObjects [player, ["Land_A3PL_Showroom","Land_A3PL_Cinema","Land_A3PL_Gas_Station","Land_A3PL_Garage","land_smallshop_ded_smallshop_01_f","land_smallshop_ded_smallshop_02_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 50];
 	_items = nearestObjects [player, [], 10];
 	_tags = [];
 	_iTags = [];
@@ -208,6 +216,8 @@
 				case ("land_smallshop_ded_smallshop_01_f"): {_pos = _x modelToWorld [8,0,0];};
 				case ("Land_A3PL_Garage"): {_pos = _x modelToWorld [6,2,-1];};
 				case ("Land_A3PL_Gas_Station"): {_pos = _x modelToWorld [-3.5,-0.65,-1];};
+				case ("Land_A3FL_Brick_Shop_1"): {_pos = _x modelToWorld [8,0,0];};
+				case ("Land_A3FL_Brick_Shop_2"): {_pos = _x modelToWorld [8,0,0];};
 			};
 			_tags pushback [_pos,_bName];
 		};
