@@ -698,12 +698,12 @@ Config_IntersectArray =
 	["StorageDoor2",localize"STR_INTSECT_STOREVEH","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Vehicle
 	["StorageDoor3",localize"STR_INTSECT_STOREVEH","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Vehicle
 
-	["StorageDoor1",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
-	["StorageDoor2",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
-	["StorageDoor3",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
-	["StorageDoor1",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
-	["StorageDoor2",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
-	["StorageDoor3",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
+	// ["StorageDoor1",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
+	// ["StorageDoor2",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
+	// ["StorageDoor3",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
+	// ["StorageDoor1",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
+	// ["StorageDoor2",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
+	// ["StorageDoor3",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
 
 	//sheriff garage
 	["SDStorageDoor3",localize"STR_INTSECT_VEHSTOR","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Vehicle Storage
@@ -2069,7 +2069,8 @@ Config_IntersectArray =
 	["cell_door_14","Lockpick Cell Door",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_Itemclass == "v_lockpick") && ((typeOf player_objIntersect) != "Land_A3PL_Sheriffpd")}],
 
 	["item_pickup","Seize Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player_objintersect getVariable["class",""]) IN Player_illegalItems) && {(player getVariable["job","unemployed"] IN ["fisd","uscg","usms"])}}],
-	["buoy","Seize Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{(player getVariable["job","unemployed"] IN ["fisd","uscg","usms"])}]
+	["buoy","Seize Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{(player getVariable["job","unemployed"] IN ["fisd","uscg","usms"])}],
+	["shipramp","Ship Ramp","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{}]
 
 
 
@@ -2079,6 +2080,7 @@ publicVariable "Config_IntersectArray";
 //If a specific intersection name is in this array it will execute and not check for a specific typeOf aka it ignores that parameter
 Config_GenArray =
 [
+	"Ship Ramp",
 	"Purchase Warehouse",
 	"Chemical Dealer",
 	localize"STR_QuickActionsNPC_FakeID",

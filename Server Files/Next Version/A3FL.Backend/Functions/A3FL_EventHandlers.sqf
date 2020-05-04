@@ -248,6 +248,38 @@
 			};
 		}, "", [DIK_7, [false, false, false]]] call CBA_fnc_addKeybind;
 
+		["ArmA 3 Fishers Life","animation_8", "(Animation) Dance 3",
+		{
+			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
+				if ((animationState player) != "Acts_Dance_01") then
+				{
+					[player, "Acts_Dance_01"] remoteExec ["A3PL_Lib_SyncAnim",0];
+					Player_ActionInterrupted = true;
+				} else
+				{
+					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
+				};
+				true;
+			};
+		}, "", [DIK_8, [false, false, false]]] call CBA_fnc_addKeybind;
+
+		["ArmA 3 Fishers Life","animation_9", "(Animation) Dance 4",
+		{
+			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
+				if ((animationState player) != "Acts_Dance_02") then
+				{
+					[player, "Acts_Dance_02"] remoteExec ["A3PL_Lib_SyncAnim",0];
+					Player_ActionInterrupted = true;
+				} else
+				{
+					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
+				};
+				true;
+			};
+		}, "", [DIK_9, [false, false, false]]] call CBA_fnc_addKeybind;
+
 		(findDisplay 46) displayAddEventHandler ["MouseButtonUp",
 		{
 			private ["_button"];
@@ -274,9 +306,9 @@
 	player addEventHandler ["Fired",
 	{
 		private ["_weapon"];
-		_weapon = param [1,""]; //classname of weapon
+		_weapon = param [1,""];
 
-		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe"]) then
+		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe","A3FL_BaseballBat","A3FL_GolfDriver"]) then
 		{
 			player playAction "GestureSwing";
 			if (player inArea "LumberJack_Rectangle") then
@@ -568,7 +600,7 @@
 		if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 		_distance = param [2,100];
 		_weaponClass = param [3,""];
-		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow"];
+		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_GolfDriver"];
 
 		if(_distance <= 30 && (!(_weaponClass IN _except))) then
 		{

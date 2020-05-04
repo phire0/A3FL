@@ -225,6 +225,19 @@ Config_Garage_Upgrade =
 	],
 	["A3PL_ChevroletCamaro2018",
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+	],
+	["A3PL_Taurus_PD",
+		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
+		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0],  //,"Front pushbar","Protect front from collisions",
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+	],
+	["A3PL_Raptor_PD",
+		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
+		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0]  //,"Front pushbar","Protect front from collisions",
+	],
+	["A3PL_Raptor_PD_ST",
+		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
+		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0]  //,"Front pushbar","Protect front from collisions",
 	]
 ];
 publicVariable "Config_Garage_Upgrade";

@@ -687,12 +687,12 @@ Config_IntersectArray =
 	["StorageDoor2",localize"STR_INTSECT_STOREVEH","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Vehicle
 	["StorageDoor3",localize"STR_INTSECT_STOREVEH","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Vehicle
 
-	["StorageDoor1",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
-	["StorageDoor2",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
-	["StorageDoor3",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
-	["StorageDoor1",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
-	["StorageDoor2",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
-	["StorageDoor3",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
+	// ["StorageDoor1",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
+	// ["StorageDoor2",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
+	// ["StorageDoor3",localize"STR_INTSECT_OBJSTOR","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Object Storage
+	// ["StorageDoor1",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
+	// ["StorageDoor2",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
+	// ["StorageDoor3",localize"STR_INTSECT_STOREOBJ","A3\ui_f\data\map\Markers\Military\box_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Object
 
 	//sheriff garage
 	["SDStorageDoor3",localize"STR_INTSECT_VEHSTOR","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Vehicle Storage

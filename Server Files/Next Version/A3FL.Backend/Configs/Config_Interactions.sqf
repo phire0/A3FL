@@ -461,6 +461,15 @@ A3PL_Interaction_Options =
 		{(vehicle player == player) && (cursorObject isKindOf "A3PL_Cutter") && (((cursorObject modeltoworld [4,-40,-10]) distance player) < 10)}
 	],
 	[
+		"Climb on LCM",
+		{
+			private _veh = cursorObject;
+			if (!(_veh isKindOf "A3FL_LCM")) exitwith {};
+			player setpos (_veh modeltoworld [0,0,0]);
+		},
+		{(vehicle player == player) && (cursorObject isKindOf "A3FL_LCM") && ((cursorObject distance player) < 10)}
+	],
+	[
 		localize"STR_INTER_CLIMBSHIP",
 		{player setpos (cursorObject modeltoworld [-2,-13,-6]);},
 		{(vehicle player isEqualTo player) && ((typeOf cursorObject) isEqualTo "A3PL_Patrol") && ((cursorObject distance player) < 8)}

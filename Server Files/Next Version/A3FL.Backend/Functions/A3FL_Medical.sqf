@@ -131,22 +131,20 @@
 	_sDamage = param [1,0];
 	_sBullet = param [2,""];
 
-	//Generate Wounds
 	switch (true) do {
-		//Handle Special Hits
 		case (_sBullet IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo"]): {
 			[] call A3PL_Lib_Ragdoll;
 			if((vest player) isEqualTo "A3PL_SuicideVest") then {[] call A3PL_Criminal_SuicideVest;};
 			[player,([_sHit] call A3PL_Medical_GetHitPart),"taser"] call A3PL_Medical_ApplyWound;
  		};
-		case (_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet"]): {
+		case (_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_GolfDriver"]): {
 			[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
 			_chance = random 100;
-			if(_chance > 70) then {
+			if(_chance > 50) then {
 				[] call A3PL_Lib_Ragdoll;
+				[player,([_sHit] call A3PL_Medical_GetHitPart),"bruise"] call A3PL_Medical_ApplyWound;
 			};
 		};
-		//damage from hitting a wall
 		case ((_sHit == "") && (_sBullet == "") && (vehicle player != player)):
 		{
 			if (_sDamage > 0.005) then
@@ -226,7 +224,6 @@
 			};
 		};
 
-		/* FIRE WOUNDS */
 		case (_sBullet == "FireDamage"): {
 			_fireDamage = (player getVariable ["A3PL_FireDamage",0]) + 1;
 			player setVariable ["A3PL_FireDamage",_fireDamage,false];
@@ -288,7 +285,6 @@
 			};
 		};
 
-		/* GUNSHOTS WOUNDS */
 		case ((_sHit IN ["face_hub","head"]) && (_sBullet != "")): {
 			_wound = "bullet_head";
 			[player,"head",_wound] call A3PL_Medical_ApplyWound;
