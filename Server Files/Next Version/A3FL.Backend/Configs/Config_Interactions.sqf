@@ -995,6 +995,16 @@ A3PL_Interaction_Options =
 		{((typeOf cursorObject) IN ["A3PL_Cutter"]) && (vehicle player isEqualTo player) && ((speed vehicle player) < 1) && ((player distance cursorObject) < 15)}
 	],
 	[
+		"Secure Vehicle",
+		{[cursorObject] call A3PL_Vehicle_SecureVehicle;},
+		{(player getVariable ["job","unemployed"] == "Ship Captain") && (vehicle player isEqualTo player) && ((speed vehicle player) < 1) && ((player distance cursorObject) < 15)}
+	],
+	[
+		"Unsecure Vehicle",
+		{[cursorObject] call A3PL_Vehicle_UnsecureVehicle;},
+		{(player getVariable ["job","unemployed"] == "Ship Captain") && (vehicle player isEqualTo player) && ((speed vehicle player) < 1) && ((player distance cursorObject) < 15)}
+	],
+	[
 		localize"STR_INTER_DETACHHELI",
 		{[cursorObject] call A3PL_Vehicle_UnsecureHelicopter;},
 		{((typeOf cursorObject) IN ["A3PL_Cutter"]) && (vehicle player isEqualTo player) && ((speed vehicle player) < 1) && ((player distance cursorObject) < 15)}
@@ -1002,7 +1012,7 @@ A3PL_Interaction_Options =
 	[
 		localize"STR_INTER_ANCHOR",
 		{[cursorObject] call A3PL_Vehicle_DisableSimulation;},
-		{((typeOf cursorObject) IN ["A3PL_Cutter"]) && ((player distance cursorObject) < 30) && ((speed cursorObject) < 4)}
+		{((typeOf cursorObject) IN ["A3PL_Cutter","A3FL_LCM"]) && ((player distance cursorObject) < 30) && ((speed cursorObject) < 4)}
 	],
 	[
 		localize"STR_INTER_WRIST_ADD",

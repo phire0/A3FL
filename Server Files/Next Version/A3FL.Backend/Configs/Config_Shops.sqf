@@ -16,7 +16,7 @@ publicVariable "Config_Shops_TaxSystem";
 Config_Shops_StockSystem = ["Shop_Supermarket","Shop_Guns_Vendor","Shop_Fuel"];
 publicVariable "Config_Shops_StockSystem";
 
-Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10];
+Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11];
 publicVariableServer "Config_Shops_StockSystemObjects";
 
 Config_Shops_Factions = [
@@ -912,7 +912,10 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Silverado_PD",35000,0,0],
 			["vehicle","A3PL_Small_Boat_Trailer",20000,0,0],
-			["vehicle","A3PL_Raptor_PD",20000,0,0]
+			["vehicle","A3PL_Raptor_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD_ST",20000,0,0],
+			["vehicle","A3PL_Taurus_PD",20000,0,0],
+			["vehicle","A3PL_Taurus_PD_ST",20000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	],
 
@@ -926,7 +929,10 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Silverado_PD",20000,0,0],
-			["vehicle","A3PL_Raptor_PD",20000,0,0]
+			["vehicle","A3PL_Raptor_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD_ST",20000,0,0],
+			["vehicle","A3PL_Taurus_PD",20000,0,0],
+			["vehicle","A3PL_Taurus_PD_ST",20000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	],
 
@@ -940,7 +946,10 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Silverado_PD",20000,0,0],
-			["vehicle","A3PL_Raptor_PD",20000,0,0]
+			["vehicle","A3PL_Raptor_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD_ST",20000,0,0],
+			["vehicle","A3PL_Taurus_PD",20000,0,0],
+			["vehicle","A3PL_Taurus_PD_ST",20000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	],
 
@@ -1181,6 +1190,17 @@ Config_Shops_Items = [
 			["headgear","A3PL_Christmas_Hat",14,-1,0],
 			["uniform","A3PL_Xmas_Onesie_Red_Uniform",25,-1,0],
 			["uniform","A3PL_Xmas_Onesie_Grey_Uniform",25,-1,0]
+		],{[5661.34,6125.97,-0.5]}
+	],
+
+	["Shop_Big_Dicks_Sports",[
+			["weaponPrimary","A3FL_GolfDriver",2500,-1,0],
+			["weaponPrimary","A3FL_BaseballBat",2500,-1,0],
+			["weaponPrimary","A3PL_CZ550",20000,-1,4],
+			["magazine","A3PL_5rnd_3006",168,-1,4],
+			["uniform","A3PL_Hunting_Uniform",140,-1,4],
+			["vest","A3PL_Clean_Safety_Vest",160,-1,4],
+			["item","tag_meat",100,-1,0]
 		],{[5661.34,6125.97,-0.5]}
 	]
 ];

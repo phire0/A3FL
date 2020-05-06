@@ -131,7 +131,7 @@ Config_IntersectArray =
 	["item_Pickup",localize"STR_INTSECT_GrindWheatIntoMalt","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
 	["item_Pickup",localize"STR_INTSECT_GrindCornIntoCornmeal","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
 	["scooter_driver",localize"STR_INTSECT_USEJERRYC", "\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa", {player_itemClass == "jerrycan" && (typeOf player_objintersect == "C_Quadbike_01_F")}],
-	["spine3",localize"STR_QuickActionsNPC_StationStore",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10]}],
+	["spine3",localize"STR_QuickActionsNPC_StationStore",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11]}],
 
 	//hunting
 	["spine2",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && !alive player_objintersect}],
@@ -321,12 +321,12 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TakeMcFishersUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mcfisher,npc_mcfisher_1,npc_mcfisher_2,npc_mcfisher_3]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToThePhoneOperator",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_phone_operator}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDoctorWithoutDiploma",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_medicaldirty}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheDoctorGuard",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_emt,npc_emt_1,NPC_emt_2,NPC_emt_3]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheDoctorGuard",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_emt,npc_emt_1,NPC_emt_2,NPC_emt_3,npc_emt_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheBankEmployee",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_bank,npc_bank_1,npc_bank_2,npc_bank_3,npc_bank_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheFreight",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_freight_svt,npc_freight_nd]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToInsurer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_insurance,npc_insurance_1,npc_insurance_2]}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToPort",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_port_1,npc_port_2,npc_port_3,npc_port_4,npc_port_5]}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToUSCGOfficer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_uscg}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToPort",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_port_1,npc_port_2,npc_port_3,npc_port_4,npc_port_5,npc_port_6]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToUSCGOfficer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_uscg,npc_uscg_1]}],
 	["spine3",localize"STR_QuickActionsNPC_WeaponIllegalShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_illegal_eq]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessPrisonShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_farmer_1]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheFisherMan",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fisher,npc_farmer_1]}],
@@ -423,7 +423,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessShopGems",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_gemshop]}],
 	["spine3",localize"STR_QuickActionsNPC_BuySellHalloweenItems",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_candy]}],
 	["spine3",localize"STR_QuickActionsNPC_BuySellChristmasItems",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_christmas]}],
-	["spine3",localize"STR_QuickActionsNPC_AccessShopFIMS",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier) || (player_objintersect == NPC_fifr_supplier_1) || (player_objintersect == NPC_fifr_supplier_2) || (player_objintersect == NPC_fifr_supplier_3) || (player_objintersect == NPC_fifr_supplier_air)}],
+	["spine3",localize"STR_QuickActionsNPC_AccessShopFIMS",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_fifr_supplier, NPC_fifr_supplier_1, NPC_fifr_supplier_2, NPC_fifr_supplier_3, NPC_fifr_supplier_air, NPC_fifr_supplier_4]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopFIFR",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopVFD",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFIFRVEHShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_fifr_vehicles}],
@@ -731,7 +731,7 @@ Config_IntersectArray =
 
 	//gas station
 	["gas_openmenu",localize"STR_INTSECT_OPENGASMENU",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
-	["spine3",localize"STR_QuickActionsNPC_TakeFuelStationCash",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10]}],
+	["spine3",localize"STR_QuickActionsNPC_TakeFuelStationCash",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11]}],
 	["gas_openmenu",localize"STR_QuickActionsBuildings_CheckMoneyInCash",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 	["gas_openmenu",localize"STR_QuickActionsBuildings_TakeFuelStationCash",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 	["gas_openmenu",localize"STR_QuickActionsBuildings_OpCLoseFuel",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],

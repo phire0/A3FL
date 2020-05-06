@@ -295,7 +295,7 @@
 		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","M_explorer"]): {_sirenType = "police";};
 		case (_classname IN ["Jonzie_Ambulance","A3PL_E350"]): {_sirenType = "ems";};
 		case (_classname IN ["A3PL_P362_TowTruck","A3PL_F150_Marker"]): {_sirenType = "civ";};
-		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB"]): {_sirenType = "Ship";};
+		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB","A3FL_LCM"]): {_sirenType = "Ship";};
 		default {_sirenType = "police";};
 	};
 	switch (_sirenType) do
@@ -368,7 +368,7 @@
 		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","M_explorer"]): {_sirenType = "police";};
 		case (_classname IN ["Jonzie_Ambulance","A3PL_E350"]): {_sirenType = "ems";};
 		case (_classname IN ["A3PL_P362_TowTruck","A3PL_F150_Marker"]): {_sirenType = "civ";};
-		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB"]): {_sirenType = "Ship";};
+		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB","A3FL_LCM"]): {_sirenType = "Ship";};
 		default {_sirenType = "police";};
 	};
 
@@ -1521,7 +1521,7 @@
 {
 	private _veh = _this select 0;
 	if ((speed _veh) > 3) exitWith {[localize"STR_NewVehicle_42","yellow"] call A3PL_Player_Notification;};
-	if ((typeOf _veh) IN ["A3PL_Cutter"]) then {
+	if ((typeOf _veh) IN ["A3PL_Cutter","A3FL_LCM"]) then {
 		if (simulationEnabled _veh) then {
 			[_veh] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 			[localize"STR_NewVehicle_43","green"] call A3PL_Player_Notification;
@@ -1565,6 +1565,31 @@
 	[localize"STR_NewVehicle_47", "green"] call A3PL_Player_Notification;
 
 	[_heli] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+}] call Server_Setup_Compile;
+
+["A3PL_Vehicle_SecureVehicle",
+{
+	private _vehicle = param [0,objNull];
+
+	private _ships = nearestObjects [_vehicle, ["A3FL_LCM"], 30];
+	if (count _ships < 1) exitwith {[localize"STR_NewVehicle_45", "red"] call A3PL_Player_Notification;};
+	private _ship = _ships select 0;
+
+	[_vehicle, _ship] call BIS_fnc_attachToRelative;
+	["Attached vehicle to ship!", "green"] call A3PL_Player_Notification;
+	[_vehicle] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+}] call Server_Setup_Compile;
+
+["A3PL_Vehicle_UnsecureVehicle",
+{
+	private _ship = param [0,objNull];
+
+	{
+		detach _x;
+		[_x] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+	} foreach (attachedObjects _ship);
+	[localize"STR_NewVehicle_47", "green"] call A3PL_Player_Notification;
+
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Jerrycan",
@@ -1745,6 +1770,6 @@
 	};
 	waituntil {!isNull findDisplay 46};
 	_forkskeys = (findDisplay 46) DisplayAddEventHandler ["keydown","_this call forksdokeyDown"];
-	waitUntil {!((typeOf (vehicle player)) IN ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD"])};
+	waitUntil {!((typeOf (vehicle player)) IN ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST"])};
 	(findDisplay 46) displayremoveeventhandler ["keydown",_forkskeys];
 }] call Server_Setup_Compile;
