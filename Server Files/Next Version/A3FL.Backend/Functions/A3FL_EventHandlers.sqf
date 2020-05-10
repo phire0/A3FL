@@ -9,6 +9,7 @@
 #include "\a3\editor_f\Data\Scripts\dikCodes.h"
 #define KINDOF_ARRAY(a,b) [##a,##b] call {_veh = _this select 0;_types = _this select 1;_res = false; {if (_veh isKindOf _x) exitWith { _res = true };} forEach _types;_res}
 
+
 ["A3PL_EventHandlers_Setup",
 {
 	[] call A3PL_EventHandlers_HandleDamage;
@@ -171,6 +172,28 @@
 			[format[localize"STR_EVENTHANDLERS_Volume",(soundVolume*100),'%'],"yellow"] call A3PL_Player_Notification;
 		}, "", [DIK_O, [true, false, false]]] call CBA_fnc_addKeybind;
 
+		["ArmA 3 Fishers Life","vault_key", "Vault Key",
+		{
+			_max_height = 4.3;
+			hint "vault key pressed";
+		 if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
+		 if(speed player < 8) exitWith {};
+		 if((player == vehicle player) && (player getvariable ["jump",true]) && (isTouchingGround player)) then  {
+
+		 player setvariable ["jump",false];
+
+		_height = 6-((load player)*10);
+		_vel = velocity player;
+		_dir = direction player;
+		_speed = 0.4;
+		if (_height > _max_height) then {_height = _max_height};
+			player setVelocity [(_vel select 0)+(sin _dir*_speed),(_vel select 1)+(cos _dir*_speed),(_vel select 2)+_height];
+
+			[player,"AovrPercMrunSrasWrflDf"] remoteExec ["A3PL_Lib_SyncAnim",0];
+			player spawn {sleep 2; player setvariable ["jump",true]};
+		};
+	}, "", [DIK_V, [true, false, false]]] call CBA_fnc_addKeybind;
+
 		["ArmA 3 Fishers Life","animation_1", "(Animation) Hello",
 		{
 			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
@@ -289,6 +312,15 @@
 				[] spawn A3PL_Interaction_ActionKey;
 			};
 		}];
+	};
+}] call Server_Setup_Compile;
+
+["A3PL_Prevent_Patdown_Cloning",
+{
+	if(player getVariable ["patdown",false]) then {
+		[localize"STR_EVENTHANDLERS_DUPLICATION","red"] call A3PL_Player_Notification;
+		[getPlayerUID player,"PatdownPhisCloningAtempt",[]] remoteExec ["Server_Log_New",2];
+		true;
 	};
 }] call Server_Setup_Compile;
 
