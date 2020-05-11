@@ -1773,3 +1773,35 @@
 	waitUntil {!((typeOf (vehicle player)) IN ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST"])};
 	(findDisplay 46) displayremoveeventhandler ["keydown",_forkskeys];
 }] call Server_Setup_Compile;
+
+["A3PL_Vehicle_LCMRamp", {
+	forksdokeydown =
+	{
+		_key = _this select 1;
+		_return = false;
+		switch _key do
+		{
+			case 75:
+			{
+				_val = vehicle player animationSourcePhase "trunk";
+				_valu = _val + 0.02;
+				if (_valu >= 1) then {_valu = 1};
+				vehicle player animateSource ["trunk",_valu];
+				_return = true;
+			};
+			case 77:
+			{
+				_val = vehicle player animationSourcePhase "trunk";
+				_valu = _val - 0.02;
+				if (_valu <= 0) then {_valu = 0};
+				vehicle player animateSource ["trunk",_valu];
+				_return = true;
+			};
+		};
+		_return;
+	};
+	waituntil {!isNull findDisplay 46};
+	_forkskeys = (findDisplay 46) DisplayAddEventHandler ["keydown","_this call forksdokeyDown"];
+	waitUntil {!((typeOf (vehicle player)) IN ["A3FL_LCM"])};
+	(findDisplay 46) displayremoveeventhandler ["keydown",_forkskeys];
+}] call Server_Setup_Compile;

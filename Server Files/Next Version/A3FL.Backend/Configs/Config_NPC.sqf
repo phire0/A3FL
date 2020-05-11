@@ -130,6 +130,9 @@ Config_NPC_Text =
 
 	["port_initial", localize"STR_NPC_PORTINIT",[localize"STR_NPC_OPT1",localize"STR_NPC_OPT2"],["[] spawn A3PL_Robberies_RobPort;",""]],
 	["atc", localize"STR_NPC_ATCINIT",[localize"STR_NPC_ATC_1",localize"STR_NPC_ATC_2"],["[] call A3PL_ATC_Tower;",""]],
-	["freight_initial", localize"STR_NPC_FREIGHTINIT",[localize"STR_NPC_FREIGHT_OPT1",localize"STR_NPC_FREIGHT_OPT2",localize"STR_NPC_FREIGHT_OPT3"],["[player_objintersect] call A3PL_Freight_Start;","[player_objintersect] call A3PL_Freight_Unload;",""]]
+	["freight_initial", localize"STR_NPC_FREIGHTINIT",[localize"STR_NPC_FREIGHT_OPT1",localize"STR_NPC_FREIGHT_OPT2",localize"STR_NPC_FREIGHT_OPT3"],["[player_objintersect] call A3PL_Freight_Start;","[player_objintersect] call A3PL_Freight_Unload;",""]],
+
+	["ship_initial", "Hi, I run the shipping company. &lt;br/&gt;&lt;br/&gt; How can I help you?",["Sign on as a Ship Captain","Request a pickup at this location",localize"STR_NPC_FREIGHT_OPT3"],["['ship captain'] call A3PL_NPC_TakeJob;['ship_captain_accepted'] call A3PL_NPC_Start;","[player_objintersect] call A3PL_Freight_Unload;",""]],
+	["ship_captain_accepted",  "You are now working for the shipping company!",["Thanks, I'll be on my way now!","I need to rent a ship!"],["","['player_objintersect'] call A3PL_JobShipCaptain_RentVehicle;"]]
 ];
 publicVariable "Config_NPC_Text";

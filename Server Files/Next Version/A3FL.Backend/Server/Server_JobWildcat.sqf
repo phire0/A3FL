@@ -8,8 +8,8 @@
 
 #define OREDMGDISS 0.55
 
-["Server_JobWildcat_RandomizeOil", 
-{	
+["Server_JobWildcat_RandomizeOil",
+{
 	Server_JobWildCat_Oil = [];
 	for "_i" from 0 to 30 do {
 		private ["_randPos","_overWater"];
@@ -74,7 +74,7 @@
 		private _obj = param [0,objNull];
 		private _sel = param [1,""];
 		private _dmg = param [2,0];
-		private _ins = param [6,objNull]; 
+		private _ins = param [6,objNull];
 		private _wep = currentWeapon _ins;
 		private _newDmg = _dmg;
 		private _oldDmg = _obj getVariable ["dmg",0];
@@ -97,12 +97,12 @@
 					case (_random < 30): {_itemClass = "diamond_alex";};
 					case (_random < 50): {_itemClass = "diamond_aqua";};
 				};
-				[_ins,_itemClass,1] call Server_Inventory_Add;
-				["You found a rare gem stone!", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];				
+				[_itemClass,1] remoteExec ["A3PL_Inventory_Add", (owner _ins)];
+				["You found a rare gem stone!", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];
 			} else {
 				_itemClass = _obj getVariable ["smallOreItemClass","ore_metal"];
-				[_ins,_itemClass,1] call Server_Inventory_Add;
-				["You succesfully mined one ore", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];				
+				[_itemClass,1] remoteExec ["A3PL_Inventory_Add", (owner _ins)];
+				["You succesfully mined one ore", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];
 			};
 			_obj setVariable ["dmg",_dmg,false];
 		};

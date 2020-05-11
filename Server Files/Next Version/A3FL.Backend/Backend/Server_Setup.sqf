@@ -15,16 +15,7 @@
 
 ["Server_Setup_ResetPlayerDB",
 {
-	private _query = "UPDATE players SET position = '[0,0,0]',job = 'unemployed'";
-	private _query2 = "UPDATE objects SET impounded = '2' WHERE impounded = '3'";
-	private _query3 = "UPDATE objects SET stolen = '0' WHERE stolen = '1'";
-	private _query4 = "UPDATE objects SET numpchange = '0' WHERE numpchange = '1'";
-	private _query5 = "DELETE FROM iphone_messages WHERE to_num = '911'";
-	[_query, 1] call Server_Database_Async;
-	[_query2, 1] call Server_Database_Async;
-	[_query3, 1] call Server_Database_Async;
-	[_query4, 1] call Server_Database_Async;
-	[_query5, 1] call Server_Database_Async;
+	["CALL ResetDatabase();", 1] call Server_Database_Async;
 },true] call Server_Setup_Compile;
 
 //COMPILE BLOCK WARNING, COPY OF THIS IN fn_preinit.sqf

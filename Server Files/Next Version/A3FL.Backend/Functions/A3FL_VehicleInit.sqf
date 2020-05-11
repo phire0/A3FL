@@ -700,6 +700,23 @@
 	}];
 }] call Server_Setup_Compile;
 
+["A3PL_Vehicle_Init_A3FL_LCM", {
+	private ["_veh"];
+	_veh = _this;
+	_veh addEventHandler ["GetIn",
+	{
+		_veh = param [0,objNull];
+		_position = param [1,""];
+		_unit = param [2,objNull];
+
+		if (!local _unit) exitwith {};
+
+		if (_position == "driver") then
+		{
+			[_veh] spawn A3PL_Vehicle_LCMRamp;
+		};
+}] call Server_Setup_Compile;
+
 ["A3PL_Vehicle_Init_A3PL_Tahoe_PD_Slicktop",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_CVPI_PD_Slicktop",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_CVPI_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;

@@ -24,6 +24,7 @@ Config_Paychecks = [
 	["mailman",150,1],
 	["exterminator",150,1],
 	["freight pilot",350,1],
+	["ship captain",500,1]
 	["gov",150,1],
 	["dispatch",150,1],
 	["cartel",150,1],
@@ -136,7 +137,7 @@ Config_Blueprints = [
 		["Aircrafts",
 			["Blueprint_MediumUSCG",80000],
 			["Blueprint_Jayhawk",85000],
-			["Blueprint_CessnaUSCG",90000]			
+			["Blueprint_CessnaUSCG",90000]
 		],
 		["Weapons",
 			["Blueprint_hgun_Pistol_Signal_F",1500],

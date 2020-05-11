@@ -38,6 +38,7 @@
 
 ["A3PL_Inventory_Add", {
 	private ["_class", "_amount","_exit"];
+	hint "Calling Add";
 
 	_class = param [0,""];
 	_amount = param [1,0];

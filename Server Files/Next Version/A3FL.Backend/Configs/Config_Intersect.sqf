@@ -1753,7 +1753,7 @@ Config_IntersectArray =
 	["Ladder_1",localize"STR_INTSECT_EXRELADDER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeof player_objintersect == "A3PL_Ladder"}], //Extend/Retract Ladder
 
 	//RBM
-	["Door_1",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)}], //Lock/Unlock Vehicle Doors
+	["Door_1",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles) && (simulationEnabled player_objIntersect)}], //Lock/Unlock Vehicle Doors
 	["Door_1",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && !(player_objIntersect getVariable ["locked",true]) && (player_objintersect isKindOf "A3PL_RBM")}], //Enter as Driver
 	["Door_1",localize"STR_INTSECT_ENTERASENG","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_cargo_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && !(player_objIntersect getVariable ["locked",true])&& (player_objintersect isKindOf "A3PL_RBM")}], //Enter as Engineer
 	["Door_1",localize"STR_INTSECT_ENTASPASS","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_cargo_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && !(player_objIntersect getVariable ["locked",true])&& (player_objintersect isKindOf "A3PL_RBM")}], //Enter as passanger
