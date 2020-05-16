@@ -86,7 +86,7 @@
 	A3PL_Jobroadworker_MarkerList = [];
 
 	//impound retrieval objects
-	A3PL_Jobroadworker_Impounds = [Shop_ImpoundRetrieve,Shop_ImpoundRetrieve_1,Shop_ImpoundRetrieve_2,Shop_ImpoundRetrieve_3];
+	A3PL_Jobroadworker_Impounds = [Shop_ImpoundRetrieve,Shop_ImpoundRetrieve_1,Shop_ImpoundRetrieve_2,Shop_ImpoundRetrieve_3,Shop_ImpoundRetrieve_5];
 	A3PL_Chopshop_Retrivals = [Shop_Chopshop_Retrieve_1];
 	A3PL_Air_Impounds = [Shop_ImpoundRetrieve_4];
 	A3PL_Jobroadworker_MarkBypass =

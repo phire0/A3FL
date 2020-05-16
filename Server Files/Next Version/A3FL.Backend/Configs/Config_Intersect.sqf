@@ -322,7 +322,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TalkToThePhoneOperator",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_phone_operator}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDoctorWithoutDiploma",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_medicaldirty}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDoctorGuard",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_emt,npc_emt_1,NPC_emt_2,NPC_emt_3,npc_emt_4]}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheBankEmployee",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_bank,npc_bank_1,npc_bank_2,npc_bank_3,npc_bank_4]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheBankEmployee",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_bank,npc_bank_1,npc_bank_2,npc_bank_3,npc_bank_4,npc_bank_5]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheFreight",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_freight_svt,npc_freight_nd]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToInsurer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_insurance,npc_insurance_1,npc_insurance_2]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToPort",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_port_1,npc_port_2,npc_port_3,npc_port_4,npc_port_5,npc_port_6]}],
@@ -338,12 +338,12 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_VehiclePartsFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_piecevehiclefactory}],
 	["spine3",localize"STR_QuickActionsNPC_FactoryBoat",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_boatfactory}],
 	["spine3",localize"STR_QuickActionsNPC_AirbuyFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_aircraftfactory}],
-	["spine3",localize"STR_QuickActionsNPC_RentATowTruck",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_roadworker,npc_roadworker_1,npc_roadworker_2,npc_roadworker_3]}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheRoadService2",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_roadworker,npc_roadworker_1,npc_roadworker_2,npc_roadworker_3]}],
+	["spine3",localize"STR_QuickActionsNPC_RentATowTruck",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_roadworker,npc_roadworker_1,npc_roadworker_2,npc_roadworker_3,npc_roadworker_4]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheRoadService2",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_roadworker,npc_roadworker_1,npc_roadworker_2,npc_roadworker_3,npc_roadworker_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheFermer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_farmer,npc_farmer_1]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheOilExtractor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_oilrecovery}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheTacoHellEmpl",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3]}],
-	["spine3",localize"STR_QuickActionsNPC_TakeTacoHellUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheTacoHellEmpl",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]}],
+	["spine3",localize"STR_QuickActionsNPC_TakeTacoHellUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDrugDealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_drugsdealer}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheCriminalPrint",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_blackmarket}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheBlackMarket",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_blackmarket}],
@@ -415,8 +415,8 @@ Config_IntersectArray =
 	["spine3","Chemical Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_chemicaldealer}],
 
 	//Rob Stores
-	["spine3",localize"STR_QuickActionsNPC_RobShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4])}],
-	["spine3",localize"STR_QuickActionsNPC_SecureShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4]) && ((player getVariable ["job","unemployed"]) IN ["security"])}],
+	["spine3",localize"STR_QuickActionsNPC_RobShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4,Robbable_Shop_5])}],
+	["spine3",localize"STR_QuickActionsNPC_SecureShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4,Robbable_Shop_5]) && ((player getVariable ["job","unemployed"]) IN ["security"])}],
 
 	["spine3",localize"STR_QuickActionsNPC_AccessHardwareShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_hardware_1]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessSeedShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_Seed_Store]}],
@@ -1334,7 +1334,7 @@ Config_IntersectArray =
 	["atego_tow",localize"STR_INTSECT_UnloadVehicle",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& ((player getVariable ["job","unemployed"]) IN ["Roadside","uscg","fifr","fisd"])}],
 	["Ramp_Switch",localize"STR_INTSECT_TOGGRAMP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 	["Spotlight_Switch",localize"STR_INTSECT_TOGREARSPOTL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle Rear Spotlight
-	["carinfo",localize"STR_INTSECT_IMPNEARVEH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{vehicleVarName player_objintersect IN ["Shop_Impound","Shop_Impound_1","Shop_Impound_2","Shop_Impound_3","Shop_Impound_4"]}], //Impound Nearest Vehicle
+	["carinfo",localize"STR_INTSECT_IMPNEARVEH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{vehicleVarName player_objintersect IN ["Shop_Impound","Shop_Impound_1","Shop_Impound_2","Shop_Impound_3","Shop_Impound_4","Shop_Impound_5"]}], //Impound Nearest Vehicle
 
 	//impound lot
 	["impound_Door_button",localize"STR_INTSECT_OPCLIMPGATE",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Impound Gate

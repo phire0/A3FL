@@ -130,7 +130,7 @@ class A3PL_mapAreas {
 			$STR_Description_RecreationalActivities, {"bowling","paintball_larry","silverton_race","SallySpeedway","ccp_wep_2"}
 		},
 		{
-			$STR_Description_Banks, {"bank1","bank1_1","bank1_2","bank1_3","bank1_4"}
+			$STR_Description_Banks, {"bank1","bank1_1","bank1_2","bank1_3","bank1_4","bank1_8"}
 		},
 		{
 			$STR_Description_GasStations, {"gasstation1","gasstation2","gasstation3","gasstation4","gasstation5","gasstation6","gasstation6_1","gasstation2_1","gasstation2_2","gasstation2_3","gasstation_8"}
@@ -160,10 +160,10 @@ class A3PL_mapAreas {
 			$STR_Description_Resources, {"PickingAppleText_1","LumberJack_Area_marker","Sand1","Sand2","PickingAppleText_2","PickingAppleText_3","PickingAppleText_4","Iron_Mine","Coal_Mine","Sulphur_Mine","Aluminium_Mine","Petrol_Mine"}
 		},
 		{
-			$STR_Description_ImpoundLots, {"impoundlot_1","impoundlot_2","impoundlot_3","impoundretrieve","impoundretrieve_1"}
+			$STR_Description_ImpoundLots, {"impoundlot_1","impoundlot_2","impoundlot_3","impoundlot_4","impoundretrieve","impoundretrieve_1"}
 		},
 		{
-			$STR_Description_RobbableShops, {"store_rob_silverton","store_rob_stoney","store_rob_elk","store_rob_northdale"}
+			$STR_Description_RobbableShops, {"store_rob_silverton","store_rob_stoney","store_rob_elk","store_rob_northdale","store_rob_lubbock"}
 		}
 	};
 };

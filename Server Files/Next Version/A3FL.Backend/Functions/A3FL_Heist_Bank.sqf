@@ -176,7 +176,14 @@
 	private ["_drill","_bank","_timeOut","_newDrillValue","_drillValue","_holder","_cops"];
 	_drill = param [0,objNull];
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
-	if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {[format ["There needs to be a minimum of %1 cops online to rob the bank!",MINCOPSREQUIRED],"red"] call A3PL_Player_Notification;};
+	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
+
+	if(_nearCity isEqualTo "Lubbock") then {
+		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {[format ["There needs to be a minimum of %1 USCG online to rob the bank!",MINCOPSREQUIRED],"red"] call A3PL_Player_Notification;};
+	} else {
+		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {[format ["There needs to be a minimum of %1 FISD online to rob the bank!",MINCOPSREQUIRED],"red"] call A3PL_Player_Notification;};
+	};
+
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
 	if (_drill animationPhase "drill_bit" < 1) exitwith {["Drill bit has not been installed","red"] call A3PL_Player_Notification;};
 	if (_drill animationSourcePhase "drill_handle" > 0) exitwith {["Drill has already been started","red"] call A3PL_Player_Notification;};
@@ -188,8 +195,11 @@
 	_bank = (nearestObjects [player, ["Land_A3PL_Bank"], 15]) select 0;
 	[getPlayerUID player,"bankRobbery",[getPos _bank]] remoteExec ["Server_Log_New",2];
 
-	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
 	[format["!!! ALERT !!! A bank is being robbed at %1 !", _nearCity],"green","fisd",3] call A3PL_Lib_JobMessage;
+
+	if(_nearCity isEqualTo "Lubbock") then {
+	[format["!!! ALERT !!! A bank is being robbed at %1 !", _nearCity],"green","uscg",3] call A3PL_Lib_JobMessage;
+	};
 
 	missionNamespace setVariable ["BankCooldown",diag_Ticktime,true];
 

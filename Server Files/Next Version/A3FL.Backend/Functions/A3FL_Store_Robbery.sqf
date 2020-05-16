@@ -24,8 +24,13 @@
 	if ((currentWeapon player) == "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) IN ["hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a store with this weapon!","red"] call A3PL_Player_Notification;};
 
+	if(_store IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4]) then {
 	_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
 	if ((count _cops) < 3) exitwith {["There must be at least 3 FISD on duty to rob this store!","red"] call A3PL_Player_Notification;};
+	} else {
+		_cops = ["uscg"] call A3PL_Lib_FactionPlayers;
+		if ((count _cops) < 3) exitwith {["There must be at least 3 USCG on duty to rob this store!","red"] call A3PL_Player_Notification;};
+	};
 
 	["If you try to turn this store, stay near the cash!", "green"] call A3PL_Player_Notification;
 
