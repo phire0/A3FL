@@ -488,6 +488,8 @@
 
 	[player,"Incapacitated"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 
+	Player_Drugs = [0,0,0];
+
 	_exit = false;
 	while {!(player getVariable ["A3PL_Medical_Alive",true])} do
 	{

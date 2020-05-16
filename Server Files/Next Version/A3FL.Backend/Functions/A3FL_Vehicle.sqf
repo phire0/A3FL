@@ -1575,9 +1575,13 @@
 	if (count _ships < 1) exitwith {[localize"STR_NewVehicle_45", "red"] call A3PL_Player_Notification;};
 	private _ship = _ships select 0;
 
-	[_vehicle, _ship] call BIS_fnc_attachToRelative;
-	["Attached vehicle to ship!", "green"] call A3PL_Player_Notification;
-	[_vehicle] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+	if(_ship IN A3PL_Player_Vehicles) then {
+		[_vehicle, _ship, false] call BIS_fnc_attachToRelative;
+		["Attached vehicle to ship!", "green"] call A3PL_Player_Notification;
+		[_vehicle] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+	} else {
+		["You do not have keys to this ship","red"] call A3PL_Player_Notification;
+	}
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_UnsecureVehicle",
@@ -1784,7 +1788,7 @@
 			case 75:
 			{
 				_val = vehicle player animationSourcePhase "trunk";
-				_valu = _val + 0.02;
+				_valu = _val + 0.01;
 				if (_valu >= 1) then {_valu = 1};
 				vehicle player animateSource ["trunk",_valu];
 				_return = true;
@@ -1792,7 +1796,7 @@
 			case 77:
 			{
 				_val = vehicle player animationSourcePhase "trunk";
-				_valu = _val - 0.02;
+				_valu = _val - 0.01;
 				if (_valu <= 0) then {_valu = 0};
 				vehicle player animateSource ["trunk",_valu];
 				_return = true;

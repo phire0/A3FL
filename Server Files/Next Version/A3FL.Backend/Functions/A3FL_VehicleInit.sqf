@@ -715,7 +715,7 @@
 		{
 			[_veh] spawn A3PL_Vehicle_LCMRamp;
 		};
-	};
+	}];
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Init_A3PL_Tahoe_PD_Slicktop",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
