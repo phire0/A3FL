@@ -154,6 +154,7 @@
 					if(_pos isEqualTo [3507.66,7541.57,0]) then {_setDir = 96;};
 					if(_pos isEqualTo [10313.1,8556.05,0]) then {_setDir = 271.516;};
 					if(_pos isEqualTo [4143.49,6317.9,0]) then {_setDir = 91.5289;};
+					if(_pos isEqualTo [2213.505,11845.4,0]) then {_setDir = 271.575;};
 					_veh setDir(_setDir);
 				};
 			};
@@ -198,8 +199,8 @@
 	private _sirenType = "police";
 	switch (true) do {
 		case (_classname IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]): {_sirenType = "fire";};
-		case (_classname IN ["A3PL_Tahoe_FD"]): {_sirenType = "fire_FR";};
-		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_VetteZR1_PD"]): {_sirenType = "police";};
+		case (_classname IN ["A3PL_Tahoe_FD","A3PL_Taurus_FD","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush"]): {_sirenType = "fire_FR";};
+		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST"]): {_sirenType = "police";};
 		case (_classname IN ["Jonzie_Ambulance","A3PL_E350"]): {_sirenType = "ems";};
 	};
 	switch (_sirenType) do {
@@ -421,6 +422,7 @@
 	_light_2 setdir 180;
 	_this animate ["Pushbar_Addon",1];
 	_this animate ["Spotlight_Addon",1];
+	diag_log "Called";
 },true] call Server_Setup_Compile;
 
 ["Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop",{_this call Server_Vehicle_Siren_Init;},true] call Server_Setup_Compile;
@@ -439,6 +441,8 @@
 ["Server_Vehicle_Init_M_explorer",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Taurus_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3PL_Taurus_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3PL_Taurus_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 
 ["Server_Vehicle_Init_C_Van_02_transport_F",
 {

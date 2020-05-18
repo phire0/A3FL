@@ -317,8 +317,8 @@ Config_IntersectArray =
 	["takebody",localize"STR_INTSECT_TAKEBODY",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'A3PL_BodyDead'}],
 	["takebody",localize"STR_INTSECT_HIDEOUTSHOP",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'A3PL_BodyDead'}],
 
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheMcFishersEmpl",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mcfisher,npc_mcfisher_1,npc_mcfisher_2,npc_mcfisher_3]}],
-	["spine3",localize"STR_QuickActionsNPC_TakeMcFishersUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mcfisher,npc_mcfisher_1,npc_mcfisher_2,npc_mcfisher_3]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheMcFishersEmpl",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mcfisher,npc_mcfisher_1,npc_mcfisher_2,npc_mcfisher_3,npc_mcfisher_4]}],
+	["spine3",localize"STR_QuickActionsNPC_TakeMcFishersUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mcfisher,npc_mcfisher_1,npc_mcfisher_2,npc_mcfisher_3,npc_mcfisher_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToThePhoneOperator",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_phone_operator}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDoctorWithoutDiploma",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_medicaldirty}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDoctorGuard",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_emt,npc_emt_1,NPC_emt_2,NPC_emt_3,npc_emt_4]}],
@@ -343,7 +343,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheFermer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_farmer,npc_farmer_1]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheOilExtractor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_oilrecovery}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheTacoHellEmpl",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]}],
-	["spine3",localize"STR_QuickActionsNPC_TakeTacoHellUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]]}],
+	["spine3",localize"STR_QuickActionsNPC_TakeTacoHellUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDrugDealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_drugsdealer}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheCriminalPrint",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_blackmarket}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheBlackMarket",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_blackmarket}],
@@ -362,11 +362,11 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_Shop_IllegalWeaponsCartel",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && ((player getVariable["job","unemployed"]) == "cartel")}],
 	["spine3",localize"STR_QuickActionsNPC_Shop_BlackMarketCartel",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && ((player getVariable["job","unemployed"]) == "cartel")}],
 
-	["spine3",localize"STR_QuickActionsNPC_GamerPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7]}],
-	["spine3",localize"STR_QuickActionsNPC_GardenPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7]}],
-	["spine3",localize"STR_QuickActionsNPC_MancavePerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7]}],
-	["spine3",localize"STR_QuickActionsNPC_WalldecorPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7]}],
-	["spine3",localize"STR_QuickActionsNPC_WinchesterPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7]}],
+	["spine3",localize"STR_QuickActionsNPC_GamerPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3]}],
+	["spine3",localize"STR_QuickActionsNPC_GardenPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3]}],
+	["spine3",localize"STR_QuickActionsNPC_MancavePerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3]}],
+	["spine3",localize"STR_QuickActionsNPC_WalldecorPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3]}],
+	["spine3",localize"STR_QuickActionsNPC_WinchesterPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3]}],
 
 	["spine3",localize"STR_QuickActionsNPC_AccessMinerShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
 	["spine3",localize"STR_QuickActionsNPC_BuyMapIron",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
@@ -401,16 +401,16 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_RemoveElectronicBracelet",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_Big_Weapon_Dealer}],
 
 	//shops
-	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_4,npc_furniture_6,npc_perkfurniture_1]}],
-	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply2",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_3,npc_furniture_5,npc_perkfurniture_2]}],
-	["spine3",localize"STR_QuickActionsNPC_AccessGeneralShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_general_1,NPC_general_2,NPC_general_3]}],
+	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_4,npc_furniture_6,npc_perkfurniture_1,npc_perkfurniture_4]}],
+	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply2",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_3,npc_furniture_5,npc_perkfurniture_2,npc_perkfurniture_5]}],
+	["spine3",localize"STR_QuickActionsNPC_AccessGeneralShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_general_1,NPC_general_2,NPC_general_3,NPC_general_4]}],
 	["spine3",localize"STR_QuickActionsNPC_PaintBallShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_pinhead]}],
 	["spine3",localize"STR_QuickActionsNPC_Store",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_Buckeye]}],
 	["spine3",localize"STR_QuickActionsNPC_BucheronShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_Hemlock]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopWaste",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_WasteManagement]}],
 	["spine3",localize"STR_QuickActionsNPC_StartStopWaste",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_WasteManagement]}],
-	["spine3",localize"STR_QuickActionsNPC_StartStopDelivery",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mailman,npc_mailman_stoney,npc_mailman_northdale,npc_mailman_beachV]}],
-	["spine3",localize"STR_QuickActionsNPC_MailManShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mailman,npc_mailman_stoney,npc_mailman_northdale,npc_mailman_beachV]}],
+	["spine3",localize"STR_QuickActionsNPC_StartStopDelivery",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mailman,npc_mailman_stoney,npc_mailman_northdale,npc_mailman_beachV,npc_mailman_lubbock]}],
+	["spine3",localize"STR_QuickActionsNPC_MailManShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mailman,npc_mailman_stoney,npc_mailman_northdale,npc_mailman_beachV,npc_mailman_lubbock]}],
 	["spine3",localize"STR_QuickActionsNPC_KartRent",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_Karts]}],
 	["spine3","Chemical Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_chemicaldealer}],
 
@@ -437,7 +437,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDMVNPC",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_dmv}],
 
 	["spine3",localize"STR_QuickActionsNPC_PriseServiceUSMS",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usmsshop_1}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToSheriff",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton_1,npc_sd_elk,npc_sd_elk1,npc_sd_nd]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToSheriff",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton_1,npc_sd_elk,npc_sd_elk1,npc_sd_nd,npc_sd_lubbock]}],
 	["spine3",localize"STR_QuickActionsNPC_PriseServiceDOJ",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_doj}],
 
 	["spine3",localize"STR_QuickActionsNPC_ATCManager",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_faastart}],
@@ -449,7 +449,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessSDWeaponsFISD",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton, npc_sd_northdale,npc_sd_elk_shop]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSMSCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usms_vehicles}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFISDCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_vehicles,npc_sd_vehicles_1]}],
-	["spine3",localize"STR_QuickActionsNPC_AccessFISDSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop]}],
+	["spine3",localize"STR_QuickActionsNPC_AccessFISDSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]}],
 	["spine3",localize"STR_QuickActionsNPC_FakeID",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop]) && (player getVariable["FakeIDAccess",false]) && (player getVariable["faction","civlian"] == "fisd")}],
 	["spine3",localize"STR_QuickActionsNPC_AccessDOJSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_doj}],
 	["spine3",localize"STR_QuickActionsNPC_AccessDMVSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_dmv}],
@@ -2080,6 +2080,7 @@ publicVariable "Config_IntersectArray";
 //If a specific intersection name is in this array it will execute and not check for a specific typeOf aka it ignores that parameter
 Config_GenArray =
 [
+  localize"STR_INTSECT_IMPNEARVEH",
 	"Ship Ramp",
 	"Purchase Warehouse",
 	"Chemical Dealer",

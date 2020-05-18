@@ -24,6 +24,7 @@
 		case("npc_mailman_stoney"): {_spawnPos = [3507.66,7541.57,0];};
 		case("npc_mailman_northdale"): {_spawnPos = [10313.1,8556.05,0];};
 		case("npc_mailman_beachV"): {_spawnPos = [4143.49,6317.9,0];};
+		case("npc_mailman_lubbock"): {_spawnPos = [2213.505,11845.4,0];};
 	};
 
 	uiSleep (random 2 + 2);

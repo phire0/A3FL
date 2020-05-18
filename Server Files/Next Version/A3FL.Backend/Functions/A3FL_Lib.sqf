@@ -200,7 +200,7 @@
 	private _anim = animationState player;
 	player setVariable ["dragged",false,true];
 	_veh lock 1;
-	player moveInCargo _veh;
+	player moveInCargo [_veh,1];
 	_veh lock 2;
 	if (_detain) then {
 		[_veh,_anim] spawn {

@@ -26,11 +26,6 @@
 		(findDisplay 46) displayAddEventHandler ["KeyUp", {_this call A3PL_EventHandlers_HandleUp;}];
 		player addEventHandler ["InventoryOpened", {_this call A3PL_Prevent_Patdown_Cloning;}];
 
-		["restartannoucement", {
-			_unit = playableUnits call BIS_fnc_selectRandom;
-		  [] remoteExec ["A3PL_Player_Restart",_unit];
-		}, "adminLogged"] call CBA_fnc_registerChatCommand;
-
 		["ArmA 3 Fishers Life","interaction_key", "Interaction Menu",
 		{
 			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
@@ -614,11 +609,9 @@
 			_unit setVariable ["getHit",_hit,false];
 		};
 
-		if (diag_tickTime <= ((missionNameSpace getVariable ["A3PL_HitTime",diag_ticktime-0.2]) + 0.1)) then {} else
-		{
-			A3PL_HitTime = diag_ticktime;
+			player setVariable ["lastDamage",(_source getVariable["db_id",0]),true];
+
 			[_unit] spawn A3PL_Medical_Hit;
-		};
 		_dmg;
 	}];
 }] call Server_Setup_Compile;

@@ -175,14 +175,18 @@
 {
 	private ["_drill","_bank","_timeOut","_newDrillValue","_drillValue","_holder","_cops"];
 	_drill = param [0,objNull];
+	_fail = false;
+	_faction = "FISD";
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
 
 	if(_nearCity isEqualTo "Lubbock") then {
-		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {[format ["There needs to be a minimum of %1 USCG online to rob the bank!",MINCOPSREQUIRED],"red"] call A3PL_Player_Notification;};
+		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {_fail=true;_faction="USCG";};
 	} else {
-		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {[format ["There needs to be a minimum of %1 FISD online to rob the bank!",MINCOPSREQUIRED],"red"] call A3PL_Player_Notification;};
+		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {_fail=true;_faction="FISD";};
 	};
+
+	if(_fail) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob the bank!",MINCOPSREQUIRED,_faction],"red"] call A3PL_Player_Notification;};
 
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
 	if (_drill animationPhase "drill_bit" < 1) exitwith {["Drill bit has not been installed","red"] call A3PL_Player_Notification;};
@@ -191,7 +195,6 @@
 	if(_robTime >= (diag_Ticktime-7200)) exitWith {["A bank has already been robbed less than 2 hours ago","red"] call A3PL_Player_Notification;};
 
 
-	//bank object
 	_bank = (nearestObjects [player, ["Land_A3PL_Bank"], 15]) select 0;
 	[getPlayerUID player,"bankRobbery",[getPos _bank]] remoteExec ["Server_Log_New",2];
 
@@ -203,10 +206,8 @@
 
 	missionNamespace setVariable ["BankCooldown",diag_Ticktime,true];
 
-	//bank alarm
 	playSound3D ["A3PL_Common\effects\bankalarm.ogg", _bank, true, _bank, 3, 1, 250];
 
-	//start drill
 	_drill animateSource ["drill_handle",1];
 	playSound3D ["A3PL_Common\effects\bankdrill.ogg", _drill, true, _drill, 3, 1, 100];
 	_timeOut = (getNumber (configFile >> "CfgVehicles" >> "A3PL_Drill_Bank" >> "animationSources" >> "drill_handle" >> "animPeriod"));
@@ -222,7 +223,6 @@
 	};
 	if (((_drill animationSourcePhase "drill_handle") < 1) OR (isNull _drill)) exitwith {["Drilling cancelled",code_red] call A3PL_Player_Notification;}; //for some reason drilling failed
 
-	//animate bank door open
 	_bank animateSource ["door_bankvault",1];
 
 	_bank setVariable ["timer",serverTime];

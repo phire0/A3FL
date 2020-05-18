@@ -109,6 +109,14 @@ Config_Garage_Upgrade =
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0] //,"Front pushbar","Protect front from collisions",
 	],
+	["A3PL_Taurus_PD_ST",
+		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
+		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0] //,"Front pushbar","Protect front from collisions",
+	],
+	["A3PL_Taurus_FD",
+		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
+		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0] //,"Front pushbar","Protect front from collisions",
+	],
 	["A3PL_Charger_PD_Slicktop",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0],  //,"Front pushbar","Protect front from collisions",

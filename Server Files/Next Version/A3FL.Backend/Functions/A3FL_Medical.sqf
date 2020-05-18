@@ -493,15 +493,32 @@
 	_exit = false;
 	while {!(player getVariable ["A3PL_Medical_Alive",true])} do
 	{
+		_lastDamage = player getVariable ["lastDamage",0];
 		if(player getVariable ["DoubleTapped",false]) then {
-			titleText [format ["You are unconscious due to your blood level, your heart will stop in %1 seconds - you CANNOT remember the events leading to your death!",_timer], "PLAIN"];
-			if ((animationState player) != "AinjPpneMstpSnonWnonDnon") then {
-				[player,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
-			};
-		} else {
-			titleText [format ["You are unconscious due to your blood level, your heart will stop in %1 seconds - you CAN remember the events leading to your death!",_timer], "PLAIN"];
+			_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t>"
+			+ "<br/>"
+			+ "<t size='2'> You CAN remember the events leading to your death! </t>"
+			+ "<br/>"
+			+ "<t size='2' color='#00ff00'> Time Remaining: </t><t size='2'>%1</t>"
+			+ "<br/>"
+			+ "<t size='2' color='#00ff00'> Killed By: </t><t size='2'>%2</t>"
+			+ "<br/>",_timer,_lastDamage];
+			titleText [_format, "PLAIN",-1,true,true];
 			if ((animationState player) != "Incapacitated") then {
 				[player,"Incapacitated"] remoteExec ["A3PL_Lib_SyncAnim",-2];
+			};
+		} else {
+			_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t>"
+			+ "<br/>"
+			+ "<t size='2'> You CAN remember the events leading to your death! </t>"
+			+ "<br/>"
+			+ "<t size='2'> Time Remaining: </t><t size='2'>%1</t>"
+			+ "<br/>"
+			+ "<t size='2'> Killed By: </t><t size='2'>%2</t>"
+			+ "<br/>",_timer,_lastDamage];
+			titleText [_format, "PLAIN",-1,true,true];
+			if ((animationState player) != "AinjPpneMstpSnonWnonDnon") then {
+				[player,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 			};
 		};
 		uiSleep 1;

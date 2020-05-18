@@ -344,7 +344,7 @@
 			{
 				if (!([_itemClass,"canPickup"] call A3PL_Config_GetItem)) then
 				{
-					_near = nearestObjects [player, [([_itemClass,"class"] call A3PL_Config_GetItem)], 5, true];
+					_near = nearestObjects [player, [([_itemClass,"class"] call A3PL_Config_GetItem)], 2, true];
 					{
 						if ((_x getVariable "class") == _itemClass) exitwith
 						{
