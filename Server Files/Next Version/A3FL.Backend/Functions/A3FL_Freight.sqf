@@ -24,7 +24,7 @@
 {
 	private _startPoint = param [0,objNull];
 	private _plane = param [1,objNull];
-	private _destinations = [npc_freight_svt,npc_freight_nd];
+	private _destinations = [npc_freight_svt,npc_freight_nd,npc_freight_lubbock];
 	_destinations find _startPoint;
 	_destinations deleteAt (_destinations find _startPoint);
 	private _destination = selectRandom _destinations;
@@ -103,6 +103,7 @@
 	private _return = "unknown";
 	if(_delPoint isEqualTo "npc_freight_svt") then {_return="Silverton Airfield";};
 	if(_delPoint isEqualTo "npc_freight_nd") then {_return="Northdale Airfield";};
+	if(_delPoint isEqualTo "npc_freight_lubbock") then {_return="Lubbock Airfield";};
 	_return;
 }] call Server_Setup_Compile;
 

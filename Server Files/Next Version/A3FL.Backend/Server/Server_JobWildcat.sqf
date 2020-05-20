@@ -10,7 +10,7 @@
 
 ["Server_JobWildcat_RandomizeOil",
 {
-	Server_JobWildCat_Oil = [];
+	Server_JobWildCat_Oil = [[3488.800,12506.046],10000];
 	for "_i" from 0 to 30 do {
 		private ["_randPos","_overWater"];
 		_randPos = ["OilSpawnArea"] call CBA_fnc_randPosArea;
