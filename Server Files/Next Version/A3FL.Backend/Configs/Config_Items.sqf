@@ -26,7 +26,7 @@ Config_Items =
 	["dirty_cash",localize"STR_ConfigItems_dirty_cash", 0.0005, "A3PL_Money", 0, true, true, true, true, true, "", [0,0,0], ""],
 	["dildo",localize"STR_ConfigItems_dildo",0.1,"A3PL_Dildo",0,true,true,true,true,true,"", [0,0,0], ""],
 
-	["v_lockpick",localize"STR_ConfigItems_v_lockpick",0.1,"A3PL_Grinder",0,true,true,true,true,true,"", [0,0,0], ""],
+	["v_lockpick",localize"STR_ConfigItems_v_lockpick",0.1,"A3PL_Lockpick",0,true,true,true,true,true,"", [0,0,0], ""],
 	["keycard",localize"STR_ConfigItems_keycard",0.1,"A3PL_Lockpick",0,true,true,true,true,true,"", [0,0,0], ""],
 
 	["pizzabites",localize"STR_ConfigItems_pizzabites", 0.1, "A3PL_PartyPack",0,true,true,true, true, true,"A3PL_Items_Food", [0,0,0], ""],
@@ -409,6 +409,7 @@ Config_Items =
 	["med_oxygenmask",localize"STR_ConfigItems_med_oxygenmask",0.05,"A3PL_Medical_OxygenMask",0,true,true,true,true,true,"", [0,0,0], ""],
 	["med_splint",localize"STR_ConfigItems_med_splint",0.025,"A3PL_Medical_Splint",0,true,true,true,true,true,"", [0,0,0], ""],
 	["med_painkillers",localize"STR_ConfigItems_med_painkillers",0.05,"A3PL_PainKillers",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_eyewash","Eye Wash Solution",0.05,"A3PL_PainKillers",0,true,true,true,true,true,"", [0,0,0], ""],
 	["med_narcan",localize"STR_ConfigItems_med_narcan",0.05,"A3PL_PainKillers",0,true,true,true,true,true,"", [0,0,0], ""],
 	["med_autograft",localize"STR_ConfigItems_med_autograft",0.5,"A3PL_Medical_Kit",0,true,true,true,true,true,"", [0,0,0], ""],
 	["medS_bloodbag",localize"STR_ConfigItems_medS_bloodbag",0.05,"A3PL_BloodBag",0,true,true,true,true,true,"", [0,0,0], ""],

@@ -170,7 +170,6 @@
 		["ArmA 3 Fishers Life","vault_key", "Vault Key",
 		{
 			_max_height = 4.3;
-			hint "vault key pressed";
 		 if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
 		 if(speed player < 8) exitWith {};
 		 if((player == vehicle player) && (player getvariable ["jump",true]) && (isTouchingGround player)) then  {
@@ -625,7 +624,7 @@
 		if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 		_distance = param [2,100];
 		_weaponClass = param [3,""];
-		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_GolfDriver"];
+		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_GolfDriver","A3FL_PepperSpray"];
 
 		if(_distance <= 30 && (!(_weaponClass IN _except))) then
 		{

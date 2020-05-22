@@ -1592,7 +1592,7 @@
 		detach _x;
 		[_x] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	} foreach (attachedObjects _ship);
-	[localize"STR_NewVehicle_47", "green"] call A3PL_Player_Notification;
+	["All Vehicles Detached!", "green"] call A3PL_Player_Notification;
 
 }] call Server_Setup_Compile;
 

@@ -48,24 +48,22 @@
 ["A3PL_Business_Rent",
 {
 	disableSerialization;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
+	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_display","_control","_name","_business","_sign","_sControl","_rentTime","_rentCost"];
 	_sign = param [0,player_objintersect];
 	if (typeOf _sign == "Land_A3PL_BusinessSign") then
 	{
-		_business = (nearestObjects [_sign,BUSINESSOBJS,50]) select 0; //find first business
+		_business = (nearestObjects [_sign,BUSINESSOBJS,50]) select 0;
 	};
 	if (isNil "_business") exitwith {["System Error: _business isNil in Business_Rent (Unable to determine business object)"] call A3PL_Player_Notification;};
 	if (isNull _business) exitwith {["System Error: _business isNull in Business_Rent (Unable to determine business object)"] call A3PL_Player_Notification;};
 	_display = findDisplay 57;
 	_control = _display displayCtrl 1400;
-	_name = ctrlText _control; //business name entered
+	_name = ctrlText _control;
 
-	//parse business name
 	if (count _name < 5) exitwith {[localize"STR_BUSINESS_ENTERVALIDNAMEMINI5CARACTERE"] call A3PL_Player_Notification;};
 	if (count _name > 30) exitwith {[localize"STR_BUSINESS_ENTERVALIDNAMEMAX30"] call A3PL_Player_Notification;};
 
-	//get info that we selected
 	_display = findDisplay 57;
 	_sControl = _display displayCtrl 1900;
 	_rentTime = round (sliderPosition _sControl);

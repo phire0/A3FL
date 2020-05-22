@@ -132,7 +132,8 @@ Config_NPC_Text =
 	["atc", localize"STR_NPC_ATCINIT",[localize"STR_NPC_ATC_1",localize"STR_NPC_ATC_2"],["[] call A3PL_ATC_Tower;",""]],
 	["freight_initial", localize"STR_NPC_FREIGHTINIT",[localize"STR_NPC_FREIGHT_OPT1",localize"STR_NPC_FREIGHT_OPT2",localize"STR_NPC_FREIGHT_OPT3"],["[player_objintersect] call A3PL_Freight_Start;","[player_objintersect] call A3PL_Freight_Unload;",""]],
 
-	["ship_initial", "Hi, I run the shipping company. &lt;br/&gt;&lt;br/&gt; How can I help you?",["Sign on as a Ship Captain","Request a pickup at this location",localize"STR_NPC_FREIGHT_OPT3"],["['ship captain'] call A3PL_NPC_TakeJob;['ship_captain_accepted'] call A3PL_NPC_Start;","[player_objintersect] call A3PL_Freight_Unload;",""]],
-	["ship_captain_accepted",  "You are now working for the shipping company!",["Thanks, I'll be on my way now!","I need to rent a ship!"],["","['player_objintersect'] call A3PL_JobShipCaptain_RentVehicle;"]]
+	["ship_initial", "Hi, I run the shipping company How can I help you?",["Sign on as a Ship Captain",localize"STR_NPC_FREIGHT_OPT3"],["if (['boat',player] call A3PL_DMV_Check) then { ['captain'] call A3PL_NPC_TakeJob;['ship_captain_accepted'] call A3PL_NPC_Start; } else {['ship_captain_denied'] call A3PL_NPC_Start;}",""]],
+	["ship_captain_accepted", "You are now working for the shipping company!",["Thanks, I'll be on my way now!","I need to rent a ship!"],["","[player_objintersect] call A3PL_JobShipCaptain_RentVehicle;"]],
+	["ship_captain_denied", "You need to get a boating license to work for me, contact USCG to get one!",["Thanks, I'll be on my way now!"],[""]]
 ];
 publicVariable "Config_NPC_Text";

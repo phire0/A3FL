@@ -12,7 +12,6 @@ PublicVariable "A3PL_Respawn_Time";
 //ID, WOUND NAME,CAUSES UNCONSCIOUSNESS,SEVERITY (orange/red),INSTANT BLOOD LOSS, BLOOD LOSS UNTIL TREATED,PAIN LEVEL INCREASE,ITEM TO TREAT, FULLY HEALS, ITEM TO FULLY HEAL
 Config_Medical_Wounds =
 [
-	//Bullet wounds
 	["bullet_minor",localize"STR_ConfigMedical_1","orange",950,50,5,"med_bandage",false, "med_kit"], // "med_suture"
 	["bullet_major",localize"STR_ConfigMedical_2","red",1800,70,8,"med_bandage",false,"med_kit"], // "med_surgical"
 	["bullet_head",localize"STR_ConfigMedical_3","red",2500,80,8,"med_bandage",false,"med_kit"],
@@ -25,11 +24,12 @@ Config_Medical_Wounds =
 	["bone_broken",localize"STR_ConfigMedical_9","red",600,50,6,"med_splint",false,"med_cast"], //"med_splint" "med_cast"
 	["taser",localize"STR_ConfigMedical_10","orange",0,0,1,"",true,""],
 
-	//concussion
+
 	["concussion_minor",localize"STR_ConfigMedical_11","orange",0,0,2,"med_painkillers",true,""],
 	["concussion_major",localize"STR_ConfigMedical_12","red",0,0,4,"med_painkillers",false,"med_icepack"],
+	["pepper_spray","Pepper Spray","orange",0,0,2,"",true,"med_eyewash"],
 
-	//fire damage
+
 	["smoke_minor",localize"STR_ConfigMedical_15","orange",0,0,1,"med_painkillers",true,"med_oxygenmask"],
 	["smoke_medium",localize"STR_ConfigMedical_16","orange",0,0,1,"",false,"med_endotracheal"],
 	["smoke_major",localize"STR_ConfigMedical_17","red",0,0,1,"",false,"med_endotracheal"],

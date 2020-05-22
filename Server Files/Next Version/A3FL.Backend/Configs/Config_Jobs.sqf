@@ -8,7 +8,6 @@
 
 Config_Paychecks = [
 	["fbi",250,1],
-
 	["unemployed", 150, 1],
 	["uber",150,1],
 	["fisher", 150,1],
@@ -24,7 +23,7 @@ Config_Paychecks = [
 	["mailman",150,1],
 	["exterminator",150,1],
 	["freight pilot",350,1],
-	["ship captain",500,1]
+	["captain",500,1],
 	["gov",150,1],
 	["dispatch",150,1],
 	["cartel",150,1],

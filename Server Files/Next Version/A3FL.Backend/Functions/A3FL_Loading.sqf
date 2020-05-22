@@ -29,19 +29,19 @@
 		//+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>TEXT_HERE.</t>"
 
 		_control = (_display displayCtrl 69);
-		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.0.6</t>"
+		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.0.7</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>New cocaine system</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>New Island (Northern Island)</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Freight Pilot Job</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Ford Taurus(LB,Slicktop,FIFR) - Ford Raptor(LB,Slicktop)</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Ford Raptor / Ford Taurus / Kawasaki Kx</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Baseball bats/Golf Clubs/Pepper Spray</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>TFR Updated</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>LCM Transport Ship & Job</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>White Mansions</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Loading bar being slow</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Taser balanced</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>ArmA deaths from drowning</t>"
 		+ "<br/>"
 		+ "<t size='0.8' align='center'>For the full changelog visit the forum @ arma3fisherslife.net</t>";
 		_control ctrlSetStructuredText (parseText _format);

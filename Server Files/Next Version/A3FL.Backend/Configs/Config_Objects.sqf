@@ -14,6 +14,9 @@ Config_Objects_Bargates = [
 	[[2252.52,5128.71,0],["uscg"]],					//CG BASE - AIRFIELD SIDE
 	[[10662.2,8919.53,0],["uscg","fifr"]],			//NORTHDALE AIRFIELD
 	[[2601.23,5435.68,0],["fisd","uscg","fifr"]],	//SILVERTON SD
+	[[1836,11365,0],["fifr","fisd","uscg","usms"]], //Northern Island CG base
+	[[2049,11709,0],["fifr","fisd","uscg","usms"]], //Northern Island SD
+
 
 	//DOC GATES
 	[[4746.49,6107.14,0],["uscg","fisd","fifr","usms"]],

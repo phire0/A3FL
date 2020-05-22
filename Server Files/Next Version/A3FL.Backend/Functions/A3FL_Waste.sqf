@@ -6,9 +6,12 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
+// Elk City
+// Northern Ireland
 ["A3PL_Waste_StartJob",
 {
 	_location = param [0,player_objintersect];
+	_spawnLoc = [6031.92,7494.859,0];
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	if (player getVariable ["job","unemployed"] == "waste") exitwith {[localize"STR_NewWaste_1","red"]; [] call A3PL_NPC_LeaveJob};
 	player setVariable ["job","waste"];
@@ -20,10 +23,12 @@
 	uiSleep 4;
 
 	switch(_location) do {
-		case NPC_WasteManagement: {_spawnLoc = [6031.92,7494.859,0];}; // Elk City
-		case NPC_WasteManagement_1: {_spawnLoc = [5970.537,7397.768,0.766];}; // Northern Ireland
+		case NPC_WasteManagement: {_spawnLoc = [6031.92,7494.859,0];};
+		case NPC_WasteManagement_1: {_spawnLoc = [3125.88,11889.6,0.766];};
 		default {_spawnLoc = [6031.92,7494.859,0];};
 	};
+
+	hint str _spawnLoc;
 
 	["A3PL_P362_Garbage_Truck",_spawnLoc,"waste",1800] spawn A3PL_Lib_JobVehicle_Assign;
 }] call Server_Setup_Compile;

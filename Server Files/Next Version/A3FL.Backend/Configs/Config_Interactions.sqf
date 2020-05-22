@@ -1032,12 +1032,12 @@ A3PL_Interaction_Options =
 	[
 		"Secure Vehicle",
 		{[cursorObject] call A3PL_Vehicle_SecureVehicle;},
-		{(player getVariable ["job","unemployed"] == "Ship Captain") && (vehicle player isEqualTo player) && ((player distance cursorObject) < 7)}
+		{(vehicle player isEqualTo player) && {((player distance cursorObject) < 10)} && {(count(nearestObjects [player, ["A3FL_LCM"], 20]) > 0)} && {(typeOf cursorObject != "A3FL_LCM")}}
 	],
 	[
 		"Unsecure Vehicle",
 		{[cursorObject] call A3PL_Vehicle_UnsecureVehicle;},
-		{(player getVariable ["job","unemployed"] == "Ship Captain") && (vehicle player isEqualTo player) && ((speed vehicle player) < 1) && ((player distance cursorObject) < 15)}
+		{(vehicle player isEqualTo player) && {((speed vehicle player) < 1)} && {((player distance cursorObject) < 7)} && {(typeOf cursorObject isEqualTo "A3FL_LCM")}}
 	],
 	[
 		localize"STR_INTER_DETACHHELI",

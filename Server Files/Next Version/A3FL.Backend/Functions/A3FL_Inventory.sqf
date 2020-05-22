@@ -154,15 +154,18 @@
 
 	[] call A3PL_Inventory_Populate;
 
-	[] spawn {
-		_hndl = ppEffectCreate ['dynamicBlur', 505];
-		_hndl ppEffectEnable true;
-		_hndl ppEffectAdjust [5];
-		_hndl ppEffectCommit 0;
-		waitUntil {isNull findDisplay 1001};
-		ppEffectDestroy _hndl;
-		player setVariable ["inventory_opened", false, true];
-	};
+		[] spawn {
+			_hndl = ppEffectCreate ['dynamicBlur', 505];
+			_hndl ppEffectEnable true;
+			_hndl ppEffectAdjust [5];
+			_hndl ppEffectCommit 0;
+
+			waitUntil {isNull findDisplay 1001};
+		  if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
+			ppEffectDestroy _hndl;
+			};
+			player setVariable ["inventory_opened", false, true];
+		};
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Populate", {
