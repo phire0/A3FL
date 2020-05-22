@@ -53,6 +53,9 @@ Config_Vehicles_Capacity = [
 	["A3PL_Charger15",180],
 	["A3PL_Monster",180],
 	["A3PL_Taurus",180],
+	["A3PL_Taurus_PD",180],
+	["A3PL_Taurus_PD_ST",180],
+	["A3PL_Taurus_FD",180],
 
 	["A3PL_P362_TowTruck",200],
 
@@ -137,6 +140,9 @@ Config_Vehicles_Insurance = [
 	["A3PL_CVPI_PD",3000],
 	["A3PL_CVPI_PD_Slicktop",3000],
 	["A3PL_Taurus",4500],
+	["A3PL_Taurus_PD",4500],
+	["A3PL_Taurus_PD_ST",4500],
+	["A3PL_Taurus_FD",4500],
 	["A3PL_Charger",19000],
 	["A3PL_Charger_PD",6500],
 	["A3PL_Charger_PD_Slicktop",6500],

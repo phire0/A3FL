@@ -261,6 +261,11 @@ Config_Shops_Items = [
 		],{[6975.15,5413.12,2]}
 	],
 
+	["Shop_Moonshine",[
+			["item","jug_moonshine",-1,5500,4]
+		],{[6975.15,5413.12,2]}
+	],
+
 	["Shop_DrugsDealer",[["item","seed_marijuana",300,180,8]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
 	["Shop_DrugsDealerCartel",[["item","seed_marijuana",150,75,2]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],

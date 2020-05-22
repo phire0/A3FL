@@ -8,6 +8,11 @@
 
 [
 	"",
+	"Big Dicks Sports Store",
+	{["Shop_Big_Dicks_Sports"] call A3PL_Shop_Open;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_AccessAcierie",
 	{["Steel Mill"] call A3PL_Factory_Open;}
 ],
@@ -221,6 +226,11 @@
 	"",
 	localize"STR_QuickActionsNPC_Store",
 	{["Shop_Buckeye"] call A3PL_Shop_Open;}
+],
+[
+	"",
+	"Moonshine Trader",
+	{["Shop_Moonshine"] call A3PL_Shop_Open;}
 ],
 [
 	"",
@@ -577,6 +587,11 @@
 	"",
 	localize"STR_QuickActionsNPC_TalkToTheMcFishersEmpl",
 	{["mcfishers_initial"] call A3PL_NPC_Start;}
+],
+[
+	"",
+	"Talk to the Ship Captain",
+	{["ship_initial"] call A3PL_NPC_Start;}
 ],
 [
 	"",

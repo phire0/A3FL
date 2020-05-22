@@ -8,6 +8,7 @@
 
 ["A3PL_Waste_StartJob",
 {
+	_location = param [0,player_objintersect];
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	if (player getVariable ["job","unemployed"] == "waste") exitwith {[localize"STR_NewWaste_1","red"]; [] call A3PL_NPC_LeaveJob};
 	player setVariable ["job","waste"];
@@ -18,7 +19,13 @@
 	[] call A3PL_Player_SetMarkers;
 	uiSleep 4;
 
-	["A3PL_P362_Garbage_Truck",[6031.92,7494.859,0],"waste",1800] spawn A3PL_Lib_JobVehicle_Assign;
+	switch(_location) do {
+		case NPC_WasteManagement: {_spawnLoc = [6031.92,7494.859,0];}; // Elk City
+		case NPC_WasteManagement_1: {_spawnLoc = [5970.537,7397.768,0.766];}; // Northern Ireland
+		default {_spawnLoc = [6031.92,7494.859,0];};
+	};
+
+	["A3PL_P362_Garbage_Truck",_spawnLoc,"waste",1800] spawn A3PL_Lib_JobVehicle_Assign;
 }] call Server_Setup_Compile;
 
 ["A3PL_Waste_CheckNear",
@@ -87,7 +94,7 @@
 			_truck animateSource  ["Bin2", 0,true];
 		};
 	};
-	
+
 	_truck setVariable [_name,nil,true];
 }] call Server_Setup_Compile;
 
@@ -97,32 +104,32 @@
 	_truck = param [0,objNull];
 	_anim = param [1,""];
 	_truck animateSource [_anim, 1];
-	
+
 	_binObj = _truck getVariable [_anim,Objnull];
 	if (isNull _binObj) exitwith {["System: Error getting _binObj variable","red"] call A3PL_Player_Notification;};
 
 	if (_binObj getVariable ["A3PL_Waste_ReceivedMoney",false]) exitwith {[localize"STR_NewWaste_5","red"] call A3PL_Player_Notification;};
-	_binObj setVariable ["A3PL_Waste_ReceivedMoney",true];	
+	_binObj setVariable ["A3PL_Waste_ReceivedMoney",true];
 
 	if (player getVariable ["A3PL_Waste_ReceivedMoney",false]) exitwith {[localize"STR_NewWaste_6","red"] call A3PL_Player_Notification;};
-	player setVariable ["A3PL_Waste_ReceivedMoney",true];	
-	
+	player setVariable ["A3PL_Waste_ReceivedMoney",true];
+
 	[_binObj] spawn
 	{
 		private ["_binObj"];
 		_binObj = param [0,objNull];
-		
+
 		sleep 2;
-		
+
 		[localize"STR_NewWaste_7","green"] call A3PL_Player_Notification;
 		player setVariable ["player_cash",(player getVariable ["player_cash",0])+200,true];
 		[player, 5] call A3PL_Level_AddXP;
 		player setVariable ["jobVehicleTimer",(player getVariable ["jobVehicleTimer",0]) + 120,true];
-		
+
 		uiSleep 60;
-		
+
 		player setVariable ["A3PL_Waste_ReceivedMoney",false];
-		
+
 		uiSleep 120;
 		_binObj setVariable ["A3PL_Waste_ReceivedMoney",false];
 	};

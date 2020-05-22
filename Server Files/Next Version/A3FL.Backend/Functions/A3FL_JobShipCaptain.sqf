@@ -13,10 +13,9 @@
 	["Your vehicle has been spawned!", "green"] call A3PL_Player_Notification;
 
 	switch(_location) do {
-		case npc_roadworker: {_spawnLoc = [2353.047,5479.137,0.766];}; // Silverton
-		case npc_roadworker_1: {_spawnLoc = [5970.537,7397.768,0.766];}; // Elk City // not working
-		case npc_roadworker_2: {_spawnLoc = [6934.766,7112.43,0.794];}; // Boulder City
-		case npc_roadworker_3: {_spawnLoc = [10236.220,8455.28,0.388];}; // Northdale
+		case npc_ship_captain: {_spawnLoc = [2807.168,2807.168,5];}; // Northern Ireland
+		case npc_ship_captain_1: {_spawnLoc = [3582.857,7678.292,32.779];}; // Stoney Creek
+		case npc_ship_captain_2: {_spawnLoc = [5784.5,7285.25,9.600];}; // Elk City
 		default {_spawnLoc = [2353.047,5479.137,0.766];};
 	};
 

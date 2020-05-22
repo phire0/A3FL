@@ -23,7 +23,8 @@ Config_Houses_List = [
 	"Land_John_House_Blue",
 	"Land_John_House_Red",
 	"Land_John_House_Green",
-	"Land_A3FL_Mansion"
+	"Land_A3FL_Mansion",
+	"Land_A3FL_Office_Building"
 ];
 publicVariable "Config_Houses_List";
 
@@ -44,23 +45,24 @@ Config_Houses_Prices = [
 	["Land_A3PL_Ranch1",135000],
 	["Land_A3PL_Ranch2",135000],
 	["Land_A3PL_Ranch3",135000],
-	
+
 	["Land_Home1g_DED_Home1g_01_F",150000],
 	["Land_Home2b_DED_Home2b_01_F",150000],
 	["Land_Home4w_DED_Home4w_01_F",150000],
 	["Land_Home5y_DED_Home5y_01_F",150000],
 
-	["Land_Home3r_DED_Home3r_01_F",250000],	
+	["Land_Home3r_DED_Home3r_01_F",250000],
 	["Land_Home6b_DED_Home6b_01_F",250000],
 
 	["Land_Mansion01",500000],
-	
+
 	["Land_A3PL_ModernHouse1",550000],
 	["Land_A3PL_ModernHouse2",550000],
 	["Land_A3PL_ModernHouse3",550000],
 
-	["Land_A3FL_Mansion",550000]
-];
+	["Land_A3FL_Mansion",550000],
+	["Land_A3FL_Office_Building",1000000]
+	];
 publicVariable "Config_Houses_Prices";
 
 /*

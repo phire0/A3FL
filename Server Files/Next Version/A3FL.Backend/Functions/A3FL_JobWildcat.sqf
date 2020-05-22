@@ -236,7 +236,7 @@
 				case (_oilAmount <= 150): {[3,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
 				case (_oilAmount <= 200): {[4,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
 				case (_oilAmount <= 600): {[5,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
-				default {};
+				default {[5,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
 			};
 		};
 
