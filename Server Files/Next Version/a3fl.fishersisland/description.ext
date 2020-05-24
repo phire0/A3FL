@@ -133,7 +133,7 @@ class A3PL_mapAreas {
 			$STR_Description_Banks, {"bank1","bank1_1","bank1_2","bank1_3","bank1_4","bank1_8"}
 		},
 		{
-			$STR_Description_GasStations, {"gasstation1","gasstation2","gasstation3","gasstation4","gasstation5","gasstation6","gasstation6_1","gasstation2_1","gasstation2_2","gasstation2_3","gasstation8"}
+			$STR_Description_GasStations, {"gasstation1","gasstation2","gasstation3","gasstation4","gasstation5","gasstation6","gasstation6_1","gasstation2_1","gasstation2_2","gasstation2_3","gasstation8","gasstation8_1"}
 		},
 		{
 			$STR_Description_Hospitals, {"Clinic","Clinic_1","Clinic_2","Clinic_3","Clinic_4"}

@@ -183,7 +183,6 @@
 	_truecaller = param [6,""];
 	_msgduration = 20;
 	_maxmsg = (8 - 1);
-	diag_log "In the function";
 
 
 	_cancelaction = true;

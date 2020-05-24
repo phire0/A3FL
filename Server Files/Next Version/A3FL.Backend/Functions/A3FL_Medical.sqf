@@ -1096,13 +1096,27 @@
 
 	_healPrice = 600;
 	_pCash = player getVariable ["player_cash",0];
+	_npc = player_objintersect;
 	if (_healPrice > _pCash) exitwith {[format [localize"STR_NPC_FIFRHEALERROR",_healPrice-_pCash]] call A3PL_Player_notification;};
 
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - _healPrice,true];
 	["Federal Reserve",_healPrice] remoteExec ["Server_Government_AddBalance",2];
 
-	["You must wait 2 minutes before being fully treated","orange"] call A3PL_Player_Notification;
-	sleep 120;
+	["You must wait 2 minutes before being fully treated, stay nearby!","orange"] call A3PL_Player_Notification;
+	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
+	["Patching you up...",120] spawn A3PL_Lib_LoadAction;
+	_success = true;
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if (!(vehicle player == player)) exitwith {_success = false;};
+		if (player distance2D _npc > 10) then {_success = false;}
+	};
+
+	if(Player_ActionInterrupted || !_success) exitWith {
+		Player_ActionInterrupted = true;
+		["Treatment cancelled!", "red"] call A3PL_Player_Notification;
+	};
+
 	["You are completely treated","green"] call A3PL_Player_Notification;
 
 	player setDamage 0;

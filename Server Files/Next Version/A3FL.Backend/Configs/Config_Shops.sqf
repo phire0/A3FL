@@ -16,7 +16,7 @@ publicVariable "Config_Shops_TaxSystem";
 Config_Shops_StockSystem = ["Shop_Supermarket","Shop_Guns_Vendor","Shop_Fuel"];
 publicVariable "Config_Shops_StockSystem";
 
-Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11];
+Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
 publicVariableServer "Config_Shops_StockSystemObjects";
 
 Config_Shops_Factions = [
@@ -477,6 +477,7 @@ Config_Shops_Items = [
 			["weapon","A3FL_PepperSpray",100,-1,0],
 			["weaponPrimary","SMG_05_F",35000,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,0,0],
+			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_Red_Glock_Mag",50,0,0],
 			["magazine","16Rnd_9x21_Mag",50,0,0],
 			["magazine","A3PL_P226_Mag",50,-1,0],
@@ -753,6 +754,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_P226",250,-1,0],
 			["weapon","A3FL_PepperSpray",100,-1,0],
 			["weaponPrimary","SMG_05_F",35000,-1,0],
+			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_Taser_Mag",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,-1,0],
 			["magazine","A3PL_Red_Glock_Mag",50,-1,0],
@@ -864,6 +866,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_P226",250,-1,0],
 			["weapon","hgun_Pistol_heavy_01_F",250,-1,0],
 			["weapon","A3FL_PepperSpray",100,-1,0],
+			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["weaponPrimary","SMG_05_F",35000,-1,0],
 			["weaponPrimary","srifle_LRR_SOS_F",1000,-1,0],
 			["magazine","6Rnd_GreenSignal_F",50,-1,0],

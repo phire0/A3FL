@@ -50,7 +50,7 @@ Config_NPC_Text =
 	["fifr_work",localize"STR_NPC_FIFRWORK",[localize"STR_NPC_FIFRWORK1",localize"STR_NPC_FIFRWORK2"],["['fifr'] call A3PL_NPC_TakeJob;",""]],
 	["fifr_already", localize"STR_NPC_FIFRALREADY",[localize"STR_NPC_FIFRALREADY1",localize"STR_NPC_FIFRALREADY2"],["[] call A3PL_NPC_LeaveJob;",""]],
 	["fifr_accepted", localize"STR_NPC_FIFRACC",[localize"STR_NPC_FIFRACC1"],[""]],
-	["fifr_heal", localize"STR_NPC_FIFRHEAL",[localize"STR_NPC_FIFRHEAL1",localize"STR_NPC_FIFRHEAL2"],["[] call A3PL_Medical_Heal;"]],
+	["fifr_heal", localize"STR_NPC_FIFRHEAL",[localize"STR_NPC_FIFRHEAL1",localize"STR_NPC_FIFRHEAL2"],["[] spawn A3PL_Medical_Heal;"]],
 	["fifr_healdone", localize"STR_NPC_FIFRDONE",[localize"STR_NPC_FIFRDONE1"],[""]],
 
 	["fifr_initialill", localize"STR_NPC_FIFRINITILL",[localize"STR_NPC_FIFRINITILL1"],["if ((str (player getvariable ['A3PL_Wounds',[]]) == '[]') && ((player getvariable ['A3PL_MedicalVars',[5000,'120/80',37]] select 0) == 5000)) exitwith {['fifr_healdeniedill'] call A3PL_NPC_Start;}; ['fifr_healill'] call A3PL_NPC_Start;"]],

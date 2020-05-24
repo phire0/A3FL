@@ -11,8 +11,8 @@
 	Server_Storage_ListVehicles = [];
 
 
-	Server_AptList = nearestObjects [[2286,12015,0], ["Land_A3PL_Motel"], 5000];
-	// Server_AptList = nearestObjects [[3552.460,6664.702,0], ["Land_A3PL_Motel"], 5000];
+	//Server_AptList = nearestObjects [[2286,12015,0], ["Land_A3PL_Motel"], 5000];
+	Server_AptList = nearestObjects [[3552.460,6664.702,0], ["Land_A3PL_Motel"], 5000];
 	{
 		_x setVariable ["Server_AptAssigned",[],false];
 	} foreach Server_AptList;
@@ -160,10 +160,10 @@
 	_chance = random(100);
 	_nextweather = "";
 	switch(true) do {
-		case (_chance < 20): {_nextWeather = "sunny";};
-		case (_chance >= 20 && _chance <= 49): {_nextWeather = "thunder";};
-		case (_chance >= 50 && _chance <= 69): {_nextWeather = "windy";};
-		case (_chance >= 70 && _chance <= 89): {_nextWeather = "rainny";};
+		case (_chance < 50): {_nextWeather = "sunny";};
+		case (_chance >= 50 && _chance <= 59): {_nextWeather = "thunder";};
+		case (_chance >= 60 && _chance <= 79): {_nextWeather = "windy";};
+		case (_chance >= 80 && _chance <= 89): {_nextWeather = "rainny";};
 		case (_chance >= 90): {_nextWeather = "foggy";};
 	};
 	switch(_nextWeather) do {
@@ -280,25 +280,5 @@
 			diag_log format ["Announced Restart At: %1",_hourMin];
 		};
 	} forEach _restartTimes;
-
-},true] call Server_Setup_Compile;
-
-
-["Server_Core_RestartLoop",{
-    _utcTime = [];
-
-    _utcTime = "extDB3" callExtension "9:UTC_TIME";
-		_utcTimeArray = (parseSimpleArray _utcTime) select 1;
-
-    _hourMin = [(_utcTimeArray select 3),(_utcTimeArray select 4)];
-    diag_log format ["UTC HHMM: %1",_hourMin];
-
-    _restartTimes = [[15,00],[03,00],[1,10]];
-    {
-        if(_hourMin isEqualTo _x) then {
-            [] spawn Server_Core_RestartTimer;
-        };
-    } forEach _restartTimes;
-
 
 },true] call Server_Setup_Compile;

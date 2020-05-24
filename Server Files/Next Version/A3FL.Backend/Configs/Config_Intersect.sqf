@@ -111,18 +111,18 @@ publicVariable "Config_Intersect_CockpitActions";
 
 Config_IntersectArray =
 [
-	["item_pickup","Add Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && (Player_ItemClass IN ["kerosene_jerrycan","sulphuric_acid","calcium_carbonate","coca_paste","potassium_permangate","cocaine_base","ammonium_hydroxide","acetone","hydrocloric_acid","coca"])}],
-	["item_pickup","Collect Product","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && ((["coca_paste"] call A3PL_Cocaine_InBarrel) or (["cocaine_base"] call A3PL_Cocaine_InBarrel) or (["cocaine_hydrochloride"] call A3PL_Cocaine_InBarrel))}],
+	["item_pickup","Add Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && {(Player_ItemClass IN ["kerosene_jerrycan","sulphuric_acid","calcium_carbonate","coca_paste","potassium_permangate","cocaine_base","ammonium_hydroxide","acetone","hydrocloric_acid","coca"])}}],
+	["item_pickup","Collect Product","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && {((["coca_paste"] call A3PL_Cocaine_InBarrel) or (["cocaine_base"] call A3PL_Cocaine_InBarrel) or (["cocaine_hydrochloride"] call A3PL_Cocaine_InBarrel))}}],
 	["item_pickup","Check Barrel Contents","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel")}],
-	["item_pickup","Produce Coca Paste","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && ([["acetone",1],["calcium_carbonate",1],["coca",5],["kerosene_jerrycan",1],["sulphuric_acid",1]] isEqualTo (player_objIntersect getVariable["items",[]]))}],
-	["item_pickup","Produce Cocaine Base","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && ([["coca_paste",5],["potassium_permangate",1]] isEqualTo (player_objIntersect getVariable["items",[]]))}],
-	["item_pickup","Produce Cocaine Hydrochloride","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && ([["acetone",1],["ammonium_hydroxide",1],["cocaine_base",3],["hydrocloric_acid",1]] isEqualTo (player_objIntersect getVariable["items",[]]))}],
+	["item_pickup","Produce Coca Paste","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && {([["acetone",1],["calcium_carbonate",1],["coca",5],["kerosene_jerrycan",1],["sulphuric_acid",1]] isEqualTo (player_objIntersect getVariable["items",[]]))}}],
+	["item_pickup","Produce Cocaine Base","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && {([["coca_paste",5],["potassium_permangate",1]] isEqualTo (player_objIntersect getVariable["items",[]]))}}],
+	["item_pickup","Produce Cocaine Hydrochloride","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel") && {([["acetone",1],["ammonium_hydroxide",1],["cocaine_base",3],["hydrocloric_acid",1]] isEqualTo (player_objIntersect getVariable["items",[]]))}}],
 	["item_pickup","Remove Barrel Contents","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_PlasticBarrel")}],
 	["item_Pickup","Create Cocaine Brick","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Scale")}],
 	["item_Pickup","Break Down Cocaine Brick","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Scale")}],
 
 	//moonshine
-	["distillery_end",localize"STR_INTSECT_InstallHose",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((count (nearestObjects [player_objintersect, ["A3PL_Distillery_Hose"], 2])) > 0) && ((count ([player_objintersect] call A3PL_Lib_AttachedAll)) < 1) }],
+	["distillery_end",localize"STR_INTSECT_InstallHose",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((count (nearestObjects [player_objintersect, ["A3PL_Distillery_Hose"], 2])) > 0) && {((count ([player_objintersect] call A3PL_Lib_AttachedAll)) < 1)}}],
 	["distillery_main",localize"STR_INTSECT_StartDistillery",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{true}],
 	["distillery_main",localize"STR_INTSECT_CheckDistilleryStatus",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect getVariable ["running",false])}],
 	["distillery_main",localize"STR_INTSECT_AddItemToDistillery",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{true}],
@@ -130,20 +130,20 @@ Config_IntersectArray =
 	["item_Pickup",localize"STR_INTSECT_GrindWheatIntoYeast","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
 	["item_Pickup",localize"STR_INTSECT_GrindWheatIntoMalt","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
 	["item_Pickup",localize"STR_INTSECT_GrindCornIntoCornmeal","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
-	["scooter_driver",localize"STR_INTSECT_USEJERRYC", "\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa", {player_itemClass == "jerrycan" && (typeOf player_objintersect == "C_Quadbike_01_F")}],
-	["spine3",localize"STR_QuickActionsNPC_StationStore",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11]}],
+	["scooter_driver",localize"STR_INTSECT_USEJERRYC", "\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa", {player_itemClass == "jerrycan" && {(typeOf player_objintersect == "C_Quadbike_01_F")}}],
+	["spine3",localize"STR_QuickActionsNPC_StationStore",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12]}],
 
 	//hunting
-	["spine2",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && !alive player_objintersect}],
-	["hips",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && !alive player_objintersect}],
-	["spine",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && !alive player_objintersect}],
-	["head",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && !alive player_objintersect}],
-	["aimpoint",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Cow01","Cow02","Cow03","Cow04","Cow05"]) && !alive player_objintersect}],
+	["spine2",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && {!alive player_objintersect}}],
+	["hips",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && {!alive player_objintersect}}],
+	["spine",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && {!alive player_objintersect}}],
+	["head",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && {!alive player_objintersect}}],
+	["aimpoint",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Cow01","Cow02","Cow03","Cow04","Cow05"]) && {!alive player_objintersect}}],
 	["item_pickup",localize"STR_INTSECT_TagMeat",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect getVariable ["class","unknown"]) IN ["meat_sheep","meat_goat","meat_boar","mullet","shark_2lb","shark_4lb","shark_5lb","shark_7lb","shark_10lb","meat_cow"]}],
 
 	//drugs
-	["trunkinside",localize"STR_INTSECT_CureBud","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_WorkBench") && (player_itemClass == "cannabis_bud")}],
-	["trunkinside",localize"STR_INTSECT_CureBud","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_Table") && (player_itemClass == "cannabis_bud")}],
+	["trunkinside",localize"STR_INTSECT_CureBud","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_WorkBench") && {(player_itemClass == "cannabis_bud")}}],
+	["trunkinside",localize"STR_INTSECT_CureBud","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3FL_Table") && {(player_itemClass == "cannabis_bud")}}],
 	["item_pickup",localize"STR_INTSECT_CheckCureStatus","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Cannabis_Bud")}],
 	["item_Pickup",localize"STR_INTSECT_GrindCannabis","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
 	["item_Pickup",localize"STR_INTSECT_CollectGrindedCannabis","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
@@ -151,18 +151,18 @@ Config_IntersectArray =
 	["Toggle_Ramp",localize"STR_INTSECT_UPLWRAMP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect isKindOf "A3PL_Car_Trailer"}], //Lower/Raise Ramp
 
 	//Garbage Truck/Job
-	["Bin_Controller1",localize"STR_INTSECT_TrashSlideLeft",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& (player_objintersect animationSourcePhase "Bin1" == 0.1)}],
-	["Bin_Controller1",localize"STR_INTSECT_TrashLwLeft",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& (player_objintersect animationSourcePhase "Bin1" > 0.5)}],
-	["Bin_Controller1",localize"STR_INTSECT_TrashSlideRight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& (player_objintersect animationSourcePhase "Bin2" == 0.1)}],
-	["Bin_Controller1",localize"STR_INTSECT_TrashLwRight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& (player_objintersect animationSourcePhase "Bin2" > 0.5)}],
-	["Bin_Controller2",localize"STR_INTSECT_TrashSlideLeft",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& (player_objintersect animationSourcePhase "Bin1" == 0.1)}],
-	["Bin_Controller2",localize"STR_INTSECT_TrashLwLeft",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& (player_objintersect animationSourcePhase "Bin1" > 0.5)}],
-	["Bin_Controller2",localize"STR_INTSECT_TrashSlideRight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& (player_objintersect animationSourcePhase "Bin2" == 0.1)}],
-	["Bin_Controller2",localize"STR_INTSECT_TrashLwRight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& (player_objintersect animationSourcePhase "Bin2" > 0.5)}],
+	["Bin_Controller1",localize"STR_INTSECT_TrashSlideLeft",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true]) && {(player_objintersect animationSourcePhase "Bin1" == 0.1)}}],
+	["Bin_Controller1",localize"STR_INTSECT_TrashLwLeft",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& {(player_objintersect animationSourcePhase "Bin1" > 0.5)}}],
+	["Bin_Controller1",localize"STR_INTSECT_TrashSlideRight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true]) && {(player_objintersect animationSourcePhase "Bin2" == 0.1)}}],
+	["Bin_Controller1",localize"STR_INTSECT_TrashLwRight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true]) && {(player_objintersect animationSourcePhase "Bin2" > 0.5)}}],
+	["Bin_Controller2",localize"STR_INTSECT_TrashSlideLeft",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& {(player_objintersect animationSourcePhase "Bin1" == 0.1)}}],
+	["Bin_Controller2",localize"STR_INTSECT_TrashLwLeft",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& {(player_objintersect animationSourcePhase "Bin1" > 0.5)}}],
+	["Bin_Controller2",localize"STR_INTSECT_TrashSlideRight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& {(player_objintersect animationSourcePhase "Bin2" == 0.1)}}],
+	["Bin_Controller2",localize"STR_INTSECT_TrashLwRight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true]) && {(player_objintersect animationSourcePhase "Bin2" > 0.5)}}],
 
 	["Lid",localize"STR_INTSECT_TrashLoad",_dir+"IGUI\Cfg\Actions\take_ca.paa",{[player_objintersect] call A3PL_Waste_CheckNear}],
-	["bin1",localize"STR_INTSECT_TrashDischarge",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(typeOf player_objintersect == "A3PL_P362_Garbage_Truck") && (player_objintersect animationSourcePhase "Bin1" == 0.1)}],
-	["bin2",localize"STR_INTSECT_TrashDischarge",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(typeOf player_objintersect == "A3PL_P362_Garbage_Truck") && (player_objintersect animationSourcePhase "Bin2" == 0.1)}],
+	["bin1",localize"STR_INTSECT_TrashDischarge",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(typeOf player_objintersect == "A3PL_P362_Garbage_Truck") && {(player_objintersect animationSourcePhase "Bin1" == 0.1)}}],
+	["bin2",localize"STR_INTSECT_TrashDischarge",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(typeOf player_objintersect == "A3PL_P362_Garbage_Truck") && {(player_objintersect animationSourcePhase "Bin2" == 0.1)}}],
 	["Lid",localize"STR_INTSECT_TrashPick",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeOf player_objintersect == "A3PL_WheelieBin"}],
 	["Lid",localize"STR_INTSECT_TrashClose",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect animationPhase "Lid" > 0.5)}],
 
@@ -204,24 +204,24 @@ Config_IntersectArray =
 
 	//MERGE LATER
 	["item_pickup",localize"STR_INTSECT_STACKCONE",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(typeOf player_objintersect IN ["A3PL_RoadCone","A3PL_RoadCone_x10"])}], //Stack cone
-	["Pilot_Door",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && (vehicle player == player)&& !(player_objIntersect getVariable ["locked",true])}], //Enter as Driver
-  	["Pilot_Door",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && !(player_objIntersect getVariable ["locked",true]) && (!(vehicle player getVariable ["trapped",false]))}],		 //Exit Vehicle
+	["Pilot_Door",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && {(vehicle player == player)&& !(player_objIntersect getVariable ["locked",true])}}], //Enter as Driver
+  	["Pilot_Door",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && !(player_objIntersect getVariable ["locked",true]) && {(!(vehicle player getVariable ["trapped",false]))}}],		 //Exit Vehicle
 	["Pilot_Door",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)}], //Lock/Unlock Vehicle Doors
-	["Pilot_Door",localize"STR_INTSECT_EJALLPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && ((speed player_objIntersect) < 5)}], //Eject All Passengers
-	["Pilot_Door",localize"STR_INTSECT_DETAINSUS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])}], //Detain Suspect
+	["Pilot_Door",localize"STR_INTSECT_EJALLPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])} && {((speed player_objIntersect) < 5)}}], //Eject All Passengers
+	["Pilot_Door",localize"STR_INTSECT_DETAINSUS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])}}], //Detain Suspect
 	["Pilot_Door",localize"STR_INTSECT_OPCLDOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!(player_objIntersect getVariable ["locked",true])}], //Open\Close Door
 	["Pilot_Door",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench"}], //Repair Vehicle
-	["CoPilot_Door",localize"STR_INTSECT_ENTCOPIL","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && (vehicle player == player) && !(player_objIntersect getVariable ["locked",true])}],	//Enter as Co-Pilot
-	["CoPilot_Door",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && !(player_objIntersect getVariable ["locked",true]) && (!(vehicle player getVariable ["trapped",false]))}],		 //Exit Vehicle
+	["CoPilot_Door",localize"STR_INTSECT_ENTCOPIL","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && {(vehicle player == player)} && {!(player_objIntersect getVariable ["locked",true])}}],	//Enter as Co-Pilot
+	["CoPilot_Door",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && {!(player_objIntersect getVariable ["locked",true])} && {(!(vehicle player getVariable ["trapped",false]))}}],		 //Exit Vehicle
 	["CoPilot_Door",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)}], //Lock/Unlock Vehicle Doors
-	["CoPilot_Door",localize"STR_INTSECT_EJALLPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable "job") IN ["uscg","fisd","usms"]) && ((speed player_objIntersect) < 5)}], //Eject All Passengers
-	["CoPilot_Door",localize"STR_INTSECT_DETAINSUS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable "job") IN ["uscg","fisd","usms"])}], //Detain Suspect
+	["CoPilot_Door",localize"STR_INTSECT_EJALLPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {((player getVariable "job") IN ["uscg","fisd","usms"])} && {((speed player_objIntersect) < 5)}}], //Eject All Passengers
+	["CoPilot_Door",localize"STR_INTSECT_DETAINSUS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {((player getVariable "job") IN ["uscg","fisd","usms"])}}], //Detain Suspect
 	["CoPilot_Door",localize"STR_INTSECT_OPCLDOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!(player_objIntersect getVariable ["locked",true])}], //Open\Close Door
 	["CoPilot_Door",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench"}], //Repair Vehicle
 
 	//Heli_Medium01
-	["inspect_hitengine1",format [localize"STR_INTSECT_INSPENG",1],_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!("inspect_hitengine1" IN (player_objIntersect getVariable "Inspection")))&&(player_objintersect animationSourcePhase "Inspect_Panel1_1" > 0.5)}], //Inspect Engine #%1
-	["inspect_hitengine2",format [localize"STR_INTSECT_INSPENG",2],_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!("inspect_hitengine2" IN (player_objIntersect getVariable "Inspection")))&&(player_objintersect animationSourcePhase "Inspect_Panel2_1" > 0.5)}], //Inspect Engine #%2
+	["inspect_hitengine1",format [localize"STR_INTSECT_INSPENG",1],_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!("inspect_hitengine1" IN (player_objIntersect getVariable "Inspection"))) && {(player_objintersect animationSourcePhase "Inspect_Panel1_1" > 0.5)}}], //Inspect Engine #%1
+	["inspect_hitengine2",format [localize"STR_INTSECT_INSPENG",2],_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!("inspect_hitengine2" IN (player_objIntersect getVariable "Inspection"))) && {(player_objintersect animationSourcePhase "Inspect_Panel2_1" > 0.5)}}], //Inspect Engine #%2
 	["inspect_hithrotor1",format [localize"STR_INTSECT_INSPMAINROT",1],_dir+"IGUI\Cfg\Actions\take_ca.paa",{!("inspect_hithrotor1" IN (player_objIntersect getVariable "Inspection"))}], //Inspect Main Rotor #1
 	["inspect_hithrotor2",format [localize"STR_INTSECT_INSPMAINROT",2],_dir+"IGUI\Cfg\Actions\take_ca.paa",{!("inspect_hithrotor2" IN (player_objIntersect getVariable "Inspection"))}], //Inspect Main Rotor #2
 	["inspect_hithrotor3",format [localize"STR_INTSECT_INSPMAINROT",3],_dir+"IGUI\Cfg\Actions\take_ca.paa",{!("inspect_hithrotor3" IN (player_objIntersect getVariable "Inspection"))}], //Inspect Main Rotor #3
@@ -269,14 +269,14 @@ Config_IntersectArray =
 	["collision_lights4",localize"STR_INTSECT_TOGCOLLIGHT","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_cpt_col_ON_ca.paa",{true}], //Toggle Collision Lights
 	["ignition4",localize"STR_INTSECT_IGNITION",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{(vehicle player) isKindOf "AllVehicles"}], //Ignition
 	["lightswitch4",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player != player)}], //Toggle Head Lights
-	["Door_RF",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && (vehicle player == player)&& !(player_objIntersect getVariable ["locked",true])}], //Enter as Driver
-	["Door_LF",localize"STR_INTSECT_ENTCOPIL","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && (vehicle player == player)&& !(player_objIntersect getVariable ["locked",true])}], //Enter as Co-Pilot
-	["Door_LF",localize"STR_INTSECT_ENTERDRIVER",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && !(player_objIntersect getVariable ["locked",true])}], //Enter as Driver
-	["Door_LF",localize"STR_INTSECT_ENTASPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && !(player_objIntersect getVariable ["locked",true]) && ((typeof player_objintersect == "A3PL_Goose_Base") || (typeof player_objintersect == "A3PL_Goose_USCG"))}], //Enter as Passenger
+	["Door_RF",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && {(vehicle player == player)} && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Driver
+	["Door_LF",localize"STR_INTSECT_ENTCOPIL","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && (vehicle player == player) && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Co-Pilot
+	["Door_LF",localize"STR_INTSECT_ENTERDRIVER",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Driver
+	["Door_LF",localize"STR_INTSECT_ENTASPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])} && {((typeof player_objintersect == "A3PL_Goose_Base") || (typeof player_objintersect == "A3PL_Goose_USCG"))}}], //Enter as Passenger
 	//boats
-	["ship_driver",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && !(player_objIntersect getVariable ["locked",true])}],	//Enter as Driver
+	["ship_driver",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) == player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])}}],	//Enter as Driver
 	["ship_driver",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)}], //Lock/Unlock Vehicle Doors
-	["ship_passenger",localize"STR_INTSECT_ENTASPASS","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && !(player_objIntersect getVariable ["locked",true])}],	//Enter as Passenger	//Enter as Passenger
+	["ship_passenger",localize"STR_INTSECT_ENTASPASS","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) == player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])}}],	//Enter as Passenger	//Enter as Passenger
 	["ship_passenger",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)}], //Lock/Unlock Vehicle Doors
 
 	//drill trailer
@@ -291,7 +291,7 @@ Config_IntersectArray =
 	["ski",localize"STR_INTSECT_PUSKI",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeOf player_objintersect == "A3PL_Ski_Base"}], //pickup ski
 
 	//police things
-	["spine3",localize"STR_INTSECT_HANDTICKET","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{(player_ItemClass == "ticket") && (isPlayer player_objintersect)}], //Hand Ticket
+	["spine3",localize"STR_INTSECT_HANDTICKET","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{(player_ItemClass == "ticket") && {(isPlayer player_objintersect)}}], //Hand Ticket
 
 	//ATM
 	["Start",localize"STR_INTSECT_UseDistributor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'A3PL_John_ATM'}],
@@ -358,10 +358,10 @@ Config_IntersectArray =
 		["spine3","Big Dicks Sports Store",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_big_dicks_sports]}],
 	//["spine3",localize"STR_QuickActionsNPC_ReadDecrees",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government)}],
 
-	["spine3",localize"STR_QuickActionsNPC_StartCartelWork",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && ((player getVariable["faction","citizen"]) == "cartel")}],
-	["spine3",localize"STR_QuickActionsNPC_Shop_DrugsDealerCartel",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && ((player getVariable["job","unemployed"]) == "cartel")}],
-	["spine3",localize"STR_QuickActionsNPC_Shop_IllegalWeaponsCartel",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && ((player getVariable["job","unemployed"]) == "cartel")}],
-	["spine3",localize"STR_QuickActionsNPC_Shop_BlackMarketCartel",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && ((player getVariable["job","unemployed"]) == "cartel")}],
+	["spine3",localize"STR_QuickActionsNPC_StartCartelWork",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && {((player getVariable["faction","citizen"]) == "cartel")}}],
+	["spine3",localize"STR_QuickActionsNPC_Shop_DrugsDealerCartel",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && {((player getVariable["job","unemployed"]) == "cartel")}}],
+	["spine3",localize"STR_QuickActionsNPC_Shop_IllegalWeaponsCartel",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && {((player getVariable["job","unemployed"]) == "cartel")}}],
+	["spine3",localize"STR_QuickActionsNPC_Shop_BlackMarketCartel",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel) && {((player getVariable["job","unemployed"]) == "cartel")}}],
 
 	["spine3",localize"STR_QuickActionsNPC_GamerPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3]}],
 	["spine3",localize"STR_QuickActionsNPC_GardenPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3]}],
@@ -376,9 +376,9 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_BuyMapSulfur",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
 	["spine3",localize"STR_QuickActionsNPC_BuyMapOil",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
 
-	["spine3",localize"STR_QuickActionsNPC_OpenBusiness",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && !([getPlayerUID player] call A3PL_Config_InCompany)}],
-	["spine3",localize"STR_QuickActionsNPC_BusinessManagement",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && ([getPlayerUID player] call A3PL_Config_IsCompanyBoss)}],
-	["spine3",localize"STR_QuickActionsNPC_EnterpriseAccountManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_bank,npc_bank_1,npc_bank_2,npc_bank_3,npc_bank_4]) && ([getPlayerUID player] call A3PL_Config_IsCompanyBoss)}],
+	["spine3",localize"STR_QuickActionsNPC_OpenBusiness",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && {!([getPlayerUID player] call A3PL_Config_InCompany)}}],
+	["spine3",localize"STR_QuickActionsNPC_BusinessManagement",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && {([getPlayerUID player] call A3PL_Config_IsCompanyBoss)}}],
+	["spine3",localize"STR_QuickActionsNPC_EnterpriseAccountManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_bank,npc_bank_1,npc_bank_2,npc_bank_3,npc_bank_4]) && {([getPlayerUID player] call A3PL_Config_IsCompanyBoss)}}],
 	//["spine3",localize"STR_QuickActionsNPC_FactionAccount",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && ([(player getVariable['faction','citizen'])] call A3PL_Government_isFactionLeader)}],
 	["spine3",localize"STR_QuickActionsNPC_SpeakToTheRealEstateAgent",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_RealEstateAgent}],
 	["spine3",localize"STR_QuickActionsNPC_FISecurityService",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_sfp_sign}],
@@ -420,7 +420,7 @@ Config_IntersectArray =
 
 	//Rob Stores
 	["spine3",localize"STR_QuickActionsNPC_RobShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4,Robbable_Shop_5])}],
-	["spine3",localize"STR_QuickActionsNPC_SecureShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4,Robbable_Shop_5]) && ((player getVariable ["job","unemployed"]) IN ["security"])}],
+	["spine3",localize"STR_QuickActionsNPC_SecureShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4,Robbable_Shop_5]) && {((player getVariable ["job","unemployed"]) IN ["security"])}}],
 
 	["spine3",localize"STR_QuickActionsNPC_AccessHardwareShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_hardware_1]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessSeedShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_Seed_Store]}],
@@ -454,19 +454,19 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessUSMSCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usms_vehicles}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFISDCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_vehicles,npc_sd_vehicles_1]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFISDSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]}],
-	["spine3",localize"STR_QuickActionsNPC_FakeID",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]) && (player getVariable["FakeIDAccess",false]) && (player getVariable["faction","civlian"] == "fisd")}],
+	["spine3",localize"STR_QuickActionsNPC_FakeID",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]) && {(player getVariable["FakeIDAccess",false])} && {(player getVariable["faction","civlian"] == "fisd")}}],
 	["spine3",localize"STR_QuickActionsNPC_AccessDOJSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_doj}],
 	["spine3",localize"STR_QuickActionsNPC_AccessDMVSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_dmv}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSMSSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usmsshop}],
 	["spine3",localize"STR_QuickActionsNPC_AccessDMVCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_dmv_vehicles}],
 
-	["spine3",localize"STR_QuickActionsNPC_FIFDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) && (["fifr"] call A3PL_Government_isFactionLeader)}],
-	["spine3",localize"STR_QuickActionsNPC_USCGManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_uscg_supplier) && (["uscg"] call A3PL_Government_isFactionLeader)}],
-	["spine3",localize"STR_QuickActionsNPC_FISDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_sd_silverton_1,npc_sd_elk_shop]) && (["fisd"] call A3PL_Government_isFactionLeader)}],
-	["spine3",localize"STR_QuickActionsNPC_DMVManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_dmv) && (["dmv"] call A3PL_Government_isFactionLeader)}],
-	["spine3",localize"STR_QuickActionsNPC_DOJManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_doj) && (["doj"] call A3PL_Government_isFactionLeader)}],
-	["spine3",localize"STR_QuickActionsNPC_USMSManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_usmsshop_1) && (["usms"] call A3PL_Government_isFactionLeader)}],
-	["spine3",localize"STR_QuickActionsNPC_CartelManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel_mngmt) && (["cartel"] call A3PL_Government_isFactionLeader)}],
+	["spine3",localize"STR_QuickActionsNPC_FIFDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) && {(["fifr"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_USCGManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_uscg_supplier) && {(["uscg"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_FISDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_sd_silverton_1,npc_sd_elk_shop]) && {(["fisd"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_DMVManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_dmv) && {(["dmv"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_DOJManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_doj) && {(["doj"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_USMSManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_usmsshop_1) && {(["usms"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_CartelManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel_mngmt) && {(["cartel"] call A3PL_Government_isFactionLeader)}}],
 
 	//bank drill
 	["pilecash",localize"STR_INTSECT_STVAULTMON",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Steal Vault Money --- pilecash
@@ -515,8 +515,8 @@ Config_IntersectArray =
 	//fisherman
 	["net",localize"STR_INTSECT_BUSENET",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!((player_objintersect getVariable ["stock",-1]) == -1)}], //Buy/Sell Net
 	["buoy",localize"STR_INTSECT_COLLNET",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!((player_objintersect getVariable ["fishstate",-1]) == -1)}], //Collect Net
-	["buoy",localize"STR_INTSECT_DEPLNET",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(simulationEnabled player_objIntersect) && ((player_objintersect getVariable ["fishstate",-1]) == -1)}], //Deploy Net
-	["buoy",localize"STR_INTSECT_BaitNet",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(simulationEnabled player_objIntersect) && ((player_objintersect getVariable ["fishstate",-1]) > -1)}], //Bait Net
+	["buoy",localize"STR_INTSECT_DEPLNET",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(simulationEnabled player_objIntersect) && {((player_objintersect getVariable ["fishstate",-1]) == -1)}}], //Deploy Net
+	["buoy",localize"STR_INTSECT_BaitNet",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(simulationEnabled player_objIntersect) && {((player_objintersect getVariable ["fishstate",-1]) > -1)}}], //Bait Net
 	["bucket",localize"STR_INTSECT_BUSEBUCK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!((player_objintersect getVariable ["stock",-1]) == -1)}], //Buy/Sell Bucket
 
 	//harvest
@@ -526,9 +526,9 @@ Config_IntersectArray =
 
 	//Buying tickets for lottery system
 	["EstateSign",localize"STR_INTSECT_BUYHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_sale_co.paa")}], //Buy House
-	["EstateSign",localize"STR_INTSECT_ESTATESHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(player_objintersect getVariable["houseSelling",false]) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}],
-	["EstateSign",localize"STR_INTSECT_SELLHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}],
-	["EstateSign",localize"STR_INTSECT_SELLESTATE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa") && (player getVariable["job","unemployed"] isEqualTo "RealEstate")}],
+	["EstateSign",localize"STR_INTSECT_ESTATESHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}}],
+	["EstateSign",localize"STR_INTSECT_SELLHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}}],
+	["EstateSign",localize"STR_INTSECT_SELLESTATE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")} && {(player getVariable["job","unemployed"] isEqualTo "RealEstate")}}],
 
 	//signs
 	["greenhousesign",localize"STR_INTSECT_RENTGH",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{true}], //Rent Greenhouse
@@ -663,8 +663,8 @@ Config_IntersectArray =
 	["garageDoor_1_button",localize"STR_INTSECT_SPVHINGAR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && (player_objintersect isKindOf "House_f")}], //Spawn vehicle in garage
 	["garageDoor_1_source",localize"STR_INTSECT_SPVHINGAR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && (player_objintersect isKindOf "House_f")}], //Spawn vehicle in garage
 	["garageDoor_2_button",localize"STR_INTSECT_SPVHINGAR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && (player_objintersect isKindOf "House_f")}], //Spawn vehicle in garage
-	["garageDoor1_button",localize"STR_INTSECT_SPVHINGAR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && (player_objintersect isKindOf "House_f")}], //Spawn vehicle in garage
-	["garageDoor2_button",localize"STR_INTSECT_SPVHINGAR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && (player_objintersect isKindOf "House_f")}], //Spawn vehicle in garage
+	["garageDoor1_button",localize"STR_INTSECT_SPVHINGAR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && {(player_objintersect isKindOf "House_f")} && {((typeOf cursorObject) != "Land_A3PL_Garage")}}], //Spawn vehicle in garage
+	["garageDoor2_button",localize"STR_INTSECT_SPVHINGAR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && {(player_objintersect isKindOf "House_f")} && {((typeOf cursorObject) != "Land_A3PL_Garage")}}], //Spawn vehicle in garage
 
 	["garageDoor_button",localize"STR_INTSECT_STOREVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && (player_objintersect isKindOf "House_f")}], //Store Vehicle
 	["garageDoor_button2",localize"STR_INTSECT_STOREVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && (player_objintersect isKindOf "House_f")}], //Store Vehicle
@@ -735,7 +735,7 @@ Config_IntersectArray =
 
 	//gas station
 	["gas_openmenu",localize"STR_INTSECT_OPENGASMENU",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
-	["spine3",localize"STR_QuickActionsNPC_TakeFuelStationCash",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11]}],
+	["spine3",localize"STR_QuickActionsNPC_TakeFuelStationCash",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12]}],
 	["gas_openmenu",localize"STR_QuickActionsBuildings_CheckMoneyInCash",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 	["gas_openmenu",localize"STR_QuickActionsBuildings_TakeFuelStationCash",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 	["gas_openmenu",localize"STR_QuickActionsBuildings_OpCLoseFuel",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],

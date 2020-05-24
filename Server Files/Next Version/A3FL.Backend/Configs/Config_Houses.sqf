@@ -24,8 +24,15 @@ Config_Houses_List = [
 	"Land_John_House_Red",
 	"Land_John_House_Green",
 	"Land_A3FL_Mansion",
-	"Land_A3FL_Office_Building"
-];
+	"Land_A3FL_Office_Building",
+	"Land_Home4w_DED_Home4w_01_F",
+	"Land_Home3r_DED_Home3r_01_F",
+	"Land_Home6b_DED_Home6b_01_F",
+	"Land_Home5y_DED_Home5y_01_F",
+	"Land_Home1g_DED_Home1g_01_F",
+	"Land_Home2b_DED_Home2b_01_F"
+
+	];
 publicVariable "Config_Houses_List";
 
 Config_Houses_Prices = [

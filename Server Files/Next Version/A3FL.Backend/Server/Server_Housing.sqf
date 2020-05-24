@@ -226,9 +226,9 @@
 	_player = param [0,objNull];
 
 	_list = Server_AptList;
-	if((_player getVariable["faction","citizen"]) == "uscg") then {
-		_list = nearestObjects [[2188.62,4991.78,0], ["Land_A3PL_Motel"], 5000];
-	};
+	// if((_player getVariable["faction","citizen"]) == "uscg") then {
+	// 	_list = nearestObjects [[2188.62,4991.78,0], ["Land_A3PL_Motel"], 5000];
+	// };
 
 	{
 		private ["_assigned"];
