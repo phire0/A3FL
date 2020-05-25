@@ -14,7 +14,7 @@
 	_control = _display displayCtrl 1500;
 	_intersect = player_objintersect;
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	if (isNil "player_objintersect") then {
 		_intersect = cursorObject;
@@ -374,7 +374,7 @@
 		};
 	} foreach _returnArray;
 	A3PL_Storage_ReturnArray = _returnArray;
-	_control ctrlAddEventHandler ["LBSelChanged","[] call A3PL_Storage_VehicleInfo;"];
+	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Storage_VehicleInfo;"];
 }] call Server_Setup_Compile;
 
 ["A3PL_Storage_VehicleInfo", {

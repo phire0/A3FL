@@ -38,7 +38,7 @@
 		["You have already deployed 8 nets!","red"] call A3PL_Player_Notification;
 	};
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	A3PL_FishingBuoy_Local pushBack player_objIntersect;
 	[player,player_objIntersect] remoteExec ["Server_JobFisherman_DeployNet", 2];
@@ -65,7 +65,7 @@
 		["Buoy already collected","red"] call A3PL_Player_Notification;
 	};
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	_buoy setVariable ["used",true,true];
 	[player,_buoy] remoteExec ["Server_JobFisherman_GrabNet",2];

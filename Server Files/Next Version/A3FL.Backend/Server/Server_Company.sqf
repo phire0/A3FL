@@ -29,7 +29,7 @@
 	[_query, 1] call Server_Database_Async;
 	[] spawn {
 		sleep 5;
-		[] call Server_Company_LoadAll;
+		call Server_Company_LoadAll;
 	};
 },true] call Server_Setup_Compile;
 

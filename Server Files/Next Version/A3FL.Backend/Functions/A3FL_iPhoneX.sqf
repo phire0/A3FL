@@ -328,7 +328,7 @@
 		["_type","",[""]]
 	];
 	disableSerialization;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_price = 0;
 	_var = "";
 	_addXP = 0;
@@ -421,7 +421,7 @@
 	[_uid, _nameContact, _phoneNumberContact, _noteContact] remoteExec ["Server_iPhoneX_SaveContact",2];
 
 	{ctrlDelete _x;} count (player getVariable ["iPhoneX_PhoneContacts", []]);
-	[] call A3PL_iPhoneX_AppContactsList;
+	call A3PL_iPhoneX_AppContactsList;
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_DeleteContact",
@@ -430,7 +430,7 @@
 	[player,_number] remoteExec ["Server_iPhoneX_DeleteContact",2];
 	uiSleep 0.5;
 	closeDialog 0;
-	[] call A3PL_iPhoneX_AppContactsList;
+	call A3PL_iPhoneX_AppContactsList;
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_AddConversation",
@@ -467,7 +467,7 @@
 	{ctrlDelete _x;} count (player getVariable ["iPhoneX_PhoneConversations", []]);
 	_error = false;
 	closeDialog 0;
-	[] call A3PL_iPhoneX_AppSMSList;
+	call A3PL_iPhoneX_AppSMSList;
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_AppAddConversation",
@@ -916,7 +916,7 @@
 			{
 				_SMS pushBack [_from, A3PL_phoneNumberActive, _message];
 				{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
-				[] call A3PL_iPhoneX_newSMS;
+				call A3PL_iPhoneX_newSMS;
 			};
 
 			_hour = str (date select 3);
@@ -972,7 +972,7 @@
 	[player, A3PL_phoneNumberActive, _phoneNumberContact, _message] remoteExec ["Server_iPhoneX_SendSMS", 2];
 
 	{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
-	[] call A3PL_iPhoneX_NewSMS;
+	call A3PL_iPhoneX_NewSMS;
 
 	_display = findDisplay 99100;
 	_ctrlGrp = (_display displayCtrl 97511);
@@ -1329,7 +1329,7 @@
 	if (player getVariable ["job","unemployed"] == "uber") then {
         if (A3PL_Uber_JobActive) then {
             _text3 ctrlSetText "End current drive";
-            _button3 buttonSetAction "[] call A3PL_Uber_EndJob;";
+            _button3 buttonSetAction "call A3PL_Uber_EndJob;";
         };
     };
 }] call Server_Setup_Compile;
@@ -1420,9 +1420,9 @@
 	_group = group player;
 	_gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') then {
-		[] call A3PL_iPhoneX_appGangCreation;
+		call A3PL_iPhoneX_appGangCreation;
 	} else {
-		[] call A3PL_iPhoneX_appGangManagement;
+		call A3PL_iPhoneX_appGangManagement;
 	};
 }] call Server_Setup_Compile;
 
@@ -1907,7 +1907,7 @@
 ["A3PL_iPhoneX_Sound",
 {
 	private _id = param[0,0];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _iPhone_Settings = profileNamespace getVariable ["A3PL_iPhoneX_Settings",[2,1,0]];
 	_iPhone_Settings set[1, _id];
 	profileNamespace setVariable ["A3PL_iPhoneX_Settings",_iPhone_Settings];

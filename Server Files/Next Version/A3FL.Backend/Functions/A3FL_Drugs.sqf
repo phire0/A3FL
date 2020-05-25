@@ -33,7 +33,7 @@
 	if(_totalDrugs > 0) exitWith {};
 
 	//Do not loop if not drunk!
-	if((_CurrentAlcool <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {[] call A3PL_Alcohol_ResetEffects;};
+	if((_CurrentAlcool <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Alcohol_ResetEffects;};
 
 	//Incapacitated from too much alcohol little matthew, do not edit the rules!
 	if(_CurrentAlcool >= 80) exitWith {
@@ -65,7 +65,7 @@
 	_randomFall = random(100);
 	if(_randomFall < (_CurrentAlcool)) then {
 		if((speed player) > 3) then {
-			[] call A3PL_Lib_Ragdoll;
+			call A3PL_Lib_Ragdoll;
 		};
 	};
 
@@ -83,7 +83,7 @@
 	if(!pVar_FastAnimationOn) then {player setAnimSpeedCoef 1;};
 	"ChromAberration" ppEffectEnable false;
 	"RadialBlur" ppEffectEnable false;
-	[] call A3PL_Alcohol_Verify;
+	call A3PL_Alcohol_Verify;
 }] call Server_Setup_Compile;
 
 //Player_Drugs = [shrooms,cocaine,weed]
@@ -122,7 +122,7 @@
 	} foreach Player_Drugs;
 
 
-	if((_totalDrugs <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {[] call A3PL_Drugs_ResetEffects;};
+	if((_totalDrugs <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Drugs_ResetEffects;};
 
 
 	//Incapacitated from too much drugs!

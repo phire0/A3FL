@@ -23,7 +23,7 @@
 
 	//button EH
 	_control = _display displayCtrl 1600;
-	_control ctrlAddEventHandler ["buttonDown",{[] call A3PL_JobTaxi_SetFare;}];
+	_control ctrlAddEventHandler ["buttonDown",{call A3PL_JobTaxi_SetFare;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_JobTaxi_SetFare",

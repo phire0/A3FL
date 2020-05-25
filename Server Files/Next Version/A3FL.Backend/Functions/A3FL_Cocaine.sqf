@@ -8,7 +8,7 @@
 
 ["A3PL_Cocaine_AddItem",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_barrel"];
 	_barrel = param [0,objNull];
 	if (_barrel getVariable ["running",false]) exitwith {["You can't add to a barrel with a process already started!","red"] call A3PL_Player_Notification;};
@@ -41,7 +41,7 @@
 
 ["A3PL_Cocaine_CheckContents",
 {
-  if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+  if(!(call A3PL_Player_AntiSpam)) exitWith {};
   private ["_barrel"];
   _barrel = param [0,objNull];
   _items = _barrel getVariable ["items",[]];
@@ -71,7 +71,7 @@
 
 ["A3PL_Cocaine_Reset",
 {
-  if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+  if(!(call A3PL_Player_AntiSpam)) exitWith {};
   private ["_barrel"];
   _barrel = param [0,objNull];
 
@@ -82,7 +82,7 @@
 
 ["A3PL_Cocaine_Collect",
 {
-  if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+  if(!(call A3PL_Player_AntiSpam)) exitWith {};
   private ["_barrel"];
   _barrel = param [0,objNull];
 
@@ -101,7 +101,7 @@
 
 ["A3PL_Cocaine_Produce",
 {
-  if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+  if(!(call A3PL_Player_AntiSpam)) exitWith {};
   private ["_barrel"];
   _barrel = param [0,objNull];
   _stage = param [1,1];
@@ -188,7 +188,7 @@
 ["A3PL_Cocaine_CreateBrick",{
 		private["_success"];
 		_target = param [0,player_objIntersect];
-	  if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	  if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 		if(!(["cocaine_hydrochloride",5] call A3PL_Inventory_Has)) exitWith{["You need 5 Cocaine Hydrochloride to produce a Cocaine Brick!","red"] call A3PL_Player_Notification;};
 
@@ -227,7 +227,7 @@
 {
 	_target = param [0,player_objIntersect];
 	_near = [];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 		_near = nearestObjects [_target, ["A3FL_DrugBag"],2,true];
 

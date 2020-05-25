@@ -8,7 +8,7 @@
 
 ['A3PL_Placeables_Pickup', {
 	private ["_obj","_type","_attachedTo"];
-	_obj = param [0,([] call A3PL_Intersect_Cursortarget)];
+	_obj = param [0,(call A3PL_Intersect_Cursortarget)];
 
 	_attachedTo = attachedTo _obj;
 	if ((isPlayer _attachedTo) && (!(_attachedTo isKindOf "Car"))) exitwith {[localize"STR_NewPlaceables_1", "red"] call A3PL_Player_Notification;};
@@ -86,7 +86,7 @@
 	while {(_obj IN (attachedObjects player)) && (!isNull _obj)} do
 	{
 		_sleep = 0.5;
-		if (!alive player) exitwith {detach _obj; [] call A3PL_Inventory_Drop;};
+		if (!alive player) exitwith {detach _obj; call A3PL_Inventory_Drop;};
 		if (!(vehicle player == player)) exitwith
 		{
 			private ["_isItem"];
@@ -104,7 +104,7 @@
 			}
 			else
 			{
-				[] call A3PL_Inventory_Drop;
+				call A3PL_Inventory_Drop;
 			};
 		};
 		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfisherstable1","mcfisherstable2","mcfishergrill"]) then
@@ -222,7 +222,7 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Placeables_QuickAction', {
-	private _attached = [] call A3PL_Lib_Attached;
+	private _attached = call A3PL_Lib_Attached;
 	if (count _attached > 0) exitwith
 	{
 		private ["_obj","_dir","_collision","_except"];
@@ -305,7 +305,7 @@
 		_obj setposATL (getposATL _obj);
 	};
 	if (!(isNull player_item)) exitwith {[localize"STR_NewPlaceables_7", "red"] call A3PL_Player_Notification};
-	[] call A3PL_Placeables_Pickup;
+	call A3PL_Placeables_Pickup;
 }] call Server_Setup_Compile;
 
 ['A3PL_Placeable_CarBlacklist',
@@ -357,7 +357,7 @@
 ["A3PL_Placeables_PlaceCone",
 {
 	private ["_cones","_cone"];
-	_cones = ([] call A3PL_Lib_Attached) select 0;
+	_cones = (call A3PL_Lib_Attached) select 0;
 	if (isNil "_cones") then {_cones = objNull;};
 	if ((typeOf _cones) != "A3PL_RoadCone_x10") exitwith {[localize"STR_NewPlaceables_8","red"] call A3PL_Player_Notification;};
 

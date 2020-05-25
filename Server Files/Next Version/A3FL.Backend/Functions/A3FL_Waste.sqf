@@ -12,14 +12,14 @@
 {
 	_location = param [0,player_objintersect];
 	_spawnLoc = [6031.92,7494.859,0];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
-	if (player getVariable ["job","unemployed"] == "waste") exitwith {[localize"STR_NewWaste_1","red"]; [] call A3PL_NPC_LeaveJob};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	if (player getVariable ["job","unemployed"] == "waste") exitwith {[localize"STR_NewWaste_1","red"]; call A3PL_NPC_LeaveJob};
 	player setVariable ["job","waste"];
 
  	[localize"STR_NewWaste_2","green"] call A3PL_Player_Notification;
 	[localize"STR_NewWaste_3","green"] call A3PL_Player_Notification;
 
-	[] call A3PL_Player_SetMarkers;
+	call A3PL_Player_SetMarkers;
 	uiSleep 4;
 
 	switch(_location) do {

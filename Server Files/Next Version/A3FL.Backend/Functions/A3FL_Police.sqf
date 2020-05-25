@@ -1422,7 +1422,7 @@
 	disableSerialization;
 	createDialog "Dialog_PoliceDatabase";
 	_display = findDisplay 211;
-	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) == 28) then {[] call A3PL_Police_DatabaseEnter;}"];
+	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) == 28) then {call A3PL_Police_DatabaseEnter;}"];
 
 	[_text] call A3PL_Police_UpdateComputer;
 }] call Server_Setup_Compile;

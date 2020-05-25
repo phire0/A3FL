@@ -33,7 +33,7 @@ class Dialog_Kane9
 			w = 0.0464063 * safezoneW;
 			h = 0.033 * safezoneH;
 			sizeEx = "0.015 * safezoneH";
-			action = "[] call A3PL_Dogs_BuyRequest;";
+			action = "call A3PL_Dogs_BuyRequest;";
 		};
 		class RscText_1000: RscText
 		{

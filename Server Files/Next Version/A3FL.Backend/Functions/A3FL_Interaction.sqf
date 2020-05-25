@@ -46,7 +46,7 @@
         if(count A3PL_Interaction_overflowList < 2) then {
             A3PL_Interaction_actionList pushBack [(A3PL_Interaction_overflowList select 0 select 0),(A3PL_Interaction_overflowList select 0 select 1)];
         } else {
-            A3PL_Interaction_actionList pushBack ["More options",{[] call A3PL_Interaction_loadMoreInteractions;}];
+            A3PL_Interaction_actionList pushBack ["More options",{call A3PL_Interaction_loadMoreInteractions;}];
         };
     };
 
@@ -133,18 +133,18 @@
 	_interObj = call A3PL_Intersect_Cursortarget;
 
 	//Exclusion for attached objects
-	_attachedObjects = [] call A3PL_Lib_Attached;
-	if ((count ([] call A3PL_Lib_Attached) > 0) && (isNull player_Item)) exitwith
+	_attachedObjects = call A3PL_Lib_Attached;
+	if ((count (call A3PL_Lib_Attached) > 0) && (isNull player_Item)) exitwith
 	{
-		_interObj = ([] call A3PL_Lib_Attached) select 0;
-		if (([_interObj] call A3PL_lib_CheckIfFurniture) && (_interObj IN ([] call A3PL_Lib_Attached))) exitwith
+		_interObj = (call A3PL_Lib_Attached) select 0;
+		if (([_interObj] call A3PL_lib_CheckIfFurniture) && (_interObj IN (call A3PL_Lib_Attached))) exitwith
 		{
-			[] call A3PL_Placeables_QuickAction;
+			call A3PL_Placeables_QuickAction;
 		};
 
 		if (typeOf _interObj IN Config_Placeables) then
 		{
-			[] call A3PL_Placeables_QuickAction;
+			call A3PL_Placeables_QuickAction;
 		};
 	};
 

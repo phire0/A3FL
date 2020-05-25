@@ -86,7 +86,7 @@ class Dialog_IE
 			y = 0.773037 * safezoneH + safezoneY;
 			w = 0.0734375 * safezoneW;
 			h = 0.0339259 * safezoneH;
-			action = "[] call A3PL_IE_collectShipment;";
+			action = "call A3PL_IE_collectShipment;";
 		};
 		class edit_totalprice: RscEdit
 		{

@@ -44,7 +44,7 @@ class Dialog_UberAccept
 			y = 0.489 * safezoneH + safezoneY;
 			w = 0.0773437 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_Uber_AcceptRequest;";
+			action = "call A3PL_Uber_AcceptRequest;";
 		};
 		class RscButton_1601: RscButton
 		{

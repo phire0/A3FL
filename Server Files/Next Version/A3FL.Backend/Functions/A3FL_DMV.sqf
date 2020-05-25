@@ -76,7 +76,7 @@
 //[player,'fml',true] remoteExec ["Server_DMV_Add",2];
 ["A3PL_DMV_Add",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_add","_display","_control","_target","_license","_licenses","_unable","_index"];
 	_add = param [0,true];
 	_display = findDisplay 21;
@@ -134,7 +134,7 @@
 ["A3PL_DMV_Speed", {
 	private _vehicle = vehicle player;
 	private _actualSpeed = [(speed _vehicle)*0.621371, 0] call BIS_fnc_cutDecimals;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	[format [localize"STR_DMV_CURRENTSPEED",_actualSpeed],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 

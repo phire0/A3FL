@@ -127,9 +127,12 @@
 ["A3PL_Robberies_PickSeizure",{
 	private ["_storage"];
 	_storage = param [0,objNull];
-	_cooldown = _storage getVariable ["cooldown",false];
-
-	if (_cooldown) exitWith {["This has already been robbed recently", "red"] call A3PL_Player_Notification;};
+	_timer = false;
+	if (!isNil {_storage getVariable ["timer",nil]}) then
+	{
+		if (((serverTime - (_storage getVariable ["timer",0]))) < 1800) then {_timer = true};
+	};
+	if (_timer) exitwith {[format ["The evidince locker has recently been robbed, try again in %1 seconds",1800 - ((_bank getVariable ["timer",0]) - serverTime)],"red"] call A3PL_Player_Notification;};
 	if (animationstate player == "Acts_carFixingWheel") exitwith {[localize"STR_CRIMINAL_YOUALREADYTAKEANACTION", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player == player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_CRIMINAL_YOUALREADYPICKVEHICLE", "red"] call A3PL_Player_Notification;};
@@ -141,7 +144,6 @@
 
 	player playmove "Acts_carFixingWheel";
 	player setVariable ["picking",true,true];
-	_storage setVariable ["cooldown",true,true];
 
 	[getPlayerUID player,"docRobbery",[getPos _storage]] remoteExec ["Server_Log_New",2];
 	[_storage] spawn
@@ -167,7 +169,6 @@
 		player switchMove "";
 		if(Player_ActionInterrupted || !_success) exitWith {
 			Player_ActionInterrupted = true;
-			_storage setVariable["locked",false,true];
 			[localize"STR_CRIMINAL_PICKENDED", "red"] call A3PL_Player_Notification;
 			if (vehicle player == player) then {player switchMove "";};
 		};
@@ -181,6 +182,7 @@
 			[player,20] call A3PL_Level_AddXP;
 		} else {
 			_storage setVariable["locked",false,true];
+			_storage setVariable ["timer",serverTime,true];
 			[localize"STR_CRIMINAL_YOUCANNOTPICKTHISVEHICLEHC", "red"] call A3PL_Player_Notification;
 		};
 	};

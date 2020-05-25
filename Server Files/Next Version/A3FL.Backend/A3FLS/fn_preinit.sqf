@@ -234,7 +234,7 @@ Server_Setup_Compile = {
 
 		// uiSleep 2;
 
-		[] call A3PL_Medical_Init;
+		call A3PL_Medical_Init;
 		_control = (_display displayCtrl 10360);
 		_format = "<t size='2' align='center' color='#B8B8B8'>80%</t>";
 		_control ctrlSetStructuredText (parseText _format);
@@ -267,7 +267,7 @@ Server_Setup_Compile = {
 		cutText["","BLACK IN"];
 
 		//load the admins
-		[] call A3PL_Admin_Check;
+		call A3PL_Admin_Check;
 
 		player enableSimulation true;
 		player setvariable ["FinishedLoading",true,true];
@@ -283,33 +283,33 @@ Server_Setup_Compile = {
 	waitUntil {(isNil 'A3PL_FilesSetup') isEqualTo false};
 
 	//setup database
-	[] call Server_Setup_SetupDatabase;
+	call Server_Setup_SetupDatabase;
 	waitUntil {(isNil 'A3PL_DatabaseSetup') isEqualTo false};
 	Server_Setup_SetupDatabase = Nil;
 
 	//setup server variables
-	[] call Server_Core_Variables;
+	call Server_Core_Variables;
 
 	//Setup 'HandleDisconnect' missionEventHandler (located in Server_Gear)
-	[] call Server_Gear_HandleDisconnect;
+	call Server_Gear_HandleDisconnect;
 
 	//Call the initial server storage
-	[] call Server_Storage_Init;
+	call Server_Storage_Init;
 
 	//Temporary Hotfix
 	//all this crap runs into post-init
 	[] spawn {
 		waitUntil {!isNil "npc_bank"};
-		[] call Server_Addresses_Setup;
-		[] call Server_Housing_Initialize;
-		[] call Server_Warehouses_Initialize;
+		call Server_Addresses_Setup;
+		call Server_Housing_Initialize;
+		call Server_Warehouses_Initialize;
 
-		[] call Server_Criminal_BlackMarketPos;
-		[] call Server_JobFarming_DrugDealerPos;
+		call Server_Criminal_BlackMarketPos;
+		call Server_JobFarming_DrugDealerPos;
 		[] spawn Server_JobWildcat_RandomizeOil;
 		[] spawn Server_JobWildcat_RandomizeRes;
-		[] call Server_Core_GetDefVehicles;				//create the defaulte vehicles array (for use in cleanup script)
-		[] call Server_JobPicking_Init;					//get the marker locations for picking locations
+		call Server_Core_GetDefVehicles;				//create the defaulte vehicles array (for use in cleanup script)
+		call Server_JobPicking_Init;					//get the marker locations for picking locations
 		[] spawn Server_Lumber_TreeRespawn;				//spawn trees for lumberyacking
 
 		//load stock values
@@ -317,14 +317,14 @@ Server_Setup_Compile = {
 		[] spawn Server_Locker_Load;
 	};
 
-	[] call Server_IE_Init;
-	[] call Server_Setup_ResetPlayerDB;
+	call Server_IE_Init;
+	call Server_Setup_ResetPlayerDB;
 	[] spawn Server_TrafficLights_Start;
 
 	/*iPhoneX*/
 	A3PL_iPhoneX_ListNumber = [];
 	A3PL_iPhoneX_switchboard = [];
-	[] call Server_iPhoneX_GetPhoneNumber;
+	call Server_iPhoneX_GetPhoneNumber;
 
 	/*Get All FuelStations*/
 	private _FuelPositions = [
@@ -356,13 +356,13 @@ Server_Setup_Compile = {
 	_craneleft setDir 232.025;
 	_craneleft setFuel 0;
 
-	["itemAdd", ["Server_PoliceLoop", { [] call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
-	["itemAdd", ["Server_Loop_Fishing", {[] call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
+	["itemAdd", ["Server_PoliceLoop", { call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_Fishing", {call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
 
-	["itemAdd", ["Server_Loop_BlackMarket", {[] call Server_Criminal_BlackMarketPos;}, 1200]] call BIS_fnc_loop;
-	["itemAdd", ["Server_Loop_BlackMarketNear", {[] call Server_Criminal_BlackMarketNear;}, 60]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_BlackMarket", {call Server_Criminal_BlackMarketPos;}, 1200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_BlackMarketNear", {call Server_Criminal_BlackMarketNear;}, 60]] call BIS_fnc_loop;
 
-	["itemAdd", ["Server_Loop_DealerPos", {[] call Server_JobFarming_DrugDealerPos;}, 1200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_DealerPos", {call Server_JobFarming_DrugDealerPos;}, 1200]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_RepairTerrain", {[] spawn Server_Core_RepairTerrain;}, 600]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_BusinessLoop", {[] spawn Server_Business_Loop;}, 60]] call BIS_fnc_loop;
 
@@ -411,8 +411,8 @@ Server_Setup_Compile = {
 		};
 	} foreach _pVars;
 
-	[] call Server_Company_LoadAll;
-	[] call Server_Police_SeizureLoad;
+	call Server_Company_LoadAll;
+	call Server_Police_SeizureLoad;
 	[] spawn Server_Gear_SaveLoop;
 
 	//check addons
@@ -676,8 +676,8 @@ Server_Setup_Compile = {
 
 	//Scan if player owns a house, if not we will assign him an appartment
 	//Make sure to re-init, just in case
-	[] call Server_Housing_Initialize;
-	[] call Server_Warehouses_Initialize;
+	call Server_Housing_Initialize;
+	call Server_Warehouses_Initialize;
 
 	_ownsHouse = false;
 	{

@@ -23,7 +23,7 @@ class Dialog_CreateTicket
 			y = 0.544 * safezoneH + safezoneY;
 			w = 0.0928125 * safezoneW;
 			h = 0.033 * safezoneH;
-			action = "[] call A3PL_Police_CreateTicket;";
+			action = "call A3PL_Police_CreateTicket;";
 		};
 		class static_amount: RscText
 		{

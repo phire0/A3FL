@@ -59,7 +59,7 @@ class Dialog_PlayerGarage
 			sizeEx = 0.8 * GUI_GRID_H;
 			colorBackground[] = {0,0,0,0};
 			colorBackgroundActive[] = {0,0,0,0};
-			action = "[] call A3PL_Storage_CarRetrieveButton;";
+			action = "call A3PL_Storage_CarRetrieveButton;";
 		};
 		class B_RenameVehicle: RscButton
 		{
@@ -71,7 +71,7 @@ class Dialog_PlayerGarage
 			sizeEx = 0.8 * GUI_GRID_H;
 			colorBackground[] = {0,0,0,0};
 			colorBackgroundActive[] = {0,0,0,0};
-			action = "[] call A3PL_Storage_ChangeVehicleName;";
+			action = "call A3PL_Storage_ChangeVehicleName;";
 		};
 	};
 };

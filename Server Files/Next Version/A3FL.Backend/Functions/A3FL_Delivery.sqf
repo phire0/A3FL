@@ -10,11 +10,11 @@
 {
 	_npc = param [0,objNull];
 	if(isNull(_npc)) exitWith {};
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
-	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"]; [] call A3PL_NPC_LeaveJob};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"]; call A3PL_NPC_LeaveJob};
 
 	player setVariable ["job","mailman"];
-	[] call A3PL_Player_SetMarkers;
+	call A3PL_Player_SetMarkers;
 	[localize"STR_DELIVERY_WORKSTART","green"] call A3PL_Player_Notification;
 	[localize"STR_DELIVERY_INFO","green"] call A3PL_Player_Notification;
 
@@ -31,12 +31,12 @@
 	["A3PL_Mailtruck",_spawnPos,"MAILMAN",1800] spawn A3PL_Lib_JobVehicle_Assign;
 
 	uiSleep (random 2 + 2);
-	[] call A3PL_Delivery_GenPackage;
+	call A3PL_Delivery_GenPackage;
 }] call Server_Setup_Compile;
 
 ["A3PL_Delivery_Deliver",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_package","_pos","_label"];
 	_package = objNull;
 	{
@@ -74,7 +74,7 @@
 	private ["_package"];
 	_package = param [0,objNull];
 	player playAction "Gesture_carry_box";
-	[] call A3PL_Placeables_QuickAction;
+	call A3PL_Placeables_QuickAction;
 	[_package] spawn
 	{
 		_package = param [0,objNull];

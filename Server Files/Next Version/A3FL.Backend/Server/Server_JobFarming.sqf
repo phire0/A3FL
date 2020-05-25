@@ -113,8 +113,8 @@
 	private _area = _areas select (floor (random (count _areas)));
 	private _pos = [_area] call CBA_fnc_randPosArea;
 	private _pos = _pos findEmptyPosition [0, 25,(typeOf DrugDealerHouse)];
-	if (count _pos == 0) exitwith {[] call Server_JobFarming_DrugDealerPos};
-	if ((count (_pos nearRoads 50)) > 0) exitwith {[] call Server_JobFarming_DrugDealerPos};
+	if (count _pos == 0) exitwith {call Server_JobFarming_DrugDealerPos};
+	if ((count (_pos nearRoads 50)) > 0) exitwith {call Server_JobFarming_DrugDealerPos};
 	_object setDir (floor (random 360));
 	_object setpos _pos;
 	npc_drugsdealer setDir (getDir DrugDealerHouse + 90);

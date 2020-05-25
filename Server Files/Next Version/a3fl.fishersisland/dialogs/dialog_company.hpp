@@ -23,7 +23,7 @@ class Dialog_Company_Create
 			y = 0.753 * safezoneH + safezoneY;
 			w = 0.0670312 * safezoneW;
 			h = 0.033 * safezoneH;
-			action = "[] call A3PL_Company_Create;";
+			action = "call A3PL_Company_Create;";
 		};
 		class BTN_Close: RscButtonEmpty
 		{
@@ -102,7 +102,7 @@ class Dialog_Company_Delete
 			y = 0.650384 * safezoneH + safezoneY;
 			w = 0.096956 * safezoneW;
 			h = 0.0281971 * safezoneH;
-			action = "[] call A3PL_Government_CompanyDelete";
+			action = "call A3PL_Government_CompanyDelete";
 		};
 		class BTN_Close: RscButtonEmpty
 		{
@@ -355,7 +355,7 @@ class Dialog_Company_Storage
 			y = 0.701482 * safezoneH + safezoneY;
 			w = 0.0745833 * safezoneW;
 			h = 0.0303333 * safezoneH;
-			action = "[] call A3PL_Company_Store;";
+			action = "call A3PL_Company_Store;";
 		};
 		class button_take: RscButtonEmpty
 		{
@@ -364,7 +364,7 @@ class Dialog_Company_Storage
 			y = 0.699481 * safezoneH + safezoneY;
 			w = 0.0735417 * safezoneW;
 			h = 0.0331111 * safezoneH;
-			action = "[] call A3PL_Company_Take;";
+			action = "call A3PL_Company_Take;";
 		};
 		class edit_store: RscEdit
 		{

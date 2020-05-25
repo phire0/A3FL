@@ -35,7 +35,7 @@
 		if((_plane distance _startPoint) > 20) exitWith {_error = true;};
 		sleep 1;
 	};
-	if(_error) exitWith {[] call A3PL_Freight_End;["You moved the plane while it was loading!","green"] call A3PL_Player_Notification;};
+	if(_error) exitWith {call A3PL_Freight_End;["You moved the plane while it was loading!","green"] call A3PL_Player_Notification;};
 	_plane setVariable["onDeliveryCargo",_cargoValue,true];
 	["Your cargo is ready!","green"] call A3PL_Player_Notification;
 	private _destString = [_destination] call A3PL_Freight_DestString;
@@ -43,7 +43,7 @@
 	player setVariable["deliveryPlane",_plane,false];
 	_plane setVariable["onDelivery",true,true];
 	_plane setVariable["onDeliveryDest",_destination,true];
-	_plane addEventHandler ["Killed",{[] call A3PL_Freight_DestroyFees;}];
+	_plane addEventHandler ["Killed",{call A3PL_Freight_DestroyFees;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_Freight_Unload",
@@ -61,7 +61,7 @@
 		if((_plane distance _unloadPoint) > 20) exitWith {_error = true;};
 		sleep 1;
 	};
-	if(_error) exitWith {[] call A3PL_Freight_End;["You moved the plane while it was unloading!","green"] call A3PL_Player_Notification;};
+	if(_error) exitWith {call A3PL_Freight_End;["You moved the plane while it was unloading!","green"] call A3PL_Player_Notification;};
 	["Cargo unloaded!","green"] call A3PL_Player_Notification;
 	_plane setVariable["onDeliveryCargo",nil,true];
 	_plane removeEventHandler ["Killed", 0];

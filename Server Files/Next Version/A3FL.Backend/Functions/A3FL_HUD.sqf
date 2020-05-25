@@ -30,7 +30,7 @@
 	(_display displayCtrl 351) ctrlCommit 0;
 	(_display displayCtrl 352) ctrlCommit 0;
 
-	[] call A3PL_Twitter_Init;
+	call A3PL_Twitter_Init;
 
 	_display = uiNamespace getVariable "A3PL_HUD_IDCard";
 	for "_i" from 999 to 1006 do
@@ -359,7 +359,7 @@
 					};
 					"myGPS" setMarkerDirLocal floor((getDir (vehicle player)) - 40);
 
-					_heading = [] call A3PL_Lib_GetHeading;
+					_heading = call A3PL_Lib_GetHeading;
 					_ctrl_gps_azimut ctrlSetStructuredText parseText format [
 						"<t size='0.7' font='PuristaLight' color='#ffffff' align='center'>%1</t>",
 						_heading

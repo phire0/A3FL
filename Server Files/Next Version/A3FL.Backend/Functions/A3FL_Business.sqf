@@ -40,7 +40,7 @@
 
 	//setup buttons
 	_control = _display displayCtrl 1600;
-	_control buttonSetAction "[] call A3PL_Business_Rent";
+	_control buttonSetAction "call A3PL_Business_Rent";
 	_control = _display displayCtrl 1601;
 	_control buttonSetAction "closeDialog 0;";
 }] call Server_Setup_Compile;
@@ -48,7 +48,7 @@
 ["A3PL_Business_Rent",
 {
 	disableSerialization;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_display","_control","_name","_business","_sign","_sControl","_rentTime","_rentCost"];
 	_sign = param [0,player_objintersect];
 	if (typeOf _sign == "Land_A3PL_BusinessSign") then
@@ -302,7 +302,7 @@
 ["A3PL_Business_BuyItemBuy",
 {
 	disableSerialization;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_display","_control","_obj","_bItem","_hasMoney","_businessItem","_correctLoc","_factionItem","_finv"];
 	_obj = [(param [0,""])] call A3PL_Lib_vehStringToObj;
 	_factionBuy = param [1,false];

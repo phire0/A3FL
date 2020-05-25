@@ -195,8 +195,8 @@
 
 	//Scan if player owns a house, if not we will assign him an appartment
 	//Make sure to re-init, just in case
-	[] call Server_Housing_Initialize;
-	[] call Server_Warehouses_Initialize;
+	call Server_Housing_Initialize;
+	call Server_Warehouses_Initialize;
 
 	_ownsHouse = false;
 	{

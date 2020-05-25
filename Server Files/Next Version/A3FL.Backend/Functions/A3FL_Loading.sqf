@@ -59,7 +59,7 @@
 
 		noEscape = _display displayAddEventHandler ["KeyDown", "if ((_this select 1) == 1) then {true}"];
 
-		[] call A3PL_Loading_Request;
+		call A3PL_Loading_Request;
 	};
 }] call Server_Setup_Compile;
 
@@ -184,7 +184,7 @@
 
 		// uiSleep 2;
 
-		[] call A3PL_Medical_Init;
+		call A3PL_Medical_Init;
 		_control = (_display displayCtrl 10360);
 		_format = "<t size='2' align='center' color='#B8B8B8'>80%</t>";
 		_control ctrlSetStructuredText (parseText _format);
@@ -217,7 +217,7 @@
 		cutText["","BLACK IN"];
 
 		//load the admins
-		[] call A3PL_Admin_Check;
+		call A3PL_Admin_Check;
 
 		player enableSimulation true;
 		player setvariable ["FinishedLoading",true,true];

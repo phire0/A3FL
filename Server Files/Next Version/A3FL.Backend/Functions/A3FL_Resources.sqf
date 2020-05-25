@@ -10,7 +10,7 @@
 {
 	private ["_inMarker","_eBucket","_s","_sBucket","_pos","_digProgress","_t"];
 	_inMarker = false;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if(player getVariable "Digging") exitWith{[localize"STR_NewRessources_Action","red"] call A3PL_Player_Notification;};
 
 	{if ((getpos player) inArea _x) exitwith {_inMarker = true};} foreach ["A3PL_Marker_Sand1","A3PL_Marker_Sand2"];

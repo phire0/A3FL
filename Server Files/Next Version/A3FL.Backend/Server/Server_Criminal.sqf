@@ -45,7 +45,7 @@
 		_y = (round (random 5100)) + 9600;
 	};
 
-	if(!surfaceIsWater [_x,_y,0]) exitWith {[] call Server_Criminal_BlackMarketPos;};
+	if(!surfaceIsWater [_x,_y,0]) exitWith {call Server_Criminal_BlackMarketPos;};
 
 	ship_blackmarket setposASL [_x,_y,((getposASL ship_blackmarket) select 2)];
 

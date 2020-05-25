@@ -44,11 +44,11 @@
 		[_quality] call A3PL_Alcohol_Add;
 	} else {
 		Player_Thirst = Player_Thirst + _quality;
-		[] call A3PL_Lib_VerifyThirst;
+		call A3PL_Lib_VerifyThirst;
 		profileNamespace setVariable ["player_thirst",Player_Thirst];
 		if((_classname == "waterbottle") && (Player_Alcohol > 0)) then {
 			[-5] call A3PL_Alcohol_Add;
-			[] call A3PL_Alcohol_Verify;
+			call A3PL_Alcohol_Verify;
 		};
 	};
 
@@ -98,7 +98,7 @@
 		[_classname,_quality] call A3PL_Drugs_Add;
 	} else {
 		Player_Hunger = Player_Hunger + _quality;
-		[] call A3PL_Lib_VerifyHunger;
+		call A3PL_Lib_VerifyHunger;
 		profileNamespace setVariable ["player_hunger",Player_Hunger];
 
 		if (_quality > 0) then

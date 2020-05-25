@@ -109,7 +109,7 @@
 
 ["A3PL_Moonshine_InstallHose",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_dist","_hose","_hoses"];
 	_dist = param [0,objNull];
 	_hoses = nearestObjects [_dist, ["A3PL_Distillery_Hose"], 2];
@@ -120,7 +120,7 @@
 
 ["A3PL_Moonshine_InstallJug",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_jug","_hose","_jugs"];
 	_hose = param [0,objNull];
 	_jugs = nearestObjects [_hose, ["A3PL_Jug","A3PL_Jug_Green"], 2];
@@ -131,7 +131,7 @@
 
 ["A3PL_Moonshine_addItem",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_dist","_nearby"];
 	_dist = param [0,objNull];
 	_nearby = nearestObjects [_dist, ["A3PL_Grainsack_Malt","A3PL_Grainsack_Yeast","A3PL_Grainsack_CornMeal"], 2];
@@ -164,7 +164,7 @@
 
 ["A3PL_Moonshine_Start",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_dist","_sound","_items","_timeLeft","_hose","_succes","_posSound"];
 	_dist = param [0,objNull];
 	if (_dist getVariable ["running",false]) exitwith {["The distillery is already in operation","red"] call A3PL_Player_Notification;};

@@ -280,9 +280,9 @@
 	createDialog "Dialog_ATC";
 	buttonSetAction [1601, "[true] call A3PL_ATC_RadarRange;"];
 	buttonSetAction [1600, "[false] call A3PL_ATC_RadarRange;"];
-	buttonSetAction [1603, "[] call A3PL_ATC_ATISPreview;"];
+	buttonSetAction [1603, "call A3PL_ATC_ATISPreview;"];
 	buttonSetAction [1604, "A3PL_ATC_ATISTEXT = ctrlText 1407; publicVariable 'A3PL_ATC_ATISTEXT';"];
-	buttonSetAction [1602, "[] call A3PL_ATC_Transfer"];
+	buttonSetAction [1602, "call A3PL_ATC_Transfer"];
 	
 	if (!isNil "A3PL_ATC_ATISTEXT") then
 	{

@@ -50,13 +50,13 @@
 	}];
 
 	private _control = _display displayCtrl 1600;
-	_control ctrlAddEventHandler ["ButtonDown", {[] call A3PL_Combine_Create;}];
+	_control ctrlAddEventHandler ["ButtonDown", {call A3PL_Combine_Create;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_Combine_Create",
 {
 	disableSerialization;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _creating = A3PL_Combine_ItemSelected;
 	private _required = A3PL_Combine_ItemRequired;
 

@@ -44,17 +44,17 @@
 
     if (player getVariable ["job","unemployed"] == "uber") then {
         ctrlSetText [1609, "Leave Job"];
-        buttonSetAction [1609, "[] call A3PL_Uber_removeDriver"];
+        buttonSetAction [1609, "call A3PL_Uber_removeDriver"];
         if (A3PL_Uber_JobActive) then {
             ctrlSetText [1613, "End current drive"];
-            buttonSetAction [1613, "[] call A3PL_Uber_EndJob;"];
+            buttonSetAction [1613, "call A3PL_Uber_EndJob;"];
         } else {
             ctrlSetText [1613, ""];
             ctrlEnable [1613, false];
         };
     } else {
-        buttonSetAction [1613, "[] call A3PL_Uber_requestDriver;"];
-        buttonSetAction [1609, "[] call A3PL_Uber_addDriver;"];
+        buttonSetAction [1613, "call A3PL_Uber_requestDriver;"];
+        buttonSetAction [1609, "call A3PL_Uber_addDriver;"];
     };
 }, false] call Server_Setup_Compile;
 
@@ -77,7 +77,7 @@
     [localize"STR_UBER_WorkFinished","green"] call A3PL_Player_Notification;
 
     if (A3PL_Uber_JobActive) then {
-        [] call A3PL_Uber_EndJob;
+        call A3PL_Uber_EndJob;
     };
 }, false] call Server_Setup_Compile;
 

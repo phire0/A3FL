@@ -77,19 +77,19 @@
 
 	//Desc edit
 	_control = _display displayCtrl 1702;
-	_control buttonSetAction "[] call A3PL_Company_DescEdit;";
+	_control buttonSetAction "call A3PL_Company_DescEdit;";
 
 	//Pay edit
 	_control = _display displayCtrl 1701;
-	_control buttonSetAction "[] call A3PL_Company_SetPay;";
+	_control buttonSetAction "call A3PL_Company_SetPay;";
 
 	//Fire
 	_control = _display displayCtrl 1700;
-	_control buttonSetAction "[] call A3PL_Company_Fire;";
+	_control buttonSetAction "call A3PL_Company_Fire;";
 
 	//Bank transfer
 	_control = _display displayCtrl 1704;
-	_control buttonSetAction "[] call call A3PL_Company_Transfer;";
+	_control buttonSetAction "call call A3PL_Company_Transfer;";
 
 	[_cid, player] remoteExec ["Server_Company_ManageSetup",2];
 }] call Server_Setup_Compile;
@@ -339,14 +339,14 @@
 	_display = findDisplay 139;
 
 	_control = _display displayCtrl 1600;
-	_control buttonSetAction "[] call A3PL_Company_BillPay;";
+	_control buttonSetAction "call A3PL_Company_BillPay;";
 
 	_control = _display displayCtrl 1601;
 	_control buttonSetAction "closeDialog 0;";
 
 	if(([(player getVariable['faction','citizen'])] call A3PL_Government_isFactionLeader)) then {
 		_control = _display displayCtrl 1602;
-		_control buttonSetAction "[] call A3PL_Company_BillPayFaction;";
+		_control buttonSetAction "call A3PL_Company_BillPayFaction;";
 	} else {
 		_control = _display displayCtrl 1201;
 		_control ctrlShow false;
@@ -356,7 +356,7 @@
 
 	if(([getPlayerUID player] call A3PL_Config_IsCompanyBoss)) then {
 		_control = _display displayCtrl 1603;
-		_control buttonSetAction "[] call A3PL_Company_BillPayCompany;";
+		_control buttonSetAction "call A3PL_Company_BillPayCompany;";
 	} else {
 		_control = _display displayCtrl 1202;
 		_control ctrlShow false;
@@ -605,7 +605,7 @@
 			if ([_selectedData,_amount] call A3PL_Inventory_Has) then {
 				_canStore = true;
 				player setVariable ["player_inventory",([_inventory, _selectedData, -(_amount),false] call BIS_fnc_addToPairs),true];
-				[] call A3PL_Inventory_Verify;
+				call A3PL_Inventory_Verify;
 			};
 		};
 		case 1: {_typeName = "aitem";};

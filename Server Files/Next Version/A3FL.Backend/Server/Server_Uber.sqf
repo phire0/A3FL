@@ -37,7 +37,7 @@
     private ["_user"];
     params[["_user",objNull,[objNull]]];
 
-    [] call Server_Uber_flushDrivers;
+    call Server_Uber_flushDrivers;
     if(count A3PL_Uber_Drivers < 1) then {
         [localize"STR_SERVER_UBER_NOUBERAVAILABLE", "red"] remoteExec ["A3PL_Player_Notification", _user];
     } else {

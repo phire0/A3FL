@@ -26,7 +26,7 @@ class Dialog_ReceiveTicket
 			y = 0.544 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.033 * safezoneH;
-			action = "[] call A3PL_Police_PayTicket;";
+			action = "call A3PL_Police_PayTicket;";
 		};
 		class button_No: RscButton
 		{
@@ -36,7 +36,7 @@ class Dialog_ReceiveTicket
 			y = 0.544 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.033 * safezoneH;
-			action = "[] call A3PL_Police_RefuseTicket;";
+			action = "call A3PL_Police_RefuseTicket;";
 		};
 		class text_amount: RscText
 		{

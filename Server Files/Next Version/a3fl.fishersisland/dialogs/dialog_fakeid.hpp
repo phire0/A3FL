@@ -45,7 +45,7 @@ class Dialog_FakeID
 			y = 0.5 * safezoneH + safezoneY;
 			w = 0.0773437 * safezoneW;
 			h = 0.033 * safezoneH;
-			action = "[] call A3PL_Police_FakeIDSave;";
+			action = "call A3PL_Police_FakeIDSave;";
 		};
 	};
 };

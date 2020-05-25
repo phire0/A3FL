@@ -198,12 +198,12 @@
 		["A3PL_Intersect_Lines", "onEachFrame", {
 			if (count (nearestObjects [player, ["A3PL_Stinger"], 3]) > 0) then {
 				if (_veh == player) exitwith {};
-				[] call A3PL_Intersect_Spikes;
+				call A3PL_Intersect_Spikes;
 			};
 
 			//HANDLE COCKPIT
 			if (((typeOf vehicle player) IN Config_Intersect_Cockpits) && (cameraView == "INTERNAL")) exitwith {
-				[] call A3PL_Intersect_Cockpit;
+				call A3PL_Intersect_Cockpit;
 			};
 
 			_begPos = positionCameraToWorld [0,0,0]; // <----- THIS IS WHERE THE ISSUE IS MOST LIKELY

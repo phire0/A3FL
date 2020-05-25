@@ -21,8 +21,8 @@
 	["itemAdd", ["Loop_Drugs", {[] spawn A3PL_Drugs_Loop;}, 30, 'seconds',{ player getVariable ["drugs",false] },{ !(player getVariable["drugs",false]) }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Alcohol", {[] spawn A3PL_Alcohol_Loop;}, 30, 'seconds',{ player getVariable ["alcohol",false] },{ !(player getVariable["alcohol",false]) }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_JailMarkers", {[] spawn A3PL_Prison_Markers;}, 30, 'seconds',{ player getVariable ["job","unemployed"] IN ["usms"] },{ !(player getVariable ["job","unemployed"] IN ["usms"]) }]] call BIS_fnc_loop;
-	["itemAdd", ["drowningSystem", {[] call A3PL_Loop_Drowning;}, 1, "seconds", {(underwater player) && !(isAbleToBreathe player)}, {!(underwater player) || (isAbleToBreathe player)}]] call BIS_fnc_loop;
-	//["itemAdd", ["Loop_HousingTaxes", {[] call A3PL_Loop_HousingTaxes;}, 1800, 'seconds']] call BIS_fnc_loop;
+	["itemAdd", ["drowningSystem", {call A3PL_Loop_Drowning;}, 1, "seconds", {(underwater player) && !(isAbleToBreathe player)}, {!(underwater player) || (isAbleToBreathe player)}]] call BIS_fnc_loop;
+	//["itemAdd", ["Loop_HousingTaxes", {call A3PL_Loop_HousingTaxes;}, 1800, 'seconds']] call BIS_fnc_loop;
 
 	//Events
 	//["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
@@ -127,16 +127,16 @@
 		private _jobXP = [_job,"xp"] call A3PL_Config_GetPaycheckInfo;
 		private _done = false;
 
-		[] call A3PL_Gang_CapturedPaycheck;
+		call A3PL_Gang_CapturedPaycheck;
 
 		if(_job IN _factionJobs) then {
 			_done = true;
-			_payAmount = [] call A3PL_Government_FactionPay;
+			_payAmount = call A3PL_Government_FactionPay;
 		} else {
 			private _inCompany = [getPlayerUID player] call A3PL_Config_InCompany;
 			if(_inCompany) then {
 				_done = true;
-				_payAmount = [] call A3PL_Company_Paycheck;
+				_payAmount = call A3PL_Company_Paycheck;
 			};
 		};
 		if(!_done) then {[format[localize"STR_NewLoop_6",_payAmount], "green"] call A3PL_Player_Notification;};
@@ -181,7 +181,7 @@
 		[localize"STR_NewLoop_9", "red"] call A3PL_Player_Notification;
 	};
 
-	[] call A3PL_Lib_VerifyHunger;
+	call A3PL_Lib_VerifyHunger;
 	profileNamespace setVariable ["player_hunger",Player_Hunger];
 
 	if (Player_Hunger <= 0) then {
@@ -213,7 +213,7 @@
 	if(player getVariable ["jailed",false]) exitWith {};
 
 	Player_Thirst = Player_Thirst - _amount;
-	[] call A3PL_Lib_VerifyThirst;
+	call A3PL_Lib_VerifyThirst;
 
 	if ((Player_Thirst >= 45) && (Player_Thirst <= 50) && (isNil "A3PL_ThirstWarning1") && (!(player getVariable ["Incapacitated",false]))) then {
 		A3PL_ThirstWarning1 = true;

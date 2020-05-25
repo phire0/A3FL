@@ -118,7 +118,7 @@
 
 ["A3PL_BHeist_SetDrill",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_bank","_drill","_timer"];
 	_bank = param [0,objNull];
 	if (typeOf _bank != "Land_A3PL_Bank") exitwith {["You are not looking at the bank vault","red"] call A3PL_Player_Notification;};
@@ -142,7 +142,7 @@
 
 ["A3PL_BHeist_PickupDrill",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_drill"];
 	_drill = param [0,objNull];
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
@@ -153,14 +153,14 @@
 
 ["A3PL_BHeist_InstallBit",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_drill"];
 	_drill = param [0,objNull];
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
 	if (_drill animationPhase "drill_bit" < 0.5) then
 	{
 		if (Player_ItemClass != "drill_bit") exitwith {["You are not carrying a drill bit in your hand","red"] call A3PL_Player_Notification;};
-		[] call A3PL_Inventory_Clear;
+		call A3PL_Inventory_Clear;
 		["drill_bit", -1] call A3PL_Inventory_Add;
 		_drill animate ["drill_bit",1];
 	} else
@@ -177,7 +177,7 @@
 	_drill = param [0,objNull];
 	_fail = false;
 	_faction = "FISD";
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
 
 	if(_nearCity isEqualTo "Lubbock") then {
@@ -225,7 +225,7 @@
 
 	_bank animateSource ["door_bankvault",1];
 
-	_bank setVariable ["timer",serverTime];
+	_bank setVariable ["timer",serverTime,true];
 	uiSleep 1;
 	deleteVehicle _drill;
 	["Drilling completed. The drill and the drill bit both unfortunatly broke during drilling.","green"] call A3PL_Player_Notification;
@@ -234,7 +234,7 @@
 //spawn function
 ["A3PL_BHeist_OpenDeposit",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_bank","_depositNr","_name","_cashOffset","_random","_itemClass","_cash","_class","_dist"];
 	_bank = param [0,objNull];
 	_name = param [1,""];
@@ -310,7 +310,7 @@
 //spawn
 ["A3PL_BHeist_PickCash",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_cashPile","_container"];
 	_cashPile = param [0,objNull];
 
@@ -339,7 +339,7 @@
 //Convert stolen money into real cash
 ["A3PL_BHeist_ConvertCash",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_container"];
 	if (backpack player != "A3PL_Backpack_Money") exitwith {["You are not carrying a backpack to carry money in!","red"] call A3PL_Player_Notification;};
 	_container = backpackContainer player;

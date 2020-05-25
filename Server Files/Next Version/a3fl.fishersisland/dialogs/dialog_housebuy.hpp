@@ -23,7 +23,7 @@ class Dialog_HouseBuy
 			y = 0.588926 * safezoneH + safezoneY;
 			w = 0.0980208 * safezoneW;
 			h = 0.0367037 * safezoneH;
-			action = "[] call A3PL_Housing_Buy;";
+			action = "call A3PL_Housing_Buy;";
 		};
 		class button_no: RscButtonEmpty
 		{

@@ -24,11 +24,11 @@
 	_control = _display displayCtrl 1402;
 	_control ctrlAddEventHandler ["KeyUp",
 	{
-		[] call A3PL_IE_UpdateTotal;
+		call A3PL_IE_UpdateTotal;
 	}];
 
 	//Refresh shipments
-	[] call A3PL_IE_RefreshShipments;
+	call A3PL_IE_RefreshShipments;
 }] call Server_Setup_Compile;
 
 ["A3PL_IE_UpdateTotal",
@@ -71,7 +71,7 @@
 	_control = _display displayCtrl 1401;
 	_control ctrlSetText format ["$%1",_exportPrice];
 
-	[] call A3PL_IE_UpdateTotal; //update the total edit box
+	call A3PL_IE_UpdateTotal; //update the total edit box
 }] call Server_Setup_Compile;
 
 ["A3PL_IE_RefreshShipments",
@@ -149,7 +149,7 @@
 {
 	disableSerialization;
 	private ["_control","_display","_import","_item","_importPrice","_exportPrice","_amount","_itemCheck","_objectItem"];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_display = findDisplay 48;
 	_import = param [0,true];
 
@@ -209,7 +209,7 @@
 
 	if (_import) then
 	{
-		[] call A3PL_IE_RefreshShipments;
+		call A3PL_IE_RefreshShipments;
 	} else
 	{
 		if (!_itemCheck) exitwith {};
@@ -221,7 +221,7 @@
 {
 	disableSerialization;
 	private ["_display","_control","_index","_lbIndex"];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_display = findDisplay 48;
 	_control = _display displayCtrl 1501;
 
@@ -240,7 +240,7 @@
 		if (!_arrived) exitwith {["Not arrived yet.","red"] call A3PL_Player_Notification;};
 
 		//remove from player_importing array
-		[] call A3PL_IE_RefreshShipments;
+		call A3PL_IE_RefreshShipments;
 
 		//handle physical items later
 		if ([_item,"canPickup"] call A3PL_Config_GetItem) then
@@ -273,7 +273,7 @@
 
 		//set new array
 		player setVariable ["player_importing",_importArray,true];
-		[] call A3PL_IE_RefreshShipments;
+		call A3PL_IE_RefreshShipments;
 
 		//msg
 		[format ["You have successfully collected %1 %2(s)",_amount,([_item,"name"] call A3PL_Config_GetItem)],"green"] call A3PL_Player_Notification;
@@ -408,7 +408,7 @@
 ["A3PL_IE_CranePickup",
 {
 	private ["_crane","_hook","_ship","_hookPos","_cAnim","_container","_cIndex"];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_crane = param [0,objNull];
 	_hook = A3PL_IE_CraneHook; //"spin" is memory point
 	_ship = (getpos _hook) nearestObject "A3PL_Container_Ship"; //"c1" to "c72" are memory points for picking up containers
@@ -535,7 +535,7 @@
 
 		case 57: //space
 		{
-			[] call A3PL_IE_CranePickup;
+			call A3PL_IE_CranePickup;
 		};
 	};
 	_return;

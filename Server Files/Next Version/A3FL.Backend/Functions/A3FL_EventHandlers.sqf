@@ -12,13 +12,13 @@
 
 ["A3PL_EventHandlers_Setup",
 {
-	[] call A3PL_EventHandlers_HandleDamage;
-	[] call A3PL_EventHandlers_Take;
-	[] call A3PL_EventHandlers_Fired;
-	[] call A3PL_EventHandlers_FiredNear;
-	[] call A3PL_EventHandlers_OpenMap;
-	[] call A3PL_EventHandlers_InventoryOpened;
-	[] call A3PL_EventHandlers_RadioAnim;
+	call A3PL_EventHandlers_HandleDamage;
+	call A3PL_EventHandlers_Take;
+	call A3PL_EventHandlers_Fired;
+	call A3PL_EventHandlers_FiredNear;
+	call A3PL_EventHandlers_OpenMap;
+	call A3PL_EventHandlers_InventoryOpened;
+	call A3PL_EventHandlers_RadioAnim;
 
 	[] spawn {
 		waitUntil {!isnull (findDisplay 46)};
@@ -92,15 +92,15 @@
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			player setVariable ["inventory_opened", nil, true];
-			if (!([] call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
+			if (!(call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
-			[] call A3PL_iPhoneX_Locked;
+			call A3PL_iPhoneX_Locked;
 		}, "", [DIK_G, [false, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","twitter_key", "Open Twitter Post",
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-			if (!([] call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
+			if (!(call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			if(!dialog) then {[] spawn A3PL_iPhoneX_appTwitterPost;};
 		}, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
@@ -141,7 +141,7 @@
 				{
 					(findDisplay 1001) closeDisplay 0;
 				};
-				[] call A3PL_Inventory_Open;
+				call A3PL_Inventory_Open;
 			} else {
 				_veh = vehicle player;
 				if ((_veh getVariable["locked",true])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
@@ -154,7 +154,7 @@
 
 		["ArmA 3 Fishers Life","sync_data", "Sync Data",
 		{
-			[] call A3PL_iPhoneX_SyncData;
+			call A3PL_iPhoneX_SyncData;
 		}, "", [DIK_8, [true, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","ear_plug", "Ear Plug",
@@ -339,14 +339,14 @@
 			player playAction "GestureSwing";
 			if (player inArea "LumberJack_Rectangle") then
 			{
-				if (_weapon == "A3PL_FireAxe") then {[] call A3PL_Lumber_FireAxe;};
+				if (_weapon == "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
 			} else {
-				[] call A3PL_FD_HandleFireAxe;
+				call A3PL_FD_HandleFireAxe;
 			};
 		};
 		if (_weapon == "A3PL_Jaws") then
 		{
-			[] call A3PL_FD_HandleJaws;
+			call A3PL_FD_HandleJaws;
 		};
 	}];
 }] call Server_Setup_Compile;
@@ -360,7 +360,7 @@
 	if (_dikCode == 59) exitWith {
 		if (pVar_AdminMenuGranted) exitWith
 		{
-			[] call A3PL_AdminOpen;
+			call A3PL_AdminOpen;
 		};
 	};
 
@@ -419,7 +419,7 @@
 
 	if (_dikCode == 62) exitWith {
 		if !("Debug" IN (player getVariable ["dbVar_AdminPerms",[]])) exitWith {};
-		[] call A3PL_Debug_Open;
+		call A3PL_Debug_Open;
 	};
 
 	if((_dikCode IN [30,31,32,21]) && (Player_ActionDoing)) exitWith {
@@ -450,7 +450,7 @@
 	};
 
 	if ((_dikCode == 80) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
-		[] call A3PL_Admin_DetachAll;
+		call A3PL_Admin_DetachAll;
 	true;
 	};
 
@@ -581,7 +581,7 @@
 	addMissionEventHandler ["Map", {
 		params ["_mapIsOpened","_mapIsForced"];
 		if (_mapIsOpened) then {
-			[] call A3PL_Markers_OpenMap;
+			call A3PL_Markers_OpenMap;
 		} else {
 			("A3PL_Map_Filter" call BIS_fnc_rscLayer) cutText ["","PLAIN"];
 		};

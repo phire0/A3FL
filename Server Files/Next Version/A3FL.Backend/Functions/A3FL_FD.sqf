@@ -130,7 +130,7 @@
 	if ((player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 2) && (_nameIntersect IN ["door_bankvault","door_1","door_2","door_3","door_4","door_5","door_6","door_7","door_8","door_9","door_10","door_11","door_12","door_13","door_14","door_15","door_16","door_17","door_18","door_19","door_20","door_21","door_22","door_23","door_24","door_25","door_26","door_27","door_28","door_29","door_30","door_31","door_32","door_33","door_34","door_35","door_36","door_37","door_38","door_39","door_40","door_41","door_42","door_43","door_44","door_45","door_46","door_47","door_48","door_49","door_50","storagedoor1","storagedoor2","storagedoor3","sdstoragedoor3","sdstoragedoor6","door_1_button","door_2_button","door_3_button","door_4_button","door_5_button","door_6_button","door_7_button","door_8_button","door_9_button","door_10_button","door_11_button","door_12_button","door_13_button","door_14_button","door_15_button","door_16_button","door_17_button","door_18_button","door_19_button","door_20_button","door_21_button","door_22_button","door_23_button","door_24_button","door_25_button","door_26_button","door_27_button","door_28_button","door_29_button","door_30_button","door_1_button2","door_2_button2","door_3_button2","door_4_button2","door_5_button2","door_6_button2","door_7_button2","door_8_button2","door_9_button2","door_10_button2","door_11_button2","door_12_button2","door_13_button2","door_14_button2","door_15_button2","door_16_button2","door_17_button2","door_18_button2","door_19_button2","door_20_button2","door_21_button2","door_22_button2","door_23_button2","door_24_button2","door_25_button2","door_26_button2","door_27_button2","door_28_button2","door_29_button2","door_30_button2","door_8_button1","door_8_button2"])) then
 	{
 		private ["_var"];
-		if (_nameIntersect IN ["door_1_button","door_2_button","door_3_button","door_4_button","door_5_button","door_6_button","door_7_button","door_8_button","door_9_button","door_10_button","door_11_button","door_12_button","door_13_button","door_14_button","door_15_button","door_16_button","door_17_button","door_18_button","door_19_button","door_20_button","door_21_button","door_22_button","door_23_button","door_24_button","door_25_button","door_26_button","door_27_button","door_28_button","door_29_button","door_30_button","door_1_button2","door_2_button2","door_3_button2","door_4_button2","door_5_button2","door_6_button2","door_7_button2","door_8_button2","door_9_button2","door_10_button2","door_11_button2","door_12_button2","door_13_button2","door_14_button2","door_15_button2","door_16_button2","door_17_button2","door_18_button2","door_19_button2","door_20_button2","door_21_button2","door_22_button2","door_23_button2","door_24_button2","door_25_button2","door_26_button2","door_27_button2","door_28_button2","door_29_button2","door_30_button2","door_8_button1","door_8_button2"]) then {[] call A3PL_Intersect_HandleDoors;};
+		if (_nameIntersect IN ["door_1_button","door_2_button","door_3_button","door_4_button","door_5_button","door_6_button","door_7_button","door_8_button","door_9_button","door_10_button","door_11_button","door_12_button","door_13_button","door_14_button","door_15_button","door_16_button","door_17_button","door_18_button","door_19_button","door_20_button","door_21_button","door_22_button","door_23_button","door_24_button","door_25_button","door_26_button","door_27_button","door_28_button","door_29_button","door_30_button","door_1_button2","door_2_button2","door_3_button2","door_4_button2","door_5_button2","door_6_button2","door_7_button2","door_8_button2","door_9_button2","door_10_button2","door_11_button2","door_12_button2","door_13_button2","door_14_button2","door_15_button2","door_16_button2","door_17_button2","door_18_button2","door_19_button2","door_20_button2","door_21_button2","door_22_button2","door_23_button2","door_24_button2","door_25_button2","door_26_button2","door_27_button2","door_28_button2","door_29_button2","door_30_button2","door_8_button1","door_8_button2"]) then {call A3PL_Intersect_HandleDoors;};
 		_var = format ["damage_%1",_nameintersect]; //ex. damage_door1
 		if (((_intersect getVariable [_var,0]) + 0.2) > 1) exitwith //open door and reset damage variable
 		{
@@ -150,7 +150,7 @@
 {
 	private ["_hydrant","_adapter","_itemClass","_pos","_dir"];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	//check for correct types just to make sure (ropes can cause crashes sometimes)
 	_hydrant = param [0,objNull];
@@ -195,7 +195,7 @@
 {
 	private ["_hydrant"];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	//check for correct types just to make sure (ropes can cause crashes sometimes)
 	_hydrant = param [0,objNull];
@@ -217,7 +217,7 @@
 {
 	private ["_end"];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	_end = param [0,objNull];
 	if (!(_end isKindOf "A3PL_FD_HoseEnd1_Float")) exitwith {[localize"STR_NewFD_AdapterNo2","red"] call A3PL_Player_Notification;};
@@ -232,7 +232,7 @@
 	_end = param [0,objNull];
 	_endName = param [1,""];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	_myAdapter = call A3PL_Lib_AttachedFirst;
 	_otherEnd = [_myAdapter] call A3PL_FD_FindOtherEnd; //check other end
@@ -408,7 +408,7 @@
 	_end = param [0,objNull];
 	_nozzleClass = "A3PL_High_Pressure"; //if we ever change the nozzle classname we can change it here
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	//do checks
 	if (!isNull Player_Item) exitwith { _format = format["You already have an item"]; [_format, "red"] call A3PL_Player_Notification; };
@@ -529,7 +529,7 @@
 		_inlet = [objNull,_veh,"inlet_r"] call A3PL_FD_FindAdapterCap;
 	} else
 	{
-		_inlet = [] call A3PL_Lib_AttachedFirst;
+		_inlet = call A3PL_Lib_AttachedFirst;
 	};
 
 	if ((isNull _inlet) OR (!(typeOf _inlet IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]))) exitwith {};
@@ -642,7 +642,7 @@
 	private ["_end","_hose","_ropes"];
 	_end = param [0,objNull];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	if (!(typeOf _end IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_GasHose"])) exitwith {["Vous n'interagissez pas avec l'adaptateur","red"] call A3PL_Player_Notification;};
 
@@ -669,7 +669,7 @@
 ["A3PL_FD_DeployHose",
 {
 	private ["_adapter1","_adapter2","_rope"];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if (Player_ItemClass != "FD_Hose") exitwith {["You do not hold a hose","red"] call A3PL_Player_Notification;};
 	_lengths = param [0,objNull];
 	[player,objNull,Player_ItemClass] remoteExec ["Server_Inventory_Drop", 2];
@@ -690,7 +690,7 @@
 ["A3PL_FD_GasDeployHose",
 {
 	private ["_adapter1","_adapter2","_rope"];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if (Player_ItemClass != "FD_Hose") exitwith {["You do not hold a hose","red"] call A3PL_Player_Notification;};
 	_lengths = param [0,objNull];
 	[player,objNull,Player_ItemClass] remoteExec ["Server_Inventory_Drop", 2];
@@ -1318,7 +1318,7 @@
 	disableSerialization;
 	createDialog "Dialog_PoliceDatabase";
 	private _display = findDisplay 211;
-	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) isEqualTo 28) then {[] call A3PL_FD_DatabaseEnter;}"];
+	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) isEqualTo 28) then {call A3PL_FD_DatabaseEnter;}"];
 	[_text] call A3PL_FD_UpdateComputer;
 }] call Server_Setup_Compile;
 

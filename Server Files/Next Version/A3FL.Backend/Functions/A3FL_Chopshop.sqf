@@ -10,7 +10,7 @@
 {
 	private ["_car","_cars"];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	_cars = nearestObjects [player, ["Car"], 10];
 	_car = _cars select 0;

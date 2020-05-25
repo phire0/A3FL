@@ -78,7 +78,7 @@
 
 		A3PL_Housing_StorageBox setVariable ["storage",([_storage, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 		player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
-		[] call A3PL_Inventory_Verify;
+		call A3PL_Inventory_Verify;
 	} else
 	{
 		_itemClass = (_storage select _index) select 0;

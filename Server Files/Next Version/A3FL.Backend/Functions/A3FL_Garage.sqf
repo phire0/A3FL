@@ -349,7 +349,7 @@
 ["A3PL_Garage_ColourSet",
 {
 	private ["_display","_control","_rSlider","_gSlider","_bSlider","_veh","_text","_texture"];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_texture = param [0,""];
 	_veh = param [1,objNull];
 	if (typeName _veh == "STRING") then //edited bypass used in ATC so we can send object from setButtonAction
@@ -506,7 +506,7 @@
 		[
 			"
 				private ['_installed'];
-				if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+				if(!(call A3PL_Player_AntiSpam)) exitWith {};
 				_installed = isNil 'A3PL_Garage_tUpgrade';
 				if (_installed) then {_installed = 0;} else {_installed = 1};
 				['%1','%2',_installed, false] call A3PL_Garage_Upgrade;

@@ -19,7 +19,7 @@
 		waitUntil {!isNull (findDisplay 46)};
 		736713 cutRsc ["Dialog_HUD_Twitter", "PLAIN"];
 		waitUntil {!isNil "A3PL_Twitter_MsgDisplay"};
-		[] call A3PL_Twitter_MsgDisplay;
+		call A3PL_Twitter_MsgDisplay;
 	};
 }] call Server_Setup_Compile;
 

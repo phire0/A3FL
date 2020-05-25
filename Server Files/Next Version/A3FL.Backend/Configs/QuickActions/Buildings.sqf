@@ -63,12 +63,12 @@
 [
 	"Land_A3PL_Gas_Station",
 	localize"STR_QuickActionsBuildings_CheckMoneyInCash",
-	{[] call A3PL_Hydrogen_CheckCash;}
+	{call A3PL_Hydrogen_CheckCash;}
 ],
 [
 	"Land_A3PL_Gas_Station",
 	localize"STR_QuickActionsBuildings_TakeFuelStationCash",
-	{[] call A3PL_Hydrogen_TakeCash;}
+	{call A3PL_Hydrogen_TakeCash;}
 ],
 [
 	"",
@@ -93,17 +93,17 @@
 [
 	"",
 	localize"STR_INTSECT_SPVHINGAR",
-	{[] call A3PL_Storage_OpenCarStorage;}
+	{call A3PL_Storage_OpenCarStorage;}
 ],
 [
 	"",
 	localize"STR_INTSECT_VEHSTOR",
-	{[] call A3PL_Storage_OpenCarStorage;}
+	{call A3PL_Storage_OpenCarStorage;}
 ],
 [
 	"",
 	localize"STR_INTSECT_STOREVEH",
-	{[] call A3PL_Storage_CarStoreButton;}
+	{call A3PL_Storage_CarStoreButton;}
 ],
 [
 	"A3PL_carInfo",
@@ -113,17 +113,17 @@
 [
 	"",
 	localize"STR_INTSECT_OBJSTOR",
-	{[] call A3PL_Storage_OpenObjectStorage;}
+	{call A3PL_Storage_OpenObjectStorage;}
 ],
 [
 	"",
 	localize"STR_INTSECT_STOREOBJ",
-	{[] call A3PL_Storage_ObjectStoreButton;}
+	{call A3PL_Storage_ObjectStoreButton;}
 ],
 [
 	"A3PL_carInfo",
 	localize"STR_INTSECT_IMPNEARVEH",
-	{[] call A3PL_JobRoadWorker_Impound;}
+	{call A3PL_JobRoadWorker_Impound;}
 ],
 [
 	"land_a3pl_sheriffpd",
@@ -272,12 +272,12 @@
 [
 	"Land_A3PL_Gas_Station",
 	localize"STR_INTSECT_OPENGASMENU",
-	{[] call A3PL_Hydrogen_Open;}
+	{call A3PL_Hydrogen_Open;}
 ],
 [
 	"Land_A3PL_Gas_Station",
 	localize"STR_QuickActionsBuildings_OpCLoseFuel",
-	{[] call A3PL_Hydrogen_LockUnlock;}
+	{call A3PL_Hydrogen_LockUnlock;}
 ],
 [
 	"Land_A3PL_Gas_Station",
@@ -426,19 +426,19 @@
 [
 	"Land_A3PL_CH",
 	localize"STR_INTSECT_OPCLDEFROOM",
-	{[] call A3PL_Intersect_HandleDoors;}
+	{call A3PL_Intersect_HandleDoors;}
 ],
 [
 	"Land_A3PL_CH",
 	localize"STR_INTSECT_OPCLDEFROOM",
-	{[] call A3PL_Intersect_HandleDoors;}
+	{call A3PL_Intersect_HandleDoors;}
 ],
 [
 	"",
 	localize"STR_INTSECT_LOUNDOOR",
 	{
 		private ["_keyid","_obj","_locked","_format","_keyCheck","_name","_getVarName"];
-		_obj = ([] call A3PL_Intersect_Cursortarget);
+		_obj = (call A3PL_Intersect_Cursortarget);
 		_name = player_nameintersect;
 		if (isNil "Player_Item") exitwith {	_format = format[localize"STR_QuickActionsBuildings_DontHaveKeyInHand"]; [_format, "red"] call A3PL_Player_Notification; };
 		if (isNull Player_Item) exitwith { _format = format[localize"STR_QuickActionsBuildings_DontHaveKeyInHand"]; [_format, "red"] call A3PL_Player_Notification; };

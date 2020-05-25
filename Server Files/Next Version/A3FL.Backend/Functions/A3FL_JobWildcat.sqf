@@ -13,7 +13,7 @@
 
 ["A3PL_JobWildCat_BuyMap",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_mapType","_markers","_oilArray","_resArray","_exactLocation","_pos","_timeLeft"];
 	_mapType = param [0,""];
 	_markers = [];

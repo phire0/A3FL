@@ -31,7 +31,7 @@
 	
 	if ((_pump animationSourcePhase "drill") != 0) exitwith {["It seems like this pump is already running", "red"] call A3PL_Player_Notification;};
 	
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	[player,_pump] remoteExec ["Server_JobOil_PumpStart", 2];
 }] call Server_Setup_Compile;
 

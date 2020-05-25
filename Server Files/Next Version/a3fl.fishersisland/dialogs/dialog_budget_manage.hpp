@@ -40,7 +40,7 @@ class Dialog_Budget_Manage
 			y = 0.5 * safezoneH + safezoneY;
 			w = 0.132213 * safezoneW;
 			h = 0.0281971 * safezoneH;
-			action = "[] call A3PL_Government_BudgetAdd;";
+			action = "call A3PL_Government_BudgetAdd;";
 		};
 		class button_withdraw: RscButtonEmpty
 		{
@@ -50,7 +50,7 @@ class Dialog_Budget_Manage
 			y = 0.546995 * safezoneH + safezoneY;
 			w = 0.132213 * safezoneW;
 			h = 0.0281971 * safezoneH;
-			action = "[] call A3PL_Government_BudgetWithdraw;";
+			action = "call A3PL_Government_BudgetWithdraw;";
 		};
 	};
 };

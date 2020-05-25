@@ -45,7 +45,7 @@ class Dialog_Nametag
 			y = 0.5 * safezoneH + safezoneY;
 			w = 0.0773437 * safezoneW;
 			h = 0.033 * safezoneH;
-			action = "[] call A3PL_Player_SaveNametag;";
+			action = "call A3PL_Player_SaveNametag;";
 		};
 	};
 };

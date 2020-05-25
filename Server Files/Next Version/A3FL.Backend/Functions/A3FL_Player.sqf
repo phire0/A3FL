@@ -294,27 +294,27 @@
 	player addAction ["", {}];
 
 	//Setup normal variables
-	[] call A3PL_Player_VariablesSetup;
+	call A3PL_Player_VariablesSetup;
 
 	//Start loading process
-	[] call A3PL_Loading_Start;
+	call A3PL_Loading_Start;
 
 	//Initialise the HUD
-	[] call A3PL_HUD_Init;
-	[] call A3PL_HUD_GPS;
+	call A3PL_HUD_Init;
+	call A3PL_HUD_GPS;
 
 
 	//Setup loops
-	[] call A3PL_Loop_Setup;
+	call A3PL_Loop_Setup;
 
 	//Setup Eventhandlers
-	[] call A3PL_EventHandlers_Setup;
+	call A3PL_EventHandlers_Setup;
 
 	//Setup intersection oneachframe, used for interaction menu
-	[] call A3PL_Intersect_Lines;
+	call A3PL_Intersect_Lines;
 
 	//setup name tags
-	[] call A3PL_Player_DrawText;
+	call A3PL_Player_DrawText;
 
 	//setup housing
 	[] spawn A3PL_Housing_Init;
@@ -325,7 +325,7 @@
 	//Escape menu edition
 	[] spawn A3PL_Player_EscapeControls;
 
-	[] call A3PL_Player_CheckDebugVariables;
+	call A3PL_Player_CheckDebugVariables;
 }] call Server_Setup_Compile;
 
 ['A3PL_Player_NewPlayer',{

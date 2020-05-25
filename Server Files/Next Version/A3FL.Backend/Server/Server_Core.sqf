@@ -264,7 +264,7 @@
 	sleep 600;
 	["The server will restart in 20 minutes","yellow"] remoteExec ["A3PL_Player_Notification", -2];
 	sleep 600;
-	[] call Server_Core_Restart;
+	call Server_Core_Restart;
 },true] call Server_Setup_Compile;
 
 // 11am EST = 3pm UTC

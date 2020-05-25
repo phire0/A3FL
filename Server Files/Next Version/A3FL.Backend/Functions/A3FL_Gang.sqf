@@ -11,7 +11,7 @@
 ["A3PL_Gang_SetData",
 {
 	A3PL_Gang_Data = (_this select 0);
-	[] call A3PL_Gang_Init;
+	call A3PL_Gang_Init;
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_Init",

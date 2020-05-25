@@ -195,7 +195,7 @@
 
 ["A3PL_Prison_DigOut",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
 		["There needs to be 3 FIMS on-duty to lock pick cell doors!","red"] call A3PL_Player_Notification;

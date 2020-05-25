@@ -20,11 +20,11 @@
 
 	if(_currentFilterMarkers == "ALL") then {
 		{_x setMarkerAlphaLocal 1;} forEach _mapMarkers;
-		[] call A3PL_Player_SetMarkers;
+		call A3PL_Player_SetMarkers;
 	} else {
 		_currentFilterMarkers = call compile format["%1",_currentFilterMarkers];
 		{if(!(_x in _currentFilterMarkers)) then {_x setMarkerAlphaLocal 0;} else {_x setMarkerAlphaLocal 1;};} forEach _mapMarkers;
-		[] call A3PL_Player_SetMarkers;
+		call A3PL_Player_SetMarkers;
 	};
 }] call Server_Setup_Compile;
 

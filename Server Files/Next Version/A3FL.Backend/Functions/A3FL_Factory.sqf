@@ -156,7 +156,7 @@
 	} foreach _var;
 
 	if (!isNil "_alreadyCrafting") exitwith {[localize"STR_FACTORY_ACTIONINPROGRESS","red"] call A3PL_Player_Notification;};
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
+	if(!(call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
 
 	_control = _display displayCtrl 1500; //get id
 	if (lbCurSel _control < 0) exitwith {[localize"STR_FACTORY_NOOBJECTSELECTION","red"] call A3PL_Player_Notification;};
@@ -290,7 +290,7 @@
 	_type = param [0,""];
 
 	//if we are carrying something
-	if (!isNull Player_Item) then {[] call A3PL_Inventory_PutBack;}; //fixes a dupe glitch
+	if (!isNull Player_Item) then {call A3PL_Inventory_PutBack;}; //fixes a dupe glitch
 	createDialog "Dialog_Factory";
 	[] spawn A3PL_Factory_DialogLoop; //seperate dialog loop, takes care of progressbar
 	[_type] spawn A3PL_Factory_ObjectPreview; //seperate object preview loop
@@ -474,7 +474,7 @@
 	_control = _display displayCtrl 1502;
 	_type = ctrlText (_display displayCtrl 1100); //factory id from dialog text
 	if (lbCurSel _control < 0) exitwith {[localize"STR_FACTORY_NOSELECTION","red"] call A3PL_Player_Notification;};
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {[localize"STR_FACTORY_ANTISPAM","red"] call A3PL_Player_Notification;}; //anti spam
+	if(!(call A3PL_Player_AntiSpam)) exitWith {[localize"STR_FACTORY_ANTISPAM","red"] call A3PL_Player_Notification;}; //anti spam
 	_id = _control lbData (lbCurSel _control);
 
 	//anti-dupe for collecting items that are currently being crafted
@@ -501,7 +501,7 @@
 
 ["A3PL_Factory_Add",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
+	if(!(call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
 	private ["_display","_control","_type","_id","_amount","_typeOf","_fail","_obj","_cashCheck"];
 	_display = findDisplay 45;
 	_control = _display displayCtrl 1503;
@@ -598,7 +598,7 @@
 	} foreach (attachedObjects (missionNameSpace getVariable ["A3PL_FACTORY_OBJPRV",objNull]));
 	deleteVehicle (missionNameSpace getVariable ["A3PL_FACTORY_OBJPRV",objNull]);
 	uiSleep 0.01;
-	if (!([] call A3PL_Player_AntiListboxSpam)) exitwith {};
+	if (!(call A3PL_Player_AntiListboxSpam)) exitwith {};
 
 	//deal with spawning item
 	switch (true) do
@@ -727,7 +727,7 @@
 //collect item from a crate/garmant
 ["A3PL_Factory_CrateCollect",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_crate","_info","_classType","_id","_amount","_forFaction","_name","_mainClass","_fail"];
 	_crate = param [0,objNull];
 	_info = [_crate] call A3PL_Factory_CrateInfo;

@@ -6,7 +6,7 @@ class Dialog_Twitter
 	enableSimulation = true;
 	duration = 500000;
 	onLoad = "";
-	onUnLoad = "736713 cutRsc [""Dialog_HUD_Twitter"", ""PLAIN""]; [] call A3PL_Twitter_MsgDisplay;";
+	onUnLoad = "736713 cutRsc [""Dialog_HUD_Twitter"", ""PLAIN""]; call A3PL_Twitter_MsgDisplay;";
 	objects[] = { };
 	class controls
 	{

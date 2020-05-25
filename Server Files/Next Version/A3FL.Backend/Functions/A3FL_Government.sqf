@@ -123,7 +123,7 @@
 ["A3PL_Government_AddBalance",
 {
 	disableSerialization;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_display","_control","_selectedBalance","_selectedBalanceAmount","_transferTo","_amount"];
 	if (!(["gov"] call A3PL_Government_isFactionLeader)) exitwith {[localize"STR_NewGovernment_AccessErr1","red"] call A3PL_Player_Notification;};
 
@@ -281,11 +281,11 @@
 
 	//when press a rank in the rank list
 	_control = _display displayCtrl 1502;
-	_control ctrlAddEventHandler ["LBSelChanged","[] call A3PL_Government_UpdateRanks;"];
+	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Government_UpdateRanks;"];
 
 	//add blueprints categories
 	_control = _display displayCtrl 2100;
-	_control ctrlAddEventHandler ["LBSelChanged","[] call A3PL_Government_BPCatChange;"];
+	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Government_BPCatChange;"];
 	{
 		if ((_x select 0) == _faction) exitwith
 		{
@@ -331,7 +331,7 @@
 ["A3PL_Government_BPCreate",
 {
 	disableSerialization;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_display","_control","_bp","_data","_class","_price"];
 	_display = findDisplay 111;
 	_control = _display displayCtrl 1504;
@@ -467,7 +467,7 @@
 		};
 
 	} foreach A3PL_GOVRANKS;
-	[] call A3PL_Government_UpdateRanks;
+	call A3PL_Government_UpdateRanks;
 }] call Server_Setup_Compile;
 
 ["A3PL_Government_AddRank",
@@ -619,7 +619,7 @@
 ["A3PL_Government_ReadLaws",
 {
 	disableSerialization;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_control","_display","_rank","_pay"];
 	createDialog "Dialog_Laws";
 	_display = findDisplay 99;
