@@ -8,7 +8,7 @@
 
 ["A3PL_Vehicle_OpenStorage",
 {
-	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	disableSerialization;
 	private ["_veh","_display","_control"];
 
@@ -35,9 +35,9 @@
 	[_display] call A3PL_Vehicle_StorageFillLB;
 
 	_control = _display displayCtrl 1600;
-	_control ctrlAddeventhandler ["ButtonDown",{call A3PL_Vehicle_AddToVehicle;}];
+	_control ctrlAddeventhandler ["ButtonDown",{[] call A3PL_Vehicle_AddToVehicle;}];
 	_control = _display displayCtrl 1601;
-	_control ctrlAddeventhandler ["ButtonDown",{call A3PL_Vehicle_TakeFromVehicle;}];
+	_control ctrlAddeventhandler ["ButtonDown",{[] call A3PL_Vehicle_TakeFromVehicle;}];
 
 	_display displayAddEventHandler ["unload",{A3PL_Veh_Interact setVariable ["inuse",nil,true]; A3PL_Veh_Interact = nil;}];
 
@@ -57,7 +57,7 @@
 	disableSerialization;
 	_display = findDisplay 30;
 
-	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 
 	_itemAmount = parseNumber (ctrlText 1400);
 	if (_itemAmount < 1) exitwith {[localize"STR_NewVehicle_3","red"] call A3PL_Player_Notification;};
@@ -82,7 +82,7 @@
 
 	A3PL_Veh_Interact setVariable ["storage",([_vehicleStorage, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 	player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
-	call A3PL_Inventory_Verify;
+	[] call A3PL_Inventory_Verify;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
 }] call Server_Setup_Compile;
 
@@ -91,7 +91,7 @@
 	disableSerialization;
 	_display = findDisplay 30;
 
-	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 
 	_itemAmount = parseNumber (ctrlText 1401);
 	if (_itemAmount < 1) exitwith {[localize"STR_NewVehicle_7","red"] call A3PL_Player_Notification;};
@@ -142,7 +142,7 @@
 	_display = param [0,displayNull];
 
 	/* Player Capacity */
-	_totalWeight = call A3PL_Inventory_TotalWeight;
+	_totalWeight = [] call A3PL_Inventory_TotalWeight;
 	_capacity = round((_totalWeight/Player_MaxWeight)*100);
 	_capColor = switch(true) do {
 		case (_capacity < 20): {"#00FF00"};
@@ -179,7 +179,7 @@
 
 		_index = _control lbAdd format["%2 %1 (%3 lbs)", _itemName, _amount, _itemWeight];
 		_control lbSetData [_index, _x select 0];
-	} forEach (call A3PL_Inventory_Get);
+	} forEach ([] call A3PL_Inventory_Get);
 
 	/* Vehicle Inventory Listbox */
 	_vehInventory = A3PL_Veh_Interact getVariable["storage",[]];
@@ -221,7 +221,7 @@
 		A3PL_Player_Vehicles = A3PL_Player_Vehicles - [_veh];
 	};
 	[A3PL_Player_Vehicles, getPlayerUID player] remoteExec ["Server_Vehicle_SaveKeys",2];
-	call A3PL_Vehicle_KeysVerify;
+	[] call A3PL_Vehicle_KeysVerify;
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_SetAllKeys",
@@ -230,7 +230,7 @@
 	{
 		A3PL_Player_Vehicles pushBack _x;
 	} forEach _keys;
-	call A3PL_Vehicle_KeysVerify;
+	[] call A3PL_Vehicle_KeysVerify;
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_KeysVerify",

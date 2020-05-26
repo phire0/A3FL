@@ -152,7 +152,7 @@
 
 	['Dialog_Inventory'] call A3PL_Lib_CreateDialog;
 
-	call A3PL_Inventory_Populate;
+	[] call A3PL_Inventory_Populate;
 
 		[] spawn {
 			_hndl = ppEffectCreate ['dynamicBlur', 505];
@@ -177,10 +177,8 @@
 	"
 		private ['_display','_amount','_selection','_classname'];
 		_amount = parseNumber (ctrlText 14471);
-
 		if (_amount <= 0) exitwith {[localize'STR_NewInventory_3','red'] call A3PL_Player_Notification;};
-
-		call A3PL_Inventory_Use;
+		[] call A3PL_Inventory_Use;
 		[true,_amount] call A3PL_Inventory_Drop;
 	"];
 	buttonSetAction [14674, "[0] call A3PL_Lib_CloseDialog"];
@@ -194,7 +192,7 @@
 
 		_index = _control lbAdd format["%2 %1 (%3 lbs)", _itemName, _amount, _itemWeight];
 		_control lbSetData [_index, _x select 0];
-	} forEach (call A3PL_Inventory_Get);
+	} forEach ([] call A3PL_Inventory_Get);
 
 	_capacity = round(((call A3PL_Inventory_TotalWeight)/Player_MaxWeight)*100);
 	_capColor = switch(true) do {
