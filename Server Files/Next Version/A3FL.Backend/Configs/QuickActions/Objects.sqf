@@ -519,7 +519,7 @@
 [
 	"Land_A3PL_Gasstation",
 	localize"STR_INTSECT_RETGASHOSE",
-	{[player_objintersect] call A3PL_Hydrogen_Connect;}
+	{[player_objintersect] spawn A3PL_Hydrogen_Connect;}
 ],
 [
 	"A3PL_GasHose",

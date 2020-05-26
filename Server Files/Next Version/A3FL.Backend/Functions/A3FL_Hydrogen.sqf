@@ -108,7 +108,7 @@
 
 ["A3PL_Hydrogen_LoadPetrol",
 {
-	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_barrel","_tanker"];
 	_barrel = param [0,objNull];
 	_tanker = (nearestObjects [player, ["A3PL_Tanker_Trailer","A3PL_Fuel_Van"], 10]) select 0;
@@ -132,7 +132,7 @@
 
 ["A3PL_Hydrogen_LoadKerosene",
 {
-	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_barrel","_tanker"];
 	_barrel = param [0,objNull];
 	_tanker = (nearestObjects [player, ["A3PL_Fuel_Van"], 10]) select 0;
@@ -159,7 +159,7 @@
 	private ["_intersect","_attached","_hose","_tank","_dir","_setdir"];
 	_intersect = param [0,objNull];
 
-	_attached = call A3PL_Lib_Attached;
+	_attached = [] call A3PL_Lib_Attached;
 	if (count _attached == 0) exitwith {[localize"STR_NewHydrogen_16", "red"] call A3PL_Player_Notification;};
 	_hose = _attached select 0;
 	if (!(typeOf _hose IN ["A3PL_Gas_Hose","A3PL_GasHose"])) exitwith {[localize"STR_NewHydrogen_17", "red"] call A3PL_Player_Notification;};

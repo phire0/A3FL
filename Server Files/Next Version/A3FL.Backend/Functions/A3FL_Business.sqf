@@ -40,7 +40,7 @@
 
 	//setup buttons
 	_control = _display displayCtrl 1600;
-	_control buttonSetAction "call A3PL_Business_Rent";
+	_control buttonSetAction "[] call A3PL_Business_Rent";
 	_control = _display displayCtrl 1601;
 	_control buttonSetAction "closeDialog 0;";
 }] call Server_Setup_Compile;

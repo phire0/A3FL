@@ -253,7 +253,7 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_FABRICACTIONINTER",
-		{call A3PL_Combine_Open;},
+		{[] call A3PL_Combine_Open;},
 		{!(surfaceIsWater position player) && (vehicle player == player) && (Player_ItemClass isEqualTo "")}
 	],
 	[

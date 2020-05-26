@@ -210,7 +210,7 @@
 			60 setRain 0;
 			60 setWaves 1;
 			60 setGusts 1;
-			setWind [8, 15, true];
+			setWind [5, 9, true];
 		};
 	};
 },true] call Server_Setup_Compile;
@@ -273,7 +273,7 @@
 	_justTime = (parseSimpleArray _utcTime) select 1;
 	_hourMin = [(_justTime select 3),(_justTime select 4)];
 
-	_restartTimes = [[15,00],[03,00]];
+	_restartTimes = [[18,00],[06,00]];
 	{
 		if(_hourMin isEqualTo _x) then {
 			[] spawn Server_Core_RestartTimer;

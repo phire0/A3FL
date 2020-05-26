@@ -552,6 +552,14 @@
 			player removeMagazines "A3PL_ScytheMag";
 			player addMagazine "A3PL_ScytheMag";
 		};
+		if (_itemClass == "A3FL_GolfDriver") then {
+			player removeMagazines "A3FL_GolfDriverMag";
+			player addMagazine "A3FL_GolfDriverMag";
+		};
+		if (_itemClass == "A3FL_BaseballBat") then {
+			player removeMagazines "A3FL_BaseballBatMag";
+			player addMagazine "A3FL_BaseballBatMag";
+		};
 
 		if (_itemClass IN ["U_B_Protagonist_VR","U_I_Protagonist_VR","U_O_Protagonist_VR"]) then {
 			if (!(["motorhead"] call A3PL_Lib_hasPerk)) then {

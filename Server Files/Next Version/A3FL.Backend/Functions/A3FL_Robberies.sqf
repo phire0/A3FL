@@ -54,7 +54,7 @@
 		["item","shark_10lb",4],
 		["item","SMG_Part_Body",1],
 		["item","zipties",5],
-		["item","marijuana",11],
+		["item","weed_50g",11],
 
 		["weapon","A3PL_Red_Glock",0],
 		["weapon","hgun_Rook40_F",0],
@@ -119,6 +119,9 @@
 		};
 		case("npc_port_5"): {
 			_namePos = "Marine Factory";
+		};
+		case("npc_port_6"): {
+			_namePos = "Bluecorp Mining";
 		};
 	};
 	[format ["An alarm has been triggered by the port captain at %1",_namePos],"blue","uscg",1] call A3PL_Lib_JobMessage;
