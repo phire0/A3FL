@@ -1666,7 +1666,7 @@
 		if (!isNull Player_Item) exitwith {
 			call A3PL_Placeables_QuickAction;
 		};
-		private _attached = call A3PL_Lib_Attached;
+		private _attached = [] call A3PL_Lib_Attached;
 		if (count _attached == 0) exitwith {};
 		if ((typeOf (_attached select 0)) IN Config_Placeables) then {
 			call A3PL_Placeables_QuickAction;

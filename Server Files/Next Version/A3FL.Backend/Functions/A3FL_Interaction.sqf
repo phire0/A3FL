@@ -133,11 +133,11 @@
 	_interObj = call A3PL_Intersect_Cursortarget;
 
 	//Exclusion for attached objects
-	_attachedObjects = call A3PL_Lib_Attached;
-	if ((count (call A3PL_Lib_Attached) > 0) && (isNull player_Item)) exitwith
+	_attachedObjects = [] call A3PL_Lib_Attached;
+	if ((count ([] call A3PL_Lib_Attached) > 0) && (isNull player_Item)) exitwith
 	{
-		_interObj = (call A3PL_Lib_Attached) select 0;
-		if (([_interObj] call A3PL_lib_CheckIfFurniture) && (_interObj IN (call A3PL_Lib_Attached))) exitwith
+		_interObj = ([] call A3PL_Lib_Attached) select 0;
+		if (([_interObj] call A3PL_lib_CheckIfFurniture) && (_interObj IN ([] call A3PL_Lib_Attached))) exitwith
 		{
 			call A3PL_Placeables_QuickAction;
 		};

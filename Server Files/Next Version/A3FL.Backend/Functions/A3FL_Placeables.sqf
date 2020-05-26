@@ -222,7 +222,7 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Placeables_QuickAction', {
-	private _attached = call A3PL_Lib_Attached;
+	private _attached = [] call A3PL_Lib_Attached;
 	if (count _attached > 0) exitwith
 	{
 		private ["_obj","_dir","_collision","_except"];
@@ -357,7 +357,7 @@
 ["A3PL_Placeables_PlaceCone",
 {
 	private ["_cones","_cone"];
-	_cones = (call A3PL_Lib_Attached) select 0;
+	_cones = ([] call A3PL_Lib_Attached) select 0;
 	if (isNil "_cones") then {_cones = objNull;};
 	if ((typeOf _cones) != "A3PL_RoadCone_x10") exitwith {[localize"STR_NewPlaceables_8","red"] call A3PL_Player_Notification;};
 

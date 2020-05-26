@@ -239,7 +239,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_PLACERC",
 		{call A3PL_Placeables_PlaceCone;},
-		{(typeOf ((call A3PL_Lib_Attached) select 0)) isEqualTo "A3PL_RoadCone_x10"}
+		{(typeOf (([] call A3PL_Lib_Attached) select 0)) isEqualTo "A3PL_RoadCone_x10"}
 	],
 	[
 		localize "STR_INTER_SETUPTAXIFEE",
@@ -908,13 +908,13 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_DROPHOSEA",
-		{[(call A3PL_Lib_AttachedFirst)] call A3PL_FD_DropHose;},
-		{(typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_GasHose"]}
+		{[([] call A3PL_Lib_AttachedFirst)] call A3PL_FD_DropHose;},
+		{(typeof ([] call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_GasHose"]}
 	],
 	[
 		localize "STR_INTER_TRHOWHOSEA",
-		{[(call A3PL_Lib_AttachedFirst)] call A3PL_FD_ThrowHose;},
-		{(typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_GasHose"]}
+		{[([] call A3PL_Lib_AttachedFirst)] call A3PL_FD_ThrowHose;},
+		{(typeof ([] call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_GasHose"]}
 	],
 	[
 		localize "STR_INTER_PUTMASKON",

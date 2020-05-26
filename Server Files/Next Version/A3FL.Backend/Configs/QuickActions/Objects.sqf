@@ -340,7 +340,7 @@
 	"C_man_1",
 	"",
 	{
-		_attachedObjects = call A3PL_Lib_Attached;
+		_attachedObjects = [] call A3PL_Lib_Attached;
 		if ((count _attachedObjects) == 0) exitwith {};
 		_attachedObject = _attachedObjects select 0;
 		if (((typeOf _attachedObject) IN Config_Placeables) OR (_attachedObject isKindOf "A3PL_Furniture_Base")) then
@@ -363,7 +363,7 @@
 	{
 		if (!isNull Player_Item) exitwith {call A3PL_Placeables_QuickAction;};
 		if(typeOf player_Item isEqualTo "A3PL_Gas_Hose") exitwith {[localize"STR_INTSECT_YouCantPlaceGasHose", "red"] call A3PL_Player_Notification;};
-		private _attached = call A3PL_Lib_Attached;
+		private _attached = [] call A3PL_Lib_Attached;
 		if (count _attached == 0) exitwith {};
 		if ((typeOf (_attached select 0)) IN Config_Placeables) then {call A3PL_Placeables_QuickAction;};
 	}

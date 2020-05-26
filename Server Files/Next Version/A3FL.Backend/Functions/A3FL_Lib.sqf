@@ -246,7 +246,7 @@
 
 ["A3PL_Lib_AttachedFirst",
 {
-	private _attached = call A3PL_Lib_Attached;
+	private _attached = [] call A3PL_Lib_Attached;
 	private _return = objNull;
 	if (count _attached == 0) exitwith {_return;};
 	_return = _attached select 0;
