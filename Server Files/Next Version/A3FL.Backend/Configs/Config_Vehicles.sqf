@@ -250,3 +250,22 @@ Config_Police_Vehs = [
 	"A3PL_Taurus_FD"
 ];
 publicVariable "Config_Police_Vehs";
+
+Config_Arma_Vehs = [
+	"C_Van_02_medevac_F",
+	"C_Van_02_service_F",
+	"C_Van_02_transport_F",
+	"I_C_Van_02_transport_F",
+	"C_Van_02_vehicle_F",
+	"I_G_Van_02_transport_F",
+	"C_IDAP_Van_02_vehicle_F",
+	"C_IDAP_Van_02_transport_F",
+	"C_Offroad_02_unarmed_white_F",
+	"C_Offroad_02_unarmed_red_F",
+	"C_Offroad_02_unarmed_orange_F",
+	"C_Offroad_02_unarmed_green_F",
+	"C_Offroad_02_unarmed_F",
+	"C_Offroad_02_unarmed_blue_F",
+	"C_Offroad_02_unarmed_black_F"
+];
+publicVariable "Config_Arma_Vehs";

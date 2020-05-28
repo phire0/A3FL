@@ -1062,3 +1062,27 @@
 	if (_debugText == "Nothing") exitWith {};
 	call compile _debugText;
 },false,true] call Server_Setup_Compile;
+
+["A3PL_Admin_PerformanceTestIntersects",{
+	{
+		_name = (_x select 1);
+		_limit = 0.01
+		_timeTaken = ((diag_codePerformance [(_x select 3), 0, 10000]) select 0);
+		if(_timeTaken > _limit) then {
+			diag_log format ["name: %1 - time: %2",_name,_timeTaken];
+		}
+	} forEach Config_IntersectArray;
+
+}] call Server_Setup_Compile;
+
+["A3PL_Admin_PerformanceTestIntersectsTotalTime",{
+	_totalTime = 0;
+	{
+		_timeTaken = ((diag_codePerformance [(_x select 3), 0, 10000]) select 0);
+
+		_totalTime = _timeTaken + _totalTime;
+	} forEach Config_IntersectArray;
+
+	diag_log format ["Time taken: %1",_totalTime];
+
+}] call Server_Setup_Compile;

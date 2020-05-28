@@ -257,18 +257,18 @@ Config_IntersectArray =
 	// Common
 	["Body",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench"}], //Repair Vehicle
 	["Repair",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench"}], //Repair Vehicle
-	["collision_lights",localize"STR_INTSECT_TOGCOLLIGHT","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_cpt_col_ON_ca.paa",{true}], //Toggle Collision Lights
-	["ignition",localize"STR_INTSECT_IGNITION",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{(vehicle player) isKindOf "AllVehicles"}], //Ignition
-	["lightswitch",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player != player)}], //Toggle Head Lights
-	["collision_lights2",localize"STR_INTSECT_TOGCOLLIGHT","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_cpt_col_ON_ca.paa",{true}], //Toggle Collision Lights
-	["ignition2",localize"STR_INTSECT_IGNITION",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{(vehicle player) isKindOf "AllVehicles"}], //Ignition
-	["lightswitch2",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player != player)}], //Toggle Head Lights
-	["collision_lights3",localize"STR_INTSECT_TOGCOLLIGHT","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_cpt_col_ON_ca.paa",{true}], //Toggle Collision Lights
-	["ignition3",localize"STR_INTSECT_IGNITION",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{(vehicle player) isKindOf "AllVehicles"}], //Ignition
-	["lightswitch3",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player != player)}], //Toggle Head Lights
-	["collision_lights4",localize"STR_INTSECT_TOGCOLLIGHT","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_cpt_col_ON_ca.paa",{true}], //Toggle Collision Lights
-	["ignition4",localize"STR_INTSECT_IGNITION",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{(vehicle player) isKindOf "AllVehicles"}], //Ignition
-	["lightswitch4",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player != player)}], //Toggle Head Lights
+	["collision_lights",localize"STR_INTSECT_TOGCOLLIGHT","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_cpt_col_ON_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Collision Lights
+	["ignition",localize"STR_INTSECT_IGNITION",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Ignition
+	["lightswitch",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Head Lights
+	["collision_lights2",localize"STR_INTSECT_TOGCOLLIGHT","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_cpt_col_ON_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Collision Lights
+	["ignition2",localize"STR_INTSECT_IGNITION",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Ignition
+	["lightswitch2",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Head Lights
+	["collision_lights3",localize"STR_INTSECT_TOGCOLLIGHT","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_cpt_col_ON_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Collision Lights
+	["ignition3",localize"STR_INTSECT_IGNITION",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Ignition
+	["lightswitch3",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Head Lights
+	["collision_lights4",localize"STR_INTSECT_TOGCOLLIGHT","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_cpt_col_ON_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Collision Lights
+	["ignition4",localize"STR_INTSECT_IGNITION",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Ignition
+	["lightswitch4",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Head Lights
 	["Door_RF",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && {(vehicle player == player)} && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Driver
 	["Door_LF",localize"STR_INTSECT_ENTCOPIL","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect isKindOf "Air") && (vehicle player == player) && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Co-Pilot
 	["Door_LF",localize"STR_INTSECT_ENTERDRIVER",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Driver
@@ -475,26 +475,26 @@ Config_IntersectArray =
 	["drill_bit_install",localize"STR_INTSECT_INSTDRLBIT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_ItemClass == "drill_bit"}], //Install Drill Bit
 	["drill_handle",localize"STR_INTSECT_STARTVDRILL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Start Vault Drill
 	["drill_handle",localize"STR_INTSECT_DISSDRILL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Dissemble Drill
-	["deposit_1",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_2",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_3",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_4",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_5",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_6",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_7",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_8",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_9",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_10",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_11",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_12",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_13",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_14",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_15",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_16",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_17",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_18",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_19",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
-	["deposit_20",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open Deposit Box
+	["deposit_1",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_2",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_3",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_4",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_5",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_6",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_7",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_8",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_9",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_10",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_11",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_12",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_13",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_14",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_15",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_16",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_17",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_18",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_19",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
+	["deposit_20",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
 
 	//ATM
 	["ATM",localize"STR_INTSECT_USEATM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Use ATM
@@ -799,9 +799,9 @@ Config_IntersectArray =
 	["Door_49",localize"STR_INTSECT_DOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!(player_objIntersect getVariable ["Door_49_locked",false])}], //Door
 	["Door_50",localize"STR_INTSECT_DOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!(player_objIntersect getVariable ["Door_50_locked",false])}], //Door
 
-	["Door_1",localize"STR_INTSECT_LOUNDOOR",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf (call A3PL_Intersect_cursortarget)) IN ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Mansion01","Land_A3PL_Greenhouse","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Motel","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_Shed2","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_John_Hangar","Land_A3FL_Mansion","Land_A3FL_Warehouse"]}], //todo: replace true with some code to check if we own the key to the house || Lock/Unlock Door
-	["Door_2",localize"STR_INTSECT_LOUNDOOR",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf (call A3PL_Intersect_cursortarget)) IN ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_Greenhouse", "Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Motel","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_Shed2","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_John_Hangar","Land_A3FL_Mansion","Land_A3FL_Warehouse"]}], //Lock/Unlock Door
-	["Door_3",localize"STR_INTSECT_LOUNDOOR",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf (call A3PL_Intersect_cursortarget)) IN ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Motel","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_Shed2","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion","Land_A3FL_Warehouse"]}], //Lock/Unlock Door
+	["Door_1",localize"STR_INTSECT_LOUNDOOR",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf (call A3PL_Intersect_cursortarget)) IN Config_Houses_List || (typeOf (call A3PL_Intersect_cursortarget)) IN Config_Warehouses_List}], //todo: replace true with some code to check if we own the key to the house || Lock/Unlock Door
+	["Door_2",localize"STR_INTSECT_LOUNDOOR",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf (call A3PL_Intersect_cursortarget)) IN Config_Houses_List || (typeOf (call A3PL_Intersect_cursortarget)) IN Config_Warehouses_List}], //Lock/Unlock Door
+	["Door_3",localize"STR_INTSECT_LOUNDOOR",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf (call A3PL_Intersect_cursortarget)) IN Config_Houses_List || (typeOf (call A3PL_Intersect_cursortarget)) IN Config_Warehouses_List}], //Lock/Unlock Door
 	["Door_4",localize"STR_INTSECT_LOUNDOOR",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf (call A3PL_Intersect_cursortarget)) IN ["Land_A3PL_Motel"]}], //Lock/Unlock Door
 	["Door_5",localize"STR_INTSECT_LOUNDOOR",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf (call A3PL_Intersect_cursortarget)) IN ["Land_A3PL_Motel","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Warehouse"]}], //Lock/Unlock Door
 	["Door_6",localize"STR_INTSECT_LOUNDOOR",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf (call A3PL_Intersect_cursortarget)) IN ["Land_A3PL_Motel","Land_A3FL_Warehouse"]}], //Lock/Unlock Door
@@ -866,17 +866,17 @@ Config_IntersectArray =
 	//jayhawk
 	["Door_RB",localize"STR_INTSECT_BOARDHELISSIDE",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(typeOf player_objintersect == "A3PL_Jayhawk") && {(vehicle player == player)} && {!(player_objIntersect getVariable ["locked",true])}}], //Board Helicopter (Side)
 	["ignition_Switch",localize"STR_INTSECT_SWITCHIGN",_dir+"IGUI\RscIngameUI\RscUnitInfoAirRTDFull\igui_wlight_eng_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //Switch Ignition
-	["battery",localize"STR_INTSECT_SWITCHBAT",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{true}], //Switch Battery
-	["gen1",localize"STR_INTSECT_APUGEN",_dir+"IGUI\Cfg\Actions\engine_on_ca.paa",{true}], //APU Generator
-	["gen2",format [localize"STR_INTSECT_ENGGEN",1],_dir+"IGUI\Cfg\Actions\engine_on_ca.paa",{true}], //ENG Generator NO.%1
-	["gen3",format [localize"STR_INTSECT_ENGGEN",2],_dir+"IGUI\Cfg\Actions\engine_on_ca.paa",{true}], //ENG Generator NO.%1
-	["apucontrol",localize"STR_INTSECT_APUCONT",_dir+"IGUI\Cfg\Actions\repair_ca.paa",{true}], //APU Control
-	["ecs",localize"STR_INTSECT_ECSSTART",_dir+"gui\Rsc\RscDisplayArcadeMap\editor_wind_min_ca.paa",{true}], //ECS/Start
-	["fuelpump",localize"STR_INTSECT_FUELPUMP",_dir+"IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa",{true}], //Fuel Pump
-	["fold",localize"STR_INTSECT_UNFOJAYHWK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Unfold/Fold Jayhawk
-	["Fold_switch",localize"STR_INTSECT_UNFOJAYHWK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Unfold/Fold Jayhawk
-	["Interior_Lights",localize"STR_INTSECT_COCKLIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Cockpit Lights
-	["Searchlight_Switch",localize"STR_INTSECT_TOGGLESL",_dir+"IGUI\Cfg\Actions\engine_on_ca.paa",{true}], //Toggle Searchlight
+	["battery",localize"STR_INTSECT_SWITCHBAT",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //Switch Battery
+	["gen1",localize"STR_INTSECT_APUGEN",_dir+"IGUI\Cfg\Actions\engine_on_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //APU Generator
+	["gen2",format [localize"STR_INTSECT_ENGGEN",1],_dir+"IGUI\Cfg\Actions\engine_on_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //ENG Generator NO.%1
+	["gen3",format [localize"STR_INTSECT_ENGGEN",2],_dir+"IGUI\Cfg\Actions\engine_on_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //ENG Generator NO.%1
+	["apucontrol",localize"STR_INTSECT_APUCONT",_dir+"IGUI\Cfg\Actions\repair_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //APU Control
+	["ecs",localize"STR_INTSECT_ECSSTART",_dir+"gui\Rsc\RscDisplayArcadeMap\editor_wind_min_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //ECS/Start
+	["fuelpump",localize"STR_INTSECT_FUELPUMP",_dir+"IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //Fuel Pump
+	["fold",localize"STR_INTSECT_UNFOJAYHWK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //Unfold/Fold Jayhawk
+	["Fold_switch",localize"STR_INTSECT_UNFOJAYHWK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //Unfold/Fold Jayhawk
+	["Interior_Lights",localize"STR_INTSECT_COCKLIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //Cockpit Lights
+	["Searchlight_Switch",localize"STR_INTSECT_TOGGLESL",_dir+"IGUI\Cfg\Actions\engine_on_ca.paa",{typeOf (vehicle player) IN ["A3PL_Jayhawk"]}], //Toggle Searchlight
 
 	["boatdoor",localize"STR_INTSECT_OPCLGARDOOR2",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}], //Open/Close Door
 	["driver",localize"STR_INTSECT_UNLOCKPATROL",_dir+"IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)}], //Drive Ship
@@ -924,8 +924,8 @@ Config_IntersectArray =
 	["Retract_Stinger",localize"STR_INTSECT_RETRACTSTR","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player getVariable "job") IN ["fisd","uscg","usms"]) && {({player_objintersect animationSourcePhase "Deploy_Stinger" > 0.5})}}], //Retract Stinger
 	["Deploy_Stinger",localize"STR_INTSECT_RETRACTSTR","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player getVariable "job") IN ["fisd","uscg","usms"])&& {({player_objintersect animationSourcePhase "Deploy_Stinger" > 0.1})}}], //Retract Stinger
 	["Deploy_Stinger",localize"STR_INTSECT_DEPLSTR","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player getVariable "job") IN ["fisd","uscg","usms"])&& {({player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5})}}], //Deploy Stinger
-	["Deploy_Stinger",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]}) && {({player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5})}}], //Pickup Item
-	["Deploy_Stinger",localize"STR_INTSECT_PICKITEMTOHAND",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]}) && {({player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5})}}], //Pickup Item To Hand
+	["Deploy_Stinger",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]}) && {(player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5)}}], //Pickup Item
+	["Deploy_Stinger",localize"STR_INTSECT_PICKITEMTOHAND",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]}) && {(player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5)}}], //Pickup Item To Hand
 	["Deploy_Stinger",localize"STR_INTSECT_BUYITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objintersect getVariable ["bitem",nil]})}], //Buy Item
 	["Deploy_Stinger",localize"STR_INTSECT_SELLITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect getVariable ["owner","0"]) == (getPlayerUID player)}], //Sell Item
 	//ski
@@ -1503,29 +1503,29 @@ Config_IntersectArray =
 
 	//fire truck
 	["controller_cover",localize"STR_INTSECT_TOGCONTCOV",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle Controller Cover
-	["FT_Switch_1",localize"STR_INTSECT_TOGDSFOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle DS Front Outrigger
-	["FT_Switch_2",localize"STR_INTSECT_TOGDROUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle DS Rear Outrigger
-	["FT_Switch_3",localize"STR_INTSECT_TOGPSFOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle PS Front Outrigger
-	["FT_Switch_4",localize"STR_INTSECT_TOGPSROUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle PS Rear Outrigger
-	["FT_Switch_5",localize"STR_INTSECT_TORADSOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle/Raise DS Outriggers
-	["FT_Switch_6",localize"STR_INTSECT_TORAPSOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle/Raise PS Outriggers
-	["FT_Switch_8",localize"STR_INTSECT_DSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //DS Floodlights
-	["FT_Switch_9",localize"STR_INTSECT_PSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //PS Floodlights
-	["FT_Switch_10",localize"STR_INTSECT_PERILIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Perimeter Lights
-	["FT_Switch_11",localize"STR_INTSECT_LADDERFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Ladder Floodlight
-	["FT_Switch_12",localize"STR_INTSECT_LADDERCAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Ladder Cam
+	["FT_Switch_1",localize"STR_INTSECT_TOGDSFOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle DS Front Outrigger
+	["FT_Switch_2",localize"STR_INTSECT_TOGDROUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle DS Rear Outrigger
+	["FT_Switch_3",localize"STR_INTSECT_TOGPSFOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle PS Front Outrigger
+	["FT_Switch_4",localize"STR_INTSECT_TOGPSROUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle PS Rear Outrigger
+	["FT_Switch_5",localize"STR_INTSECT_TORADSOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle/Raise DS Outriggers
+	["FT_Switch_6",localize"STR_INTSECT_TORAPSOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle/Raise PS Outriggers
+	["FT_Switch_8",localize"STR_INTSECT_DSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //DS Floodlights
+	["FT_Switch_9",localize"STR_INTSECT_PSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //PS Floodlights
+	["FT_Switch_10",localize"STR_INTSECT_PERILIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Perimeter Lights
+	["FT_Switch_11",localize"STR_INTSECT_LADDERFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Ladder Floodlight
+	["FT_Switch_12",localize"STR_INTSECT_LADDERCAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Ladder Cam
 
-	["FT_Switch_13",localize"STR_INTSECT_TOGDSFOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle DS Front Outrigger
-	["FT_Switch_14",localize"STR_INTSECT_TOGDROUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle DS Rear Outrigger
-	["FT_Switch_15",localize"STR_INTSECT_TOGPSFOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle PS Front Outrigger
-	["FT_Switch_16",localize"STR_INTSECT_TOGPSROUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle PS Rear Outrigger
-	["FT_Switch_17",localize"STR_INTSECT_TORADSOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle/Raise DS Outriggers
-	["FT_Switch_18",localize"STR_INTSECT_TORAPSOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle/Raise PS Outriggers
-	["FT_Switch_20",localize"STR_INTSECT_DSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //DS Floodlights
-	["FT_Switch_21",localize"STR_INTSECT_PSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //PS Floodlights
-	["FT_Switch_22",localize"STR_INTSECT_PERILIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Perimeter Lights
-	["FT_Switch_23",localize"STR_INTSECT_LADDERFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Ladder Floodlight
-	["FT_Switch_24",localize"STR_INTSECT_LADDERCAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Ladder Cam
+	["FT_Switch_13",localize"STR_INTSECT_TOGDSFOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle DS Front Outrigger
+	["FT_Switch_14",localize"STR_INTSECT_TOGDROUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle DS Rear Outrigger
+	["FT_Switch_15",localize"STR_INTSECT_TOGPSFOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle PS Front Outrigger
+	["FT_Switch_16",localize"STR_INTSECT_TOGPSROUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle PS Rear Outrigger
+	["FT_Switch_17",localize"STR_INTSECT_TORADSOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle/Raise DS Outriggers
+	["FT_Switch_18",localize"STR_INTSECT_TORAPSOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle/Raise PS Outriggers
+	["FT_Switch_20",localize"STR_INTSECT_DSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //DS Floodlights
+	["FT_Switch_21",localize"STR_INTSECT_PSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //PS Floodlights
+	["FT_Switch_22",localize"STR_INTSECT_PERILIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Perimeter Lights
+	["FT_Switch_23",localize"STR_INTSECT_LADDERFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Ladder Floodlight
+	["FT_Switch_24",localize"STR_INTSECT_LADDERCAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Ladder Cam
 
 	["Ladder_Controls",localize"STR_INTSECT_ENTASLADOP","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) == player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Ladder Operator
 	["Ladder_Controls",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && {!(player_objIntersect getVariable ["locked",true])} && {(!(vehicle player getVariable ["trapped",false]))}}],		 //Exit Vehicle
@@ -1544,11 +1544,11 @@ Config_IntersectArray =
 	["door_4",localize"STR_QuickActionsBuildings_RepairFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && (player_objintersect getVariable ["FireAlarm",false]) && {(player_objintersect getVariable ["FireAlarmBroke",false])}}],
 
 	// Ambo
-	["Ambo_Switch_7",localize"STR_INTSECT_REARFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Rear Floodlights
-	["Ambo_Switch_8",localize"STR_INTSECT_DSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],//DS Floodlights
-	["Ambo_Switch_9",localize"STR_INTSECT_PSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //PS Floodlights
-	["Ambo_Switch_10",localize"STR_INTSECT_INTLIGHTS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Interior Lights
-	["Ambo_Switch_11",localize"STR_INTSECT_HIGHBEAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //High Beam
+	["Ambo_Switch_7",localize"STR_INTSECT_REARFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Rear Floodlights
+	["Ambo_Switch_8",localize"STR_INTSECT_DSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}],//DS Floodlights
+	["Ambo_Switch_9",localize"STR_INTSECT_PSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //PS Floodlights
+	["Ambo_Switch_10",localize"STR_INTSECT_INTLIGHTS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Interior Lights
+	["Ambo_Switch_11",localize"STR_INTSECT_HIGHBEAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //High Beam
 	["Stretcher_Action",localize"STR_INTSECT_USESTRETCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true]) && {((player getVariable ["job","unemployed"]) == "fifr")}}], //Use Stretcher
 	["Stretcher_Action",localize"STR_INTSECT_STORESTRETCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true]) && {((player getVariable ["job","unemployed"]) == "fifr")} && {(typeOf player_objIntersect isEqualTo 'A3PL_EMS_Stretcher')}}], //Store Stretcher
 	["Stretcher_Action",format [localize"STR_INTSECT_SITINSEAT",2],"A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_cargo_ca.paa",{((vehicle player) == player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])}}], //Sit In Seat %1
@@ -1560,40 +1560,40 @@ Config_IntersectArray =
 	["Switch_Reset_Fair",localize"STR_INTSECT_RESETFAIR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player == driver player_objintersect}], //Reset Fair
 	["Switch_Start_Fair",localize"STR_INTSECT_STARTFAIR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player == driver player_objintersect}], //Start Fair
 	["Switch_Stop_Fair",localize"STR_INTSECT_STOPFAIR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player == driver player_objintersect}], //Stop Fair
-	["ASC_Switch",localize"STR_INTSECT_AIRSUSCONT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Air Suspension Control
-	["PD_lightSwitch",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle Head Lights
-	["PD_Switch_8",localize"STR_INTSECT_TOGSPOTLIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle Spotlight
-	["PD_Switch_9",localize"STR_INTSECT_LEFTALLLIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Left Alley Light
-	["PD_Switch_10",localize"STR_INTSECT_RIGHTALLLIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Right Alley Light
-	["High_Beam_Switch",localize"STR_INTSECT_HIGHBEAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //High Beam
-	["lightSwitch",localize"STR_INTSECT_HIGHBEAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //High Beam
-	["Reverse_Cam_Button",localize"STR_INTSECT_REVERSECAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Reverse Cam
-	["FT_Switch_33",localize"STR_INTSECT_AIRHORN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Airhorn
-	["FT_Switch_34",localize"STR_INTSECT_ELECHORN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Electric Horn
-	["FT_Switch_35",localize"STR_INTSECT_ELECAIRH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Electric Airhorn
-	["FT_Switch_36",localize"STR_INTSECT_RUMBLERMAN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Rumbler Manual
-	["FT_Switch_37",localize"STR_INTSECT_T3YELP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //T3 Yelp
-	["FT_Switch_38",localize"STR_INTSECT_MASTERON",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Master On
-	["Directional_Switch",localize"STR_INTSECT_DIRECTMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Directional Master
-	["powerswitch_1",localize"STR_INTSECT_DIRECTMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Directional Master
-	["Directional_Control_Noob",localize"STR_INTSECT_DIRECTCONTR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Directional Control
-	["Siren_Control_Switch",localize"STR_INTSECT_SIRENMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Siren Master
-	["sirenswitch_1",localize"STR_INTSECT_SIRENMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
-	["Siren_Control_Noob",localize"STR_INTSECT_SIRENCONTR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Siren Control
+	["ASC_Switch",localize"STR_INTSECT_AIRSUSCONT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Air Suspension Control
+	["PD_lightSwitch",localize"STR_INTSECT_TOGHEADL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Head Lights
+	["PD_Switch_8",localize"STR_INTSECT_TOGSPOTLIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Spotlight
+	["PD_Switch_9",localize"STR_INTSECT_LEFTALLLIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Left Alley Light
+	["PD_Switch_10",localize"STR_INTSECT_RIGHTALLLIGHT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Right Alley Light
+	["High_Beam_Switch",localize"STR_INTSECT_HIGHBEAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //High Beam
+	["lightSwitch",localize"STR_INTSECT_HIGHBEAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //High Beam
+	["Reverse_Cam_Button",localize"STR_INTSECT_REVERSECAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Reverse Cam
+	["FT_Switch_33",localize"STR_INTSECT_AIRHORN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Airhorn
+	["FT_Switch_34",localize"STR_INTSECT_ELECHORN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Electric Horn
+	["FT_Switch_35",localize"STR_INTSECT_ELECAIRH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Electric Airhorn
+	["FT_Switch_36",localize"STR_INTSECT_RUMBLERMAN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Rumbler Manual
+	["FT_Switch_37",localize"STR_INTSECT_T3YELP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //T3 Yelp
+	["FT_Switch_38",localize"STR_INTSECT_MASTERON",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Master On
+	["Directional_Switch",localize"STR_INTSECT_DIRECTMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Directional Master
+	["powerswitch_1",localize"STR_INTSECT_DIRECTMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Directional Master
+	["Directional_Control_Noob",localize"STR_INTSECT_DIRECTCONTR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Directional Control
+	["Siren_Control_Switch",localize"STR_INTSECT_SIRENMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Siren Master
+	["sirenswitch_1",localize"STR_INTSECT_SIRENMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}],
+	["Siren_Control_Noob",localize"STR_INTSECT_SIRENCONTR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Siren Control
 	//A3PL interaction
-	["Laptop_Top",localize"STR_INTSECT_TURNONOFFLAP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Turn On/Off Laptop
-	["Laptop_Top",localize"STR_INTSECT_ACCPOLDB",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Access Police Database
-	["Laptop",localize"STR_INTSECT_SWIVELLAP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["Laptop_Top",localize"STR_INTSECT_TURNONOFFLAP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Turn On/Off Laptop
+	["Laptop_Top",localize"STR_INTSECT_ACCPOLDB",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Access Police Database
+	["Laptop",localize"STR_INTSECT_SWIVELLAP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}],
 
-	["Switch_Radar_Master",localize"STR_INTSECT_RADARMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Radar Master
-	["Switch_Radar_Rear",localize"STR_INTSECT_REARRADAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Rear Radar
-	["Switch_Radar_Front",localize"STR_INTSECT_FRONTRADAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Front Radar
-	["Switch_Radar_Master",localize"STR_INTSECT_RESETLOCKFAST",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Reset Lock/Fast
-	["Lightbar_Switch",localize"STR_INTSECT_TOGLIGHTB",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle Lightbar
+	["Switch_Radar_Master",localize"STR_INTSECT_RADARMASTER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Radar Master
+	["Switch_Radar_Rear",localize"STR_INTSECT_REARRADAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Rear Radar
+	["Switch_Radar_Front",localize"STR_INTSECT_FRONTRADAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Front Radar
+	["Switch_Radar_Master",localize"STR_INTSECT_RESETLOCKFAST",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Reset Lock/Fast
+	["Lightbar_Switch",localize"STR_INTSECT_TOGLIGHTB",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Lightbar
 
 	//Mini Excavator
-	["groundShov_Switch",localize"STR_INTSECT_TOGDOZBLAD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle Dozer Blade
-	["Attachment_Switch",localize"STR_INTSECT_DETATTACHM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Detach Attachment
+	["groundShov_Switch",localize"STR_INTSECT_TOGDOZBLAD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Toggle Dozer Blade
+	["Attachment_Switch",localize"STR_INTSECT_DETATTACHM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Detach Attachment
 	["Attachment",localize"STR_INTSECT_CONNBUCKET",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_ItemClass == "ME_Bucket"}], //Connect Bucket
 	["Attachment",localize"STR_INTSECT_CONNJACKHAM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_ItemClass == "ME_Jackhammer"}], //Connect Jackhammer
 	["Attachment",localize"STR_INTSECT_CONNECTCLAW",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_ItemClass == "ME_Claw"}], //Connect Claw
@@ -2007,41 +2007,41 @@ Config_IntersectArray =
 	["Cargo_Door_20",format [localize"STR_INTSECT_OCCOMPT",20],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!(player_objIntersect getVariable ["locked",true])}],
 
 	["trunk",localize"STR_INTSECT_OPCLTRUNK","\a3\ui_f\data\gui\cfg\Hints\doors_ca.paa",{!(player_objIntersect getVariable ["locked",true])}], //Open/Close Trunk
-	["trunkinside",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside1",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside2",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside3",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside4",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside5",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside6",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside7",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside8",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside9",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside10",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside11",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside12",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside13",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside14",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside15",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside16",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside17",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside18",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside19",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["trunkinside20",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
+	["trunkinside",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside1",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside2",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside3",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside4",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside5",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside6",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside7",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside8",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside9",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside10",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside11",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside12",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside13",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside14",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside15",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside16",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside17",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside18",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside19",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
+	["trunkinside20",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{vehicle player isEqualTo player}], //Place Item
 
-	["door1",localize"STR_INTSECT_ENTERDRIVER",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && (!(player_objIntersect getVariable ["locked",true])) && (typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_C_Van_02_transport_F","C_Van_02_vehicle_F","I_G_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}],//Enter as Passenger
-	["door1",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && (!(player_objIntersect getVariable ["locked",true]))&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","I_C_Van_02_transport_F","C_Van_02_vehicle_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}],		 //Exit Vehicle
-	["door1",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","I_C_Van_02_transport_F","C_Van_02_vehicle_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}], //Lock/Unlock Vehicle Doors
-	["door1",localize"STR_INTSECT_EJALLPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable "job") IN ["uscg","fisd","usms"])&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","C_Van_02_vehicle_F","I_C_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}], //Eject All Passengers
-	["door1",localize"STR_INTSECT_DETAINSUS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable "job") IN ["uscg","fisd","usms"])&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","C_Van_02_vehicle_F","I_C_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}], //Detain Suspect
-	["door1",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench"&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","C_Van_02_vehicle_F","I_C_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}], //Repair Vehicle
+	["door1",localize"STR_INTSECT_ENTERDRIVER",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {(simulationEnabled player_objIntersect)} && {(!(player_objIntersect getVariable ["locked",true]))} && {(typeOf player_objintersect IN Config_Arma_Vehs)}}],//Enter as Passenger
+	["door1",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {(simulationEnabled player_objIntersect)} && {(!(player_objIntersect getVariable ["locked",true]))} && {(typeOf player_objintersect IN Config_Arma_Vehs)}}],		 //Exit Vehicle
+	["door1",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles) && {(typeOf player_objintersect IN Config_Arma_Vehs)}}], //Lock/Unlock Vehicle Doors
+	["door1",localize"STR_INTSECT_EJALLPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {((player getVariable "job") IN ["uscg","fisd","usms"])} && {(typeOf player_objintersect IN Config_Arma_Vehs)}}], //Eject All Passengers
+	["door1",localize"STR_INTSECT_DETAINSUS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) &&  {((player getVariable "job") IN ["uscg","fisd","usms"])} && {(typeOf player_objintersect IN Config_Arma_Vehs)}}], //Detain Suspect
+	["door1",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench"&&{(typeOf player_objintersect IN Config_Arma_Vehs)}}], //Repair Vehicle
 
-	["door2",localize"STR_INTSECT_ENTASPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && (!(player_objIntersect getVariable ["locked",true])) && (typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","C_Van_02_vehicle_F","I_C_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}],//Enter as Passenger
-	["door2",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && (!(player_objIntersect getVariable ["locked",true]))&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","C_Van_02_vehicle_F","I_C_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}],		 //Exit Vehicle
-	["door2",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles)&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","C_Van_02_vehicle_F","I_C_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}], //Lock/Unlock Vehicle Doors
-	["door2",localize"STR_INTSECT_EJALLPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable "job") IN ["uscg","fisd","usms"])&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","C_Van_02_vehicle_F","I_C_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}], //Eject All Passengers
-	["door2",localize"STR_INTSECT_DETAINSUS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && ((player getVariable "job") IN ["uscg","fisd","usms"])&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","C_Van_02_vehicle_F","I_C_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}], //Detain Suspect
-	["door2",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench"&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","I_G_Van_02_transport_F","C_Van_02_vehicle_F","I_C_Van_02_transport_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F","C_Offroad_02_unarmed_white_F","C_Offroad_02_unarmed_red_F","C_Offroad_02_unarmed_orange_F","C_Offroad_02_unarmed_green_F","C_Offroad_02_unarmed_F","C_Offroad_02_unarmed_blue_F","C_Offroad_02_unarmed_black_F"])}], //Repair Vehicle
+	["door2",localize"STR_INTSECT_ENTASPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && (!(player_objIntersect getVariable ["locked",true])) && {(typeOf player_objintersect IN Config_Arma_Vehs)}}],//Enter as Passenger
+	["door2",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && (!(player_objIntersect getVariable ["locked",true]))&&{(typeOf player_objintersect IN Config_Arma_Vehs)}}],		 //Exit Vehicle
+	["door2",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles) && {(typeOf player_objintersect IN Config_Arma_Vehs)}}], //Lock/Unlock Vehicle Doors
+	["door2",localize"STR_INTSECT_EJALLPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {((player getVariable "job") IN ["uscg","fisd","usms"])} && {(typeOf player_objintersect IN Config_Arma_Vehs)}}], //Eject All Passengers
+	["door2",localize"STR_INTSECT_DETAINSUS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && {((player getVariable "job") IN ["uscg","fisd","usms"])} && {(typeOf player_objintersect IN Config_Arma_Vehs)}}], //Detain Suspect
+	["door2",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench" && {(typeOf player_objintersect IN Config_Arma_Vehs)}}], //Repair Vehicle
 
 	["door3",localize"STR_INTSECT_ENTASPASS",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((vehicle player) == player) && (simulationEnabled player_objIntersect) && (!(player_objIntersect getVariable ["locked",true])) && (typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","C_Van_02_vehicle_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F"])}],//Enter as Passenger
 	["door3",localize"STR_INTSECT_EXITVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!((vehicle player) == player) && (!(player_objIntersect getVariable ["locked",true]))&&(typeOf player_objintersect IN ["C_Van_02_medevac_F","C_Van_02_service_F","C_Van_02_transport_F","C_Van_02_vehicle_F","C_IDAP_Van_02_vehicle_F","C_IDAP_Van_02_transport_F"])}],		 //Exit Vehicle
@@ -2054,8 +2054,8 @@ Config_IntersectArray =
 	["door2",localize"STR_INTSECT_PSGDOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!(player_objIntersect getVariable ["locked",true])&&(typeOf player_objintersect IN ["C_Van_02_transport_F"])}],
 	["door3",localize"STR_INTSECT_LATDOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!(player_objIntersect getVariable ["locked",true])&&(typeOf player_objintersect IN ["C_Van_02_transport_F"])}],
 
-	["Door_1","Lockpick Door",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{((typeOf (call A3PL_Intersect_cursortarget)) IN ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Mansion01","Land_A3PL_Greenhouse","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Motel","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_Shed2","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"]) && (player_Itemclass == "v_lockpick")}],
-	["Door_1","Secure House",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{((typeOf (call A3PL_Intersect_cursortarget)) IN ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Mansion01","Land_A3PL_Greenhouse","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Motel","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_Shed2","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"]) && (player_objintersect getVariable "robbed") && (player getVariable "job" == "fisd")}],
+	["Door_1","Lockpick Door",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_Itemclass == "v_lockpick") && {((typeOf (call A3PL_Intersect_cursortarget)) IN Config_Houses_List)}}],
+	["Door_1","Secure House",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect getVariable "robbed") && {(player getVariable "job" isEqualTo "fisd")}}],
 
 	["cell_door_1","Lockpick Cell Door",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_Itemclass == "v_lockpick") && {((typeOf player_objIntersect) != "Land_A3PL_Sheriffpd")}}],
 	["cell_door_2","Lockpick Cell Door",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_Itemclass == "v_lockpick") && {((typeOf player_objIntersect) != "Land_A3PL_Sheriffpd")}}],

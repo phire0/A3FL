@@ -201,14 +201,9 @@
 				call A3PL_Intersect_Spikes;
 			};
 
-			//HANDLE COCKPIT
-			if (((typeOf vehicle player) IN Config_Intersect_Cockpits) && (cameraView == "INTERNAL")) exitwith {
-				call A3PL_Intersect_Cockpit;
-			};
-
-			_begPos = positionCameraToWorld [0,0,0]; // <----- THIS IS WHERE THE ISSUE IS MOST LIKELY
+			_begPos = positionCameraToWorld [0,0,0];
 			_begPosASL = AGLToASL _begPos;
-			_endPos = positionCameraToWorld [0,0,1000]; // <----- THIS IS WHERE THE ISSUE IS
+			_endPos = positionCameraToWorld [0,0,1000];
 			_endPosASL = AGLToASL _endPos;
 			_ins = lineIntersectsSurfaces [_begPosASL, _endPosASL, player, objNull, true, 1, "FIRE", "NONE"];
 
@@ -308,7 +303,6 @@
 
 			drawIcon3D [_icon, [1,1,1,1], _posAGL, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
 
-			//Okay so now lets take of the actions above and below
 			if (_countConfig > player_selectedIntersect) then {
 				_posAGL = [_posAGL select 0,_posAGL select 1, (_posAGL select 2) - ((_begPosASL distance _posAGL) / 50)];
 				_configSel = _config select (Player_selectedIntersect + 1);
@@ -325,7 +319,6 @@
 				drawIcon3D ["", [1,1,1,1], _posAGL, 0, 0, 0,_name, 1, 0.036, "PuristaSemiBold"];
 			};
 		}] call BIS_fnc_addStackedEventHandler;
-		//["A3PL_Intersect_Lines", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 }] call Server_Setup_Compile;
 
 //Currently has a limit of 20m. Can be changed in A3PL_Intersect_Lines
