@@ -240,10 +240,9 @@
 	A3PL_Player_biTagsArray = _iTags;
 }] call Server_Setup_Compile;
 
-//Responsible for drawing 3D icons each frame
 ["A3PL_Player_DrawText",
 {
-	["itemAdd", ["A3PL_DrawText",
+	["A3PL_DrawText", "onEachFrame",
 	{
 		{
 			_p = _x select 0;
@@ -256,14 +255,16 @@
 			};
 		} foreach (missionNameSpace getVariable ["A3PL_Player_TagsArray",[]]);
 
+		//business names
 		{
 			drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Actions\open_door_ca.paa", [1, 1, 1, 1],_x select 0, 0.5, 0.5, 45, _x select 1, 1, 0.03, "EtelkaNarrowMediumPro"];
 		} foreach (missionNameSpace getVariable ["A3PL_Player_bTagsArray",[]]);
 
+		//business items that are for sale
 		{
 			drawIcon3D [_x select 2, [1, 1, 1, 1],_x select 0, 0.5, 0.5, 45, _x select 1, 1, 0.03, "EtelkaNarrowMediumPro"];
 		} foreach (missionNameSpace getVariable ["A3PL_Player_biTagsArray",[]]);
-	},1 ,'seconds'] call BIS_fnc_loop;
+	}] call BIS_fnc_addStackedEventHandler;
 }] call Server_Setup_Compile;
 
 //First function that loads when player joins
