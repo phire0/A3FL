@@ -62,7 +62,6 @@
 
 	call Server_IE_Init;
 	call Server_Setup_ResetPlayerDB;
-	[] spawn Server_TrafficLights_Start;
 
 	/*iPhoneX*/
 	A3PL_iPhoneX_ListNumber = [];
