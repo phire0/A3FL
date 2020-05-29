@@ -24,11 +24,6 @@ Config_Intersect_NoName =
 ];
 publicVariable "Config_Intersect_NoName";
 
-//Mainly for groundWeaponHolder which has no fire geometry and no intersection but a cursortarget
-Config_Intersect_NoNameNoFire = [
-	["GroundWeaponHolder","Gear","\a3\ui_f\data\gui\cfg\Hints\gear_ca.paa"]
-];
-publicVariable "Config_Intersect_NoNameNoFire";
 
 Config_IntersectArray =
 [
@@ -2080,7 +2075,6 @@ Config_GenArray =
 	localize"STR_QuickActionsBuildings_TriggerFireAlarm",
 	localize"STR_QuickActionsBuildings_ReEnableFireAlarm",
 	localize"STR_QuickActionsBuildings_RepairFireAlarm",
-	localize"STR_INTSECT_RestrainUnrestrain",
 	localize"STR_INTSECT_ENTERDRIVER",
 	localize"STR_INTSECT_ENTASPASS",
 	localize"STR_INTSECT_EXITVEH",
@@ -2114,7 +2108,6 @@ Config_GenArray =
 	localize"STR_INTSECT_EXRELADDER",
 	localize"STR_INTSECT_DETAINSUS",
 	localize"STR_INTSECT_EJALLPASS",
-	localize"STR_INTSECT_GRABFURN",
 	localize"STR_INTSECT_LOUNDOOR",
 	localize"STR_INTSECT_VEHSTOR",
 	localize"STR_INTSECT_STOREVEH",
@@ -2147,7 +2140,6 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_TalkToTheRoadService2",
 	localize"STR_QuickActionsNPC_TalkToTheFermer",
 	localize"STR_QuickActionsNPC_TalkToTheOilExtractor",
-	localize"STR_QuickActionsNPC_TalkToTheOilDealer",
 	localize"STR_QuickActionsNPC_TalkToTheDrugDealer",
 	localize"STR_QuickActionsNPC_TalkToTheCriminalPrint",
 	localize"STR_QuickActionsNPC_TalkToTheBlackMarket",
@@ -2157,7 +2149,6 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_FactionAccount",
 	localize"STR_QuickActionsNPC_TalkToTheHunter",
 	localize"STR_INTSECT_CONVSTOLMONEY",
-	localize"STR_QuickActionsNPC_SpeakToTheShip",
 	localize"STR_QuickActionsNPC_AccessShopGems",
 	localize"STR_QuickActionsNPC_BuySellHalloweenItems",
 	localize"STR_QuickActionsNPC_BuySellChristmasItems",
@@ -2183,10 +2174,8 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_TakeFuelStationCash",
 	localize"STR_QuickActionsNPC_RobShop",
 	localize"STR_QuickActionsNPC_SecureShop",
-	localize"STR_QuickActionsNPC_TalkToTheLegalBP",
 	localize"STR_QuickActionsNPC_AccessSeedShop",
 	localize"STR_QuickActionsNPC_AccessFIFRVEHShop",
-	localize"STR_QuickActionsNPC_ShopDealer",
 	localize"STR_QuickActionsNPC_AccessUSCGShop",
 	localize"STR_QuickActionsNPC_AccessUSCGPilotShop",
 	localize"STR_QuickActionsNPC_AccessUSCGVehShop",
@@ -2212,11 +2201,9 @@ Config_GenArray =
 	localize"STR_INTSECT_KICKDOWN",
 	localize"STR_INTSECT_LUVEHDOORS",
  	localize"STR_INTSECT_REPVEH",
-	localize"STR_INTSECT_BuyFurniture",
 	localize"STR_INTSECT_HANDTICKET",
 	localize"STR_INTSECT_PICKUPKEY",
 	localize"STR_INTSECT_LRRAMP",
-	localize"STR_INTSECT_DELIVERYVEH",
 	localize"STR_INTSECT_KNOCKONDOOR",
 	localize"STR_INTSECT_HARPLANT",
 	localize"STR_INTSECT_ENTERDRIVER",
@@ -2268,7 +2255,6 @@ Config_GenArray =
 	localize"STR_INTSECT_ADJFLDWN",
 	localize"STR_INTSECT_SWITCHGEN",
 	localize"STR_INTSECT_ENTCOPIL",
-	localize"STR_INTSECT_DELPACKAGE",
 	localize"STR_QuickActionsNPC_BuyMapIron",
 	localize"STR_QuickActionsNPC_BuyMapCharcoal",
 	localize"STR_QuickActionsNPC_BuyMapAluminium",
@@ -2497,7 +2483,7 @@ Config_GenArray =
 	format [localize"STR_INTSECT_PUTBACKHOSE",5],
 	format [localize"STR_INTSECT_TAKEHOSE",1],
 	format [localize"STR_INTSECT_TAKEHOSE",2],
-	format [localize"STR_INTSECT_TAKEHOSE",3], 
+	format [localize"STR_INTSECT_TAKEHOSE",3],
 	format [localize"STR_INTSECT_TAKEHOSE",4],
 	format [localize"STR_INTSECT_TAKEHOSE",5],
 	localize"STR_INTSECT_UseDistributor",

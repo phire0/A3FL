@@ -97,11 +97,16 @@
 ['A3PL_Intersect_Lines', {
 	if (isDedicated) exitwith {};
 	["A3PL_Intersect_Lines", "onEachFrame", {
+		private _exit = false;
+		private _veh = vehicle player;
 		if(!(_veh isEqualTo player)) then {
 			if(count(player nearEntities ["A3PL_Stinger", 3]) > 0) then {
 			    call A3PL_Intersect_Spikes;
 			};
+			if(speed _veh > 1) exitWith {_exit=true;};
 		};
+
+		if(_exit) exitWith {};
 
 		private _begPos = positionCameraToWorld [0,0,0];
 		private _begPosASL = AGLToASL _begPos;
@@ -116,13 +121,11 @@
 			if (!isNull cursortarget) exitwith {
 				Player_ObjIntersect = cursortarget;
 				Player_NameIntersect = "";
-				{
-					if ((_x select 0) == (typeOf _cur)) then {
-						private _name = _x select 1;
-						private _icon = _x select 2;
+					if ("GroundWeaponHolder" isEqualTo (typeOf _cur)) then {
+						private _name = "Gear";
+						private _icon = "\a3\ui_f\data\gui\cfg\Hints\gear_ca.paa";
 						drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
 					};
-				} foreach Config_Intersect_NoNameNoFire;
 			};
 			Player_ObjIntersect = player;
 			Player_NameIntersect = "";
@@ -144,32 +147,6 @@
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _veh;
 
-			if ((typeOf (nearestObject [player, "GroundWeaponHolder"])) isEqualTo "GroundWeaponHolder") then {
-				if (([eyepos player nearestObject "GroundWeaponHolder",eyepos player] call bis_fnc_distance2d) < 1.1) then {
-					private _cur = (eyepos player) nearestObject "GroundWeaponHolder";
-					Player_ObjIntersect = _cur;
-					Player_NameIntersect = "";
-					{
-						if ((_x select 0) == (typeOf _cur)) then {
-							private _name = _x select 1;
-							private _icon = _x select 2;
-							drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
-						};
-					} foreach Config_Intersect_NoNameNoFire;
-				};
-			};
-			if ((typeOf cursortarget) isEqualTo "GroundWeaponHolder") exitwith {
-				private _cur = cursortarget;
-				Player_ObjIntersect = _cur;
-				Player_NameIntersect = "";
-				{
-					if ((_x select 0) == (typeOf _cur)) then {
-						private _name = _x select 1;
-						private _icon = _x select 2;
-						drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
-					};
-				} foreach Config_Intersect_NoNameNoFire;
-			};
 		};
 
 		_ins2 select 0 params ["_name", "_dist"];
