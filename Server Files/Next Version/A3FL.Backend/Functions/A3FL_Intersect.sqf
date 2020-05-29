@@ -196,16 +196,6 @@
 		private _icon = _configSel select  2;
 		drawIcon3D [_icon, [1,1,1,1], _posAGL, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
 
-<<<<<<< HEAD
-			if (player_selectedIntersect > 0) then {
-				_posAGL = [_posAGL select 0,_posAGL select 1, (_posAGL select 2) + ((_begPosASL distance _posAGL) / 35)];
-				_configSel = _config select (Player_selectedIntersect - 1);
-				_name = _configSel select 1;
-				_icon = _configSel select 2;
-				drawIcon3D ["", [1,1,1,1], _posAGL, 0, 0, 0,_name, 1, 0.036, "PuristaSemiBold"];
-			};
-		}] call BIS_fnc_addStackedEventHandler;
-=======
 		if (_countConfig > player_selectedIntersect) then {
 			_posAGL = [_posAGL select 0,_posAGL select 1, (_posAGL select 2) - ((_begPosASL distance _posAGL) / 50)];
 			_configSel = _config select (Player_selectedIntersect + 1);
@@ -221,7 +211,6 @@
 			drawIcon3D ["", [1,1,1,1], _posAGL, 0, 0, 0,_name, 1, 0.036, "PuristaSemiBold"];
 		};
 	}] call BIS_fnc_addStackedEventHandler;
->>>>>>> ca5d64739550560a67af6c4c4da318c6bda19e40
 }] call Server_Setup_Compile;
 
 //Currently has a limit of 20m. Can be changed in A3PL_Intersect_Lines
