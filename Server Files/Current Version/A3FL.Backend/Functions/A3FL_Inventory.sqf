@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Inventory_Get", {
 	private ["_subtract","_fact","_inv","_player"];
 	_player = param [0,player];
@@ -146,15 +154,18 @@
 
 	[] call A3PL_Inventory_Populate;
 
-	[] spawn {
-		_hndl = ppEffectCreate ['dynamicBlur', 505];
-		_hndl ppEffectEnable true;
-		_hndl ppEffectAdjust [5];
-		_hndl ppEffectCommit 0;
-		waitUntil {isNull findDisplay 1001};
-		ppEffectDestroy _hndl;
-		player setVariable ["inventory_opened", false, true];
-	};
+		[] spawn {
+			_hndl = ppEffectCreate ['dynamicBlur', 505];
+			_hndl ppEffectEnable true;
+			_hndl ppEffectAdjust [5];
+			_hndl ppEffectCommit 0;
+
+			waitUntil {isNull findDisplay 1001};
+		  if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
+			ppEffectDestroy _hndl;
+			};
+			player setVariable ["inventory_opened", false, true];
+		};
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Populate", {
@@ -166,9 +177,7 @@
 	"
 		private ['_display','_amount','_selection','_classname'];
 		_amount = parseNumber (ctrlText 14471);
-
 		if (_amount <= 0) exitwith {[localize'STR_NewInventory_3','red'] call A3PL_Player_Notification;};
-
 		[] call A3PL_Inventory_Use;
 		[true,_amount] call A3PL_Inventory_Drop;
 	"];
@@ -353,6 +362,7 @@
 	_itemClass = Player_ItemClass;
 	_obj = Player_Item;
 	_droppedItems = server getVariable 'droppedObjects';
+
 
 	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith { [localize"STR_NewInventory_11","red"] call A3PL_Player_Notification; };
 

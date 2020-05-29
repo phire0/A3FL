@@ -40,7 +40,7 @@ class Dialog_ObjectStorage
 			y = 0.654 * safezoneH + safezoneY;
 			w = 0.0979687 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_Storage_ObjectRetrieveButton";
+			action = "call A3PL_Storage_ObjectRetrieveButton";
 		};
 		class list_vehicles: RscListbox
 		{

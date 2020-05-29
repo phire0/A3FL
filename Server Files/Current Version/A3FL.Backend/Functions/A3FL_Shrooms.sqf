@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Shrooms_Pick",
 {
 	private ["_chance","_success","_shroom"];
@@ -11,7 +19,7 @@
 
 	if (!Player_ActionCompleted) exitwith {[localize"STR_NewRessources_Action","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
-	["Gathering..",1] spawn A3PL_Lib_LoadAction;
+	["Gathering..",5] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	_animTime = diag_tickTime;

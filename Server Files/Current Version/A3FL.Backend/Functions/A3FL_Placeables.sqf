@@ -1,6 +1,14 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ['A3PL_Placeables_Pickup', {
 	private ["_obj","_type","_attachedTo"];
-	_obj = param [0,([] call A3PL_Intersect_Cursortarget)];
+	_obj = param [0,(call A3PL_Intersect_Cursortarget)];
 
 	_attachedTo = attachedTo _obj;
 	if ((isPlayer _attachedTo) && (!(_attachedTo isKindOf "Car"))) exitwith {[localize"STR_NewPlaceables_1", "red"] call A3PL_Player_Notification;};
@@ -78,7 +86,7 @@
 	while {(_obj IN (attachedObjects player)) && (!isNull _obj)} do
 	{
 		_sleep = 0.5;
-		if (!alive player) exitwith {detach _obj; [] call A3PL_Inventory_Drop;};
+		if (!alive player) exitwith {detach _obj; call A3PL_Inventory_Drop;};
 		if (!(vehicle player == player)) exitwith
 		{
 			private ["_isItem"];
@@ -96,7 +104,7 @@
 			}
 			else
 			{
-				[] call A3PL_Inventory_Drop;
+				call A3PL_Inventory_Drop;
 			};
 		};
 		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfisherstable1","mcfisherstable2","mcfishergrill"]) then
@@ -297,7 +305,7 @@
 		_obj setposATL (getposATL _obj);
 	};
 	if (!(isNull player_item)) exitwith {[localize"STR_NewPlaceables_7", "red"] call A3PL_Player_Notification};
-	[] call A3PL_Placeables_Pickup;
+	call A3PL_Placeables_Pickup;
 }] call Server_Setup_Compile;
 
 ['A3PL_Placeable_CarBlacklist',

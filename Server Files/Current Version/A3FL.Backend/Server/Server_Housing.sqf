@@ -1,4 +1,13 @@
-#define HOUSESLIST ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green"]
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
+#define HOUSESLIST ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion","Land_A3FL_Office_Building"]
+
 ["Server_Housing_SaveItems",
 {
 	private _player = param [0,objNull];
@@ -10,7 +19,7 @@
 	private _isOwner = false;
 	if((_allMembers select 0) isEqualTo _uid) then {_isOwner = true;};
 	if(!_isOwner) exitWith {};
-	
+
 	_house setVariable ["furn_loaded",false,false];
 	private _itemsToSave = [];
 	{
@@ -155,27 +164,20 @@
 	_price = param [3,0];
 	_uid = getPlayerUID _player;
 
-	//set owner var on object
 	_object setVariable ["owner",[_uid],true];
 
-	//take money
 	if (_takeMoney) then
 	{
 		_player setVariable ["player_bank",((_player getVariable ["player_bank",0]) - _price),true];
 	};
 
-	//Generate a new key, it will take care of assigning it to the house aswell
-	//It will also take care of saving the player keys into the DB
-	_keyID = [_player,_object,"",false] call Server_Housing_CreateKey;
-	//Insert into houses list, but only if it doesn't exist already
+	_keyID = [_player,_object,"",false,"house"] call Server_Housing_CreateKey;
+
 	if (!(_object IN Server_HouseList)) then
 	{
 		Server_HouseList pushback _object;
 	};
 
-	//Input the new owner, or replace if exist
-	//The unique key is the location in this case (BEWARE OF THIS!!!)
-	//Also be carefull, _expireTime is in SQL style, not arma (array) style
 	_pos = getpos _object;
 	_uid = [[_uid]] call Server_Database_Array;
 	_insert = format ["INSERT INTO houses (uids,classname,location,doorid,pitems) VALUES ('%1','%2','%3','%4','[]') ON DUPLICATE KEY UPDATE doorID='%3'",_uid,typeOf _object,_pos,_keyID];
@@ -185,15 +187,12 @@
 	_var = _player getVariable ["apt",nil];
 	if (!isNil "_var") then
 	{
-		//unassign appartment, just in case
 		[_player] call Server_Housing_UnAssignApt;
 
-		//Nil apt variable, just in case
 		_player setVariable ["apt",Nil,true];
 		_player setVariable ["aptnumber",Nil,true];
 	};
 
-	//sign
 	_signs = nearestObjects [_object, ["Land_A3PL_EstateSign"], 20];
 	if (count _signs > 0) then
 	{
@@ -225,12 +224,11 @@
 {
 	private ["_player","_objToAssign","_var","_cannotAssign","_AptToAssign","_doorName"];
 	_player = param [0,objNull];
-	//First find an appartment building with less than 8 assigned appartments
 
 	_list = Server_AptList;
-	if((_player getVariable["faction","citizen"]) == "uscg") then {
-		_list = nearestObjects [[2188.62,4991.78,0], ["Land_A3PL_Motel"], 5000]; //C.G Base
-	};
+	// if((_player getVariable["faction","citizen"]) == "uscg") then {
+	// 	_list = nearestObjects [[2188.62,4991.78,0], ["Land_A3PL_Motel"], 5000];
+	// };
 
 	{
 		private ["_assigned"];
@@ -242,10 +240,8 @@
 	} foreach _list;
 
 
-	//if we cannot find any then exit
 	if (isNil "_objToAssign") exitwith {diag_log "Error assigning apartment to player: None available"};
 
-	//Now lets figure out which one we cannot assign
 	_var = _objToAssign getVariable "Server_AptAssigned";
 	_cannotAssign = [];
 
@@ -253,28 +249,23 @@
 		_cannotAssign pushback (_x select 0);
 	} foreach _var;
 
-	//lets find out which one we CAN assign
 	_AptToAssign = 1;
 	while {_AptToAssign IN _cannotAssign} do
 	{
 		_AptToAssign = _AptToAssign + 1;
 	};
 
-	//once this loop ends we should end up with _AptToAssign that is available, so lets assign it
 	_var pushBack [_AptToAssign,_player];
 	_objToAssign setVariable ["Server_AptAssigned",_var,false];
 
-	//Lets figure out the door that should be openable now that the player owns that appartment
 	_doorName = format ["door_%1",_AptToAssign];
 
-	//Lets generate a key for that appartment
-	[_player,_objToAssign,_doorName,false] call Server_Housing_CreateKey;
+	[_player,_objToAssign,_doorName,false,"motel"] call Server_Housing_CreateKey;
 
-	//set a variable to indicate the player owns an apartment
 	_player setVariable ["apt",_objToAssign,true];
 	_player setVariable ["aptnumber",_AptToAssign,true];
 	[_objToAssign,_AptToAssign] remoteExec ["A3PL_Housing_AptAssignedMsg",_player];
-	//lock whatever door belongs to that apartment
+
 	_objToAssign setVariable [(format ["Door_%1_locked",_AptToAssign]),true,true];
 },true] call Server_Setup_Compile;
 
@@ -347,50 +338,62 @@
 	_door = param [2,objNull];
 	_saveKey = param [3,true];
 	_id = "";
-	_name = "";
-	
+	_name = param [4,""];
+
 
 	if (!(_obj isKindOf "house")) exitwith {};
 
-	if (typeOf _obj == "Land_A3PL_Motel") then
+	if (_name == "motel") then
 	{
 		private ["_var"];
 		_name = _this select 2;
-		_var = _obj getVariable "doorID";
-		if (isNil "_var") then
-		{
-			_var = [];
-		};
+		_var = _obj getVariable ["doorID",[]];
+		_keyNames = ["door_1","door_2","door_3","door_4","door_5","door_6","door_7","door_8"];
+		_playerKeys = _player getVariable ["keys",[]];
 
-		//Delete the uniqueID for that key if already exist
 		{
-			if ((_x select 2) == _name) exitwith
-			{
-				_var deleteAt _forEachIndex;
+			if(_x IN _keyNames) then {
+				_playerKeys deleteAt _forEachIndex;
+				diag_log format ["deleting key %1",_x];
 			};
-		} foreach _var;
+		} forEach _playerKeys;
+
 		_id = _door;
 		_var pushback [[_uid],_door,_name];
 
 		_obj setVariable ["doorID",_var,true];
-		_player setVariable ["keys",nil,true];
-	} else
-	{
-		_id = [5] call Server_Housing_GenerateID;
-		_obj setVariable ["doorID",[_uid,_id],true];
+		_player setVariable["keys",_playerKeys,true];
 	};
 
-	//Assign new keys
+	if(_name == "warehouse") then {
+	_id = [8] call Server_Housing_GenerateID;
+	_obj setVariable ["doorID",[_uid,_id],true];
+	};
+
+	if(_name == "house") then {
+	_id = [5] call Server_Housing_GenerateID;
+	_obj setVariable ["doorID",[_uid,_id],true];
+	};
+
+
 	_keys = _player getVariable ["keys",[]];
 	_keys pushback _id;
 	_player setVariable ["keys",_keys,true];
 
-	//Save the doorID into the database (but only when its a house)
-	if (_name == "") then
+	if (_name == "house") then
 	{
 		if (_saveKey) then
 		{
 			_query = format ["UPDATE houses SET doorid='%1' WHERE location ='%2'",_id,(getpos _obj)];
+			[_query,1] spawn Server_Database_Async;
+		};
+		[_player] call Server_Housing_SaveKeys;
+	};
+	if (_name == "warehouse") then
+	{
+		if (_saveKey) then
+		{
+			_query = format ["UPDATE warehouses SET doorid='%1' WHERE location ='%2'",_id,(getpos _obj)];
 			[_query,1] spawn Server_Database_Async;
 		};
 		[_player] call Server_Housing_SaveKeys;
@@ -478,10 +481,10 @@
 	[_query,1] spawn Server_Database_Async;
 
 	_uid = _uids select 0;
-	
+
 	_house setVariable ["owner",nil,true];
 	_house setVariable ["doorid",nil,true];
-	
+
 	_furnitures = nearestObjects [_pos, ["Thing"], 100];
 	{if((_x getVariable "owner") isEqualTo _uid) then {deleteVehicle _x;};} foreach _furnitures;
 
@@ -550,5 +553,5 @@
 		_old setVariable ["keys",[],true];
 		_old setVariable ["house",nil,true];
 		[localize"STR_SERVER_HOUSING_YOUNOWEXCOLOC","yellow"] remoteExec ["A3PL_Player_Notification",owner _old];
-	};	
+	};
 },true] call Server_Setup_Compile;

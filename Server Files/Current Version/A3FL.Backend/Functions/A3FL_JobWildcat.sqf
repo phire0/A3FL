@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 //distance from center that oil can be found from
 #define OILDISTANCE 100
 //distance from center where a resource can be found
@@ -5,7 +13,7 @@
 
 ["A3PL_JobWildCat_BuyMap",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_mapType","_markers","_oilArray","_resArray","_exactLocation","_pos","_timeLeft"];
 	_mapType = param [0,""];
 	_markers = [];
@@ -228,7 +236,7 @@
 				case (_oilAmount <= 150): {[3,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
 				case (_oilAmount <= 200): {[4,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
 				case (_oilAmount <= 600): {[5,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
-				default {};
+				default {[5,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
 			};
 		};
 

@@ -261,7 +261,7 @@ class A3PL_BowlingRegister
 		y = 0.350296 * safezoneH + safezoneY;
 		w = 0.0277083 * safezoneW;
 		h = 0.0497778 * safezoneH;
-		action = "[] call A3PL_Bowling_BRefresh;";
+		action = "call A3PL_Bowling_BRefresh;";
 	};
 	
 	////////////////////////////////////////////////////////

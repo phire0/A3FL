@@ -1,3 +1,16 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
+[
+	"",
+	"Big Dicks Sports Store",
+	{["Shop_Big_Dicks_Sports"] call A3PL_Shop_Open;}
+],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessAcierie",
@@ -11,7 +24,7 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_FakeID",
-	{[] call A3PL_Police_FakeID;}
+	{call A3PL_Police_FakeID;}
 ],
 [
 	"",
@@ -79,27 +92,27 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_ReadDecrees",
-	{[] call A3PL_Government_ReadLaws;}
+	{call A3PL_Government_ReadLaws;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_OpenBusiness",
-	{[] call A3PL_Company_CreateOpen;}
+	{call A3PL_Company_CreateOpen;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_BusinessManagement",
-	{[] call A3PL_Company_ManageOpen;}
+	{call A3PL_Company_ManageOpen;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_EnterpriseAccountManagment",
-	{[] call A3PL_Company_HistoryOpen;}
+	{call A3PL_Company_HistoryOpen;}
 ],
 [
 	"",
 	localize"STR_INTSECT_OPTREASINF",
-	{[] call A3PL_Government_OpenTreasury;}
+	{call A3PL_Government_OpenTreasury;}
 ],
 [
 	"",
@@ -134,12 +147,12 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_FactionAccount",
-	{[] call A3PL_Government_Budget;}
+	{call A3PL_Government_Budget;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_TalkToInsurer",
-	{[] call A3PL_Vehicle_InsureOpen;}
+	{call A3PL_Vehicle_InsureOpen;}
 ],
 [
 	"",
@@ -157,7 +170,7 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_TalkToExterminator",
-	{[] call A3PL_Exterminator_Start;}
+	{call A3PL_Exterminator_Start;}
 ],
 [
 	"",
@@ -183,12 +196,12 @@
 [
 	"A3PL_DogCage",
 	localize"STR_INTSECT_OPK9MEN",
-	{[] call A3PL_Dogs_OpenMenu;}
+	{call A3PL_Dogs_OpenMenu;}
 ],
 [
 	"",
 	localize"STR_INTSECT_OPIMEXMENU",
-	{[] call A3PL_IE_Open;}
+	{call A3PL_IE_Open;}
 ],
 [
 	"",
@@ -196,7 +209,7 @@
 	{
 		_cops = (count(["fisd"] call A3PL_Lib_FactionPlayers));
 		if (_cops < 3) exitwith {[localize"STR_QuickActionsNPC_MinimumUSCGToSpeak","red"] call A3PL_Player_Notification;};
-		[] call A3PL_BHeist_ConvertCash;
+		call A3PL_BHeist_ConvertCash;
 	}
 ],
 [
@@ -216,6 +229,11 @@
 ],
 [
 	"",
+	"Moonshine Trader",
+	{["Shop_Moonshine"] call A3PL_Shop_Open;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_BucheronShop",
 	{["Shop_Hemlock"] call A3PL_Shop_Open;}
 ],
@@ -227,12 +245,12 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_RemoveElectronicBracelet",
-	{[] call A3PL_Criminal_RemoveTime;}
+	{call A3PL_Criminal_RemoveTime;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_StartCartelWork",
-	{[] call A3PL_Criminal_CartelStart;}
+	{call A3PL_Criminal_CartelStart;}
 ],
 [
 	"",
@@ -284,7 +302,7 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_KartRent",
-	{[] call A3PL_Karts_Rent;}
+	{call A3PL_Karts_Rent;}
 ],
 [
 	"",
@@ -572,6 +590,11 @@
 ],
 [
 	"",
+	"Talk to the Ship Captain",
+	{["ship_initial"] call A3PL_NPC_Start;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_TakeMcFishersUniform",
 	{["mcfisher"] call A3PL_NPC_ReqJobUniform;}
 ],
@@ -780,7 +803,7 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_ATCExit",
-	{[] call A3PL_ATC_LeaveJob;}
+	{call A3PL_ATC_LeaveJob;}
 ],
 [
 	"",

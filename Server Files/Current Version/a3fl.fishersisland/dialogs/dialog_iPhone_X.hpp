@@ -506,7 +506,7 @@ class A3PL_iPhone_Home
 			y = safeZoneY + safeZoneH * 0.79708056;
 			w = safeZoneW * 0.02246094;
 			h = safeZoneH * 0.03993056;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appPhone;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appPhone;";
 		};
 		class iPhone_Icon_appContact: RscPicture
 		{
@@ -524,7 +524,7 @@ class A3PL_iPhone_Home
 			y = safeZoneY + safeZoneH * 0.79708056;
 			w = safeZoneW * 0.02246094;
 			h = safeZoneH * 0.03993056;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appContactsList;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appContactsList;";
 		};
 		class iPhone_Icon_appSMS: RscPicture
 		{
@@ -542,7 +542,7 @@ class A3PL_iPhone_Home
 			y = safeZoneY + safeZoneH * 0.79708056;
 			w = safeZoneW * 0.02246094;
 			h = safeZoneH * 0.03993056;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_AppSMSList;";
+			action = "closeDialog 0; call A3PL_iPhoneX_AppSMSList;";
 		};
 		class iPhone_Icon_appSettings: RscPicture
 		{
@@ -560,7 +560,7 @@ class A3PL_iPhone_Home
 			y = safeZoneY + safeZoneH * 0.79708056;
 			w = safeZoneW * 0.02246094;
 			h = safeZoneH * 0.03993056;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_AppSettings;";
+			action = "closeDialog 0; call A3PL_iPhoneX_AppSettings;";
 		};
 		class iPhone_Icon_appCompaniesBills: RscPicture
 		{
@@ -578,7 +578,7 @@ class A3PL_iPhone_Home
 			y = safeZoneY + safeZoneH * 0.34541667;
 			w = safeZoneW * 0.02246094;
 			h = safeZoneH * 0.03993056;
-			action = "[] call A3PL_iPhoneX_appCBillsLaunch;";
+			action = "call A3PL_iPhoneX_appCBillsLaunch;";
 		};
 		class iPhone_Icon_appUber: RscPicture
 		{
@@ -596,7 +596,7 @@ class A3PL_iPhone_Home
 			y = safeZoneY + safeZoneH * 0.34541667;
 			w = safeZoneW * 0.02246094;
 			h = safeZoneH * 0.03993056;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_AppUber;";
+			action = "closeDialog 0; call A3PL_iPhoneX_AppUber;";
 		};
 		class iPhone_Icon_appCalculator: RscPicture
 		{
@@ -614,7 +614,7 @@ class A3PL_iPhone_Home
 			y = safeZoneY + safeZoneH * 0.34541667;
 			w = safeZoneW * 0.02246094;
 			h = safeZoneH * 0.03993056;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_AppCalculator";
+			action = "closeDialog 0; call A3PL_iPhoneX_AppCalculator";
 		};
 		class iPhone_Icon_appTax: RscPicture
 		{
@@ -632,7 +632,7 @@ class A3PL_iPhone_Home
 			y = 0.401 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_AppTax;";
+			action = "closeDialog 0; call A3PL_iPhoneX_AppTax;";
 		};
 		class iPhone_Icon_appBank: RscPicture
 		{
@@ -650,7 +650,7 @@ class A3PL_iPhone_Home
 			y = 0.401 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appBank;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appBank;";
 		};
 		class iPhone_Icon_appKeys: RscPicture
 		{
@@ -668,7 +668,7 @@ class A3PL_iPhone_Home
 			y = safeZoneY + safeZoneH * 0.401;
 			w = safeZoneW * 0.02246094;
 			h = safeZoneH * 0.03993056;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appKeys;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appKeys;";
 		};
 		class iPhone_Icon_appGang: RscPicture
 		{
@@ -686,7 +686,7 @@ class A3PL_iPhone_Home
 			y = 0.401 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appGang;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appGang;";
 		};
 		class iPhone_Icon_appNews: RscPicture
 		{
@@ -704,7 +704,7 @@ class A3PL_iPhone_Home
 			y = 0.45658333 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appNews;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appNews;";
 		};
 		class iPhone_Icon_appFactory: RscPicture
 		{
@@ -722,7 +722,7 @@ class A3PL_iPhone_Home
 			y = 0.45658333 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appFactory;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appFactory;";
 		};
 		class iPhone_Icon_appLevel: RscPicture
 		{
@@ -740,7 +740,7 @@ class A3PL_iPhone_Home
 			y = 0.45658333 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appLevel;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appLevel;";
 		};
 		class iPhone_Icon_appRadios: RscPicture
 		{
@@ -759,7 +759,7 @@ class A3PL_iPhone_Home
 			y = 0.73449998 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appRadios;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appRadios;";
 			show=false;
 		};
 		class iPhone_Icon_appSwitchboard: RscPicture
@@ -2114,7 +2114,7 @@ class A3PL_iPhone_appSettings
 			y = safeZoneY + safeZoneH * 0.37263889;
 			w = safeZoneW * 0.135;
 			h = safeZoneH * 0.03;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_AppWallpaper";
+			action = "closeDialog 0; call A3PL_iPhoneX_AppWallpaper";
 		};
 		class iPhone_Button_Sounds: RscButtonEmpty
 		{
@@ -2123,7 +2123,7 @@ class A3PL_iPhone_appSettings
 			y = safeZoneY + safeZoneH * 0.40763889;
 			w = safeZoneW * 0.135;
 			h = safeZoneH * 0.03;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_AppSound;";
+			action = "closeDialog 0; call A3PL_iPhoneX_AppSound;";
 		};
 		class iPhone_Button_SIM: RscButtonEmpty
 		{
@@ -2132,7 +2132,7 @@ class A3PL_iPhone_appSettings
 			y = safeZoneY + safeZoneH * 0.44263889;
 			w = safeZoneW * 0.135;
 			h = safeZoneH * 0.03;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appSIM;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appSIM;";
 		};
 		class iPhone_Button_General: RscButtonEmpty
 		{
@@ -2141,7 +2141,7 @@ class A3PL_iPhone_appSettings
 			y = safeZoneY + safeZoneH * 0.47763889;
 			w = safeZoneW * 0.135;
 			h = safeZoneH * 0.03;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appGeneral;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appGeneral;";
 		};
 		class iPhone_IconHome: RscPicture
 		{
@@ -2897,7 +2897,7 @@ class A3PL_iPhone_appSounds
 			y = safeZoneY + safeZoneH * 0.5066;
 			w = safeZoneW * 0.118;
 			h = safeZoneH * 0.03;
-			action = "[] call A3PL_iPhoneX_Silent;";
+			action = "call A3PL_iPhoneX_Silent;";
 		};
 		class iPhone_IconHome: RscPicture
 		{
@@ -3033,7 +3033,7 @@ class A3PL_iPhone_appSMSList
 			y = safeZoneY + safeZoneH * 0.33841667;
 			w = safeZoneW * 0.01074219;
 			h = safeZoneH * 0.01909723;
-			action = "[] call A3PL_iPhoneX_appAddConversation;";
+			action = "call A3PL_iPhoneX_appAddConversation;";
 		};
 		class iPhone_IconHome: RscPicture
 		{
@@ -3150,7 +3150,7 @@ class A3PL_iPhone_appAddConversation
 			y = safeZoneY + safeZoneH * 0.34141667;
 			w = safeZoneW * 0.01074219;
 			h = safeZoneH * 0.01909723;
-			action = "[] call A3PL_iPhoneX_addConversation;";
+			action = "call A3PL_iPhoneX_addConversation;";
 		};
 		class iPhone_Button_appSMSList: RscButtonEmpty
 		{
@@ -3159,7 +3159,7 @@ class A3PL_iPhone_appAddConversation
 			y = safeZoneY + safeZoneH * 0.34141667;
 			w = safeZoneW * 0.05724219;
 			h = safeZoneH * 0.01909723;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appSMSList";
+			action = "closeDialog 0; call A3PL_iPhoneX_appSMSList";
 		};
 		class iPhone_IconHome: RscPicture
 		{
@@ -3266,7 +3266,7 @@ class A3PL_iPhone_appSMS
 			y = safeZoneY + safeZoneH * 0.34141667;
 			w = safeZoneW * 0.01024219;
 			h = safeZoneH * 0.01909723;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appSMSList";
+			action = "closeDialog 0; call A3PL_iPhoneX_appSMSList";
 		};
 		class iPhone_IconHome: RscPicture
 		{
@@ -3390,7 +3390,7 @@ class A3PL_iPhone_appGangCreation
 			y = 0.72 * safezoneH + safezoneY;
 			w = 0.0825 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_iPhoneX_CreateGang;";
+			action = "call A3PL_iPhoneX_CreateGang;";
 		};
 	};
 };
@@ -3458,7 +3458,7 @@ class A3PL_iPhone_appGangManagement
 			y = 0.5 * safezoneH + safezoneY;
 			w = 0.04125 * safezoneW;
 			h = 0.011 * safezoneH;
-			action = "[] call A3PL_iPhoneX_GangKick;";
+			action = "call A3PL_iPhoneX_GangKick;";
 		};
 		class btn_leader: RscButtonEmpty
 		{
@@ -3467,7 +3467,7 @@ class A3PL_iPhone_appGangManagement
 			y = 0.5 * safezoneH + safezoneY;
 			w = 0.0464063 * safezoneW;
 			h = 0.011 * safezoneH;
-			action = "[] call A3PL_iPhoneX_GangSetLead;";
+			action = "call A3PL_iPhoneX_GangSetLead;";
 		};
 		class btn_invite: RscButtonEmpty
 		{
@@ -3476,7 +3476,7 @@ class A3PL_iPhone_appGangManagement
 			y = 0.566 * safezoneH + safezoneY;
 			w = 0.04125 * safezoneW;
 			h = 0.022 * safezoneH;
-			action = "[] call A3PL_iPhoneX_GangInvite;";
+			action = "call A3PL_iPhoneX_GangInvite;";
 		};
 		class btn_leavegang: RscButtonEmpty
 		{
@@ -3485,7 +3485,7 @@ class A3PL_iPhone_appGangManagement
 			y = 0.797 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.022 * safezoneH;
-			action = "[] call A3PL_Gang_Leave;";
+			action = "call A3PL_Gang_Leave;";
 		};
 		/*class btn_upgrade: RscButtonEmpty
 		{
@@ -3503,7 +3503,7 @@ class A3PL_iPhone_appGangManagement
 			y = 0.797 * safezoneH + safezoneY;
 			w = 0.0567187 * safezoneW;
 			h = 0.022 * safezoneH;
-			action = "[] call A3PL_Gang_Delete;";
+			action = "call A3PL_Gang_Delete;";
 		};
 		class Combo_AllPlayers: RscCombo
 		{
@@ -3589,7 +3589,7 @@ class A3PL_iPhone_appBank
 			y = 0.72 * safezoneH + safezoneY;
 			w = 0.0825 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "closeDialog 0; [] call A3PL_Company_BillsMenu;";
+			action = "closeDialog 0; call A3PL_Company_BillsMenu;";
 		};
 		class iPhone_SendAmount: RscEdit
 		{
@@ -3606,7 +3606,7 @@ class A3PL_iPhone_appBank
 			y = 0.632 * safezoneH + safezoneY;
 			w = 0.0257812 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_iPhoneX_bankSend;";
+			action = "call A3PL_iPhoneX_bankSend;";
 		};
 		class iPhone_BankAmount: RscStructuredText
 		{
@@ -3682,7 +3682,7 @@ class A3PL_iPhone_appKeys
 			y = 0.72 * safezoneH + safezoneY;
 			w = 0.0825 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_iPhoneX_GiveKeys;";
+			action = "call A3PL_iPhoneX_GiveKeys;";
 		};
 		class iPhone_BankPlayersList: RscCombo
 		{
@@ -3780,7 +3780,7 @@ class A3PL_iPhone_appNews
 			y = 0.698 * safezoneH + safezoneY;
 			w = 0.0360937 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_iPhoneX_SendNews;";
+			action = "call A3PL_iPhoneX_SendNews;";
 		};
 		/*
 		class AnonymousSend: RscCheckbox
@@ -4188,7 +4188,7 @@ class A3PL_iPhone_appCreateBill
 			y = 0.731 * safezoneH + safezoneY;
 			w = 0.0876563 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_iPhoneX_sendBill;";
+			action = "call A3PL_iPhoneX_sendBill;";
 		};
 	};
 };
@@ -4266,7 +4266,7 @@ class A3PL_iPhone_appCompaniesBills
 			y = 0.709 * safezoneH + safezoneY;
 			w = 0.0928125 * safezoneW;
 			h = 0.033 * safezoneH;
-			action = "closeDialog 0; [] call A3PL_iPhoneX_appCreateBill;";
+			action = "closeDialog 0; call A3PL_iPhoneX_appCreateBill;";
 		};
 	};
 };

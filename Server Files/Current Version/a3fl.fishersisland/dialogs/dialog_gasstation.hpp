@@ -51,7 +51,7 @@ class Dialog_GasStation
 			y = 0.695222 * safezoneH + safezoneY;
 			w = 0.165729 * safezoneW;
 			h = 0.0386667 * safezoneH;
-			action = "[] call A3PL_Hydrogen_SetPrice;";
+			action = "call A3PL_Hydrogen_SetPrice;";
 		};
 		class edit_gallons_pump1: RscEdit
 		{

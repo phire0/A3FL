@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 [
 	"A3PL_Patrol",
 	localize"STR_INTSECT_UNLOCKPATROL",
@@ -1205,12 +1213,12 @@
     "",
     localize"STR_INTSECT_ACCPOLDB",
     {
-    	if(isNull (findDisplay 211) && ((typeOf player_objintersect) == "A3PL_Pierce_Rescue") && ((player getVariable ["job","unemployed"]) IN ["fifr"])) then {[] call A3PL_FD_DatabaseOpen;};
+    	if(isNull (findDisplay 211) && ((typeOf player_objintersect) == "A3PL_Pierce_Rescue") && ((player getVariable ["job","unemployed"]) IN ["fifr"])) then {call A3PL_FD_DatabaseOpen;};
         if (isNull (findDisplay 211) && (player_objintersect animationPhase "Laptop_Top" > 0.5)) then {
 			if ((player getVariable ["job","unemployed"]) IN ["fisd","uscg","usms"]) then {
-				[] call A3PL_Police_DatabaseOpen;
+				call A3PL_Police_DatabaseOpen;
 			};
-			if ((player getVariable ["job","unemployed"]) IN ["fifr"]) then {[] call A3PL_FD_DatabaseOpen;};
+			if ((player getVariable ["job","unemployed"]) IN ["fifr"]) then {call A3PL_FD_DatabaseOpen;};
         };
     }
 ],
@@ -1649,19 +1657,19 @@
 [
     "",
     localize"STR_INTSECT_OCLOCKERDOOR",
-    {[] call A3PL_Intersect_HandleDoors;}
+    {call A3PL_Intersect_HandleDoors;}
 ],
 [
     "",
     localize"STR_INTSECT_LOCKERSTORE",
     {
 		if (!isNull Player_Item) exitwith {
-			[] call A3PL_Placeables_QuickAction;
+			call A3PL_Placeables_QuickAction;
 		};
 		private _attached = [] call A3PL_Lib_Attached;
 		if (count _attached == 0) exitwith {};
 		if ((typeOf (_attached select 0)) IN Config_Placeables) then {
-			[] call A3PL_Placeables_QuickAction;
+			call A3PL_Placeables_QuickAction;
 		};
     }
 ],
@@ -1725,7 +1733,7 @@
 	localize"STR_INTSECT_PUSKI",
 	{
 		if (!isNull player_item) exitwith {[localize"STR_QuickActions_Notif_Vehicles_DepositSki", "red"] call A3PL_Player_Notification;};
-		[] call A3PL_Placeables_QuickAction;
+		call A3PL_Placeables_QuickAction;
 	}
 ],
 [
@@ -3773,7 +3781,7 @@
 			_veh = player_objintersect;
 			_posveh = _veh selectionPosition "Turret1_pos";
 			_pos = _veh modeltoworld _posveh;
-			if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+			if(!(call A3PL_Player_AntiSpam)) exitWith {};
 			if ((_veh animationPhase "Bucket") > 0.5) exitWith {
 				_Bucket = "A3PL_MiniExcavator_Bucket" createvehicle [0,0,0];
 				[player,_veh,_Bucket] remoteExec ["Server_Vehicle_AtegoHandle", 2];
@@ -4366,7 +4374,7 @@
 [
 	"",
 	"Toggle Mooring Line",
-	{[] call A3PL_Vehicle_Mooring;}
+	{call A3PL_Vehicle_Mooring;}
 ],
 [
     "",

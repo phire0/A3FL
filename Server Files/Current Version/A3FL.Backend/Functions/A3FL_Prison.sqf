@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Prison_HandleDoor",
 {
 	private ["_obj","_name"];
@@ -112,7 +120,7 @@
 	[getPlayerUID player,"lockpickCell",[getPos player]] remoteExec ["Server_Log_New",2];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Lockpicking...",6] spawn A3PL_Lib_LoadAction;
+	["Lockpicking...",45] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	while {uiSleep 0.5; Player_ActionDoing } do {
 		if (!(vehicle player == player)) exitwith {_success = false;};
@@ -147,7 +155,7 @@
 	["You are now searching the trash!", "yellow"] call A3PL_Player_Notification;
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Searching Trash...",6] spawn A3PL_Lib_LoadAction;
+	["Searching Trash...",30] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	while {uiSleep 1; Player_ActionDoing } do {
 		if (!(vehicle player == player)) exitwith {_success = false;};
@@ -187,7 +195,7 @@
 
 ["A3PL_Prison_DigOut",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
 		["There needs to be 3 FIMS on-duty to lock pick cell doors!","red"] call A3PL_Player_Notification;
@@ -195,15 +203,13 @@
 
 	if(player getVariable "Digging") exitWith{[localize"STR_NewRessources_Action","red"] call A3PL_Player_Notification;};
 
-	{if ((getpos player) inArea _x) exitwith {_inMarker = true};} foreach ["A3PL_Marker_Sand1","A3PL_Marker_Sand2"];
-
 	if (currentWeapon player != "A3PL_Shovel") exitwith {[localize"STR_NewRessources_NoShovel","red"] call A3PL_Player_Notification;};
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewRessources_Action","red"] call A3PL_Player_Notification;};
 	player setVariable ["Digging",true,true];
 	[player,"A3PL_Shovel_Dig"] remoteExec ["A3PL_Lib_SyncAnim", 0];
 
-	["Digging out of jail...",13] spawn A3PL_Lib_LoadAction;
+	["Digging out of jail...",45] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
 	while {Player_ActionDoing} do {

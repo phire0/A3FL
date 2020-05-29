@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define MINCOPSREQUIRED 5
 #define MONEYCHANCE 50
 #define GEMCHANCE 30
@@ -110,7 +118,7 @@
 
 ["A3PL_BHeist_SetDrill",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_bank","_drill","_timer"];
 	_bank = param [0,objNull];
 	if (typeOf _bank != "Land_A3PL_Bank") exitwith {["You are not looking at the bank vault","red"] call A3PL_Player_Notification;};
@@ -134,7 +142,7 @@
 
 ["A3PL_BHeist_PickupDrill",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_drill"];
 	_drill = param [0,objNull];
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
@@ -145,14 +153,14 @@
 
 ["A3PL_BHeist_InstallBit",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_drill"];
 	_drill = param [0,objNull];
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
 	if (_drill animationPhase "drill_bit" < 0.5) then
 	{
 		if (Player_ItemClass != "drill_bit") exitwith {["You are not carrying a drill bit in your hand","red"] call A3PL_Player_Notification;};
-		[] call A3PL_Inventory_Clear;
+		call A3PL_Inventory_Clear;
 		["drill_bit", -1] call A3PL_Inventory_Add;
 		_drill animate ["drill_bit",1];
 	} else
@@ -167,8 +175,19 @@
 {
 	private ["_drill","_bank","_timeOut","_newDrillValue","_drillValue","_holder","_cops"];
 	_drill = param [0,objNull];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
-	if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {[format ["There needs to be a minimum of %1 cops online to rob the bank!",MINCOPSREQUIRED],"red"] call A3PL_Player_Notification;};
+	_fail = false;
+	_faction = "FISD";
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
+
+	if(_nearCity isEqualTo "Lubbock") then {
+		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {_fail=true;_faction="USCG";};
+	} else {
+		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {_fail=true;_faction="FISD";};
+	};
+
+	if(_fail) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob the bank!",MINCOPSREQUIRED,_faction],"red"] call A3PL_Player_Notification;};
+
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
 	if (_drill animationPhase "drill_bit" < 1) exitwith {["Drill bit has not been installed","red"] call A3PL_Player_Notification;};
 	if (_drill animationSourcePhase "drill_handle" > 0) exitwith {["Drill has already been started","red"] call A3PL_Player_Notification;};
@@ -176,19 +195,19 @@
 	if(_robTime >= (diag_Ticktime-7200)) exitWith {["A bank has already been robbed less than 2 hours ago","red"] call A3PL_Player_Notification;};
 
 
-	//bank object
 	_bank = (nearestObjects [player, ["Land_A3PL_Bank"], 15]) select 0;
 	[getPlayerUID player,"bankRobbery",[getPos _bank]] remoteExec ["Server_Log_New",2];
 
-	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
 	[format["!!! ALERT !!! A bank is being robbed at %1 !", _nearCity],"green","fisd",3] call A3PL_Lib_JobMessage;
+
+	if(_nearCity isEqualTo "Lubbock") then {
+	[format["!!! ALERT !!! A bank is being robbed at %1 !", _nearCity],"green","uscg",3] call A3PL_Lib_JobMessage;
+	};
 
 	missionNamespace setVariable ["BankCooldown",diag_Ticktime,true];
 
-	//bank alarm
 	playSound3D ["A3PL_Common\effects\bankalarm.ogg", _bank, true, _bank, 3, 1, 250];
 
-	//start drill
 	_drill animateSource ["drill_handle",1];
 	playSound3D ["A3PL_Common\effects\bankdrill.ogg", _drill, true, _drill, 3, 1, 100];
 	_timeOut = (getNumber (configFile >> "CfgVehicles" >> "A3PL_Drill_Bank" >> "animationSources" >> "drill_handle" >> "animPeriod"));
@@ -204,10 +223,9 @@
 	};
 	if (((_drill animationSourcePhase "drill_handle") < 1) OR (isNull _drill)) exitwith {["Drilling cancelled",code_red] call A3PL_Player_Notification;}; //for some reason drilling failed
 
-	//animate bank door open
 	_bank animateSource ["door_bankvault",1];
 
-	_bank setVariable ["timer",serverTime];
+	_bank setVariable ["timer",serverTime,true];
 	uiSleep 1;
 	deleteVehicle _drill;
 	["Drilling completed. The drill and the drill bit both unfortunatly broke during drilling.","green"] call A3PL_Player_Notification;
@@ -216,7 +234,7 @@
 //spawn function
 ["A3PL_BHeist_OpenDeposit",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_bank","_depositNr","_name","_cashOffset","_random","_itemClass","_cash","_class","_dist"];
 	_bank = param [0,objNull];
 	_name = param [1,""];
@@ -224,7 +242,7 @@
 	_dist = player distance2D _bank;
 	if ((_bank animationSourcePhase "door_bankvault") < 0.95) exitwith {["The bank vault is closed, are you trying to open the deposit box through the walls...?"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {["You are already performing an action","red"] call A3PL_Player_Notification;};
-	["Lockpicking deposit box...",5+random 5] spawn A3PL_Lib_LoadAction;
+	["Lockpicking deposit box...",45] spawn A3PL_Lib_LoadAction;
 	Player_ActionCompleted = false;
 	//waitUntil {sleep 0.1; Player_ActionCompleted};
 
@@ -292,20 +310,20 @@
 //spawn
 ["A3PL_BHeist_PickCash",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_cashPile","_container"];
 	_cashPile = param [0,objNull];
 
 	if (backpack player != "A3PL_Backpack_Money") exitwith {["You are not carrying a backpack to carry money in!","red"] call A3PL_Player_Notification;};
 	_container = backpackContainer player;
 
-	diag_log str(((_container getVariable ["bankCash",0])));
-	diag_log str(((_container getVariable ["bankCash",0]) + MONEYPERPILE));
+	// diag_log str(((_container getVariable ["bankCash",0])));
+	// diag_log str(((_container getVariable ["bankCash",0]) + MONEYPERPILE));
 
 	if (((_container getVariable ["bankCash",0]) + MONEYPERPILE) > MAXMONEYPERBAG) exitwith {["My bag is full of cash, I can't fit more money into the bag!","red"] call A3PL_Player_Notification;};
 
 	if (Player_ActionDoing) exitwith {["You are already performing an action","red"] call A3PL_Player_Notification;};
-	["Filling bag with money...",2+random 3] spawn A3PL_Lib_LoadAction;
+	["Filling bag with money...",10] spawn A3PL_Lib_LoadAction;
 	waitUntil {sleep 0.1; Player_ActionCompleted};
 	Player_ActionCompleted = false;
 
@@ -321,7 +339,7 @@
 //Convert stolen money into real cash
 ["A3PL_BHeist_ConvertCash",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_container"];
 	if (backpack player != "A3PL_Backpack_Money") exitwith {["You are not carrying a backpack to carry money in!","red"] call A3PL_Player_Notification;};
 	_container = backpackContainer player;

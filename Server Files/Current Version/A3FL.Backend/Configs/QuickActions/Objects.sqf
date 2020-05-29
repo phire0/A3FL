@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 [
 	"A3PL_Distillery",
 	localize"STR_INTSECT_InstallHose",
@@ -56,7 +64,7 @@
 [
 	"",
 	localize"STR_INTSECT_FillBottle",
-	{[] call A3PL_Items_FillBottle;}
+	{call A3PL_Items_FillBottle;}
 ],
 [
 	"",
@@ -151,7 +159,7 @@
 		if ((player_itemClass == "cannabis_bud") && (typeOf Player_Item == "A3PL_Cannabis_Bud")) then
 		{
 			[Player_Item] call A3PL_JobFarming_CureLoop;
-			[] call A3PL_Placeables_QuickAction;
+			call A3PL_Placeables_QuickAction;
 		} else
 		{
 			[localize"STR_INTSECT_SystemYouDontSeemToBeHoldingACannabisBudToCure","red"] call A3PL_Player_Notification;
@@ -162,12 +170,11 @@
 	"A3FL_Table",
 	localize"STR_INTSECT_CureBud",
 	{
-		if ((player_itemClass == "cannabis_bud") && (typeOf Player_Item == "A3PL_Cannabis_Bud")) then
+		if ((player_itemClass isEqualTo "cannabis_bud") && (typeOf Player_Item isEqualTo "A3PL_Cannabis_Bud")) then
 		{
 			[Player_Item] call A3PL_JobFarming_CureLoop;
-			[] call A3PL_Placeables_QuickAction;
-		} else
-		{
+			call A3PL_Placeables_QuickAction;
+		} else {
 			[localize"STR_INTSECT_SystemYouDontSeemToBeHoldingACannabisBudToCure","red"] call A3PL_Player_Notification;
 		};
 	}
@@ -291,7 +298,7 @@
 		if (!isNull Player_Item) exitwith
 		{
 			private _playeritem = Player_Item;
-			[] call A3PL_Placeables_QuickAction;
+			call A3PL_Placeables_QuickAction;
 			if (isNull (attachedTo _playeritem)) exitwith {};
 			if ((typeOf(attachedTo _playeritem)) IN ["A3PL_Mcfisher_Grill"]) exitwith {[_playeritem] call A3PL_JobMcfisher_CookBurger;};
 		};
@@ -302,7 +309,7 @@
 	"",
 	{
 		if (Player_NameIntersect != "") exitwith {};
-		[] call A3PL_Placeables_QuickAction;
+		call A3PL_Placeables_QuickAction;
 	}
 ],
 [
@@ -315,7 +322,7 @@
 	localize"STR_INTSECT_GRABFURN",
 	{
 		if (!isNull player_item) exitwith {[localize"STR_INTSECT_YouCantPickupDropThisItemBecauseYouHaveSomethingInYourHand", "red"] call A3PL_Player_Notification;};
-		[] call A3PL_Placeables_QuickAction;
+		call A3PL_Placeables_QuickAction;
 	}
 ],
 [
@@ -331,10 +338,10 @@
 				if(isOnRoad player) then {
 					[localize"STR_INTSECT_YouCantPlaceFurnitureOnTheRoad", "red"] call A3PL_Player_Notification;
 				} else {
-					[] call A3PL_Placeables_QuickAction;
+					call A3PL_Placeables_QuickAction;
 				};
 			} else {
-				[] call A3PL_Placeables_QuickAction;
+				call A3PL_Placeables_QuickAction;
 			};
 		};
 	}
@@ -343,11 +350,11 @@
 	"",
 	localize"STR_INTSECT_PLACEITEM",
 	{
-		if (!isNull Player_Item) exitwith {[] call A3PL_Placeables_QuickAction;};
+		if (!isNull Player_Item) exitwith {call A3PL_Placeables_QuickAction;};
 		if(typeOf player_Item isEqualTo "A3PL_Gas_Hose") exitwith {[localize"STR_INTSECT_YouCantPlaceGasHose", "red"] call A3PL_Player_Notification;};
 		private _attached = [] call A3PL_Lib_Attached;
 		if (count _attached == 0) exitwith {};
-		if ((typeOf (_attached select 0)) IN Config_Placeables) then {[] call A3PL_Placeables_QuickAction;};
+		if ((typeOf (_attached select 0)) IN Config_Placeables) then {call A3PL_Placeables_QuickAction;};
 	}
 ],
 [
@@ -355,7 +362,7 @@
 	"",
 	{
 		if (Player_NameIntersect != "") exitwith {};
-		[] call A3PL_Placeables_QuickAction;
+		call A3PL_Placeables_QuickAction;
 	}
 ],
 [
@@ -441,7 +448,7 @@
 [
 	"Land_A3PL_Cinema",
 	localize"STR_INTSECT_GETPOPC",
-	{[] call A3PL_Items_GrabPopcorn;}
+	{call A3PL_Items_GrabPopcorn;}
 ],
 [
 	"",
@@ -451,7 +458,7 @@
 [
 	"",
 	localize"STR_INTSECT_PICKUPKEY",
-	{[] call A3PL_Housing_PickupKey;}
+	{call A3PL_Housing_PickupKey;}
 ],
 [
 	"",
@@ -471,12 +478,12 @@
 [
 	"",
 	localize"STR_INTSECT_USEATM",
-	{[] call A3PL_ATM_Open;}
+	{call A3PL_ATM_Open;}
 ],
 [
 	"A3PL_FishingBuoy",
 	localize"STR_INTSECT_DEPLNET",
-	{[] call A3PL_JobFisherman_DeployNet;}
+	{call A3PL_JobFisherman_DeployNet;}
 ],
 [
 	"A3PL_FishingBuoy",
@@ -501,7 +508,7 @@
 [
 	"Land_A3PL_Gasstation",
 	localize"STR_INTSECT_RETGASHOSE",
-	{[player_objintersect] call A3PL_Hydrogen_Connect;}
+	{[player_objintersect] spawn A3PL_Hydrogen_Connect;}
 ],
 [
 	"A3PL_GasHose",
@@ -583,7 +590,7 @@
 	"",
 	localize"STR_INTSECT_CUFFUN",
 	{
-		if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+		if(!(call A3PL_Player_AntiSpam)) exitWith {};
 		if (player_objintersect getVariable ["Cuffed",true]) exitWith {[player_objintersect] call A3PL_Police_Uncuff;};
 		if (Player_ItemClass == "handcuffs") then {
 			[player_objintersect] call A3PL_Police_Cuff;
@@ -596,7 +603,7 @@
 	"",
 	localize"STR_INTSECT_LPCUFF",
 	{
-		if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+		if(!(call A3PL_Player_AntiSpam)) exitWith {};
 		[player_objintersect] call A3PL_Criminal_PickHandcuffs;
 	}
 ],
@@ -604,7 +611,7 @@
 	"",
 	localize"STR_INTSECT_ZIPUN",
 	{
-		if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+		if(!(call A3PL_Player_AntiSpam)) exitWith {};
 		if (player_objintersect getVariable ["Zipped",true]) exitWith {[player_objintersect] call A3PL_Criminal_Unzip;};
 		if (Player_ItemClass == "zipties") then {
 			[player_objintersect] call A3PL_Criminal_Ziptie;

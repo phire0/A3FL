@@ -271,7 +271,7 @@
             <Original>Talk to the Ship</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_AccessShopSupply">
-            <Original>Shop Inventory</Original>
+            <Original>Furniture Store</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_AccessShopVFD">
             <Original>VFD Store</Original>
@@ -1038,6 +1038,9 @@
    </Key>
    <Key ID="STR_INTSECT_CheckCureStatus">
       <Original>Check Cure Status</Original>
+   </Key>
+   <Key ID="STR_INTSECT_RepairTrafficLight">
+      <Original>Repair Traffic Light</Original>
    </Key>
    <Key ID="STR_INTSECT_BuyFurniture">
       <Original>Buy Furniture</Original>
@@ -4193,6 +4196,18 @@
    </Key>
    <Key ID="STR_INTER_RENTGH">
       <Original>Rent ($350)</Original>
+   </Key>
+   <Key ID="STR_INTER_STORAGEWAREHOUSESPAWN">
+      <Original>Spawn Storage</Original>
+   </Key>
+   <Key ID="STR_INTER_STORAGEWAREHOUSESTORE">
+      <Original>Store Storage</Original>
+   </Key>
+   <Key ID="STR_INTER_STORAGESECURE">
+      <Original>Secure Storage</Original>
+   </Key>
+   <Key ID="STR_INTER_DEPLOYGASHOSE">
+      <Original>Deploy Gas Hose</Original>
    </Key>
    <Key ID="STR_INTER_ANCHOR">
       <Original>Toggle Anchor</Original>

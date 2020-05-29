@@ -1,3 +1,14 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
+//id (f_ as in factory),parent,name to display ("inh" to take from configFile),picture to display ("inh" to take from configFile),craftable?,time to craft (sec),components required,output amount,faction("","uscg","FIFR","FIFR","police")
+//["factory_ID","parent","inh","inh","classname","type",craftable,time,[["required",3],["components",200]],output,faction]
+
 Config_Factories =
 [
 	["Chemical Plant",[3852.065,9212.537,0.168],
@@ -111,6 +122,7 @@ Config_Factories =
 		["f_CG_Heli","","inh","inh","Heli_Medium01_Coastguard_H","plane",true,5,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,"uscg"],
 		["f_Jayhawk_USCG","","inh","inh","A3PL_Jayhawk","plane",true,5,[["Aluminium_Pellet",30],["Titanium_Pellet",5],["Glass",6],["Blueprint_Jayhawk",1]],1,"uscg"],
 		["f_Medic_Heli","","inh","inh","Heli_Medium01_Medic_H","plane",true,5,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,"fifr"],
+		["f_Sheriff_Heli","","inh","inh","Heli_Medium01_Sheriff_H","plane",true,5,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,"fisd"],
 		["f_RBM","","inh","inh","A3PL_RBM","car",true,5,[["Aluminium_Pellet",3],["Glass",5],["Blueprint_RBM",1]],1,"",1]
 	],
 
@@ -187,7 +199,8 @@ Config_Factories =
 		["f_jetski","","Jet ski","inh","C_Scooter_Transport_01_F","car",true,10,[["Engine",1],["Trans",1]],1,"",1],
 		["f_Motorboat","","inh","inh","A3PL_Motorboat","car",true,5,[["Engine",1],["Fibreglass",12]],1,"",1],
 		["f_RHIB","","inh","inh","A3PL_RHIB","car",true,5,[["Fibreglass",50],["HEEngine",4],["Rubber",10]],1,"",1],
-        ["f_LuxuryYatch","","inh","inh","A3PL_Yacht","car","true",1800,[["Aluminium_Pellet",100],["Glass",50],["Titanium",100],["Fibreglass",50],["Steel",100]],1,"",1]
+		["f_LCM","","inh","inh","A3FL_LCM","car",true,60,[["HEEngine",2],["HETrans",1],["Windows",2],["Aluminium_Pellet",4]],1,"",1],
+    ["f_LuxuryYatch","","inh","inh","A3PL_Yacht","car","true",1800,[["Aluminium_Pellet",100],["Glass",50],["Titanium",100],["Fibreglass",50],["Steel",100]],1,"",1]
 	],
 
 	["Aircraft Factory",[2606.28,5321.7,1],
@@ -264,7 +277,7 @@ Config_Factories =
 		["f_Car_Trailer","","inh","inh","A3PL_Car_Trailer","car",true,10,[["BrakeRotors",4],["Diff",1],["Chassis",1],["SteelRims",4],["Tyres",4]],1,"",1],
         ["f_mailtruck","","inh","inh","A3PL_MailTruck","car",true,10,[["Engine",1],["Trans",1],["Radiator",1],["Windows",1],["SteelRims",4],["Tyres",4],["BrakeRotors",4],["DriveShaft",1],["Exhaust",1]],1,"",1],
         ["f_p362","","inh","inh","A3PL_P362","car",true,10,[["HEEngine",1],["Trans",1],["Radiator",2],["HEBrakeRotors",6],["Diff",2],["HEFuelTank",2],["Chassis",1],["DriveShaft",1],["Exhaust",1],["Windows",3],["SteelRims",6],["Tyres",6]],1,"",1],
-		//["f_CLS63","","inh","inh","A3PL_CLS63","car",true,1800,[["HEEngine",1],["HETrans",1],["HERadiator",1],["HEBrakeRotors",2],["HEDiff",1],["HEFuelTank",1],["HEChassis",1],["HEDriveShaft",1],["HEExhaust",1],["Windows",4],["AlloyRims",4],["Tyres",4]],1,"",10],
+		["f_CLS63","","inh","inh","A3PL_CLS63","car",true,1800,[["HEEngine",1],["HETrans",1],["HERadiator",1],["HEBrakeRotors",2],["HEDiff",1],["HEFuelTank",1],["HEChassis",1],["HEDriveShaft",1],["HEExhaust",1],["Windows",4],["AlloyRims",4],["Tyres",4]],1,"",10],
 		["f_Fatboy","","inh","inh","A3PL_Fatboy","car",true,1800,[["HEEngine",1],["HETrans",1],["HERadiator",1],["HEBrakeRotors",2],["HEDiff",1],["HEFuelTank",1],["HEChassis",1],["HEDriveShaft",1],["HEExhaust",1],["Windows",1],["AlloyRims",2],["Tyres",2],["Titanium_Pellet",3]],1,"",8],
 		["f_1100R","","inh","inh","A3PL_1100R","car",true,1800,[["HEEngine",1],["HETrans",1],["HERadiator",1],["HEBrakeRotors",2],["HEDiff",1],["HEFuelTank",2],["HEChassis",1],["HEDriveShaft",1],["HEExhaust",1],["Windows",1],["AlloyRims",4],["Tyres",2],["Titanium_Pellet",3]],1,"",8],
 		["f_Knucklehead","","inh","inh","A3PL_Knucklehead","car",true,1800,[["HEEngine",1],["HETrans",1],["HERadiator",1],["HEBrakeRotors",2],["HEDiff",1],["HEFuelTank",1],["HEChassis",1],["HEDriveShaft",1],["HEExhaust",1],["Windows",1],["AlloyRims",3],["Tyres",2],["Titanium_Pellet",3]],1,"",8],
@@ -272,7 +285,7 @@ Config_Factories =
 		["f_Urus","","inh","inh","A3PL_Urus","car",true,1800,[["HEEngine",1],["HETrans",1],["HERadiator",2],["HEBrakeRotors",4],["4WDDiff",1],["HEFuelTank",1],["HEChassis",1],["HEDriveShaft",2],["HEExhaust",1],["Windows",6],["AlloyRims",4],["Tyres",4],["Titanium_Pellet",20]],1,"",8],
 		["f_Kx","","inh","inh","A3PL_Kx","car",true,1800,[["HEEngine",1],["HETrans",1],["HERadiator",1],["HEBrakeRotors",2],["HEDiff",1],["HEFuelTank",1],["HEDriveShaft",1],["HEExhaust",1],["AlloyRims",2],["Tyres",2],["Titanium_Pellet",1]],1,"",8],
 		["f_Taurus","","inh","inh","A3PL_Taurus","car",true,1800,[["Engine",1],["Trans",1],["Radiator",1],["BrakeRotors",2],["4WDDiff",1],["FuelTank",1],["Chassis",1],["DriveShaft",1],["Exhaust",1],["Windows",4],["SteelRims",4],["Tyres",4]],1,"",10],
-		//["f_GMCVandura","","inh","inh","A3PL_GMCVandura","car",true,10,[["Engine",1],["Trans",1],["HERadiator",1],["HEBrakeRotors",4],["FuelTank",1],["Chassis",1],["HEDriveShaft",1],["Exhaust",1],["Windows",6],["AlloyRims",4],["Tyres",4]],1,"",1],
+		// ["f_GMCVandura","","inh","inh","A3PL_GMCVandura","car",true,10,[["Engine",1],["Trans",1],["HERadiator",1],["HEBrakeRotors",4],["FuelTank",1],["Chassis",1],["HEDriveShaft",1],["Exhaust",1],["Windows",6],["AlloyRims",4],["Tyres",4]],1,"",1],
 		["f_Raptor","","inh","inh","A3PL_Raptor","car",true,10,[["Engine",1],["HETrans",1],["Radiator",1],["BrakeRotors",4],["4WDDiff",1],["FuelTank",1],["HEChassis",1],["HEDriveShaft",1],["Exhaust",1],["Windows",2],["AlloyRims",4],["Tyres",4]],1,"",1]
 	],
 

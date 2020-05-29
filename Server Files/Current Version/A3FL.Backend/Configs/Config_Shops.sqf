@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 Config_Shops_TaxSystem = [
 	["Shop_DrugsDealerCartel","Cartel","Cartel Tax"],
 	["Shop_IllegalWeaponsCartel","Cartel","Cartel Tax"],
@@ -8,7 +16,7 @@ publicVariable "Config_Shops_TaxSystem";
 Config_Shops_StockSystem = ["Shop_Supermarket","Shop_Guns_Vendor","Shop_Fuel"];
 publicVariable "Config_Shops_StockSystem";
 
-Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10];
+Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
 publicVariableServer "Config_Shops_StockSystemObjects";
 
 Config_Shops_Factions = [
@@ -170,12 +178,12 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Fisherman",[
-			["item","net",150,-1,3],
-			["item","bucket_empty",250,-1,3],
-			["item","bucket_full",-1,550,3],
-			["item","tag_fish",80,-1,3],
-			["item","tag_shark",80,-1,3],
-			["item","mullet_tag",380,300,3],
+			["item","net",150,-1,0],
+			["item","bucket_empty",250,-1,0],
+			["item","bucket_full",-1,550,0],
+			["item","tag_fish",80,-1,0],
+			["item","tag_shark",80,-1,0],
+			["item","mullet_tag",380,300,0],
 			["item","shark_2lb_tag",-1,800,3],
 			["item","shark_4lb_tag",-1,1100,3],
 			["item","shark_5lb_tag",-1,2500,3],
@@ -250,6 +258,11 @@ Config_Shops_Items = [
 			["item","jug",450,-1,4],
 			["item","jug_green",500,-1,4],
 			["item","jug_moonshine",-1,6100,4]
+		],{[6975.15,5413.12,2]}
+	],
+
+	["Shop_Moonshine",[
+			["item","jug_moonshine",-1,5500,4]
 		],{[6975.15,5413.12,2]}
 	],
 
@@ -461,13 +474,15 @@ Config_Shops_Items = [
 			["weapon","hgun_Rook40_F",500,0,0],
 			["weapon","A3PL_P226",250,-1,0],
 			["weapon","hgun_Pistol_heavy_01_F",500,0,0],
-			//["weaponPrimary","SMG_05_F",35000,-1,0],
+			["weapon","A3FL_PepperSpray",100,-1,0],
+			["weaponPrimary","SMG_05_F",35000,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,0,0],
+			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_Red_Glock_Mag",50,0,0],
 			["magazine","16Rnd_9x21_Mag",50,0,0],
 			["magazine","A3PL_P226_Mag",50,-1,0],
 			["magazine","11Rnd_45ACP_Mag",50,0,0],
-			//["magazine","30Rnd_9x21_Mag_SMG_02",500,-1,0],
+			["magazine","30Rnd_9x21_Mag_SMG_02",500,-1,0],
 			["aitem","acc_flashlight_pistol",50,0,0],
 			["aitem","acc_flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0]
@@ -484,6 +499,7 @@ Config_Shops_Items = [
 			["item","med_oxygenmask",0,-1,0],
 			["item","med_splint",0,-1,0],
 			["item","med_painkillers",0,-1,0],
+			["item","med_eyewash",0,-1,0],
 			["item","med_narcan",0,-1,0],
 			["item","med_autograft",0,-1,0],
 			["item","medS_bloodbag",0,-1,0],
@@ -681,14 +697,10 @@ Config_Shops_Items = [
 			["item","plastic_barrier_large",10,-1,0],
 			["aitem","Rangefinder",10,-1,0],
 			["weapon","A3PL_FireAxe",250,-1,0],
-			["uniform","A3PL_SD_Cadet_Test_Uniform",25,-1,0],
-			["uniform","A3PL_SD_Deputy_Test_Uniform",25,-1,0],
-			["uniform","A3PL_SD_SenDep_Test_Uniform",25,-1,0],
-			["uniform","A3PL_SD_Sgt_Test_Uniform",25,-1,0],
-			["uniform","A3PL_SD_Lt_Test_Uniform",25,-1,0],
-			["uniform","A3PL_SD_Captain_Test_Uniform",25,-1,0],
-			["uniform","A3PL_SD_UndSher_Test_Uniform",25,-1,0],
-			["uniform","A3PL_SD_Sheriff_Test_Uniform",25,-1,0],
+			["uniform","A3PL_SD_Cadet_Grey_Uniform",25,-1,0],
+			["uniform","A3PL_SD_Deputy_Grey_Uniform",25,-1,0],
+			["uniform","A3PL_SD_SenDeputy_Grey_Uniform",25,-1,0],
+			["uniform","A3PL_SD_Sgt_Grey_Uniform",25,-1,0],
 			["uniform","A3PL_SD_Lt_White_Uniform",25,-1,0],
 			["uniform","A3PL_SD_Cpt_White_Uniform",25,-1,0],
 			["uniform","A3PL_SD_UndSheriff_White_Uniform",25,-1,0],
@@ -704,6 +716,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_Detective_PeachTan_Uniform",25,-1,0],
 			["uniform","A3PL_Detective_WhiBlk_Uniform",25,-1,0],
 			["uniform","A3PL_SD_MCU_Swimmer_Uniform",25,-1,0],
+			["uniform","A3PL_FISD_Pilot_Uniform",25,-1,0],
 			["vest","A3PL_FISD_Safety_Vest",25,-1,0],
 			["vest","A3PL_FISD_Safety_Traffic",25,-1,0],
 			["vest","A3PL_DutyBelt",25,-1,0],
@@ -725,6 +738,8 @@ Config_Shops_Items = [
 			["headgear","A3PL_Sheriff_ERTGrn_Cap",25,-1,0],
 			["headgear","A3PL_Back_FISD_ERT_Cap",25,-1,0],
 			["headgear","A3PL_SD_ERT_Green_Test_Helm",50,-1,0],
+			["headgear","A3PL_FISD_Grey_Pilot_Helm",50,-1,0],
+			["headgear","A3PL_FISD_White_Pilot_Helm",50,-1,0],
 			["goggles","G_Balaclava_blk",25,-1,0],
 			["goggles","G_Aviator",25,-1,0],
 			["backpack","A3PL_LR",25,-1,0]
@@ -737,7 +752,9 @@ Config_Shops_Items = [
 			["weapon","A3PL_Red_Glock",500,-1,0],
 			["weapon","hgun_Rook40_F",500,-1,0],
 			["weapon","A3PL_P226",250,-1,0],
+			["weapon","A3FL_PepperSpray",100,-1,0],
 			["weaponPrimary","SMG_05_F",35000,-1,0],
+			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_Taser_Mag",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,-1,0],
 			["magazine","A3PL_Red_Glock_Mag",50,-1,0],
@@ -758,7 +775,9 @@ Config_Shops_Items = [
 			["item","handcuffs",10,-1,0],
 			["item","stinger",10,-1,0],
 			["item","roadcones",10,-1,0],
+			["item","wood_barrier",10,-1,0],
 			["item","plastic_barrier_small",10,-1,0],
+			["item","plastic_barrier_large",10,-1,0],
 			["uniform","A3PL_USCG_Seaman_Recruit_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Seaman_Apprentice_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Seaman_Uniform",25,-1,0],
@@ -846,6 +865,8 @@ Config_Shops_Items = [
 			["weapon","hgun_Rook40_F",250,-1,0],
 			["weapon","A3PL_P226",250,-1,0],
 			["weapon","hgun_Pistol_heavy_01_F",250,-1,0],
+			["weapon","A3FL_PepperSpray",100,-1,0],
+			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["weaponPrimary","SMG_05_F",35000,-1,0],
 			["weaponPrimary","srifle_LRR_SOS_F",1000,-1,0],
 			["magazine","6Rnd_GreenSignal_F",50,-1,0],
@@ -872,24 +893,11 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Silverado_PD",35000,0,0],
 			["vehicle","A3PL_Charger_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
+			["vehicle","A3PL_Taurus_FD",20000,0,0],
 			["vehicle","A3PL_Pierce_Ladder",25000,0,0],
 			["vehicle","A3PL_Pierce_Heavy_Ladder",25000,0,0],
 			["vehicle","A3PL_Pierce_Pumper",25000,0,0],
 			["vehicle","A3PL_Pierce_Rescue",25000,0,0]
-		],{[2942.43,5891.42,-0.75]}
-	],
-
-	["Shop_USCG_Car_Vendor",[
-			["vehicle","A3PL_CVPI_PD",20000,0,0],
-			["vehicle","A3PL_CVPI_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Tahoe_PD",35000,0,0],
-			["vehicle","A3PL_Tahoe_PD_Slicktop",35000,0,0],
-			["vehicle","A3PL_Charger_PD",20000,0,0],
-			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Mustang_PD",20000,0,0],
-			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Silverado_PD",35000,0,0],
-			["vehicle","A3PL_Small_Boat_Trailer",20000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	],
 
@@ -907,16 +915,38 @@ Config_Shops_Items = [
 		],{[2462.06,5249.26,0.00144243]}
 	],
 
-	["Shop_DOC_Car_Vendor",[
+	["Shop_USCG_Car_Vendor",[
 			["vehicle","A3PL_CVPI_PD",20000,0,0],
 			["vehicle","A3PL_CVPI_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Tahoe_PD",35000,0,0],
-			["vehicle","A3PL_Tahoe_PD_Slicktop",35000,0,0],
+			["vehicle","A3PL_Tahoe_PD",20000,0,0],
+			["vehicle","A3PL_Tahoe_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Charger_PD",20000,0,0],
 			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Silverado_PD",20000,0,0]
+			["vehicle","A3PL_Silverado_PD",35000,0,0],
+			["vehicle","A3PL_Small_Boat_Trailer",20000,0,0],
+			["vehicle","A3PL_Raptor_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD_ST",20000,0,0],
+			["vehicle","A3PL_Taurus_PD",20000,0,0],
+			["vehicle","A3PL_Taurus_PD_ST",20000,0,0]
+		],{[2942.43,5891.42,-0.75]}
+	],
+
+	["Shop_DOC_Car_Vendor",[
+			["vehicle","A3PL_CVPI_PD",20000,0,0],
+			["vehicle","A3PL_CVPI_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Tahoe_PD",20000,0,0],
+			["vehicle","A3PL_Tahoe_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Charger_PD",20000,0,0],
+			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Mustang_PD",20000,0,0],
+			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Silverado_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD_ST",20000,0,0],
+			["vehicle","A3PL_Taurus_PD",20000,0,0],
+			["vehicle","A3PL_Taurus_PD_ST",20000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	],
 
@@ -925,11 +955,15 @@ Config_Shops_Items = [
 			["vehicle","A3PL_CVPI_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Charger_PD",20000,0,0],
 			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Tahoe_PD",35000,0,0],
-			["vehicle","A3PL_Tahoe_PD_Slicktop",35000,0,0],
+			["vehicle","A3PL_Tahoe_PD",20000,0,0],
+			["vehicle","A3PL_Tahoe_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
-			["vehicle","A3PL_Silverado_PD",20000,0,0]
+			["vehicle","A3PL_Silverado_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD",20000,0,0],
+			["vehicle","A3PL_Raptor_PD_ST",20000,0,0],
+			["vehicle","A3PL_Taurus_PD",20000,0,0],
+			["vehicle","A3PL_Taurus_PD_ST",20000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	],
 
@@ -1170,6 +1204,17 @@ Config_Shops_Items = [
 			["headgear","A3PL_Christmas_Hat",14,-1,0],
 			["uniform","A3PL_Xmas_Onesie_Red_Uniform",25,-1,0],
 			["uniform","A3PL_Xmas_Onesie_Grey_Uniform",25,-1,0]
+		],{[5661.34,6125.97,-0.5]}
+	],
+
+	["Shop_Big_Dicks_Sports",[
+			["weaponPrimary","A3FL_GolfDriver",2500,-1,0],
+			["weaponPrimary","A3FL_BaseballBat",2500,-1,0],
+			["weaponPrimary","A3PL_CZ550",20000,-1,4],
+			["magazine","A3PL_5rnd_3006",168,-1,4],
+			["uniform","A3PL_Hunting_Uniform",140,-1,4],
+			["vest","A3PL_Clean_Safety_Vest",160,-1,4],
+			["item","tag_meat",100,-1,0]
 		],{[5661.34,6125.97,-0.5]}
 	]
 ];

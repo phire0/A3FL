@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 //variables that can be changed from client
 ['A3PL_Player_VariablesSetup',
 {
@@ -7,7 +15,7 @@
 		Player_payCheckTime = 0;
 		Player_payCheckTime = profileNamespace setVariable ["player_payCheckTime",0];
 	};
-	Player_MaxWeight = 600;
+	Player_MaxWeight = 150;
 	Player_Hunger = profileNamespace getVariable ["player_hunger",100];
 	if (!(typeName Player_Hunger == "SCALAR")) then {
 		Player_Hunger = 100;
@@ -34,7 +42,7 @@
 		setTerrainGrid 25;
 	};
 
-	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride"];
+	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride","net","jug","jug_green","jug_green_moonshine"];
 	Player_ActionCompleted = true;
 	Player_ActionDoing = false;
 	Player_Item = objNull;
@@ -78,7 +86,7 @@
 	A3PL_Jobroadworker_MarkerList = [];
 
 	//impound retrieval objects
-	A3PL_Jobroadworker_Impounds = [Shop_ImpoundRetrieve,Shop_ImpoundRetrieve_1,Shop_ImpoundRetrieve_2,Shop_ImpoundRetrieve_3];
+	A3PL_Jobroadworker_Impounds = [Shop_ImpoundRetrieve,Shop_ImpoundRetrieve_1,Shop_ImpoundRetrieve_2,Shop_ImpoundRetrieve_3,Shop_ImpoundRetrieve_5];
 	A3PL_Chopshop_Retrivals = [Shop_Chopshop_Retrieve_1];
 	A3PL_Air_Impounds = [Shop_ImpoundRetrieve_4];
 	A3PL_Jobroadworker_MarkBypass =
@@ -192,7 +200,7 @@
 ["A3PL_Player_BusinessTags",
 {
 	private ["_bus","_tags","_iTags","_items"];
-	_bus = nearestObjects [player, ["Land_A3PL_Showroom","Land_A3PL_Cinema","Land_A3PL_Gas_Station","Land_A3PL_Garage","land_smallshop_ded_smallshop_01_f","land_smallshop_ded_smallshop_02_f"], 50];
+	_bus = nearestObjects [player, ["Land_A3PL_Showroom","Land_A3PL_Cinema","Land_A3PL_Gas_Station","Land_A3PL_Garage","land_smallshop_ded_smallshop_01_f","land_smallshop_ded_smallshop_02_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 50];
 	_items = nearestObjects [player, [], 10];
 	_tags = [];
 	_iTags = [];
@@ -208,6 +216,8 @@
 				case ("land_smallshop_ded_smallshop_01_f"): {_pos = _x modelToWorld [8,0,0];};
 				case ("Land_A3PL_Garage"): {_pos = _x modelToWorld [6,2,-1];};
 				case ("Land_A3PL_Gas_Station"): {_pos = _x modelToWorld [-3.5,-0.65,-1];};
+				case ("Land_A3FL_Brick_Shop_1"): {_pos = _x modelToWorld [8,0,0];};
+				case ("Land_A3FL_Brick_Shop_2"): {_pos = _x modelToWorld [8,0,0];};
 			};
 			_tags pushback [_pos,_bName];
 		};
@@ -230,7 +240,6 @@
 	A3PL_Player_biTagsArray = _iTags;
 }] call Server_Setup_Compile;
 
-//Responsible for drawing 3D icons each frame
 ["A3PL_Player_DrawText",
 {
 	["A3PL_DrawText", "onEachFrame",
@@ -284,35 +293,38 @@
 	player addAction ["", {}];
 
 	//Setup normal variables
-	[] call A3PL_Player_VariablesSetup;
+	call A3PL_Player_VariablesSetup;
 
 	//Start loading process
-	[] call A3PL_Loading_Start;
+	call A3PL_Loading_Start;
 
 	//Initialise the HUD
-	[] call A3PL_HUD_Init;
-	[] call A3PL_HUD_GPS;
+	call A3PL_HUD_Init;
+	call A3PL_HUD_GPS;
 
 
 	//Setup loops
-	[] call A3PL_Loop_Setup;
+	call A3PL_Loop_Setup;
 
 	//Setup Eventhandlers
-	[] call A3PL_EventHandlers_Setup;
+	call A3PL_EventHandlers_Setup;
 
 	//Setup intersection oneachframe, used for interaction menu
-	[] call A3PL_Intersect_Lines;
+	call A3PL_Intersect_Lines;
 
 	//setup name tags
-	[] call A3PL_Player_DrawText;
+	call A3PL_Player_DrawText;
 
 	//setup housing
 	[] spawn A3PL_Housing_Init;
 
+	//setup warehouses
+	[] spawn A3PL_Warehouses_Init;
+
 	//Escape menu edition
 	[] spawn A3PL_Player_EscapeControls;
 
-	[] call A3PL_Player_CheckDebugVariables;
+	call A3PL_Player_CheckDebugVariables;
 }] call Server_Setup_Compile;
 
 ['A3PL_Player_NewPlayer',{
@@ -626,19 +638,19 @@
 	_job = player getVariable ["job","unemployed"];
 	_faction = player getVariable ["faction","citizen"];
 	if(_job != "waste") then {
-		{_x setMarkerAlphaLocal 0;} forEach ["trash_bin_1","trash_bin_2","trash_bin_3","trash_bin_4","trash_bin_5","trash_bin_6","trash_bin_7","trash_bin_8","trash_bin_9","trash_bin_10","trash_bin_11","trash_bin_12","trash_bin_13","trash_bin_14","trash_bin_15","trash_bin_16","trash_bin_17","trash_bin_18","trash_bin_19","trash_bin_20","trash_bin_21","trash_bin_22","trash_bin_23","trash_bin_24","trash_bin_25","trash_bin_26","trash_bin_27","trash_bin_28","trash_bin_29","trash_bin_30","trash_bin_31","trash_bin_32","trash_bin_33","trash_bin_34","trash_bin_35","trash_bin_36","trash_bin_37","trash_bin_38","trash_bin_39","trash_bin_40","trash_bin_41","trash_bin_42","trash_bin_43","trash_bin_44","trash_bin_45","trash_bin_46"];
+		{_x setMarkerAlphaLocal 0;} forEach ["trash_bin_1","trash_bin_2","trash_bin_3","trash_bin_4","trash_bin_5","trash_bin_6","trash_bin_7","trash_bin_8","trash_bin_9","trash_bin_10","trash_bin_11","trash_bin_12","trash_bin_13","trash_bin_14","trash_bin_15","trash_bin_16","trash_bin_17","trash_bin_18","trash_bin_19","trash_bin_20","trash_bin_21","trash_bin_22","trash_bin_23","trash_bin_24","trash_bin_25","trash_bin_26","trash_bin_27","trash_bin_28","trash_bin_29","trash_bin_30","trash_bin_31","trash_bin_32","trash_bin_33","trash_bin_34","trash_bin_35","trash_bin_36","trash_bin_37","trash_bin_38","trash_bin_39","trash_bin_40","trash_bin_41","trash_bin_42","trash_bin_43","trash_bin_44","trash_bin_45","trash_bin_46","trash_bin_47","trash_bin_48","trash_bin_49","trash_bin_50","trash_bin_51","trash_bin_52","trash_bin_53","trash_bin_54","trash_bin_55","trash_bin_56","trash_bin_57","trash_bin_58","trash_bin_59","trash_bin_60","trash_bin_61","trash_bin_62","trash_bin_63","trash_bin_64","trash_bin_65","trash_bin_66","trash_bin_67","trash_bin_68","trash_bin_69","trash_bin_70","trash_bin_71"];
 	} else {
-		{_x setMarkerAlphaLocal 1;} forEach ["trash_bin_1","trash_bin_2","trash_bin_3","trash_bin_4","trash_bin_5","trash_bin_6","trash_bin_7","trash_bin_8","trash_bin_9","trash_bin_10","trash_bin_11","trash_bin_12","trash_bin_13","trash_bin_14","trash_bin_15","trash_bin_16","trash_bin_17","trash_bin_18","trash_bin_19","trash_bin_20","trash_bin_21","trash_bin_22","trash_bin_23","trash_bin_24","trash_bin_25","trash_bin_26","trash_bin_27","trash_bin_28","trash_bin_29","trash_bin_30","trash_bin_31","trash_bin_32","trash_bin_33","trash_bin_34","trash_bin_35","trash_bin_36","trash_bin_37","trash_bin_38","trash_bin_39","trash_bin_40","trash_bin_41","trash_bin_42","trash_bin_43","trash_bin_44","trash_bin_45","trash_bin_46"];
+		{_x setMarkerAlphaLocal 1;} forEach ["trash_bin_1","trash_bin_2","trash_bin_3","trash_bin_4","trash_bin_5","trash_bin_6","trash_bin_7","trash_bin_8","trash_bin_9","trash_bin_10","trash_bin_11","trash_bin_12","trash_bin_13","trash_bin_14","trash_bin_15","trash_bin_16","trash_bin_17","trash_bin_18","trash_bin_19","trash_bin_20","trash_bin_21","trash_bin_22","trash_bin_23","trash_bin_24","trash_bin_25","trash_bin_26","trash_bin_27","trash_bin_28","trash_bin_29","trash_bin_30","trash_bin_31","trash_bin_32","trash_bin_33","trash_bin_34","trash_bin_35","trash_bin_36","trash_bin_37","trash_bin_38","trash_bin_39","trash_bin_40","trash_bin_41","trash_bin_42","trash_bin_43","trash_bin_44","trash_bin_45","trash_bin_46","trash_bin_47","trash_bin_48","trash_bin_49","trash_bin_50","trash_bin_51","trash_bin_52","trash_bin_53","trash_bin_54","trash_bin_55","trash_bin_56","trash_bin_57","trash_bin_58","trash_bin_59","trash_bin_60","trash_bin_61","trash_bin_62","trash_bin_63","trash_bin_64","trash_bin_65","trash_bin_66","trash_bin_67","trash_bin_68","trash_bin_69","trash_bin_70","trash_bin_71"];
 	};
 	if(_faction IN ["fifr","uscg","gov","fisd","usms","doj","dmv"]) then {
-		{_x setMarkerAlphaLocal 0;} forEach ["chemical_dealer","Crime_Base","Shrooms_Field","Moonshine_Shop"];
+		{_x setMarkerAlphaLocal 0;} forEach ["chemical_dealer","Shroom_Picking","Crime_Base","Shrooms_Field","Moonshine_Shop","Moonshine_Shop_1"];
 	} else {
-		{_x setMarkerAlphaLocal 1;} forEach ["chemical_dealer","Crime_Base","Shrooms_Field","Moonshine_Shop"];
+		{_x setMarkerAlphaLocal 1;} forEach ["chemical_dealer","Shroom_Picking","Crime_Base","Shrooms_Field","Moonshine_Shop","Moonshine_Shop_1"];
 	};
 	if(_faction != "fbi") then {
-		{_x setMarkerAlphaLocal 0;} forEach ["Area_PirateYacht_1","Area_PirateYacht_2","A3PL_Marker_Hunting_1","A3PL_Marker_Hunting","A3PL_Marker_Hunting_3","A3PL_Marker_Hunting_2","A3PL_Marker_Fish4","A3PL_Marker_Fish3","A3PL_Marker_SallySpeedway","OilSpawnArea","CemeteryArea","Area_DrugDealer9","Area_DrugDealer8","Area_DrugDealer7","Area_DrugDealer6","Area_DrugDealer5","Area_DrugDealer4","Area_DrugDealer3","Area_DrugDealer2","Area_DrugDealer1","Area_DrugDealer","Area_DrugDealer10","Area_DrugDealer11","Area_DrugDealer12","Area_DrugDealer13","Area_DrugDealer14","A3PL_Markers_Fish6","A3PL_Markers_Fish1","LumberJack_Rectangle","A3PL_Marker_Sand1","A3PL_Marker_Sand2","A3PL_Marker_Fish1","A3PL_Marker_Fish2","A3PL_Marker_Fish8","A3PL_Marker_Fish7","A3PL_Marker_Fish5","A3PL_Marker_Fish6","Picking_Apple_1","Shroom_Picking"];
+		{_x setMarkerAlphaLocal 0;} forEach ["Area_PirateYacht_1","Area_PirateYacht_2","A3PL_Marker_Hunting_1","A3PL_Marker_Hunting","A3PL_Marker_Hunting_3","A3PL_Marker_Hunting_2","A3PL_Marker_Fish4","A3PL_Marker_Fish3","A3PL_Marker_SallySpeedway","OilSpawnArea","CemeteryArea","Area_DrugDealer9","Area_DrugDealer8","Area_DrugDealer7","Area_DrugDealer6","Area_DrugDealer5","Area_DrugDealer4","Area_DrugDealer3","Area_DrugDealer2","Area_DrugDealer1","Area_DrugDealer","Area_DrugDealer10","Area_DrugDealer11","Area_DrugDealer12","Area_DrugDealer13","Area_DrugDealer14","A3PL_Markers_Fish6","A3PL_Markers_Fish1","LumberJack_Rectangle","A3PL_Marker_Sand1","A3PL_Marker_Sand2","A3PL_Marker_Fish1","A3PL_Marker_Fish2","A3PL_Marker_Fish8","A3PL_Marker_Fish7","A3PL_Marker_Fish5","A3PL_Marker_Fish6","Picking_Apple_1"];
 	} else {
-		{_x setMarkerAlphaLocal 1;} forEach ["Area_PirateYacht_1","Area_PirateYacht_2","A3PL_Marker_Hunting_1","A3PL_Marker_Hunting","A3PL_Marker_Hunting_3","A3PL_Marker_Hunting_2","A3PL_Marker_Fish4","A3PL_Marker_Fish3","A3PL_Marker_SallySpeedway","OilSpawnArea","CemeteryArea","Area_DrugDealer9","Area_DrugDealer8","Area_DrugDealer7","Area_DrugDealer6","Area_DrugDealer5","Area_DrugDealer4","Area_DrugDealer3","Area_DrugDealer2","Area_DrugDealer1","Area_DrugDealer","Area_DrugDealer10","Area_DrugDealer11","Area_DrugDealer12","Area_DrugDealer13","Area_DrugDealer14","A3PL_Markers_Fish6","A3PL_Markers_Fish1","LumberJack_Rectangle","A3PL_Marker_Sand1","A3PL_Marker_Sand2","A3PL_Marker_Fish1","A3PL_Marker_Fish2","A3PL_Marker_Fish8","A3PL_Marker_Fish7","A3PL_Marker_Fish6","A3PL_Marker_Fish5","Picking_Apple_1","Shroom_Picking"];
+		{_x setMarkerAlphaLocal 1;} forEach ["Area_PirateYacht_1","Area_PirateYacht_2","A3PL_Marker_Hunting_1","A3PL_Marker_Hunting","A3PL_Marker_Hunting_3","A3PL_Marker_Hunting_2","A3PL_Marker_Fish4","A3PL_Marker_Fish3","A3PL_Marker_SallySpeedway","OilSpawnArea","CemeteryArea","Area_DrugDealer9","Area_DrugDealer8","Area_DrugDealer7","Area_DrugDealer6","Area_DrugDealer5","Area_DrugDealer4","Area_DrugDealer3","Area_DrugDealer2","Area_DrugDealer1","Area_DrugDealer","Area_DrugDealer10","Area_DrugDealer11","Area_DrugDealer12","Area_DrugDealer13","Area_DrugDealer14","A3PL_Markers_Fish6","A3PL_Markers_Fish1","LumberJack_Rectangle","A3PL_Marker_Sand1","A3PL_Marker_Sand2","A3PL_Marker_Fish1","A3PL_Marker_Fish2","A3PL_Marker_Fish8","A3PL_Marker_Fish7","A3PL_Marker_Fish6","A3PL_Marker_Fish5","Picking_Apple_1"];
 	};
 }] call Server_Setup_Compile;
 

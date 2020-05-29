@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 //Handle Vehicle Inits - Client Side
 //U stands for unloaded, the loading screen copies this (compileFinal to prevent hacking) into A3PL_HandleVehicleInit, this will run all vehicle inits located in config.cpp as soon as this function excists
 //Vehicle inits can simply be disabled by disabling this variable being copied in A3PL_Loading
@@ -85,8 +93,10 @@
 			case ("A3PL_Taurus_PD_ST"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("M_explorer"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor_PD_ST"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Fatboy_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3PL_Taurus_FD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 		};
 		_veh call A3PL_Vehicle_Init_A3PL_Dealer;
 	};
@@ -690,6 +700,24 @@
 	}];
 }] call Server_Setup_Compile;
 
+["A3PL_Vehicle_Init_A3FL_LCM", {
+	private ["_veh"];
+	_veh = _this;
+	_veh addEventHandler ["GetIn",
+	{
+		_veh = param [0,objNull];
+		_position = param [1,""];
+		_unit = param [2,objNull];
+
+		if (!local _unit) exitwith {};
+
+		if (_position == "driver") then
+		{
+			[_veh] spawn A3PL_Vehicle_LCMRamp;
+		};
+	}];
+}] call Server_Setup_Compile;
+
 ["A3PL_Vehicle_Init_A3PL_Tahoe_PD_Slicktop",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_CVPI_PD_Slicktop",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_CVPI_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
@@ -701,8 +729,12 @@
 ["A3PL_Vehicle_Init_A3PL_Taurus_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Taurus_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Raptor_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_M_explorer",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_VetteZR1_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3PL_Taurus_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3PL_Taurus_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3PL_Taurus_FD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Init_A3PL_CVPI_Taxi",
 {

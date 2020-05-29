@@ -60,7 +60,7 @@ class Dialog_EstateSell
 			y = 0.524778 * safezoneH + safezoneY;
 			w = 0.0979167 * safezoneW;
 			h = 0.0376297 * safezoneH;
-			action = "[] call A3PL_RealEstates_Sell;";
+			action = "call A3PL_RealEstates_Sell;";
 		};
 		class button_close: RscButtonEmpty
 		{

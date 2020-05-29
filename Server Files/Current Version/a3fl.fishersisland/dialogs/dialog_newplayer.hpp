@@ -66,7 +66,7 @@ class Dialog_NewPlayer
 			y = 0.588 * safezoneH + safezoneY;
 			w = 0.0670312 * safezoneW;
 			h = 0.033 * safezoneH;
-			action = "[] call A3PL_Player_NewPlayerSubmit;";
+			action = "call A3PL_Player_NewPlayerSubmit;";
 		};
 		class static_gender: RscText
 		{

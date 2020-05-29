@@ -91,7 +91,7 @@ class Dialog_FactionSetup
 			y = 0.392667 * safezoneH + safezoneY;
 			w = 0.060625 * safezoneW;
 			h = 0.0394815 * safezoneH;
-			action = "[] call A3PL_Government_SetRank;";
+			action = "call A3PL_Government_SetRank;";
 		};
 		class button_addrank: RscButtonEmpty
 		{
@@ -99,7 +99,7 @@ class Dialog_FactionSetup
 			x = 0.278386 * safezoneW + safezoneX;
 			y = 0.643815 * safezoneH + safezoneY;
 			w = 0.060625 * safezoneW;
-			action = "[] call A3PL_Government_AddRank;";
+			action = "call A3PL_Government_AddRank;";
 			h = 0.0394815 * safezoneH;
 		};
 		class button_removerank: RscButtonEmpty
@@ -109,7 +109,7 @@ class Dialog_FactionSetup
 			y = 0.69337 * safezoneH + safezoneY;
 			w = 0.060625 * safezoneW;
 			h = 0.0394815 * safezoneH;
-			action = "[] call A3PL_Government_RemoveRank;";
+			action = "call A3PL_Government_RemoveRank;";
 		};
 		class button_setpay: RscButtonEmpty
 		{
@@ -118,7 +118,7 @@ class Dialog_FactionSetup
 			y = 0.742704 * safezoneH + safezoneY;
 			w = 0.060625 * safezoneW;
 			h = 0.0394815 * safezoneH;
-			action = "[] call A3PL_Government_SetPay;";
+			action = "call A3PL_Government_SetPay;";
 		};
 		class struc_factionbalance: RscStructuredText
 		{
@@ -177,7 +177,7 @@ class Dialog_FactionSetup
 			y = 0.615222 * safezoneH + safezoneY;
 			w = 0.0605208 * safezoneW;
 			h = 0.0374074 * safezoneH;
-			action = "[] call A3PL_Government_BPCreate;";
+			action = "call A3PL_Government_BPCreate;";
 		};
 	};
 };

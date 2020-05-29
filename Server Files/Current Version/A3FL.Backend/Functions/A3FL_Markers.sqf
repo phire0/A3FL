@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Markers_SelectFilter", {
 	_map = findDisplay 12;
 	_filterList = _map displayCtrl 1569;
@@ -12,11 +20,11 @@
 
 	if(_currentFilterMarkers == "ALL") then {
 		{_x setMarkerAlphaLocal 1;} forEach _mapMarkers;
-		[] call A3PL_Player_SetMarkers;
+		call A3PL_Player_SetMarkers;
 	} else {
 		_currentFilterMarkers = call compile format["%1",_currentFilterMarkers];
 		{if(!(_x in _currentFilterMarkers)) then {_x setMarkerAlphaLocal 0;} else {_x setMarkerAlphaLocal 1;};} forEach _mapMarkers;
-		[] call A3PL_Player_SetMarkers;
+		call A3PL_Player_SetMarkers;
 	};
 }] call Server_Setup_Compile;
 

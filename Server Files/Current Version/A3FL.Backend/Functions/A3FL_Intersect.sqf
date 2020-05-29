@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 //Player_ObjIntersect replaces cursortarget and is more reliable (is Nil when there is no intersection or object distance > 20m)
 //Player_NameIntersect returns the memory interaction point if
 //1. 2D distance (player-interaction point/memory point) < 3m
@@ -8,10 +16,9 @@
 // This will calculate a new array (based on defined condition) and feed it to A3PL_Intersect_Lanes based on current nameintersect
 ['A3PL_Intersect_ConditionCalc',
 {
-	private _name = _this;
 	private _newArray = [];
 	{
-		if (_name == (_x select 0)) then
+		if (_this == (_x select 0)) then
 		{
 			if (call (_x select 3)) then {
 				_newArray pushback _x;
@@ -86,7 +93,288 @@
 	};
 }] call Server_Setup_Compile;
 
-//Our exclusion for Intersect_Lines, this is an alternative drawIcon function for cockpit interactions
+//To-Dev : ["A3PL_Intersect_Lines", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
+['A3PL_Intersect_Lines', {
+	if (isDedicated) exitwith {};
+	["A3PL_Intersect_Lines", "onEachFrame", {
+		private _exit = false;
+		private _veh = vehicle player;
+		if(!(_veh isEqualTo player)) then {
+			if(count(player nearEntities ["A3PL_Stinger", 3]) > 0) then {
+			    call A3PL_Intersect_Spikes;
+			};
+			if(speed _veh > 1) exitWith {_exit=true;};
+		};
+
+		if(_exit) exitWith {};
+
+		private _begPos = positionCameraToWorld [0,0,0];
+		private _begPosASL = AGLToASL _begPos;
+		private _endPos = positionCameraToWorld [0,0,1000];
+		private _endPosASL = AGLToASL _endPos;
+		private _ins = lineIntersectsSurfaces [_begPosASL, _endPosASL, player, objNull, true, 1, "FIRE", "NONE"];
+
+		if (_ins isEqualTo []) exitWith {};
+		_ins select 0 params ["_pos", "_norm", "_obj", "_parent"];
+		if (isNull _obj) exitwith {
+			private _cur = cursortarget;
+			if (!isNull cursortarget) exitwith {
+				Player_ObjIntersect = cursortarget;
+				Player_NameIntersect = "";
+					if ("GroundWeaponHolder" isEqualTo (typeOf _cur)) then {
+						private _name = "Gear";
+						private _icon = "\a3\ui_f\data\gui\cfg\Hints\gear_ca.paa";
+						drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
+					};
+			};
+			Player_ObjIntersect = player;
+			Player_NameIntersect = "";
+		};
+		if ((!(getModelInfo _parent select 2)) OR ((player distance _obj) > 20)) exitWith {
+			Player_NameIntersect = "";
+			Player_ObjIntersect = _obj;
+			{
+				if ((_x select 0) == (typeOf _obj)) then {
+					private _name = _x select 1;
+					private _icon = _x select 2;
+					drawIcon3D [_icon, [1,1,1,1], getpos _obj, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
+				};
+			} foreach Config_Intersect_NoName;
+		};
+
+		private _ins2 = [_parent, "FIRE"] intersect [_begPos, _endPos];
+		if (_ins2 isEqualTo []) exitWith {
+			Player_NameIntersect = "";
+			Player_ObjIntersect = _veh;
+
+		};
+
+		_ins2 select 0 params ["_name", "_dist"];
+		private _posAGL = _obj modelToWorldVisual (_obj selectionPosition [_name,"Memory"]);
+		if (([_posAGL,ASLToAGL (getposASL player)] call BIS_fnc_distance2D) > 3) exitwith {
+			Player_NameIntersect = "";
+			Player_ObjIntersect = _obj;
+		};
+		if (player_nameIntersect != _name) then {Player_selectedIntersect = 0;};
+
+		Player_NameIntersect = _name;
+		Player_ObjIntersect = _obj;
+
+		private _icon = "\a3\ui_f\data\map\GroupIcons\icon_default.paa";
+		private _config = (_name call A3PL_Intersect_ConditionCalc);
+		private _countConfig = (count _config) - 1;
+		if ( player_selectedIntersect > _countConfig) then {
+			player_selectedIntersect = _countConfig;
+		};
+		if(player_selectedIntersect < 0) exitWith {};
+
+		private _configSel = _config select Player_selectedIntersect;
+		private _name = format ["→ %1 ←",_configSel select 1];
+		private _icon = _configSel select  2;
+		drawIcon3D [_icon, [1,1,1,1], _posAGL, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
+
+		if (_countConfig > player_selectedIntersect) then {
+			_posAGL = [_posAGL select 0,_posAGL select 1, (_posAGL select 2) - ((_begPosASL distance _posAGL) / 50)];
+			_configSel = _config select (Player_selectedIntersect + 1);
+			_name = _configSel select 1;
+			_icon = _configSel select 2;
+			drawIcon3D ["", [1,1,1,1], _posAGL, 0, 0, 0,_name, 1, 0.036, "PuristaSemiBold"];
+		};
+		if (player_selectedIntersect > 0) then {
+			_posAGL = [_posAGL select 0,_posAGL select 1, (_posAGL select 2) + ((_begPosASL distance _posAGL) / 35)];
+			_configSel = _config select (Player_selectedIntersect - 1);
+			_name = _configSel select 1;
+			_icon = _configSel select 2;
+			drawIcon3D ["", [1,1,1,1], _posAGL, 0, 0, 0,_name, 1, 0.036, "PuristaSemiBold"];
+		};
+	}] call BIS_fnc_addStackedEventHandler;
+}] call Server_Setup_Compile;
+
+//Currently has a limit of 20m. Can be changed in A3PL_Intersect_Lines
+//This function simply returns player object if player is not looking at anything (aka nothing is being intersected)
+['A3PL_Intersect_Cursortarget', {
+	if (isNil "Player_ObjIntersect") exitwith {player};
+	Player_ObjIntersect
+}] call Server_Setup_Compile;
+
+['A3PL_Intersect_CursortargetName', {
+	if (isNil "Player_NameIntersect") exitwith {player};
+	Player_NameIntersect
+}] call Server_Setup_Compile;
+
+['A3PL_Intersect_HandleDoors', {
+	private _obj = call A3PL_Intersect_cursortarget;
+	private _name = Player_NameIntersect;
+
+	if ((typeOf _obj) isEqualTo "Land_A3PL_Prison") exitwith {[_obj,_name] call A3PL_Prison_HandleDoor;};
+
+	private _split = _name splitstring "_";
+	if ((((_split select 0) find "garagedoor") != -1) || (((_split select 0) find "hangardoor") != -1)) exitwith
+	{
+		if ((typeOf _obj) IN ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Greenhouse","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1"]) exitwith
+		{
+			if (isNil {_obj getVariable "unlocked"}) exitwith
+			{
+				_format = format[localize'STR_NewIntersect_3'];
+				[_format, "red"] call A3PL_Player_Notification;
+			};
+			if (count _split > 2) then
+			{
+				[_obj,(_split select 0),false] call A3PL_Lib_ToggleAnimation;
+			} else
+			{
+				[_obj,(_split select 0)] call A3PL_Lib_ToggleAnimation;
+			};
+		};
+
+		_canUse = true;
+		switch (typeOf _obj) do
+		{
+			case ("Land_A3PL_Firestation"): {
+				if (!((player getVariable ["faction","citizen"]) IN ["fifr"]) && !(["vfd",player] call A3PL_DMV_Check)) exitwith {
+					_canUse = false;
+				};
+			};
+		};
+		if (!_canUse) exitwith {[localize"STR_NewIntersect_1"] call A3PL_Player_Notification;};
+		[_obj,(_split select 0)] call A3PL_Lib_ToggleAnimation;
+	};
+
+	if ((_split select 0) == "door") then
+	{
+		private _canUse = true;
+		switch (typeOf _obj) do
+		{
+			case ("Land_A3FL_SheriffPD"): { if ((_name IN ["door_10","door_11","door_12","door_15"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {_canUse = false}; };
+			case ("Land_A3PL_Sheriffpd"): { if ((_name IN ["door_3","door_4","door_11","door_18","door_19","door_20","garagedoor_button"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {_canUse = false}; };
+			case ("Land_A3PL_Clinic"): { if ((_name IN ["door_3","door_4","door_5","door_6","door_7","door_8","door_9","door_10","door_11"]) && !((player getVariable ["job","unemployed"]) IN ["fifr"])) exitwith {_canUse = false}; };
+			case ("Land_A3PL_Prison"): { if (((_name find "button") != -1) && !((player getVariable ["job","unemployed"]) IN ["usms"])) exitwith {_canUse = false}; };
+			case ("Land_A3PL_Firestation"): {
+				if (!((player getVariable ["faction","citizen"]) IN ["fifr"]) && !(["vfd",player] call A3PL_DMV_Check)) exitwith {
+					_canUse = false;
+				};
+			};
+		};
+		if (!_canUse) exitwith {[localize"STR_NewIntersect_1"] call A3PL_Player_Notification;};
+
+		if ((typeOf _obj) IN ["Land_A3PL_Motel","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Greenhouse","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_John_Hangar","Land_A3FL_Mansion","Land_A3FL_Warehouse","Land_A3FL_Office_Building"]) exitwith
+		{
+			switch (true) do
+			{
+				case ((typeOf _obj) isEqualTo "Land_A3PL_Motel"):
+				{
+					if (_name IN ["door_9","door_10","door_11","door_12","door_13","door_14","door_15","door_16"]) then
+					{
+						if ((_obj getVariable ["Door_1_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
+						if ((_obj getVariable ["Door_2_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
+						if ((_obj getVariable ["Door_3_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
+						if ((_obj getVariable ["Door_4_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
+						if ((_obj getVariable ["Door_5_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
+						if ((_obj getVariable ["Door_6_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
+						if ((_obj getVariable ["Door_7_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
+						if ((_obj getVariable ["Door_8_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
+				case ((typeOf _obj) IN ["Land_A3FL_Office_Building"]):
+				{
+					hint "here";
+					if (_name IN ["door_1","door_2","door_3","door_4"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
+				case ((typeOf _obj) IN Config_Houses_List):
+				{
+					if (_name IN ["door_1","door_2","door_3"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
+				case ((typeOf _obj) isEqualTo "Land_Mansion01"):
+				{
+					if (_name IN ["door_8","door_1"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
+				case ((typeOf _obj) IN ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_Greenhouse","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_Shed2","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green"]):
+				{
+					if (_name IN ["door_1","door_2"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+				case ((typeOf _obj) IN ["Land_John_Hangar"]):
+				{
+					if (_name IN ["door_1","door_2"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+			};
+		};
+		[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+		if ((_name IN ["door_3_button","door_3_button2","door_5_button","door_5_button2","door_7_button","door_7_button2","door_9_button","door_9_button2"]) && ((typeOf _obj) == "Land_A3PL_Sheriffpd")) then
+		{
+			_doorN = (parseNumber (_split select 1)) + 1;
+			[_obj,format ["%1_%2",(_split select 0),_doorN],false] call A3PL_Lib_ToggleAnimation;
+		};
+	};
+}] call Server_Setup_Compile;
+
+/*
 ["A3PL_Intersect_Cockpit",
 {
 	private ["_obj","_actions","_finalActions","_config","_doubles","_countConfig","_interactWith","_newConfig"];
@@ -184,306 +472,4 @@
 		Player_NameIntersect = "";
 	};
 }] call Server_Setup_Compile;
-
-['A3PL_Intersect_Lines', {
-		if (isDedicated) exitwith {};
-		["A3PL_Intersect_Lines", "onEachFrame", {
-			if (count (nearestObjects [player, ["A3PL_Stinger"], 3]) > 0) then {
-				if (_veh == player) exitwith {};
-				[] call A3PL_Intersect_Spikes;
-			};
-
-			//HANDLE COCKPIT
-			if (((typeOf vehicle player) IN Config_Intersect_Cockpits) && (cameraView == "INTERNAL")) exitwith {
-				[] call A3PL_Intersect_Cockpit;
-			};
-
-			_begPos = positionCameraToWorld [0,0,0]; // <----- THIS IS WHERE THE ISSUE IS MOST LIKELY
-			_begPosASL = AGLToASL _begPos;
-			_endPos = positionCameraToWorld [0,0,1000]; // <----- THIS IS WHERE THE ISSUE IS
-			_endPosASL = AGLToASL _endPos;
-			_ins = lineIntersectsSurfaces [_begPosASL, _endPosASL, player, objNull, true, 1, "FIRE", "NONE"];
-
-			if (_ins isEqualTo []) exitWith {};
-			_ins select 0 params ["_pos", "_norm", "_obj", "_parent"];
-			if (isNull _obj) exitwith {
-				private ["_cur"];
-				_cur = cursortarget;
-				if (!isNull cursortarget) exitwith {
-					Player_ObjIntersect = cursortarget;
-					Player_NameIntersect = "";
-					{
-						if (_x select 0 == (typeOf _cur)) then {
-							private ["_name","_icon"];
-							_name = _x select 1;
-							_icon = _x select 2;
-							drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
-						};
-					} foreach Config_Intersect_NoNameNoFire;
-				};
-				Player_ObjIntersect = player;
-				Player_NameIntersect = "";
-			};
-			if ((!(getModelInfo _parent select 2)) OR ((player distance _obj) > 20)) exitWith {
-				Player_NameIntersect = "";
-				Player_ObjIntersect = _obj;
-				{
-					if (_x select 0 == (typeOf _obj)) then {
-						private ["_name","_icon"];
-						_name = _x select 1;
-						_icon = _x select 2;
-						drawIcon3D [_icon, [1,1,1,1], getpos _obj, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
-					};
-				} foreach Config_Intersect_NoName;
-			};
-
-			_ins2 = [_parent, "FIRE"] intersect [_begPos, _endPos];
-			if (_ins2 isEqualTo []) exitWith {
-				Player_NameIntersect = "";
-				Player_ObjIntersect = _veh;
-
-				if ((typeOf (nearestObject [player, "GroundWeaponHolder"])) == "GroundWeaponHolder") then {
-					if (([eyepos player nearestObject "GroundWeaponHolder",eyepos player] call bis_fnc_distance2d) < 1.1) then {
-						private ["_cur"];
-						_cur = (eyepos player) nearestObject "GroundWeaponHolder";
-						Player_ObjIntersect = _cur;
-						Player_NameIntersect = "";
-						{
-							if (_x select 0 == (typeOf _cur)) then {
-								private ["_name","_icon"];
-								_name = _x select 1;
-								_icon = _x select 2;
-								drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
-							};
-						} foreach Config_Intersect_NoNameNoFire;
-					};
-				};
-				if ((typeOf cursortarget) IN ["GroundWeaponHolder"]) exitwith {
-					private ["_cur"];
-					_cur = cursortarget;
-					Player_ObjIntersect = _cur;
-					Player_NameIntersect = "";
-					{
-						if (_x select 0 == (typeOf _cur)) then {
-							private ["_name","_icon"];
-							_name = _x select 1;
-							_icon = _x select 2;
-							drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
-						};
-					} foreach Config_Intersect_NoNameNoFire;
-				};
-			};
-
-			_ins2 select 0 params ["_name", "_dist"];
-			_posAGL = _obj modelToWorldVisual (_obj selectionPosition [_name,"Memory"]);
-			if (([_posAGL,ASLToAGL (getposASL player)] call BIS_fnc_distance2D) > 3) exitwith {
-				Player_NameIntersect = "";
-				Player_ObjIntersect = _obj;
-			};
-			if (player_nameIntersect != _name) then {Player_selectedIntersect = 0;};
-
-			Player_NameIntersect = _name;
-			Player_ObjIntersect = _obj;
-
-			_icon = "\a3\ui_f\data\map\GroupIcons\icon_default.paa";
-
-			_config = (_name call A3PL_Intersect_ConditionCalc);
-			_countConfig = (count _config) - 1;
-			if ( player_selectedIntersect > _countConfig) then {
-				player_selectedIntersect = _countConfig;
-			};
-			if(player_selectedIntersect < 0) exitWith {};
-
-			_configSel = _config select Player_selectedIntersect;
-			_name = format ["→ %1 ←",_configSel select 1];
-			_icon = _configSel select  2;
-
-			drawIcon3D [_icon, [1,1,1,1], _posAGL, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
-
-			//Okay so now lets take of the actions above and below
-			if (_countConfig > player_selectedIntersect) then {
-				_posAGL = [_posAGL select 0,_posAGL select 1, (_posAGL select 2) - ((_begPosASL distance _posAGL) / 50)];
-				_configSel = _config select (Player_selectedIntersect + 1);
-				_name = _configSel select 1;
-				_icon = _configSel select 2;
-				drawIcon3D ["", [1,1,1,1], _posAGL, 0, 0, 0,_name, 1, 0.036, "PuristaSemiBold"];
-			};
-
-			if (player_selectedIntersect > 0) then {
-				_posAGL = [_posAGL select 0,_posAGL select 1, (_posAGL select 2) + ((_begPosASL distance _posAGL) / 35)];
-				_configSel = _config select (Player_selectedIntersect - 1);
-				_name = _configSel select 1;
-				_icon = _configSel select 2;
-				drawIcon3D ["", [1,1,1,1], _posAGL, 0, 0, 0,_name, 1, 0.036, "PuristaSemiBold"];
-			};
-		}] call BIS_fnc_addStackedEventHandler;
-		//["A3PL_Intersect_Lines", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-}] call Server_Setup_Compile;
-
-//Currently has a limit of 20m. Can be changed in A3PL_Intersect_Lines
-//This function simply returns player object if player is not looking at anything (aka nothing is being intersected)
-['A3PL_Intersect_Cursortarget', {
-	if (isNil "Player_ObjIntersect") exitwith {player};
-	Player_ObjIntersect
-}] call Server_Setup_Compile;
-
-['A3PL_Intersect_CursortargetName', {
-	if (isNil "Player_NameIntersect") exitwith {player};
-	Player_NameIntersect
-}] call Server_Setup_Compile;
-
-#define HOUSESLIST ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green"]
-
-['A3PL_Intersect_HandleDoors', {
-	//Handles the door opening closing since some objects have different animationsource names
-	private ["_obj","_name","_split"];
-	_obj = call A3PL_Intersect_cursortarget;
-	_name = Player_NameIntersect;
-
-	//run prison script
-	if (typeOf _obj == "Land_A3PL_Prison") exitwith
-	{
-		[_obj,_name] call A3PL_Prison_HandleDoor;
-	};
-
-	_split = _name splitstring "_";
-
-	//garage door
-	if ((((_split select 0) find "garagedoor") != -1) || (((_split select 0) find "hangardoor") != -1)) exitwith
-	{
-		if ((typeOf _obj) IN ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Greenhouse","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1"]) exitwith
-		{
-			if (isNil {_obj getVariable "unlocked"}) exitwith
-			{
-				_format = format[localize'STR_NewIntersect_3'];
-				[_format, "red"] call A3PL_Player_Notification;
-			};
-			if (count _split > 2) then
-			{
-				[_obj,(_split select 0),false] call A3PL_Lib_ToggleAnimation;
-			} else
-			{
-				[_obj,(_split select 0)] call A3PL_Lib_ToggleAnimation;
-			};
-		};
-
-		_canUse = true;
-		switch (typeOf _obj) do
-		{
-			case ("Land_A3PL_Firestation"): {
-				if (!((player getVariable ["faction","citizen"]) IN ["fifr"]) && !(["vfd",player] call A3PL_DMV_Check)) exitwith {
-					_canUse = false;
-				};
-			};
-		};
-		if (!_canUse) exitwith {[localize"STR_NewIntersect_1"] call A3PL_Player_Notification;};
-		[_obj,(_split select 0)] call A3PL_Lib_ToggleAnimation;
-	};
-
-	//normal door handle
-	if ((_split select 0) == "door") then
-	{
-		private ["_canUse"];
-
-		//sometimes we can't use a door
-		_canUse = true;
-		switch (typeOf _obj) do
-		{
-			case ("Land_A3PL_Sheriffpd"): { if ((_name IN ["door_3","door_4","door_11","door_18","door_19","door_20","garagedoor_button"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {_canUse = false}; };
-			case ("Land_A3PL_Clinic"): { if ((_name IN ["door_3","door_4","door_5","door_6","door_7","door_8","door_9","door_10","door_11"]) && !((player getVariable ["job","unemployed"]) IN ["fifr"])) exitwith {_canUse = false}; };
-			case ("Land_A3PL_Prison"): { if (((_name find "button") != -1) && !((player getVariable ["job","unemployed"]) IN ["usms"])) exitwith {_canUse = false}; };
-			case ("Land_A3PL_Firestation"): {
-				if (!((player getVariable ["faction","citizen"]) IN ["fifr"]) && !(["vfd",player] call A3PL_DMV_Check)) exitwith {
-					_canUse = false;
-				};
-			};
-		};
-		if (!_canUse) exitwith {[localize"STR_NewIntersect_1"] call A3PL_Player_Notification;};
-
-		//house
-		if ((typeOf _obj) IN ["Land_A3PL_Motel","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Greenhouse","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green"]) exitwith
-		{
-			switch (true) do
-			{
-				case ((typeOf _obj) == "Land_A3PL_Motel"):
-				{
-					if (_name IN ["door_9","door_10","door_11","door_12","door_13","door_14","door_15","door_16"]) then
-					{
-						if ((_obj getVariable ["Door_1_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
-						if ((_obj getVariable ["Door_2_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
-						if ((_obj getVariable ["Door_3_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
-						if ((_obj getVariable ["Door_4_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
-						if ((_obj getVariable ["Door_5_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
-						if ((_obj getVariable ["Door_6_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
-						if ((_obj getVariable ["Door_7_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
-						if ((_obj getVariable ["Door_8_locked",true])) exitwith {_format = format[localize'STR_NewIntersect_2'];[_format, "red"] call A3PL_Player_Notification;};
-					} else
-					{
-						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
-					};
-				};
-
-				case ((typeOf _obj) IN HOUSESLIST):
-				{
-					if (_name IN ["door_1","door_2","door_3"]) then
-					{
-						if (isNil {_obj getVariable "unlocked"}) exitwith
-						{
-							_format = format[localize'STR_NewIntersect_2'];
-							[_format, "red"] call A3PL_Player_Notification;
-						};
-
-						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
-					} else
-					{
-						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
-					};
-				};
-
-				case ((typeOf _obj) == "Land_Mansion01"):
-				{
-					if (_name IN ["door_8","door_1"]) then
-					{
-						if (isNil {_obj getVariable "unlocked"}) exitwith
-						{
-							_format = format[localize'STR_NewIntersect_2'];
-							[_format, "red"] call A3PL_Player_Notification;
-						};
-
-						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
-					} else
-					{
-						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
-					};
-				};
-
-				case ((typeOf _obj) IN ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_Greenhouse","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_Shed2","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green"]):
-				{
-					if (_name IN ["door_1","door_2"]) then
-					{
-						if (isNil {_obj getVariable "unlocked"}) exitwith
-						{
-							_format = format[localize'STR_NewIntersect_2'];
-							[_format, "red"] call A3PL_Player_Notification;
-						};
-
-						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
-					} else
-					{
-						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
-					};
-				};
-			};
-		};
-
-		//animate the door
-		[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
-
-		//in some cases 2 doors need to open (sheriff PD)
-		if ((_name IN ["door_3_button","door_3_button2","door_5_button","door_5_button2","door_7_button","door_7_button2","door_9_button","door_9_button2"]) && ((typeOf _obj) == "Land_A3PL_Sheriffpd")) then
-		{
-			_doorN = (parseNumber (_split select 1)) + 1;
-			[_obj,format ["%1_%2",(_split select 0),_doorN],false] call A3PL_Lib_ToggleAnimation;
-		};
-	};
-}] call Server_Setup_Compile;
+*/

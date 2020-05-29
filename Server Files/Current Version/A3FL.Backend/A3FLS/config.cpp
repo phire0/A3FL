@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 class DefaultEventhandlers;
 class CfgPatches
 {
@@ -121,6 +129,14 @@ class CfgRemoteExec
 		class Server_Housing_AddMember{allowedTargets=2;};
 		class Server_Housing_RemoveMember{allowedTargets=2;};
 		class Server_Housing_Initialize{allowedTargets=2;};
+
+		// Warehouses
+		class A3PL_Warehouses_Loaditems {allowedTargets = 0;};
+		class Server_Warehouses_Assign {allowedTargets = 2;};
+		class Server_Warehouses_LoadBox {allowedTargets = 2;};
+		class Server_Warehouses_SaveBox {allowedTargets = 2;};
+		class Server_Warehouses_LoadItemsSimulation {allowedTargets = 2;};
+		class Server_Warehouses_Initialize{allowedTargets=2;};
 
 		//Police
 		class A3PL_Police_ReleasePlayer {allowedTargets = 0;};

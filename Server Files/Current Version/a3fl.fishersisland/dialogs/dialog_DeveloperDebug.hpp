@@ -24,7 +24,7 @@ class Dialog_DeveloperDebug
 			w = 0.12375 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = 0.8 * GUI_GRID_H;
-			action = "[] call A3PL_Debug_Execute;";
+			action = "call A3PL_Debug_Execute;";
 		};
 		class F_Debug: RscEdit
 		{

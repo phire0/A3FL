@@ -14,8 +14,8 @@ player enableSimulation false;
 	waitUntil {uiSleep 0.05; ((vehicle player) isEqualTo player)};
 	waitUntil {uiSleep 0.05; !isNil "A3PL_Player_Initialize"};
 
-	[] call A3PL_Player_TeamspeakID;
-	[] call A3PL_Player_Initialize;
+	call A3PL_Player_TeamspeakID;
+	call A3PL_Player_Initialize;
 };
 
 /*[] spawn {
@@ -35,7 +35,7 @@ player enableSimulation false;
     _alreadyKnow = false;
 
     while {true} do {
-        if !([] call TFAR_fnc_isTeamSpeakPluginEnabled) then {
+        if !(call TFAR_fnc_isTeamSpeakPluginEnabled) then {
             titleText ["TaskForceRadio teamspeak plugin is not activated!", "BLACK"];
             _tfarEnabled = false;
         } else {

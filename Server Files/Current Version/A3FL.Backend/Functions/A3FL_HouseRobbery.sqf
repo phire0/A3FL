@@ -1,23 +1,41 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_HouseRobbery_Rob",
 {
 	_house = param [0,objNull];
 	_status = missionNamespace getVariable ["HouseCooldown",0];
 	_notify = 30;
-	_timeTaken = 22;
+	_timeTaken = 45;
+	_fail = false;
+	_faction = "FISD";
 
 	if ((player getVariable ["house",objNull]) == cursorObject) exitWith{["You cannot rob your own house!","red"] call A3PL_Player_Notification;};
 	if (_status == 1) exitwith {["Another house robbery has taken place recently, you cannot rob this house!","red"] call A3PL_Player_Notification;};
 
-	_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
-	if ((count _cops) < 3) exitwith {["There must be at least 3 FISD on duty to rob a house!","red"] call A3PL_Player_Notification;};
+		_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
+
+		if(_nearCity IN ["Lubbock","Salt Point"]) then {
+			if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < 3) exitwith {_fail=true;_faction="USCG";};
+		} else {
+			if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 3) exitwith {_fail=true;_faction="FISD";};
+		};
+
+	if(_fail) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob this house!",3,_faction],"red"] call A3PL_Player_Notification;};
 
 	player playmove "Acts_carFixingWheel";
 	["You are attempting to lockpick this house", "yellow"] call A3PL_Player_Notification;
 	player setVariable ["picking",true,true];
+	_cops = [_faction] call A3PL_Lib_FactionPlayers;
 
 	if(count(_cops) < 5) then {
 		_notify = 10;
-		_timeTaken = 30;
+		_timeTaken = 60;
 	};
 
 	_notifyChance = random 100;

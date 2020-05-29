@@ -1,9 +1,18 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["Server_Business_Buy",
 {
+	diag_log "calling";
 	private _player = param [0,objNull];
 	private _playerUID = getPlayerUID _player;
 	private _business = param [1,objNull];
-	if ((isNull _player) OR (isNull _business)) exitwith {};
+	if ((isNull _player) OR (isNull _business)) exitwith {diag_log "exit";};
 	private _name = param [2,""];
 	private _rentTime = (param [3,1]) * 60;
 	private _rentCost = param [4,1];

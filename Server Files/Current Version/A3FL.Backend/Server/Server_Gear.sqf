@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 // Load the physical A3 inventory + pos and add them remotely, once finished send message to client!
 ["Server_Gear_New", {
 	private _unit = _this select 0;
@@ -72,7 +80,7 @@
 
 //COMPILE BLOCK WARNING
 ["Server_Gear_Load", {
-	private ["_unit", "_uid", "_return", "_query", "_pos", "_loadout","_name","_houseVar","_ownsHouse","_houseObj","_facStorage","_licenses","_perks","_ship"];
+	private ["_unit", "_uid", "_return", "_query", "_pos", "_loadout","_name","_houseVar","_warehouseObj","_warehouseVar","_ownsHouse","_houseObj","_facStorage","_licenses","_perks","_ship","_allKeys"];
 	_unit = _this select 0;
 	_uid = getPlayerUID _unit;
 
@@ -187,7 +195,8 @@
 
 	//Scan if player owns a house, if not we will assign him an appartment
 	//Make sure to re-init, just in case
-	[] call Server_Housing_Initialize;
+	call Server_Housing_Initialize;
+	call Server_Warehouses_Initialize;
 
 	_ownsHouse = false;
 	{
@@ -200,10 +209,36 @@
 			//give the key to the player if he doesn't have it
 			_doorID = (_houseObj getVariable "doorid") select 1;
 			if (!(_doorID IN _keys)) then {
-				_unit setVariable ["keys",[_doorID],true];
+				_allKeys = _unit getVariable["keys",[]];
+				_allKeys pushBack _doorID;
+				_unit setVariable ["keys",_allKeys,true];
 			};
 		};
 	} foreach Server_HouseList;
+
+	_ownsWarehouse = false;
+	{
+		_warehouseVar = _x getVariable ["owner",[]];
+		if (_uid IN (_warehouseVar)) exitwith
+		{
+			_ownsWarehouse = true;
+			_warehouseObj = _x;
+			diag_log "owns a warehouse";
+			diag_log format ["keys just after checking for warehouse ownership:",_keys];
+
+			//give the key to the player if he doesn't have it
+			_doorID = (_warehouseObj getVariable "doorid") select 1;
+			diag_log format ["key ID %1",_doorID];
+			if (!(_doorID IN _keys)) then {
+				diag_log format ["doorID not in keys"];
+				_allKeys = _unit getVariable["keys",[]];
+				diag_log format ["keys before addding warehouse key %1",_allKeys];
+				_allKeys pushBack _doorID;
+				diag_log format ["keys after addding warehouse key %1",_allKeys];
+				_unit setVariable ["keys",_allKeys,true];
+			};
+		};
+	} foreach Server_WarehouseList;
 
 	if (!_ownsHouse) then
 	{
@@ -222,10 +257,18 @@
 		};
 		//set house var
 		_unit setVariable ["house",_houseObj,true];
+
 		//load items
 		_firstOwner = (_houseObj getVariable ["owner",[]]) select 0;
 		if(_firstOwner isEqualTo _uid) then {
 			[_unit,_houseObj,_uid] call Server_Housing_LoadItems;
+		};
+	};
+	if(_ownsWarehouse) then {
+	_unit setVariable ["warehouse",_warehouseObj,true];
+	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
+	if(_firstOwnerWarehouse isEqualTo _uid) then {
+			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};
 
@@ -346,11 +389,14 @@
 		if (isNull _unit) exitwith {};
 		_var = _unit getVariable "name";
 		if (isNil "_var") exitwith {};
+		_jobVeh = _unit getVariable ["jobVehicle",nil];
 
 		[_unit,_uid] call Server_Housing_SaveKeys;
 
 		//save furniture
 		if (!isNil {_unit getVariable ["house",nil]}) then {[_unit,_uid] call Server_Housing_SaveItems;};
+		if (!isNil {_unit getVariable ["warehouse",nil]}) then {[_unit,_uid] call Server_Warehouses_SaveItems;};
+		if (!isNil {_jobVeh}) then {deleteVehicle _jobVeh;};
 
 		//get rid of the assigned apt, if exist
 		_var = _unit getVariable "apt";

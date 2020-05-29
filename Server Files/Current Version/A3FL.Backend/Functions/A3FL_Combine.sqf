@@ -1,4 +1,13 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define COMBINE_ITEMS [["burger_full_cooked",["burger_cooked","burger_bun","Salad"],1],["burger_full_raw",["burger_cooked","burger_bun","Salad"],1],["burger_full_burnt",["burger_cooked","burger_bun","Salad"],1],["taco_cooked",["fish_cooked","tacoshell","Salad"],1],["taco_raw",["fish_raw","tacoshell","Salad"],1],["taco_burned",["fish_raw","tacoshell","Salad"],1],["salad",["Lettuce"],5],["tacoshell",["Corn"],20],["fish_raw",["bucket_full"],10],["burger_raw",["bucket_full"],10],["burger_bun",["wheat"],10]]
+
 ["A3PL_Combine_Open",
 {
 	disableSerialization;
@@ -41,13 +50,13 @@
 	}];
 
 	private _control = _display displayCtrl 1600;
-	_control ctrlAddEventHandler ["ButtonDown", {[] call A3PL_Combine_Create;}];
+	_control ctrlAddEventHandler ["ButtonDown", {call A3PL_Combine_Create;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_Combine_Create",
 {
 	disableSerialization;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _creating = A3PL_Combine_ItemSelected;
 	private _required = A3PL_Combine_ItemRequired;
 

@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Robberies_RobPort",
 {
 	private ["_port"];
@@ -16,7 +24,7 @@
 
 	[getPlayerUID player,"portRobbery",[getPos _port]] remoteExec ["Server_Log_New",2];
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Robbing the port captain...",40] spawn A3PL_Lib_LoadAction;
+	["Robbing the port captain...",60] spawn A3PL_Lib_LoadAction;
 	waitUntil {Player_ActionDoing};
 	_success = true;
 	while {Player_ActionDoing} do {
@@ -46,7 +54,7 @@
 		["item","shark_10lb",4],
 		["item","SMG_Part_Body",1],
 		["item","zipties",5],
-		["item","marijuana",11],
+		["item","weed_50g",11],
 
 		["weapon","A3PL_Red_Glock",0],
 		["weapon","hgun_Rook40_F",0],
@@ -112,6 +120,9 @@
 		case("npc_port_5"): {
 			_namePos = "Marine Factory";
 		};
+		case("npc_port_6"): {
+			_namePos = "Bluecorp Mining";
+		};
 	};
 	[format ["An alarm has been triggered by the port captain at %1",_namePos],"blue","uscg",1] call A3PL_Lib_JobMessage;
 }] call Server_Setup_Compile;
@@ -119,9 +130,12 @@
 ["A3PL_Robberies_PickSeizure",{
 	private ["_storage"];
 	_storage = param [0,objNull];
-	_cooldown = _storage getVariable ["cooldown",false];
-
-	if (_cooldown) exitWith {["This has already been robbed recently", "red"] call A3PL_Player_Notification;};
+	_timer = false;
+	if (!isNil {_storage getVariable ["timer",nil]}) then
+	{
+		if (((serverTime - (_storage getVariable ["timer",0]))) < 1800) then {_timer = true};
+	};
+	if (_timer) exitwith {[format ["The evidince locker has recently been robbed, try again in %1 seconds",1800 - ((_bank getVariable ["timer",0]) - serverTime)],"red"] call A3PL_Player_Notification;};
 	if (animationstate player == "Acts_carFixingWheel") exitwith {[localize"STR_CRIMINAL_YOUALREADYTAKEANACTION", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player == player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_CRIMINAL_YOUALREADYPICKVEHICLE", "red"] call A3PL_Player_Notification;};
@@ -133,7 +147,6 @@
 
 	player playmove "Acts_carFixingWheel";
 	player setVariable ["picking",true,true];
-	_storage setVariable ["cooldown",true,true];
 
 	[getPlayerUID player,"docRobbery",[getPos _storage]] remoteExec ["Server_Log_New",2];
 	[_storage] spawn
@@ -143,7 +156,7 @@
 		playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _storage, false, getPosASL _storage, 1, 1, 200];
 
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-		["Lockpicking seizure storage...",13] spawn A3PL_Lib_LoadAction;
+		["Lockpicking seizure storage...",90] spawn A3PL_Lib_LoadAction;
 
 		_chance = random 100;
 		if(_chance >= 80) then {playSound3D ["A3PL_Common\effects\lockdown.ogg", objNull, false, [4783.52,6294.25,12], 3, 1, 1800];};
@@ -159,7 +172,6 @@
 		player switchMove "";
 		if(Player_ActionInterrupted || !_success) exitWith {
 			Player_ActionInterrupted = true;
-			_storage setVariable["locked",false,true];
 			[localize"STR_CRIMINAL_PICKENDED", "red"] call A3PL_Player_Notification;
 			if (vehicle player == player) then {player switchMove "";};
 		};
@@ -173,6 +185,7 @@
 			[player,20] call A3PL_Level_AddXP;
 		} else {
 			_storage setVariable["locked",false,true];
+			_storage setVariable ["timer",serverTime,true];
 			[localize"STR_CRIMINAL_YOUCANNOTPICKTHISVEHICLEHC", "red"] call A3PL_Player_Notification;
 		};
 	};

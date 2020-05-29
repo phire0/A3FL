@@ -1,7 +1,16 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define OREDMGDISS 0.55
-["Server_JobWildcat_RandomizeOil", 
-{	
-	Server_JobWildCat_Oil = [];
+
+["Server_JobWildcat_RandomizeOil",
+{
+	Server_JobWildCat_Oil = [[[3488.800,12506.046,0],10000]];
 	for "_i" from 0 to 30 do {
 		private ["_randPos","_overWater"];
 		_randPos = ["OilSpawnArea"] call CBA_fnc_randPosArea;
@@ -65,7 +74,7 @@
 		private _obj = param [0,objNull];
 		private _sel = param [1,""];
 		private _dmg = param [2,0];
-		private _ins = param [6,objNull]; 
+		private _ins = param [6,objNull];
 		private _wep = currentWeapon _ins;
 		private _newDmg = _dmg;
 		private _oldDmg = _obj getVariable ["dmg",0];
@@ -88,12 +97,12 @@
 					case (_random < 30): {_itemClass = "diamond_alex";};
 					case (_random < 50): {_itemClass = "diamond_aqua";};
 				};
-				[_ins,_itemClass,1] call Server_Inventory_Add;
-				["You found a rare gem stone!", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];				
+				[_itemClass,1] remoteExec ["A3PL_Inventory_Add", (owner _ins)];
+				["You found a rare gem stone!", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];
 			} else {
 				_itemClass = _obj getVariable ["smallOreItemClass","ore_metal"];
-				[_ins,_itemClass,1] call Server_Inventory_Add;
-				["You succesfully mined one ore", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];				
+				[_itemClass,1] remoteExec ["A3PL_Inventory_Add", (owner _ins)];
+				["You succesfully mined one ore", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];
 			};
 			_obj setVariable ["dmg",_dmg,false];
 		};

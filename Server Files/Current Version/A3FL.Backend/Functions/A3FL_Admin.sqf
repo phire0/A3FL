@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Department Of Motor Vehicles","dmv","dmv"],["Fishers Island Cartel","cartel","cartel"],["Federal Bureau of Investigation","fbi","fbi"]]
 #define adminTagsList [["Civilian Tag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]],["Executive Tag",["#B5B5B5","#8410ff","\A3PL_Common\icons\executive.paa"]],["Executive Supervisor Tag",["#B5B5B5","#5ab2ff","\A3PL_Common\icons\exec_supervisor.paa"]],["Developer Tag",["#B5B5B5","#FFFFFF","\A3PL_Common\icons\creator.paa"]],["Chief Tag",["#B5B5B5","#2f9baa","\A3PL_Common\icons\chief.paa"]],["Sub-Director Tag",["#B5B5B5","#ff6d29","\A3PL_Common\icons\subdirector.paa"]],["Director Tag",["#B5B5B5","#cece08","\A3PL_Common\icons\director.paa"]]]
 
@@ -28,13 +36,13 @@
 	if(isNull (findDisplay 98)) exitWith {
 		createDialog "Dialog_ExecutiveMenu";
 		[] remoteExec ["Server_Fire_PauseCheck",2];
-		[] call A3PL_AdminPlayerList;
-		[] call A3PL_AdminPlayerInfoList;
-		[] call A3PL_AdminFactoryComboList;
-		[] call A3PL_Admin_InventoryCombo;
-		[] call A3PL_AdminToolsList;
-		[] call A3PL_Admin_TwitterTagsCombo;
-		[] call A3PL_Admin_FactionCombo;
+		call A3PL_AdminPlayerList;
+		call A3PL_AdminPlayerInfoList;
+		call A3PL_AdminFactoryComboList;
+		call A3PL_Admin_InventoryCombo;
+		call A3PL_AdminToolsList;
+		call A3PL_Admin_TwitterTagsCombo;
+		call A3PL_Admin_FactionCombo;
 		ctrlSetText [1000, format ["Staff Menu | %2 %1",player getVariable "name",[player] call A3PL_AdminTitle]];
 	};
 	if (!IsNull (findDisplay 98)) exitWith {(findDisplay 98) closeDisplay 1;};
@@ -72,8 +80,8 @@
 		if ((_x getVariable ["dbVar_AdminLevel",0]) == 7) then {lbSetColor [1500,_forEachIndex,[1,1,0,1]];};
 		A3PL_Admin_PlayerList pushBack _x;
 	} foreach allPlayers;
-	_control ctrlAddEventHandler ["LBSelChanged","[] call A3PL_AdminPlayerInfoList;"];
-	_control ctrlAddEventHandler ["LBDblClick","[] call A3PL_AdminWatch;"];
+	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_AdminPlayerInfoList;"];
+	_control ctrlAddEventHandler ["LBDblClick","call A3PL_AdminWatch;"];
 	_control lbSetCurSel count(A3PL_Admin_PlayerList)-1;
 }] call Server_Setup_Compile;
 
@@ -141,7 +149,7 @@
 
 	{lbAdd [2100,_x select 0];} foreach Config_Factories;
 	{lbAdd [2100,_x];} foreach ["Objects", "AdminVehicles"];
-	_control ctrlAddEventHandler ["lbSelChanged",{[] call A3PL_AdminFillFactoryList;}];
+	_control ctrlAddEventHandler ["lbSelChanged",{call A3PL_AdminFillFactoryList;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_InventoryCombo", {
@@ -149,13 +157,13 @@
 	_selectedInventory = _display displayCtrl 2101;
 	_inventories = ["Player","Chemical Plant","Steel Mill","Oil Refinery","Goods Factory","Food Processing Plant","Vehicles Faction","Faction Weapons","Legal Weapon Factory","Marine Factory","Aircraft Factory","Car Parts Factory","Vehicle Factory","Clothing Factory","Vest Factory","Headgear Factory","Goggle Factory","Cocaine treatment","Illegal Weapon Factory"];
 	{lbAdd [2101,_x];} foreach _inventories;
-	_selectedInventory ctrlAddEventHandler ["lbSelChanged","[] call A3PL_Admin_PlayerInventoryFill;"];
+	_selectedInventory ctrlAddEventHandler ["lbSelChanged","call A3PL_Admin_PlayerInventoryFill;"];
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_TwitterTagsCombo", {
 	private _display = findDisplay 98;
 	{lbAdd [2102, _x select 0];} foreach adminTagsList;
-	(_display displayCtrl 2102) ctrlAddEventHandler ["lbSelChanged","[] call A3PL_Admin_SetTwitterTag;"];
+	(_display displayCtrl 2102) ctrlAddEventHandler ["lbSelChanged","call A3PL_Admin_SetTwitterTag;"];
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_SetTwitterTag", {
@@ -167,7 +175,7 @@
 ["A3PL_Admin_FactionCombo", {
 	private _display = findDisplay 98;
 	{lbAdd [2103, _x select 0];} foreach factionsList;
-	(_display displayCtrl 2103) ctrlAddEventHandler ["lbSelChanged","[] call A3PL_Admin_SetFaction;"];
+	(_display displayCtrl 2103) ctrlAddEventHandler ["lbSelChanged","call A3PL_Admin_SetFaction;"];
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_SetFaction", {
@@ -181,7 +189,7 @@
 	_target = (A3PL_Admin_PlayerList select _target);
 	_target setVariable["faction",(factionsList select _selectedTag) select 1,true];
 	_target setVariable["job",(factionsList select _selectedTag) select 2,true];
-	[] call A3PL_Player_SetMarkers;
+	call A3PL_Player_SetMarkers;
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminToolsList", {
@@ -223,33 +231,33 @@
 			};
 		};
 	} foreach _fullList;
-	_control ctrlAddEventHandler ["LBDblClick","[] call A3PL_SelectedAdminTool;"];
+	_control ctrlAddEventHandler ["LBDblClick","call A3PL_SelectedAdminTool;"];
 }] call Server_Setup_Compile;
 
 ["A3PL_SelectedAdminTool", {
 	_selectedIndex = lbCurSel 1504;
 	_selectedTool = ((dVar_AdminToolsList select _selectedIndex) select 0);
 	switch (_selectedTool) do {
-		case "Teleport": {[] call A3PL_AdminMapTeleport};
-		case "Toggle Twitter": {[] call A3PL_AdminTwitterToggle};
-		case "Fix Garage": {[] call A3PL_Admin_FixGarage};
-		case "Admin Mode": {[] call A3PL_AdminRedName};
-		case "Create Fire": {[] call A3PL_Admin_CreateFire};
-		case "Pause Fire": {[] call A3PL_Admin_PauseFire};
-		case "Remove Fire": {[] call A3PL_Admin_RemoveFire};
-		case "Fast Animation": {[] call A3PL_AdminFastAnimation};
-		case "Self Heal": {[] call A3PL_AdminSelfHeal};
-		case "Self Feed": {[] call A3PL_AdminSelfFeed};
-		case "Freeze": {[] call A3PL_Admin_Freeze};
+		case "Teleport": {call A3PL_AdminMapTeleport};
+		case "Toggle Twitter": {call A3PL_AdminTwitterToggle};
+		case "Fix Garage": {call A3PL_Admin_FixGarage};
+		case "Admin Mode": {call A3PL_AdminRedName};
+		case "Create Fire": {call A3PL_Admin_CreateFire};
+		case "Pause Fire": {call A3PL_Admin_PauseFire};
+		case "Remove Fire": {call A3PL_Admin_RemoveFire};
+		case "Fast Animation": {call A3PL_AdminFastAnimation};
+		case "Self Heal": {call A3PL_AdminSelfHeal};
+		case "Self Feed": {call A3PL_AdminSelfFeed};
+		case "Freeze": {call A3PL_Admin_Freeze};
 
-		case "Player Markers": {[] call A3PL_AdminMapMarkers;};
+		case "Player Markers": {call A3PL_AdminMapMarkers;};
 		case "Double EXP": {[] remoteExec ["Server_Core_DblXP",2];};
 
-		case "Players Stats": {[] call A3PL_Admin_ViewStats;};
-		case "Ressources Makers": {[] call A3PL_AdminRessourcesMarkers;};
-		case "Camera": {[] call A3PL_Admin_Camera};
-		case "Invisible": {[] call A3PL_Admin_Invisible};
-		case "Virtual Arsenal": {[] call A3PL_Admin_VirtualArsenal};
+		case "Players Stats": {call A3PL_Admin_ViewStats;};
+		case "Ressources Makers": {call A3PL_AdminRessourcesMarkers;};
+		case "Camera": {call A3PL_Admin_Camera};
+		case "Invisible": {call A3PL_Admin_Invisible};
+		case "Virtual Arsenal": {call A3PL_Admin_VirtualArsenal};
 	};
 }] call Server_Setup_Compile;
 
@@ -985,11 +993,11 @@
 	disableSerialization;
 	createDialog "Dialog_DeveloperDebug";
 
-	[] call A3PL_Debug_DropDownList;
-	[] call A3PL_Debug_OnLoadVarCheck;
-	[] call A3PL_Debug_VarCheckLoop;
+	call A3PL_Debug_DropDownList;
+	call A3PL_Debug_OnLoadVarCheck;
+	call A3PL_Debug_VarCheckLoop;
 
-	(findDisplay 155) displayAddEventHandler ["Unload","[] call A3PL_Debug_OnUnloadVarCheck"];
+	(findDisplay 155) displayAddEventHandler ["Unload","call A3PL_Debug_OnUnloadVarCheck"];
 }] call Server_Setup_Compile;
 
 ["A3PL_Debug_DropDownList", {
@@ -1049,8 +1057,33 @@
 },false,true] call Server_Setup_Compile;
 
 ["A3PL_Debug_ExecuteCompiled", {
-
 	private ["_debugText"];
 	_debugText = param [0,"Nothing"];
+	if (_debugText == "Nothing") exitWith {};
 	call compile _debugText;
 },false,true] call Server_Setup_Compile;
+
+["A3PL_Admin_PerformanceTestIntersects",{
+	{
+		_name = (_x select 1);
+		_limit = 0.01;
+		_timeTaken = ((diag_codePerformance [(_x select 3), 0, 10000]) select 0);
+		if(_timeTaken > _limit) then {
+			diag_log format ["name: %1 - time: %2",_name,_timeTaken];
+		}
+	} forEach Config_IntersectArray;
+
+}] call Server_Setup_Compile;
+
+["A3PL_Admin_PerformanceTestIntersectsTotalTime",{
+	_totalTime = 0;
+	{
+		_timeTaken = ((diag_codePerformance [(_x select 3), 0, 10000]) select 0);
+
+		_totalTime = _timeTaken + _totalTime;
+	} forEach Config_IntersectArray;
+
+	diag_log format ["Time taken: %1",_totalTime];
+
+}] call Server_Setup_Compile;
+

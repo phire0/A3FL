@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 Config_Objects_Bargates = [
 	//[POSITION,FACTIONS ARRAY]
 	[[6252.59,7698.81],["fisd","fifr","uscg","usms"]],		//ELK TRAINING
@@ -6,6 +14,9 @@ Config_Objects_Bargates = [
 	[[2252.52,5128.71,0],["uscg"]],					//CG BASE - AIRFIELD SIDE
 	[[10662.2,8919.53,0],["uscg","fifr"]],			//NORTHDALE AIRFIELD
 	[[2601.23,5435.68,0],["fisd","uscg","fifr"]],	//SILVERTON SD
+	[[1836,11365,0],["fifr","fisd","uscg","usms"]], //Northern Island CG base
+	[[2049,11709,0],["fifr","fisd","uscg","usms"]], //Northern Island SD
+
 
 	//DOC GATES
 	[[4746.49,6107.14,0],["uscg","fisd","fifr","usms"]],
@@ -217,7 +228,7 @@ Config_Items_ZOffset =
 publicVariable "Config_Items_ZOffset";
 
 Config_Placeables = [
-	"GroundWeaponHolder","RoadCone_F","A3PL_Spikes_Closed","A3PL_Spikes_Open","A3PL_Ski_Base","A3PL_RoadBarrier","A3PL_PlasticBarrier_01","A3PL_PlasticBarrier_02"
+	"GroundWeaponHolder","RoadCone_F","A3PL_Spikes_Closed","A3PL_Spikes_Open","A3PL_Ski_Base","A3PL_RoadBarrier","A3PL_PlasticBarrier_01","A3PL_PlasticBarrier_02","A3PL_WheelieBin"
 ];
 Config_Furniture = [
 	"A3PL_WorkBench","A3FL_Table","John_Sofa","A3PL_Chair1","A3PL_Chair2","A3PL_Chair3","A3PL_Chair4","A3PL_Bed1","A3PL_Bed2","A3PL_Cabinet1","A3PL_Cabinet2","A3PL_Cabinet3","A3PL_coffeeTable1","A3PL_coffeeTable2","A3PL_coffeeTable3","A3PL_coffeeTable4","A3PL_CornerSova","A3PL_DryingTowel","A3PL_Flasket","A3PL_KitchenChair1","A3PL_KitchenChair2","A3PL_KitchenShelf1","A3PL_KitchenShelf2","A3PL_KitchenShelf3","A3PL_KitchenShelfCorner","A3PL_KitchenTable1","A3PL_KitchenTable2","A3PL_Lamp1","A3PL_Lamp2","A3PL_Mirror","A3PL_ModularKitchen1","A3PL_ModularKitchen2","A3PL_ModularKitchen3","A3PL_ModularKitchen4","A3PL_Pouf","A3PL_Rack1","A3PL_Rack2","A3PL_Sofa1","A3PL_Sofa2","A3PL_Sofa3","A3PL_Sofa4","A3PL_table1","A3PL_table2","A3PL_TvTable1","A3PL_TvTable2","A3PL_TvTable3","A3PL_Bed3","A3PL_Bar_Cabinet","A3PL_Bookshelf","A3PL_DiningChair","A3PL_DiningTableProps","A3PL_Kennel","A3PL_NightStand","A3PL_NightStandLamp","A3PL_Sofa1New","A3PL_Sofa3New","A3PL_Mcfisher_Grill","A3PL_CabinetDoubleTop","A3PL_CabinetSingleTop","A3PL_CabinetTopCorner","A3PL_CounterCorner","A3PL_CounterDoubleCabinet","A3PL_CounterDrawer","A3PL_CounterSingleCabinet","A3PL_CounterTop1","A3PL_CounterTop2","A3PL_CounterTop3","A3PL_SinkBigCounter","A3PL_SinkSingleCabinet"

@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_JobRoadworker_RepairTerrain",
 {
 	private ["_tObjects","_obj","_timeLeft"];
@@ -79,7 +87,7 @@
 {
 	private ["_car","_cars"];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if ((player getVariable ["job","unemployed"]) != "Roadside") exitwith {["You dont seem to be working here as a Roadside Service Worker", "red"] call A3PL_Player_Notification;};
 
 	_cars = nearestObjects [player, ["Car"], 10];
@@ -110,9 +118,10 @@
 
 	switch(_location) do {
 		case npc_roadworker: {_spawnLoc = [2353.047,5479.137,0.766];}; // Silverton
-		case npc_roadworker_1: {_spawnLoc = [5970.537,7397.768,0.766];}; // Elk City // not working
+		case npc_roadworker_1: {_spawnLoc = [6033.625,7353,0.422];}; // Elk City // not working
 		case npc_roadworker_2: {_spawnLoc = [6934.766,7112.43,0.794];}; // Boulder City
 		case npc_roadworker_3: {_spawnLoc = [10236.220,8455.28,0.388];}; // Northdale
+		case npc_roadworker_4: {_spawnLoc = [2163.75,12108.875,0.65];}; //Lubbock
 		default {_spawnLoc = [2353.047,5479.137,0.766];};
 	};
 

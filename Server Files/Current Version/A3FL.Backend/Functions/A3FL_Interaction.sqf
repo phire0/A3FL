@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Interaction_loadInteraction",
 {
     disableSerialization;
@@ -38,7 +46,7 @@
         if(count A3PL_Interaction_overflowList < 2) then {
             A3PL_Interaction_actionList pushBack [(A3PL_Interaction_overflowList select 0 select 0),(A3PL_Interaction_overflowList select 0 select 1)];
         } else {
-            A3PL_Interaction_actionList pushBack ["More options",{[] call A3PL_Interaction_loadMoreInteractions;}];
+            A3PL_Interaction_actionList pushBack ["More options",{call A3PL_Interaction_loadMoreInteractions;}];
         };
     };
 
@@ -131,19 +139,19 @@
 		_interObj = ([] call A3PL_Lib_Attached) select 0;
 		if (([_interObj] call A3PL_lib_CheckIfFurniture) && (_interObj IN ([] call A3PL_Lib_Attached))) exitwith
 		{
-			[] call A3PL_Placeables_QuickAction;
+			call A3PL_Placeables_QuickAction;
 		};
 
 		if (typeOf _interObj IN Config_Placeables) then
 		{
-			[] call A3PL_Placeables_QuickAction;
+			call A3PL_Placeables_QuickAction;
 		};
 	};
 
 	if (_interName IN Config_GenArray) then
 	{
 		{
-            if(typeName (_x select 1) != "STRING") then {diag_log str((_x select 1));};
+            // if(typeName (_x select 1) != "STRING") then {diag_log str((_x select 1));};
 			if (_intername == (_x select 1)) exitwith
 			{
 				_action = call (_x select 2);

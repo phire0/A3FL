@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["Server_Company_LoadAll",
 {
 	private _companies = ["SELECT id, name, boss, employees, bank, licenses, storage FROM companies WHERE disabled = '0'", 2,true] call Server_Database_Async;
@@ -21,7 +29,7 @@
 	[_query, 1] call Server_Database_Async;
 	[] spawn {
 		sleep 5;
-		[] call Server_Company_LoadAll;
+		call Server_Company_LoadAll;
 	};
 },true] call Server_Setup_Compile;
 

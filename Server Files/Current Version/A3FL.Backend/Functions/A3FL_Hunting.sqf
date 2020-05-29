@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Hunting_Skin",
 {
 	private ["_animal","_type","_meatItem","_animalType"];
@@ -9,7 +17,7 @@
 	_animal setVariable ["skinning",true,true];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Skinning the animal...",10+random 2] spawn A3PL_Lib_LoadAction;
+	["Skinning the animal...",20] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	while {uiSleep 1.5; Player_ActionDoing } do {
 		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';

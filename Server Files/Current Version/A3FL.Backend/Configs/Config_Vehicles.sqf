@@ -1,10 +1,22 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 Config_Vehicles_Admin = [
-	["A3PL_Drill",["Trailer"]],["A3PL_Tanker",["Trailer"]],["A3PL_Small_Boat",["Trailer"]],["A3PL_Box",["Trailer"]],
+	["A3PL_Drill",["Trailer"]],
+	["A3PL_Tanker",["Trailer"]],
+	["A3PL_Small_Boat",["Trailer"]],
+	["A3PL_Box",["Trailer"]],
 	["Jonzie",["Ambulance"]],
 	["A3PL_Pierce",["Ladder","Pumper","Heavy_Ladder","Rescue"]],
 	["A3PL_BMW",["X5","M3"]],
-	["A3PL",["Silverado_PD","Silverado","911GT2","Charger15","Charger69","VetteZR1","Mailtruck","Gallardo","Cessna172","Lowloader","Mustang","Mustang_PD","Mustang_PD_Slicktop","F150","F150_Marker","F150_Marker_PD","Ram","Wrangler","Charger","E350","Tahoe_FD","Tahoe_PD","Tahoe_PD_Slicktop","Tahoe","CVPI","CVPI_Taxi","CVPI_PD","CVPI_PD_Slicktop","Charger_PD","Charger_PD_Slicktop","P362","P362_TowTruck","P362_Garbage_Truck","Rover","Camaro","RBM","Motorboat","RHIB","Fuel_Van","MiniExcavator","CRX","Challenger_Hellcat","Car_Trailer","Yacht","Yacht_Pirate","Challenger_Hellcat","Gallardo","Suburban","CLS63","Fatboy","1100R","Knucklehead","Monster","Kx","Urus","Cessna172","Goose_Base","Goose_USCG","Jayhawk","Taurus","Raptor","Raptor_PD"]],
+	["A3PL",["Silverado_PD","Silverado","Silverado_PD_ST","Silverado_FD","Silverado_FD_Brush","911GT2","Charger15","Charger69","VetteZR1","Mailtruck","Gallardo","Cessna172","Lowloader","Mustang","Mustang_PD","Mustang_PD_Slicktop","F150","F150_Marker","F150_Marker_PD","Ram","Wrangler","Charger","E350","Tahoe_FD","Tahoe_PD","Tahoe_PD_Slicktop","Tahoe","CVPI","CVPI_Taxi","CVPI_PD","CVPI_PD_Slicktop","Charger_PD","Charger_PD_Slicktop","P362","P362_TowTruck","P362_Garbage_Truck","Rover","Camaro","RBM","Motorboat","RHIB","Fuel_Van","MiniExcavator","CRX","Challenger_Hellcat","Car_Trailer","Yacht","Yacht_Pirate","Challenger_Hellcat","Gallardo","Suburban","CLS63","Fatboy","1100R","Knucklehead","Monster","Kx","Urus","Cessna172","Goose_Base","Goose_USCG","Jayhawk","Taurus","Taurus_PD","Taurus_PD_ST","Taurus_FD","Raptor","Raptor_PD","Raptor_PD_ST","GMCVandura"]],
 	["A3FL",["LCM"]],
+	["M",["explorer"]],
 	["Heli_Medium01",["H","Luxury_H","Medic_H","Military_H","Veteran_H","Coastguard_H","Sheriff_H"]],
 	["C",["Heli_Light_01_civil_F","Van_02_transport_F"]]
 ];
@@ -42,8 +54,10 @@ Config_Vehicles_Capacity = [
 	["A3PL_Monster",180],
 	["A3PL_Taurus",180],
 	["A3PL_Taurus_PD",180],
+	["A3PL_Taurus_PD_ST",180],
+	["A3PL_Taurus_FD",180],
 
-	["A3PL_P362_TowTruck",200],
+	["A3PL_P362_TowTruck",400],
 
 	["A3PL_Wrangler",240],
 	["A3PL_BMW_X5",240],
@@ -57,8 +71,9 @@ Config_Vehicles_Capacity = [
 	["A3PL_Tahoe_FD",620],
 	["A3PL_Tahoe_PD",620],
 	["A3PL_Tahoe_PD_Slicktop",620],
-	["A3PL_Raptor",600],
-	["A3PL_Raptor_PD",600],
+	["A3PL_Raptor",620],
+	["A3PL_Raptor_PD",620],
+	["A3PL_Raptor_PD_ST",620],
 	["A3PL_F150",620],
 	["A3PL_F150_Marker",620],
 
@@ -86,12 +101,12 @@ Config_Vehicles_Capacity = [
 	["A3PL_Patrol",320],
 	["A3PL_Yacht",800],
 
-	["Heli_Medium01_H",40],
-	["Heli_Medium01_Military_H",40],
-	["Heli_Medium01_Veteran_H",40],
-	["Heli_Medium01_Luxury_H",40],
-	["Heli_Medium01_Medic_H",40],
-	["Heli_Medium01_Coastguard_H",40],
+	["Heli_Medium01_H",100],
+	["Heli_Medium01_Military_H",100],
+	["Heli_Medium01_Veteran_H",100],
+	["Heli_Medium01_Luxury_H",100],
+	["Heli_Medium01_Medic_H",100],
+	["Heli_Medium01_Coastguard_H",100],
 	["A3PL_Jayhawk",40],
 	["A3PL_Cessna172",60],
 	["A3PL_Goose_Base",80],
@@ -124,6 +139,10 @@ Config_Vehicles_Insurance = [
 	["A3PL_CVPI_Taxi",3000],
 	["A3PL_CVPI_PD",3000],
 	["A3PL_CVPI_PD_Slicktop",3000],
+	["A3PL_Taurus",4500],
+	["A3PL_Taurus_PD",4500],
+	["A3PL_Taurus_PD_ST",4500],
+	["A3PL_Taurus_FD",4500],
 	["A3PL_Charger",19000],
 	["A3PL_Charger_PD",6500],
 	["A3PL_Charger_PD_Slicktop",6500],
@@ -157,6 +176,8 @@ Config_Vehicles_Insurance = [
 	["A3PL_Tahoe_PD_Slicktop",5000],
 	["A3PL_F150",13500],
 	["A3PL_F150_Marker",14000],
+	["A3PL_Raptor_PD",14000],
+	["A3PL_Raptor_PD_ST",14000],
 
 	["A3PL_Suburban",14500],
 	["C_Van_02_transport_F",18000],
@@ -164,6 +185,7 @@ Config_Vehicles_Insurance = [
 	["A3PL_Silverado_PD",15000],
 	["A3PL_E350",12000],
 	["jonzie_ambulance",12000],
+	["A3PL_GMCVandura",12000],
 
 	["A3PL_Pierce_Ladder",12000],
 	["A3PL_Pierce_Heavy_Ladder",12000],
@@ -218,7 +240,32 @@ Config_Police_Vehs = [
 	"A3PL_VetteZR1_PD",
 	"A3PL_E350",
 	"A3PL_Pierce_Rescue",
+	"A3PL_Raptor_PD",
+	"A3PL_Raptor_PD_ST",
 	"A3PL_Taurus_PD",
-	"A3PL_Raptor_PD"
+	"A3PL_Taurus_PD_ST",
+	"A3PL_Silverado_FD",
+	"A3PL_Silverado_FD_Brush",
+	"A3PL_Silverado_SD_ST",
+	"A3PL_Taurus_FD"
 ];
 publicVariable "Config_Police_Vehs";
+
+Config_Arma_Vehs = [
+	"C_Van_02_medevac_F",
+	"C_Van_02_service_F",
+	"C_Van_02_transport_F",
+	"I_C_Van_02_transport_F",
+	"C_Van_02_vehicle_F",
+	"I_G_Van_02_transport_F",
+	"C_IDAP_Van_02_vehicle_F",
+	"C_IDAP_Van_02_transport_F",
+	"C_Offroad_02_unarmed_white_F",
+	"C_Offroad_02_unarmed_red_F",
+	"C_Offroad_02_unarmed_orange_F",
+	"C_Offroad_02_unarmed_green_F",
+	"C_Offroad_02_unarmed_F",
+	"C_Offroad_02_unarmed_blue_F",
+	"C_Offroad_02_unarmed_black_F"
+];
+publicVariable "Config_Arma_Vehs";

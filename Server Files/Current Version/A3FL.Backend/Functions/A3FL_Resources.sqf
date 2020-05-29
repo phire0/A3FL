@@ -1,8 +1,16 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Resources_StartDigging",
 {
 	private ["_inMarker","_eBucket","_s","_sBucket","_pos","_digProgress","_t"];
 	_inMarker = false;
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if(player getVariable "Digging") exitWith{[localize"STR_NewRessources_Action","red"] call A3PL_Player_Notification;};
 
 	{if ((getpos player) inArea _x) exitwith {_inMarker = true};} foreach ["A3PL_Marker_Sand1","A3PL_Marker_Sand2"];
@@ -14,7 +22,7 @@
 	player setVariable ["Digging",true,true];
 	[player,"A3PL_Shovel_Dig"] remoteExec ["A3PL_Lib_SyncAnim", 0];
 
-	["Filling bucket...",2] spawn A3PL_Lib_LoadAction;
+	["Filling bucket...",10] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
 	while {Player_ActionDoing} do {
@@ -61,7 +69,7 @@
 
 	if (!Player_ActionCompleted) exitwith {[localize"STR_NewRessources_Action","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
-	["Picking...",1] spawn A3PL_Lib_LoadAction;
+	["Picking...",2] spawn A3PL_Lib_LoadAction;
 	while {uiSleep 1.5; !Player_ActionCompleted } do
 	{
 		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';

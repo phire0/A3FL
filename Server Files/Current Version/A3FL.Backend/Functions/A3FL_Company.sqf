@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ['A3PL_Company_CreateOpen', {
 	disableSerialization;
 	private _isCorporate = [getPlayerUID player] call A3PL_Config_InCompany;
@@ -11,7 +19,7 @@
 	private _display = findDisplay 136;
 	private _name = ctrlText (_display displayCtrl 1400);
 	private _desc = ctrlText (_display displayCtrl 1401);
-	
+
 	closeDialog 0;
 
 	if((player getVariable["Player_Level",0]) < 6) exitwith {[localize"STR_COMPANY_LEVELCREATE","red"] call A3PL_Player_Notification;};
@@ -62,26 +70,26 @@
 
 	_control = _display displayCtrl 1100;
 	_control ctrlSetStructuredText parseText format["<t align='right' size='1.2'>$%1</t>",[_companyBudget] call A3PL_Lib_FormatNumber];
-	
+
 	//Close
 	_control = _display displayCtrl 1703;
 	_control buttonSetAction "[0] call A3PL_Lib_CloseDialog;";
 
 	//Desc edit
 	_control = _display displayCtrl 1702;
-	_control buttonSetAction "[] call A3PL_Company_DescEdit;";
+	_control buttonSetAction "call A3PL_Company_DescEdit;";
 
 	//Pay edit
 	_control = _display displayCtrl 1701;
-	_control buttonSetAction "[] call A3PL_Company_SetPay;";
+	_control buttonSetAction "call A3PL_Company_SetPay;";
 
 	//Fire
 	_control = _display displayCtrl 1700;
-	_control buttonSetAction "[] call A3PL_Company_Fire;";
+	_control buttonSetAction "call A3PL_Company_Fire;";
 
 	//Bank transfer
 	_control = _display displayCtrl 1704;
-	_control buttonSetAction "[] call call A3PL_Company_Transfer;";
+	_control buttonSetAction "call call A3PL_Company_Transfer;";
 
 	[_cid, player] remoteExec ["Server_Company_ManageSetup",2];
 }] call Server_Setup_Compile;
@@ -91,9 +99,9 @@
 	_desc = param [0,localize"STR_COMPANY_NODESCRIPTION"];
 	_empList = param [1,[]];
 	_cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
-	
+
 	_display = findDisplay 137;
-	
+
 	//Employees list
 	_control = _display displayCtrl 1500;
 	{
@@ -174,7 +182,7 @@
 	_amount = round(parseNumber(ctrlText 5372));
 	_companyTransfer = false;
 	if(["(C)", lbText [5472, (lbCurSel 5472)]] call BIS_fnc_inString) then {_companyTransfer = true;} else {_companyTransfer = false;};
-	
+
 	if (((lbCurSel 5472) == -1) || (_amount <= 0)) exitWith {[localize"STR_COMPANY_TRANSFERTERROR", "red"] call A3PL_Player_Notification;};
 
 	_cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
@@ -188,7 +196,7 @@
 
 		[_targetCID, _amount, format[localize"STR_COMPANY_TRANSFERFROM",_cName]] remoteExec ["Server_Company_SetBank",2];
 		[_cid, -_amount, format[localize"STR_COMPANY_TRANSFERTO",_cTName]] remoteExec ["Server_Company_SetBank",2];
-		
+
 		_format = format[localize"STR_COMPANY_YOUTRANSFERMONEYTOCOMPANYFROMYOURCOMPANY", [_amount] call A3PL_Lib_FormatNumber,_cTName];
 	} else {
 		_sendTo = lbData [5472, (lbCurSel 5472)];
@@ -266,7 +274,7 @@
 
 ['A3PL_Company_RegisterReceive', {
 	_companies = param [0,[]];
-	
+
 	if(_companies isEqualTo []) exitWith {};
 
 	_display = findDisplay 153;
@@ -331,14 +339,14 @@
 	_display = findDisplay 139;
 
 	_control = _display displayCtrl 1600;
-	_control buttonSetAction "[] call A3PL_Company_BillPay;";
+	_control buttonSetAction "call A3PL_Company_BillPay;";
 
 	_control = _display displayCtrl 1601;
 	_control buttonSetAction "closeDialog 0;";
 
 	if(([(player getVariable['faction','citizen'])] call A3PL_Government_isFactionLeader)) then {
 		_control = _display displayCtrl 1602;
-		_control buttonSetAction "[] call A3PL_Company_BillPayFaction;";
+		_control buttonSetAction "call A3PL_Company_BillPayFaction;";
 	} else {
 		_control = _display displayCtrl 1201;
 		_control ctrlShow false;
@@ -348,7 +356,7 @@
 
 	if(([getPlayerUID player] call A3PL_Config_IsCompanyBoss)) then {
 		_control = _display displayCtrl 1603;
-		_control buttonSetAction "[] call A3PL_Company_BillPayCompany;";
+		_control buttonSetAction "call A3PL_Company_BillPayCompany;";
 	} else {
 		_control = _display displayCtrl 1202;
 		_control ctrlShow false;

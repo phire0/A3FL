@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["Server_Police_Impound",
 {
 	private _veh = param [0,objNull];
@@ -124,7 +132,7 @@
 			private _return = [_query, 2] call Server_Database_Async;
 			if(count _return > 0) exitWith {
 				private _id = _return select 0;
-				private _query = format ["DELETE FROM policedatabase WHERE ID='%1'",_id];
+				private _query = format ["CALL DeleteWarrants(%1)",_id];
 				[_query, 1] call Server_Database_Async;
 				private _output = format[localize"STR_SERVER_POLICE_SUCCESSFULLYDELETEDWARRANT",_name];
 				[_name,_call,_output] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];

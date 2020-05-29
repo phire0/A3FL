@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Lib_CloseInventoryDialog",
 {
 	private _t = 0;
@@ -192,7 +200,7 @@
 	private _anim = animationState player;
 	player setVariable ["dragged",false,true];
 	_veh lock 1;
-	player moveInCargo _veh;
+	player moveInCargo [_veh,1];
 	_veh lock 2;
 	if (_detain) then {
 		[_veh,_anim] spawn {
@@ -477,9 +485,10 @@
 	disableSerialization;
 	private _text = param [0,""];
 	private _actionTime = param [1,5];
-	private _time = 0;
+	_time = 0;
 	private _display = uiNamespace getVariable "Dialog_HUD_LoadAction";
 	Player_ActionDoing = true;
+	_refreshSpeed = _actionTime / 100;
 
 	private _control = _display displayCtrl 351;
 	_control ctrlSetStructuredText parseText format ["<t align='center'>%1</t>",_text];
@@ -492,7 +501,7 @@
 	for "_i" from 1 to 100 do
 	{
 		_opacity = _opacity - 0.01;
-		(_display displayCtrl 394) ctrlSetFade _opacity;
+		(_display displayCtrl 394) ctrlSetFade  _opacity;
 		(_display displayCtrl 350) ctrlSetFade _opacity;
 		(_display displayCtrl 351) ctrlSetFade _opacity;
 		(_display displayCtrl 352) ctrlSetFade _opacity;
@@ -500,7 +509,6 @@
 		(_display displayCtrl 350) ctrlCommit 0;
 		(_display displayCtrl 351) ctrlCommit 0;
 		(_display displayCtrl 352) ctrlCommit 0;
-		sleep 0.005;
 	};
 
 	private _controlPosition = _display displayCtrl 350;
@@ -509,9 +517,8 @@
 		_percent = _time / _actionTime;
 		_control ctrlSetStructuredText parseText format ["<t size='1.8' font='RobotoCondensed' align='center' color='#B8B8B8'>%2%1</t>","%",round(_percent*100)];
 		_controlPosition progressSetPosition _percent;
-		_random = 0.01 + random (0.005);
-		sleep _random;
-		_time = _time + _random;
+		sleep _refreshSpeed;
+		_time = _time + _refreshSpeed;
 		if(Player_ActionInterrupted) exitWith {};
 		if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
 		if (!(vehicle player == player)) exitwith {};
@@ -560,7 +567,7 @@
 	private _pos = param [1,[]];
 	private _job = param [2,""];
 	private _assignTime = param [3,1200];
-	private _inArea = param [4,""]; 
+	private _inArea = param [4,""];
 
 	[_class,_pos,format ["%1",toUpper _job],player] remoteExec ["Server_Vehicle_Spawn", 2];
 

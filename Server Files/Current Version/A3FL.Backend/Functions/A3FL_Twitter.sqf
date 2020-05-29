@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Twitter_Init",
 {
 	for "_i" from 0 to 7 do
@@ -11,7 +19,7 @@
 		waitUntil {!isNull (findDisplay 46)};
 		736713 cutRsc ["Dialog_HUD_Twitter", "PLAIN"];
 		waitUntil {!isNil "A3PL_Twitter_MsgDisplay"};
-		[] call A3PL_Twitter_MsgDisplay;
+		call A3PL_Twitter_MsgDisplay;
 	};
 }] call Server_Setup_Compile;
 
@@ -19,14 +27,14 @@
 {
 	private ["_msg","_result"];
 	_msg = ctrlText 98311;
-	
+	_dnCost = 1000;
+
 	if (count _msg < 1) exitwith {};
 	if (count _msg > 140) exitwith { [localize"STR_NewTwitter_140Max", "red"] call A3PL_Player_Notification; };
 	if (!(profilenamespace getVariable ["A3PL_Twitter_Enabled",true])) exitwith {[localize"STR_NewTwitter_Disabled", "red"] call A3PL_Player_Notification;};
 
 	closedialog 0;
-	
-	//Receive all the icons and shit
+
 	_twitterTag = player getVariable["twitterTag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]];
 	_msgcolor = _twitterTag select 0;
 	_namecolor = _twitterTag select 1;
@@ -46,7 +54,6 @@
 		 };
 	 };
 
-	//Define all the information
 	_messageto = "";
 	_todatabase = true;
 	_doubleCommand = true;
@@ -68,6 +75,23 @@
 		_msgcolor = "#ffbfbf";
 		[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
 	};
+	// if (((toLower (_splitted select 0) == "/dn")) && !_doubleCommand) exitWith {
+	// 	_splitted deleteat 0;
+	// 	_messageto = ["darknet",["darknet",player,player getvariable ["name",(name player)],(time + 300)]];
+	// 	_todatabase = true;
+	// 	_doubleCommand = true;
+	// 	_msg = _splitted joinString " ";
+	// 	_name = format ["%1",_name];
+	// 	_namepicture = "\A3PL_Common\icons\citizen.paa";
+	// 	if(player getVariable ["Player_Bank",0] < _dnCost) exitWith {["You do not have enough to post on the DarkNet!","red"] call A3PL_Player_Notification;};
+	// 	[player, 'Player_Bank', ((player getVariable 'Player_Bank') - _dnCost)] remoteExec ['Server_Core_ChangeVar', 2];
+	// 	if(!isNil "A3PL_phoneNumberActive") then {
+	// 		_name = format ["DarkNet [%1]", A3PL_phoneNumberActive];
+	// 	};
+	// 	_namecolor = "#202020";
+	// 	_msgcolor = "#ffffff";
+	// 	[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
+	// };
 	if (((toLower (_splitted select 0) == "/r")) && !_doubleCommand) exitWith {
 		if(!(pVar_AdminTwitter)) exitwith {
 			[localize"STR_NewTwitter_CantExecute","#a3ffc1","","Commands","#42f47d",""] spawn A3PL_Twitter_NewMsg;
@@ -77,8 +101,8 @@
 		_doubleCommand = true;
 		_splitted deleteat 0;
 
-		_namecolor = "#c64700"; //Set the name text to dark red.
-		_msgcolor = "#ff9960"; //Set text to whitered
+		_namecolor = "#c64700";
+		_msgcolor = "#ff9960";
 		_name = format ["Answer from %1",_name];
 		_namepicture = "";
 		_found = false;
@@ -157,8 +181,8 @@
 	_namecolor = param [4,""];
 	_messageto = param [5,""];
 	_truecaller = param [6,""];
-	_msgduration = 20; // time before it gets removed
-	_maxmsg = (8 - 1); // max messages - 1 because forced
+	_msgduration = 20;
+	_maxmsg = (8 - 1);
 
 
 	_cancelaction = true;
@@ -167,6 +191,12 @@
 		if (_messageto select 0 == "admin") then {
 			if(pVar_AdminTwitter) then {_cancelaction = false;};
 			A3PL_Twitter_ReplyArr = (missionNameSpace getVariable ["A3PL_Twitter_ReplyArr",[]]) + [(_messageto select 1)];
+		};
+
+		if (_messageto select 0 == "darknet") then {
+			if(player getVariable["faction","citizen"] == "citizen") then {_cancelaction = false;};
+			A3PL_Twitter_ReplyArr = (missionNameSpace getVariable ["A3PL_Twitter_ReplyArr",[]]) + [(_messageto select 1)];
+			diag_log "Darknet message recieved";
 		};
 
 		if (_messageto select 0 == "reply") then {
@@ -180,11 +210,10 @@
 	};
 
 	if (_cancelaction) exitwith {};
-	// changes it to readable !@#$%
+
 	_msg = _msg call A3PL_Twitter_stripLineBreaks;
 	_msg = _msg call A3PL_Twitter_replaceAmpersands;
 
-	// defines chat
 	_logo = "";
 	_nametext = "";
 	_logname = "";
@@ -240,27 +269,21 @@
 		_selmsg = _selmsg + 1;
 	};
 
-	// hopefully these 2 lines behave like an atomic operation
 	_id = A3PL_TwitterMsg_Counter + 1;
 	A3PL_TwitterMsg_Counter = A3PL_TwitterMsg_Counter + 1;
 	A3PL_TwitterMsg_Array set [_maxmsg, [_msg, _id]];
 
-	//set twitter feed text
 	((uiNamespace getVariable ["Dialog_HUD_Twitter", displayNull]) displayCtrl 1000) ctrlSetText "Twitter";
 
 	call A3PL_Twitter_MsgDisplay;
-	//---------------------------------------------------------
 	[_id, _msgduration] spawn
 	{
 		private ["_id","_msgduration","_last"];
 		_id = param [0,0];
 		_msgduration = param [1,20];
 
-		// wait for message display duration to time out
 		uiSleep _msgduration;
 
-		// find the original message index, which may have moved during the time out period;
-		// or it may have been already pushed off the list, in which case it won't find it.
 		{
 			if (_x select 1 == _id) exitWith
 			{
@@ -269,7 +292,6 @@
 			};
 		} forEach A3PL_TwitterMsg_Array;
 
-		//if the last is removed remove the twitter feed text
 		_last = false;
 		{
 			if (_x select 0 != "") exitwith {_last = false;};

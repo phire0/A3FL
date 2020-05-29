@@ -1,19 +1,28 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ['A3PL_Loop_Setup', {
 	["itemAdd", ["Loop_LockView", {[] spawn A3PL_Loop_LockView;}, 1, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_RoadSigns", {[] spawn A3PL_Loop_RoadSigns;}, 1, 'seconds']] call BIS_fnc_loop;
+	["itemAdd", ["Loop_RoadSigns", {[] spawn A3PL_Loop_RoadSigns;}, 3, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Paycheck", {[] spawn A3PL_Loop_Paycheck;}, 60, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_HUD", {[] spawn A3PL_HUD_Loop;}, 1, 'seconds']] call BIS_fnc_loop;
+	["itemAdd", ["Loop_HUD", {[] spawn A3PL_HUD_Loop;}, 2, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Hunger", {[] spawn A3PL_Loop_Hunger;}, 370, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Thirst", {[] spawn A3PL_Loop_Thirst;}, 350, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_NameTags", {[] spawn A3PL_Player_NameTags;}, 1, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_BusinessTags", {[] spawn A3PL_Player_BusinessTags;}, 5, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_RoadworkerMarkers", {[] spawn A3PL_JobRoadWorker_MarkerLoop;}, 10, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_Medical", {[] spawn A3PL_Medical_Loop;}, 5, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_GPS", {[] spawn A3PL_Police_GPS;}, 5, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_Drugs", {[] call A3PL_Drugs_Loop;}, 30, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_Alcohol", {[] call A3PL_Alcohol_Loop;}, 30, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_JailMarkers", {[] call A3PL_Prison_Markers;}, 30, 'seconds']] call BIS_fnc_loop;
-	//["itemAdd", ["Loop_HousingTaxes", {[] call A3PL_Loop_HousingTaxes;}, 1800, 'seconds']] call BIS_fnc_loop;
+	["itemAdd", ["Loop_RoadworkerMarkers", {[] spawn A3PL_JobRoadWorker_MarkerLoop;}, 15, 'seconds'],{ player getVariable ["job","unemployed"] == "Roadside" }, { player getVariable ["job","unemployed"] != "Roadside" }] call BIS_fnc_loop;
+	["itemAdd", ["Loop_Medical", {[] spawn A3PL_Medical_Loop;}, 1, 'seconds',{ !((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) || (player getVariable ["bloodOverlay",false]) },{ ((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) && !(player getVariable ["bloodOverlay",false]) }]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_GPS", {[] spawn A3PL_Police_GPS;}, 10, 'seconds',{ player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg","fims"] }, { !(player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg","fims"]) }]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_Drugs", {[] spawn A3PL_Drugs_Loop;}, 30, 'seconds',{ player getVariable ["drugs",false] },{ !(player getVariable["drugs",false]) }]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_Alcohol", {[] spawn A3PL_Alcohol_Loop;}, 30, 'seconds',{ player getVariable ["alcohol",false] },{ !(player getVariable["alcohol",false]) }]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_JailMarkers", {[] spawn A3PL_Prison_Markers;}, 30, 'seconds',{ player getVariable ["job","unemployed"] IN ["usms"] },{ !(player getVariable ["job","unemployed"] IN ["usms"]) }]] call BIS_fnc_loop;
+	["itemAdd", ["drowningSystem", {call A3PL_Loop_Drowning;}, 1, "seconds", {(underwater player) && !(isAbleToBreathe player)}, {!(underwater player) || (isAbleToBreathe player)}]] call BIS_fnc_loop;
+	//["itemAdd", ["Loop_HousingTaxes", {call A3PL_Loop_HousingTaxes;}, 1800, 'seconds']] call BIS_fnc_loop;
 
 	//Events
 	//["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
@@ -25,6 +34,18 @@
 		if((cameraView == "EXTERNAL") && (vehicle player == player)) then {player switchCamera "INTERNAL";};
 		if(Player_LockView_Time <= time) then {Player_LockView = false;};
 	};
+}] call Server_Setup_Compile;
+
+['A3PL_Loop_Drowning',{
+    private _oxygen = getOxygenRemaining player;
+    private _safeLimit = 0.2;
+    if(_oxygen < _safeLimit) then {
+        player setOxygenRemaining _safeLimit;
+        if(player getVariable ["A3PL_Medical_Alive",true]) then {
+            [player,"chest","breathing"] call A3PL_Medical_ApplyWound;
+            [] spawn A3PL_Medical_Die;
+        };
+    };
 }] call Server_Setup_Compile;
 
 ["A3PL_Loop_RoadSigns",
@@ -89,7 +110,7 @@
 {
 	if(isNil {player getVariable ["house",nil]}) exitWith {};
 	private _taxPrice = 200;
-	private _bank = player getVariable["Player_Bank",0];	
+	private _bank = player getVariable["Player_Bank",0];
 	player setVariable["Player_Bank",_bank-_taxPrice,true];
 	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];
 	[format [localize"STR_NewLoop_1",_taxPrice],"yellow"] call A3PL_Player_Notification;
@@ -106,16 +127,16 @@
 		private _jobXP = [_job,"xp"] call A3PL_Config_GetPaycheckInfo;
 		private _done = false;
 
-		[] call A3PL_Gang_CapturedPaycheck;
+		call A3PL_Gang_CapturedPaycheck;
 
 		if(_job IN _factionJobs) then {
 			_done = true;
-			_payAmount = [] call A3PL_Government_FactionPay;
+			_payAmount = call A3PL_Government_FactionPay;
 		} else {
 			private _inCompany = [getPlayerUID player] call A3PL_Config_InCompany;
 			if(_inCompany) then {
 				_done = true;
-				_payAmount = [] call A3PL_Company_Paycheck;
+				_payAmount = call A3PL_Company_Paycheck;
 			};
 		};
 		if(!_done) then {[format[localize"STR_NewLoop_6",_payAmount], "green"] call A3PL_Player_Notification;};
@@ -160,7 +181,7 @@
 		[localize"STR_NewLoop_9", "red"] call A3PL_Player_Notification;
 	};
 
-	[] call A3PL_Lib_VerifyHunger;
+	call A3PL_Lib_VerifyHunger;
 	profileNamespace setVariable ["player_hunger",Player_Hunger];
 
 	if (Player_Hunger <= 0) then {
@@ -192,7 +213,7 @@
 	if(player getVariable ["jailed",false]) exitWith {};
 
 	Player_Thirst = Player_Thirst - _amount;
-	[] call A3PL_Lib_VerifyThirst;
+	call A3PL_Lib_VerifyThirst;
 
 	if ((Player_Thirst >= 45) && (Player_Thirst <= 50) && (isNil "A3PL_ThirstWarning1") && (!(player getVariable ["Incapacitated",false]))) then {
 		A3PL_ThirstWarning1 = true;

@@ -121,7 +121,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminAddToPlayer;";
+			action = "call A3PL_AdminAddToPlayer;";
 		};
 		class Button_AddToFactory: RscButton
 		{
@@ -132,7 +132,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminAddToFactory;";
+			action = "call A3PL_AdminAddToFactory;";
 		};
 		class Button_CreateOnPlayer: RscButton
 		{
@@ -143,7 +143,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminCreateOnPlayer;";
+			action = "call A3PL_AdminCreateOnPlayer;";
 		};
 		class RscButton_1603: RscButton
 		{
@@ -187,7 +187,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminHealPlayer;";
+			action = "call A3PL_AdminHealPlayer;";
 		};
 		class Button_TeleportTo: RscButton
 		{
@@ -198,7 +198,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminTeleportTo;";
+			action = "call A3PL_AdminTeleportTo;";
 		};
 		class Button_TeleportToMe: RscButton
 		{
@@ -209,7 +209,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminTeleportToMe;";
+			action = "call A3PL_AdminTeleportToMe;";
 		};
 		class Button_GlobalMessage: RscButton
 		{
@@ -220,7 +220,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminGlobalMessage;";
+			action = "call A3PL_AdminGlobalMessage;";
 		};
 		class Button_AdminMessage: RscButton
 		{
@@ -231,7 +231,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminAdminMessage;";
+			action = "call A3PL_AdminAdminMessage;";
 		};
 		class Button_DirectMessage: RscButton
 		{
@@ -242,7 +242,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminDirectMessage;";
+			action = "call A3PL_AdminDirectMessage;";
 		};
 		class TextField_Messages: RscEdit
 		{
@@ -262,7 +262,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0103125 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminSearchFactoryList;";
+			action = "call A3PL_AdminSearchFactoryList;";
 		};
 		class Button_PlayerSearch: RscButton
 		{
@@ -273,7 +273,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0103125 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[] call A3PL_AdminSearchPlayerList;";
+			action = "call A3PL_AdminSearchPlayerList;";
 		};
 		class IGUIBack_2204: IGUIBack
 		{

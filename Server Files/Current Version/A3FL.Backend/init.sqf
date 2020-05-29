@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 Server_Setup_Files = [
 	//Backend Files
 	['Backend', 'Server_Setup'],
@@ -77,6 +85,8 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Shrooms'],
 	['Functions', 'A3FL_Freight'],
 	['Functions', 'A3FL_Cocaine'],
+	['Functions', 'A3FL_Warehouses'],
+	['Functions', 'A3FL_JobShipCaptain'],
 
 	//Events Functions
 	//['Functions', 'A3FL_Halloween'],
@@ -122,6 +132,7 @@ Server_Setup_Files = [
 	['Server', 'Server_Company'],
 	['Server', 'Server_Gang'],
 	['Server', 'Server_Shrooms'],
+	['Server', 'Server_Warehouses'],
 
 	//Configs Files
 	['Configs', 'Config_Shops'],
@@ -138,7 +149,8 @@ Server_Setup_Files = [
 	['Configs', 'Config_Food'],
 	['Configs', 'Config_Objects'],
 	['Configs', 'Config_Resources'],
-	['Configs', 'Config_Vehicles']
+	['Configs', 'Config_Vehicles'],
+	['Configs', 'Config_Warehouses']
 ];
 
 Server_Setup_Compile = {

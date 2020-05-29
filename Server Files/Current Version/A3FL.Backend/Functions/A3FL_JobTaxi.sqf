@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define DEFAULTFARE [25,10,10,5]
 
 ["A3PL_JobTaxi_SetupFare",
@@ -15,7 +23,7 @@
 
 	//button EH
 	_control = _display displayCtrl 1600;
-	_control ctrlAddEventHandler ["buttonDown",{[] call A3PL_JobTaxi_SetFare;}];
+	_control ctrlAddEventHandler ["buttonDown",{call A3PL_JobTaxi_SetFare;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_JobTaxi_SetFare",

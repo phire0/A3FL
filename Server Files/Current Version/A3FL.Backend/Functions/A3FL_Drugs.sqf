@@ -1,7 +1,16 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Alcohol_Add",
 {
 	private _add = param [0,0];
 	Player_Alcohol = Player_Alcohol + (_add);
+	player setVariable["alcohol",true,true];
 	profileNamespace setVariable ["player_alcohol",Player_Alcohol];
 }] call Server_Setup_Compile;
 
@@ -24,7 +33,7 @@
 	if(_totalDrugs > 0) exitWith {};
 
 	//Do not loop if not drunk!
-	if((_CurrentAlcool <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {[] call A3PL_Alcohol_ResetEffects;};
+	if((_CurrentAlcool <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Alcohol_ResetEffects;};
 
 	//Incapacitated from too much alcohol little matthew, do not edit the rules!
 	if(_CurrentAlcool >= 80) exitWith {
@@ -56,7 +65,7 @@
 	_randomFall = random(100);
 	if(_randomFall < (_CurrentAlcool)) then {
 		if((speed player) > 3) then {
-			[] call A3PL_Lib_Ragdoll;
+			call A3PL_Lib_Ragdoll;
 		};
 	};
 
@@ -70,10 +79,11 @@
 {
 	resetCamShake;
 	enableCamShake false;
+	player setVariable["alcohol",false,true];
 	if(!pVar_FastAnimationOn) then {player setAnimSpeedCoef 1;};
 	"ChromAberration" ppEffectEnable false;
 	"RadialBlur" ppEffectEnable false;
-	[] call A3PL_Alcohol_Verify;
+	call A3PL_Alcohol_Verify;
 }] call Server_Setup_Compile;
 
 //Player_Drugs = [shrooms,cocaine,weed]
@@ -98,6 +108,7 @@
 	if(_index < 0) exitwith {};
 
 	_new = (Player_Drugs select _index) + (_add);
+	player setVariable["drugs",true,true];
 	Player_Drugs set[_index, _new];
 	profileNamespace setVariable ["player_drugs",Player_Drugs];
 }] call Server_Setup_Compile;
@@ -111,7 +122,8 @@
 	} foreach Player_Drugs;
 
 
-	if((_totalDrugs <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {[] call A3PL_Drugs_ResetEffects;};
+	if((_totalDrugs <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Drugs_ResetEffects;};
+
 
 	//Incapacitated from too much drugs!
 	if(_totalDrugs >= 150) exitWith {
@@ -217,6 +229,7 @@
 ["A3PL_Drugs_ResetEffects",
 {
 	Player_Drugs = [0,0,0];
+	player setVariable["drugs",false,true];
 	resetCamShake;
 	enableCamShake false;
 	if(!pVar_FastAnimationOn) then {player setAnimSpeedCoef 1;};

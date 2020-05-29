@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Shop_Open",
 {
 	private ["_shop","_display","_currency","_control","_pos","_posConfig","_cam"];
@@ -106,7 +114,7 @@
 
 ["A3PL_Shop_Buy",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_taxed","_display","_control","_shop","_currency","_allItems","_price","_item","_itemBuy","_itemType","_itemClass","_itemName","_amount","_totalPrice","_stockCheck","_index"];
 	_shop = param [0,""];
 	_shopObject = cursorobject;
@@ -278,7 +286,7 @@
 
 ["A3PL_Shop_Sell",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_shop","_has","_allItems","_price","_currency","_item","_itemBuy","_itemSell","_itemType","_itemClass","_itemName","_index","_display","_isAbove"];
 	_shop = param [0,""];
 	_currency = param [1,"player_cash"];
@@ -336,7 +344,7 @@
 			{
 				if (!([_itemClass,"canPickup"] call A3PL_Config_GetItem)) then
 				{
-					_near = nearestObjects [player, [([_itemClass,"class"] call A3PL_Config_GetItem)], 5, true];
+					_near = nearestObjects [player, [([_itemClass,"class"] call A3PL_Config_GetItem)], 2, true];
 					{
 						if ((_x getVariable "class") == _itemClass) exitwith
 						{

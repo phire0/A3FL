@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_ATC_LeaveJob",
 {
 	player setPos (npc_faastart modelToWorld [0,2,0]);
@@ -272,9 +280,9 @@
 	createDialog "Dialog_ATC";
 	buttonSetAction [1601, "[true] call A3PL_ATC_RadarRange;"];
 	buttonSetAction [1600, "[false] call A3PL_ATC_RadarRange;"];
-	buttonSetAction [1603, "[] call A3PL_ATC_ATISPreview;"];
+	buttonSetAction [1603, "call A3PL_ATC_ATISPreview;"];
 	buttonSetAction [1604, "A3PL_ATC_ATISTEXT = ctrlText 1407; publicVariable 'A3PL_ATC_ATISTEXT';"];
-	buttonSetAction [1602, "[] call A3PL_ATC_Transfer"];
+	buttonSetAction [1602, "call A3PL_ATC_Transfer"];
 	
 	if (!isNil "A3PL_ATC_ATISTEXT") then
 	{

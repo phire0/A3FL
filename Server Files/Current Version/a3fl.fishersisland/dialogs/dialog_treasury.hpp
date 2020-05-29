@@ -59,7 +59,7 @@ class Dialog_Treasury
 			y = 0.503555 * safezoneH + safezoneY;
 			w = 0.0366145 * safezoneW;
 			h = 0.0348519 * safezoneH;
-			action = "[] call A3PL_Government_SetTax;";
+			action = "call A3PL_Government_SetTax;";
 		};
 		class combo_selectbalance: RscCombo
 		{
@@ -116,7 +116,7 @@ class Dialog_Treasury
 			y = 0.676 * safezoneH + safezoneY;
 			w = 0.0360937 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_Government_AddBalance;";
+			action = "call A3PL_Government_AddBalance;";
 		};
 		class button_setlaw: RscButtonEmpty
 		{
@@ -125,7 +125,7 @@ class Dialog_Treasury
 			y = 0.621 * safezoneH + safezoneY;
 			w = 0.0979687 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_Government_SetLaw;";
+			action = "call A3PL_Government_SetLaw;";
 		};
 		class button_addlaw: RscButtonEmpty
 		{
@@ -134,7 +134,7 @@ class Dialog_Treasury
 			y = 0.621 * safezoneH + safezoneY;
 			w = 0.0876563 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_Government_AddLaw;";
+			action = "call A3PL_Government_AddLaw;";
 		};
 		
 		class button_removelaw: RscButtonEmpty
@@ -144,7 +144,7 @@ class Dialog_Treasury
 			y = 0.621 * safezoneH + safezoneY;
 			w = 0.0979687 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "[] call A3PL_Government_RemoveLaw;";
+			action = "call A3PL_Government_RemoveLaw;";
 		};		
 		
 		class button_close: RscButtonEmpty

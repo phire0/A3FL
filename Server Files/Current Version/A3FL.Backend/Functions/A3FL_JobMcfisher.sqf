@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_JobMcfisher_CombineBurger",
 {
 	private ["_intersect","_classIntersect","_burgers"];
@@ -5,7 +13,7 @@
 	_creating = param [1,"burger"];
 	_classIntersect = _intersect getVariable "class";
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
+	if(!(call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
 	if (isNull _intersect) exitwith {[localize"STR_A3PL_JobMcfisher_ErrorSystemNull", "red"] call a3pl_player_notification;};
 	if (isNil "_classIntersect") exitwith {[localize"STR_A3PL_JobMcfisher_ErrorSystemClass", "red"] call a3pl_player_notification;};
 	if (!(_classIntersect IN ["burger_bun","burger_cooked","burger_raw","burger_burnt","tacoshell"])) exitwith {[localize"STR_A3PL_JobMcfisher_ErrorCombine", "red"] call a3pl_player_notification;};

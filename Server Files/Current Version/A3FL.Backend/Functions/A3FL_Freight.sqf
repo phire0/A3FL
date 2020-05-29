@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Freight_Start",
 {
 	private _startPoint = param [0,objNull];
@@ -16,7 +24,7 @@
 {
 	private _startPoint = param [0,objNull];
 	private _plane = param [1,objNull];
-	private _destinations = [npc_freight_svt,npc_freight_nd];
+	private _destinations = [npc_freight_svt,npc_freight_nd,npc_freight_lubbock];
 	_destinations find _startPoint;
 	_destinations deleteAt (_destinations find _startPoint);
 	private _destination = selectRandom _destinations;
@@ -27,7 +35,7 @@
 		if((_plane distance _startPoint) > 20) exitWith {_error = true;};
 		sleep 1;
 	};
-	if(_error) exitWith {[] call A3PL_Freight_End;["You moved the plane while it was loading!","green"] call A3PL_Player_Notification;};
+	if(_error) exitWith {call A3PL_Freight_End;["You moved the plane while it was loading!","green"] call A3PL_Player_Notification;};
 	_plane setVariable["onDeliveryCargo",_cargoValue,true];
 	["Your cargo is ready!","green"] call A3PL_Player_Notification;
 	private _destString = [_destination] call A3PL_Freight_DestString;
@@ -35,7 +43,7 @@
 	player setVariable["deliveryPlane",_plane,false];
 	_plane setVariable["onDelivery",true,true];
 	_plane setVariable["onDeliveryDest",_destination,true];
-	_plane addEventHandler ["Killed",{[] call A3PL_Freight_DestroyFees;}];
+	_plane addEventHandler ["Killed",{call A3PL_Freight_DestroyFees;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_Freight_Unload",
@@ -53,7 +61,7 @@
 		if((_plane distance _unloadPoint) > 20) exitWith {_error = true;};
 		sleep 1;
 	};
-	if(_error) exitWith {[] call A3PL_Freight_End;["You moved the plane while it was unloading!","green"] call A3PL_Player_Notification;};
+	if(_error) exitWith {call A3PL_Freight_End;["You moved the plane while it was unloading!","green"] call A3PL_Player_Notification;};
 	["Cargo unloaded!","green"] call A3PL_Player_Notification;
 	_plane setVariable["onDeliveryCargo",nil,true];
 	_plane removeEventHandler ["Killed", 0];
@@ -82,9 +90,9 @@
 		[format["Delivery successful! Your $%1 paycheck is waiting for you at your bank!",_pay],"green"] call A3PL_Player_Notification;
 		if(isNil "Player_Paycheck") then {Player_Paycheck = _pay;} else {Player_Paycheck = Player_Paycheck + _pay;};
 		[player, Player_Paycheck] remoteExec ["Server_Player_UpdatePaycheck",2];
-	};	
+	};
 	private _plane = player getVariable["deliveryPlane",objNull];
-	_plane setVariable["onDelivery",true,true];
+	_plane setVariable["onDelivery",false,true];
 	player setVariable["deliveryPlane",nil];
 	player setVariable["job","unemployed",true];
 }] call Server_Setup_Compile;
@@ -95,6 +103,7 @@
 	private _return = "unknown";
 	if(_delPoint isEqualTo "npc_freight_svt") then {_return="Silverton Airfield";};
 	if(_delPoint isEqualTo "npc_freight_nd") then {_return="Northdale Airfield";};
+	if(_delPoint isEqualTo "npc_freight_lubbock") then {_return="Lubbock Airfield";};
 	_return;
 }] call Server_Setup_Compile;
 

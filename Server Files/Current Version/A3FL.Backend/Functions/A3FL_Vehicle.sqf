@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Vehicle_OpenStorage",
 {
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
@@ -283,11 +291,11 @@
 	switch (true) do
 	{
 		case (_classname IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]): {_sirenType = "fire";};
-		case (_classname IN ["A3PL_Tahoe_FD"]): {_sirenType = "fire_FR";};
-		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Taurus_PD"]): {_sirenType = "police";};
+		case (_classname IN ["A3PL_Tahoe_FD","A3PL_Taurus_FD","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush"]): {_sirenType = "fire_FR";};
+		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST"]): {_sirenType = "police";};
 		case (_classname IN ["Jonzie_Ambulance","A3PL_E350"]): {_sirenType = "ems";};
 		case (_classname IN ["A3PL_P362_TowTruck","A3PL_F150_Marker"]): {_sirenType = "civ";};
-		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB"]): {_sirenType = "Ship";};
+		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB","A3FL_LCM"]): {_sirenType = "Ship";};
 		default {_sirenType = "police";};
 	};
 	switch (_sirenType) do
@@ -357,10 +365,10 @@
 	{
 		case (_classname IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]): {_sirenType = "fire";};
 		case (_classname IN ["A3PL_Tahoe_FD"]): {_sirenType = "fire_FR";};
-		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Taurus_PD"]): {_sirenType = "police";};
+		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","M_explorer"]): {_sirenType = "police";};
 		case (_classname IN ["Jonzie_Ambulance","A3PL_E350"]): {_sirenType = "ems";};
 		case (_classname IN ["A3PL_P362_TowTruck","A3PL_F150_Marker"]): {_sirenType = "civ";};
-		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB"]): {_sirenType = "Ship";};
+		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB","A3FL_LCM"]): {_sirenType = "Ship";};
 		default {_sirenType = "police";};
 	};
 
@@ -370,7 +378,7 @@
 		{
 			switch (_action) do
 			{
-				case 1 : /* Code 1, Turn everything off */
+				case 1 :
 				{
 					[_veh,false,false,true] call A3PL_Vehicle_SoundSourceClear;
 					_veh call A3PL_Vehicle_SoundSourceCreate;
@@ -382,7 +390,7 @@
 						_veh animateSource ["Lightbar",0];
 					};
 				};
-				case 2 : /* Lights Only */
+				case 2 :
 				{
 					if (_veh animationSourcePhase "lightbar" > 0.5) then
 					{
@@ -426,7 +434,7 @@
 				};
 				case 5 :
 				{
-					if (_veh animationPhase "SoundSource_3" < 0.5 && {!A3PL_Manual_KeyDown}) then
+					if (_veh animationPhase "SoundSource_3" < 0.5 && {A3PL_Manual_KeyDown}) then
 					{
 						_veh animate ["SoundSource_3",1, true];
 						_veh animate ["FT_Switch_36",1];
@@ -438,7 +446,7 @@
 				};
 				case 6 :
 				{
-					if (_veh animationPhase "SoundSource_4" < 0.5) then
+					if (_veh animationPhase "SoundSource_4" < 0.5 && {A3PL_Manual_KeyDown}) then
 					{
 						_veh animate ["SoundSource_4",1, true];
 						_veh animate ["FT_Switch_37",1];
@@ -448,13 +456,43 @@
 						_veh animate ["FT_Switch_37",0];
 					};
 				};
+				case 7 :
+				{
+	        if (_veh animationPhase "PD_Switch_9" < 0.5) then {
+	            _veh animate ["PD_Switch_9",1];
+							_veh animate ["DS_Floodlights",1];
+	        } else {
+	            _veh animate ["PD_Switch_9",0];
+							_veh animate ["DS_Floodlights",0];
+		        };
+				};
+				case 8 :
+				{
+					if (_veh animationPhase "PD_Switch_10" < 0.5) then {
+	            _veh animate ["PD_Switch_10",1];
+							_veh animate ["PS_Floodlights",1];
+	        } else {
+	            _veh animate ["PD_Switch_10",0];
+							_veh animate ["PS_Floodlights",0];
+	        };
+				};
+				case 9 :
+				{
+	        if (_veh animationSourcePhase "Spotlight" < 0.5 && _veh animationPhase "Spotlight_Addon" > 0.5) then {
+	            _veh animateSource ["Spotlight",1];
+				if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOn",_veh];};
+	        } else {
+	            _veh animateSource ["Spotlight",0];
+				if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOff",_veh];};
+	        };
+				};
 			};
 		};
 		case "ems":
 		{
 			switch (_action) do
 			{
-				case 1 : /* Code 1, Turn everything off */
+				case 1 :
 				{
 					[_veh,false,false,true] call A3PL_Vehicle_SoundSourceClear;
 					_veh call A3PL_Vehicle_SoundSourceCreate;
@@ -466,7 +504,7 @@
 						_veh animateSource ["Lightbar",0];
 					};
 				};
-				case 2 : /* Lights Only */
+				case 2 :
 				{
 					if (_veh animationSourcePhase "lightbar" > 0.5) then
 					{
@@ -536,7 +574,7 @@
 		{
 			switch (_action) do
 			{
-				case 1 : /* Code 1, Turn everything off */
+				case 1 :
 				{
 					[_veh,false,false,true] call A3PL_Vehicle_SoundSourceClear;
 					_veh call A3PL_Vehicle_SoundSourceCreate;
@@ -548,7 +586,7 @@
 						_veh animateSource ["Lightbar",0];
 					};
 				};
-				case 2 : /* Lights Only */
+				case 2 :
 				{
 					if (_veh animationSourcePhase "lightbar" > 0.5) then
 					{
@@ -618,7 +656,7 @@
 		{
 			switch (_action) do
 			{
-				case 1 : /* Code 1, Turn everything off */
+				case 1 :
 				{
 					[_veh,false,false,true] call A3PL_Vehicle_SoundSourceClear;
 					_veh call A3PL_Vehicle_SoundSourceCreate;
@@ -630,7 +668,7 @@
 						_veh animate ["Directional_F",0];
 					};
 				};
-				case 2 : /* Lights Only */
+				case 2 :
 				{
 					if (_veh animationSourcePhase "lightbar" > 0.5) then
 					{
@@ -686,7 +724,7 @@
 		{
 			switch (_action) do
 			{
-				case 1 : /* Code 1, Turn everything off */
+				case 1 :
 				{
 					[_veh,false,false,true] call A3PL_Vehicle_SoundSourceClear;
 					_veh animate ["Siren_Control_Switch",0];
@@ -697,7 +735,7 @@
 						_veh animateSource ["Lightbar",0];
 					};
 				};
-				case 2 : /* Lights Only */
+				case 2 :
 				{
 					if (_veh animationSourcePhase "lightbar" > 0.5) then
 					{
@@ -718,7 +756,7 @@
 		{
 			switch (_action) do
 			{
-				case 1 : /* Code 1, Turn everything off */
+				case 1 :
 				{
 					if (_veh animationPhase "SoundSource_1" > 0.5) then
 					{
@@ -747,7 +785,7 @@
 	if (animationstate player == "Acts_carFixingWheel") exitwith {[localize"STR_NewVehicle_13", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player == player)) exitwith {[localize"STR_NewVehicle_14", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_NewVehicle_15","red"] call A3PL_Player_Notification;};
-	["Repairing...",3] spawn A3PL_Lib_LoadAction;
+	["Repairing...",30] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	player playMoveNow 'Acts_carFixingWheel';
@@ -756,6 +794,7 @@
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 		if ((vehicle player) != player) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if (animationstate player == "Acts_carFixingWheel") then {player playMoveNow 'Acts_carFixingWheel';};
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewVehicle_16","red"] call A3PL_Player_Notification;};
 
@@ -1482,7 +1521,7 @@
 {
 	private _veh = _this select 0;
 	if ((speed _veh) > 3) exitWith {[localize"STR_NewVehicle_42","yellow"] call A3PL_Player_Notification;};
-	if ((typeOf _veh) IN ["A3PL_Cutter"]) then {
+	if ((typeOf _veh) IN ["A3PL_Cutter","A3FL_LCM"]) then {
 		if (simulationEnabled _veh) then {
 			[_veh] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 			[localize"STR_NewVehicle_43","green"] call A3PL_Player_Notification;
@@ -1526,6 +1565,35 @@
 	[localize"STR_NewVehicle_47", "green"] call A3PL_Player_Notification;
 
 	[_heli] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+}] call Server_Setup_Compile;
+
+["A3PL_Vehicle_SecureVehicle",
+{
+	private _vehicle = param [0,objNull];
+
+	private _ships = nearestObjects [_vehicle, ["A3FL_LCM"], 30];
+	if (count _ships < 1) exitwith {[localize"STR_NewVehicle_45", "red"] call A3PL_Player_Notification;};
+	private _ship = _ships select 0;
+
+	if(_ship IN A3PL_Player_Vehicles) then {
+		[_vehicle, _ship, false] call BIS_fnc_attachToRelative;
+		["Attached vehicle to ship!", "green"] call A3PL_Player_Notification;
+		[_vehicle] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+	} else {
+		["You do not have keys to this ship","red"] call A3PL_Player_Notification;
+	}
+}] call Server_Setup_Compile;
+
+["A3PL_Vehicle_UnsecureVehicle",
+{
+	private _ship = param [0,objNull];
+
+	{
+		detach _x;
+		[_x] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+	} foreach (attachedObjects _ship);
+	["All Vehicles Detached!", "green"] call A3PL_Player_Notification;
+
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Jerrycan",
@@ -1584,7 +1652,7 @@
 
 	Player_ActionCompleted = false;
 	_success = true;
-	["Unflip vehicle...",8] spawn A3PL_Lib_LoadAction;
+	["Unflip vehicle...",20] spawn A3PL_Lib_LoadAction;
 	while {sleep 0.5; !Player_ActionCompleted } do
 	{
 		if ((player distance2D _car) > 10) exitWith {[localize"STR_NewVehicle_53", "red"] call A3PL_Player_Notification; _success = false;};
@@ -1624,7 +1692,7 @@
 		};
 	} forEach (_nearVeh);
 
-	if(count _cars == 0) exitWith {[format [localize"STR_NewVehicle_55"]] call A3PL_Player_notification;};
+	if(count _cars == 0) exitWith {[format [localize"STR_NewVehicle_55"]] call A3PL_Player_notification; closeDialog 0;};
 
 	_control = _display displayCtrl 1500;
 	_control ctrlAddEventhandler ["LBSelChanged",
@@ -1706,6 +1774,38 @@
 	};
 	waituntil {!isNull findDisplay 46};
 	_forkskeys = (findDisplay 46) DisplayAddEventHandler ["keydown","_this call forksdokeyDown"];
-	waitUntil {(typeOf (vehicle player)) != "A3PL_Raptor_PD"};
+	waitUntil {!((typeOf (vehicle player)) IN ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Taurus_FD"])};
+	(findDisplay 46) displayremoveeventhandler ["keydown",_forkskeys];
+}] call Server_Setup_Compile;
+
+["A3PL_Vehicle_LCMRamp", {
+	forksdokeydown =
+	{
+		_key = _this select 1;
+		_return = false;
+		switch _key do
+		{
+			case 75:
+			{
+				_val = vehicle player animationSourcePhase "trunk";
+				_valu = _val + 0.01;
+				if (_valu >= 1) then {_valu = 1};
+				vehicle player animateSource ["trunk",_valu];
+				_return = true;
+			};
+			case 77:
+			{
+				_val = vehicle player animationSourcePhase "trunk";
+				_valu = _val - 0.01;
+				if (_valu <= 0) then {_valu = 0};
+				vehicle player animateSource ["trunk",_valu];
+				_return = true;
+			};
+		};
+		_return;
+	};
+	waituntil {!isNull findDisplay 46};
+	_forkskeys = (findDisplay 46) DisplayAddEventHandler ["keydown","_this call forksdokeyDown"];
+	waitUntil {!((typeOf (vehicle player)) IN ["A3FL_LCM"])};
 	(findDisplay 46) displayremoveeventhandler ["keydown",_forkskeys];
 }] call Server_Setup_Compile;

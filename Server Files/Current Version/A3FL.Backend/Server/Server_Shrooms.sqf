@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["Server_Shrooms_Loop",
 {
 	private _shrooms = nearestObjects [(getMarkerPos "Shroom_Picking"), ["A3FL_Mushroom"], 40, true];
@@ -26,11 +34,12 @@
 // 2 - Civ shooting range
 // 3 - south of race track
 // 4 - Church at steel mill
+// 5 - Port on new island
 ["Server_Shrooms_MoveMarker",
 {
 	private _markerArea = "Shroom_Picking";
 	private _markerLabel = "Shrooms_Field";
-	private _locations = [[7403,6286],[10327,7839],[4014,5459],[4300,6945]];
+	private _locations = [[7403,6286],[10327,7839],[4014,5459],[4300,6945],[2295,12000]];
 	private _currentLocation = missionNamespace getVariable ["MushroomAreaLocation",0];
 	private _nextLocation = selectRandom _locations;
 	if((_nextLocation find _locations) isEqualTo _currentLocation) exitWith {[] spawn Server_Shrooms_MoveMarker;};

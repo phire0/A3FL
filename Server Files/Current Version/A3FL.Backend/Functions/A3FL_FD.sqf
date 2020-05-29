@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ['A3PL_FD_SetLadderNumber',
 {
 	private _veh = _this select 0;
@@ -142,7 +150,7 @@
 {
 	private ["_hydrant","_adapter","_itemClass","_pos","_dir"];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	//check for correct types just to make sure (ropes can cause crashes sometimes)
 	_hydrant = param [0,objNull];
@@ -187,7 +195,7 @@
 {
 	private ["_hydrant"];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	//check for correct types just to make sure (ropes can cause crashes sometimes)
 	_hydrant = param [0,objNull];
@@ -209,7 +217,7 @@
 {
 	private ["_end"];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	_end = param [0,objNull];
 	if (!(_end isKindOf "A3PL_FD_HoseEnd1_Float")) exitwith {[localize"STR_NewFD_AdapterNo2","red"] call A3PL_Player_Notification;};
@@ -224,9 +232,9 @@
 	_end = param [0,objNull];
 	_endName = param [1,""];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
-	_myAdapter = call A3PL_Lib_AttachedFirst;
+	_myAdapter = [] call A3PL_Lib_AttachedFirst;
 	_otherEnd = [_myAdapter] call A3PL_FD_FindOtherEnd; //check other end
 
 	//IF THIS IS REMOVED IT CAN CAUSE SERVER CRASH IF ADAPTER CONNECTED TO SAME ADAPTER
@@ -400,7 +408,7 @@
 	_end = param [0,objNull];
 	_nozzleClass = "A3PL_High_Pressure"; //if we ever change the nozzle classname we can change it here
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	//do checks
 	if (!isNull Player_Item) exitwith { _format = format["You already have an item"]; [_format, "red"] call A3PL_Player_Notification; };
@@ -634,7 +642,7 @@
 	private ["_end","_hose","_ropes"];
 	_end = param [0,objNull];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	if (!(typeOf _end IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_GasHose"])) exitwith {["Vous n'interagissez pas avec l'adaptateur","red"] call A3PL_Player_Notification;};
 
@@ -661,7 +669,7 @@
 ["A3PL_FD_DeployHose",
 {
 	private ["_adapter1","_adapter2","_rope"];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if (Player_ItemClass != "FD_Hose") exitwith {["You do not hold a hose","red"] call A3PL_Player_Notification;};
 	_lengths = param [0,objNull];
 	[player,objNull,Player_ItemClass] remoteExec ["Server_Inventory_Drop", 2];
@@ -682,7 +690,7 @@
 ["A3PL_FD_GasDeployHose",
 {
 	private ["_adapter1","_adapter2","_rope"];
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if (Player_ItemClass != "FD_Hose") exitwith {["You do not hold a hose","red"] call A3PL_Player_Notification;};
 	_lengths = param [0,objNull];
 	[player,objNull,Player_ItemClass] remoteExec ["Server_Inventory_Drop", 2];
@@ -1030,7 +1038,7 @@
 	_building = param [0,objNull];
 	if(_building getVariable ["FireAlarmBroke",false]) then {
 		if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
-		["Alarm repair...",10+random 2] spawn A3PL_Lib_LoadAction;
+		["Alarm repair...",50] spawn A3PL_Lib_LoadAction;
 		_success = true;
 		while {uiSleep 1.5; Player_ActionDoing } do {
 			player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
@@ -1310,7 +1318,7 @@
 	disableSerialization;
 	createDialog "Dialog_PoliceDatabase";
 	private _display = findDisplay 211;
-	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) isEqualTo 28) then {[] call A3PL_FD_DatabaseEnter;}"];
+	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) isEqualTo 28) then {call A3PL_FD_DatabaseEnter;}"];
 	[_text] call A3PL_FD_UpdateComputer;
 }] call Server_Setup_Compile;
 

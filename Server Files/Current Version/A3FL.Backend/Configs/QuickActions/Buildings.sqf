@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 [
 	"Land_A3PL_BarGate",
 	localize"STR_INTSECT_OPCLBARG",
@@ -5,6 +13,7 @@
 		private _bargate = player_objintersect;
 		private _anim = (player_nameintersect splitstring "_") select 1;
 		private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
+		if(["keycard"] call A3PL_Inventory_Has) then {_canUse = true;};
 		if (!_canUse) exitwith {
 			[localize"STR_QuickActionsBuildings_JobDontAllowToUse","red"] call A3PL_Player_Notification;
 		};
@@ -22,6 +31,7 @@
 		private _bargate = player_objintersect;
 		private _anim = (player_nameintersect splitstring "_") select 1;
 		private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
+		if(["keycard"] call A3PL_Inventory_Has) then {_canUse = true;};
 		if (!_canUse) exitwith {
 			[localize"STR_QuickActionsBuildings_JobDontAllowToUse","red"] call A3PL_Player_Notification;
 		};
@@ -39,6 +49,7 @@
 		private _bargate = player_objintersect;
 		private _anim = (player_nameintersect splitstring "_") select 1;
 		private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
+		if(["keycard"] call A3PL_Inventory_Has) then {_canUse = true;};
 		if (!_canUse) exitwith {
 			[localize"STR_QuickActionsBuildings_JobDontAllowToUse","red"] call A3PL_Player_Notification;
 		};
@@ -52,12 +63,12 @@
 [
 	"Land_A3PL_Gas_Station",
 	localize"STR_QuickActionsBuildings_CheckMoneyInCash",
-	{[] call A3PL_Hydrogen_CheckCash;}
+	{call A3PL_Hydrogen_CheckCash;}
 ],
 [
 	"Land_A3PL_Gas_Station",
 	localize"STR_QuickActionsBuildings_TakeFuelStationCash",
-	{[] call A3PL_Hydrogen_TakeCash;}
+	{call A3PL_Hydrogen_TakeCash;}
 ],
 [
 	"",
@@ -82,17 +93,17 @@
 [
 	"",
 	localize"STR_INTSECT_SPVHINGAR",
-	{[] call A3PL_Storage_OpenCarStorage;}
+	{call A3PL_Storage_OpenCarStorage;}
 ],
 [
 	"",
 	localize"STR_INTSECT_VEHSTOR",
-	{[] call A3PL_Storage_OpenCarStorage;}
+	{call A3PL_Storage_OpenCarStorage;}
 ],
 [
 	"",
 	localize"STR_INTSECT_STOREVEH",
-	{[] call A3PL_Storage_CarStoreButton;}
+	{call A3PL_Storage_CarStoreButton;}
 ],
 [
 	"A3PL_carInfo",
@@ -102,17 +113,17 @@
 [
 	"",
 	localize"STR_INTSECT_OBJSTOR",
-	{[] call A3PL_Storage_OpenObjectStorage;}
+	{call A3PL_Storage_OpenObjectStorage;}
 ],
 [
 	"",
 	localize"STR_INTSECT_STOREOBJ",
-	{[] call A3PL_Storage_ObjectStoreButton;}
+	{call A3PL_Storage_ObjectStoreButton;}
 ],
 [
 	"A3PL_carInfo",
 	localize"STR_INTSECT_IMPNEARVEH",
-	{[] call A3PL_JobRoadWorker_Impound;}
+	{call A3PL_JobRoadWorker_Impound;}
 ],
 [
 	"land_a3pl_sheriffpd",
@@ -133,6 +144,40 @@
 			} else {
 				_intersect animateSource ["garage2",0];
 			};
+		};
+	}
+],
+[
+	"land_a3fl_sheriffpd",
+	localize"STR_QuickActionsBuildings_UseSDButton",
+	{
+		private _name = player_nameintersect;
+		private _inter = player_objintersect;
+		switch (_name) do {
+			case "door3_button": {_anim = ["door_3","door_4"]};
+            case "door3_button2": {_anim = ["door_3","door_4"]};
+            case "door5_button": {_anim = ["door_5","door_6"]};
+            case "door5_button2": {_anim = ["door_5","door_6"]};
+            case "door7_button": {_anim = ["door_7","door_8"]};
+            case "door7_button2": {_anim = ["door_7","door_8"]};
+            case "door15_button": {_anim = ["door_15"]};
+            case "door15_button2": {_anim = ["door_15"]};
+            case "door13_button": {_anim = ["door_13","door_14"]};
+            case "door13_button2": {_anim = ["door_13","door_14"]};
+		};
+		if (typeName _anim == "ARRAY") exitwith {
+			{
+				if (_inter animationPhase _x < 0.1) then {
+					_inter animate [_x,1];
+				} else {
+					_inter animate [_x,0];
+				};
+			} foreach _anim;
+		};
+		if (_inter animationPhase _anim < 0.1) then {
+			_inter animate [_anim,1];
+		} else {
+			_inter animate [_anim,0];
 		};
 	}
 ],
@@ -227,12 +272,12 @@
 [
 	"Land_A3PL_Gas_Station",
 	localize"STR_INTSECT_OPENGASMENU",
-	{[] call A3PL_Hydrogen_Open;}
+	{call A3PL_Hydrogen_Open;}
 ],
 [
 	"Land_A3PL_Gas_Station",
 	localize"STR_QuickActionsBuildings_OpCLoseFuel",
-	{[] call A3PL_Hydrogen_LockUnlock;}
+	{call A3PL_Hydrogen_LockUnlock;}
 ],
 [
 	"Land_A3PL_Gas_Station",
@@ -381,19 +426,19 @@
 [
 	"Land_A3PL_CH",
 	localize"STR_INTSECT_OPCLDEFROOM",
-	{[] call A3PL_Intersect_HandleDoors;}
+	{call A3PL_Intersect_HandleDoors;}
 ],
 [
 	"Land_A3PL_CH",
 	localize"STR_INTSECT_OPCLDEFROOM",
-	{[] call A3PL_Intersect_HandleDoors;}
+	{call A3PL_Intersect_HandleDoors;}
 ],
 [
 	"",
 	localize"STR_INTSECT_LOUNDOOR",
 	{
 		private ["_keyid","_obj","_locked","_format","_keyCheck","_name","_getVarName"];
-		_obj = ([] call A3PL_Intersect_Cursortarget);
+		_obj = (call A3PL_Intersect_Cursortarget);
 		_name = player_nameintersect;
 		if (isNil "Player_Item") exitwith {	_format = format[localize"STR_QuickActionsBuildings_DontHaveKeyInHand"]; [_format, "red"] call A3PL_Player_Notification; };
 		if (isNull Player_Item) exitwith { _format = format[localize"STR_QuickActionsBuildings_DontHaveKeyInHand"]; [_format, "red"] call A3PL_Player_Notification; };
@@ -449,6 +494,11 @@
 	"Land_A3PL_BusinessSign",
 	localize"STR_INTSECT_RENTBUSI",
 	{[player_objIntersect] call A3PL_Business_Buy;}
+],
+[
+	"Land_A3PL_BusinessSign",
+	"Purchase Warehouse",
+	{[player_objIntersect] call A3PL_Warehouses_Buy;}
 ],
 [
 	"Land_A3PL_EstateSign",

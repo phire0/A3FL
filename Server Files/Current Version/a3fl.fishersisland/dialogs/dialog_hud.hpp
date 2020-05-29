@@ -44,7 +44,7 @@ class Dialog_HUD
 		class JailTime: RscText
 		{
 			idc = 1000;
-			text = ""; 
+			text = "";
 			x = 0.628905 * safezoneW + safezoneX;
 			y = 0.786 * safezoneH + safezoneY;
 			w = 0.2475 * safezoneW;
@@ -55,7 +55,7 @@ class Dialog_HUD
 		/*class StreetText: RscStructuredText
 		{
 			idc = 1001;
-			text = ""; 
+			text = "";
 			x = 0.914267 * safezoneW + safezoneX;
 			y = 0.828966 * safezoneH + safezoneY;
 			w = 0.2475 * safezoneW;
@@ -63,6 +63,17 @@ class Dialog_HUD
 			sizeEx = "0.05 * safezoneH";
 			style = 0x01;
 		};*/
+		// class FactionCount: RscStructuredText
+		// {
+		// 	idc = 1001;
+		// 	text = "";
+		// 	x = 0.876406 * safezoneW + safezoneX;
+		// 	y = 0.643 * safezoneH + safezoneY;
+		// 	w = 0.113437 * safezoneW;
+		// 	h = 0.044 * safezoneH;
+		// 	sizeEx = "0.05 * safezoneH";
+		// 	style = 0x01;
+		// };
 		class HealthIcon: RscPicture
 		{
 			idc = 1200;
@@ -167,7 +178,7 @@ class Dialog_HUD
 		class stuc_name: RscStructuredText
 		{
 			idc = 1600;
-			text = ""; 
+			text = "";
 			x = 0.88724 * safezoneW + safezoneX;
 			y = 0.709261 * safezoneH + safezoneY;
 			w = 0.0979687 * safezoneW;
@@ -187,7 +198,7 @@ class Dialog_HUD
 			idc = 1604;
 			colorFrame[] = {-1,-1,-1,-1};
 			colorBar[] = {1,0,0,1};
-			text = "#(argb,8,8,3)color(1,1,1,1)"; 
+			text = "#(argb,8,8,3)color(1,1,1,1)";
 			x = 0.886719 * safezoneW + safezoneX;
 			y = 0.764 * safezoneH + safezoneY;
 			w = 0.0979687 * safezoneW;

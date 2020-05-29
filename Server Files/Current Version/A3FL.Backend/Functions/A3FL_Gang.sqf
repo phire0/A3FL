@@ -1,8 +1,17 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #define MINCOPSREQUIRED 3
+
 ["A3PL_Gang_SetData",
 {
 	A3PL_Gang_Data = (_this select 0);
-	[] call A3PL_Gang_Init;
+	call A3PL_Gang_Init;
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_Init",
@@ -47,7 +56,7 @@
 	_gang = _group getVariable ["gang_data",nil];
 
 	if(isNil '_gang') exitWith {};
-	_members = _gang select 3;
+	_members = parseSimpleArray (_gang select 3);
 	_maxMembers = _gang select 5;
 	if((count _members) > _maxMembers) exitWith {[format [localize"STR_NewGang_4",_maxMembers],"red"] call A3PL_Player_Notification;};
 	{
@@ -237,7 +246,7 @@
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
-	["Capture...",20] spawn A3PL_Lib_LoadAction;
+	["Capture...",75] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
 	_animTime = diag_tickTime;

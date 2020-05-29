@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_HUD_Init",
 {
 	disableSerialization;
@@ -22,7 +30,7 @@
 	(_display displayCtrl 351) ctrlCommit 0;
 	(_display displayCtrl 352) ctrlCommit 0;
 
-	[] call A3PL_Twitter_Init;
+	call A3PL_Twitter_Init;
 
 	_display = uiNamespace getVariable "A3PL_HUD_IDCard";
 	for "_i" from 999 to 1006 do
@@ -293,6 +301,10 @@
 
 	_control = _display displayCtrl 1604;
 	_control progressSetPosition _bar;
+
+	//Display amount of cops online
+ 	_control = _display displayCtrl 1001;
+ 	_control ctrlSetStructuredText parseText format ["<t font='PuristaSemiBold' align='center' size='0.85'><img image='\A3PL_Common\icons\faction_sheriff.paa' /> %1  <img image='\A3PL_Common\icons\faction_cg.paa' /> %2  <img image='\A3PL_Common\icons\faction_fifr.paa' /> %3</t>", count(["fisd"] call A3PL_Lib_FactionPlayers), count(["uscg"] call A3PL_Lib_FactionPlayers), count(["fifr"] call A3PL_Lib_FactionPlayers)];
 }] call Server_Setup_Compile;
 
 ["A3PL_HUD_SetOverlay",
@@ -347,7 +359,7 @@
 					};
 					"myGPS" setMarkerDirLocal floor((getDir (vehicle player)) - 40);
 
-					_heading = [] call A3PL_Lib_GetHeading;
+					_heading = call A3PL_Lib_GetHeading;
 					_ctrl_gps_azimut ctrlSetStructuredText parseText format [
 						"<t size='0.7' font='PuristaLight' color='#ffffff' align='center'>%1</t>",
 						_heading

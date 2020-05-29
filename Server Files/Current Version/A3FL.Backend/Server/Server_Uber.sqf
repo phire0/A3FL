@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ['Server_Uber_AddDriver',
 {
     params[["_user",objNull,[objNull]]];
@@ -29,7 +37,7 @@
     private ["_user"];
     params[["_user",objNull,[objNull]]];
 
-    [] call Server_Uber_flushDrivers;
+    call Server_Uber_flushDrivers;
     if(count A3PL_Uber_Drivers < 1) then {
         [localize"STR_SERVER_UBER_NOUBERAVAILABLE", "red"] remoteExec ["A3PL_Player_Notification", _user];
     } else {

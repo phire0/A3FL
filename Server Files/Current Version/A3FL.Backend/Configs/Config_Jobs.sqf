@@ -1,6 +1,13 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 Config_Paychecks = [
 	["fbi",250,1],
-
 	["unemployed", 150, 1],
 	["uber",150,1],
 	["fisher", 150,1],
@@ -16,6 +23,7 @@ Config_Paychecks = [
 	["mailman",150,1],
 	["exterminator",150,1],
 	["freight pilot",350,1],
+	["captain",500,1],
 	["gov",150,1],
 	["dispatch",150,1],
 	["cartel",150,1],
@@ -128,7 +136,7 @@ Config_Blueprints = [
 		["Aircrafts",
 			["Blueprint_MediumUSCG",80000],
 			["Blueprint_Jayhawk",85000],
-			["Blueprint_CessnaUSCG",90000]			
+			["Blueprint_CessnaUSCG",90000]
 		],
 		["Weapons",
 			["Blueprint_hgun_Pistol_Signal_F",1500],

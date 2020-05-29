@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Items_Thirst",
 {
 	private ["_classname", "_quality", "_format"];
@@ -36,11 +44,11 @@
 		[_quality] call A3PL_Alcohol_Add;
 	} else {
 		Player_Thirst = Player_Thirst + _quality;
-		[] call A3PL_Lib_VerifyThirst;
+		call A3PL_Lib_VerifyThirst;
 		profileNamespace setVariable ["player_thirst",Player_Thirst];
 		if((_classname == "waterbottle") && (Player_Alcohol > 0)) then {
 			[-5] call A3PL_Alcohol_Add;
-			[] call A3PL_Alcohol_Verify;
+			call A3PL_Alcohol_Verify;
 		};
 	};
 
@@ -79,10 +87,8 @@
 
 	Player_isEating = true;
 
-	//play animation
 	player playActionNow "gesture_eat";
 
-	//remove the items from inventory
 	[_classname, -1] call A3PL_Inventory_Add;
 
 	_quality = [_classname, "quality"] call A3PL_Config_GetFood;
@@ -92,17 +98,15 @@
 		[_classname,_quality] call A3PL_Drugs_Add;
 	} else {
 		Player_Hunger = Player_Hunger + _quality;
-		[] call A3PL_Lib_VerifyHunger;
+		call A3PL_Lib_VerifyHunger;
 		profileNamespace setVariable ["player_hunger",Player_Hunger];
 
-		//display notification
 		if (_quality > 0) then
 		{
 			_format = format[localize"STR_NewItems_6", [_classname, "name"] call A3PL_Config_GetItem, _quality,"%"];
 			[_format, "green"] call A3PL_Player_Notification;
 		};
 
-		//Reset the warning variables for eating
 		if (Player_Hunger > 50) then
 		{
 			A3PL_HungerWarning1 = Nil;
@@ -118,7 +122,7 @@
 			A3PL_HungerWarning3 = Nil;
 		};
 	};
-	
+
 	[] spawn
 	{
 		uiSleep 3;

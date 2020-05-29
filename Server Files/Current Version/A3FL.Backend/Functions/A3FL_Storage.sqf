@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Storage_CarRetrieveButton",
 {
 	disableSerialization;
@@ -6,7 +14,7 @@
 	_control = _display displayCtrl 1500;
 	_intersect = player_objintersect;
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	if (isNil "player_objintersect") then {
 		_intersect = cursorObject;
@@ -366,7 +374,7 @@
 		};
 	} foreach _returnArray;
 	A3PL_Storage_ReturnArray = _returnArray;
-	_control ctrlAddEventHandler ["LBSelChanged","[] call A3PL_Storage_VehicleInfo;"];
+	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Storage_VehicleInfo;"];
 }] call Server_Setup_Compile;
 
 ["A3PL_Storage_VehicleInfo", {

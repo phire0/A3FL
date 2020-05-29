@@ -1,9 +1,11 @@
-/**
-*	Author: Kane, Winston
-*	Website: https://www.arma3fisherslife.fr/
-*	Name: fn_preinit.sqf
-*	Description: Runs pre-init systems
-**/
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 #include "Server_Macro.hpp"
 
 diag_log "RUNNING SERVER INIT";
@@ -107,6 +109,7 @@ Server_Setup_Compile = {
 
 	private ["_debugText"];
 	_debugText = param [0,"Nothing"];
+	if (_debugText == "Nothing") exitWith {};
 	call compile _debugText;
 },false,true] call Server_Setup_Compile;
 
@@ -231,7 +234,7 @@ Server_Setup_Compile = {
 
 		// uiSleep 2;
 
-		[] call A3PL_Medical_Init;
+		call A3PL_Medical_Init;
 		_control = (_display displayCtrl 10360);
 		_format = "<t size='2' align='center' color='#B8B8B8'>80%</t>";
 		_control ctrlSetStructuredText (parseText _format);
@@ -264,7 +267,7 @@ Server_Setup_Compile = {
 		cutText["","BLACK IN"];
 
 		//load the admins
-		[] call A3PL_Admin_Check;
+		call A3PL_Admin_Check;
 
 		player enableSimulation true;
 		player setvariable ["FinishedLoading",true,true];
@@ -280,32 +283,33 @@ Server_Setup_Compile = {
 	waitUntil {(isNil 'A3PL_FilesSetup') isEqualTo false};
 
 	//setup database
-	[] call Server_Setup_SetupDatabase;
+	call Server_Setup_SetupDatabase;
 	waitUntil {(isNil 'A3PL_DatabaseSetup') isEqualTo false};
 	Server_Setup_SetupDatabase = Nil;
 
 	//setup server variables
-	[] call Server_Core_Variables;
+	call Server_Core_Variables;
 
 	//Setup 'HandleDisconnect' missionEventHandler (located in Server_Gear)
-	[] call Server_Gear_HandleDisconnect;
+	call Server_Gear_HandleDisconnect;
 
 	//Call the initial server storage
-	[] call Server_Storage_Init;
+	call Server_Storage_Init;
 
 	//Temporary Hotfix
 	//all this crap runs into post-init
 	[] spawn {
 		waitUntil {!isNil "npc_bank"};
-		[] call Server_Addresses_Setup;
-		[] call Server_Housing_Initialize;
+		call Server_Addresses_Setup;
+		call Server_Housing_Initialize;
+		call Server_Warehouses_Initialize;
 
-		[] call Server_Criminal_BlackMarketPos;
-		[] call Server_JobFarming_DrugDealerPos;
+		call Server_Criminal_BlackMarketPos;
+		call Server_JobFarming_DrugDealerPos;
 		[] spawn Server_JobWildcat_RandomizeOil;
 		[] spawn Server_JobWildcat_RandomizeRes;
-		[] call Server_Core_GetDefVehicles;				//create the defaulte vehicles array (for use in cleanup script)
-		[] call Server_JobPicking_Init;					//get the marker locations for picking locations
+		call Server_Core_GetDefVehicles;				//create the defaulte vehicles array (for use in cleanup script)
+		call Server_JobPicking_Init;					//get the marker locations for picking locations
 		[] spawn Server_Lumber_TreeRespawn;				//spawn trees for lumberyacking
 
 		//load stock values
@@ -313,13 +317,14 @@ Server_Setup_Compile = {
 		[] spawn Server_Locker_Load;
 	};
 
-	[] call Server_IE_Init;
-	[] call Server_Setup_ResetPlayerDB;
+	call Server_IE_Init;
+	call Server_Setup_ResetPlayerDB;
+	[] spawn Server_TrafficLights_Start;
 
 	/*iPhoneX*/
 	A3PL_iPhoneX_ListNumber = [];
 	A3PL_iPhoneX_switchboard = [];
-	[] call Server_iPhoneX_GetPhoneNumber;
+	call Server_iPhoneX_GetPhoneNumber;
 
 	/*Get All FuelStations*/
 	private _FuelPositions = [
@@ -330,7 +335,8 @@ Server_Setup_Compile = {
 		[3435.99,7519.7,0],		//Stoney Creek
 		[2851.2,5555.24,0],		//Silverton Bella
 		[2413.74,5496.1,0],		//Silverton Impound
-		[9842.12,7973.37,0]		//Deadwood
+		[2123,11725,0],		//Lubbock
+		[3219,12274,0] // Salt Point
 	];
 	FuelStations = [];
 	{
@@ -350,13 +356,13 @@ Server_Setup_Compile = {
 	_craneleft setDir 232.025;
 	_craneleft setFuel 0;
 
-	["itemAdd", ["Server_PoliceLoop", { [] call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
-	["itemAdd", ["Server_Loop_Fishing", {[] call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
+	["itemAdd", ["Server_PoliceLoop", { call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_Fishing", {call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
 
-	["itemAdd", ["Server_Loop_BlackMarket", {[] call Server_Criminal_BlackMarketPos;}, 1200]] call BIS_fnc_loop;
-	["itemAdd", ["Server_Loop_BlackMarketNear", {[] call Server_Criminal_BlackMarketNear;}, 60]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_BlackMarket", {call Server_Criminal_BlackMarketPos;}, 1200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_BlackMarketNear", {call Server_Criminal_BlackMarketNear;}, 60]] call BIS_fnc_loop;
 
-	["itemAdd", ["Server_Loop_DealerPos", {[] call Server_JobFarming_DrugDealerPos;}, 1200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_DealerPos", {call Server_JobFarming_DrugDealerPos;}, 1200]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_RepairTerrain", {[] spawn Server_Core_RepairTerrain;}, 600]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_BusinessLoop", {[] spawn Server_Business_Loop;}, 60]] call BIS_fnc_loop;
 
@@ -405,8 +411,8 @@ Server_Setup_Compile = {
 		};
 	} foreach _pVars;
 
-	[] call Server_Company_LoadAll;
-	[] call Server_Police_SeizureLoad;
+	call Server_Company_LoadAll;
+	call Server_Police_SeizureLoad;
 	[] spawn Server_Gear_SaveLoop;
 
 	//check addons
@@ -555,7 +561,7 @@ Server_Setup_Compile = {
 
 //COMPILE BLOCK WARNING
 ["Server_Gear_Load", {
-	private ["_unit", "_uid", "_return", "_query", "_pos", "_loadout","_name","_houseVar","_ownsHouse","_houseObj","_facStorage","_licenses","_perks","_ship"];
+	private ["_unit", "_uid", "_return", "_query", "_pos", "_loadout","_name","_houseVar","_warehouseObj","_warehouseVar","_ownsHouse","_houseObj","_facStorage","_licenses","_perks","_ship","_allKeys"];
 	_unit = _this select 0;
 	_uid = getPlayerUID _unit;
 
@@ -670,7 +676,8 @@ Server_Setup_Compile = {
 
 	//Scan if player owns a house, if not we will assign him an appartment
 	//Make sure to re-init, just in case
-	[] call Server_Housing_Initialize;
+	call Server_Housing_Initialize;
+	call Server_Warehouses_Initialize;
 
 	_ownsHouse = false;
 	{
@@ -683,10 +690,33 @@ Server_Setup_Compile = {
 			//give the key to the player if he doesn't have it
 			_doorID = (_houseObj getVariable "doorid") select 1;
 			if (!(_doorID IN _keys)) then {
-				_unit setVariable ["keys",[_doorID],true];
+				_allKeys = _unit getVariable["keys",[]];
+				_allKeys pushBack _doorID;
+				_unit setVariable ["keys",_allKeys,true];
 			};
 		};
 	} foreach Server_HouseList;
+
+	_ownsWarehouse = false;
+	{
+		_warehouseVar = _x getVariable ["owner",[]];
+		if (_uid IN (_warehouseVar)) exitwith
+		{
+			_ownsWarehouse = true;
+			_warehouseObj = _x;
+			diag_log "owns a warehouse";
+
+			//give the key to the player if he doesn't have it
+			_doorID = (_warehouseObj getVariable "doorid") select 1;
+			diag_log format ["key ID %1",_doorID];
+			if (!(_doorID IN _keys)) then {
+				_allKeys = _unit getVariable["keys",[]];
+				_allKeys pushBack _doorID;
+				diag_log format ["allKeys %1",_allKeys];
+				_unit setVariable ["keys",_allKeys,true];
+			};
+		};
+	} foreach Server_WarehouseList;
 
 	if (!_ownsHouse) then
 	{
@@ -705,10 +735,18 @@ Server_Setup_Compile = {
 		};
 		//set house var
 		_unit setVariable ["house",_houseObj,true];
+
 		//load items
 		_firstOwner = (_houseObj getVariable ["owner",[]]) select 0;
 		if(_firstOwner isEqualTo _uid) then {
 			[_unit,_houseObj,_uid] call Server_Housing_LoadItems;
+		};
+	};
+	if(_ownsWarehouse) then {
+	_unit setVariable ["warehouse",_warehouseObj,true];
+	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
+	if(_firstOwnerWarehouse isEqualTo _uid) then {
+			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};
 
@@ -768,7 +806,7 @@ Server_Setup_Compile = {
 		_pos = call compile (_x select 1);
 		_doorid = _x select 2;
 
-		_near = nearestObjects [_pos, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green"], 10,true];
+		_near = nearestObjects [_pos, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion","Land_A3FL_Office_Building"], 10,true];
 		if (count _near == 0) exitwith
 		{
 			_query = format ["CALL RemovedHouse('%1');",_pos];
@@ -844,6 +882,100 @@ Server_Setup_Compile = {
 	{_box addItemCargoGlobal [_x,1]} foreach _actualitems;
 	{_box addBackpackCargoGlobal [_x,1]} foreach _backpacks;
 	_box setVariable ["storage",_vitems,true];
+},true] call Server_Setup_Compile;
+
+
+//Initialize houses, assign all doorIDs, on server start
+//COMPILE BLOCK WARNING
+["Server_Warehouses_Initialize",
+{
+	private ["_warehouses","_query","_return","_uid","_pos","_doorID","_near","_signs"];
+	//also make sure to update _obj location if it's changed (just incase we move anything slightly with terrain builder), delete it if it cannot be found nearby
+	_warehouses = ["SELECT uids,location,doorid FROM warehouses", 2, true] call Server_Database_Async;
+	{
+		private ["_pos","_uids","_doorid"];
+		_uids = [(_x select 0)] call Server_Database_ToArray;
+		_pos = call compile (_x select 1);
+		_doorid = _x select 2;
+
+		_near = nearestObjects [_pos, ["Land_John_Hangar","Land_A3FL_Warehouse"], 10,true];
+		if (count _near == 0) exitwith
+		{
+			_query = format ["CALL RemovedHouse('%1');",_pos];
+			[_query,1] spawn Server_Database_Async;
+		};
+		_near = _near select 0;
+		if (!([_pos,(getpos _near)] call BIS_fnc_areEqual)) then
+		{
+			//Update position in DB
+			_query = format ["UPDATE warehouses SET location='%1', classname = '%3' WHERE location ='%2'",(getpos _near),_pos, (typeOf _near)];
+			[_query,1] spawn Server_Database_Async;
+		};
+
+		//look for nearest for sale sign and set the texture to sold
+		_signs = nearestObjects [_pos, ["Land_A3PL_EstateSign"], 25,true];
+		if (count _signs > 0) then
+		{
+			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
+		};
+
+		//Set Variables
+		_near setVariable ["doorID",[_uids,_doorid],true];
+		_near setVariable ["owner",_uids,true];
+		Server_WarehouseList pushback _near;
+	} foreach _warehouses;
+	publicVariable "Server_WarehouseList";
+},true,true] call Server_Setup_Compile;
+
+//Compile block warning
+["Server_Warehouses_LoadBox",
+{
+	private ["_warehouse","_player","_pos","_items","_box","_weapons","_magazines","_items","_vitems","_cargoItems","_actualitems"];
+	_player = param [0,objNull];
+	_warehouse = param [1,objNull];
+	_pos = getposATL _player;
+	if (!isNil {_warehouse getVariable "box_spawned"}) exitwith {};
+	//set variable that disables the box to be spawned again
+	_warehouse setVariable ["box_spawned",true,false];
+
+	if (isDedicated) then { _items = [format ["SELECT items,vitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2, true] call Server_Database_Async;} else {_items = [[],[],[]];};
+	_box = createVehicle ["Box_GEN_Equip_F",_pos, [], 0, "CAN_COLLIDE"]; //replace with custom ammo box later
+	clearItemCargoGlobal _box; //temp until custom ammo box
+	clearWeaponCargoGlobal _box;
+	clearMagazineCargoGlobal _box;
+	clearBackpackCargoGlobal _box;
+
+	//According to how stuff is saved into db
+	_cargoItems = call compile ((_items select 0) select 0);
+	_vitems = call compile ((_items select 0) select 1);
+	_weapons = _cargoItems select 0;
+	_magazines = _cargoItems select 1;
+	_actualitems = _cargoItems select 2;
+	_backpacks = _cargoItems select 3;
+
+	//add items [["srifle_EBR_F"],[],[]]
+	{_box addWeaponCargoGlobal [_x,1]} foreach _weapons;
+	{_box addMagazineCargoGlobal [_x,1]} foreach _magazines;
+	{_box addItemCargoGlobal [_x,1]} foreach _actualitems;
+	{_box addBackpackCargoGlobal [_x,1]} foreach _backpacks;
+	_box setVariable ["storage",_vitems,true];
+},true] call Server_Setup_Compile;
+
+["Server_Warehouses_LoadItems",
+{
+	private ["_warehouse","_player","_uid","_pitems"];
+	_player = param [0,objNull];
+	_warehouse = param [1,objNull];
+	_uid = param [2,""];
+
+	//set furn loaded to true
+	if (_warehouse getVariable ["furn_loaded",false]) exitwith {};
+	_warehouse setVariable ["furn_loaded",true,false];
+
+	_pitems = [format ["SELECT pitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2] call Server_Database_Async;
+	_pitems = call compile (_pitems select 0);
+
+	[_warehouse,_pitems] remoteExec ["A3PL_Warehouse_Loaditems", (owner _player)];
 },true] call Server_Setup_Compile;
 
 ["A3PL_CCTV_SetCamera",

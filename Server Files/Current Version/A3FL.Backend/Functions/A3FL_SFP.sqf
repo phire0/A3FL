@@ -1,10 +1,18 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_SFP_SignOn",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	if (!(["sfp",player] call A3PL_DMV_Check)) exitwith {[localize"STR_SFP_License","red"] call A3PL_Player_Notification;};
 
-	if ((player getVariable ["job","unemployed"]) == "security") exitwith {[localize"STR_SFP_QuitJob","red"]; [] call A3PL_NPC_LeaveJob};
+	if ((player getVariable ["job","unemployed"]) == "security") exitwith {[localize"STR_SFP_QuitJob","red"]; call A3PL_NPC_LeaveJob};
 	player setVariable ["job","security"];
 	[localize"STR_SFP_JobJoin","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

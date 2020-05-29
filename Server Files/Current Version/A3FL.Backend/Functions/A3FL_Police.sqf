@@ -1,13 +1,22 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_Police_GPS",
 {
-	private _job = player getVariable ["job","unemployed"];
+	private _job = player getVariable ["faction","unemployed"];
+
 	if (!(_job IN ["uscg","fifr","fisd","usms"])) exitwith {};
 	if (!isNil "A3PL_Police_GPSEnabled") exitwith {};
 	A3PL_Police_GPSEnabled = true;
 	[_job] spawn {
 		private ["_vehicles","_markercolor"];
 		_job = param [0,"unemployed"];
-		while {(player getVariable ["job","unemployed"]) isEqualTo _job} do {
+		while {(player getVariable ["faction","unemployed"]) isEqualTo _job} do {
 			uiSleep 1;
 			if (visibleMap) then {
 				_vehicles = [];
@@ -41,7 +50,7 @@
 								_vehicles pushback [_x,"EMS #","mil_dot",_id];
 								_found = true;
 							};
-							if((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Silverado_PD","A3PL_Charger_PD","A3PL_Raptor_PD"]) then {
+							if((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Silverado_PD","A3PL_Charger_PD","A3PL_Raptor_PD","A3PL_Taurus_FD"]) then {
 								if((["FIFR",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || (["VFD",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || (["FIRE",((getObjectTextures _x) select 0)] call BIS_fnc_inString)) then {
 									_id = ((netId _x) splitString ":") select 1;
 									_vehicles pushback [_x,"VL #","mil_dot",_id];
@@ -137,85 +146,87 @@
 	private ["_target","_display","_control","_items","_weps","_mags","_targetPos"];
 	_target = param [0,objNull];
 
-	//already action
 	if (!Player_ActionCompleted) exitwith {[localize"STR_NewPolice_1","red"] call A3PL_Player_Notification;};
 
-	//already patdown
 	if (_target getVariable ["patdown",false]) exitwith {[localize"STR_NewPolice_2","red"] call A3PL_Player_Notification;};
 	_target setVariable ["patdown",true,true];
 
-	//send message to target
 	[localize"STR_NewPolice_3", "green"] remoteExec ["A3PL_Player_Notification",_target];
 
-	//start timer
-	Player_ActionCompleted = false;
-	_targetPos = getpos _target;
-	["Pat down in progress...",3+random 2] spawn A3PL_Lib_LoadAction;
-	waitUntil{Player_ActionDoing};
-	while {Player_ActionDoing} do {
-		if ((_targetPos distance (getpos _target)) > 0.5) exitwith {Player_ActionInterrupted = true; player playMove ""; true;};
-		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
-	};
-	if ((_targetPos distance (getpos _target)) > 0.5) exitwith
+	[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];
+	[_target] spawn
 	{
-		[localize"STR_NewPolice_4","red"] call A3PL_Player_Notification;
-		[localize"STR_NewPolice_5", "green"] remoteExec ["A3PL_Player_Notification",_target];
+		private ["_target"];
+		_target = param [0,objNull];
+		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
+		_targetPos = getpos _target;
+		["Pat down in progress...",15] spawn A3PL_Lib_LoadAction;
+		_success = true;
+		while {uiSleep 2; Player_ActionDoing } do {
+			if ((player distance2D _target) > 5) exitWith {_success = false;};
+			if (animationState player != "AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];}
+		};
+		player switchMove "";
+		if(Player_ActionInterrupted || !_success) exitWith {
+			Player_ActionInterrupted = true;
+			["Patdown cancelled","red"] call A3PL_Player_Notification;
+			["The patdown was cancelled", "green"] remoteExec ["A3PL_Player_Notification",_target];
+			if (vehicle player == player) then {player switchMove "";};
+			_target setVariable ["patdown",nil,true];
+		};
 		_target setVariable ["patdown",nil,true];
+
+			_items = assignedItems _target;
+			_vitems = [_target] call A3PL_Inventory_Get;
+			_weps = weapons _target;
+			_mags = magazines _target;
+			if (currentMagazine _target != "") then
+			{
+				_mags pushback (currentMagazine _target);
+			};
+
+			createDialog "Dialog_PatDown";
+			_display = findDisplay 93;
+
+			_control = _display displayCtrl 1500;
+			{
+				_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _x >> "displayName")];
+				_control lbSetData [_index,_x];
+			} foreach _items;
+			_control lbSetCurSel 0;
+
+
+			_control = _display displayCtrl 1501;
+			{
+				_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _x >> "displayName")];
+				_control lbSetData [_index,_x];
+				_control lbSetValue [_index,0];
+			} foreach _weps;
+			{
+				_index = _control lbAdd format ["%1",getText (configFile >> "CfgMagazines" >> _x >> "displayName")];
+				_control lbSetData [_index,_x];
+				_control lbSetValue [_index,1];
+			} foreach _mags;
+			_control lbSetCurSel 0;
+
+			_control = _display displayCtrl 1502;
+			{
+				_index = _control lbAdd format ["(%2x) %1",[_x select 0, "name"] call A3PL_Config_GetItem, _x select 1];
+				_control lbSetData [_index,_x select 0];
+				_control lbSetValue [_index,_x select 1];
+			} foreach _vitems;
+			_control lbSetCurSel 0;
+
+			_control = _display displayCtrl 1600;
+			_control ctrlAddEventHandler ["buttonDown",{["item"] call A3PL_Police_PatDownTake}];
+			_control = _display displayCtrl 1601;
+			_control ctrlAddEventHandler ["buttonDown",{["wep"] call A3PL_Police_PatDownTake}];
+			_control = _display displayCtrl 1602;
+			_control ctrlAddEventHandler ["buttonDown",{["vitems"] call A3PL_Police_PatDownTake}];
+
+			A3PL_Police_Target = _target;
+			_display displayAddEventHandler ["unload",{A3PL_Police_Target setVariable ["patdown",nil,true]; A3PL_Police_Target = nil; A3PL_Police_WeaponHolder = nil;}];
 	};
-
-	//get items,mags,and weps
-	_items = assignedItems _target;
-	_vitems = [_target] call A3PL_Inventory_Get;
-	_weps = weapons _target;
-	_mags = magazines _target;
-	if (currentMagazine _target != "") then
-	{
-		_mags pushback (currentMagazine _target);
-	};
-
-	createDialog "Dialog_PatDown";
-	_display = findDisplay 93;
-
-	_control = _display displayCtrl 1500;
-	{
-		_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _x >> "displayName")];
-		_control lbSetData [_index,_x];
-	} foreach _items;
-	_control lbSetCurSel 0;
-
-
-	//fill weps & mags
-	_control = _display displayCtrl 1501;
-	{
-		_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _x >> "displayName")];
-		_control lbSetData [_index,_x];
-		_control lbSetValue [_index,0];
-	} foreach _weps;
-	{
-		_index = _control lbAdd format ["%1",getText (configFile >> "CfgMagazines" >> _x >> "displayName")];
-		_control lbSetData [_index,_x];
-		_control lbSetValue [_index,1];
-	} foreach _mags;
-	_control lbSetCurSel 0;
-
-	_control = _display displayCtrl 1502;
-	{
-		_index = _control lbAdd format ["(%2x) %1",[_x select 0, "name"] call A3PL_Config_GetItem, _x select 1];
-		_control lbSetData [_index,_x select 0];
-		_control lbSetValue [_index,_x select 1];
-	} foreach _vitems;
-	_control lbSetCurSel 0;
-
-	//EventHandlers
-	_control = _display displayCtrl 1600;
-	_control ctrlAddEventHandler ["buttonDown",{["item"] call A3PL_Police_PatDownTake}];
-	_control = _display displayCtrl 1601;
-	_control ctrlAddEventHandler ["buttonDown",{["wep"] call A3PL_Police_PatDownTake}];
-	_control = _display displayCtrl 1602;
-	_control ctrlAddEventHandler ["buttonDown",{["vitems"] call A3PL_Police_PatDownTake}];
-
-	A3PL_Police_Target = _target;
-	_display displayAddEventHandler ["unload",{A3PL_Police_Target setVariable ["patdown",nil,true]; A3PL_Police_Target = nil; A3PL_Police_WeaponHolder = nil;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_PatDownTake",
@@ -1411,7 +1422,7 @@
 	disableSerialization;
 	createDialog "Dialog_PoliceDatabase";
 	_display = findDisplay 211;
-	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) == 28) then {[] call A3PL_Police_DatabaseEnter;}"];
+	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) == 28) then {call A3PL_Police_DatabaseEnter;}"];
 
 	[_text] call A3PL_Police_UpdateComputer;
 }] call Server_Setup_Compile;
@@ -1547,7 +1558,7 @@
 {
 	params[["_target",objNull,[objNull]]];
 
-	_pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd"], 50];
+	_pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"], 50];
 
 	if(count _pd < 1) exitWith {[format[localize"STR_NewPolice_23"],"red"] call A3PL_Player_Notification;};
 
@@ -1575,7 +1586,7 @@
 	player setVariable ["jailed",false,true];
 	player setVariable ["jail_mark",false,true];
 
-	private _pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd"], 50];
+	private _pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 50];
 	if((count _pd) > 0) then {
 		player setPosATL [4743.79,6101.99,0.00143909];
 		player setDir 7;

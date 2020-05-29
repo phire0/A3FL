@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 Config_Items =
 [
 	["waterbottle",localize"STR_ConfigItems_WaterBottle", 0.5, "A3PL_BottlePlastic_V2",0,true,true,true, true, true,"A3PL_Items_Thirst", [0,0,0], ""],
@@ -5,22 +13,20 @@ Config_Items =
 	["wood_barrier",localize"STR_ConfigItems_wood_barrier",3,"A3PL_RoadBarrier",0,true,true,true,false,false,"", [0,0,0], ""],
 	["plastic_barrier_small",localize"STR_ConfigItems_plastic_barrier_small",3,"A3PL_PlasticBarrier_01",0,true,true,true,false,false,"", [0,0,0], ""],
 	["plastic_barrier_large",localize"STR_ConfigItems_plastic_barrier_large",3,"A3PL_PlasticBarrier_02",0,true,true,true,false,false,"", [0,0,0], ""],
-	["jerrycan_empty",localize"STR_ConfigItems_jerrycan_empty",4,"A3PL_Jerrycan",-90,true,true,true,true,true,"", [0,0,0], ""],
+	["jerrycan_empty",localize"STR_ConfigItems_jerrycan_empty",1,"A3PL_Jerrycan",-90,true,true,true,true,true,"", [0,0,0], ""],
 	["SMG_Part_Stock",localize"STR_ConfigItems_SMG_Part_Stock",8,"A3PL_Crate",-90,true,true,true,false,false,"", [0,0,0], ""],
 	["SMG_Part_Body",localize"STR_ConfigItems_SMG_Part_Body",10,"A3PL_Crate",-90,true,true,true,false,false,"", [0,0,0], ""],
 	["SMG_Part_Grip",localize"STR_ConfigItems_SMG_Part_Grip",5,"A3PL_Crate",-90,true,true,true,false,false,"", [0,0,0], ""],
 	["SMG_Part_Trigger",localize"STR_ConfigItems_SMG_Part_Trigger",5,"A3PL_Crate",-90,true,true,true,false,false,"", [0,0,0], ""],
 	["SMG_Part_Barrel",localize"STR_ConfigItems_SMG_Part_Barrel",5,"A3PL_Crate",-90,true,true,true,false,false,"", [0,0,0], ""],
 	["matches",localize"STR_ConfigItems_matches", 0.5, "A3PL_Seed_Corn",0,true,true,true, true, true,"", [0,0,0], ""],
-	
-	//A3PL_Ziptie
+
 	["zipties",localize"STR_ConfigItems_zipties", 1, "A3PL_Handcuffs", 0, true, true, true, true, true, "", [0,0,0], ""],
 
 	["dirty_cash",localize"STR_ConfigItems_dirty_cash", 0.0005, "A3PL_Money", 0, true, true, true, true, true, "", [0,0,0], ""],
 	["dildo",localize"STR_ConfigItems_dildo",0.1,"A3PL_Dildo",0,true,true,true,true,true,"", [0,0,0], ""],
 
-	//A3PL_Lockpick
-	["v_lockpick",localize"STR_ConfigItems_v_lockpick",0.1,"A3PL_Grinder",0,true,true,true,true,true,"", [0,0,0], ""],
+	["v_lockpick",localize"STR_ConfigItems_v_lockpick",0.1,"A3PL_Lockpick",0,true,true,true,true,true,"", [0,0,0], ""],
 	["keycard",localize"STR_ConfigItems_keycard",0.1,"A3PL_Lockpick",0,true,true,true,true,true,"", [0,0,0], ""],
 
 	["pizzabites",localize"STR_ConfigItems_pizzabites", 0.1, "A3PL_PartyPack",0,true,true,true, true, true,"A3PL_Items_Food", [0,0,0], ""],
@@ -84,7 +90,7 @@ Config_Items =
 	["coca",localize"STR_ConfigItems_coca", 0.5, "A3PL_Seed_Corn",0,true,true,true, true, true,"", [0,0,0], ""],
 	["sugarcane",localize"STR_ConfigItems_sugarcane", 0.5, "A3PL_Seed_Corn",0,true,true,true, true, true,"", [0,0,0], ""],
 	["coke",localize"STR_ConfigItems_coke", 0.5, "A3PL_Can_V2",0,true,true,true, true, true,"A3PL_Items_Thirst", [0,0,0], ""],
-	["jerrycan",localize"STR_ConfigItems_jerrycan",30,"A3PL_Jerrycan",-90,true,true,true,true,true,"", [0,0,0], ""],
+	["jerrycan",localize"STR_ConfigItems_jerrycan",10,"A3PL_Jerrycan",-90,true,true,true,true,true,"", [0,0,0], ""],
 	["candy",localize"STR_ConfigItems_candy", 0.1, "A3PL_hw_candybucket",0,true,true,true,true,true,"", [0,0,0], ""],
 	["cauldron",localize"STR_ConfigItems_cauldron", 10, "A3PL_hw_cauldron",0,true,true,true,false,false,"", [0,0,0], ""],
 	["skeletoncauldron",localize"STR_ConfigItems_skeletoncauldron", 0.1, "Land_A3PL_hw_skeletonCauldron",0,true,true,true,false,false,"", [0,0,0], ""],
@@ -290,7 +296,7 @@ Config_Items =
 	["net",localize"STR_ConfigItems_net",1,"A3PL_FishingBuoy",0,true,true,true, true, true,"", [0,0,0], ""],
 	["bucket_empty",localize"STR_ConfigItems_bucket_empty",1,"A3PL_Bucket",0,true,true,true, true, true,"", [0,0,0], ""],
 	["bucket_full",localize"STR_ConfigItems_bucket_full",1,"A3PL_BucketFull",0,true,true,true, true, true,"", [0,0,0], ""],
-	["repairwrench",localize"STR_ConfigItems_repairwrench",3,"A3PL_Wrench",0,true,true,true, true, true,"", [0,0,0], ""],
+	["repairwrench",localize"STR_ConfigItems_repairwrench",1,"A3PL_Wrench",0,true,true,true, true, true,"", [0,0,0], ""],
 	["ticket",localize"STR_ConfigItems_ticket",0.1,"A3PL_Ticket",0,false,false,true, true, true,"", [0,0,0], ""],
 	["Ladder",localize"STR_ConfigItems_Ladder",5,"A3PL_Ladder",0,true,true,true,false,false,"", [0,0,0], ""],
 	["drill_bit",localize"STR_ConfigItems_drill_bit", 3, "A3PL_Drill_Bit",0,true,true,true,true,true,"", [0,0,0], ""],
@@ -341,16 +347,16 @@ Config_Items =
 	["Kerosene",localize"STR_ConfigItems_Kerosene",367,"A3PL_Kerosene",0,true,true,true,false,false,"", [0,0,0], ""],
 	["CanisterOil",localize"STR_ConfigItems_CanisterOil",4,"A3PL_CanisterOil",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Sand",localize"STR_ConfigItems_Sand",1,"A3PL_BucketSand",0,true,true,true,true,true,"", [0,0,0], ""],
-	["Titanium_Ore",localize"STR_ConfigItems_Titanium_Ore",5,"A3PL_Titanium_Ore",0,true,true,true,true,true,"", [0,0,0], ""],
+	["Titanium_Ore",localize"STR_ConfigItems_Titanium_Ore",0.25,"A3PL_Titanium_Ore",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Titanium_Ingot",localize"STR_ConfigItems_Titanium_Ingot",3,"A3PL_Titanium_Ingot",0,true,true,true,true,true,"", [0,0,0], ""],
-	["Aluminium_Ore",localize"STR_ConfigItems_Aluminium_Ore",1,"A3PL_Resource_Ore_Orange_Small",0,true,true,true,true,true,"", [0,0,0], ""],
+	["Aluminium_Ore",localize"STR_ConfigItems_Aluminium_Ore",0.25,"A3PL_Resource_Ore_Orange_Small",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Aluminium_Ingot",localize"STR_ConfigItems_Aluminium_Ingot",1,"A3PL_Aluminium_Ingot",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Aluminium",localize"STR_ConfigItems_Aluminium",1,"A3PL_Aluminium",0,true,true,true,true,true,"", [0,0,0], ""],
-	["Iron_Ore",localize"STR_ConfigItems_Iron_Ore",1,"A3PL_Resource_Ore_Pink_Small",0,true,true,true,true,true,"", [0,0,0], ""],
+	["Iron_Ore",localize"STR_ConfigItems_Iron_Ore",0.25,"A3PL_Resource_Ore_Pink_Small",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Iron_Ingot",localize"STR_ConfigItems_Iron_Ingot",1,"A3PL_Iron_Ingot",0,true,true,true,true,true,"", [0,0,0], ""],
-	["Coal_Ore",localize"STR_ConfigItems_Coal_Ore",1,"A3PL_Resource_Ore_Black_Small",0,true,true,true,true,true,"", [0,0,0], ""],
+	["Coal_Ore",localize"STR_ConfigItems_Coal_Ore",0.25,"A3PL_Resource_Ore_Black_Small",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Coal_Ingot",localize"STR_ConfigItems_Coal_Ingot",1,"A3PL_Coal_Ingot",0,true,true,true,true,true,"", [0,0,0], ""],
-	["Sulphur_Ore",localize"STR_ConfigItems_Sulphur_Ore",1,"A3PL_Resource_Ore_Yellow_Small",0,true,true,true,true,true,"", [0,0,0], ""],
+	["Sulphur_Ore",localize"STR_ConfigItems_Sulphur_Ore",0.25,"A3PL_Resource_Ore_Yellow_Small",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Sulphur_Powder",localize"STR_ConfigItems_Sulphur_Powder",1,"A3PL_SulphurPowder",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Gunpowder",localize"STR_ConfigItems_Gunpowder",1,"A3PL_Gunpowder",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Steel",localize"STR_ConfigItems_Steel",1,"A3PL_Steel",0,true,true,true,true,true,"", [0,0,0], ""],
@@ -384,8 +390,8 @@ Config_Items =
 	["AlloyRims",localize"STR_ConfigItems_AlloyRims",10,"A3PL_AlloyRims",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Tyres",localize"STR_ConfigItems_Tyres",10,"A3PL_Tyre",0,true,true,true,true,true,"", [0,0,0], ""],
 
-	["ME_Bucket",localize"STR_ConfigItems_ME_Bucket",100,"A3PL_MiniExcavator_Bucket",0,true,true,true,true,true,"", [0,0,0], localize"STR_ConfigItems_ExtractMineralsFromTheSoil"],
-	["ME_Jackhammer",localize"STR_ConfigItems_ME_Jackhammer",100,"A3PL_MiniExcavator_Jackhammer",0,true,true,true,true,true,"", [0,0,0], localize"STR_ConfigItems_AllowsToSprayMinerals"],
+	["ME_Bucket",localize"STR_ConfigItems_ME_Bucket",0,"A3PL_MiniExcavator_Bucket",0,true,true,true,true,true,"", [0,0,0], localize"STR_ConfigItems_ExtractMineralsFromTheSoil"],
+	["ME_Jackhammer",localize"STR_ConfigItems_ME_Jackhammer",0,"A3PL_MiniExcavator_Jackhammer",0,true,true,true,true,true,"", [0,0,0], localize"STR_ConfigItems_AllowsToSprayMinerals"],
 
 	["Iron_Ingot_Pellet",localize"STR_ConfigItems_Iron_Ingot_Pellet",6,"A3PL_Iron_Ingot_Pellet",0,true,true,true,false,false,"", [0,0,0], ""],
 	["Coal_Ingot_Pellet",localize"STR_ConfigItems_Coal_Ingot_Pellet",6,"A3PL_Coal_Ingot_Pellet",0,true,true,true,false,false,"", [0,0,0], ""],
@@ -395,17 +401,18 @@ Config_Items =
 	["Aluminium_Pellet",localize"STR_ConfigItems_AluminumPallet",6,"A3PL_Aluminium_Pellet",0,true,true,true,false,false,"", [0,0,0], ""],
 	["Titanium_Pellet",localize"STR_ConfigItems_TitaniumPallet",6,"A3PL_Titanium_Pellet",0,true,true,true,false,false,"", [0,0,0], ""],
 
-	["med_cast",localize"STR_ConfigItems_med_cast",0.1,"A3PL_Medical_Cast",0.1,true,true,true,true,true,"", [0,0,0], ""],
-	["med_endotracheal",localize"STR_ConfigItems_med_endotracheal",0.25,"A3PL_Medical_Endotracheal",0,true,true,true,true,true,"", [0,0,0], ""],
-	["med_icepack",localize"STR_ConfigItems_med_icepack",0.1,"A3PL_Medical_Icepack",0,true,true,true,true,true,"", [0,0,0], ""],
-	["med_bandage",localize"STR_ConfigItems_med_bandage",0.1,"A3PL_Bandage",0,true,true,true,true,true,"", [0,0,0], ""],
-	["med_kit",localize"STR_ConfigItems_med_kit",1,"A3PL_Medical_Kit",0,true,true,true,true,true,"", [0,0,0], ""],
-	["med_oxygenmask",localize"STR_ConfigItems_med_oxygenmask",0.5,"A3PL_Medical_OxygenMask",0,true,true,true,true,true,"", [0,0,0], ""],
-	["med_splint",localize"STR_ConfigItems_med_splint",0.25,"A3PL_Medical_Splint",0,true,true,true,true,true,"", [0,0,0], ""],
-	["med_painkillers",localize"STR_ConfigItems_med_painkillers",0.1,"A3PL_PainKillers",0,true,true,true,true,true,"", [0,0,0], ""],
-	["med_narcan",localize"STR_ConfigItems_med_narcan",0.1,"A3PL_PainKillers",0,true,true,true,true,true,"", [0,0,0], ""],
-	["med_autograft",localize"STR_ConfigItems_med_autograft",1,"A3PL_Medical_Kit",0,true,true,true,true,true,"", [0,0,0], ""],
-	["medS_bloodbag",localize"STR_ConfigItems_medS_bloodbag",0.5,"A3PL_BloodBag",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_cast",localize"STR_ConfigItems_med_cast",0.1,"A3PL_Medical_Cast",0.05,true,true,true,true,true,"", [0,0,0], ""],
+	["med_endotracheal",localize"STR_ConfigItems_med_endotracheal",0.025,"A3PL_Medical_Endotracheal",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_icepack",localize"STR_ConfigItems_med_icepack",0.05,"A3PL_Medical_Icepack",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_bandage",localize"STR_ConfigItems_med_bandage",0.05,"A3PL_Bandage",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_kit",localize"STR_ConfigItems_med_kit",0.05,"A3PL_Medical_Kit",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_oxygenmask",localize"STR_ConfigItems_med_oxygenmask",0.05,"A3PL_Medical_OxygenMask",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_splint",localize"STR_ConfigItems_med_splint",0.025,"A3PL_Medical_Splint",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_painkillers",localize"STR_ConfigItems_med_painkillers",0.05,"A3PL_PainKillers",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_eyewash","Eye Wash Solution",0.05,"A3PL_PainKillers",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_narcan",localize"STR_ConfigItems_med_narcan",0.05,"A3PL_PainKillers",0,true,true,true,true,true,"", [0,0,0], ""],
+	["med_autograft",localize"STR_ConfigItems_med_autograft",0.5,"A3PL_Medical_Kit",0,true,true,true,true,true,"", [0,0,0], ""],
+	["medS_bloodbag",localize"STR_ConfigItems_medS_bloodbag",0.05,"A3PL_BloodBag",0,true,true,true,true,true,"", [0,0,0], ""],
 
 	["Blueprint_SMG",localize"STR_ConfigItems_Blueprint_SMG",0,"A3PL_File2",0,true,true,true,true,true,"", [0,0,0], ""],
 	["Blueprint_Attachment",localize"STR_ConfigItems_Blueprint_Attachment",0,"A3PL_File2",0,true,true,true,true,true,"", [0,0,0], ""],
@@ -493,11 +500,11 @@ Config_Items =
     ["acetone",localize"STR_ConfigItems_acetone", 0.1, "A3FL_Acetone",0,true,true,true,true,true,"", [0,0,0], ""],
     ["hydrocloric_acid",localize"STR_ConfigItems_hydrocloric_acid", 0.1, "A3FL_HydroAcid",0,true,true,true,true,true,"", [0,0,0], ""],
 	["cocaine_barrel",localize"STR_ConfigItems_PlasticBarrel", 15, "A3FL_PlasticBarrel",0,true,true,true,false,false,"", [0,0,0], ""],
-	["kerosene_jerrycan",localize"STR_ConfigItems_KeroJerry",30,"A3PL_Jerrycan",-90,true,true,true,true,true,"", [0,0,0], ""],
+	["kerosene_jerrycan",localize"STR_ConfigItems_KeroJerry",10,"A3PL_Jerrycan",-90,true,true,true,true,true,"", [0,0,0], ""],
 	["cocaine_hydrochloride",localize"STR_ConfigItems_CocaineHydrochloride", 0.1, "A3PL_PowderedMilk",0,true,true,true,true,true,"", [0,0,0], ""],
 	["cocaine_brick",localize"STR_ConfigItems_CocaineBrick", 15, "A3FL_DrugBag",0,true,true,true,false,false,"", [0,0,0], ""],
 
 	["coffee",localize"STR_ConfigItems_Coffee", 0.1, "A3FL_Coffee",0,true,true,true,false,false,"A3PL_Items_Thirst", [0,0,0], ""],
-	["donut",localize"STR_ConfigItems_Donut", 0.1, "A3FL_Donut",0,true,true,true,false,false,"A3PL_Items_Food", [0,0,0], ""]	
+	["donut",localize"STR_ConfigItems_Donut", 0.1, "A3FL_Donut",0,true,true,true,false,false,"A3PL_Items_Food", [0,0,0], ""]
 ];
 publicVariable "Config_Items";

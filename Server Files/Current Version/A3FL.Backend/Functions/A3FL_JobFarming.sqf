@@ -1,3 +1,11 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
+
 ["A3PL_JobFarming_SearchSeeds",
 {
 	private ["_random","_found","_timeLeft"];
@@ -32,7 +40,7 @@
 
 	if (!(_class IN  ["seed_wheat","seed_marijuana","seed_corn","seed_lettuce","seed_coca","seed_sugar"])) exitwith {["You do not have a seed inside your hand to plant", "red"] call a3pl_player_notification;};
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	_posATL = getPosATL player;
 	if ((surfaceType _posATL) != "#cype_plowedfield") exitwith {["You are not standing on a farm field", "red"] call a3pl_player_notification;};
@@ -53,7 +61,7 @@
 	private ["_plant","_growState"];
 	_plant = param [0,objNull];
 
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	[player,_plant] remoteExec ["Server_JobFarming_Harvest",2];
 }] call Server_Setup_Compile;
 
@@ -77,7 +85,7 @@
 	//additional code for succefully planting a seed
 	if (_r == 0) then
 	{
-		[] call A3PL_Inventory_Clear; //deletes the item in hand and resets itemClass etc
+		call A3PL_Inventory_Clear; //deletes the item in hand and resets itemClass etc
 	};
 
 	_msg call a3pl_player_notification;
@@ -85,7 +93,7 @@
 
 ["A3PL_JobFarming_BuyGreenhouse",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_greenHouse","_interDist","_dist","_begPosASL","_endPosASL","_posATL"];
 	_greenHouse = param [0,objNull];
 	if (isNull _greenHouse) exitwith {["Couldn't determine greenhouse","red"] call A3PL_Player_Notification;};
@@ -102,7 +110,7 @@
 
 ["A3PL_JobFarming_GreenHousePlant",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_greenHouse","_interDist","_dist","_begPosASL","_endPosASL","_posATL","_class","_amountPlants"];
 	_greenHouse = param [0,objNull];
 	if (isNull _greenHouse) exitwith {["Couldn't determine greenhouse","red"] call A3PL_Player_Notification;};
@@ -130,7 +138,7 @@
 
 ["A3PL_JobFarming_PlanterPlant",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_planter","_interDist","_dist","_begPosASL","_endPosASL","_posATL","_class","_amountPlants"];
 	_planter = param [0,objNull];
 	if (isNull _planter) exitwith {["Couldn't determine planter","red"] call A3PL_Player_Notification;};
@@ -161,7 +169,7 @@
 
 
 		["seed_marijuana",-1] call A3PL_Inventory_Add;
-		[] call A3PL_Inventory_Clear;
+		call A3PL_Inventory_Clear;
 		["You planted a seed in this planter","green"] call A3PL_Player_Notification;
 
 
@@ -279,7 +287,7 @@
 
 ["A3PL_JobFarming_Grind",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_near","_bud","_grinder"];
 	_grinder = param [0,objNull];
 	_near = nearestObjects [_grinder, ["A3PL_Cannabis_Bud"], 2,true];
@@ -302,7 +310,7 @@
 
 ["A3PL_JobFarming_GrindCollect",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_grinder","_value","_amount"];
 	_grinder = param [0,objNull];
 	_value = _grinder getVariable ["grindedweed",0];
@@ -339,13 +347,13 @@
 
 	//set eventhandler
 	_ctrl = _display displayCtrl 1600;
-	_ctrl buttonSetAction "[] call A3PL_JobFarming_Bag";
+	_ctrl buttonSetAction "call A3PL_JobFarming_Bag";
 	A3PL_JobFarming_Scale = _scale;
 }] call Server_Setup_Compile;
 
 ["A3PL_JobFarming_Bag",
 {
-	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	disableSerialization;
 	private ["_scale","_near","_allGrinded","_display","_ctrl","_grams"];
 	_scale = missionNameSpace getVariable ["A3PL_JobFarming_Scale",objNull];
