@@ -319,7 +319,7 @@
 				_icon = _configSel select 2;
 				drawIcon3D ["", [1,1,1,1], _posAGL, 0, 0, 0,_name, 1, 0.036, "PuristaSemiBold"];
 			};
-		}, 3, 'seconds'] call BIS_fnc_loop
+		}, 3, 'seconds'] call BIS_fnc_loop;
 }] call Server_Setup_Compile;
 
 //Currently has a limit of 20m. Can be changed in A3PL_Intersect_Lines
