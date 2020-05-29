@@ -19,7 +19,7 @@
 	private _display = findDisplay 136;
 	private _name = ctrlText (_display displayCtrl 1400);
 	private _desc = ctrlText (_display displayCtrl 1401);
-	
+
 	closeDialog 0;
 
 	if((player getVariable["Player_Level",0]) < 6) exitwith {[localize"STR_COMPANY_LEVELCREATE","red"] call A3PL_Player_Notification;};
@@ -70,7 +70,7 @@
 
 	_control = _display displayCtrl 1100;
 	_control ctrlSetStructuredText parseText format["<t align='right' size='1.2'>$%1</t>",[_companyBudget] call A3PL_Lib_FormatNumber];
-	
+
 	//Close
 	_control = _display displayCtrl 1703;
 	_control buttonSetAction "[0] call A3PL_Lib_CloseDialog;";
@@ -99,9 +99,9 @@
 	_desc = param [0,localize"STR_COMPANY_NODESCRIPTION"];
 	_empList = param [1,[]];
 	_cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
-	
+
 	_display = findDisplay 137;
-	
+
 	//Employees list
 	_control = _display displayCtrl 1500;
 	{
@@ -182,7 +182,7 @@
 	_amount = round(parseNumber(ctrlText 5372));
 	_companyTransfer = false;
 	if(["(C)", lbText [5472, (lbCurSel 5472)]] call BIS_fnc_inString) then {_companyTransfer = true;} else {_companyTransfer = false;};
-	
+
 	if (((lbCurSel 5472) == -1) || (_amount <= 0)) exitWith {[localize"STR_COMPANY_TRANSFERTERROR", "red"] call A3PL_Player_Notification;};
 
 	_cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
@@ -196,7 +196,7 @@
 
 		[_targetCID, _amount, format[localize"STR_COMPANY_TRANSFERFROM",_cName]] remoteExec ["Server_Company_SetBank",2];
 		[_cid, -_amount, format[localize"STR_COMPANY_TRANSFERTO",_cTName]] remoteExec ["Server_Company_SetBank",2];
-		
+
 		_format = format[localize"STR_COMPANY_YOUTRANSFERMONEYTOCOMPANYFROMYOURCOMPANY", [_amount] call A3PL_Lib_FormatNumber,_cTName];
 	} else {
 		_sendTo = lbData [5472, (lbCurSel 5472)];
@@ -274,7 +274,7 @@
 
 ['A3PL_Company_RegisterReceive', {
 	_companies = param [0,[]];
-	
+
 	if(_companies isEqualTo []) exitWith {};
 
 	_display = findDisplay 153;
@@ -605,7 +605,7 @@
 			if ([_selectedData,_amount] call A3PL_Inventory_Has) then {
 				_canStore = true;
 				player setVariable ["player_inventory",([_inventory, _selectedData, -(_amount),false] call BIS_fnc_addToPairs),true];
-				call A3PL_Inventory_Verify;
+				[] call A3PL_Inventory_Verify;
 			};
 		};
 		case 1: {_typeName = "aitem";};

@@ -363,6 +363,7 @@
 	_obj = Player_Item;
 	_droppedItems = server getVariable 'droppedObjects';
 
+
 	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith { [localize"STR_NewInventory_11","red"] call A3PL_Player_Notification; };
 
 	if (isNull _obj) exitwith

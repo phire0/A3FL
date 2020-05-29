@@ -195,7 +195,7 @@
 
 ['A3PL_Intersect_Lines', {
 		if (isDedicated) exitwith {};
-		["A3PL_Intersect_Lines", "onEachFrame", {
+		["itemAdd", ["A3PL_Intersect_Lines", {
 			if (count (nearestObjects [player, ["A3PL_Stinger"], 3]) > 0) then {
 				if (_veh == player) exitwith {};
 				call A3PL_Intersect_Spikes;
@@ -210,8 +210,8 @@
 			if (_ins isEqualTo []) exitWith {};
 			_ins select 0 params ["_pos", "_norm", "_obj", "_parent"];
 			if (isNull _obj) exitwith {
-				private ["_cur"];
-				_cur = cursortarget;
+				private _cur = cursortarget;
+				private _configNoNameNoFire = Config_Intersect_NoNameNoFire;
 				if (!isNull cursortarget) exitwith {
 					Player_ObjIntersect = cursortarget;
 					Player_NameIntersect = "";
@@ -222,12 +222,13 @@
 							_icon = _x select 2;
 							drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
 						};
-					} foreach Config_Intersect_NoNameNoFire;
+					} foreach _configNoNameNoFire;
 				};
 				Player_ObjIntersect = player;
 				Player_NameIntersect = "";
 			};
 			if ((!(getModelInfo _parent select 2)) OR ((player distance _obj) > 20)) exitWith {
+				private _noName = Config_Intersect_NoName;
 				Player_NameIntersect = "";
 				Player_ObjIntersect = _obj;
 				{
@@ -237,7 +238,7 @@
 						_icon = _x select 2;
 						drawIcon3D [_icon, [1,1,1,1], getpos _obj, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
 					};
-				} foreach Config_Intersect_NoName;
+				} foreach _noName;
 			};
 
 			_ins2 = [_parent, "FIRE"] intersect [_begPos, _endPos];
@@ -247,8 +248,8 @@
 
 				if ((typeOf (nearestObject [player, "GroundWeaponHolder"])) == "GroundWeaponHolder") then {
 					if (([eyepos player nearestObject "GroundWeaponHolder",eyepos player] call bis_fnc_distance2d) < 1.1) then {
-						private ["_cur"];
-						_cur = (eyepos player) nearestObject "GroundWeaponHolder";
+						private _cur = (eyepos player) nearestObject "GroundWeaponHolder";
+						private _configNoNameNoFire = Config_Intersect_NoNameNoFire;
 						Player_ObjIntersect = _cur;
 						Player_NameIntersect = "";
 						{
@@ -258,12 +259,12 @@
 								_icon = _x select 2;
 								drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
 							};
-						} foreach Config_Intersect_NoNameNoFire;
+						} foreach _configNoNameNoFire;
 					};
 				};
 				if ((typeOf cursortarget) IN ["GroundWeaponHolder"]) exitwith {
-					private ["_cur"];
-					_cur = cursortarget;
+					private _cur = cursortarget;
+					private _configNoNameNoFire = Config_Intersect_NoNameNoFire;
 					Player_ObjIntersect = _cur;
 					Player_NameIntersect = "";
 					{
@@ -273,7 +274,7 @@
 							_icon = _x select 2;
 							drawIcon3D [_icon, [1,1,1,1], getpos _cur, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
 						};
-					} foreach Config_Intersect_NoNameNoFire;
+					} foreach _configNoNameNoFire;
 				};
 			};
 
@@ -318,7 +319,7 @@
 				_icon = _configSel select 2;
 				drawIcon3D ["", [1,1,1,1], _posAGL, 0, 0, 0,_name, 1, 0.036, "PuristaSemiBold"];
 			};
-		}] call BIS_fnc_addStackedEventHandler;
+		}, 3, 'seconds'] call BIS_fnc_loop
 }] call Server_Setup_Compile;
 
 //Currently has a limit of 20m. Can be changed in A3PL_Intersect_Lines
