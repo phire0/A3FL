@@ -1066,7 +1066,7 @@
 ["A3PL_Admin_PerformanceTestIntersects",{
 	{
 		_name = (_x select 1);
-		_limit = 0.01
+		_limit = 0.01;
 		_timeTaken = ((diag_codePerformance [(_x select 3), 0, 10000]) select 0);
 		if(_timeTaken > _limit) then {
 			diag_log format ["name: %1 - time: %2",_name,_timeTaken];
