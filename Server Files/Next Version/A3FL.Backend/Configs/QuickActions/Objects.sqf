@@ -170,12 +170,11 @@
 	"A3FL_Table",
 	localize"STR_INTSECT_CureBud",
 	{
-		if ((player_itemClass == "cannabis_bud") && (typeOf Player_Item == "A3PL_Cannabis_Bud")) then
+		if ((player_itemClass isEqualTo "cannabis_bud") && (typeOf Player_Item isEqualTo "A3PL_Cannabis_Bud")) then
 		{
 			[Player_Item] call A3PL_JobFarming_CureLoop;
 			call A3PL_Placeables_QuickAction;
-		} else
-		{
+		} else {
 			[localize"STR_INTSECT_SystemYouDontSeemToBeHoldingACannabisBudToCure","red"] call A3PL_Player_Notification;
 		};
 	}
@@ -189,16 +188,6 @@
 	"A3FL_Mushroom",
 	"Harvest Mushrooms",
 	{[player_objintersect] spawn A3PL_Shrooms_Pick;}
-],
-[
-    "Land_A3FL_TrafficLight_A",
-    localize"STR_INTSECT_RepairTrafficLight",
-    {[player_objintersect] call A3PL_TrafficLights_Repair;}
-],
-[
-    "Land_A3FL_TrafficLight_B",
-    localize"STR_INTSECT_RepairTrafficLight",
-    {[player_objintersect] call A3PL_TrafficLights_Repair;}
 ],
 [
     "Land_MetalCase_01_large_F",
