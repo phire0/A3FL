@@ -34,7 +34,7 @@
  	createDialog "Dialog_WarehouseBuy";
 	_display = findDisplay 75;
 	_control = _display displayCtrl 1000;
-	_control ctrlSetText format ["$%1",[_price, 1, 2, true] call CBA_fnc_formatNumber];
+	_control ctrlSetText format ["%1",[_price, 1, 2, true] call CBA_fnc_formatNumber];
 }] call Server_Setup_Compile;
 
 ["A3PL_Warehouses_Buy",
