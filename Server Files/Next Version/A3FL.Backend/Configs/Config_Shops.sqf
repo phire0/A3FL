@@ -266,7 +266,11 @@ Config_Shops_Items = [
 		],{[6975.15,5413.12,2]}
 	],
 
-	["Shop_DrugsDealer",[["item","seed_marijuana",300,180,8]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
+	["Shop_DrugsDealer",[
+		["item","seed_marijuana",300,180,8],
+		["item","beer",50,30,0],
+		["item","beer_gold",280,150,0]
+	],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
 	["Shop_DrugsDealerCartel",[["item","seed_marijuana",150,75,2]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
@@ -663,7 +667,6 @@ Config_Shops_Items = [
 	],
 
 	["Shop_DOJ_Supplies_Vendor",[
-			["uniform","A3PL_DOJ_Badge_and_Shirt_Uniform",25,-1,0],
 			["uniform","A3PL_DOJ_DBlue_Uniform",25,-1,0],
 			["uniform","A3PL_DOJ_LBlue_Uniform",25,-1,0],
 			["uniform","A3PL_DOJ_Purp_Uniform",25,-1,0],
@@ -755,7 +758,7 @@ Config_Shops_Items = [
 			["weapon","A3FL_PepperSpray",100,-1,0],
 			["weaponPrimary","SMG_05_F",35000,-1,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
-			["magazine","A3PL_Taser_Mag",50,-1,0],
+			["magazine","A3PL_TaserMag",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,-1,0],
 			["magazine","A3PL_Red_Glock_Mag",50,-1,0],
 			["magazine","A3PL_P226_Mag",50,-1,0],

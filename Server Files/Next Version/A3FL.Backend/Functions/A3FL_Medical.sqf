@@ -1091,12 +1091,11 @@
 
 ["A3PL_Medical_Heal",
 {
-	private ["_healPrice","_pCash"];
 	if (!A3PL_FD_Clinic) exitwith {["You can not be healed here when the FIFR is available!","red"] call A3PL_Player_Notification;};
 
-	_healPrice = 600;
-	_pCash = player getVariable ["player_cash",0];
-	_npc = player_objintersect;
+	private _healPrice = 600;
+	private _pCash = player getVariable ["player_cash",0];
+	private _npc = player_objintersect;
 	if (_healPrice > _pCash) exitwith {[format [localize"STR_NPC_FIFRHEALERROR",_healPrice-_pCash]] call A3PL_Player_notification;};
 
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - _healPrice,true];
@@ -1122,6 +1121,7 @@
 	player setDamage 0;
 	player setVariable ["A3PL_Wounds",[],true];
 	player setVariable ["A3PL_MedicalVars",[MAXBLOODLVL,"120/80",37],true];
+	player setVariable ["A3PL_Medical_Alive",true,true];
 	['fifr_healdone'] call A3PL_NPC_Start;
 }] call Server_Setup_Compile;
 

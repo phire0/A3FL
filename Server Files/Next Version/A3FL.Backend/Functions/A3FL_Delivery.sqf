@@ -138,7 +138,7 @@
 		[[11842.1,9252.28,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_WeaponsFactory"],
 		[[3469.14,7483.19,0],localize"Functions_DeliveryLocation_Net",localize"Functions_DeliveryLocation_FishingShop"],
 		[[2471.12,5640.3,0],localize"Functions_DeliveryLocation_Tournevis",localize"Functions_DeliveryLocation_FurnStore"],
-		[[9926.55,7474.74,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_FirearmsDealer"],
+		[[10004.7,7878.45,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_FirearmsDealer"],
 		[[3541.34,5157.79,0],localize"Functions_DeliveryLocation_Comp",localize"Functions_DeliveryLocation_PaintBall"]
 	];
 

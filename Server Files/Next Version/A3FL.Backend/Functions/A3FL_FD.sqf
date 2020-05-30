@@ -95,6 +95,7 @@
 				moveOut _x;
 			} foreach (crew _intersect);
 			_intersect setVariable ["locked",false,true];
+			_intersect setVariable ["trapped",false,true];
 		} else {
 			[localize"STR_NewFD_PinceError2","red"] call A3PL_Player_Notification;
 		};
@@ -108,6 +109,7 @@
 				moveOut _x;
 			} foreach (crew _intersect);
 			_intersect setVariable ["locked",false,true];
+			_intersect setVariable ["trapped",false,true];
 		} else {
 			[localize"STR_NewFD_PinceError2","red"] call A3PL_Player_Notification;
 		};
