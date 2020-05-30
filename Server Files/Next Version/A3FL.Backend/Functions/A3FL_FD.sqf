@@ -1196,7 +1196,7 @@
 
 	//Okay now lets do some magic
 	_edit0 = [_edit,0] call A3PL_FD_DatabaseArgu;
-	if ((_edit0 IN ["sendcall","lookpatient","lookhistory","addhistory","clinic","callvfd"]) && (!(player getVariable "FDDatabaseLogin"))) exitwith
+	if ((_edit0 IN ["sendcall","lookpatient","lookhistory","addhistory","clinic","callvfd","clearfires"]) && (!(player getVariable "FDDatabaseLogin"))) exitwith
 	{
 		_newstruct = format["%1<br />%2",(player Getvariable "FDDatabaseStruc"),"Error: You do not have the permission to use that command"];
 		player setVariable ["FDDatabaseStruc",_newstruct,false];
@@ -1218,6 +1218,7 @@
 			<t align='center'>clinic - Open / Close clinics</t><br />
 			<t align='center'>wind - Display current wind direction</t><br />
 			<t align='center'>callvfd [message] - Activate VFD Beepers</t><br />
+			<t align='center'>clearfires - Clear Current Fires (High Command Only)</t><br />
 			";
 		};
 		case "clear": {_output = "<t align='center'>FISHERS ISLAND FIRE &amp; RESCUE</t><br /><t align='center'>Type 'help' to see all the available commands</t><br />";};
@@ -1294,8 +1295,17 @@
 			_issuedBy = player getVariable ["name",name player];
 
 			[player,[_name,_place,_info,_issuedBy],_edit0] remoteExec ["Server_FD_Database", 2];
-			//Output
 			_output = format ["Information added to the patient's file...",_name];
+		};
+		case "clearfires":
+		{
+			private _isCommand = ["fifr"] call A3PL_Government_isFactionLeader;
+			if (_isCommand) then {
+				call A3PL_Admin_RemoveFire;
+				_output = "Fires have been cleared";
+			} else {
+				_output = "Error: You are not high command";
+			};
 		};
 		default {_output = "Error: Unknown command"};
 	};
