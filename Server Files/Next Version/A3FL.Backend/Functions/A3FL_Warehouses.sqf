@@ -31,8 +31,8 @@
 	A3PL_Warehouses_Object = _warehouses select 0;
 
 	_price = [A3PL_Warehouses_Object] call A3PL_Warehouses_GetPrice;
- 	createDialog "Dialog_HouseBuy";
-	_display = findDisplay 72;
+ 	createDialog "Dialog_WarehouseBuy";
+	_display = findDisplay 75;
 	_control = _display displayCtrl 1000;
 	_control ctrlSetText format ["$%1",[_price, 1, 2, true] call CBA_fnc_formatNumber];
 }] call Server_Setup_Compile;
@@ -45,8 +45,8 @@
 	A3PL_Warehouses_Object = _warehouses select 0;
 	_price = [A3PL_Warehouses_Object] call A3PL_Warehouses_GetPrice;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
-	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {[localize"STR_NewHousing_14","red"] call A3PL_Player_Notification;};
-	if (!isNil {player getVariable ["warehouse",nil]}) exitwith {[localize"STR_NewHousing_15","red"] call A3PL_Player_Notification;};
+	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {"This warehouse is already owned!","red"] call A3PL_Player_Notification;};
+	if (!isNil {player getVariable ["warehouse",nil]}) exitwith {["You already own a warehouse!","red"] call A3PL_Player_Notification;};
 
 	[A3PL_Warehouses_Object,player,true,_price] remoteExec ["Server_Warehouses_Assign", 2];
 	closeDialog 0;

@@ -264,10 +264,12 @@
 			[_unit,_houseObj,_uid] call Server_Housing_LoadItems;
 		};
 	};
+
 	if(_ownsWarehouse) then {
 	_unit setVariable ["warehouse",_warehouseObj,true];
 	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
 	if(_firstOwnerWarehouse isEqualTo _uid) then {
+			diag_log "calling Server_Warehouses_LoadItems";
 			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};

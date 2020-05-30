@@ -281,7 +281,6 @@
 
 				case ((typeOf _obj) IN ["Land_A3FL_Office_Building"]):
 				{
-					hint "here";
 					if (_name IN ["door_1","door_2","door_3","door_4"]) then
 					{
 						if (isNil {_obj getVariable "unlocked"}) exitwith

@@ -106,6 +106,7 @@ corpseRemovalMaxTime = 60;
 #include "Dialogs\dialog_prospect.hpp"
 #include "Dialogs\dialog_prospectfound.hpp"
 #include "Dialogs\dialog_fakeid.hpp"
+#include "Dialogs\dialog_warehousebuy.hpp"
 
 class RscTitles {
 	#include "Dialogs\Dialog_HUD.hpp"

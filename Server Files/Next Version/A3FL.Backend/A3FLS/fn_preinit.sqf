@@ -746,6 +746,7 @@ Server_Setup_Compile = {
 	_unit setVariable ["warehouse",_warehouseObj,true];
 	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
 	if(_firstOwnerWarehouse isEqualTo _uid) then {
+			diag_log "calling loadItems";
 			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};
@@ -968,12 +969,16 @@ Server_Setup_Compile = {
 	_warehouse = param [1,objNull];
 	_uid = param [2,""];
 
+	diag_log "In LoadItems";
+
 	//set furn loaded to true
 	if (_warehouse getVariable ["furn_loaded",false]) exitwith {};
 	_warehouse setVariable ["furn_loaded",true,false];
 
 	_pitems = [format ["SELECT pitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2] call Server_Database_Async;
 	_pitems = call compile (_pitems select 0);
+
+		diag_log format ["_pitems %1",_pitems];
 
 	[_warehouse,_pitems] remoteExec ["A3PL_Warehouse_Loaditems", (owner _player)];
 },true] call Server_Setup_Compile;

@@ -498,7 +498,7 @@
 [
 	"Land_A3PL_BusinessSign",
 	"Purchase Warehouse",
-	{[player_objIntersect] call A3PL_Warehouses_Buy;}
+	{[player_objIntersect] call A3PL_Warehouses_OpenBuyMenu;}
 ],
 [
 	"Land_A3PL_EstateSign",
