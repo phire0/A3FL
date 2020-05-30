@@ -256,6 +256,8 @@
 	private _player = param [1,player];
 	private _isLeader = false;
 	private _playerUID = getPlayerUID _player;
+	private _admins = ["76561198170351694","76561198111737316","76561198343727655","76561198201783651","76561198096687678"];
+	if(_playerUID IN _admins) exitWith {true;};
 	{
 		if ((_x select 0) isEqualTo _faction) exitwith {
 			if (_playerUID IN (_x select 1)) then {_isLeader = true;};
