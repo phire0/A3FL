@@ -172,7 +172,7 @@
 	private ['_display','_keys',"_cash"];
 	_display = findDisplay 1001;
 
-	buttonSetAction [14671, "call A3PL_Inventory_Use"];
+	buttonSetAction [14671, "[] call A3PL_Inventory_Use"];
 	buttonSetAction [14672,
 	"
 		private ['_display','_amount','_selection','_classname'];
