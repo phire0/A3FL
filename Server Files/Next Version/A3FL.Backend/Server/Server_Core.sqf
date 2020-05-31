@@ -267,13 +267,13 @@
 	call Server_Core_Restart;
 },true] call Server_Setup_Compile;
 
-// 11am EST = 3pm UTC
+// 12am EST = 3pm UTC
 ["Server_Core_RestartLoop",{
 	_utcTime = "extDB3" callExtension "9:UTC_TIME";
 	_justTime = (parseSimpleArray _utcTime) select 1;
 	_hourMin = [(_justTime select 3),(_justTime select 4)];
 
-	_restartTimes = [[18,00],[06,00]];
+	_restartTimes = [[11,00]];
 	{
 		if(_hourMin isEqualTo _x) then {
 			[] spawn Server_Core_RestartTimer;
