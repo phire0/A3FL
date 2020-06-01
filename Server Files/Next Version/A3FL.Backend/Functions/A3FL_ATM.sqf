@@ -100,6 +100,7 @@
 	} else {
 		_sendTo = lbData [5472, (lbCurSel 5472)];
 		_sendToCompile = call compile _sendTo;
+		if(isNull _sendToCompile) exitWith {_format = "Error: Unable to transfer";};
 		_format = format[localize"STR_ATM_YOUTRANSFERAMOUNTTOPLAYER", [_amount] call A3PL_Lib_FormatNumber, (name _sendToCompile)];
 		[format[localize"STR_ATM_YOURECEIVETRANSFER",_amount], "green"] remoteExec ["A3PL_Player_Notification",_sendToCompile];
 		[_sendToCompile, 'Player_Bank', ((_sendToCompile getVariable 'Player_Bank') + _amount)] remoteExec ["Server_Core_ChangeVar",2];

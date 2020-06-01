@@ -45,7 +45,7 @@
 	A3PL_Warehouses_Object = _warehouses select 0;
 	_price = [A3PL_Warehouses_Object] call A3PL_Warehouses_GetPrice;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
-	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {"This warehouse is already owned!","red"] call A3PL_Player_Notification;};
+	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {["This warehouse is already owned!","red"] call A3PL_Player_Notification;};
 	if (!isNil {player getVariable ["warehouse",nil]}) exitwith {["You already own a warehouse!","red"] call A3PL_Player_Notification;};
 
 	[A3PL_Warehouses_Object,player,true,_price] remoteExec ["Server_Warehouses_Assign", 2];

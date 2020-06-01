@@ -83,11 +83,7 @@
 	};
 
 	//additional code for succefully planting a seed
-	if (_r == 0) then
-	{
-		call A3PL_Inventory_Clear; //deletes the item in hand and resets itemClass etc
-	};
-
+	if (_r isEqualTo 0) then {[] call A3PL_Inventory_Clear;};
 	_msg call a3pl_player_notification;
 }] call Server_Setup_Compile;
 
@@ -154,9 +150,8 @@
 	_endPosASL = AGLToASL positionCameraToWorld [0,0,1000];
 	_posATL = ASLToATL (_begPosASL vectorAdd ((_begPosASL vectorFromTo _endPosASL) vectorMultiply _dist));
 
-	if (_class == "seed_marijuana") then
+	if (_class isEqualTo "seed_marijuana") then
 	{
-
 		_plant = createVehicle ["A3PL_Cannabis",[_posATL select 0,_posATL select 1,((_posATL select 2) - 0.05)], [], 0, "CAN_COLLIDE"];
 		_plant setDir (random 360);
 		[_plant, _planter] call BIS_fnc_attachToRelative;
@@ -164,14 +159,11 @@
 		A3PL_Cannabis_Plants = missionNameSpace getVariable ["A3PL_Cannabis_Plants",[]];
 		A3PL_Cannabis_Plants pushback _plant;
 
-
 		if ((random 10) >= 5) then { _plant setVariable ["female",true,true]; };
-
 
 		["seed_marijuana",-1] call A3PL_Inventory_Add;
 		call A3PL_Inventory_Clear;
 		["You planted a seed in this planter","green"] call A3PL_Player_Notification;
-
 
 		if (!isNil "A3PL_Cannabis_Loop") exitwith {};
 		A3PL_Cannabis_Loop = true;
@@ -179,8 +171,7 @@
 		{
 			while {(count A3PL_Cannabis_Plants) > 0} do
 			{
-				private ["_plantsToDelete"];
-				_plantsToDelete = [objNull];
+				private _plantsToDelete = [objNull];
 				{
 
 					if ((isNull _x) OR ((_x animationSourcePhase "plant_growth") > 0.99)) then
@@ -214,10 +205,9 @@
 			};
 			A3PL_Cannabis_Loop = nil;
 		};
-	} else
-	{
+	} else {
+		call A3PL_Inventory_Clear;
 		[player,_class,_posATL] remoteExec ["Server_JobFarming_Plant",2];
-
 		["You planted a seed in this planter","green"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
@@ -233,8 +223,7 @@
 	if ((_bud IN (missionNameSpace getVariable ["A3PL_Cannabis_Buds",[]])) && (count _near > 0)) then
 	{
 		[format ["This bud is currently curing, right now it is %1%2 cured",_cured,"%"],"green"] call A3PL_Player_Notification;
-	} else
-	{
+	} else {
 		[format ["This bud is currently NOT CURING (has this item been placed on a workbench?, and is a fan pointed at the buds?), right now it is %1%2 cured",_cured,"%"],"green"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;

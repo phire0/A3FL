@@ -424,16 +424,16 @@ A3PL_Interaction_Options =
 			[localize "STR_INTER_LOCKVD", "red"] call A3PL_Player_Notification;
 			playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
 		},
-		{(vehicle player == player) && (player distance cursorObject < 15) && {(simulationEnabled player_objintersect)} && {!isNil "player_objintersect"} && {player_objintersect IN A3PL_Player_Vehicles} && {!(player_objintersect getVariable ["locked",true])}}
+		{(vehicle player isEqualTo player) && (player distance cursorObject < 15) && {(simulationEnabled player_objintersect)} && {!isNil "player_objintersect"} && {player_objintersect IN A3PL_Player_Vehicles} && {!(player_objintersect getVariable ["locked",true])}}
 	],
 	[
 		localize "STR_INTER_UNLOCKV",
 		{
-			vehicle player setVariable ["locked",false,true];
+			(vehicle player) setVariable ["locked",false,true];
 			[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
 			playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
 		},
-		{(vehicle player != player) && {(vehicle player) IN A3PL_Player_Vehicles} && {(vehicle player getVariable ["locked",true])}}
+		{(vehicle player != player) && {(vehicle player getVariable ["locked",true])}}
 	],
 	[
 		localize "STR_INTER_UNLOCKV",
@@ -442,12 +442,12 @@ A3PL_Interaction_Options =
 			[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
 			playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
 		},
-		{(vehicle player == player) && (simulationEnabled cursorObject) && ((player distance cursorObject) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])}
+		{(vehicle player isEqualTo player) && (simulationEnabled cursorObject) && ((player distance cursorObject) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])}
 	],
 	[
 		localize "STR_INTER_ATTACHNB",
 		{[cursorObject] call A3PL_Vehicle_TrailerAttach;},
-		{((vehicle player == player) && (cursorObject distance player < 5)) && {(simulationEnabled cursorObject)} && {(typeOf cursorObject == "A3PL_Small_Boat_Trailer")}}
+		{((vehicle player isEqualTo player) && (cursorObject distance player < 5)) && {(simulationEnabled cursorObject)} && {(typeOf cursorObject == "A3PL_Small_Boat_Trailer")}}
 	],
 	[
 		localize "STR_INTER_DETACHBOAT",
