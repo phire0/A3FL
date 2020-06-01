@@ -256,29 +256,3 @@
 	private _result = [_query, 2, true] call Server_Database_Async;
 	[_result] remoteExec ["A3PL_iPhoneX_appCompaniesBills",owner _player];
 },true] call Server_Setup_Compile;
-
-["Server_Company_SaveStorage",
-{
-	private _cid = param [0,-1];
-	private _data = param[1,[]];
-	if(_cid < 0) exitWith {};
-	{
-		if(_id == (_x select 0)) exitWith {
-			Server_Companies set[_forEachIndex,[_x select 0, _x select 1, _x select 2, _x select 3, _x select 4, _x select 5, _data]];
-		};
-	} foreach Server_Companies;
-	publicVariable "Server_Companies";
-	private _data = [_data] call Server_Database_Array;
-	private _query = format ["UPDATE companies SET storage = '%1' WHERE id = '%2'",_data, _cid];
-	[_query, 1] call Server_Database_Async;
-},true] call Server_Setup_Compile;
-
-["Server_Company_GetStorageData",
-{
-	private _cid = param [0,-1];
-	private _player = param [1,objNull];
-	private _query = format ["SELECT storage FROM companies WHERE id='%1'",_cid];
-	private _result = [_query, 2] call Server_Database_Async;
-	private _storage = [_result select 0] call Server_Database_ToArray;
-	[_storage, _result select 1] remoteExec ["A3PL_Company_StorageDataReceived",_player];
-},true] call Server_Setup_Compile;
