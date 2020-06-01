@@ -494,3 +494,10 @@
 	[_cid, -_payAmount, ""] remoteExec ["Server_Company_SetBank",2];
 	_payAmount;
 }] call Server_Setup_Compile;
+
+['A3PL_Company_Resign', {
+	private _uid = getPlayerUID player;
+	private _cid = [_uid] call A3PL_Config_GetCompanyID;
+	["You resigned from your company.","green"] call A3PL_Player_Notification;
+	[_cid, _uid, false] remoteExec ["Server_Company_Fire",2];
+}] call Server_Setup_Compile;
