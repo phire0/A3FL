@@ -109,48 +109,46 @@ A3PL_Interaction_Options =
 	[
 		localize"STR_INTER_SETCOLLOC",
 		{
-			_playerLevel = player getVariable["Player_Level",0];
+			private _playerLevel = player getVariable["Player_Level",0];
 			if(_playerLevel < 10) then {
 				[format[localize"STR_Inter_Notifications_Level10ThingsPerks"], "red"] call A3PL_Player_Notification;
 			} else {
-				private["_house"];
-				_house = (nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]) select 0;
-				_uids = _house getVariable ["owner",[]];
+				private _house = (nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]) select 0;
+				private _uids = _house getVariable ["owner",[]];
 				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
 				_uid = _uids select 0;
-				if((getPlayerUID player) == _uid) then {
+				if((getPlayerUID player) isEqualTo _uid) then {
 					[player, cursorobject, _house] remoteExec ["Server_Housing_AddMember",2];
-					_namePos = [getPos _house] call A3PL_Housing_PosAddress;
+					private _namePos = [getPos _house] call A3PL_Housing_PosAddress;
 					[format[localize"STR_Inter_Notifications_NewColloc",_namePos], "green"] call A3PL_Player_Notification;
 				} else {
 					[localize"STR_Inter_Notifications_FirstOwner", "red"] call A3PL_Player_Notification;
 				};
 			};
 		},
-		{private["_house"]; _house = nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _house = nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_UNSETCOLLOC",
 		{
-			_playerLevel = player getVariable["Player_Level",0];
+			private _playerLevel = player getVariable["Player_Level",0];
 			if(_playerLevel < 10) then {
 				[format[localize"STR_Inter_Notifications_Level10ThingsPerks"], "red"] call A3PL_Player_Notification;
 			} else {
-				private["_house"];
-				_house = (nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]) select 0;
-				_uids = _house getVariable ["owner",[]];
+				private _house = (nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]) select 0;
+				private _uids = _house getVariable ["owner",[]];
 				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
 				_uid = _uids select 0;
-				if((getPlayerUID player) == _uid) then {
-					_namePos = [getPos _house] call A3PL_Housing_PosAddress;
-					[player, cursorobject, _house] remoteExec ["Server_Housing_RemoveMember",2];
+				if((getPlayerUID player) isEqualTo _uid) then {
+					private _namePos = [getPos _house] call A3PL_Housing_PosAddress;
+					[cursorObject, _house] remoteExec ["Server_Housing_RemoveMember",2];
 					[format[localize"STR_Inter_Notifications_FireColloc",_namePos], "green"] call A3PL_Player_Notification;
 				} else {
 					[localize"STR_Inter_Notifications_FirstOwnerFire", "red"] call A3PL_Player_Notification;
 				};
 			};
 		},
-		{private["_house"]; _house = nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _house = nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_CHECKID",
@@ -426,16 +424,16 @@ A3PL_Interaction_Options =
 			[localize "STR_INTER_LOCKVD", "red"] call A3PL_Player_Notification;
 			playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
 		},
-		{(vehicle player == player) && (player distance cursorObject < 15) && {(simulationEnabled player_objintersect)} && {!isNil "player_objintersect"} && {player_objintersect IN A3PL_Player_Vehicles} && {!(player_objintersect getVariable ["locked",true])}}
+		{(vehicle player isEqualTo player) && (player distance cursorObject < 15) && {(simulationEnabled player_objintersect)} && {!isNil "player_objintersect"} && {player_objintersect IN A3PL_Player_Vehicles} && {!(player_objintersect getVariable ["locked",true])}}
 	],
 	[
 		localize "STR_INTER_UNLOCKV",
 		{
-			vehicle player setVariable ["locked",false,true];
+			(vehicle player) setVariable ["locked",false,true];
 			[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
 			playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
 		},
-		{(vehicle player != player) && {(vehicle player) IN A3PL_Player_Vehicles} && {(vehicle player getVariable ["locked",true])}}
+		{(vehicle player != player) && {(vehicle player getVariable ["locked",true])}}
 	],
 	[
 		localize "STR_INTER_UNLOCKV",
@@ -444,12 +442,12 @@ A3PL_Interaction_Options =
 			[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
 			playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
 		},
-		{(vehicle player == player) && (simulationEnabled cursorObject) && ((player distance cursorObject) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])}
+		{(vehicle player isEqualTo player) && (simulationEnabled cursorObject) && ((player distance cursorObject) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])}
 	],
 	[
 		localize "STR_INTER_ATTACHNB",
 		{[cursorObject] call A3PL_Vehicle_TrailerAttach;},
-		{((vehicle player == player) && (cursorObject distance player < 5)) && {(simulationEnabled cursorObject)} && {(typeOf cursorObject == "A3PL_Small_Boat_Trailer")}}
+		{((vehicle player isEqualTo player) && (cursorObject distance player < 5)) && {(simulationEnabled cursorObject)} && {(typeOf cursorObject == "A3PL_Small_Boat_Trailer")}}
 	],
 	[
 		localize "STR_INTER_DETACHBOAT",

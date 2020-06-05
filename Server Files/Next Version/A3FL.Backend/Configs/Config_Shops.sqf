@@ -256,8 +256,7 @@ Config_Shops_Items = [
 			["item","distillery",34000,-1,4],
 			["item","distillery_hose",950,-1,4],
 			["item","jug",450,-1,4],
-			["item","jug_green",500,-1,4],
-			["item","jug_moonshine",-1,6100,4]
+			["item","jug_green",500,-1,4]
 		],{[6975.15,5413.12,2]}
 	],
 

@@ -468,3 +468,14 @@
 	_address = _building getVariable["Building_Address","Unknown Address"];
 	_address;
 }] call Server_Setup_Compile;
+
+["A3PL_Housing_LeaveHouse",
+{
+	private _house = (nearestObjects [player, Config_Houses_List, 20,true]) select 0;
+	if(count(_near) isEqualTo 0) exitWith {["No house nearby", "red"] call A3PL_Player_Notification;};
+	private _owners = (_near select 0) getVariable ["owner",[]];
+	if(count _owners isEqualTo 0) exitwith {};
+	private _owner = _owners select 0;
+	if((getPlayerUID player) isEqualTo _owner) exitWith {["You are the owner, only roommates can leave.", "red"] call A3PL_Player_Notification;};
+	[player, _house] remoteExec ["Server_Housing_RemoveMember",2];
+}] call Server_Setup_Compile;

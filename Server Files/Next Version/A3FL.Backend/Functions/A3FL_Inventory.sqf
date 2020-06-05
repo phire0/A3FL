@@ -7,26 +7,22 @@
 */
 
 ["A3PL_Inventory_Get", {
-	private ["_subtract","_fact","_inv","_player"];
-	_player = param [0,player];
-	_inv = _player getVariable ["player_inventory",[]];
+	private _player = param [0,player];
+	private _inv = _player getVariable ["player_inventory",[]];
 	_inv;
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_GetCash", {
-	private ["_player"];
-	_player = param [0,player];
-	_cash = _player getvariable ["player_cash",0];
+	private _player = param [0,player];
+	private _cash = _player getvariable ["player_cash",0];
 	_cash;
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Clear",
 {
-	private ["_obj","_delete"];
-	_obj = param [0,Player_Item];
-	_delete = param [1,true];
-	_setNull = param [2,true];
-
+	private _obj = param [0,Player_Item];
+	private _delete = param [1,true];
+	private _setNull = param [2,true];
 	if (_delete) then {
 		deleteVehicle _obj;
 	};
@@ -37,11 +33,9 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Add", {
-	private ["_class", "_amount","_exit"];
-
-	_class = param [0,""];
-	_amount = param [1,0];
-	_exit = false;
+	private _class = param [0,""];
+	private _amount = param [1,0];
+	private _exit = false;
 	if(_amount > 0) then {
 		if (([[_class,_amount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {
 			_exit = true;
@@ -54,20 +48,14 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Remove", {
-	private ["_class","_amount"];
-
-	_class = param [0,""];
-	_amount = param [1,1];
-
+	private _class = param [0,""];
+	private _amount = param [1,1];
 	[_class, -(_amount)] call A3PL_Inventory_Add;
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Verify", {
-	private ["_player", "_index", "_forEachIndex","_change"];
-
-	_player = param [0,player];
-	_change = false;
-
+	private _player = param [0,player];
+	private _change = false;
 	{
 		if ((_x select 1) < 1) then {
 			_index = _forEachIndex;
@@ -75,35 +63,25 @@
 			_change = true;
 		};
 	} forEach (_player getVariable "Player_Inventory");
-
-	if (_change) then
-	{
+	if (_change) then {
 		_player setVariable ["Player_Inventory", ((_player getVariable "Player_Inventory") - ["REMOVE"]), true];
 	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Return", {
-	private ["_class", "_amount"];
-
-	_class = param [0,""];
-	_player = param [1,player];
-	_amount = [(_player getVariable ["Player_Inventory",[]]), _class, 0] call BIS_fnc_getFromPairs;
-
+	private _class = param [0,""];
+	private _player = param [1,player];
+	private _amount = [(_player getVariable ["Player_Inventory",[]]), _class, 0] call BIS_fnc_getFromPairs;
 	_amount;
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Has", {
-	private ["_class","_player","_amount","_inventoryAmount"];
-
-	_class = param [0,""];
-	_amount = param [1,1];
-	_player = param [2,player];
-
-	if (_class == "cash") exitwith {if (_player getVariable ["player_cash",0] >= _amount) then {true;} else {false;};};
-
-	_inventoryAmount = [_class,_player] call A3PL_Inventory_Return;
+	private _class = param [0,""];
+	private _amount = param [1,1];
+	private _player = param [2,player];
+	if (_class isEqualTo "cash") exitwith {if (_player getVariable ["player_cash",0] >= _amount) then {true;} else {false;};};
+	private _inventoryAmount = [_class,_player] call A3PL_Inventory_Return;
 	if (_inventoryAmount < _amount) exitWith {false};
-
 	true
 }] call Server_Setup_Compile;
 
@@ -142,7 +120,7 @@
 ["A3PL_Inventory_Open", {
 	if(player getVariable ["patdown",false]) then {[getPlayerUID player,"PatdownVirtCloningAtempt",[]] remoteExec ["Server_Log_New",2];};
 	if(player getVariable ["patdown",false]) exitwith {[localize'STR_NewInventory_2',"red"] call A3PL_Player_Notification;};
-	if(player getVariable["inventory_opened",false]) exitWith {hint "zizi";};
+	if(player getVariable["inventory_opened",false]) exitWith {};
 
 	if((vehicle player == player) && (!(animationState player IN ["crew"]))) then {
 		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon';
@@ -153,19 +131,18 @@
 	['Dialog_Inventory'] call A3PL_Lib_CreateDialog;
 
 	[] call A3PL_Inventory_Populate;
+	[] spawn {
+		_hndl = ppEffectCreate ['dynamicBlur', 505];
+		_hndl ppEffectEnable true;
+		_hndl ppEffectAdjust [5];
+		_hndl ppEffectCommit 0;
 
-		[] spawn {
-			_hndl = ppEffectCreate ['dynamicBlur', 505];
-			_hndl ppEffectEnable true;
-			_hndl ppEffectAdjust [5];
-			_hndl ppEffectCommit 0;
-
-			waitUntil {isNull findDisplay 1001};
-		  if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
-			ppEffectDestroy _hndl;
-			};
-			player setVariable ["inventory_opened", false, true];
+		waitUntil {isNull findDisplay 1001};
+	  if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
+		ppEffectDestroy _hndl;
 		};
+		player setVariable ["inventory_opened", false, true];
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Populate", {
@@ -357,7 +334,7 @@
 
 ["A3PL_Inventory_Drop", {
 	private ["_itemClass", "_obj", "_format","_setpos","_amount"];
-	_setpos = param [0,true];
+	_setPos = param [0,true];
 	_amount = param [1,1];
 	_itemClass = Player_ItemClass;
 	_obj = Player_Item;

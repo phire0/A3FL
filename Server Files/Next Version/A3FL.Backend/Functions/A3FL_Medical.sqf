@@ -444,25 +444,20 @@
 //_change should be in format ["blood","pressure","temperature"]
 ["A3PL_Medical_ApplyVar",
 {
-	private ["_player","_change","_medicalVar","_newValue"];
-	_player = param [0,player];
-	_change = param [1,[]];
-
-	_medicalVar = _player getVariable ["A3PL_MedicalVars",[5000,"120/80",37]];
+	private _player = param [0,player];
+	private _change = param [1,[]];
+	private _medicalVar = _player getVariable ["A3PL_MedicalVars",[5000,"120/80",37]];
 	{
 		_bloodValue = (_medicalVar select 0);
 		_newValue = (_medicalVar select _forEachIndex) + _x;
 		if (_newValue < 0) then {_newValue = 0;};
 		switch (_forEachIndex) do {
-			if (_player == player) then {
+			if (_player isEqualTo player) then {
 				case (0): {
 					private _newBloodLvl = _bloodValue + (_x);
 					if (_newBloodLvl <= 0) then {
 						_newBloodLvl = 0;
 						if (player getVariable["A3PL_Medical_Alive",true]) then {[] spawn A3PL_Medical_Die;};
-					};
-					if(!(_player getVariable["A3PL_Medical_Alive",true]) && (_newBloodLvl > 0)) then {
-						_player setVariable ["A3PL_Medical_Alive",true,true];
 					};
 					["\A3PL_Common\GUI\medical\overlay_blood.paa",1,(_newBloodLvl/5000)] call A3PL_HUD_SetOverlay;
 					player setVariable["bloodOverlay",true,true];
@@ -472,7 +467,6 @@
 			_medicalVar set [_forEachIndex,_newValue];
 		};
 	} foreach _change;
-
 	_player setVariable ["A3PL_MedicalVars",_medicalVar,true];
 	[(findDisplay 73)] call A3PL_Medical_LoadParts;
 }] call Server_Setup_Compile;
@@ -1146,44 +1140,44 @@
 	if(_isBeingRevived) exitWith {["Someone is already performing CPR on this person","red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
 
-      player playmove "AinvPknlMstpSnonWnonDr_medic0";
-			[_target] spawn
-			{
-				private ["_target"];
-				_target = param [0,objNull];
-				if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-				["CPR in progress...",30] spawn A3PL_Lib_LoadAction;
-				_success = true;
-				waitUntil{Player_ActionDoing};
-				while {Player_ActionDoing} do {
-					if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-					if (!(vehicle player == player)) exitwith {_success = false;};
-					if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-					diag_log str (animationState player);
-					if (animationState player != "AinvPknlMstpSnonWnonDr_medic0") then {player playmove "AinvPknlMstpSnonWnonDr_medic0";}
-				};
-				player switchMove "";
+    player playmove "AinvPknlMstpSnonWnonDr_medic0";
+	[_target] spawn
+	{
+		private ["_target"];
+		_target = param [0,objNull];
+		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
+		["CPR in progress...",30] spawn A3PL_Lib_LoadAction;
+		_success = true;
+		waitUntil{Player_ActionDoing};
+		while {Player_ActionDoing} do {
+			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+			if (!(vehicle player == player)) exitwith {_success = false;};
+			if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+			diag_log str (animationState player);
+			if (animationState player != "AinvPknlMstpSnonWnonDr_medic0") then {player playmove "AinvPknlMstpSnonWnonDr_medic0";}
+		};
+		player switchMove "";
 
-				if(Player_ActionInterrupted || !_success) exitWith {
-					Player_ActionInterrupted = true;
-					["CPR Cancelled!", "red"] call A3PL_Player_Notification;
-					if (vehicle player == player) then {player switchMove "";};
-				};
+		if(Player_ActionInterrupted || !_success) exitWith {
+			Player_ActionInterrupted = true;
+			["CPR Cancelled!", "red"] call A3PL_Player_Notification;
+			if (vehicle player == player) then {player switchMove "";};
+		};
 
-				_target getVariable["reviving",false];
+		_target getVariable["reviving",false];
 
-				private _chance = random 100;
-				if(["cpr",player] call A3PL_DMV_Check) then {_chance = random 50;};
-				if((player getVariable ["job", "unemployed"]) IN ["fifr"]) then {_chance = 0;};
-				if(_chance <= 25) then {
-					[_target,[1500]] call A3PL_Medical_ApplyVar;
-					_target setVariable ["A3PL_Medical_Alive",true,true];
-					["Resuscitation performed successfully", "green"] call A3PL_Player_Notification;
-					[player,10] call A3PL_Level_AddXP;
-				} else {
-					["CPR Failed", "red"] call A3PL_Player_Notification;
-				};
-				player playMoveNow "";
-				_target setVariable["reviving",false,true];
-			};
+		private _chance = random 100;
+		if(["cpr",player] call A3PL_DMV_Check) then {_chance = random 50;};
+		if((player getVariable ["job", "unemployed"]) IN ["fifr"]) then {_chance = 0;};
+		if(_chance <= 25) then {
+			[_target,[1500]] call A3PL_Medical_ApplyVar;
+			_target setVariable ["A3PL_Medical_Alive",true,true];
+			["Resuscitation performed successfully", "green"] call A3PL_Player_Notification;
+			[player,10] call A3PL_Level_AddXP;
+		} else {
+			["CPR Failed", "red"] call A3PL_Player_Notification;
+		};
+		player playMoveNow "";
+		_target setVariable["reviving",false,true];
+	};
 }] call Server_Setup_Compile;

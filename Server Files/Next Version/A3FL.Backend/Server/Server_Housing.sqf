@@ -536,9 +536,8 @@
 
 ["Server_Housing_RemoveMember",
 {
-	private _owner = param [0,objNull];
-	private _old = param [1,objNull];
-	private _house = param [2,objNull];
+	private _old = param [0,objNull];
+	private _house = param [1,objNull];
 	private _uid = getPlayerUID _old;
 	private _allMembers = _house getVariable "owner";
 	if((_allMembers find _uid) != -1) then {

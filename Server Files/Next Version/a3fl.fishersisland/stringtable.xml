@@ -4583,20 +4583,29 @@
        <Key ID="STR_ConfigLicenses_ATCVolunteer">
           <Original>Volunteer ATC</Original>
        </Key>
-       <Key ID="STR_ConfigLicenses_FixedWingCommercialLicense">
-          <Original>Fixed Wing Commercial Pilot License</Original>
-       </Key>
        <Key ID="STR_ConfigLicenses_BoatLicense">
-          <Original>Boat License</Original>
+          <Original>Standard Boating License</Original>
+       </Key>
+       <Key ID="STR_ConfigLicenses_ComBoatLicense">
+          <Original>Commercial Boating License</Original>
+       </Key>
+       <Key ID="STR_ConfigLicenses_GovBoatLicense">
+          <Original>Government Boating License</Original>
+       </Key>
+       <Key ID="STR_ConfigLicenses_GovPilotLicense">
+          <Original>Government Pilots License</Original>
+       </Key>
+       <Key ID="STR_ConfigLicenses_FixedWingCommercialLicense">
+          <Original>Commercial Fixed-Wing Pilot License</Original>
        </Key>
        <Key ID="STR_ConfigLicenses_FixedWingPrivateLicense">
-          <Original>Private Fixed Wing Pilot License</Original>
+          <Original>Private Fixed-Wing Pilot License</Original>
        </Key>
        <Key ID="STR_ConfigLicenses_RotaryCommercialPilotLicense">
-          <Original>Rotary Commercial Pilot License</Original>
+          <Original>Commercial Rotary Pilot License</Original>
        </Key>
        <Key ID="STR_ConfigLicenses_RotaryPrivatePilotLicense">
-          <Original>Rotating Private Pilot License</Original>
+          <Original>Private Rotary Pilot License</Original>
        </Key>
        <Key ID="STR_ConfigLicenses_PrivateFishingLicense">
           <Original>Private Fishing License</Original>
