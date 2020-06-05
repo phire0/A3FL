@@ -49,7 +49,7 @@
 	if(count(_nearPlants) > 0) exitWith {["You cannot plant seeds on top of each other.", "red"] call a3pl_player_notification;};
 
 	_nearByPlants = nearestObjects [player, ["A3PL_Wheat", "A3PL_Corn","A3PL_Cannabis", "A3PL_Lettuce","A3PL_Coco_Plant", "A3PL_Sugarcane_Plant"], 100];
-	if(count(_nearByPlants) > 30) exitWith {["There is too many plants in this area, please harvest some before planting more!", "red"] call a3pl_player_notification;};
+	if(count(_nearByPlants) > 50) exitWith {["There is too many plants in this area, please harvest some before planting more!", "red"] call a3pl_player_notification;};
 
 	player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
 
