@@ -295,13 +295,12 @@
 
 ["A3PL_BHeist_CloseVault",
 {
-	private ["_bank"];
-	_bank = param [0,objNull];
-	if ((player getVariable ["job","unemployed"]) != "fisd") exitwith {["Only an on-duty sheriff can secure the vault door","red"] call A3PL_Player_Notification;};
+	private _bank = param [0,objNull];
+	private _factions = ["fisd","uscg"];
+	if (!((player getVariable ["job","unemployed"]) IN _factions)) exitwith {["Only an on-duty sheriff can secure the vault door","red"] call A3PL_Player_Notification;};
 	if ((_bank animationSourcePhase "door_bankvault") < 0.95) exitwith {["The bank vault is already closed, you can't secure it"] call A3PL_Player_Notification;};
 	_bank animateSource ["door_bankvault",0];
-	for "_i" from 0 to 20 do
-	{
+	for "_i" from 0 to 20 do {
 		_bank animate [format ["deposit_%1",_i],0];
 	};
 	{deleteVehicle _x;} foreach (nearestObjects [_bank, ["A3PL_PileCash"], 20]);
