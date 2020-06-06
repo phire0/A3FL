@@ -154,17 +154,14 @@
 ["A3PL_BHeist_InstallBit",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_drill"];
-	_drill = param [0,objNull];
+	private _drill = param [0,objNull];
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
-	if (_drill animationPhase "drill_bit" < 0.5) then
-	{
+	if (_drill animationPhase "drill_bit" < 0.5) then {
 		if (Player_ItemClass != "drill_bit") exitwith {["You are not carrying a drill bit in your hand","red"] call A3PL_Player_Notification;};
-		call A3PL_Inventory_Clear;
+		[] call A3PL_Inventory_Clear;
 		["drill_bit", -1] call A3PL_Inventory_Add;
 		_drill animate ["drill_bit",1];
-	} else
-	{
+	} else {
 		["You disconnected the drill bit, it has been placed in your inventory","green"] call A3PL_Player_Notification;
 		["drill_bit", 1] call A3PL_Inventory_Add;
 		_drill animate ["drill_bit",0];
