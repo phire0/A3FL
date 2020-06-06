@@ -314,7 +314,7 @@ Server_Setup_Compile = {
 		[] spawn Server_Lumber_TreeRespawn;				//spawn trees for lumberyacking
 
 		//load stock values
-		[] spawn Server_ShopStock_Load;
+		// [] spawn Server_ShopStock_Load;
 		[] spawn Server_Locker_Load;
 	};
 

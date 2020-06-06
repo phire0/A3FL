@@ -16,8 +16,8 @@ publicVariable "Config_Shops_TaxSystem";
 Config_Shops_StockSystem = ["Shop_Supermarket","Shop_Guns_Vendor","Shop_Fuel"];
 publicVariable "Config_Shops_StockSystem";
 
-Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
-publicVariableServer "Config_Shops_StockSystemObjects";
+// Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
+// publicVariableServer "Config_Shops_StockSystemObjects";
 
 Config_Shops_Factions = [
 	[["Shop_USCG_Supplies_Vendor","Shop_USCG_Pilot_Vendor","Shop_USCG_Weapons_Vendor","Shop_USCG_Car_Vendor","Shop_USCG_Boat_Vendor","Shop_USCG_Plane_Vendor"],"uscg"],
@@ -101,6 +101,8 @@ Config_Shops_Items = [
 			["item","repairwrench",450,120,0],
 			["item","jerrycan",845,230,0],
 			["item","coke",280,32,0],
+			["item","waterbottle",500,250,0],
+			["item","bread",250,125,0],
 			["item","apple",50,11,0],
 			["item", "beer", 300,50,0],
 			["item", "beer_gold", 300,50,0]
@@ -1218,6 +1220,17 @@ Config_Shops_Items = [
 			["vest","A3PL_Clean_Safety_Vest",160,-1,4],
 			["item","tag_meat",100,-1,0]
 		],{[5661.34,6125.97,-0.5]}
+	],
+	["Shop_Low_End_Car_Dealer",[
+			["vehicle","C_Quadbike_01_F",20000,0,0],
+			["vehicle","A3PL_CRX",20000,0,0],
+			["vehicle","A3PL_CVPI_Rusty",20000,0,0],
+			["vehicle","A3PL_CVPI",20000,0,0],
+			["vehicle","A3PL_CVPI_Taxi",20000,0,0],
+			["vehicle","A3PL_Wrangler",20000,0,0],
+			["vehicle","A3PL_MailTruck",20000,0,0],
+			["vehicle","A3PL_Ram",20000,0,0]
+		],{[2942.43,5891.42,-0.75]}
 	]
 ];
 publicVariable "Config_Shops_Items";

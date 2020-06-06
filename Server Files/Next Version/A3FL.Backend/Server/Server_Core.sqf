@@ -245,7 +245,7 @@
 
 ["Server_Core_Save",
 {
-	[] spawn Server_ShopStock_Save;
+	// [] spawn Server_ShopStock_Save;
 	sleep 10;
 	[] spawn Server_Locker_Save;
 	sleep 10;
