@@ -12,8 +12,8 @@
 	_obj = param [0,objNull];
 	_name = param [1,""];
 
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
-		["There needs to be 3 FIMS on-duty to use the key card!","red"] call A3PL_Player_Notification;
+	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && (((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) < 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 3))) exitwith {
+		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
 	};
 
 
@@ -105,8 +105,8 @@
 	_cellDoor = param [0,objNull];
 	_prison = param [1, objNull];
 
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
-		["There needs to be 3 FIMS on-duty to lock pick cell doors!","red"] call A3PL_Player_Notification;
+	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && (((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) < 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 3))) exitwith {
+		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
 	};
 
 	player playmove "Acts_carFixingWheel";
