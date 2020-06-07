@@ -162,7 +162,7 @@
 		if ((random 10) >= 5) then { _plant setVariable ["female",true,true]; };
 
 		["seed_marijuana",-1] call A3PL_Inventory_Add;
-		call A3PL_Inventory_Clear;
+		[] call A3PL_Inventory_Clear;
 		["You planted a seed in this planter","green"] call A3PL_Player_Notification;
 
 		if (!isNil "A3PL_Cannabis_Loop") exitwith {};
@@ -206,7 +206,7 @@
 			A3PL_Cannabis_Loop = nil;
 		};
 	} else {
-		call A3PL_Inventory_Clear;
+		[] call A3PL_Inventory_Clear;
 		[player,_class,_posATL] remoteExec ["Server_JobFarming_Plant",2];
 		["You planted a seed in this planter","green"] call A3PL_Player_Notification;
 	};
