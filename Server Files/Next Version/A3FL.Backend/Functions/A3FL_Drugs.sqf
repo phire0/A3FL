@@ -121,12 +121,10 @@
 		_totalDrugs = _totalDrugs + _x;
 	} foreach Player_Drugs;
 
-
 	if((_totalDrugs <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Drugs_ResetEffects;};
 
-
 	//Incapacitated from too much drugs!
-	if(_totalDrugs >= 150) exitWith {
+	if(_totalDrugs >= 250) exitWith {
 		profileNamespace setVariable ["player_drugs",[0,0,0]];
 		Player_Drugs = [0,0,0];
 		[player, "left upper arm", "drug_overdose"] call A3PL_Medical_ApplyWound;

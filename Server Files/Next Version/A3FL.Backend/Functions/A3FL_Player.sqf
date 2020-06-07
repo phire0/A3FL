@@ -15,7 +15,8 @@
 		Player_payCheckTime = 0;
 		Player_payCheckTime = profileNamespace setVariable ["player_payCheckTime",0];
 	};
-	Player_MaxWeight = 150;
+	Player_CurrentWeight = 0;
+	Player_MaxWeight = 250;
 	Player_Hunger = profileNamespace getVariable ["player_hunger",100];
 	if (!(typeName Player_Hunger == "SCALAR")) then {
 		Player_Hunger = 100;
