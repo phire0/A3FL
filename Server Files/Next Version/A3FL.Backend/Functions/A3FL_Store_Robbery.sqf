@@ -20,9 +20,9 @@
 	_status = missionNamespace getVariable ["StoreCooldown",0];
 
 
-	if (_status == 1) exitwith {["Another store robbery has taken place recently, you cannot rob this store!","red"] call A3PL_Player_Notification;};
+	if (_status isEqualTo 1) exitwith {["Another store robbery has taken place recently, you cannot rob this store!","red"] call A3PL_Player_Notification;};
 	if (_cooldown select 1) exitwith {["This store has already been robbed recently","red"] call A3PL_Player_Notification;};
-	if ((currentWeapon player) == "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
+	if ((currentWeapon player) isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) IN ["hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a store with this weapon!","red"] call A3PL_Player_Notification;};
 
 	if(_store IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4]) then {
@@ -45,7 +45,8 @@
 	["Robbing the store...",50,false] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	_timeElapsed = 0;
-	while {uiSleep 0.5; Player_ActionDoing } do {
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
 		if ((player distance2D _store) > 5) exitWith {["You went away from the shop, the robbery failed!", "red"] call A3PL_Player_Notification; _success = false;};
 		if (!(vehicle player == player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
