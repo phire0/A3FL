@@ -22,7 +22,8 @@
 	["itemAdd", ["Loop_Alcohol", {[] spawn A3PL_Alcohol_Loop;}, 30, 'seconds',{ player getVariable ["alcohol",false] },{ !(player getVariable["alcohol",false]) }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_JailMarkers", {[] spawn A3PL_Prison_Markers;}, 30, 'seconds',{ player getVariable ["job","unemployed"] IN ["usms"] },{ !(player getVariable ["job","unemployed"] IN ["usms"]) }]] call BIS_fnc_loop;
 	["itemAdd", ["drowningSystem", {[] spawn A3PL_Loop_Drowning;}, 1, "seconds", {(underwater player) && !(isAbleToBreathe player)}, {!(underwater player) || (isAbleToBreathe player)}]] call BIS_fnc_loop;
-	["itemAdd", ["Loop_HousingTaxes", {[] spawn A3PL_Loop_HousingTaxes;}, 1800, 'seconds',{player getVariable ["house",nil]}, {!(player getVariable ["house",nil])}]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_HousingTaxes", {[] call A3PL_Loop_HousingTaxes;}, 1800, 'seconds',{player getVariable ["house",nil]}, {!(player getVariable ["house",nil])}]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_Overweight", {[] call A3PL_Loop_Overweight;}, 1, 'seconds', {Player_CurrentWeight > 200}, {Player_CurrentWeight <= 200}]] call BIS_fnc_loop;
 
 	//Events
 	//["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
@@ -109,11 +110,22 @@
 ["A3PL_Loop_HousingTaxes",
 {
 	if(isNil {player getVariable ["house",nil]}) exitWith {};
-	private _taxPrice = 200;
+	private _house = player getVariable ["house",nil];
+	private _taxPrice = [_house,2] call A3PL_Housing_GetData;
 	private _bank = player getVariable["Player_Bank",0];
 	player setVariable["Player_Bank",_bank-_taxPrice,true];
 	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];
 	[format [localize"STR_NewLoop_1",_taxPrice],"yellow"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
+
+["A3PL_Loop_Overweight",
+{
+	Player_Overweight = true;
+	if(!isForcedWalk player) then {player forceWalk true;};
+	if(Player_CurrentWeight <= 200) then {
+		player forceWalk false;
+		Player_Overweight = nil;
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Loop_Paycheck",

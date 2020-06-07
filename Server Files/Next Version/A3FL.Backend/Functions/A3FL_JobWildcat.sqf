@@ -590,23 +590,9 @@
 
 	if ((_signs > 0) && (_prospectFor IN _listOres)) then
 	{
-		[_prospectFor] call A3PL_JobWildCat_FoundRes;
+		[player,_prospectFor] remoteExec ['Server_JobWildCat_SpawnRes', 2];
 		[player, 1] call A3PL_Level_AddXP;
 	};
-}] call Server_Setup_Compile;
-
-["A3PL_JobWildCat_FoundRes",
-{
-	disableSerialization;
-	private ["_display","_control","_foundOre"];
-	_foundOre = param [0,""];
-	createDialog "Dialog_ProspectFound";
-	_display = findDisplay 132;
-	_control = _display displayCtrl 1100;
-	_control ctrlSetStructuredText parseText format [localize"STR_A3PL_JobWildcat_FoundMarkQuestion",_foundOre];
-
-	_control = _display displayCtrl 1601;
-	_control buttonSetAction format ["closeDialog 0; [player,'%1'] remoteExec ['Server_JobWildCat_SpawnRes', 2];",_foundOre];
 }] call Server_Setup_Compile;
 
 //this checks if we have oil in the area and returns the location of the middle pointer

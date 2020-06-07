@@ -87,21 +87,16 @@
 
 ["A3PL_Inventory_TotalWeight",
 {
-	private ["_return","_inventory","_player","_itemToAdd"];
-	_return = 0;
-
-	_itemToAdd = _this;
-	_player = player;
-
+	private _return = 0;
+	private _itemToAdd = _this;
+	private _player = player;
 	if (count _itemToAdd > 1) then {
 		_itemToAdd = _itemToAdd select 0;
 		_inventory = [(_itemToAdd select 1)] call A3PL_Inventory_Get;
 	} else {
 		_inventory = [player] call A3PL_Inventory_Get;
 	};
-
-	if (count _itemToAdd > 0) then
-	{
+	if (count _itemToAdd > 0) then {
 		{
 			_inventory = [_inventory, (_x select 0), (_x select 1), true] call BIS_fnc_addToPairs;
 		} foreach _itemToAdd;
@@ -109,11 +104,11 @@
 
 	{
 		private ["_amount", "_itemWeight"];
-
 		_amount = _x select 1;
 		_itemWeight = ([_x select 0, 'weight'] call A3PL_Config_GetItem) * _amount;
 		_return = _return + _itemWeight;
 	} forEach _inventory;
+	Player_CurrentWeight = _return;
 	_return;
 }] call Server_Setup_Compile;
 
