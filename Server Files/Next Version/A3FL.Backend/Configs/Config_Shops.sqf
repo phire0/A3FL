@@ -98,11 +98,11 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Supermarket",[
-			["item","repairwrench",450,120,0],
-			["item","jerrycan",845,230,0],
-			["item","coke",280,32,0],
+			["item","repairwrench",350,250,0],
+			["item","jerrycan",750,500,0],
+			["item","coke",300,200,0],
 			["item","waterbottle",500,250,0],
-			["item","bread",250,125,0],
+			["item","bread",300,200,0],
 			["item","apple",50,11,0],
 			["item", "beer", 300,50,0],
 			["item", "beer_gold", 300,50,0]
@@ -1222,14 +1222,14 @@ Config_Shops_Items = [
 		],{[5661.34,6125.97,-0.5]}
 	],
 	["Shop_Low_End_Car_Dealer",[
-			["vehicle","C_Quadbike_01_F",20000,0,0],
-			["vehicle","A3PL_CRX",20000,0,0],
-			["vehicle","A3PL_CVPI_Rusty",20000,0,0],
-			["vehicle","A3PL_CVPI",20000,0,0],
-			["vehicle","A3PL_CVPI_Taxi",20000,0,0],
-			["vehicle","A3PL_Wrangler",20000,0,0],
-			["vehicle","A3PL_MailTruck",20000,0,0],
-			["vehicle","A3PL_Ram",20000,0,0]
+			["vehicle","C_Quadbike_01_F",17870,0,0],
+			["vehicle","A3PL_CVPI_Rusty",30000,0,0],
+			["vehicle","A3PL_CVPI_Taxi",40750,0,0],
+			["vehicle","A3PL_CVPI",50760,0,0],
+			["vehicle","A3PL_CRX",50760,0,0],
+			["vehicle","A3PL_MailTruck",53620,0,0],
+			["vehicle","A3PL_Wrangler",55050,0,0],
+			["vehicle","A3PL_Ram",55050,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	]
 ];
