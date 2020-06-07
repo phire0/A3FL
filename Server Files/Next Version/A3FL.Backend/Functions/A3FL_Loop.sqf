@@ -109,7 +109,8 @@
 ["A3PL_Loop_HousingTaxes",
 {
 	if(isNil {player getVariable ["house",nil]}) exitWith {};
-	private _taxPrice = 200;
+	private _house = player getVariable ["house",nil];
+	private _taxPrice = [_house,2] call A3PL_Housing_GetData;
 	private _bank = player getVariable["Player_Bank",0];
 	player setVariable["Player_Bank",_bank-_taxPrice,true];
 	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];

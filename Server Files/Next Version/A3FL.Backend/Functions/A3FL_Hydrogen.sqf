@@ -487,10 +487,7 @@
 		_newStorage = (_station getVariable ["petrol",0]) + _amount; if (_newStorage < 0) then {_newStorage = 0;};
 		_source setVariable ["petrol",_newSource,true];
 		_station setVariable ["petrol",_newStorage,true];
-
 		player setVariable["Player_Cash",(player getVariable["Player_Cash",0]) + 10,true];
-		[format [localize"STR_NewHydrogen_39",_newSource,_newStorage],"green"] call A3PL_Player_Notification;
-
 		uiSleep 2;
 		_source = [_end] call A3PL_FD_FindSource;
 	};

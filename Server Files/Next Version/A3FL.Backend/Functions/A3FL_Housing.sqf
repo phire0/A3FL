@@ -223,15 +223,15 @@
 	_markerName;
 }] call Server_Setup_Compile;
 
-["A3PL_Housing_GetPrice",
+["A3PL_Housing_GetData",
 {
-	private ["_price","_house","_class"];
-	_house = param [0,objNull];
-	_class = typeOf _house;
-	_price = 0;
+	private _house = param [0,objNull];
+	private _search = param [1,1];
+	private _class = typeOf _house;
+	private _price = 0;
 	{
 		if((_x select 0) == _class) exitWith {
-			_price = _x select 1;
+			_price = _x select _search;
 		};
 	} forEach Config_Houses_Prices;
 	_price;
@@ -247,7 +247,7 @@
 	if (count _houses < 1) exitwith {[localize"STR_NewHousing_12","red"] call A3PL_Player_Notification;};
 	A3PL_Housing_Object = _houses select 0;
 
-	_price = [A3PL_Housing_Object] call A3PL_Housing_GetPrice;
+	_price = [A3PL_Housing_Object,1] call A3PL_Housing_GetData;
  	createDialog "Dialog_HouseBuy";
 	_display = findDisplay 72;
 	_control = _display displayCtrl 1000;
@@ -257,7 +257,7 @@
 ["A3PL_Housing_Buy",
 {
 	private ["_price"];
-	_price = [A3PL_Housing_Object] call A3PL_Housing_GetPrice;
+	_price = [A3PL_Housing_Object,1] call A3PL_Housing_GetData;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
 	if (!isNil {A3PL_Housing_Object getVariable ["doorid",nil]}) exitwith {[localize"STR_NewHousing_14","red"] call A3PL_Player_Notification;};
 	if (!isNil {player getVariable ["house",nil]}) exitwith {[localize"STR_NewHousing_15","red"] call A3PL_Player_Notification;};
@@ -373,7 +373,7 @@
 
 	_houses = nearestObjects [player, Config_Houses_List, 10,true];
 	if(count(_houses) isEqualTo 0) exitWith {};
-	_price = [_houses select 0] call A3PL_Housing_GetPrice;
+	_price = [_houses select 0] call A3PL_Housing_GetData;
 	_control = _display displayCtrl 1400;
 	_control ctrlSetStructuredText parseText format ["<t align='left'>Market price: $%1</t>",_price];
 }] call Server_Setup_Compile;
@@ -386,7 +386,7 @@
 
 	_percentage = _this select 1;
 	_house = (nearestObjects [player, Config_Houses_List, 10,true]) select 0;
-	_housePrice = [_house] call A3PL_Housing_GetPrice;
+	_housePrice = [_house,1] call A3PL_Housing_GetData;
 	_value = round((_percentage / 100) * _housePrice);
 
 	_control = _display displayCtrl 1100;
@@ -401,7 +401,7 @@
 	_display = findDisplay 67;
 	_slider = _display displayCtrl 1900;
 
-	_housePrice = [_house] call A3PL_Housing_GetPrice;
+	_housePrice = [_house,1] call A3PL_Housing_GetData;
 	_percentage = round(sliderPosition _slider);
 	_com = round(_percentage / 100 * (_housePrice));
 	_clientPart = _housePrice - _com;
@@ -471,11 +471,11 @@
 
 ["A3PL_Housing_LeaveHouse",
 {
-	private _house = (nearestObjects [player, Config_Houses_List, 20,true]) select 0;
+	private _near = nearestObjects [player, Config_Houses_List, 20,true];
 	if(count(_near) isEqualTo 0) exitWith {["No house nearby", "red"] call A3PL_Player_Notification;};
 	private _owners = (_near select 0) getVariable ["owner",[]];
 	if(count _owners isEqualTo 0) exitwith {};
 	private _owner = _owners select 0;
 	if((getPlayerUID player) isEqualTo _owner) exitWith {["You are the owner, only roommates can leave.", "red"] call A3PL_Player_Notification;};
-	[player, _house] remoteExec ["Server_Housing_RemoveMember",2];
+	[player, (_near select 0)] remoteExec ["Server_Housing_RemoveMember",2];
 }] call Server_Setup_Compile;
