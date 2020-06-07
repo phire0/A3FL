@@ -116,3 +116,14 @@
 	} foreach _buildings;
 
 }] call Server_Setup_Compile;
+
+["A3PL_Warehouses_LeaveHouse",
+{
+	private _warehouse = (nearestObjects [player, Config_Warehouses_List, 20,true]) select 0;
+	if(count(_near) isEqualTo 0) exitWith {["No warehouse nearby", "red"] call A3PL_Player_Notification;};
+	private _owners = (_near select 0) getVariable ["owner",[]];
+	if(count _owners isEqualTo 0) exitwith {};
+	private _owner = _owners select 0;
+	if((getPlayerUID player) isEqualTo _owner) exitWith {["You are the owner, only roommates can leave.", "red"] call A3PL_Player_Notification;};
+	[player, _warehouse] remoteExec ["Server_Warehouses_RemoveMember",2];
+}] call Server_Setup_Compile;

@@ -137,6 +137,7 @@ class CfgRemoteExec
 		class Server_Warehouses_SaveBox {allowedTargets = 2;};
 		class Server_Warehouses_LoadItemsSimulation {allowedTargets = 2;};
 		class Server_Warehouses_Initialize{allowedTargets=2;};
+		class Server_Warehouses_RemoveMember{allowedTargets=2;};
 
 		//Police
 		class A3PL_Police_ReleasePlayer {allowedTargets = 0;};
