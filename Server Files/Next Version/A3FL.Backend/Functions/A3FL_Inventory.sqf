@@ -183,15 +183,16 @@
 	_keys = player getVariable "keys";
 	if (isNil "_keys") exitwith {};
 	{
-		if (count _x == 6) then
-		{
-			_index = lbAdd [1900,"Motel Key"];
-			lbSetData [1900, _index,_x];
-		} else
-		{
-			_index = lbAdd [1900,format ["House Key (%1)",_x]];
-			lbSetData [1900, _index,_x];
+		_count = count _x;
+		_index = lbAdd [1900,format ["House Key (%1)",_x]];
+
+		switch(_count) do {
+			case 6: {_index = lbAdd [1900,"Motel Key"];};
+			case 8: {_index = lbAdd [1900,format ["Warehouse Key (%1)",_x]];};
+			default: {_index = lbAdd [1900,format ["House Key (%1)",_x]];}
 		};
+
+		lbSetData [1900, _index,_x];
 	} forEach (player getVariable ["keys",[]]);
 
 	if(count(player getVariable ["licenses",[]]) == 0) then {

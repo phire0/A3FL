@@ -26,6 +26,7 @@ class Dialog_WarehouseBuy
 			y = 0.543 * safezoneH + safezoneY;
 			w = 0.0980208 * safezoneW;
 			h = 0.0367037 * safezoneH;
+			action = "call A3PL_Warehouses_Buy;";
 		};
 		class button_no: RscButtonEmpty
 		{
@@ -35,6 +36,7 @@ class Dialog_WarehouseBuy
 			y = 0.543 * safezoneH + safezoneY;
 			w = 0.0994268 * safezoneW;
 			h = 0.0384444 * safezoneH;
+			action = "closeDialog 0; A3PL_Warehouses_Object = nil;";
 		};
 		class static_currentPrice: RscText
 		{
