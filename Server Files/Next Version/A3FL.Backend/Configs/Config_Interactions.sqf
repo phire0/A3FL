@@ -113,7 +113,7 @@ A3PL_Interaction_Options =
 			if(_playerLevel < 10) then {
 				[format[localize"STR_Inter_Notifications_Level10ThingsPerks"], "red"] call A3PL_Player_Notification;
 			} else {
-				private _house = (nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]) select 0;
+				private _house = (nearestObjects [getPos player, Config_Houses_List, 10,true]) select 0;
 				private _uids = _house getVariable ["owner",[]];
 				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
 				_uid = _uids select 0;
@@ -126,7 +126,29 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _house = nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _house = nearestObjects [getPos player, Config_Houses_List, 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+	],
+	[
+		localize"STR_INTER_SETCOLLOC",
+		{
+			private _playerLevel = player getVariable["Player_Level",0];
+			if(_playerLevel < 10) then {
+				[format[localize"STR_Inter_Notifications_Level10ThingsPerks"], "red"] call A3PL_Player_Notification;
+			} else {
+				private _warehouse = (nearestObjects [getPos player, Config_Warehouses_List, 10,true]) select 0;
+				private _uids = _house getVariable ["owner",[]];
+				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
+				_uid = _uids select 0;
+				if((getPlayerUID player) isEqualTo _uid) then {
+					[player, cursorobject, _warehouse] remoteExec ["Server_Warehouses_AddMember",2];
+					private _namePos = [getPos _warehouse] call A3PL_Housing_PosAddress;
+					[format[localize"STR_Inter_Notifications_NewColloc",_namePos], "green"] call A3PL_Player_Notification;
+				} else {
+					[localize"STR_Inter_Notifications_FirstOwner", "red"] call A3PL_Player_Notification;
+				};
+			};
+		},
+		{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _warehouse) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_UNSETCOLLOC",
@@ -135,7 +157,7 @@ A3PL_Interaction_Options =
 			if(_playerLevel < 10) then {
 				[format[localize"STR_Inter_Notifications_Level10ThingsPerks"], "red"] call A3PL_Player_Notification;
 			} else {
-				private _house = (nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]) select 0;
+				private _house = (nearestObjects [getPos player, Config_Houses_List, 10,true]) select 0;
 				private _uids = _house getVariable ["owner",[]];
 				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
 				_uid = _uids select 0;
@@ -148,7 +170,29 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _house = nearestObjects [getPos player, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion"], 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _house = nearestObjects [getPos player, Config_Houses_List, 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+	],
+	[
+		localize"STR_INTER_UNSETCOLLOC",
+		{
+			private _playerLevel = player getVariable["Player_Level",0];
+			if(_playerLevel < 10) then {
+				[format[localize"STR_Inter_Notifications_Level10ThingsPerks"], "red"] call A3PL_Player_Notification;
+			} else {
+				private _warehouse = (nearestObjects [getPos player, Config_Warehouses_List, 10,true]) select 0;
+				private _uids = _house getVariable ["owner",[]];
+				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
+				_uid = _uids select 0;
+				if((getPlayerUID player) isEqualTo _uid) then {
+					private _namePos = [getPos _warehouse] call A3PL_Housing_PosAddress;
+					[cursorObject, _warehouse] remoteExec ["Server_Warehouses_RemoveMember",2];
+					[format[localize"STR_Inter_Notifications_FireColloc",_namePos], "green"] call A3PL_Player_Notification;
+				} else {
+					[localize"STR_Inter_Notifications_FirstOwnerFire", "red"] call A3PL_Player_Notification;
+				};
+			};
+		},
+		{private _house = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_CHECKID",

@@ -230,3 +230,50 @@
 		[localize"STR_SERVER_HOUSING_YOUNOWEXCOLOC","yellow"] remoteExec ["A3PL_Player_Notification",owner _old];
 	};
 },true] call Server_Setup_Compile;
+
+["Server_Warehouses_AddMember",
+{
+	_owner = param [0,objNull];
+	_new = param [1,objNull];
+	_warehouse = param [2,objNull];
+
+	_actuals = _house getVariable "owner";
+
+	if((_actuals find (getPlayerUID _new)) != -1) exitWith {};
+
+	_actuals pushback(getPlayerUID _new);
+	_warehouse setVariable["owner", _actuals,true];
+
+	_actuals = [_actuals] call Server_Database_Array;
+	_query = format ["UPDATE warehouses SET uids='%1' WHERE location ='%2'",_actuals,(getpos _house)];
+	[_query,1] spawn Server_Database_Async;
+
+	//Give new member key and set var
+	_new setVariable ["warehouse",_house,true];
+
+	_keysid = (_house getVariable ["doorID",[]]) select 1;
+	_new setVariable ["keys",[_keysid],true];
+
+	["You now have keys to this warehouse!","green"] remoteExec ["A3PL_Player_Notification",owner _new];
+	[_warehouse] remoteExec ["A3PL_Warehouses_SetMarker",_new];
+},true] call Server_Setup_Compile;
+
+["Server_Warehouses_RemoveMember",
+{
+	private _old = param [0,objNull];
+	private _warehouse = param [1,objNull];
+	private _uid = getPlayerUID _old;
+	private _allMembers = _house getVariable "owner";
+	if((_allMembers find _uid) != -1) then {
+		_allMembers deleteAt (_allMembers find (getPlayerUID _old));
+		_warehouse setVariable["owner", _allMembers,true];
+
+		private _allMembers = [_allMembers] call Server_Database_Array;
+		private _query = format ["UPDATE warehouses SET uids='%1' WHERE location ='%2'", _allMembers, (getpos _house)];
+		[_query,1] spawn Server_Database_Async;
+
+		_old setVariable ["keys",[],true];
+		_old setVariable ["warehouse",nil,true];
+		["You no longer have keys to this warehouse!","yellow"] remoteExec ["A3PL_Player_Notification",owner _old];
+	};
+},true] call Server_Setup_Compile;

@@ -127,3 +127,15 @@
 	if((getPlayerUID player) isEqualTo _owner) exitWith {["You are the owner, only roommates can leave.", "red"] call A3PL_Player_Notification;};
 	[player, _warehouse] remoteExec ["Server_Warehouses_RemoveMember",2];
 }] call Server_Setup_Compile;
+
+["A3PL_Warehouses_SetMarker",
+{
+	private["_house","_pos"];
+	_house = param [0,objNull];
+	uiSleep 3;
+	_marker = createMarkerLocal [format["warehouse_%1",round (random 1000)],visiblePosition _house];
+	_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
+	_marker setMarkerAlphaLocal 1;
+	_marker setMarkerColorLocal "ColorGreen";
+	_marker setMarkerTextLocal (format [" Warehouse (%1)",toUpper((_warehouse getVariable ["doorid",["1","Unknown"]]) select 1)]);
+}] call Server_Setup_Compile;
