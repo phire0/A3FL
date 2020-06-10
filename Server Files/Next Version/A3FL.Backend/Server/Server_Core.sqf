@@ -227,6 +227,30 @@
 	publicVariable "A3PL_Event_DblXP";
 },true] call Server_Setup_Compile;
 
+["Server_Core_DblHarvest",
+{
+	if ((A3PL_Event_DblHarvest) == 1) then {
+		["The double yield event has began, all mining and farming now yields x2 the normal amount!", "yellow"] remoteExec ["A3PL_Player_Notification",-2];
+		A3PL_Event_DblHarvest = 2;
+	} else {
+		["The double yield event has now ended!", "yellow"] remoteExec ["A3PL_Player_Notification",-2];
+		A3PL_Event_DblHarvest = 1;
+	};
+	publicVariable "A3PL_Event_DblHarvest";
+},true] call Server_Setup_Compile;
+
+["Server_Core_PaycheckBonus",
+{
+	if ((A3PL_Event_Paycheck) == 1) then {
+		["The x1.5 paycheck event has began!", "yellow"] remoteExec ["A3PL_Player_Notification",-2];
+		A3PL_Event_Paycheck = 1.5;
+	} else {
+		["The x1.5 paycheck event has began!", "yellow"] remoteExec ["A3PL_Player_Notification",-2];
+		A3PL_Event_Paycheck = 1;
+	};
+	publicVariable "A3PL_Event_Paycheck";
+},true] call Server_Setup_Compile;
+
 /*["Server_Core_WhitelistServer",
 {
 	private _unit = param [0,objNull];

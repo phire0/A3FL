@@ -172,5 +172,11 @@
 	A3PL_Event_DblXP = 1;
 	publicVariable "A3PL_Event_DblXP";
 
+	A3PL_Event_DblHarvest = 1;
+	publicVariable "A3PL_Event_DblHarvest";
+
+	A3PL_Event_Paycheck = 1;
+	publicVariable "A3PL_Event_Paycheck";
+
 	Server_AllBusStops = nearestObjects [[6420.21,7001.08,0], ["Land_A3PL_BusStop"], 5000, false];
 },true,true] call Server_Setup_Compile;

@@ -13,8 +13,8 @@ Config_Shops_TaxSystem = [
 ];
 publicVariable "Config_Shops_TaxSystem";
 
-// Config_Shops_StockSystem = ["Shop_Supermarket","Shop_Guns_Vendor","Shop_Fuel"];
-// publicVariable "Config_Shops_StockSystem";
+Config_Shops_StockSystem = [];
+publicVariable "Config_Shops_StockSystem";
 
 // Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
 // publicVariableServer "Config_Shops_StockSystemObjects";

@@ -93,6 +93,7 @@
 	if (([[[_itemClass,_amount]],_player] call Server_Inventory_TotalWeight) > 600) exitWith {[6] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];_plant setVariable ["inuse",false,false];};
 
 	deleteVehicle _plant;
+	_amount = _amount * A3PL_Event_DblHarvest;
 	[_itemClass,_amount] remoteExec ["A3PL_Inventory_Add", (owner _player)];
 	[5,_itemClass,_amount] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];
 

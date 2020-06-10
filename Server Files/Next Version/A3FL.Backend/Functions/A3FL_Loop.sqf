@@ -151,6 +151,7 @@
 				_payAmount = call A3PL_Company_Paycheck;
 			};
 		};
+		_payAmount = _payAmount * A3PL_Event_Paycheck;
 		if(!_done) then {[format[localize"STR_NewLoop_6",_payAmount], "green"] call A3PL_Player_Notification;};
 
 		if(isNil "Player_Paycheck") then {Player_Paycheck = _payAmount;} else {Player_Paycheck = Player_Paycheck + _payAmount;};

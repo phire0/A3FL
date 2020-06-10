@@ -209,6 +209,8 @@
 		["Freeze",false,A3PL_Admin_Freeze],
 		["Player Markers",pVar_MapPlayerMarkersOn,A3PL_AdminMapMarkers],
 		["Double EXP",false,A3PL_AdminEXP],
+		["Double Harvest",false,A3PL_AdminHarvest],
+		["1.5 Paychecks",false,A3PL_AdminPaychecks],
 		["Players Stats",false,A3PL_Admin_ViewStats],
 		["Ressources Makers", pVar_RessourcesMarkersOn, A3PL_AdminRessourcesMarkers],
 		["Camera",false,A3PL_Admin_Camera],
@@ -252,6 +254,8 @@
 
 		case "Player Markers": {call A3PL_AdminMapMarkers;};
 		case "Double EXP": {[] remoteExec ["Server_Core_DblXP",2];};
+		case "Double Harvest": {[] remoteExec ["Server_Core_DblHarvest",2];};
+		case "1.5 Paychecks": {[] remoteExec ["Server_Core_PaycheckBonus",2];};
 
 		case "Players Stats": {call A3PL_Admin_ViewStats;};
 		case "Ressources Makers": {call A3PL_AdminRessourcesMarkers;};
@@ -1086,4 +1090,3 @@
 	diag_log format ["Time taken: %1",_totalTime];
 
 }] call Server_Setup_Compile;
-
