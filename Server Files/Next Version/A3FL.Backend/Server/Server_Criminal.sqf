@@ -86,3 +86,9 @@
 		Driver_BlackMarket enableAI "ALL";
 	};
 },true] call Server_Setup_Compile;
+
+["Server_Criminal_ShipCaptured", {
+	Ship_BlackMarket getVariable["captured",true,true];
+	sleep 600;
+	Ship_BlackMarket setVariable["captured",false,true];
+},true] call Server_Setup_Compile;

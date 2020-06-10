@@ -204,3 +204,60 @@
 	_name = player getVariable["name","unknown"];
 	[format["%1 has accessed the DOC storage container",_name],"blue","usms",1] call A3PL_Lib_JobMessage;
 }] call Server_Setup_Compile;
+
+["A3PL_Robberies_RobPShip",
+{
+	private _cooldown = Ship_BlackMarket getVariable["captured",false];
+	if(_cooldown) exitWith {["The ship has already been captured in the past 10 minutes.","red"] call A3PL_Player_Notification;};
+	if(Player_ActionDoing) exitwith {["You are already doing something.","red"] call A3PL_Player_Notification;};
+
+	private _requiredCG = 0;
+	private _CG = ["uscg"] call A3PL_Lib_FactionPlayers;
+	if(count(_CG) < _requiredCG) exitWith {["There is no enought CG available to do that!","red"] call A3PL_Player_Notification;};
+
+	[] remoteExec ["A3PL_Robberies_PShipRobbed",_CG];
+
+	["Capturing...",70] spawn A3PL_Lib_LoadAction;
+	_success = true;
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+		if ((vehicle player) != player) exitwith {_success = false;};
+		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+	};
+	if(Player_ActionInterrupted || !_success) exitWith {["Capture cancelled.","red"] call A3PL_Player_Notification;};
+
+	["You now own this ship for 10 minutes! You can access the Ship Weaponry to defend it!","green"] call A3PL_Player_Notification;
+	[] remoteExec ["Server_Criminal_ShipCaptured",2];
+}] call Server_Setup_Compile;
+
+["A3PL_Robberies_PShipRobbed",
+{
+
+	private _markers = [];
+	private _shipRealPos = getPos Ship_BlackMarket;
+	private _givenPos = [((_shipRealPos select 0) + (-70 + random 100)),((_shipRealPos select 1) + (-70 + random 100))];
+
+
+	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
+	_marker setMarkerShapeLocal "ELLIPSE";
+	_marker setMarkerSizeLocal [120,120];
+	_marker setMarkerColorLocal "ColorRed";
+	_marker setMarkerTypeLocal "Mil_dot";
+	_marker setMarkerAlphaLocal 0.75;
+	_markers pushback _marker;
+
+	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
+	_marker setMarkerShapeLocal "ICON";
+	_marker setMarkerColorLocal "ColorWhite";
+	_marker setMarkerTypeLocal "A3PL_Markers_Pickaxe";
+	_marker setMarkerTextLocal "SHIP DETRESS SIGNAL";
+	_markers pushback _marker;
+
+	["Coast Guard, look at me, I'm the captain now!","blue"] call A3PL_Player_Notification;
+	["Help! They are taking over my ship! It's a big black ship! Send help!","blue"] call A3PL_Player_Notification;
+	sleep 600;
+	{
+		deleteMarker _x;
+	} foreach _markers;
+}] call Server_Setup_Compile;

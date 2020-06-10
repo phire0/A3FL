@@ -346,6 +346,7 @@ class CfgRemoteExec
 
 		//Criminal
 		class Server_Criminal_RemoveJail{allowedTargets=2;};
+		class Server_Criminal_ShipCaptured{allowedTargets=2;};
 
 		//Debug
 		class A3PL_Debug_ExecuteCompiled{allowedTargets=2;};
@@ -372,6 +373,7 @@ class CfgRemoteExec
 		class A3PL_Store_Robbery_Marker{allowedTargets=0;};
 		class A3PL_Store_Robbery_Alert{allowedTargets=0;};
 		class A3PL_Robberies_PortAlert{allowedTargets=0;};
+		class A3PL_Robberies_PShipRobbed{allowedTargets=0;};
 		class A3PL_Robberies_SeizureAlert{allowedTargets=0;};
 
 		//iPhoneX
