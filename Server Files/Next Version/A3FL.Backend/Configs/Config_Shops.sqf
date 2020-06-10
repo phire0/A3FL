@@ -209,8 +209,8 @@ Config_Shops_Items = [
 	],
 
 	["Shop_GunsFML_Vendor",[
-			["item","Blueprint_Pistol_Legal",1600,-1,4],
-			["item","Blueprint_Pistol_Legal_Ammo",430,-1,4]
+			["item","Blueprint_Pistol_Legal",1300,-1,3],
+			["item","Blueprint_Pistol_Legal_Ammo",350,-1,3]
 		],{[6105.3,7367.8,0.2]}
 	],
 
