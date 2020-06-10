@@ -209,8 +209,8 @@ Config_Shops_Items = [
 	],
 
 	["Shop_GunsFML_Vendor",[
-			["item","Blueprint_Pistol_Legal",1600,-1,4],
-			["item","Blueprint_Pistol_Legal_Ammo",430,-1,4]
+			["item","Blueprint_Pistol_Legal",1300,-1,3],
+			["item","Blueprint_Pistol_Legal_Ammo",350,-1,3]
 		],{[6105.3,7367.8,0.2]}
 	],
 
@@ -296,24 +296,6 @@ Config_Shops_Items = [
 	],
 
 	["Shop_IllegalWeapons",[
-			["item","Blueprint_P07",2600,-1,0,0],
-			["item","Blueprint_P07_khk",2600,-1,0,0],
-			["item","Blueprint_Pistol_heavy_01",2600,-1,0,0],
-			["item","Blueprint_ACPC2",2600,-1,0,0],
-			["item","Blueprint_Pistol_01",2600,-1,0,0],
-			["item","Blueprint_Rook40",2600,-1,0,0],
-			["item","Blueprint_Pistol_heavy_02",2600,-1,0,0],
-			["item","Blueprint_A3PL_Red_Glock",2600,-1,0,0],
-			["item","Blueprint_A3PL_P226",2600,-1,0,0],
-			["item","Blueprint_SMG",2600,-1,0,0],
-			["item","Blueprint_16Rnd_9x21_Mag",1200,-1,0,0],
-			["item","Blueprint_11Rnd_45ACP_Mag",1200,-1,0,0],
-			["item","Blueprint_6Rnd_45ACP_Mag",1200,-1,0,0],
-			["item","Blueprint_9Rnd_45ACP_Mag",1200,-1,0,0],
-			["item","Blueprint_10Rnd_9x21_Mag",1200,-1,0,0],
-			["item","Blueprint_A3PL_Red_Glock_Mag",1200,-1,0,0],
-			["item","Blueprint_A3PL_P226_Mag",1200,-1,0,0],
-			["item","Blueprint_30Rnd_9x21_Mag_SMG_02",2000,-1,0,0],
 			["item","Blueprint_Shemag",1000,-1,0,0],
 			["item","Blueprint_balaclava",1000,-1,0,0],
 			["item","Blueprint_Bandanna",1000,-1,0,0],
@@ -327,24 +309,6 @@ Config_Shops_Items = [
 	],
 
 	["Shop_IllegalWeaponsCartel",[
-			["item","Blueprint_P07",1200,-1,0,0],
-			["item","Blueprint_P07_khk",1200,-1,0,0],
-			["item","Blueprint_Pistol_heavy_01",1200,-1,0,0],
-			["item","Blueprint_ACPC2",1200,-1,0,0],
-			["item","Blueprint_Pistol_01",1200,-1,0,0],
-			["item","Blueprint_Rook40",1200,-1,0,0],
-			["item","Blueprint_Pistol_heavy_02",1200,-1,0,0],
-			["item","Blueprint_A3PL_Red_Glock",1200,-1,0,0],
-			["item","Blueprint_A3PL_P226",1200,-1,0,0],
-			["item","Blueprint_SMG",2000,-1,0,0],
-			["item","Blueprint_16Rnd_9x21_Mag",600,-1,0,0],
-			["item","Blueprint_11Rnd_45ACP_Mag",600,-1,0,0],
-			["item","Blueprint_6Rnd_45ACP_Mag",600,-1,0,0],
-			["item","Blueprint_9Rnd_45ACP_Mag",600,-1,0,0],
-			["item","Blueprint_10Rnd_9x21_Mag",600,-1,0,0],
-			["item","Blueprint_A3PL_Red_Glock_Mag",600,-1,0,0],
-			["item","Blueprint_A3PL_P226_Mag",600,-1,0,0],
-			["item","Blueprint_30Rnd_9x21_Mag_SMG_02",600,-1,0,0],
 			["item","Blueprint_Bandanna",300,-1,0,0],
 			["item","Blueprint_Rangemaster_belt",1200,-1,0,0],
 			["item","v_lockpick",750,-1,5],
@@ -353,6 +317,11 @@ Config_Shops_Items = [
 			["backpack","A3PL_Backpack_Drill",10000,-1,8],
 			["backpack","A3PL_Backpack_Money",3000,-1,8]
 		],{[3852.065,9212.537,0.168]}
+	],
+
+	["Shop_CapturedShip",[
+			["item","weed_5g",-1,720,4]
+		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
 
 	["Shop_BlackMarket",[

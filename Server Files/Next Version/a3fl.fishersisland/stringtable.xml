@@ -273,6 +273,9 @@
         <Key ID="STR_QuickActionsNPC_AccessShopSupply">
             <Original>Furniture Store</Original>
         </Key>
+        <Key ID="STR_QuickActionsNPC_CatpuredShip">
+            <Original>Ship Weaponry</Original>
+        </Key>
         <Key ID="STR_QuickActionsNPC_AccessShopVFD">
             <Original>VFD Store</Original>
         </Key>
