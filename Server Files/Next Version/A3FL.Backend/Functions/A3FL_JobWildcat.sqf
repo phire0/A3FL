@@ -264,9 +264,8 @@
 	private _signs = param [0,0];
 	private _prospectFor = param [1,localize"STR_Config_Resources_Oil"];
 
-	if ((animationState player) isEqualTo "Acts_TerminalOpen") exitwith {[localize"STR_A3PL_JobWildcat_AlreadyProspecting","red"] call A3PL_Player_Notification;};
+	if (Player_ActionDoing) exitwith {[localize"STR_A3PL_JobWildcat_AlreadyProspecting","red"] call A3PL_Player_Notification;};
 
-	
 	["Prospecting...",5] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
@@ -275,7 +274,6 @@
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 		if ((vehicle player) != player) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-		if (animationstate player == "Acts_TerminalOpen") then {player playMoveNow 'Acts_TerminalOpen';};
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {["Action cancelled.","red"] call A3PL_Player_Notification;};
 
