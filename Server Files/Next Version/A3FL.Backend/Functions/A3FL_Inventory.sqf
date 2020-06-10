@@ -87,6 +87,7 @@
 
 ["A3PL_Inventory_TotalWeight",
 {
+	private ["_inventory"];
 	private _return = 0;
 	private _itemToAdd = _this;
 	private _player = player;
