@@ -210,27 +210,20 @@
 	";
 }] call Server_Setup_Compile;
 
-//prospecting script
 ["A3PL_JobWildcat_ProspectInit",
 {
 	private ["_checkOil","_haveOil","_oilLocation","_oilAmount","_prospectFor"];
 	_prospectFor = param [0,localize"STR_Config_Resources_Oil"];
 
-	switch (_prospectFor) do
-	{
+	switch (_prospectFor) do {
 		case (localize"STR_Config_Resources_Oil"):
 		{
-			//first check if we have an oil well
 			_checkOil = [getpos player] call A3PL_JobWildcat_CheckForOil;
 			_haveOil = _checkOil select 0;
 			_oilLocation = _checkOil select 1;
 			if (!_haveOil) exitwith {[0] spawn A3PL_JobWildCat_Prospect};
-
 			_oilAmount = [_oilLocation] call A3PL_JobWildcat_CheckAmountOil;
-
-			//these numbers correspondent with the gallons set up inside the array inside Server_JobWildcat_RandomizeOil
-			switch true do
-			{
+			switch true do {
 				case (_oilAmount <= 50): {[1,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
 				case (_oilAmount <= 100): {[2,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
 				case (_oilAmount <= 150): {[3,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
@@ -239,17 +232,13 @@
 				default {[5,localize"STR_Config_Resources_Oil"] spawn A3PL_JobWildCat_Prospect;};
 			};
 		};
-
-		//ores
-		default
-		{
+		default {
 			_checkOres = [getpos player,_prospectFor] call A3PL_JobWildcat_CheckForRes;
 			_haveRes = _checkOres select 0;
 			_resLocation = _checkOres select 1;
 			if (!_haveRes) exitwith {[0,_prospectFor] spawn A3PL_JobWildCat_Prospect;};
 			_resAmount = [_resLocation] call A3PL_JobWildcat_CheckAmountRes;
-			switch (true) do
-			{
+			switch (true) do {
 				case (_resAmount <= 3): {[1,_prospectFor] spawn A3PL_JobWildCat_Prospect;};
 				case (_resAmount <= 5): {[2,_prospectFor] spawn A3PL_JobWildCat_Prospect;};
 				case (_resAmount <= 30): {[3,_prospectFor] spawn A3PL_JobWildCat_Prospect;};
@@ -284,7 +273,11 @@
 		_listOres pushback (_x select 0);
 	} foreach Config_Resources_Ores;
 
-	if ((_signs > 0) && (_prospectFor IN _listOres)) then {[player,_prospectFor] remoteExec ['Server_JobWildCat_SpawnRes', 2];};
+	if ((_signs > 0) && (_prospectFor IN _listOres)) then {
+		[player,_prospectFor] remoteExec ['Server_JobWildCat_SpawnRes', 2];
+	} else {
+		[format["There is no %1 in this area",_prospectFor],"red"] call A3PL_Player_Notification;
+	};
 }] call Server_Setup_Compile;
 
 //this checks if we have oil in the area and returns the location of the middle pointer
