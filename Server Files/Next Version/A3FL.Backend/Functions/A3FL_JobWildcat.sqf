@@ -261,326 +261,24 @@
 
 ["A3PL_JobWildCat_Prospect",
 {
-	private ["_signs","_prospectArray","_listOres","_prospectFor","_canProspect"];
-	_signs = param [0,0];
-	_prospectFor = param [1,localize"STR_Config_Resources_Oil"];
+	private _signs = param [0,0];
+	private _prospectFor = param [1,localize"STR_Config_Resources_Oil"];
 
-	if ((animationState player) == "acts_terminalopen") exitwith {[localize"STR_A3PL_JobWildcat_AlreadyProspecting","red"] call A3PL_Player_Notification;};
-	if (!isNil "Player_Prospecting") exitwith {[localize"STR_A3PL_JobWildcat_Expired","red"] call A3PL_Player_Notification;};
+	if ((animationState player) isEqualTo "Acts_TerminalOpen") exitwith {[localize"STR_A3PL_JobWildcat_AlreadyProspecting","red"] call A3PL_Player_Notification;};
 
+	
+	["Prospecting...",5] spawn A3PL_Lib_LoadAction;
+	_success = true;
+	waitUntil{Player_ActionDoing};
 	[player,"Acts_TerminalOpen"] remoteExec ["A3PL_Lib_SyncAnim",0];
-	[localize"STR_A3PL_JobWildcat_CantMove", "yellow"] call A3PL_Player_Notification;
-	Player_Prospecting = true;
-	switch (_prospectFor) do
-	{
-		case (localize"STR_Config_Resources_Oil"):
-		{
-			switch (_signs) do
-			{
-				case 0:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoOilInArea","red"],
-						[localize"STR_A3PL_JobWildcat_OilSample","red"],
-						[localize"STR_A3PL_JobWildcat_CantFindOil1","red"],
-						[localize"STR_A3PL_JobWildcat_CantFindOil","red"],
-						[localize"STR_A3PL_JobWildcat_CantFindOil2","red"]
-					];
-				};
-				case 1:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoOilInArea","red"],
-						[localize"STR_A3PL_JobWildcat_OilSample","red"],
-						[localize"STR_A3PL_JobWildcat_ThereIsOil","green"],
-						[localize"STR_A3PL_JobWildcat_CantFindOil","red"],
-						[localize"STR_A3PL_JobWildcat_CantFindOil2","red"]
-					];
-				};
-
-				case 2:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoOilInArea","red"],
-						[localize"STR_A3PL_JobWildcat_OilSample","red"],
-						[localize"STR_A3PL_JobWildcat_ThereIsOil","green"],
-						[localize"STR_A3PL_JobWildcat_FoundOil","green"],
-						[localize"STR_A3PL_JobWildcat_MagneticStuff","red"]
-					];
-				};
-				case 3:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoOilInArea","red"],
-						[localize"STR_A3PL_JobWildcat_OilSample","red"],
-						[localize"STR_A3PL_JobWildcat_ThereIsOil","green"],
-						[localize"STR_A3PL_JobWildcat_FoundOil","green"],
-						[localize"STR_A3PL_JobWildcat_NotMagnetic","green"]
-					];
-				};
-
-				case 4:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoOilInArea","red"],
-						[localize"STR_A3PL_JobWildcat_FoundOil1","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsOil","green"],
-						[localize"STR_A3PL_JobWildcat_FoundOil","green"],
-						[localize"STR_A3PL_JobWildcat_MagneticStuff1","green"]
-					];
-				};
-
-				case 5:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_FoundOil2","green"],
-						[localize"STR_A3PL_JobWildcat_FoundOil3","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsOil","green"],
-						[localize"STR_A3PL_JobWildcat_FoundOil","green"],
-						[localize"STR_A3PL_JobWildcat_NotMagnetic","green"]
-					];
-				};
-			};
-		};
-
-		case (localize"STR_Config_Resources_Iron"):
-		{
-			switch (_signs) do
-			{
-				case 0:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_CantFindIron","red"],
-						[localize"STR_A3PL_JobWildcat_NoMineral","red"],
-						[localize"STR_A3PL_JobWildcat_NoOre","red"]
-					];
-				};
-				case 1:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_CantFindIron","red"],
-						[localize"STR_A3PL_JobWildcat_NoMineral","red"],
-						[localize"STR_A3PL_JobWildcat_MightBeIron","green"]
-					];
-				};
-
-				case 2:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_CantFindIron","red"],
-						[localize"STR_A3PL_JobWildcat_ContainMineral","green"],
-						[localize"STR_A3PL_JobWildcat_MightBeIron","green"]
-					];
-				};
-				case 3:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_MightBeIron1","green"],
-						[localize"STR_A3PL_JobWildcat_ContainMineral","green"],
-						[localize"STR_A3PL_JobWildcat_MightBeIron","green"]
-					];
-				};
-			};
-		};
-
-		case (localize"STR_Config_Resources_Coal"):
-		{
-			switch (_signs) do
-			{
-				case 0:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoCoal","red"],
-						[localize"STR_A3PL_JobWildcat_NoCoalAsh","red"],
-						[localize"STR_A3PL_JobWildcat_NoCoal1","red"]
-					];
-				};
-				case 1:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoCoal","red"],
-						[localize"STR_A3PL_JobWildcat_ContainAsh","green"],
-						[localize"STR_A3PL_JobWildcat_NoCoal1","red"]
-					];
-				};
-
-				case 2:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_ThereIsCoalResides","green"],
-						[localize"STR_A3PL_JobWildcat_ContainAsh","green"],
-						[localize"STR_A3PL_JobWildcat_NoCoal1","red"]
-					];
-				};
-				case 3:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_ThereIsCoalResides","green"],
-						[localize"STR_A3PL_JobWildcat_ContainAsh1","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsCoalSound","green"]
-					];
-				};
-			};
-		};
-
-		case (localize"STR_Config_Resources_Titanium"):
-		{
-			switch (_signs) do
-			{
-				case 0:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoTitanium","red"],
-						[localize"STR_A3PL_JobWildcat_NoTitaniumSoil","red"],
-						[localize"STR_A3PL_JobWildcat_NoTitaniumSound","red"]
-					];
-				};
-				case 1:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoTitanium","red"],
-						[localize"STR_A3PL_JobWildcat_NoTitaniumSoil","red"],
-						[localize"STR_A3PL_JobWildcat_ThereIsTitaniumSound","green"]
-					];
-				};
-
-				case 2:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoTitanium","red"],
-						[localize"STR_A3PL_JobWildcat_ThereIsTitaniumSoil","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsTitaniumSound","green"]
-					];
-				};
-				case 3:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_ThereIsTitaniumResude","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsTitaniumSoil","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsTitaniumSound","green"]
-					];
-				};
-			};
-		};
-
-		case (localize"STR_Config_Resources_Aluminium"):
-		{
-			switch (_signs) do
-			{
-				case 0:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_NoAluminium","red"],
-						[localize"STR_A3PL_JobWildcat_ThereIsNoAluminiumSoil","red"],
-						[localize"STR_A3PL_JobWildcat_ThereIsNoAluminiumSound","red"]
-					];
-				};
-				case 1:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_ThereIsAluminium","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsNoAluminiumSoil","red"],
-						[localize"STR_A3PL_JobWildcat_ThereIsNoAluminiumSound","red"]
-					];
-				};
-
-				case 2:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_ThereIsAluminium","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsAluminiumMinerals","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsNoAluminiumSound","red"]
-					];
-				};
-				case 3:
-				{
-					_prospectArray =
-					[
-						[localize"STR_A3PL_JobWildcat_ThereIsAluminium","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsAluminiumMinerals1","green"],
-						[localize"STR_A3PL_JobWildcat_ThereIsAluminiumSound","green"]
-					];
-				};
-			};
-		};
-
-        case (localize"STR_Config_Resources_Sulphur"):
-        {
-            switch (_signs) do
-            {
-                case 0:
-                {
-                    _prospectArray =
-                    [
-                        [localize"STR_A3PL_JobWildcat_NoSulfur","red"],
-                        [localize"STR_A3PL_JobWildcat_NoSulfurSoil","red"],
-                        [localize"STR_A3PL_JobWildcat_NoSulfurSound","red"]
-                    ];
-                };
-                case 1:
-                {
-                    _prospectArray =
-                    [
-                        [localize"STR_A3PL_JobWildcat_NoSulfur","red"],
-                        [localize"STR_A3PL_JobWildcat_ThereIsSulfurSoil","green"],
-                        [localize"STR_A3PL_JobWildcat_NoSulfurSound","red"]
-                    ];
-                };
-
-                case 2:
-                {
-                    _prospectArray =
-                    [
-                        [localize"STR_A3PL_JobWildcat_ThereIsSulfur","green"],
-                        [localize"STR_A3PL_JobWildcat_ThereIsSulfurSoil","green"],
-                        [localize"STR_A3PL_JobWildcat_NoSulfurSound","red"]
-                    ];
-                };
-                case 3:
-                {
-                    _prospectArray =
-                    [
-                        [localize"STR_A3PL_JobWildcat_ThereIsSulfur","green"],
-                        [localize"STR_A3PL_JobWildcat_ThereIsSulfurSoil","green"],
-                        [localize"STR_A3PL_JobWildcat_ThereIsSulfurSound","green"]
-                    ];
-                    [player, 1] call A3PL_Level_AddXP;
-                };
-            };
-        };
+	while {Player_ActionDoing} do {
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+		if ((vehicle player) != player) exitwith {_success = false;};
+		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if (animationstate player == "Acts_TerminalOpen") then {player playMoveNow 'Acts_TerminalOpen';};
 	};
+	if(Player_ActionInterrupted || !_success) exitWith {["Action cancelled.","red"] call A3PL_Player_Notification;};
 
-	_canProspect = 0;
-	for "_i" from 0 to (count _prospectArray) do
-	{
-		uiSleep 3.7;
-		(_prospectArray select _i) call A3PL_Player_Notification;
-		if (!(vehicle player == player)) exitwith {_canProspect = (count _prospectArray) - _i;};
-	};
-	if (_canProspect > 0) exitwith {_timeOut = _canProspect * 3.7; [format [localize"STR_A3PL_JobWildcat_CantProspectInVehicle",_timeOut],"red"] call A3PL_Player_Notification; [_timeOut] spawn {uiSleep (param [0,0]); Player_Prospecting = nil;};};
-	Player_Prospecting = nil;
-	[localize"STR_A3PL_JobWildcat_ProspectingFinished","green"] call A3PL_Player_Notification;
 	[player,""] remoteExec ["A3PL_Lib_SyncAnim",0];
 
 	_listOres = [];
@@ -588,11 +286,7 @@
 		_listOres pushback (_x select 0);
 	} foreach Config_Resources_Ores;
 
-	if ((_signs > 0) && (_prospectFor IN _listOres)) then
-	{
-		[player,_prospectFor] remoteExec ['Server_JobWildCat_SpawnRes', 2];
-		[player, 1] call A3PL_Level_AddXP;
-	};
+	if ((_signs > 0) && (_prospectFor IN _listOres)) then {[player,_prospectFor] remoteExec ['Server_JobWildCat_SpawnRes', 2];};
 }] call Server_Setup_Compile;
 
 //this checks if we have oil in the area and returns the location of the middle pointer
@@ -600,15 +294,12 @@
 {
 	private ["_pos","_oil","_oilLocation"];
 	_pos = param [0,[0,0,0]];
-
 	_oil = false;
-	//change 50 into lower/higher distance if needed
 	{
-		 if ((_pos distance (_x select 0)) < OILDISTANCE) exitwith
-		 {
-			 _oil = true;
-			 _oilLocation = _x select 0;
-		 };
+		if ((_pos distance (_x select 0)) < OILDISTANCE) exitwith {
+			_oil = true;
+			_oilLocation = _x select 0;
+		};
 	} foreach Server_JobWildCat_Oil;
 
 	_return = [false,[0,0,0]];
@@ -627,7 +318,6 @@
 	_resType = param [1,""];
 
 	_res = false;
-	//change 50 into lower/higher distance if needed
 	{
 		 if (((_pos distance (_x select 1)) < RESDISTANCE) && ((_x select 0) == _resType)) exitwith
 		 {
@@ -637,28 +327,22 @@
 	} foreach Server_JobWildCat_Res;
 
 	_return = [false,[0,0,0]];
-	if (_res) then
-	{
+	if (_res) then {
 		_return = [true,_resLocation];
 	};
-
 	_return;
 }] call Server_Setup_Compile;
 
-//this will return the amount of oil in the specified oil position
 ["A3PL_JobWildcat_CheckAmountOil",
 {
 	private ["_pos","_return"];
 	_pos = param [0,[0,0,0]];
 	_return = 0;
-
 	{
-		 if (((_x select 0) distance2D _pos) < 1) exitwith
-		 {
-			 _return = _x select 1;
-		 };
+		if (((_x select 0) distance2D _pos) < 1) exitwith {
+			_return = _x select 1;
+		};
 	} foreach Server_JobWildCat_Oil;
-
 	_return;
 }] call Server_Setup_Compile;
 
@@ -667,28 +351,21 @@
 	private ["_pos","_return"];
 	_pos = param [0,[0,0,0]];
 	_return = 0;
-
 	{
-		 if (((_x select 1) distance2D _pos) < 1) exitwith
-		 {
+		 if (((_x select 1) distance2D _pos) < 1) exitwith {
 			 _return = _x select 2;
 		 };
 	} foreach Server_JobWildCat_Res;
-
 	_return;
 }] call Server_Setup_Compile;
 
-//drilling script
 ["A3PL_JobWildcat_Drill",
 {
 	private ["_s","_pump","_drilling","_a"];
 	_pump = param [0,objNull];
 
 	//check the pin position
-	if ((_pump animationPhase "Pin") > 0) exitwith
-	{
-		[localize"STR_A3PL_JobWildcat_CantDrillVehHitched","red"] call A3PL_Player_Notification;
-	};
+	if ((_pump animationPhase "Pin") > 0) exitwith {[localize"STR_A3PL_JobWildcat_CantDrillVehHitched","red"] call A3PL_Player_Notification;};
 
 	//first check the drill_arm_position
 	if ((_pump animationSourcePhase "drill_arm_position") != 1) exitwith {[localize"STR_A3PL_JobWildcat_DrillArmNotExtended","red"] call A3PL_Player_Notification;};
@@ -705,23 +382,18 @@
 	[localize"STR_A3PL_JobWildcat_DrillingStarted","green"] call A3PL_Player_Notification;
 	_drilling = true;
 	_pump animateSource ["drill",1];
-	_s = false; //succeed
+	_s = false;
 	_pos = getpos _pump;
-	while {_drilling} do
-	{
+	while {_drilling} do {
 		if ((_pos distance (getpos _pump)) > 1) exitwith {_pump animateSource ["drill",0,true]; [localize"STR_A3PL_JobWildcat_Returning","red"] call A3PL_Player_Notification;};
 		if (_pump animationSourcePhase "drill" == 1) exitwith {_s = true};
 		if (isNull _pump) exitwith {};
 		uiSleep 1;
 	};
-
-	if (_s) then
-	{
+	if (_s) then {
 		[localize"STR_A3PL_JobWildcat_JackCanBeInstalled","green"] call A3PL_Player_Notification;
-		//spawn a drilling hole at specified modelToWorld position
 		_hole = createVehicle ["A3PL_Drillhole",_pump modelToWorld [0,-1.8,-1.1], [], 0, "CAN_COLLIDE"]; //[0,-1.1,0]
-	} else
-	{
+	} else {
 		[localize"STR_A3PL_JobWildcat_Canceled","red"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
