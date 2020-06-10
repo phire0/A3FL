@@ -101,8 +101,9 @@
 				["You found a rare gem stone!", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];
 			} else {
 				_itemClass = _obj getVariable ["smallOreItemClass","ore_metal"];
-				[_itemClass,1] remoteExec ["A3PL_Inventory_Add", (owner _ins)];
-				["You succesfully mined one ore", "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];
+				_amount = 1 * A3PL_Event_DblHarvest;
+				[_itemClass,_amount] remoteExec ["A3PL_Inventory_Add", (owner _ins)];
+				[format["You succesfully mined %1 ore",_amount], "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];
 			};
 			_obj setVariable ["dmg",_dmg,false];
 		};
