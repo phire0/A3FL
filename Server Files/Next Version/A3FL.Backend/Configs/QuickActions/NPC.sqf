@@ -219,6 +219,11 @@
 ],
 [
 	"",
+	localize"STR_INTSECT_CAPTSHIP",
+	{[] call A3PL_Robberies_RobPShip;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_CatpuredShip",
 	{
 		_captured = Ship_BlackMarket getVariable["captured",false];

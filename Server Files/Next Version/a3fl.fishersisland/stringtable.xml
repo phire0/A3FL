@@ -973,6 +973,9 @@
    <Key ID="STR_INTSECT_TAKEBODY">
       <Original>Capture the Hideout</Original>
    </Key>
+   <Key ID="STR_INTSECT_CAPTSHIP">
+      <Original>Take control of the ship</Original>
+   </Key>
    <Key ID="STR_INTSECT_HIDEOUTSHOP">
       <Original>Snack Shop</Original>
    </Key>

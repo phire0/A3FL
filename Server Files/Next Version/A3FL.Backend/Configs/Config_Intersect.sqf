@@ -315,6 +315,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_RemoveElectronicBracelet",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_Big_Weapon_Dealer}],
 
 	//shops
+	["spine3",localize"STR_INTSECT_CAPTSHIP",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_captureship}],
 	["spine3",localize"STR_QuickActionsNPC_CatpuredShip",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_captureship}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_4,npc_furniture_6,npc_perkfurniture_1,npc_perkfurniture_4]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply2",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_3,npc_furniture_5,npc_perkfurniture_2,npc_perkfurniture_5]}],
@@ -2152,6 +2153,7 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_BuySellHalloweenItems",
 	localize"STR_QuickActionsNPC_BuySellChristmasItems",
 	localize"STR_QuickActionsNPC_AccessShopSupply",
+	localize"STR_INTSECT_CAPTSHIP",
 	localize"STR_QuickActionsNPC_CatpuredShip",
 	localize"STR_QuickActionsNPC_AccessShopSupply2",
 	localize"STR_QuickActionsNPC_AccessShopFIMS",
