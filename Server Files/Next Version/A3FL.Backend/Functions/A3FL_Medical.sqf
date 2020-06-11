@@ -384,8 +384,7 @@
 		_wounds pushback [_part,[_wound,false]];
 	};
 
-	["left upper leg","bullet_minor"] call A3PL_Medical_ApplyPWound;
-	[_part] remoteExec ["A3PL_Medical_ApplyPWound",_player]
+	[_part,_wound] remoteExec ["A3PL_Medical_ApplyPWound",_player]
 
 	if (_set) then {
 		_player setVariable ["A3PL_Wounds",_wounds,true];
@@ -410,6 +409,18 @@
 		case ("right lower arm"): {_format = "You are wounded at the right forearm"};
 	};
 	[_format, "red"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
+
+["A3PL_Medical_ApplyPWound",
+{
+	private _part = param[0,""];
+	private _wound = param[1,""];
+	private _BiPart = [_part] call A3PL_Medical_GetHitPartBI;
+	private _damage = [_wound,"damage"] call A3PL_Config_GetWound;
+	private _currentHit = player getHit _BiPart;
+	_damage = _damage + _currentHit;
+	if(_damage >= 0.85) then {_damage = 0.85;};
+	player setHit [_BiPart,_damage];
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_GetVar",
