@@ -364,7 +364,7 @@
 ["A3PL_Medical_ApplyWound",
 {
 	private ["_part","_wound","_partF","_player","_set","_wounds"];
-	_player = param [0,objNull];
+	_player = param [0,player];
 	_part = param [1,""];
 	_wound = param [2,""];
 	_dmg = param [3,0];
@@ -384,7 +384,7 @@
 		_wounds pushback [_part,[_wound,false]];
 	};
 
-	[_part,_wound] remoteExec ["A3PL_Medical_ApplyPWound",_player]
+	[_part,_wound] remoteExec ["A3PL_Medical_ApplyPWound",_player];
 
 	if (_set) then {
 		_player setVariable ["A3PL_Wounds",_wounds,true];

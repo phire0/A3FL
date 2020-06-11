@@ -13,7 +13,7 @@ PublicVariable "A3PL_Respawn_Time";
 //ID, NAME, COLOR, INSTANT BLOOD LOSS, BLOOD LOSS, 
 Config_Medical_Wounds =
 [
-	["bullet_minor",localize"STR_ConfigMedical_1","orange",950,50,"med_bandage",false, "med_kit",0.2],
+	["bullet_minor",localize"STR_ConfigMedical_1","orange",950,50,"med_bandage",false, "med_kit",0.5],
 	["bullet_major",localize"STR_ConfigMedical_2","red",1800,70,"med_bandage",false,"med_kit",0.5],
 	["bullet_head",localize"STR_ConfigMedical_3","red",2500,80,"med_bandage",false,"med_kit",0.7],
 
