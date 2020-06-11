@@ -209,9 +209,11 @@
 {
 	private _cooldown = Ship_BlackMarket getVariable["captured",false];
 	if(_cooldown) exitWith {["The ship has already been captured in the past 10 minutes.","red"] call A3PL_Player_Notification;};
+	if((currentWeapon player) isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
+	if((currentWeapon player) IN ["hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a store with this weapon!","red"] call A3PL_Player_Notification;};
 	if(Player_ActionDoing) exitwith {["You are already doing something.","red"] call A3PL_Player_Notification;};
 
-	private _requiredCG = 0;
+	private _requiredCG = 3;
 	private _CG = ["uscg"] call A3PL_Lib_FactionPlayers;
 	if(count(_CG) < _requiredCG) exitWith {["There is no enought CG available to do that!","red"] call A3PL_Player_Notification;};
 
@@ -221,11 +223,12 @@
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
+		if((player distance Ship_BlackMarket) > 20) exitWith {_success = false;};
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 		if ((vehicle player) != player) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 	};
-	if(Player_ActionInterrupted || !_success) exitWith {["Capture cancelled.","red"] call A3PL_Player_Notification;};
+	if(!_success) exitWith {["Capture cancelled.","red"] call A3PL_Player_Notification;};
 
 	["You now own this ship for 10 minutes! You can access the Ship Weaponry to defend it!","green"] call A3PL_Player_Notification;
 	[] remoteExec ["Server_Criminal_ShipCaptured",2];
