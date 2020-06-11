@@ -237,7 +237,9 @@
 	_new = param [1,objNull];
 	_warehouse = param [2,objNull];
 
-	_actuals = _house getVariable "owner";
+	diag_log "running";
+
+	_actuals = _warehouse getVariable "owner";
 
 	if((_actuals find (getPlayerUID _new)) != -1) exitWith {};
 
@@ -248,7 +250,6 @@
 	_query = format ["UPDATE warehouses SET uids='%1' WHERE location ='%2'",_actuals,(getpos _house)];
 	[_query,1] spawn Server_Database_Async;
 
-	//Give new member key and set var
 	_new setVariable ["warehouse",_house,true];
 
 	_keysid = (_house getVariable ["doorID",[]]) select 1;

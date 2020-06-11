@@ -132,7 +132,7 @@ class CfgRemoteExec
 
 		// Warehouses
 		class A3PL_Warehouses_Loaditems {allowedTargets = 0;};
-		class A3PL_Housing_SetMarker{allowedTargets=0;};
+		class A3PL_Warehouses_SetMarker{allowedTargets=0;};
 		class Server_Warehouses_Assign {allowedTargets = 2;};
 		class Server_Warehouses_LoadBox {allowedTargets = 2;};
 		class Server_Warehouses_SaveBox {allowedTargets = 2;};
@@ -140,7 +140,6 @@ class CfgRemoteExec
 		class Server_Warehouses_Initialize{allowedTargets=2;};
 		class Server_Warehouses_RemoveMember{allowedTargets=2;};
 		class Server_Warehouses_AddMember{allowedTargets=2;};
-		class Server_Warehouses_RemoveMember{allowedTargets=2;};
 
 		//Police
 		class A3PL_Police_ReleasePlayer {allowedTargets = 0;};

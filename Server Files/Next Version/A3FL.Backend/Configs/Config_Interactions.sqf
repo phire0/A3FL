@@ -140,7 +140,7 @@ A3PL_Interaction_Options =
 				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
 				_uid = _uids select 0;
 				if((getPlayerUID player) isEqualTo _uid) then {
-					[player, cursorobject, _warehouse] remoteExec ["Server_Warehouses_AddMember",2];
+					[player, cursorObject, _warehouse] remoteExec ["Server_Warehouses_AddMember",2];
 					private _namePos = [getPos _warehouse] call A3PL_Housing_PosAddress;
 					[format[localize"STR_Inter_Notifications_NewColloc",_namePos], "green"] call A3PL_Player_Notification;
 				} else {
@@ -192,7 +192,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _house = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _warehouse) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_CHECKID",
