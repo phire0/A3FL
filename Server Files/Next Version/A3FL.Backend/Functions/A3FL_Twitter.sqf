@@ -91,6 +91,8 @@
 		_namecolor = "#202020";
 		_msgcolor = "#ffffff";
 		[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
+
+		[getPlayerUID player,_msg,_msgcolor,_namepicture,_name,_namecolor,true] remoteExec ["Server_Twitter_HandleMsg", 2];
 	};
 	if (((toLower (_splitted select 0) == "/r")) && !_doubleCommand) exitWith {
 		if(!(pVar_AdminTwitter)) exitwith {
@@ -196,7 +198,6 @@
 		if (_messageto select 0 == "darknet") then {
 			if(player getVariable["faction","citizen"] == "citizen") then {_cancelaction = false;};
 			A3PL_Twitter_ReplyArr = (missionNameSpace getVariable ["A3PL_Twitter_ReplyArr",[]]) + [(_messageto select 1)];
-			diag_log "Darknet message recieved";
 		};
 
 		if (_messageto select 0 == "reply") then {
