@@ -106,6 +106,11 @@
 ],
 [
 	"",
+	localize"STR_QuickActionsNPC_ResignCompany",
+	{call A3PL_Company_Resign;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_EnterpriseAccountManagment",
 	{call A3PL_Company_HistoryOpen;}
 ],

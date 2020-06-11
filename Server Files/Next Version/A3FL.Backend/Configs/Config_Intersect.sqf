@@ -24,7 +24,6 @@ Config_Intersect_NoName =
 ];
 publicVariable "Config_Intersect_NoName";
 
-
 Config_IntersectArray =
 [
 	["item_pickup","Add Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) isEqualTo "A3FL_PlasticBarrel") && {(Player_ItemClass IN ["kerosene_jerrycan","sulphuric_acid","calcium_carbonate","coca_paste","potassium_permangate","cocaine_base","ammonium_hydroxide","acetone","hydrocloric_acid","coca"])}}],
@@ -291,6 +290,7 @@ Config_IntersectArray =
 
 	["spine3",localize"STR_QuickActionsNPC_OpenBusiness",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && {!([getPlayerUID player] call A3PL_Config_InCompany)}}],
 	["spine3",localize"STR_QuickActionsNPC_BusinessManagement",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && {([getPlayerUID player] call A3PL_Config_IsCompanyBoss)}}],
+	["spine3",localize"STR_QuickActionsNPC_ResignCompany",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_government) && {!([getPlayerUID player] call A3PL_Config_IsCompanyBoss)} && {([getPlayerUID player] call A3PL_Config_InCompany)}}],
 	["spine3",localize"STR_QuickActionsNPC_EnterpriseAccountManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_bank,npc_bank_1,npc_bank_2,npc_bank_3,npc_bank_4]) && {([getPlayerUID player] call A3PL_Config_IsCompanyBoss)}}],
 	//["spine3",localize"STR_QuickActionsNPC_FactionAccount",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && ([(player getVariable['faction','citizen'])] call A3PL_Government_isFactionLeader)}],
 	["spine3",localize"STR_QuickActionsNPC_SpeakToTheRealEstateAgent",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_RealEstateAgent}],
@@ -2518,6 +2518,7 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_Shop_BlackMarketCartel",
 	localize"STR_QuickActionsNPC_OpenBusiness",
 	localize"STR_QuickActionsNPC_BusinessManagement",
+	localize"STR_QuickActionsNPC_ResignCompany",
 	localize"STR_QuickActionsNPC_EnterpriseAccountManagment",
 	localize"STR_QuickActionsNPC_GoodsFactory",
 	localize"STR_QuickActionsNPC_FIFDManagment",
