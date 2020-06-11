@@ -1086,11 +1086,10 @@
 		};
 		case "darknet":
 		{
-			diag_log _return;
 			if (count _return > 0) then
 			{
 				{
-					_output = _output + (format ["<t align='center'>User: %1 - Message: %2 - Date: %3</t><br />",_x select 0,_x select 1,_x select 2]);
+					_output = _output + (format ["<t align='center'>User: %1 - Message: %2</t><br />",_x select 0,_x select 1]);
 				} foreach _return;
 			} else
 			{

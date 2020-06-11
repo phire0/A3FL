@@ -236,7 +236,7 @@
 			};
 		};
 		case "darknet": {
-			private _query = "SELECT name,chatmessage,date FROM darknetlog ORDER BY id DESC LIMIT 10";
+			private _query = "SELECT name,chatmessage FROM darknetlog ORDER BY id DESC LIMIT 10";
 			private _return = [_query, 2,true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
