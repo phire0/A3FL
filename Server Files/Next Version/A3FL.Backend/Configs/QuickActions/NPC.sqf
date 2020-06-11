@@ -13,6 +13,11 @@
 ],
 [
 	"",
+	"Low End Car Dealer",
+	{["Shop_Low_End_Car_Dealer"] call A3PL_Shop_Open;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_AccessAcierie",
 	{["Steel Mill"] call A3PL_Factory_Open;}
 ],

@@ -663,8 +663,8 @@ Config_Shops_Items = [
 			["item","breathalizer",10,-1,0],
 			["item","drug_kit",10,-1,0],
 			["item","handcuffs",10,-1,0],
-            ["item","stinger",10,-1,0],
-            ["item","roadcones",10,-1,0],
+    	["item","stinger",10,-1,0],
+      ["item","roadcones",10,-1,0],
 			["item","wood_barrier",10,-1,0],
 			["item","plastic_barrier_small",10,-1,0],
 			["item","plastic_barrier_large",10,-1,0],
@@ -695,14 +695,15 @@ Config_Shops_Items = [
 			["vest","A3PL_DutyBelt",25,-1,0],
 			["vest","A3PL_Holster_1",25,-1,0],
 			["vest","A3PL_Sheriff_Belt_Test",25,-1,0],
-      		["vest","A3PL_Rangemaster_belt_blk",25,-1,0],
+      ["vest","A3PL_Rangemaster_belt_blk",25,-1,0],
 			["vest","A3PL_Sheriff_Rig_Test",25,-1,0],
-			["vest","A3PL_Sheriff_ERT_Vest_Brwn",25,-1,0],
+			["vest","A3PL_SD_Rig_ERT",25,-1,0],
 			["vest","A3PL_SD_ERTGreen_Vest_Test",25,-1,0],
-			["vest","A3PL_Sheriff_K9_Vest_Brwn",25,-1,0],
-			["vest","A3PL_Sheriff_HWay_Vest_Brwn",25,-1,0],
+			["vest","A3PL_SD_Rig_K9",25,-1,0],
+			["vest","A3PL_SD_Rig_HW",25,-1,0],
 			["vest","A3PL_SD_Detective_Vest_Lite",25,-1,0],
-			["vest","A3PL_Sheriff_Detective_Vest_Brwn",25,-1,0],
+			["vest","A3PL_SD_Rig",25,-1,0],
+			["vest","A3PL_SD_Rig_Air",25,-1,0],
 			["vest","A3PL_SD_High_Threat_Lite",25,-1,0],
 			["headgear","A3PL_Sheriff_Test_Cap",25,-1,0],
 			["headgear","A3PL_Sheriff_Black_Cap",25,-1,0],
@@ -1198,7 +1199,8 @@ Config_Shops_Items = [
 			["vehicle","A3PL_CRX",50760,0,0],
 			["vehicle","A3PL_MailTruck",53620,0,0],
 			["vehicle","A3PL_Wrangler",55050,0,0],
-			["vehicle","A3PL_Ram",55050,0,0]
+			["vehicle","A3PL_Ram",55050,0,0],
+			["vehicle","A3PL_Car_Trailer",10000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	]
 ];

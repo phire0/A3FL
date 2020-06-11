@@ -345,9 +345,9 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessShopFIFR",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopVFD",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFIFRVEHShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_fifr_vehicles}],
-	["spine3",localize"STR_QuickActionsNPC_AccessUSCGVehShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_uscg_vehicles}],
+	["spine3",localize"STR_QuickActionsNPC_AccessUSCGVehShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_vehicles,NPC_uscg_vehicles_1]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGBoatShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_uscg_boats}],
-	["spine3",localize"STR_QuickActionsNPC_AccessUSCGAirShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_uscg_aircraft}],
+	["spine3",localize"STR_QuickActionsNPC_AccessUSCGAirShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_aircraft,NPC_uscg_aircraft1]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFIFRAirShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_faa_vehicles}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_supplier,NPC_uscg_supplier_1]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGArmory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_supplier_2, NPC_uscg_supplier_4]}],
@@ -366,7 +366,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessWeaponsDOC",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usmsshop}],
 	["spine3",localize"STR_QuickActionsNPC_AccessSDWeaponsFISD",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton, npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSMSCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usms_vehicles}],
-	["spine3",localize"STR_QuickActionsNPC_AccessFISDCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_vehicles,npc_sd_vehicles_1]}],
+	["spine3",localize"STR_QuickActionsNPC_AccessFISDCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_vehicles,npc_sd_vehicles_1,npc_sd_vehicles_2]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFISDSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]}],
 	["spine3",localize"STR_QuickActionsNPC_FakeID",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]) && {(player getVariable["FakeIDAccess",false])} && {(player getVariable["faction","civlian"] == "fisd")}}],
 	["spine3",localize"STR_QuickActionsNPC_AccessDOJSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_doj}],
@@ -381,6 +381,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_DOJManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_doj) && {(["doj"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_USMSManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_usmsshop_1) && {(["usms"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_CartelManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_cartel_mngmt) && {(["cartel"] call A3PL_Government_isFactionLeader)}}],
+	["spine3","Low End Car Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [Low_End_Car_Shop]}],
 
 	//bank drill
 	["pilecash",localize"STR_INTSECT_STVAULTMON",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Steal Vault Money --- pilecash
@@ -2570,7 +2571,8 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_FactoryBoat",
 	localize"STR_QuickActionsNPC_AirbuyFactory",
 	localize"STR_INTSECT_TAKEBODY",
-	localize"STR_INTSECT_HIDEOUTSHOP"
+	localize"STR_INTSECT_HIDEOUTSHOP",
+	"Low End Car Dealer"
 ];
 publicVariable "Config_GenArray";
 
