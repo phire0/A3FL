@@ -616,9 +616,8 @@
 			_unit setVariable ["getHit",_hit,false];
 		};
 
-			player setVariable ["lastDamage",(_source getVariable["db_id",0]),true];
-
-			[_unit] spawn A3PL_Medical_Hit;
+		player setVariable ["lastDamage",(_source getVariable["db_id",0]),true];
+		[_unit] spawn A3PL_Medical_Hit;
 		_dmg;
 	}];
 }] call Server_Setup_Compile;

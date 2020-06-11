@@ -52,7 +52,6 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_PepperSpray",{
-
 	[] spawn {
 		_hndl = ppEffectCreate ['dynamicBlur', 505];
 		_hndl ppEffectEnable true;
@@ -67,12 +66,10 @@
 {
 	private ["_getHit","_unit","_sHit","_sDamage","_sSource","_sBullet","_tmpDmg","_woundArray"];
 	_unit = param [0,objNull];
-
 	_getHit = _unit getVariable ["getHit",[]];
-	A3PL_HitTime = nil;
 	_unit setVariable ["getHit",nil,false];
 
-	if (player getVariable ["pVar_RedNameOn",false]) exitWith {};
+	if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 	if(!(player getVariable["A3PL_Medical_Alive",true])  && (player getVariable ["TimeRemaining",600] < 520)) exitWith {player setVariable ["DoubleTapped",true,true];};
 
 	_tmpDmg = 0;
@@ -103,18 +100,14 @@
 
 	if (isNil "_sHit") exitwith {};
 	if ((_sHit IN ["spine1","spine2","spine3"]) && (_sBullet == "") && (isBurning player)) then {_sBullet = "FireDamage";};
-
-	if (_sBullet IN ["A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball"]) exitwith {};
-	if (_sBullet IN ["B_408_Ball"]) exitwith {};
-	if (_sBullet IN ["A3PL_Predator_Bullet"]) exitwith {};
-	if (_sBullet == "A3PL_Paintball_Bullet") exitwith {
+	if (_sBullet IN ["B_408_Ball","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball"]) exitwith {};
+	if (_sBullet isEqualTo "A3PL_Paintball_Bullet") exitwith {
 		if ((missionNameSpace getVariable ["A3PL_Medical_PaintballHit",false]) OR (_sSource == player)) exitwith {};
 		A3PL_Medical_PaintBallHit = true;
 		player playaction "gestureFreeze";
 		uiSleep 0.6;
 		A3PL_Medical_PaintBallHit = nil;
 	};
-
 	[_sHit,_sDamage,_sBullet] call A3PL_Medical_GenerateWounds;
 }] call Server_Setup_Compile;
 
@@ -391,13 +384,8 @@
 		_wounds pushback [_part,[_wound,false]];
 	};
 
-	_BiPart = [_part] call A3PL_Medical_GetHitPartBI;
-	_damage = [_wound,"damage"] call A3PL_Config_GetWound;
-	_currentHit = _player getHit _BiPart;
-	_damage = _damage + _currentHit;
-	if(_damage >= 1) then {_damage = 0.85;};
-	_player setHit [_BiPart,_damage];
-	diag_log format["%1 - %2 - %3",_BiPart,_damage, _currentHit];
+	["left upper leg","bullet_minor"] call A3PL_Medical_ApplyPWound;
+	[_part] remoteExec ["A3PL_Medical_ApplyPWound",_player]
 
 	if (_set) then {
 		_player setVariable ["A3PL_Wounds",_wounds,true];
