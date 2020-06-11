@@ -259,7 +259,6 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheTacoHellEmpl",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TakeTacoHellUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDrugDealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_drugsdealer}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheCriminalPrint",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_blackmarket}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheBlackMarket",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_blackmarket}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheGunsFMLVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_shopguns}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheGunsVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_shopguns}],
@@ -316,7 +315,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_RemoveElectronicBracelet",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_Big_Weapon_Dealer}],
 
 	//shops
-	["spine3",localize"STR_QuickActionsNPC_CatpuredShip",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [Driver_BlackMarket]}],
+	["spine3",localize"STR_QuickActionsNPC_CatpuredShip",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_captureship}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_4,npc_furniture_6,npc_perkfurniture_1,npc_perkfurniture_4]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply2",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_3,npc_furniture_5,npc_perkfurniture_2,npc_perkfurniture_5]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessGeneralShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_general_1,NPC_general_2,NPC_general_3,NPC_general_4]}],
@@ -2142,7 +2141,6 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_TalkToTheFermer",
 	localize"STR_QuickActionsNPC_TalkToTheOilExtractor",
 	localize"STR_QuickActionsNPC_TalkToTheDrugDealer",
-	localize"STR_QuickActionsNPC_TalkToTheCriminalPrint",
 	localize"STR_QuickActionsNPC_TalkToTheBlackMarket",
 	localize"STR_QuickActionsNPC_TalkToTheGunsVendor",
 	localize"STR_QuickActionsNPC_TalkToTheGunsFMLVendor",

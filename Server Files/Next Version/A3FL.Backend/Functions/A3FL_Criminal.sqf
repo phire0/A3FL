@@ -185,37 +185,6 @@
 	};
 }] call Server_Setup_Compile;
 
-['A3PL_Criminal_Print', {
-    private['_chance','_blueprints','_var'];
-    _blueprints = ["Blueprint_cvpi_PD","Blueprint_cvpi_PDST","Blueprint_tahoe_PD","Blueprint_tahoe_PDST","Blueprint_mustang_PD","Blueprint_mustang_PDST","Blueprint_charger_PD","Blueprint_charger_PDST","Blueprint_silverado_PD","Blueprint_vettrz1_PD","Blueprint_BoatTrailerUSCG","Blueprint_Boat_Civil_01_rescue","Blueprint_RBM","Blueprint_Jayhawk","Blueprint_CessnaUSCG","Blueprint_MediumUSCG","Blueprint_Rangemaster_belt","Blueprint_Rangefinder","Blueprint_oshemag_HeadGear","Blueprint_tanshemag_HeadGear","Blueprint_khkshemag_HeadGear","Blueprint_balaclava_goggles","Blueprint_balaclavacom_goggles","Blueprint_balaclavatna_goggles","Blueprint_balaclavalopro_goggles","Blueprint_balaclavaoli_goggles","Blueprint_Bandanna_aviator","Blueprint_Bandanna_beast","Blueprint_Bandanna_blk","Blueprint_G_Bandanna_oli","Blueprint_G_Bandanna_shades","Blueprint_G_Bandanna_khk","Blueprint_Anon_mask","Blueprint_H_ShemagOpen_khk","Blueprint_H_ShemagOpen_tan","Blueprint_H_Shemag_olive_hs","Blueprint_P07","Blueprint_P07_khk","Blueprint_Pistol_heavy_01","Blueprint_ACPC2","Blueprint_Pistol_01","Blueprint_Rook40","Blueprint_Pistol_heavy_02","Blueprint_hgun_Glock17","Blueprint_16Rnd_9x21_Mag","Blueprint_11Rnd_45ACP_Mag","Blueprint_6Rnd_45ACP_Mag","Blueprint_9Rnd_45ACP_Mag","Blueprint_10Rnd_9x21_Mag","Blueprint_16Rnd_9x21_green_Mag","Blueprint_16Rnd_9x21_yellow_Mag","Blueprint_30Rnd_9x21_Mag","Blueprint_30Rnd_9x21_Mag_SMG_02","Blueprint_30Rnd_9x21_Green_Mag","Blueprint_30Rnd_9x21_Yellow_Mag","Blueprint_SMG","Blueprint_AKS","Blueprint_30Rnd_545x39_Mag"];
-
-  	_pCash = player getVariable ["player_cash",0];
-  	_ccPrice = 30000;
-    if (_ccPrice > _pCash) exitwith {[format [localize"STR_CRIMINAL_YOUNEEDMONEYFORPHOTOCOPY",_ccPrice-_pCash]] call A3PL_Player_notification;};
-
-    if !(player_itemClass in _blueprints) exitWith {[localize"STR_CRIMINAL_YOUDONTHAVEBLUEPRINTINYOURHAND"] call A3PL_Player_notification;};
-    if (!Player_ActionCompleted) exitWith {[localize"STR_CRIMINAL_YOUALREADYPERFORMANACTION","red"] call A3PL_Player_Notification;};
-
-    player setVariable ["player_cash",(player getVariable ["player_cash",0]) - 30000,true];
-
-    Player_ActionCompleted = false;
-    [localize"STR_CRIMINAL_PHOTOCOPYINPROGRESS",10+random 2] spawn A3PL_Lib_LoadAction;
-    waitUntil { !Player_ActionCompleted };
-
-    _var = player_itemClass;
-    _chance = random(100);
-    if(_chance > 25) then {
-        [player_item] call A3PL_Inventory_Clear;
-        [player, _var, +1] remoteExec ["Server_Inventory_Add", 2];
-        [format[localize"STR_CRIMINAL_YOUMAKEPHOTOCOPYOFTHISBLUEPRINT",_var],"green"] call A3PL_Player_Notification;
-        [player, 13] call A3PL_Level_AddXP;
-    } else {
-        [player_item] call A3PL_Inventory_Clear;
-        [player, _var, -1] remoteExec ["Server_Inventory_Add", 2];
-        [format[localize"STR_CRIMINAL_YOUDONTPHOTOCOPYTHISBLUEPRINT",_var]] call A3PL_Player_notification;
-    };
-}] call Server_Setup_Compile;
-
 ["A3PL_Criminal_SuicideVest",
 {
 	private _nearP = player nearEntities ["Man", 10];

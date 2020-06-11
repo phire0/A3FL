@@ -719,11 +719,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_TalkToTheCriminalPrint",
-	{[] spawn A3PL_Criminal_Print;}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_TalkToTheBlackMarket",
 	{
 		//if (((count(["uscg"] call A3PL_Lib_FactionPlayers))) < 2) exitwith {[localize"STR_QuickActionsNPC_MinimumUSCGToSpeak","red"] call A3PL_Player_Notification;};

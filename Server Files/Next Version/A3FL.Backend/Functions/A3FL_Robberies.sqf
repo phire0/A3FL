@@ -217,7 +217,7 @@
 
 	[] remoteExec ["A3PL_Robberies_PShipRobbed",_CG];
 
-	["Capturing...",70] spawn A3PL_Lib_LoadAction;
+	["Capturing...",90] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
@@ -233,21 +233,19 @@
 
 ["A3PL_Robberies_PShipRobbed",
 {
-
 	private _markers = [];
 	private _shipRealPos = getPos Ship_BlackMarket;
-	private _givenPos = [((_shipRealPos select 0) + (-70 + random 100)),((_shipRealPos select 1) + (-70 + random 100))];
+	private _givenPos = [((_shipRealPos select 0) + (-20 + random 100)),((_shipRealPos select 1) + (-40 + random 100))];
 
-
-	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
+	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_givenPos];
 	_marker setMarkerShapeLocal "ELLIPSE";
-	_marker setMarkerSizeLocal [120,120];
+	_marker setMarkerSizeLocal [900,900];
 	_marker setMarkerColorLocal "ColorRed";
 	_marker setMarkerTypeLocal "Mil_dot";
 	_marker setMarkerAlphaLocal 0.75;
 	_markers pushback _marker;
 
-	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
+	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_givenPos];
 	_marker setMarkerShapeLocal "ICON";
 	_marker setMarkerColorLocal "ColorWhite";
 	_marker setMarkerTypeLocal "A3PL_Markers_Pickaxe";
