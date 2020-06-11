@@ -111,6 +111,11 @@
 ],
 [
 	"",
+	localize"STR_QuickActionsNPC_ResignCompany",
+	{call A3PL_Company_Resign;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_EnterpriseAccountManagment",
 	{call A3PL_Company_HistoryOpen;}
 ],
@@ -221,6 +226,11 @@
 	"",
 	localize"STR_QuickActionsNPC_AccessShopSupply",
 	{["Shop_Furniture2"] call A3PL_Shop_Open;}
+],
+[
+	"",
+	localize"STR_INTSECT_CAPTSHIP",
+	{[] call A3PL_Robberies_RobPShip;}
 ],
 [
 	"",

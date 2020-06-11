@@ -207,6 +207,9 @@
         <Key ID="STR_QuickActionsNPC_EnterpriseAccountManagment">
             <Original>Company Bank Account</Original>
         </Key>
+        <Key ID="STR_QuickActionsNPC_ResignCompany">
+            <Original>Resign from Company</Original>
+        </Key>
         <Key ID="STR_QuickActionsNPC_RentATowTruck">
             <Original>Rent tow truck ($1300)</Original>
         </Key>
@@ -972,6 +975,9 @@
    </Key>
    <Key ID="STR_INTSECT_TAKEBODY">
       <Original>Capture the Hideout</Original>
+   </Key>
+   <Key ID="STR_INTSECT_CAPTSHIP">
+      <Original>Take control of the ship</Original>
    </Key>
    <Key ID="STR_INTSECT_HIDEOUTSHOP">
       <Original>Snack Shop</Original>
