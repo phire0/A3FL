@@ -135,6 +135,21 @@
 	_mHit;
 }] call Server_Setup_Compile;
 
+["A3PL_Medical_GetHitPartBI",
+{
+	private _sHit = param [0,""];
+	private _mHit = "";
+	switch (true) do {
+		case (_sHit IN ["head"]): {_mHit = "head"};
+		case (_sHit IN ["pelvis"]): {_mHit = "pelvis"};
+		case (_sHit IN ["torso"]): {_mHit = "spine2"};
+		case (_sHit IN ["chest"]): {_mHit = "body"};
+		case (_sHit IN ["right upper arm","right lower arm","left lower arm","left upper arm"]): {_mHit = "arms";};
+		case (_sHit IN ["right upper leg","right lower leg","left lower leg","left upper leg"]): {_mHit = "legs";};
+	};
+	_mHit;
+}] call Server_Setup_Compile;
+
 //Generate a wound array, based on hit
 ["A3PL_Medical_GenerateWounds",
 {
@@ -374,35 +389,20 @@
 
 	if (!_partF) then {
 		_wounds pushback [_part,[_wound,false]];
-		switch(true) do {
-			case (_part IN ["right upper leg","right lower leg","left lower leg","left upper leg"]): {
-				if(_wound IN ["wound_minor","wound_major","cut","bone_broken"]) then {
-					private _currentDamage = player getHit "legs";
-					_player setHit ["legs", _currentDamage + 0.1];
-				};
-			};
-			case (_part IN ["arms","hands"]): {
-				if(_wound IN ["wound_minor","wound_major","cut","bone_broken"]) then {
-					_player setHit ["arms", 0.5];
-					_player setHit ["hands", 0.5];
-				};
-			};
-			case (_part IN ["face_hub","head"]): {
-				if(_wound IN ["wound_minor","wound_major","cut","bone_broken","bullet_head","pepper_spray"]) then {
-					_player setHit ["head", 0.5];
-				};
-			};
-			case (_part IN ["chest"]): {
-				_player setHit ["body", 0.5];
-			};
-		};
 	};
 
+	_BiPart = [_part] call A3PL_Medical_GetHitPartBI;
+	_damage = [_wound,"damage"] call A3PL_Config_GetWound;
+	_currentHit = _player getHit _BiPart;
+	_damage = _damage + _currentHit;
+	if(_damage >= 1) then {_damage = 0.85;};
+	_player setHit [_BiPart,_damage];
+	diag_log format["%1 - %2 - %3",_BiPart,_damage, _currentHit];
+
 	if (_set) then {
-		private ["_bloodLoss"];
 		_player setVariable ["A3PL_Wounds",_wounds,true];
 		[_player,format ["%1 sustained a %2 on the %3",(_player getVariable ["name",name _player]),([_wound,"name"] call A3PL_Config_GetWound),_part],[1, 0, 0, 1]] call A3PL_Medical_AddLog;
-		_bloodLoss = [_wound,"bloodLossInstant"] call A3PL_Config_GetWound;
+		private _bloodLoss = [_wound,"bloodLossInstant"] call A3PL_Config_GetWound;
 		if (_bloodLoss > 0) then {[_player,[-(_bloodLoss)]] call A3PL_Medical_ApplyVar;};
 	};
 
