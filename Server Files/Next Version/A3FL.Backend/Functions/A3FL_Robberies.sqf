@@ -221,6 +221,7 @@
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
+		if((player distance Ship_BlackMarket) > 20) exitWith {_success = false;};
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 		if ((vehicle player) != player) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};

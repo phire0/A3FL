@@ -8,10 +8,10 @@
 
 ["Server_Company_LoadAll",
 {
-	private _companies = ["SELECT id, name, boss, employees, bank, licenses, storage FROM companies WHERE disabled = '0'", 2,true] call Server_Database_Async;
+	private _companies = ["SELECT id, name, boss, employees, bank, licenses FROM companies WHERE disabled = '0'", 2,true] call Server_Database_Async;
 	Server_Companies = [];
 	{
-		Server_Companies pushback ([_x select 0, _x select 1, _x select 2, [_x select 3] call Server_Database_ToArray,_x select 4, [_x select 5] call Server_Database_ToArray, [_x select 6] call Server_Database_ToArray]);
+		Server_Companies pushback ([_x select 0, _x select 1, _x select 2, [_x select 3] call Server_Database_ToArray,_x select 4, [_x select 5] call Server_Database_ToArray]);
 	} foreach _companies;
 	publicVariable "Server_Companies";
 },true] call Server_Setup_Compile;
