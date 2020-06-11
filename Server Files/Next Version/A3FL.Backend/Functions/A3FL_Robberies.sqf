@@ -213,7 +213,7 @@
 	if((currentWeapon player) IN ["hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a store with this weapon!","red"] call A3PL_Player_Notification;};
 	if(Player_ActionDoing) exitwith {["You are already doing something.","red"] call A3PL_Player_Notification;};
 
-	private _requiredCG = 0;
+	private _requiredCG = 3;
 	private _CG = ["uscg"] call A3PL_Lib_FactionPlayers;
 	if(count(_CG) < _requiredCG) exitWith {["There is no enought CG available to do that!","red"] call A3PL_Player_Notification;};
 
