@@ -196,7 +196,7 @@
 		};
 
 		if (_messageto select 0 == "darknet") then {
-			if(player getVariable["faction","citizen"] == "citizen") then {_cancelaction = false;};
+			if(player getVariable["faction","citizen"] IN ["citizen","cartel"]) then {_cancelaction = false;};
 			A3PL_Twitter_ReplyArr = (missionNameSpace getVariable ["A3PL_Twitter_ReplyArr",[]]) + [(_messageto select 1)];
 		};
 
