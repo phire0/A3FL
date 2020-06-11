@@ -1069,6 +1069,34 @@
 		{
 			_output = _return;
 		};
+		case "lookupvehicles":
+		{
+
+			if (count _return > 0) then
+			{
+				{
+
+					_output = _output + (format ["<t align='center'>%1. License: %2 - Model: %3 - Stolen: %4</t><br />",_forEachIndex+1,_x select 0,_vehName,_stolen]);
+				} foreach _return;
+				_output = (_output + "<t align='center'>End of the list of vehicles</t>");
+			} else
+			{
+				_output = format ["<t align='center'>No vehicles found!</t>"];
+			};
+		};
+		case "darknet":
+		{
+			diag_log _return;
+			if (count _return > 0) then
+			{
+				{
+					_output = _output + (format ["<t align='center'>User: %1 - Message: %2 - Date: %3</t><br />",_x select 0,_x select 1,_x select 2]);
+				} foreach _return;
+			} else
+			{
+				_output = "No Dark Net messages found!";
+			};
+		};
 		default {_output = "Unknown error - Contact the developer"};
 	};
 
@@ -1397,9 +1425,17 @@
 			[player,_name,_license,_edit0] remoteExec ["Server_Police_Database", 2];
 			_ouput = format["License revoked ..."];
 		};
+		case "darknet":
+		{
+			private ["_name"];
+			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+
+			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
+
+			_output = format ["Search the darknet for hidden messages ..",_name];
+		};
 		default {_output = "Error: Unknown Command"};
 	};
-
 
 	_control = _display displayCtrl 1100;
 	if (_edit0 == "clear") then {

@@ -235,6 +235,11 @@
 				[_name,_call,format[localize"STR_SERVER_POLICE_YOUINSEREWITHSUCCESSARREST",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
 		};
+		case "darknet": {
+			private _query = "SELECT name,chatmessage,date FROM darknetlog ORDER BY id DESC LIMIT 10";
+			private _return = [_query, 2,true] call Server_Database_Async;
+			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+		};
 	};
 },true] call Server_Setup_Compile;
 
