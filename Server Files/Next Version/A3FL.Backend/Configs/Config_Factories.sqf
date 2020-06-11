@@ -178,6 +178,8 @@ Config_Factories =
         ["f_Pistol_heavy_02","","inh","inh","hgun_Pistol_heavy_02_F","weapon",true,60,[["Steel",100]],1,"",1],
         ["f_glock17","","inh","inh","A3PL_Red_Glock","weapon",true,60,[["Steel",100]],1,"",1],
         ["f_P226","","inh","inh","A3PL_P226","weapon",true,60,[["Steel",100]],1,"",1],
+        ["f_SMG_01_F","","inh","inh","SMG_01_F","weapon",true,60,[["Steel",300]],1,"",1],
+        ["f_SMG_02_F","","inh","inh","SMG_02_F","weapon",true,60,[["Steel",300]],1,"",1],
         ["f_SMG_05_F","","inh","inh","SMG_05_F","weapon",true,60,[["Steel",300]],1,"",1],
         ["f_arifle_AKM_F","","inh","inh","arifle_AKM_F","weapon",true,60,[["Steel",400]],1,"",1],
         ["f_16Rnd_9x21_Mag","","inh","inh","16Rnd_9x21_Mag","magazine",true,30,[["Steel",25],["Gunpowder",3]],10,"",1],
@@ -187,7 +189,8 @@ Config_Factories =
         ["f_10Rnd_9x21_Mag","","inh","inh","10Rnd_9x21_Mag","magazine",true,30,[["Steel",20],["Gunpowder",3]],10,"",1],
         ["f_Red_Glock_Mag","","inh","inh","A3PL_Red_Glock_Mag","magazine",true,30,[["Steel",25],["Gunpowder",3]],10,"",1],
         ["f_P226_Mag","","inh","inh","A3PL_P226_Mag","magazine",true,60,[["Steel",25],["Gunpowder",3]],10,"",1],
-        ["f_30Rnd_9x21_Mag_SMG_02","","inh","inh","30Rnd_9x21_Mag_SMG_02","magazine",true,30,[["Steel",35],["Gunpowder",3]],10,"",1],
+        ["f_30Rnd_45ACP_Mag_SMG_01","","inh","inh","30Rnd_45ACP_Mag_SMG_01","magazine",true,30,[["Steel",35],["Gunpowder",3]],10,"",1],
+        ["f_30Rnd_9x21_Mag_SMG_02","","inh","inh","30Rnd_9x21_Mag_SMG_","magazine",true,30,[["Steel",35],["Gunpowder",3]],10,"",1],
         ["f_30Rnd_762x39_Mag_F","","inh","inh","30Rnd_762x39_Mag_F","magazine",true,30,[["Steel",35],["Gunpowder",3]],10,"",1]
 	],
 
