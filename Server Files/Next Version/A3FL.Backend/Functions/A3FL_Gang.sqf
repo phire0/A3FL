@@ -58,6 +58,7 @@
 	if(isNil '_gang') exitWith {};
 	_members = parseSimpleArray (_gang select 3);
 	_maxMembers = _gang select 5;
+
 	if((count _members) > _maxMembers) exitWith {[format [localize"STR_NewGang_4",_maxMembers],"red"] call A3PL_Player_Notification;};
 	{
 		if(_invited isEqualTo (getPlayerUID _x)) exitWith {
@@ -182,7 +183,7 @@
 		[format [localize"STR_NewGang_8"],"red"] call A3PL_Player_Notification;
 	};
 
-	[_group] remoteExec ["Server_Gang_DeleteGang",2];
+	[_group,player] remoteExec ["Server_Gang_DeleteGang",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_SetLead",
