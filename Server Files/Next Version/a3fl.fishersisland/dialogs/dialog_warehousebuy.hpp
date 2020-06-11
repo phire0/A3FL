@@ -31,7 +31,6 @@ class Dialog_WarehouseBuy
 		class button_no: RscButtonEmpty
 		{
 			idc = 1601;
-			action = "closeDialog 0;";
 			x = 0.505 * safezoneW + safezoneX;
 			y = 0.543 * safezoneH + safezoneY;
 			w = 0.0994268 * safezoneW;
