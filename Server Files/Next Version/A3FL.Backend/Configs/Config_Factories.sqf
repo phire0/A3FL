@@ -263,6 +263,8 @@ Config_Factories =
 	],
 
 	["Vehicle Factory",[3873.923,9242.35,0],
+		["f_Windows","","inh","inh","Windows","item",true,5,[["Glass",2]],4,"",1],
+		["f_Tyres","","inh","inh","Tyres","item",true,5,[["Rubber",4]],8,"",1],
 		["f_scooter","","Scooter","inh","K_Scooter_DarkBlue","car",true,10,[["Steel_Pellet",3]],1,"",1],
 		["f_quad","","Quad","inh","C_Quadbike_01_F","car",true,10,[["Steel_Pellet",3]],1,"",1],
 		["f_CVPI_rust","","Ford Crown Victoria (Rusted)","inh","A3PL_CVPI_Rusty","car",true,10,[["Steel_Pellet",3],["Windows",4]],1,"",1],
