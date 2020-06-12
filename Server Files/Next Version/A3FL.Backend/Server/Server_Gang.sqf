@@ -76,7 +76,7 @@
 ["Server_Gang_DeleteGang",
 {
 	private _group = param [0,grpNull];
-	private _player = prarm[1,objNull];
+	private _player = param[1,objNull];
 	private _gang = _group getVariable["gang_data",nil];
 	if(isNil '_gang') exitWith {};
 	private _groupID = _gang select 0;
