@@ -130,10 +130,10 @@
 
 ["A3PL_Warehouses_SetMarker",
 {
-	private["_house","_pos"];
-	_house = param [0,objNull];
+	private["_warehouse","_pos"];
+	_warehouse = param [0,objNull];
 	uiSleep 3;
-	_marker = createMarkerLocal [format["warehouse_%1",round (random 1000)],visiblePosition _house];
+	_marker = createMarkerLocal [format["warehouse_%1",round (random 1000)],visiblePosition _warehouse];
 	_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
 	_marker setMarkerAlphaLocal 1;
 	_marker setMarkerColorLocal "ColorGreen";

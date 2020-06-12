@@ -527,7 +527,10 @@
 		_new setVariable ["aptnumber",nil,true];
 	};
 	_keysid = (_house getVariable ["doorID",[]]) select 1;
-	_new setVariable ["keys",[_keysid],true];
+	_oldKeys = _new getVariable ["keys",[]];
+	_keys = _oldKeys pushBack _keysid;
+
+	_new setVariable ["keys",_keys,true];
 
 	[localize"STR_SERVER_HOUSING_YOUNOWCOLOCHOUSE","green"] remoteExec ["A3PL_Player_Notification",owner _new];
 	[_house] remoteExec ["A3PL_Housing_SetMarker",_new];

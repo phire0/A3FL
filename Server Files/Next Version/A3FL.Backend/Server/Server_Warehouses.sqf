@@ -247,13 +247,14 @@
 	_warehouse setVariable["owner", _actuals,true];
 
 	_actuals = [_actuals] call Server_Database_Array;
-	_query = format ["UPDATE warehouses SET uids='%1' WHERE location ='%2'",_actuals,(getpos _house)];
+	_query = format ["UPDATE warehouses SET uids='%1' WHERE location ='%2'",_actuals,(getpos _warehouse)];
 	[_query,1] spawn Server_Database_Async;
 
-	_new setVariable ["warehouse",_house,true];
-
-	_keysid = (_house getVariable ["doorID",[]]) select 1;
-	_new setVariable ["keys",[_keysid],true];
+	_new setVariable ["warehouse",_warehouse,true];
+	_keysid = (_warehouse getVariable ["doorID",[]] select 1);
+	_oldKeys = _new getVariable ["keys",[]];
+	_oldKeys pushBack _keysid;
+	_new setVariable ["keys",_oldKeys,true];
 
 	["You now have keys to this warehouse!","green"] remoteExec ["A3PL_Player_Notification",owner _new];
 	[_warehouse] remoteExec ["A3PL_Warehouses_SetMarker",_new];

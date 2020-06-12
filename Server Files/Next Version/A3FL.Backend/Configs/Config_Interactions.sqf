@@ -136,9 +136,10 @@ A3PL_Interaction_Options =
 				[format[localize"STR_Inter_Notifications_Level10ThingsPerks"], "red"] call A3PL_Player_Notification;
 			} else {
 				private _warehouse = (nearestObjects [getPos player, Config_Warehouses_List, 10,true]) select 0;
-				private _uids = _house getVariable ["owner",[]];
+				private _uids = _warehouse getVariable ["owner",[]];
 				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
 				_uid = _uids select 0;
+				diag_log "142";
 				if((getPlayerUID player) isEqualTo _uid) then {
 					[player, cursorObject, _warehouse] remoteExec ["Server_Warehouses_AddMember",2];
 					private _namePos = [getPos _warehouse] call A3PL_Housing_PosAddress;
