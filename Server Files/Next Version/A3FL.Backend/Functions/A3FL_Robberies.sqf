@@ -251,8 +251,8 @@
 	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_givenPos];
 	_marker setMarkerShapeLocal "ICON";
 	_marker setMarkerColorLocal "ColorWhite";
-	_marker setMarkerTypeLocal "A3PL_Markers_Pickaxe";
-	_marker setMarkerTextLocal "SHIP DETRESS SIGNAL";
+	_marker setMarkerTypeLocal "A3PL_Markers_USCG";
+	_marker setMarkerTextLocal "SHIP DISTRESS SIGNAL";
 	_markers pushback _marker;
 
 	["Coast Guard, look at me, I'm the captain now!","blue"] call A3PL_Player_Notification;

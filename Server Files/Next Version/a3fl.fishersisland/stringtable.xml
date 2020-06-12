@@ -8864,7 +8864,7 @@
         <Original>The company does not have enough left in the bank for your salary!</Original>
       </Key>
       <Key ID="STR_NewLoop_5">
-        <Original>Vote company sent you your salary of $%1, you can sign your pay check at the bank</Original>
+        <Original>Your company sent you your salary of $%1, you can sign your pay check at the bank</Original>
       </Key>
       <Key ID="STR_NewLoop_6">
         <Original>You received your salary of $%1, you can sign your pay check at the bank</Original>
