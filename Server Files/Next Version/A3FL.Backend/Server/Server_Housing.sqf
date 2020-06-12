@@ -527,8 +527,8 @@
 		_new setVariable ["aptnumber",nil,true];
 	};
 	_keysid = (_house getVariable ["doorID",[]]) select 1;
-	_oldKeys = _new getVariable ["keys",[]];
-	_keys = _oldKeys pushBack _keysid;
+	_keys = _new getVariable ["keys",[]];
+	_keys pushBack _keysid;
 
 	_new setVariable ["keys",_keys,true];
 
@@ -551,7 +551,10 @@
 		[_query,1] spawn Server_Database_Async;
 
 		[_old] call Server_Housing_AssignApt;
-		_old setVariable ["keys",[],true];
+
+		_keys = _old getVariable ["keys",[]];
+		_keys deleteAt (_keys find (_house getVariable "doorid" select 1));
+		_old setVariable ["keys",_keys,true];
 		_old setVariable ["house",nil,true];
 		[localize"STR_SERVER_HOUSING_YOUNOWEXCOLOC","yellow"] remoteExec ["A3PL_Player_Notification",owner _old];
 	};
