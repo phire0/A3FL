@@ -145,8 +145,8 @@ Config_Factories =
 		["f_CG_Heli","","inh","inh","Heli_Medium01_Coastguard_H","plane",true,5,[["Blueprint_Jayhawk",1]],1,""],
 		["f_Jayhawk_USCG","","inh","inh","A3PL_Jayhawk","plane",true,5,[["Blueprint_Jayhawk",1]],1,""],
 		["f_Medic_Heli","","inh","inh","Heli_Medium01_Medic_H","plane",true,5,[["Blueprint_Jayhawk",1]],1,""],
-		["f_Sheriff_Heli","","inh","inh","Heli_Medium01_Sheriff_H","plane",true,5,[[["Blueprint_Jayhawk",1]],1,""],
-		["f_RBM","","inh","inh","A3PL_RBM","car",true,5,[["Aluminium_Pellet",3],["Glass",5],["Blueprint_RBM",1]],1,"",1]
+		["f_Sheriff_Heli","","inh","inh","Heli_Medium01_Sheriff_H","plane",true,5,[["Blueprint_Jayhawk",1]],1,""],
+		["f_RBM","","inh","inh","A3PL_RBM","car",true,5,[["Blueprint_RBM",1]],1,"",1]
 	],
 
 	["Faction Weapons",[3852.065,9212.537,0.168],
