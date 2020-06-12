@@ -53,7 +53,7 @@
 	private _gang = _group getVariable ["gang_data",nil];
 
 	if(isNil '_gang') exitWith {};
-	private _members = parseSimpleArray (_gang select 3);
+	private _members = _gang select 3;
 	private _maxMembers = _gang select 5;
 
 	if((count _members) > _maxMembers) exitWith {[format [localize"STR_NewGang_4",_maxMembers],"red"] call A3PL_Player_Notification;};
@@ -78,7 +78,7 @@
 	if(isNil '_gang') exitWith {};
 	private _groupName = _gang select 2;
 	private _action = [format["You have been invited to join the group %1. <br/> Would you like to join it?",_groupName],"Gang Invitation","Yes","No"] call BIS_fnc_guiMessage;
-	if (!isNil "_action" && {!_action}) exitWith {[format["STR_NewGang_2",player getVariable["name",""]], "red"] remoteExec ["A3PL_Player_Notification",_sender];};
+	if (!isNil "_action" && {!_action}) exitWith {[format[localize "STR_NewGang_2",player getVariable["name",""]], "red"] remoteExec ["A3PL_Player_Notification",_sender];};
 
 	[player] joinSilent _group;
 	[getPlayerUID player, _group] call A3PL_Gang_AddMember;
