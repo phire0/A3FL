@@ -223,18 +223,12 @@
 		{
 			_ownsWarehouse = true;
 			_warehouseObj = _x;
-			diag_log "owns a warehouse";
-			diag_log format ["keys just after checking for warehouse ownership:",_keys];
 
 			//give the key to the player if he doesn't have it
 			_doorID = (_warehouseObj getVariable "doorid") select 1;
-			diag_log format ["key ID %1",_doorID];
 			if (!(_doorID IN _keys)) then {
-				diag_log format ["doorID not in keys"];
 				_allKeys = _unit getVariable["keys",[]];
-				diag_log format ["keys before addding warehouse key %1",_allKeys];
 				_allKeys pushBack _doorID;
-				diag_log format ["keys after addding warehouse key %1",_allKeys];
 				_unit setVariable ["keys",_allKeys,true];
 			};
 		};

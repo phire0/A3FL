@@ -354,7 +354,6 @@
 		{
 			if(_x IN _keyNames) then {
 				_playerKeys deleteAt _forEachIndex;
-				diag_log format ["deleting key %1",_x];
 			};
 		} forEach _playerKeys;
 
