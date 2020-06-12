@@ -29,19 +29,19 @@
 		//+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>TEXT_HERE.</t>"
 
 		_control = (_display displayCtrl 69);
-		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.0.7</t>"
+		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.0.8</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>New Island (Northern Island)</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Warehouse ownership</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Ford Taurus(LB,Slicktop,FIFR) - Ford Raptor(LB,Slicktop)</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>New Rifles / SMGs (Community Vote)</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Baseball bats/Golf Clubs/Pepper Spray</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>House robberies cooldown (now 5 minutes)</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>LCM Transport Ship & Job</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Vehicles and Player Inventories (Raised)</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Loading bar being slow</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Vehicles are now made of pallets</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>ArmA deaths from drowning</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Ford Taurus damages</t>"
 		+ "<br/>"
 		+ "<t size='0.8' align='center'>For the full changelog visit the forum @ arma3fisherslife.net</t>";
 		_control ctrlSetStructuredText (parseText _format);
