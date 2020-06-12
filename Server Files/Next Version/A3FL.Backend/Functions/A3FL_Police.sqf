@@ -848,7 +848,7 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseRequireLogin',
-	["lookup","warrantinfo","lookuplicense","lookupcompany","tickethistory","lookupaddress","insertarrest"]
+	["lookup","warrantinfo","lookuplicense","lookupcompany","tickethistory","lookupaddress","insertarrest","darknet","lookupwarehouse"]
 ] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseEnterReceive',
@@ -971,7 +971,18 @@
 				[_house, _name] spawn A3PL_Police_MarkHouse;
 				_output = format["%2 resides at %1",[parseSimpleArray(_house)] call A3PL_Housing_PosAddress, _name];
 			} else {
-				_output = "No adress found for this citizen!";
+				_output = "No address found for this citizen!";
+			};
+		};
+		case "lookupwarehouse":
+		{
+			_warehouse = _return select 0;
+			_name = _return select 1;
+			if(!isNil "_warehouse") then {
+				[_warehouse, _name,true] spawn A3PL_Police_MarkHouse;
+				_output = format["%2 resides at %1",[parseSimpleArray(_warehouse)] call A3PL_Housing_PosAddress, _name];
+			} else {
+				_output = "No registered warehouses found for this citizen!";
 			};
 		};
 		case "markstolen":
@@ -1182,6 +1193,8 @@
 			<t align='center'>insertwarning [firstname] [lastname] [title] [description] - Insert a warning</t><br />
 			<t align='center'>insertarrest [firstname] [lastname] [time] [description] - Insert an arrest</t><br />
 			<t align='center'>lookupaddress [firstname] [lastname] - View house address</t><br />
+			<t align='center'>lookupwarehouse [firstname] [lastname] - View warehouse address</t><br />
+			<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t><br />
 			";
 		};
 		case "clear": {_output = "<t align='center'>Computer Database - F.I.S.D.</t><br /><t align='center'>Enter 'help' for the list of available commands</t>";};
@@ -1234,6 +1247,16 @@
 		};
 
 		case "lookupaddress":
+		{
+			private ["_name"];
+			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+
+			[player,_name,_edit0] remoteExec ["Server_Police_Database",2];
+
+			_output = format ["Searching for Addresses in F.I.S.D Database...",_name];
+		};
+
+		case "lookupwarehouse":
 		{
 			private ["_name"];
 			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
@@ -1759,14 +1782,19 @@
 
 ["A3PL_Police_MarkHouse",
 {
-	private ["_house","_name"];
+	private ["_house","_name","_warehouse"];
 	_house = parseSimpleArray (param [0,""]);
 	_name = param [1,"unknown"];
+	_warehouse = param [2,false];
 
 	_marker = createMarkerLocal [format ["Marked_House_%1",random 4000], _house];
 	_marker setMarkerShapeLocal "ICON";
 	_marker setMarkerTypeLocal "mil_warning";
-	_marker setMarkerTextLocal format["%1 House", _name];
+	if(_warehouse) then {
+		_marker setMarkerTextLocal format["%1 Warehouse", _name];
+	} else {
+		_marker setMarkerTextLocal format["%1 House", _name];
+	};
 	_marker setMarkerColorLocal "ColorRed";
 
 	uiSleep 120;
