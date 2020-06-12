@@ -150,7 +150,7 @@
 			private _newDir = windDir + random(90);
 			private _dist = 2 + (random 3);
 			private _position = [_latestFire, _dist, _newDir] call BIS_fnc_relPos;
-			private _correctSurface = (surfaceType _position) IN ["#cype_grass","#cype_forest"];
+			private _correctSurface = (surfaceType _position) IN ["#cype_grass","#cype_forest","#cype_plowedfield","#GdtDirt"];
 			if (_correctSurface && (!isOnRoad _position)) then
 			{
 				private _fireobject = createVehicle ["A3PL_Fireobject",_position, [], 0, "CAN_COLLIDE"];
