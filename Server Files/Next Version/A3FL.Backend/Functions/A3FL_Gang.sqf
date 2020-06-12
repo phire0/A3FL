@@ -42,54 +42,49 @@
 
 ["A3PL_Gang_Create",
 {
-	private["_groupName"];
-	_groupName = param [0,""];
+	private _groupName = param [0,""];
 	[player, _groupName] remoteExec ["Server_Gang_Create",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_Invite",
 {
-	private["_invited","_invitedName","_group"];
-	_invited = param [0,""];
+	private _invited = param [0,""];
+	if(_invited isEqualTo "") exitWith {["Error during the invite, please try again.","red"] call A3PL_Player_Notification;};
 
-	_group = group player;
-	_gang = _group getVariable ["gang_data",nil];
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
 
 	if(isNil '_gang') exitWith {};
-	_members = parseSimpleArray (_gang select 3);
-	_maxMembers = _gang select 5;
+	private _members = parseSimpleArray (_gang select 3);
+	private _maxMembers = _gang select 5;
 
 	if((count _members) > _maxMembers) exitWith {[format [localize"STR_NewGang_4",_maxMembers],"red"] call A3PL_Player_Notification;};
-	{
-		if(_invited isEqualTo (getPlayerUID _x)) exitWith {
-			_hasGang = (group _x) getVariable["gang_data",nil];
-			if(isNil '_hasGang') then {
-				[_group, player] remoteExec ["A3PL_Gang_InviteReceived",_x];
-				[localize"STR_NewGang_25","green"] call A3PL_Player_Notification;
-			} else {
-				[localize"STR_NewGang_1","red"] call A3PL_Player_Notification;
-			};
-		};
-	} forEach AllPlayers;
+
+	private _target = [_invited] call A3PL_Lib_UIDToObject;
+	if(isNull _target) exitWith {["Cannot find the target, please try again.","red"] call A3PL_Player_Notification;};
+	private _hasGang = (group _target) getVariable["gang_data",nil];
+	if(isNil '_hasGang') then {
+		[_group, player] remoteExec ["A3PL_Gang_InviteReceived",_target];
+		[localize"STR_NewGang_25","green"] call A3PL_Player_Notification;
+	} else {
+		[localize"STR_NewGang_1","red"] call A3PL_Player_Notification;
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_InviteReceived",
 {
-	private["_group"];
-	_group = param [0,grpNull];
-	_sender = param [1,objNull];
-	_gang = _group getVariable ["gang_data",nil];
+	private _group = param [0,grpNull];
+	private _sender = param [1,objNull];
+	private _gang = _group getVariable ["gang_data",nil];
 
 	if(isNil '_gang') exitWith {};
-	_groupName = _gang select 2;
+	private _groupName = _gang select 2;
 
-	/* Confirmation button */
-	_exit = false;
-	_action = [format["You have been invited to join the group %1. <br/> Would you like to join him?",_groupName],"Gang Invitation","Yes","No"] call BIS_fnc_guiMessage;
+	private _exit = false;
+	private _action = [format["You have been invited to join the group %1. <br/> Would you like to join him?",_groupName],"Gang Invitation","Yes","No"] call BIS_fnc_guiMessage;
 	if (!isNil "_action" && {!_action}) exitWith {_exit = true;};
 	if(_exit) exitWith{[format["STR_NewGang_2",player getVariable["name",""]], "red"] remoteExec ["A3PL_Player_Notification",_sender];};
 
-	//Join group
 	[player] joinSilent _group;
 	[getPlayerUID player, _group] call A3PL_Gang_AddMember;
 	[format[localize"STR_NewGang_3",player getVariable["name",""]], "green"] remoteExec ["A3PL_Player_Notification",_sender];
@@ -97,24 +92,20 @@
 
 ["A3PL_Gang_Created",
 {
-	private["_group","_gang","_groupName"];
-	_group = group player;
-	_gang = _group getVariable ["gang_data",nil];
-
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
-	_groupName = _gang select 2;
+	private _groupName = _gang select 2;
 	[format [localize"STR_NewGang_24",_groupName],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_AddMember",
 {
-	private["_group","_gang","_addUID","_members","_maxMembers"];
-	_addUID = param [0,""];
-	_group = param [1,grpNull];
-	_gang = _group getVariable ["gang_data",nil];
-
+	private _addUID = param [0,""];
+	private _group = param [1,grpNull];
+	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
-	_members = _gang select 3;
+	private _members = _gang select 3;
 	_members pushBack(_addUID);
 	_gang set[3,_members];
 	_group setVariable ["gang_data",_gang,true];
@@ -123,26 +114,20 @@
 
 ["A3PL_Gang_RemoveMember",
 {
-	private["_group","_gang","_removeUID","_members"];
-	_removeUID = param [0,""];
-	_kicked = param [1,false];
-
-	_group = group player;
-	_gang = _group getVariable ["gang_data",nil];
-
+	private _removeUID = param [0,""];
+	private _kicked = param [1,false];
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
 	_members = _gang select 3;
 	_members = _members - [_removeUID];
 	_gang set[3,_members];
 	_group setVariable ["gang_data",_gang,true];
 	[_group] remoteExec ["Server_Gang_SaveMembers",2];
-
 	if(_kicked) then {
-		{
-			if((getPlayerUID _x) isEqualTo _removeUID) exitWith {
-				[] remoteExec ["A3PL_Gang_Kicked",_x];
-			};
-		} forEach AllPlayers;
+		private _target = [_removeUID] call A3PL_Lib_UIDToObject;
+		if(isNull _target) exitWith {["Cannot find the target, please try again.","red"] call A3PL_Player_Notification;};
+		[] remoteExec ["A3PL_Gang_Kicked",_target];
 	};
 }] call Server_Setup_Compile;
 
@@ -155,14 +140,11 @@
 
 ["A3PL_Gang_Leave",
 {
-	_group = group player;
-	_gang = _group getVariable ["gang_data",nil];
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
 
-	//Check if leader
-	if(((getPlayerUID player) == (_gang select 1))) exitWith {
-		[format [localize"STR_NewGang_6"],"red"] call A3PL_Player_Notification;
-	};
+	if(((getPlayerUID player) == (_gang select 1))) exitWith {[format [localize"STR_NewGang_6"],"red"] call A3PL_Player_Notification;};
 
 	[getPlayerUID player] call A3PL_Gang_RemoveMember;
 	[player] joinSilent (createGroup civilian);
@@ -174,34 +156,22 @@
 
 ["A3PL_Gang_Delete",
 {
-	private["_group","_gang"];
-	_group = group player;
-	_gang = _group getVariable ["gang_data",nil];
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
-
-	if(((getPlayerUID player) != (_gang select 1))) exitWith {
-		[format [localize"STR_NewGang_8"],"red"] call A3PL_Player_Notification;
-	};
-
+	if(((getPlayerUID player) != (_gang select 1))) exitWith {[format [localize"STR_NewGang_8"],"red"] call A3PL_Player_Notification;};
 	[_group,player] remoteExec ["Server_Gang_DeleteGang",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_SetLead",
 {
-	private["_group","_gang"];
-	_newUID = param [0,""];
-	_group = group player;
-	_gang = _group getVariable ["gang_data",nil];
+	private _newUID = param [0,""];
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
 
-	//Check if leader
-	if((getPlayerUID player != _gang select 1)) exitWith {
-		[format [localize"STR_NewGang_13"],"red"] call A3PL_Player_Notification;
-	};
-
-	if((getPlayerUID player == _newUID)) exitWith {
-		[format [localize"STR_NewGang_14"],"red"] call A3PL_Player_Notification;
-	};
+	if((getPlayerUID player) != (_gang select 1)) exitWith {[format [localize"STR_NewGang_13"],"red"] call A3PL_Player_Notification;};
+	if((getPlayerUID player) isEqualTo _newUID) exitWith {[format [localize"STR_NewGang_14"],"red"] call A3PL_Player_Notification;};
 
 	_gang set[1,_newUID];
 	_group setVariable["gang_data",_gang,true];
@@ -212,15 +182,11 @@
 
 ["A3PL_Gang_AddBank",
 {
-	private["_group","_amount","_gang"];
-	_group = param [0,grpNull];
-	_amount = param [1,0];
-
-	_gang = _group getVariable ["gang_data",nil];
+	private _group = param [0,grpNull];
+	private _amount = param [1,0];
+	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
-
-	_currentBank = _gang select 4;
-
+	private _currentBank = _gang select 4;
 	_gang set[4,_currentBank + (_amount)];
 	_group setVariable["gang_data",_gang,true];
 	[_group] remoteExec ["Server_Gang_SaveBank",2];
@@ -228,10 +194,9 @@
 
 ["A3PL_Gang_Capture",
 {
-	private ["_gangName","_obj","_cops","_win"];
-	_obj = param [0,objNull];
-	_win = 10000;
-	_group = group player;
+	private _obj = param [0,objNull];
+	private _win = 10000;
+	private _group = group player;
 
 	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","dmv"]) exitWith {};
 	if ((currentWeapon player) == "") exitwith {["You do not brandish any weapon","red"] call A3PL_Player_Notification;};
@@ -275,19 +240,16 @@
 
 ["A3PL_Gang_CapturedPaycheck",
 {
-	private["_objects","_win","_group","_gang","_gangID"];
-	_objects = [hideout_obj_1,hideout_obj_2,hideout_obj_3];
-	_win = 0;
-	_group = group player;
-
-	_gang = _group getVariable["gang_data",nil];
+	private _objects = [hideout_obj_1,hideout_obj_2,hideout_obj_3];
+	private _win = 0;
+	private _group = group player;
+	private _gang = _group getVariable["gang_data",nil];
 	if(isNil '_gang') exitWith {};
-	_gangID = _gang select 0;
+	private _gangID = _gang select 0;
 
 	{
 		if((_x getVariable["captured",-1]) isEqualTo _gangID) then {_win = _win + 1000;};
 	} forEach _objects;
-
 	if(_win isEqualTo 0) exitWith {};
 
 	[format[localize"STR_NewGang_27",_win],"green"] call A3PL_Player_Notification;
