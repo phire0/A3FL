@@ -213,7 +213,7 @@ Config_Factories =
 		["f_Red_Glock_Mag","","inh","inh","A3PL_Red_Glock_Mag","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
 		["f_P226_Mag","","inh","inh","A3PL_P226_Mag","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
 		["f_30Rnd_45ACP_Mag_SMG_01","","inh","inh","30Rnd_45ACP_Mag_SMG_01","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
-		["f_30Rnd_9x21_Mag_SMG_02","","inh","inh","30Rnd_9x21_Mag_SMG_","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
+		["f_30Rnd_9x21_Mag_SMG_02","","inh","inh","30Rnd_9x21_Mag_SMG_02","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
 		["f_30Rnd_762x39_Mag_F","","inh","inh","30Rnd_762x39_Mag_F","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1]
 	],
 
