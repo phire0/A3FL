@@ -550,9 +550,16 @@
 ["A3PL_Lib_HasPhone",
 {
 	private _player = param [0,player];
-	private _activeRadio = call TFAR_fnc_activeSwRadio;
-	private _split = _activeRadio splitstring "_";
-	if("Cellphone" IN _split) then {true;} else {false;};
+	private _items = assignedItems _player + items _player;
+	private _hasPhone = false;
+	{
+		private _split = _x splitstring "_";
+		{
+			if (_x isEqualTo "Cellphone") exitwith {_hasPhone = true};
+		} foreach _split;
+		if (_hasPhone) exitwith {};
+	} foreach _items;
+	_hasPhone;
 }] call Server_Setup_Compile;
 
 ["A3PL_Lib_MetersToMiles",
