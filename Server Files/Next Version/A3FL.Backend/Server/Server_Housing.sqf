@@ -538,16 +538,16 @@
 
 ["Server_Housing_RemoveMember",
 {
-	private _old = param [0,objNull];
-	private _house = param [1,objNull];
-	private _uid = getPlayerUID _old;
-	private _allMembers = _house getVariable "owner";
+	_old = param [0,objNull];
+	_house = param [1,objNull];
+	_uid = getPlayerUID _old;
+	_allMembers = _house getVariable "owner";
 	if((_allMembers find _uid) != -1) then {
 		_allMembers deleteAt (_allMembers find (getPlayerUID _old));
 		_house setVariable["owner", _allMembers,true];
 
-		private _allMembers = [_allMembers] call Server_Database_Array;
-		private _query = format ["UPDATE houses SET uids='%1' WHERE location ='%2'", _allMembers, (getpos _house)];
+		_allMembers = [_allMembers] call Server_Database_Array;
+		_query = format ["UPDATE houses SET uids='%1' WHERE location ='%2'", _allMembers, (getpos _house)];
 		[_query,1] spawn Server_Database_Async;
 
 		[_old] call Server_Housing_AssignApt;
