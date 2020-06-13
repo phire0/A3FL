@@ -190,7 +190,7 @@
 	};
 
 	if(!_foundRare && !_foundItem) then {
-		["You didn't found anything!", "red"] call A3PL_Player_Notification;
+		["You didn't find anything!", "red"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
 
