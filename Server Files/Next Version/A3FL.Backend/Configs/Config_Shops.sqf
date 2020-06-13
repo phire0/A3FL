@@ -45,8 +45,8 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Fuel",[
-			["item","repairwrench",500,350,0],
-			["item","jerrycan",1075,600,0]
+			["item","repairwrench",750,350,0],
+			["item","jerrycan",1500,600,0]
 		],{[3852.065,9212.537,0.168]}
 	],
 
@@ -98,8 +98,8 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Supermarket",[
-			["item","repairwrench",350,250,0],
-			["item","jerrycan",750,500,0],
+			["item","repairwrench",750,350,0],
+			["item","jerrycan",1500,600,0],
 			["item","coke",300,200,0],
 			["item","waterbottle",500,250,0],
 			["item","bread",300,200,0],
