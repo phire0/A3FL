@@ -8368,13 +8368,13 @@
         <Original>Mobile Drill: It seems that the drill is already moving, it can not be restarted</Original>
       </Key>
       <Key ID="STR_A3PL_JobWildcat_Retracting">
-        <Original>Mobile Drill: Looks like the drill is extended, it is retracted to its French position</Original>
+        <Original>Mobile Drill: Looks like the drill is extended, it is retracted to its original position</Original>
       </Key>
       <Key ID="STR_A3PL_JobWildcat_DrillingStarted">
         <Original>Drilling has started, a hole will appear in the ground, someone with oil extractor job can then place a jack on the hole</Original>
       </Key>
       <Key ID="STR_A3PL_JobWildcat_Returning">
-        <Original>Mobile Drilling: Drill was canceled, the pump jack was moved, the drill was returned to its French position</Original>
+        <Original>Mobile Drilling: Drill was canceled, the pump jack was moved, the drill was returned to its original position</Original>
       </Key>
       <Key ID="STR_A3PL_JobWildcat_JackCanBeInstalled">
         <Original>A hole was successfully created at this position, someone can now install a jack on this position</Original>
