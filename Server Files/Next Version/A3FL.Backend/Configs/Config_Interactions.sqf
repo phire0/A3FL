@@ -149,7 +149,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _warehouse) > 0) && (isPlayer cursorObject) && (isNil (cursorObject getVariable "house"))) exitWith {true;};}
+		{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _warehouse) > 0) && (isPlayer cursorObject) && (isNil (cursorObject getVariable "warehouse"))) then {true;} else {false;};}
 	],
 	[
 		localize"STR_INTER_UNSETCOLLOC",
@@ -193,7 +193,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _warehouse) > 0) && (isPlayer cursorObject) && (isNil (cursorObject getVariable "house"))) exitWith {true;};}
+		{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _warehouse) > 0) && (isPlayer cursorObject) && (isNil (cursorObject getVariable "house"))) then {true;} else {false;};}
 	],
 	[
 		localize"STR_INTER_CHECKID",
