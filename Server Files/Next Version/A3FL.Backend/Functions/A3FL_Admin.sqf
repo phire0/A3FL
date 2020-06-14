@@ -7,7 +7,7 @@
 */
 
 #define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Department Of Motor Vehicles","dmv","dmv"],["Fishers Island Cartel","cartel","cartel"],["Federal Bureau of Investigation","fbi","fbi"]]
-#define adminTagsList [["Civilian Tag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]],["Executive Tag",["#B5B5B5","#8410ff","\A3PL_Common\icons\executive.paa"]],["Executive Supervisor Tag",["#B5B5B5","#5ab2ff","\A3PL_Common\icons\exec_supervisor.paa"]],["Developer Tag",["#B5B5B5","#FFFFFF","\A3PL_Common\icons\creator.paa"]],["Chief Tag",["#B5B5B5","#2f9baa","\A3PL_Common\icons\chief.paa"]],["Sub-Director Tag",["#B5B5B5","#ff6d29","\A3PL_Common\icons\subdirector.paa"]],["Director Tag",["#B5B5B5","#cece08","\A3PL_Common\icons\director.paa"]]]
+#define adminTagsList [["Civilian Tag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]],["Executive Tag",["#B5B5B5","#8410ff","\A3PL_Common\icons\executive.paa"]],["Executive Supervisor Tag",["#B5B5B5","#5ab2ff","\A3PL_Common\icons\exec_supervisor.paa"]],["Developer Tag",["#B5B5B5","#FFFFFF","\A3PL_Common\icons\creator.paa"]],["Lead Dev Tag",["#B5B5B5","#2c82c9","\A3PL_Common\icons\leaddev.paa"]],["Chief Tag",["#B5B5B5","#2f9baa","\A3PL_Common\icons\chief.paa"]],["Sub-Director Tag",["#B5B5B5","#ff6d29","\A3PL_Common\icons\subdirector.paa"]],["Director Tag",["#B5B5B5","#cece08","\A3PL_Common\icons\director.paa"]]]
 
 ["A3PL_Admin_Check",
 {
@@ -56,6 +56,7 @@
 		case(1): {_title = "Executive";};
 		case(2): {_title = "Executive Supervisor";};
 		case(3): {_title = "Developer";};
+		case(4): {_title = "Lead Developer";};
 		case(5): {_title = "Chief";};
 		case(6): {_title = "Sub-Director";};
 		case(7): {_title = "Director";};
@@ -71,13 +72,13 @@
 	{
 		lbAdd [1500, format ["%1",_x getVariable["name",name _x]]];
 		if ((_x getVariable ["adminWatch",0]) == 1) then {lbSetColor [1500,_forEachIndex,[1,0,0,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) == 1) then {lbSetColor [1500,_forEachIndex,[0.612,0.153,0.69,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) == 2) then {lbSetColor [1500,_forEachIndex,[0.38039215686,0.70980392156,1,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) == 3) then {};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) == 4) then {lbSetColor [1500,_forEachIndex,[0.11764705882,0.56470588235,1,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) == 5) then {lbSetColor [1500,_forEachIndex,[0.012,0.663,0.957,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) == 6) then {lbSetColor [1500,_forEachIndex,[0.90588235294,0.49411764705,0.14901960784,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) == 7) then {lbSetColor [1500,_forEachIndex,[1,1,0,1]];};
+		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 1) then {lbSetColor [1500,_forEachIndex,[0.612,0.153,0.69,1]];};
+		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 2) then {lbSetColor [1500,_forEachIndex,[0.38039215686,0.70980392156,1,1]];};
+		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 3) then {};
+		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 4) then {lbSetColor [1500,_forEachIndex,[0.11764705882,0.56470588235,1,1]];};
+		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 5) then {lbSetColor [1500,_forEachIndex,[0.012,0.663,0.957,1]];};
+		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 6) then {lbSetColor [1500,_forEachIndex,[0.90588235294,0.49411764705,0.14901960784,1]];};
+		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 7) then {lbSetColor [1500,_forEachIndex,[1,1,0,1]];};
 		A3PL_Admin_PlayerList pushBack _x;
 	} foreach allPlayers;
 	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_AdminPlayerInfoList;"];
