@@ -25,7 +25,7 @@ Config_Licenses =
 	["rcpl",localize"STR_ConfigLicenses_RotaryCommercialPilotLicense",true,["uscg"]],
 	["fwppl",localize"STR_ConfigLicenses_FixedWingPrivateLicense",false,["uscg"]],
 	["fwcpl",localize"STR_ConfigLicenses_FixedWingCommercialLicense",true,["uscg"]],
-	["gpl",localize"STR_ConfigLicenses_GovPilotLicense",true,["uscg"]],	
+	["gpl",localize"STR_ConfigLicenses_GovPilotLicense",false,["uscg"]],	
 
 	["pfish",localize"STR_ConfigLicenses_PrivateFishingLicense",false,["uscg"]],
 	["sfish",localize"STR_ConfigLicenses_SportFishingLicense",false,["uscg"]],
