@@ -416,8 +416,8 @@ Config_Shops_Items = [
 	],
 
 	["Shop_DOC",[
-			["item","breathalizer",10,-1,0],
-			["item","drug_kit",10,-1,0],
+			// ["item","breathalizer",10,-1,0],
+			// ["item","drug_kit",10,-1,0],
             ["item","handcuffs",10,0,0],
             ["item","stinger",10,0,0],
 			["item","wood_barrier",10,0,0],
@@ -771,8 +771,8 @@ Config_Shops_Items = [
 	["Shop_USCG_Supplies_Vendor",[
 			["aitem","Rangefinder",10,-1,0],
 			["aitem","NVGoggles_OPFOR",10,-1,0],
-			["item","breathalizer",10,-1,0],
-			["item","drug_kit",10,-1,0],
+			// ["item","breathalizer",10,-1,0],
+			// ["item","drug_kit",10,-1,0],
 			["item","handcuffs",10,-1,0],
 			["item","stinger",10,-1,0],
 			["item","roadcones",10,-1,0],
