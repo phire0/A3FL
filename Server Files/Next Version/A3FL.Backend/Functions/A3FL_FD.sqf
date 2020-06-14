@@ -972,7 +972,7 @@
 		_building setVariable["FireAlarmBroke",true,true];
 		["The fire alarm is broken!","red"] call A3PL_Player_Notification;
 	} else {
-		[_building,"A3PL_Common\effects\firealarm.ogg",60] spawn A3PL_FD_AlarmLoop;
+		[_building,"A3PL_Common\effects\fireAlarm.ogg",60] spawn A3PL_FD_AlarmLoop;
 		["You have triggered the fire alarm!","yellow"] call A3PL_Player_Notification;
 		if ((count(["fifr"] call A3PL_Lib_FactionPlayers)) >= 1) exitwith {
 			_marker = createMarker [format ["firealarm_%1",random 4000], position _building];
