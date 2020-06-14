@@ -2575,7 +2575,9 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_AirbuyFactory",
 	localize"STR_INTSECT_TAKEBODY",
 	localize"STR_INTSECT_HIDEOUTSHOP",
-	"Low End Car Dealer"
+	"Low End Car Dealer",
+	localize"STR_INTSECT_CONHOSETOENGIN",
+	localize"STR_INTSECT_CONHOSETOENGDIS"
 ];
 publicVariable "Config_GenArray";
 

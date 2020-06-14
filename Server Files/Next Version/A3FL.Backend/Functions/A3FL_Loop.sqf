@@ -122,7 +122,7 @@
 {
 	Player_Overweight = true;
 	if(!isForcedWalk player) then {player forceWalk true;};
-	if(Player_CurrentWeight <= 200) then {
+	if(Player_CurrentWeight <= 200) exitwith {
 		player forceWalk false;
 		Player_Overweight = nil;
 	};

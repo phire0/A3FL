@@ -61,7 +61,7 @@
 			case ("console_garage"): {_anim = "door_23"; _hSel = 14;};
 		};
 
-		if (_obj animationPhase _anim < 0.5) then //check if we are turning on or off
+		if (_obj animationPhase _anim < 0.5) then
 		{
 			_obj setObjectTextureGlobal [_hSel,"#(argb,8,8,3)color(0,1,0,1.0,co)"];
 			[_obj,_anim,false,1] call A3PL_Lib_ToggleAnimation;
@@ -80,7 +80,6 @@
 		};
 	};
 
-	//PEOPLE are breaking out, LOCK THE FUCK DOWN
 	if (_name == "console_lockdown") exitwith
 	{
 		{
@@ -88,7 +87,7 @@
 			{
 				_obj setObjectTextureGlobal [_forEachIndex,"#(argb,8,8,3)color(1,0,0,1.0,co)"];
 			};
-		} foreach (getObjectTextures _obj); //set all textures to red
+		} foreach (getObjectTextures _obj);
 
 		{
 			if (_obj animationPhase _x > 0.1) then { [_obj,_x,false,0] call A3PL_Lib_ToggleAnimation; };

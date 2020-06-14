@@ -28,7 +28,6 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Placeables'],
 	['Functions', 'A3FL_EventHandlers'],
 	['Functions', 'A3FL_Police'],
-	['Functions', 'A3FL_Prison'],
 	['Functions', 'A3FL_Hydrogen'],
 	['Functions', 'A3FL_iPhoneX'],
 	['Functions', 'A3FL_Housing'],

@@ -367,6 +367,7 @@
 				{
 					if (_name IN ["door_1","door_2","door_3,""door_5","door_6","door_7"]) then
 					{
+						hint _name;
 						if (isNil {_obj getVariable "unlocked"}) exitwith
 						{
 							_format = format[localize'STR_NewIntersect_2'];
