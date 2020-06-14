@@ -76,6 +76,7 @@
 		_msgcolor = "#ffbfbf";
 		[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
 	};
+	if (!([] call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
 	if (((toLower (_splitted select 0) == "/dn")) && !_doubleCommand) exitWith {
 		_splitted deleteat 0;
 		_messageto = ["darknet",["darknet",player,player getvariable ["name",(name player)],(time + 300)]];

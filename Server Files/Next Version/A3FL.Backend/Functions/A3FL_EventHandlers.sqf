@@ -92,7 +92,7 @@
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			player setVariable ["inventory_opened", nil, true];
-			if (!(call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
+			if (!([] call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			call A3PL_iPhoneX_Locked;
 		}, "", [DIK_G, [false, false, false]]] call CBA_fnc_addKeybind;
@@ -100,7 +100,6 @@
 		["ArmA 3 Fishers Life","twitter_key", "Open Twitter Post",
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-			if (!(call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			if(!dialog) then {[] spawn A3PL_iPhoneX_appTwitterPost;};
 		}, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;

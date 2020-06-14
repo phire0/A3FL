@@ -53,7 +53,7 @@
 	private _gang = _group getVariable ["gang_data",nil];
 
 	if(isNil '_gang') exitWith {};
-	private _members = _gang select 3;
+ private _members =  parseSimpleArray (_gang select 3);
 	private _maxMembers = _gang select 5;
 
 	if((count _members) > _maxMembers) exitWith {[format [localize"STR_NewGang_4",_maxMembers],"red"] call A3PL_Player_Notification;};

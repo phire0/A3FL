@@ -248,7 +248,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessChemicalPlant",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_chimicalfactory}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFactoryLegalArms",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_factionweaponfactory}],
 	["spine3",localize"STR_QuickActionsNPC_WeaponIllegalFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_weaponfactory_1) || ((player_objintersect == cartel_factory) && ((player getVariable["job","unemployed"]) == "cartel"))}],
-	["spine3",localize"STR_QuickActionsNPC_VehiclePartsFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_piecevehiclefactory}],
+	// ["spine3",localize"STR_QuickActionsNPC_VehiclePartsFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_piecevehiclefactory}],
 	["spine3",localize"STR_QuickActionsNPC_FactoryBoat",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_boatfactory}],
 	["spine3",localize"STR_QuickActionsNPC_AirbuyFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_aircraftfactory}],
 	["spine3",localize"STR_QuickActionsNPC_RentATowTruck",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_roadworker,npc_roadworker_1,npc_roadworker_2,npc_roadworker_3,npc_roadworker_4]}],

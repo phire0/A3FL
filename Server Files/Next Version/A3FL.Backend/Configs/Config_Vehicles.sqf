@@ -202,6 +202,7 @@ Config_Vehicles_Insurance = [
 	["A3PL_Motorboat_Rescue",5000],
 	["A3PL_RBM",5000],
 	["A3PL_Patrol",5000],
+	["A3FL_LCM",5000],
 	["A3PL_Yacht",100000],
 
 	["Heli_Medium01_H",40000],
