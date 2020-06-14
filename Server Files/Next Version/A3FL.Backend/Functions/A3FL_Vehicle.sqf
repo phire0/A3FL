@@ -72,17 +72,15 @@
 	if (_itemAmount > ((_inventory select _index) select 1)) exitwith {[localize"STR_NewVehicle_5","red"] call A3PL_Player_Notification;};
 	_itemClass = (_inventory select _index) select 0;
 
-	/* Maximum capacity management */
 	_vehCapacity = [(typeOf A3PL_Veh_Interact)] call A3PL_Config_GetVehicleCapacity;
 	_itemTotalWeight = ([_itemClass, 'weight'] call A3PL_Config_GetItem) * _itemAmount;
 	_vehTotalWeight = [A3PL_Veh_Interact] call A3PL_Vehicle_TotalWeight;
-	if ((_itemTotalWeight + _vehTotalWeight) > _vehCapacity) exitwith {
-		[format [localize"STR_NewVehicle_6"],"red"] call A3PL_Player_Notification;
-	};
+	if ((_itemTotalWeight + _vehTotalWeight) > _vehCapacity) exitwith {[format [localize"STR_NewVehicle_6"],"red"] call A3PL_Player_Notification;};
 
 	A3PL_Veh_Interact setVariable ["storage",([_vehicleStorage, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 	player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
 	[] call A3PL_Inventory_Verify;
+	[] call A3PL_Inventory_SetCurrent;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
 }] call Server_Setup_Compile;
 
@@ -106,15 +104,12 @@
 	if (_itemAmount > ((_vehicleStorage select _index) select 1)) exitwith {[localize"STR_NewVehicle_9","red"] call A3PL_Player_Notification;};
 	_itemClass = (_vehicleStorage select _index) select 0;
 
-	/* Maximum capacity management */
-	if (([[_itemClass,_itemAmount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {
-		[format [localize"STR_NewVehicle_10"],"red"] call A3PL_Player_Notification;
-	};
+	if (([[_itemClass,_itemAmount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {[format [localize"STR_NewVehicle_10"],"red"] call A3PL_Player_Notification;};
 
 	A3PL_Veh_Interact setVariable ["storage",([_vehicleStorage, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
 	player setVariable ["player_inventory",([_inventory, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 	[A3PL_Veh_Interact] call A3PL_Vehicle_StorageVerify;
-
+	[] call A3PL_Inventory_SetCurrent;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
 }] call Server_Setup_Compile;
 

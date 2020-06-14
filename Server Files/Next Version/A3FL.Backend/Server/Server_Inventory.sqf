@@ -19,6 +19,7 @@
 	if (_change) then {
 		_player setVariable ["Player_Inventory", ((_player getVariable "Player_Inventory") - ["REMOVE"]), true];
 	};
+	[] remoteExec ["A3PL_Inventory_SetCurrent",_player];
 }, true] call Server_Setup_Compile;
 
 ["Server_Inventory_Add", {
