@@ -36,6 +36,7 @@
 	private _newArray = [(_player getVariable 'Player_Inventory'), _class, _amount] call BIS_fnc_addToPairs;
 	_player setVariable ['Player_Inventory', _newArray, true];
 	[_player] call Server_Inventory_Verify;
+	[] remoteExec ["A3PL_Inventory_SetCurrent",_player];
 }, true] call Server_Setup_Compile;
 
 ["Server_Inventory_Pickup", {
