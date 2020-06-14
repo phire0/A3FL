@@ -44,7 +44,12 @@
 	};
 	if(_exit) exitwith {};
 
+	[] call A3PL_Inventory_SetCurrent;
 	[player, _class, _amount] remoteExec ["Server_Inventory_Add",2];
+}] call Server_Setup_Compile;
+
+["A3PL_Inventory_SetCurrent", {
+	Player_CurrentWeight = [] call A3PL_Inventory_TotalWeight;
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Remove", {
@@ -109,7 +114,6 @@
 		_itemWeight = ([_x select 0, 'weight'] call A3PL_Config_GetItem) * _amount;
 		_return = _return + _itemWeight;
 	} forEach _inventory;
-	Player_CurrentWeight = _return;
 	_return;
 }] call Server_Setup_Compile;
 
