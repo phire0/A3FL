@@ -17,7 +17,7 @@
 	//	[selectRandom _itemsArray,1] remoteExec ["A3PL_Inventory_Add",_player];
 	//};
 
-	[player, 'Player_Cash', ((player getVariable 'Player_Cash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
+	[_player, 'Player_Cash', ((_player getVariable 'Player_Cash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
 
 	[_veh] call Server_Chopshop_Storecar;
 	[getPlayerUID _player,"chopchoped",[typeOf _veh,(_veh getVariable"owner") select 1]] remoteExec ["Server_Log_New",2];
