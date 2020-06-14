@@ -71,6 +71,7 @@
 	if (_change) then {
 		_player setVariable ["Player_Inventory", ((_player getVariable "Player_Inventory") - ["REMOVE"]), true];
 	};
+	[] call A3PL_Inventory_SetCurrent;
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Return", {
