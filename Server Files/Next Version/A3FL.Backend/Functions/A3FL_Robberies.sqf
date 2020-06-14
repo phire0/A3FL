@@ -215,7 +215,7 @@
 
 	private _requiredCG = 3;
 	private _CG = ["uscg"] call A3PL_Lib_FactionPlayers;
-	if(count(_CG) < _requiredCG) exitWith {["There is no enought CG available to do that!","red"] call A3PL_Player_Notification;};
+	if(count(_CG) < _requiredCG) exitWith {["There is not 3 CG available to do that!","red"] call A3PL_Player_Notification;};
 
 	[] remoteExec ["A3PL_Robberies_PShipRobbed",_CG];
 
