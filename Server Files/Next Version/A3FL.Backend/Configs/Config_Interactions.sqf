@@ -148,7 +148,15 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _house = nearestObjects [getPos player, Config_Warehouses_List, 10,true];private _var = cursorObject getVariable "warehouse";if(((count _warehouse) > 0) && (isPlayer cursorObject) && (isNil "_var")) then {true;} else {false;};}
+		{
+			private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true];
+			private _var = cursorObject getVariable "warehouse";
+			if(((count _warehouse) > 0) && (isPlayer cursorObject) && (isNil "_var")) then {
+				true;
+			} else {
+				false;
+			};
+		}
 	],
 	[
 		localize"STR_INTER_UNSETCOLLOC",
