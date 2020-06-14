@@ -219,11 +219,11 @@ Config_Factories =
 
 	["Marine Factory",[4898.23,5060.04,13],
 		["f_Rebreather","","inh","inh","V_RebreatherB","vest",true,5,[["Rubber",2],["Fibreglass",8],["Plastic",10]],1,"",1],
-		["f_jetski","","Jet ski","inh","C_Scooter_Transport_01_F","car",true,10,[["Engine",1],["Trans",1]],1,"",1],
-		["f_Motorboat","","inh","inh","A3PL_Motorboat","car",true,5,[["Engine",1],["Fibreglass",12]],1,"",1],
-		["f_RHIB","","inh","inh","A3PL_RHIB","car",true,5,[["Fibreglass",50],["HEEngine",4],["Rubber",10]],1,"",1],
-		["f_LCM","","inh","inh","A3FL_LCM","car",true,60,[["HEEngine",2],["HETrans",1],["Windows",2],["Aluminium_Pellet",4]],1,"",1],
-		["f_LuxuryYatch","","inh","inh","A3PL_Yacht","car","true",1800,[["Aluminium_Pellet",100],["Glass",50],["Titanium",100],["Fibreglass",50],["Steel",100]],1,"",1]
+		["f_jetski","","Jet ski","inh","C_Scooter_Transport_01_F","car",true,10,[["Steel_Pellet",1]],1,"",1],
+		["f_Motorboat","","inh","inh","A3PL_Motorboat","car",true,5,[["Steel_Pellet",2]],1,"",1],
+		["f_RHIB","","inh","inh","A3PL_RHIB","car",true,5,[["Aluminium_Pellet",8]],1,"",1],
+		["f_LCM","","inh","inh","A3FL_LCM","car",true,60,[["Steel_Pellet",2],["Aluminium_Pellet",12]],1,"",1],
+		["f_LuxuryYatch","","inh","inh","A3PL_Yacht","car","true",1800,[["Aluminium_Pellet",100]],1,"",1]
 	],
 
 	["Aircraft Factory",[2606.28,5321.7,1],
