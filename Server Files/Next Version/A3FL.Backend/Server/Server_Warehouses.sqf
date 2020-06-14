@@ -210,27 +210,6 @@
 
 },true] call Server_Setup_Compile;
 
-["Server_Warehouses_RemoveMember",
-{
-	private _old = param [0,objNull];
-	private _warehouse = param [1,objNull];
-	private _uid = getPlayerUID _old;
-	private _allMembers = _house getVariable "owner";
-	if((_allMembers find _uid) != -1) then {
-		_allMembers deleteAt (_allMembers find (getPlayerUID _old));
-		_warehouse setVariable["owner", _allMembers,true];
-
-		private _allMembers = [_allMembers] call Server_Database_Array;
-		private _query = format ["UPDATE warehouses SET uids='%1' WHERE location ='%2'", _allMembers, (getpos _house)];
-		[_query,1] spawn Server_Database_Async;
-
-		[_old] call Server_Housing_AssignApt;
-		_old setVariable ["keys",[],true];
-		_old setVariable ["warehouse",nil,true];
-		[localize"STR_SERVER_HOUSING_YOUNOWEXCOLOC","yellow"] remoteExec ["A3PL_Player_Notification",owner _old];
-	};
-},true] call Server_Setup_Compile;
-
 ["Server_Warehouses_AddMember",
 {
 	_owner = param [0,objNull];
@@ -274,7 +253,6 @@
 		private _query = format ["UPDATE warehouse SET uids='%1' WHERE location ='%2'", _allMembers, (getpos _warehouse)];
 		[_query,1] spawn Server_Database_Async;
 
-		[_old] call Server_Housing_AssignApt;
 
 		_keys = _old getVariable ["keys",[]];
 		_keys deleteAt (_keys find (_warehouse getVariable "doorid" select 1));

@@ -193,7 +193,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true];private _var = cursorObject getVariable "warehouse";if(((count _warehouse) > 0) && (isPlayer cursorObject) && (isNil "_var")) then {true;} else {false;};}
+		{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _warehouse) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_CHECKID",
