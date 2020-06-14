@@ -195,6 +195,7 @@ class CfgRemoteExec
 		//Inventory
 		class A3PL_Inventory_Add{allowedTargets=0;};
 		class A3PL_Inventory_Clear{allowedTargets = 0;};
+		class A3PL_Inventory_SetCurrent{allowedTargets = 0;};
 		class Server_Inventory_RemoveAll{allowedTargets = 2;};
 		class Server_Inventory_Add{allowedTargets = 2;};
 		class Server_Inventory_Drop{allowedTargets = 2;};
