@@ -275,7 +275,7 @@ Config_Factories =
 		["f_150","","inh","inh","A3PL_F150","car",true,10,[["Steel_Pellet",7],["Aluminium_Pellet",11],["Windows",2],["Tyres",4]],1,"",1],
 		["f_Raptor","","inh","inh","A3PL_Raptor","car",true,10,[["Steel_Pellet",7],["Aluminium_Pellet",11],["Windows",2],["Tyres",4]],1,"",1],
 		["f_Silverado","","inh","inh","A3PL_Silverado","car",true,10,[["Aluminium_Pellet",13],["Steel_Pellet",11],["Windows",4],["Tyres",4]],1,"",1],
-		["f_Taurus","","inh","inh","A3PL_Taurus","car",true,1800,[["Steel_Pellet",10],["Aluminium_Pellet",4],["Windows",4],["Tyres",4]],1,"",10],		
+		["f_Taurus","","inh","inh","A3PL_Taurus","car",true,1800,[["Steel_Pellet",10],["Aluminium_Pellet",4],["Windows",4],["Tyres",4]],1,"",10],
 		["f_Tahoe","","inh","inh","A3PL_Tahoe","car",true,10,[["Steel_Pellet",11],["Aluminium_Pellet",7],["Windows",4],["Tyres",4]],1,"",1],
 		["f_Suburban","","inh","inh","A3PL_Suburban","car",true,10,[["Steel_Pellet",11],["Aluminium_Pellet",7],["Windows",4],["Tyres",4]],1,"",1],
 		["f_Wrangler","","inh","inh","A3PL_Wrangler","car",true,10,[["Steel_Pellet",7],["Aluminium_Pellet",2],["Windows",3],["Tyres",4]],1,"",1],
@@ -596,7 +596,18 @@ Config_Factories =
 		["f_woman2","","inh","inh","woman2","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_woman1","","inh","inh","woman1","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Woman_Uniform1","","inh","inh","Woman_Uniform1","uniform",true,5,[["Polyester",1]],1,"",1],
-		["f_Woman_Uniform2","","inh","inh","Woman_Uniform2","uniform",true,5,[["Polyester",1]],1,"",1]
+		["f_Woman_Uniform2","","inh","inh","Woman_Uniform2","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_FRIGGUS_Polo_Man","","inh","inh","A3PL_FRIGGUS_Polo_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_FRIGGUS_Shirt_Man","","inh","inh","A3PL_FRIGGUS_Shirt_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_3_Industries_Suit_Man","","inh","inh","A3PL_3_Industries_Suit_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Gritsky_Suit_Man","","inh","inh","A3PL_Gritsky_Suit_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Strictly_Sand_company_Swimmer_Man","","inh","inh","A3PL_Strictly_Sand_company_Swimmer_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Strictly_Sand_company_Diver_Man","","inh","inh","A3PL_Strictly_Sand_company_Diver_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Journalist_Hardy_Man","","inh","inh","A3PL_Journalist_Hardy_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Two_Fours_Green_Man","","inh","inh","A3PL_Two_Fours_Green_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Express_clothing_Man","","inh","inh","A3PL_Express_clothing_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Evergreen_Polo_Man","","inh","inh","A3PL_Evergreen_Polo_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Evergreen_Coverall_Man","","inh","inh","A3PL_Evergreen_Coverall_Man","uniform",true,5,[["Polyester",1]],1,"",1]
 	],
 
 	["Vest Factory",[3852.065,9212.537,0.168],
@@ -620,7 +631,8 @@ Config_Factories =
 		["f_SmithCo_SafteyVest_Plain_Supervisor_Vest","","inh","inh","A3PL_SmithCo_SafteyVest_Plain_Supervisor_Vest","vest",true,5,[["Polyester",1]],1,"",1],
 		["f_SmithCo_SafteyVest_Security_Vest","","inh","inh","A3PL_SmithCo_SafteyVest_Security_Vest","vest",true,5,[["Polyester",1]],1,"",1],
 		["f_SmithCo_SafteyVest_Towing_Vest","","inh","inh","A3PL_SmithCo_SafteyVest_Towing_Vest","vest",true,5,[["Polyester",1]],1,"",1],
-		["f_Reef_LifeVest_Vest","","inh","inh","A3PL_Reef_LifeVest_Vest","vest",true,5,[["Polyester",1]],1,"",1]
+		["f_Reef_LifeVest_Vest","","inh","inh","A3PL_Reef_LifeVest_Vest","vest",true,5,[["Polyester",1]],1,"",1],
+		["f_Express_vest","","inh","inh","A3PL_Express_vest","vest",true,5,[["Polyester",1]],1,"",1]
 	],
 
 	["Headgear Factory",[3852.065,9212.537,0.168],
@@ -796,7 +808,9 @@ Config_Factories =
 		["f_H_HeadSet_orange_F","","inh","inh","H_HeadSet_orange_F","headgear",true,5,[["Plastic",1]],1,"",1],
 		["f_H_HeadSet_red_F","","inh","inh","H_HeadSet_red_F","headgear",true,5,[["Plastic",1]],1,"",1],
 		["f_H_HeadSet_white_F","","inh","inh","H_HeadSet_white_F","headgear",true,5,[["Plastic",1]],1,"",1],
-		["f_H_HeadSet_yellow_F","","inh","inh","H_HeadSet_yellow_F","headgear",true,5,[["Plastic",1]],1,"",1]
+		["f_H_HeadSet_yellow_F","","inh","inh","H_HeadSet_yellow_F","headgear",true,5,[["Plastic",1]],1,"",1],
+		["f_H_Evergreen_Cap","","inh","inh","H_Evergreen_Cap","headgear",true,5,[["Polyester",1]],1,"",1],
+		["f_H_FRIGGUS_Cap","","inh","inh","H_FRIGGUS_Cap","headgear",true,5,[["Polyester",1]],1,"",1]
 	],
 
 	["Goggle Factory",[3852.065,9212.537,0.168],
