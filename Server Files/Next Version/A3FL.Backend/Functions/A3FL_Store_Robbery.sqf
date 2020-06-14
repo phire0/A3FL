@@ -19,9 +19,9 @@
 	if (isNull(_cooldown select 0)) then {
 		_cooldown = [objNull,false];
 	};
-	_status = missionNamespace getVariable ["StoreCooldown",0];
+	_robbedTime = missionNamespace getVariable ["StoreCooldown",serverTime-300];
 
-	if (_status isEqualTo 1) exitwith {["Another store robbery has taken place recently, you cannot rob this store!","red"] call A3PL_Player_Notification;};
+	if(_robbedTime > (serverTime-300)) exitWith {["Another store robbery has taken place recently, you cannot rob this store!","red"] call A3PL_Player_Notification;};
 	if (_cooldown select 1) exitwith {["This store has already been robbed recently","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) IN ["hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a store with this weapon!","red"] call A3PL_Player_Notification;};
@@ -39,7 +39,7 @@
 	["If you try to turn this store, stay near the cash!", "green"] call A3PL_Player_Notification;
 
 	_store setVariable ["cooldown",[player,true],true];
-	missionNamespace setVariable ["StoreCooldown",1,true];
+	missionNamespace setVariable ["HouseCooldown",serverTime,true];
 
 	playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _store, false, getPosASL _store, 1, 1, 200];
 	[_store] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
