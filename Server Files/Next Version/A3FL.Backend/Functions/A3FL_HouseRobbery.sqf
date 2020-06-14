@@ -14,7 +14,7 @@
 	_timeTaken = 45;
 	_fail = false;
 	_faction = "FISD";
-	
+
 	if ((player getVariable ["house",objNull]) isEqualTo cursorObject) exitWith{["You cannot rob your own house!","red"] call A3PL_Player_Notification;};
 	if(_robbedTime > (serverTime-300)) exitWith {["Another house robbery has taken place recently, you cannot rob this house!","red"] call A3PL_Player_Notification;};
 	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
@@ -36,7 +36,7 @@
 	};
 
 	_notifyChance = random 100;
-	if(_notifyChance >= _notify) then {[_house] spawn A3PL_HouseRobbery_NotifySD;};
+	if(_notifyChance >= _notify) then {[_house,_faction] spawn A3PL_HouseRobbery_NotifySD;};
 
 	_alarmChance = random 100;
 	if(_alarmChance >= 30) then {[_house] spawn A3PL_HouseRobbery_Alarm;};
@@ -130,10 +130,11 @@
 {
 	private["_house","_cops","_namePos"];
 	_house = param [0,objNull];
-	_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
+	_faction = param [1,"fisd"];
+	_cops = [_faction] call A3PL_Lib_FactionPlayers;
 
 	_namePos = [getPos _house] call A3PL_Housing_PosAddress;
-	[format["911: Robbery in progress at %1!",_namePos],"blue","fisd",1] call A3PL_Lib_JobMessage;
+	[format["911: Robbery in progress at %1!",_namePos],"blue",_faction,1] call A3PL_Lib_JobMessage;
 	[_house,"House Alarm","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
 
 	missionNamespace setVariable ["HouseCooldown",serverTime,true];
