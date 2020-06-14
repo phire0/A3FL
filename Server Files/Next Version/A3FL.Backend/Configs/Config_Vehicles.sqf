@@ -57,6 +57,7 @@ Config_Vehicles_Capacity = [
 	["A3PL_Taurus_PD_ST",180],
 	["A3PL_Taurus_FD",180],
 
+	["A3PL_P362",200],
 	["A3PL_P362_TowTruck",500],
 
 	["A3PL_Wrangler",240],
