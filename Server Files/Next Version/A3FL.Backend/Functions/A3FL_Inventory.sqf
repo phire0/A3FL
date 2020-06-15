@@ -49,7 +49,12 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_SetCurrent", {
-	Player_CurrentWeight = [] call A3PL_Inventory_TotalWeight;
+	private _weight = [] call A3PL_Inventory_TotalWeight;
+	if(_weight < 200) then {
+		if(isForcedWalk player) then {player forceWalk false;};
+	} else {
+		if(!isForcedWalk player) then {player forceWalk true;};
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Remove", {

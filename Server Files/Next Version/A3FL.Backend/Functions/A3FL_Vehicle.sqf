@@ -80,7 +80,6 @@
 	A3PL_Veh_Interact setVariable ["storage",([_vehicleStorage, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 	player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
 	[] call A3PL_Inventory_Verify;
-	[] call A3PL_Inventory_SetCurrent;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
 }] call Server_Setup_Compile;
 
@@ -109,7 +108,7 @@
 	A3PL_Veh_Interact setVariable ["storage",([_vehicleStorage, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
 	player setVariable ["player_inventory",([_inventory, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 	[A3PL_Veh_Interact] call A3PL_Vehicle_StorageVerify;
-	[] call A3PL_Inventory_SetCurrent;
+	[] call A3PL_Inventory_Verify;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
 }] call Server_Setup_Compile;
 

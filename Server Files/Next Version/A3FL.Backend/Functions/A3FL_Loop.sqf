@@ -23,7 +23,6 @@
 	["itemAdd", ["Loop_JailMarkers", {[] spawn A3PL_Prison_Markers;}, 30, 'seconds',{ player getVariable ["job","unemployed"] IN ["usms"] },{ !(player getVariable ["job","unemployed"] IN ["usms"]) }]] call BIS_fnc_loop;
 	["itemAdd", ["drowningSystem", {[] spawn A3PL_Loop_Drowning;}, 1, "seconds", {(underwater player) && !(isAbleToBreathe player)}, {!(underwater player) || (isAbleToBreathe player)}]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_HousingTaxes", {[] call A3PL_Loop_HousingTaxes;}, 1800, 'seconds',{!(player getVariable ["house",nil] isEqualTo nil)}, {player getVariable ["house",nil] isEqualTo nil}]] call BIS_fnc_loop;
-	["itemAdd", ["Loop_Overweight", {[] call A3PL_Loop_Overweight;}, 1, 'seconds', {Player_CurrentWeight > 200}, {(Player_CurrentWeight <= 200) && (isNil "Player_Overweight")}]] call BIS_fnc_loop;
 
 	//Events
 	//["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
@@ -116,16 +115,6 @@
 	player setVariable["Player_Bank",_bank-_taxPrice,true];
 	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];
 	[format [localize"STR_NewLoop_1",_taxPrice],"yellow"] call A3PL_Player_Notification;
-}] call Server_Setup_Compile;
-
-["A3PL_Loop_Overweight",
-{
-	Player_Overweight = true;
-	if(!isForcedWalk player) then {player forceWalk true;};
-	if(Player_CurrentWeight <= 200) exitwith {
-		player forceWalk false;
-		Player_Overweight = nil;
-	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Loop_Paycheck",

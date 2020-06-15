@@ -339,7 +339,9 @@ Config_Shops_Items = [
 		["weaponPrimary","SMG_02_F",30000,-1,0],
 		["weaponPrimary","SMG_01_F",30000,-1,0],
 		["weaponPrimary","A3PL_M16",50000,-1,0],
+		["weaponPrimary","arifle_AKM_F",50000,-1,0],
 		["magazine","A3PL_M16_Mag",100,-1,0],
+		["magazine","30Rnd_762x39_Mag_F",100,-1,0],
 		["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
 		["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}

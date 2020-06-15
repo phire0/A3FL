@@ -92,7 +92,7 @@
 		player setVariable ["player_inventory",([_inventory, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 		[A3PL_Housing_StorageBox] call A3PL_Housing_VirtualVerify;
 	};
-
+	[] call A3PL_Inventory_SetCurrent;
 	[_display,A3PL_Housing_StorageBox] call A3PL_Housing_VirtualFillLB;
 }] call Server_Setup_Compile;
 
