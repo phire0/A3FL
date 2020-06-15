@@ -61,7 +61,7 @@
 			case ("console_garage"): {_anim = "door_23"; _hSel = 14;};
 		};
 
-		if (_obj animationPhase _anim < 0.5) then
+		if (_obj animationPhase _anim < 0.5) then //check if we are turning on or off
 		{
 			_obj setObjectTextureGlobal [_hSel,"#(argb,8,8,3)color(0,1,0,1.0,co)"];
 			[_obj,_anim,false,1] call A3PL_Lib_ToggleAnimation;
@@ -80,6 +80,7 @@
 		};
 	};
 
+	//PEOPLE are breaking out, LOCK THE FUCK DOWN
 	if (_name == "console_lockdown") exitwith
 	{
 		{
@@ -87,7 +88,7 @@
 			{
 				_obj setObjectTextureGlobal [_forEachIndex,"#(argb,8,8,3)color(1,0,0,1.0,co)"];
 			};
-		} foreach (getObjectTextures _obj);
+		} foreach (getObjectTextures _obj); //set all textures to red
 
 		{
 			if (_obj animationPhase _x > 0.1) then { [_obj,_x,false,0] call A3PL_Lib_ToggleAnimation; };
@@ -105,8 +106,8 @@
 	_cellDoor = param [0,objNull];
 	_prison = param [1, objNull];
 
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && (((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) < 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 3))) exitwith {
-		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
+	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
+		["There needs to be 3 FIMS on-duty to lock pick cell doors!","red"] call A3PL_Player_Notification;
 	};
 
 	player playmove "Acts_carFixingWheel";
@@ -189,7 +190,7 @@
 	};
 
 	if(!_foundRare && !_foundItem) then {
-		["You didn't find anything!", "red"] call A3PL_Player_Notification;
+		["You didn't found anything!", "red"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
 
