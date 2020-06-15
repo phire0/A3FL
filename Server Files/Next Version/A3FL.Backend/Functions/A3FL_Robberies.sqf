@@ -52,7 +52,7 @@
 		["item","v_lockpick",3],
 		["item","Titanium",14],
 		["item","shark_10lb",4],
-		["item","SMG_Part_Body",1],
+		// ["item","SMG_Part_Body",1],
 		["item","zipties",5],
 		["item","weed_50g",11],
 
