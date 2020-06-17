@@ -483,9 +483,7 @@
 	moveOut player;
 	[false] call A3PL_Lib_Ragdoll;
 
-	if ((player getVariable "dbVar_AdminLevel") < 3) then {
-		disableUserInput true;
-	};
+	if ((player getVariable ["dbVar_AdminLevel",0]) < 3) then {disableUserInput true;};
 
 	_timer = A3PL_Respawn_Time;
 	player setVariable ["TimeRemaining",_timer,true];

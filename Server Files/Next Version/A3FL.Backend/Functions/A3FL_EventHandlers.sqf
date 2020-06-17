@@ -9,7 +9,6 @@
 #include "\a3\editor_f\Data\Scripts\dikCodes.h"
 #define KINDOF_ARRAY(a,b) [##a,##b] call {_veh = _this select 0;_types = _this select 1;_res = false; {if (_veh isKindOf _x) exitWith { _res = true };} forEach _types;_res}
 
-
 ["A3PL_EventHandlers_Setup",
 {
 	call A3PL_EventHandlers_HandleDamage;
