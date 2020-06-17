@@ -1103,11 +1103,7 @@
 		if (!(vehicle player == player)) exitwith {_success = false;};
 		if (player distance2D _npc > 10) then {_success = false;}
 	};
-
-	if(Player_ActionInterrupted || !_success) exitWith {
-		Player_ActionInterrupted = true;
-		["Treatment cancelled!", "red"] call A3PL_Player_Notification;
-	};
+	if(Player_ActionInterrupted || !_success) exitWith {["Treatment cancelled!", "red"] call A3PL_Player_Notification;};
 
 	["You are completely treated","green"] call A3PL_Player_Notification;
 
@@ -1158,9 +1154,8 @@
 		player switchMove "";
 
 		if(Player_ActionInterrupted || !_success) exitWith {
-			Player_ActionInterrupted = true;
 			["CPR Cancelled!", "red"] call A3PL_Player_Notification;
-			if (vehicle player == player) then {player switchMove "";};
+			if ((vehicle player) isEqualTo player) then {player switchMove "";};
 		};
 
 		_target getVariable["reviving",false];

@@ -162,13 +162,13 @@
 		_targetPos = getpos _target;
 		["Pat down in progress...",15] spawn A3PL_Lib_LoadAction;
 		_success = true;
-		while {uiSleep 2; Player_ActionDoing } do {
+		waitUntil{Player_ActionDoing};
+		while {Player_ActionDoing} do {
 			if ((player distance2D _target) > 5) exitWith {_success = false;};
 			if (animationState player != "AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];}
 		};
 		player switchMove "";
 		if(Player_ActionInterrupted || !_success) exitWith {
-			Player_ActionInterrupted = true;
 			["Patdown cancelled","red"] call A3PL_Player_Notification;
 			["The patdown was cancelled", "green"] remoteExec ["A3PL_Player_Notification",_target];
 			if (vehicle player == player) then {player switchMove "";};

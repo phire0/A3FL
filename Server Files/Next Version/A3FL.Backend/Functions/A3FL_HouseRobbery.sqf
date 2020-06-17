@@ -60,8 +60,7 @@
 			if (animationState player != "Acts_carFixingWheel") then {player playmove "Acts_carFixingWheel";}
 		};
 		player switchMove "";
-		if(!_success) exitWith {
-			Player_ActionInterrupted = true;
+		if(Player_ActionInterrupted || !_success) exitWith {
 			[localize"STR_CRIMINAL_PICKENDED", "red"] call A3PL_Player_Notification;
 			if (vehicle player == player) then {player switchMove "";};
 		};

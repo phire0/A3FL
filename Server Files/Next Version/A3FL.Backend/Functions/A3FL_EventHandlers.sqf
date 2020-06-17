@@ -221,7 +221,7 @@
 				if ((animationState player) != "A3PL_Dance_House1") then
 				{
 					[player, "A3PL_Dance_House1"] remoteExec ["A3PL_Lib_SyncAnim",0];
-					Player_ActionInterrupted = true;
+					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 				} else
 				{
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
@@ -237,7 +237,7 @@
 				if ((animationState player) != "A3PL_Dance_Samba") then
 				{
 					[player, "A3PL_Dance_Samba"] remoteExec ["A3PL_Lib_SyncAnim",0];
-					Player_ActionInterrupted = true;
+					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 				} else
 				{
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
@@ -271,7 +271,7 @@
 				if ((animationState player) != "Acts_Dance_01") then
 				{
 					[player, "Acts_Dance_01"] remoteExec ["A3PL_Lib_SyncAnim",0];
-					Player_ActionInterrupted = true;
+					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 				} else
 				{
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
@@ -287,7 +287,7 @@
 				if ((animationState player) != "Acts_Dance_02") then
 				{
 					[player, "Acts_Dance_02"] remoteExec ["A3PL_Lib_SyncAnim",0];
-					Player_ActionInterrupted = true;
+					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 				} else
 				{
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];

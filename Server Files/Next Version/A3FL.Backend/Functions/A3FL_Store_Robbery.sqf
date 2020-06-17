@@ -57,7 +57,6 @@
 		if (_timeElapsed == 28) then {playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _store, false, getPosASL _store, 1, 1, 200];};
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {
-		Player_ActionInterrupted = true;
 		_store setVariable ["cooldown",[objNull,false],true];
 		["The store robbery was cancelled!", "red"] call A3PL_Player_Notification;
 	};

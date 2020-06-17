@@ -32,7 +32,7 @@
 		if (!(vehicle player == player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 	};
-	if(Player_ActionInterrupted || !_success) exitWith {Player_ActionInterrupted = true;};
+	if(!_success) exitWith {};
 
 	["Successful robbery!", "green"] call A3PL_Player_Notification;
 	["Some items have been added to your inventory, others may be on the ground!", "yellow"] call A3PL_Player_Notification;
@@ -131,8 +131,7 @@
 	private ["_storage"];
 	_storage = param [0,objNull];
 	_timer = false;
-	if (!isNil {_storage getVariable ["timer",nil]}) then
-	{
+	if (!isNil {_storage getVariable ["timer",nil]}) then {
 		if (((serverTime - (_storage getVariable ["timer",0]))) < 1800) then {_timer = true};
 	};
 	if (_timer) exitwith {[format ["The evidince locker has recently been robbed, try again in %1 seconds",1800 - ((_bank getVariable ["timer",0]) - serverTime)],"red"] call A3PL_Player_Notification;};
@@ -162,18 +161,18 @@
 		if(_chance >= 80) then {playSound3D ["A3PL_Common\effects\lockdown.ogg", objNull, false, [4783.52,6294.25,12], 3, 1, 1800];};
 
 		_success = true;
-		while {uiSleep 0.5; Player_ActionDoing } do {
+		waitUntil{Player_ActionDoing};
+		while {Player_ActionDoing} do {
 			if ((player distance2D _storage) > 5) exitWith {[localize"STR_CRIMINAL_NEEDTOBENEAR5M", "red"] call A3PL_Player_Notification; _success = false;};
-			if (!(vehicle player == player)) exitwith {_success = false;};
+			if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
 			if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-			if (!(player_itemClass == "v_lockpick")) exitwith {_success = false;};
+			if (!(player_itemClass isEqualTo "v_lockpick")) exitwith {_success = false;};
 			if (!(["v_lockpick",1] call A3PL_Inventory_Has)) exitwith {_success = false;};
 		};
 		player switchMove "";
 		if(Player_ActionInterrupted || !_success) exitWith {
-			Player_ActionInterrupted = true;
 			[localize"STR_CRIMINAL_PICKENDED", "red"] call A3PL_Player_Notification;
-			if (vehicle player == player) then {player switchMove "";};
+			if ((vehicle player) isEqualTo player) then {player switchMove "";};
 		};
 
 		[player_item] call A3PL_Inventory_Clear;
