@@ -36,7 +36,7 @@ Config_Factories =
 
 		["f_Steel_Engine","","inh","inh","Steel","item",true,5,[["Engine",1]],120,"",1],
 		["f_Steel_Trans","","inh","inh","Steel","item",true,5,[["Trans",1]],60,"",1],
-		["f_Steel_Radiator","","inh","inh","Steel","item",true,5,[["Steel",1]],60,"",1],
+		["f_Steel_Radiator","","inh","inh","Steel","item",true,5,[["Radiator",1]],60,"",1],
 		["f_Steel_BrakeRotors","","inh","inh","Steel","item",true,5,[["BrakeRotors",4]],60,"",1],
 		["f_Steel_Diff","","inh","inh","Steel","item",true,5,[["Diff",1]],60,"",1],
 		["f_Alu_4WDDiff","","inh","inh","Aluminium","item",true,5,[["4WDDiff",1]],120,"",1],
