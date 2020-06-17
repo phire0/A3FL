@@ -18,11 +18,17 @@ Config_Licenses =
 	["motorcycle",localize"STR_ConfigLicenses_Motorcycle",false,["dmv"]],
 
 	["boat",localize"STR_ConfigLicenses_BoatLicense",false,["uscg"]],
-	["fwcpl",localize"STR_ConfigLicenses_FixedWingCommercialLicense",true,["uscg"]],
-	["fwppl",localize"STR_ConfigLicenses_FixedWingPrivateLicense",false,["uscg"]],
-	["rcpl",localize"STR_ConfigLicenses_RotaryCommercialPilotLicense",true,["uscg"]],
+	["cboat",localize"STR_ConfigLicenses_ComBoatLicense",false,["uscg"]],
+	["gboat",localize"STR_ConfigLicenses_GovBoatLicense",false,["uscg"]],
+
 	["rppl",localize"STR_ConfigLicenses_RotaryPrivatePilotLicense",false,["uscg"]],
+	["rcpl",localize"STR_ConfigLicenses_RotaryCommercialPilotLicense",true,["uscg"]],
+	["fwppl",localize"STR_ConfigLicenses_FixedWingPrivateLicense",false,["uscg"]],
+	["fwcpl",localize"STR_ConfigLicenses_FixedWingCommercialLicense",true,["uscg"]],
+	["gpl",localize"STR_ConfigLicenses_GovPilotLicense",false,["uscg"]],	
+
 	["pfish",localize"STR_ConfigLicenses_PrivateFishingLicense",false,["uscg"]],
+	["sfish",localize"STR_ConfigLicenses_SportFishingLicense",false,["uscg"]],
 	["cfish",localize"STR_ConfigLicenses_CommercialFishingLicense",true,["uscg"]],
 
 	["ccp",localize"STR_ConfigLicenses_CCP",false,["doj"]],

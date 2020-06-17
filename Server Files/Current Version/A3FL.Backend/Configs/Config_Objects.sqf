@@ -338,7 +338,7 @@ Config_CarFurnitureBlacklist =
 		]
 	],
 	["A3PL_Silverado",[
-			"a3pl_bed1","a3pl_bed2","a3pl_brush","a3pl_cabinet1","a3pl_cabinet2","a3pl_cabinet3","a3pl_chair1","a3pl_chair2","a3pl_chair3","a3pl_chair4","a3pl_coffeetable1","a3pl_coffeetable2","a3pl_coffeetable3","a3pl_coffeetable4","a3pl_cornersova","a3pl_dryingtowel","a3pl_flasket","a3pl_kitchenchair1","a3pl_kitchenchair2","a3pl_kitchenshelf1","a3pl_kitchenshelf2","a3pl_kitchenshelf3","a3pl_kitchenshelfcorner","a3pl_kitchentable1","a3pl_kitchentable2","a3pl_lamp1","a3pl_lamp2","a3pl_mirror","a3pl_modularkitchen1","a3pl_modularkitchen2","a3pl_modularkitchen3","a3pl_modularkitchen4","a3pl_pouf","a3pl_rack1","a3pl_rack2","a3pl_sofa1","a3pl_sofa2","a3pl_sofa3","a3pl_sofa4","a3pl_table1","a3pl_table2","a3pl_tvtable1","a3pl_tvtable2","a3pl_tvtable3"
+			"a3pl_bed1","a3pl_bed2"
 		]
 	],
 	["A3PL_Challenger_Hellcat",[

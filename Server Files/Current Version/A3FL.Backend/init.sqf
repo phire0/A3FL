@@ -28,7 +28,6 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Placeables'],
 	['Functions', 'A3FL_EventHandlers'],
 	['Functions', 'A3FL_Police'],
-	['Functions', 'A3FL_Prison'],
 	['Functions', 'A3FL_Hydrogen'],
 	['Functions', 'A3FL_iPhoneX'],
 	['Functions', 'A3FL_Housing'],
@@ -63,7 +62,6 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Factory'],
 	['Functions', 'A3FL_Business'],
 	['Functions', 'A3FL_Garage'],
-	['Functions', 'A3FL_Prison'],
 	['Functions', 'A3FL_Heist_Bank'],
 	['Functions', 'A3FL_HouseRobbery'],
 	['Functions', 'A3FL_IE'],
@@ -87,6 +85,7 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Cocaine'],
 	['Functions', 'A3FL_Warehouses'],
 	['Functions', 'A3FL_JobShipCaptain'],
+	['Functions', 'A3FL_Prison'],
 
 	//Events Functions
 	//['Functions', 'A3FL_Halloween'],

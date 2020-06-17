@@ -13,22 +13,25 @@
 	_isStation = param [1,false];
 	_cooldown = _store getVariable ["cooldown",[objNull,false]];
 	_fail = false;
+	_cops = [];
+	_faction = "FISD";
 
 	if (isNull(_cooldown select 0)) then {
 		_cooldown = [objNull,false];
 	};
-	_status = missionNamespace getVariable ["StoreCooldown",0];
+	_robbedTime = missionNamespace getVariable ["StoreCooldown",serverTime-300];
 
-
-	if (_status == 1) exitwith {["Another store robbery has taken place recently, you cannot rob this store!","red"] call A3PL_Player_Notification;};
+	if(_robbedTime > (serverTime-300)) exitWith {["Another store robbery has taken place recently, you cannot rob this store!","red"] call A3PL_Player_Notification;};
 	if (_cooldown select 1) exitwith {["This store has already been robbed recently","red"] call A3PL_Player_Notification;};
-	if ((currentWeapon player) == "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
+	if ((currentWeapon player) isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) IN ["hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a store with this weapon!","red"] call A3PL_Player_Notification;};
 
 	if(_store IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4]) then {
-		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {_fail=true;_faction="FISD";};
+		_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
+		if ((count(_cops)) < 3) exitwith {_fail=true;_faction="FISD";};
 	} else {
-		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < MINCOPSREQUIRED) exitwith {_fail=true;_faction="USCG";};
+		_cops = ["uscg"] call A3PL_Lib_FactionPlayers;
+		if ((count(_cops)) < 3) exitwith {_fail=true;_faction="USCG";};
 	};
 
 	if(_fail) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob this store!",3,_faction],"red"] call A3PL_Player_Notification;};
@@ -36,7 +39,7 @@
 	["If you try to turn this store, stay near the cash!", "green"] call A3PL_Player_Notification;
 
 	_store setVariable ["cooldown",[player,true],true];
-	missionNamespace setVariable ["StoreCooldown",1,true];
+	missionNamespace setVariable ["HouseCooldown",serverTime,true];
 
 	playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _store, false, getPosASL _store, 1, 1, 200];
 	[_store] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
@@ -45,18 +48,21 @@
 	["Robbing the store...",50,false] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	_timeElapsed = 0;
-	while {uiSleep 0.5; Player_ActionDoing } do {
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
 		if ((player distance2D _store) > 5) exitWith {["You went away from the shop, the robbery failed!", "red"] call A3PL_Player_Notification; _success = false;};
 		if (!(vehicle player == player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 		_timeElapsed = _timeElapsed + 0.5;
 		if (_timeElapsed == 28) then {playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _store, false, getPosASL _store, 1, 1, 200];};
 	};
-	if(!_success) exitWith {Player_ActionInterrupted = true; _store setVariable ["cooldown",[objNull,false],true];};
+	if(Player_ActionInterrupted || !_success) exitWith {
+		_store setVariable ["cooldown",[objNull,false],true];
+		["The store robbery was cancelled!", "red"] call A3PL_Player_Notification;
+	};
 
 	["Successful robbery!", "green"] call A3PL_Player_Notification;
 	[_isStation,_store] call A3PL_Store_Robbery_Reward;
-	[player, 40] call A3PL_Level_AddXP;
 
 	uiSleep 1800;
 	missionNamespace setVariable ["StoreCooldown",0,true];

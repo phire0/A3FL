@@ -31,10 +31,10 @@
 	A3PL_Warehouses_Object = _warehouses select 0;
 
 	_price = [A3PL_Warehouses_Object] call A3PL_Warehouses_GetPrice;
- 	createDialog "Dialog_HouseBuy";
-	_display = findDisplay 72;
+ 	createDialog "Dialog_WarehouseBuy";
+	_display = findDisplay 75;
 	_control = _display displayCtrl 1000;
-	_control ctrlSetText format ["$%1",[_price, 1, 2, true] call CBA_fnc_formatNumber];
+	_control ctrlSetText format ["%1",[_price, 1, 2, true] call CBA_fnc_formatNumber];
 }] call Server_Setup_Compile;
 
 ["A3PL_Warehouses_Buy",
@@ -45,8 +45,8 @@
 	A3PL_Warehouses_Object = _warehouses select 0;
 	_price = [A3PL_Warehouses_Object] call A3PL_Warehouses_GetPrice;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
-	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {[localize"STR_NewHousing_14","red"] call A3PL_Player_Notification;};
-	if (!isNil {player getVariable ["warehouse",nil]}) exitwith {[localize"STR_NewHousing_15","red"] call A3PL_Player_Notification;};
+	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {["This warehouse is already owned!","red"] call A3PL_Player_Notification;};
+	if (!isNil {player getVariable ["warehouse",nil]}) exitwith {["You already own a warehouse!","red"] call A3PL_Player_Notification;};
 
 	[A3PL_Warehouses_Object,player,true,_price] remoteExec ["Server_Warehouses_Assign", 2];
 	closeDialog 0;
@@ -115,4 +115,27 @@
 		};
 	} foreach _buildings;
 
+}] call Server_Setup_Compile;
+
+["A3PL_Warehouses_LeaveHouse",
+{
+	private _warehouse = (nearestObjects [player, Config_Warehouses_List, 20,true]) select 0;
+	if(count(_near) isEqualTo 0) exitWith {["No warehouse nearby", "red"] call A3PL_Player_Notification;};
+	private _owners = (_near select 0) getVariable ["owner",[]];
+	if(count _owners isEqualTo 0) exitwith {};
+	private _owner = _owners select 0;
+	if((getPlayerUID player) isEqualTo _owner) exitWith {["You are the owner, only roommates can leave.", "red"] call A3PL_Player_Notification;};
+	[player, _warehouse] remoteExec ["Server_Warehouses_RemoveMember",2];
+}] call Server_Setup_Compile;
+
+["A3PL_Warehouses_SetMarker",
+{
+	private["_warehouse","_pos"];
+	_warehouse = param [0,objNull];
+	uiSleep 3;
+	_marker = createMarkerLocal [format["warehouse_%1",round (random 1000)],visiblePosition _warehouse];
+	_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
+	_marker setMarkerAlphaLocal 1;
+	_marker setMarkerColorLocal "ColorGreen";
+	_marker setMarkerTextLocal (format [" Warehouse (%1)",toUpper((_warehouse getVariable ["doorid",["1","Unknown"]]) select 1)]);
 }] call Server_Setup_Compile;

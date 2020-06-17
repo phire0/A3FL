@@ -25,7 +25,7 @@
             <Original>Pilot License</Original>
         </Key>
         <Key ID="STR_NPC_Verizon_HelloIWoulLikeASusbcription">
-            <Original>Hello! I would like a subscription</Original>
+            <Original>Hello! I would like a subscription.</Original>
         </Key>
         <Key ID="STR_NPC_Verizon_ChooseBetweenTwoSuscriptions">
             <Original>You have the choice between different subscriptions!</Original>
@@ -43,7 +43,7 @@
             <Original>Hello! How I can work here?</Original>
         </Key>
         <Key ID="STR_NPC_DOC_INIT2">
-            <Original>Hello! I'm here to start my job</Original>
+            <Original>Hello! I'm here to start my job.</Original>
         </Key>
         <Key ID="STR_NPC_DOC_HOWTO">
             <Original>You can find more information on our website: http://www.fims.gov/</Original>
@@ -55,22 +55,22 @@
             <Original>Yes, I would like to stop working here</Original>
         </Key>
         <Key ID="STR_NPC_DOC_Already2">
-            <Original>Actually, I like this job, nevermind</Original>
+            <Original>Actually, I like this job, nevermind.</Original>
         </Key>
         <Key ID="STR_NPC_DOC_Work">
             <Original>Welcome back FIMS member&lt;br/&gt;Are you sure you are ready to start your shift?</Original>
         </Key>
         <Key ID="STR_NPC_DOC_Work1">
-            <Original>I'm ready</Original>
+            <Original>I'm ready.</Original>
         </Key>
         <Key ID="STR_NPC_DOC_Work2">
-            <Original>I'll be back</Original>
+            <Original>I'll be back.</Original>
         </Key>
         <Key ID="STR_NPC_DOC_Work_Denied">
-            <Original>You don't seem to be working here!&lt;br/&gt;You are not a FIMS employee</Original>
+            <Original>You don't seem to be working here!&lt;br/&gt;You are not a FIMS employee.</Original>
         </Key>
         <Key ID="STR_NPC_DOC_WorkDenied1">
-            <Original>Sorry, I'll leave</Original>
+            <Original>Sorry, I'll leave.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Init">
             <Original>Would you like to become a Roadside Service Worker?</Original>
@@ -79,10 +79,10 @@
             <Original>Sure, how much do I get paid?</Original>
         </Key>
         <Key ID="STR_NPC_Road_Init2">
-            <Original>No, I need some items</Original>
+            <Original>No, I need some items.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Init3">
-            <Original>No thank you, bye</Original>
+            <Original>No thanks, bye.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Work">
             <Original>You get $250 each paycheck and $2.000 for each car you impound.</Original>
@@ -91,7 +91,7 @@
             <Original>Pay sounds good, when do I start?</Original>
         </Key>
         <Key ID="STR_NPC_Road_Work2">
-            <Original>No, I changed my mind</Original>
+            <Original>No, I have changed my mind.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Already">
             <Original>You are already working for us.&lt;br/&gt;Would you like to stop working here?</Original>
@@ -103,13 +103,13 @@
             <Original>Actually, I like this job, nevermind.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Accepted">
-            <Original>You're now a Roadside Service workerbr&lt;/&gt;Do I need to explain the job?</Original>
+            <Original>You are now a Roadside Service workerbr&lt;/&gt;Do I need to explain the job?</Original>
         </Key>
         <Key ID="STR_NPC_Road_Accepted1">
-            <Original>Nah, I'm good</Original>
+            <Original>Nah, I'm good.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Accepted2">
-            <Original>Yes please</Original>
+            <Original>Yes, please.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Howto">
             <Original>You have two jobs:&lt;br/&gt;1. Is to provide assistance to people broken down&lt;br/&gt;2. Is to impound marked vehicles...</Original>
@@ -118,13 +118,13 @@
             <Original>Providing assistance: You will need Repair Wrenches and Jerry Cans that can be bought at a General Store...</Original>
         </Key>
         <Key ID="STR_NPC_Road_Howto2">
-            <Original>If the vehicle is too damaged it will need to be towed to a garage or you can tow vehicle to gas stations for refueling.</Original>
+            <Original>If the vehicle is too damaged it will need to be towed to a garage or you can tow the vehicle to gas stations for refueling.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Howto3">
             <Original>Impounding vehicles: You will receive a message when cars are marked for impound, use your map to see where...</Original>
         </Key>
         <Key ID="STR_NPC_Road_Howto4">
-            <Original>Once you have retrieved the vehicle tow it back here and impound it to receive your reward.</Original>
+            <Original>Once you have retrieved the vehicle, tow it back here and impound it to receive your reward.</Original>
         </Key>
         <Key ID="STR_NPC_Road_HowtoReply1">
             <Original>Continue</Original>
@@ -133,7 +133,7 @@
             <Original>Alright I get it, thank you</Original>
         </Key>
         <Key ID="STR_NPC_Road_HowtoReply3">
-            <Original>Alright, thank you</Original>
+            <Original>Alright, thank you.</Original>
         </Key>
     </Package>
     <Package name="Gangs">
@@ -143,16 +143,16 @@
     </Package>
     <Package name="iPhoneX">
         <Key ID="STR_iPhoneX_ErroNumber">
-            <Original>Error acquiring the phone number</Original>
+            <Original>Error acquiring the phone number.</Original>
         </Key>
         <Key ID="STR_iPhoneX_NeedCash">
-            <Original>You are missing $%1 on your bank account to buy a subscription!</Original>
+            <Original>You are missing $%1 in your bank account to buy a subscription!</Original>
         </Key>
         <Key ID="STR_iPhoneX_AleradyHave">
             <Original>You already have this type of subscription!</Original>
         </Key>
         <Key ID="STR_iPhoneX_ErrorSetNumber">
-            <Original>Error buying the subscription</Original>
+            <Original>Error buying the subscription.</Original>
         </Key>
     </Package>
     <Package name="STR_QuickActionsNPC">
@@ -206,6 +206,9 @@
         </Key>
         <Key ID="STR_QuickActionsNPC_EnterpriseAccountManagment">
             <Original>Company Bank Account</Original>
+        </Key>
+        <Key ID="STR_QuickActionsNPC_ResignCompany">
+            <Original>Resign from Company</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_RentATowTruck">
             <Original>Rent tow truck ($1300)</Original>
@@ -272,6 +275,9 @@
         </Key>
         <Key ID="STR_QuickActionsNPC_AccessShopSupply">
             <Original>Furniture Store</Original>
+        </Key>
+        <Key ID="STR_QuickActionsNPC_CatpuredShip">
+            <Original>Ship Weaponry</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_AccessShopVFD">
             <Original>VFD Store</Original>
@@ -970,6 +976,9 @@
    <Key ID="STR_INTSECT_TAKEBODY">
       <Original>Capture the Hideout</Original>
    </Key>
+   <Key ID="STR_INTSECT_CAPTSHIP">
+      <Original>Take control of the ship</Original>
+   </Key>
    <Key ID="STR_INTSECT_HIDEOUTSHOP">
       <Original>Snack Shop</Original>
    </Key>
@@ -1058,7 +1067,7 @@
       <Original>Buy/Sell Wheat Seeds</Original>
    </Key>
    <Key ID="STR_INTSECT_BuySellCornSeeds">
-      <Original>Buy/Sell Wheat Seeds</Original>
+      <Original>Buy/Sell Corn Seeds</Original>
    </Key>
    <Key ID="STR_INTSECT_YouHaveNothingInYourHandToPlaceHere">
       <Original>You have nothing in your hand to place here</Original>
@@ -3027,7 +3036,7 @@
       <Original>Palm Beach Motel</Original>
    </Key>
    <Key ID="STR_Description_MotelTutorial">
-      <Original>Hi %11, we welcome you to Fishers Life. &lt;br/&gt; &lt;br/&gt; Just arrived at the motel in Palm Beach, you can turn on the light of the room by looking at the switch and by pressing the "Space" bar. &lt;br/&gt; &lt;br/&gt; To get out of your room, just take the room key in your inventory. To do this use the "Windows" key and select the "Inventory" option, on the right you can select the key and take it in your hand. Then go to the door and perform the action "Open / Close Door" using the "Spacebar" when you scroll to the "Door" option. &lt;br/&gt; &lt;br/&gt; To store the key in your inventory, you can use the "Windows" key and select the "Put Back" option.</Original>
+      <Original>Hi %11, we welcome you to Fishers Life. &lt;br/&gt; &lt;br/&gt; Just arrived at the motel in Palm Beach, you can turn on the light of the room by looking at the switch and by pressing the "Space" bar. &lt;br/&gt; &lt;br/&gt; To get out of your room, just take the room key in your inventory. To do this use the "E" key and select the "Inventory" option, on the right you can select the key and take it in your hand. Then go to the door and perform the action "Open / Close Door" using the "Spacebar" when you scroll to the "Door" option. &lt;br/&gt; &lt;br/&gt; To store the key in your inventory, you can use the "E" key and select the "Put Back" option.</Original>
    </Key>
    <Key ID="STR_Description_GetOutOfYourMotelRoomHeadOverToTheGarageAndGoToElkCityToGetTheJobAsAGarbageManOrDeliveryMan">
       <Original>Leave your motel room and head over to the garage and go to Elk City to take the Garbage or Delivery man jobs!</Original>
@@ -3431,7 +3440,7 @@
       <Original>Invalid Amount</Original>
    </Key>
    <Key ID="STR_Various_DoubleXPON">
-      <Original>Start of the Double EXP event! All winnings are doubled!</Original>
+      <Original>Start of the Double EXP event! All EXP is doubled!</Original>
    </Key>
    <Key ID="STR_Various_DoubleXPOFF">
       <Original>End of the Double EXP event!</Original>
@@ -4583,20 +4592,29 @@
        <Key ID="STR_ConfigLicenses_ATCVolunteer">
           <Original>Volunteer ATC</Original>
        </Key>
-       <Key ID="STR_ConfigLicenses_FixedWingCommercialLicense">
-          <Original>Fixed Wing Commercial Pilot License</Original>
-       </Key>
        <Key ID="STR_ConfigLicenses_BoatLicense">
-          <Original>Boat License</Original>
+          <Original>Standard Boating License</Original>
+       </Key>
+       <Key ID="STR_ConfigLicenses_ComBoatLicense">
+          <Original>Commercial Boating License</Original>
+       </Key>
+       <Key ID="STR_ConfigLicenses_GovBoatLicense">
+          <Original>Government Boating License</Original>
+       </Key>
+       <Key ID="STR_ConfigLicenses_GovPilotLicense">
+          <Original>Government Pilots License</Original>
+       </Key>
+       <Key ID="STR_ConfigLicenses_FixedWingCommercialLicense">
+          <Original>Commercial Fixed-Wing Pilot License</Original>
        </Key>
        <Key ID="STR_ConfigLicenses_FixedWingPrivateLicense">
-          <Original>Private Fixed Wing Pilot License</Original>
+          <Original>Private Fixed-Wing Pilot License</Original>
        </Key>
        <Key ID="STR_ConfigLicenses_RotaryCommercialPilotLicense">
-          <Original>Rotary Commercial Pilot License</Original>
+          <Original>Commercial Rotary Pilot License</Original>
        </Key>
        <Key ID="STR_ConfigLicenses_RotaryPrivatePilotLicense">
-          <Original>Rotating Private Pilot License</Original>
+          <Original>Private Rotary Pilot License</Original>
        </Key>
        <Key ID="STR_ConfigLicenses_PrivateFishingLicense">
           <Original>Private Fishing License</Original>
@@ -4850,7 +4868,7 @@
       <Original>You can find more information on our website: &lt;br/&gt; http://www.FISD.com/</Original>
    </Key>
    <Key ID="STR_NPC_POLICEREPCRIME">
-      <Original>You can report crimes by calling 911</Original>
+      <Original>You can report crimes by texting Emergency Services</Original>
    </Key>
    <Key ID="STR_NPC_ALRIGHTTNX">
       <Original>Ok thank you.</Original>
@@ -5078,7 +5096,7 @@
       <Original>Ok ok, excuse me sir I'm sorry</Original>
    </Key>
    <Key ID="STR_NPC_FIFRHEALILL">
-      <Original>You must pay me $3,000 or you can go see a member of the FIFR, I'm not free!</Original>
+      <Original>You must pay me $5,000 or you can go see a member of the FIFR, I'm not free!</Original>
    </Key>
    <Key ID="STR_NPC_FIFRHEALILL1">
       <Original>Ok my brother, I'll pay you</Original>
@@ -8015,7 +8033,7 @@
       <Original>You do not have a phone</Original>
    </Key>
    <Key ID="STR_EVENTHANDLERS_RESTRAINACTION">
-      <Original>You can not perform this action by being handcuffed</Original>
+      <Original>You can not perform this action while being handcuffed</Original>
    </Key>
    <Key ID="STR_EVENTHANDLERS_OBJECTINVENTORYADD">
       <Original>This item has been added to your inventory</Original>
@@ -8036,7 +8054,7 @@
       <Original>You must exit the vehicle to perform this action</Original>
    </Key>
    <Key ID="STR_EVENTHANDLERS_UnlockCar">
-      <Original>You must open your vehicle to access the trunk</Original>
+      <Original>You must unlock your vehicle to access the trunk</Original>
    </Key>
    <Key ID="STR_EVENTHANDLERS_Volume">
       <Original>Current Volume: %1%2</Original>
@@ -8350,13 +8368,13 @@
         <Original>Mobile Drill: It seems that the drill is already moving, it can not be restarted</Original>
       </Key>
       <Key ID="STR_A3PL_JobWildcat_Retracting">
-        <Original>Mobile Drill: Looks like the drill is extended, it is retracted to its French position</Original>
+        <Original>Mobile Drill: Looks like the drill is extended, it is retracted to its original position</Original>
       </Key>
       <Key ID="STR_A3PL_JobWildcat_DrillingStarted">
         <Original>Drilling has started, a hole will appear in the ground, someone with oil extractor job can then place a jack on the hole</Original>
       </Key>
       <Key ID="STR_A3PL_JobWildcat_Returning">
-        <Original>Mobile Drilling: Drill was canceled, the pump jack was moved, the drill was returned to its French position</Original>
+        <Original>Mobile Drilling: Drill was canceled, the pump jack was moved, the drill was returned to its original position</Original>
       </Key>
       <Key ID="STR_A3PL_JobWildcat_JackCanBeInstalled">
         <Original>A hole was successfully created at this position, someone can now install a jack on this position</Original>
@@ -8846,7 +8864,7 @@
         <Original>The company does not have enough left in the bank for your salary!</Original>
       </Key>
       <Key ID="STR_NewLoop_5">
-        <Original>Vote company sent you your salary of $%1, you can sign your pay check at the bank</Original>
+        <Original>Your company sent you your salary of $%1, you can sign your pay check at the bank</Original>
       </Key>
       <Key ID="STR_NewLoop_6">
         <Original>You received your salary of $%1, you can sign your pay check at the bank</Original>
@@ -9525,7 +9543,7 @@
         <Original>This person is already being searched!</Original>
       </Key>
       <Key ID="STR_NewPolice_3">
-        <Original>Someone is patting you down, you can move away them to stop the search.</Original>
+        <Original>Someone is patting you down, you can move away from them to stop the search.</Original>
       </Key>
       <Key ID="STR_NewPolice_4">
         <Original>Pat down canceled, the target moved during the search.</Original>

@@ -72,13 +72,10 @@
 	if (_itemAmount > ((_inventory select _index) select 1)) exitwith {[localize"STR_NewVehicle_5","red"] call A3PL_Player_Notification;};
 	_itemClass = (_inventory select _index) select 0;
 
-	/* Maximum capacity management */
 	_vehCapacity = [(typeOf A3PL_Veh_Interact)] call A3PL_Config_GetVehicleCapacity;
 	_itemTotalWeight = ([_itemClass, 'weight'] call A3PL_Config_GetItem) * _itemAmount;
 	_vehTotalWeight = [A3PL_Veh_Interact] call A3PL_Vehicle_TotalWeight;
-	if ((_itemTotalWeight + _vehTotalWeight) > _vehCapacity) exitwith {
-		[format [localize"STR_NewVehicle_6"],"red"] call A3PL_Player_Notification;
-	};
+	if ((_itemTotalWeight + _vehTotalWeight) > _vehCapacity) exitwith {[format [localize"STR_NewVehicle_6"],"red"] call A3PL_Player_Notification;};
 
 	A3PL_Veh_Interact setVariable ["storage",([_vehicleStorage, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 	player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
@@ -106,15 +103,12 @@
 	if (_itemAmount > ((_vehicleStorage select _index) select 1)) exitwith {[localize"STR_NewVehicle_9","red"] call A3PL_Player_Notification;};
 	_itemClass = (_vehicleStorage select _index) select 0;
 
-	/* Maximum capacity management */
-	if (([[_itemClass,_itemAmount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {
-		[format [localize"STR_NewVehicle_10"],"red"] call A3PL_Player_Notification;
-	};
+	if (([[_itemClass,_itemAmount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {[format [localize"STR_NewVehicle_10"],"red"] call A3PL_Player_Notification;};
 
 	A3PL_Veh_Interact setVariable ["storage",([_vehicleStorage, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
 	player setVariable ["player_inventory",([_inventory, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 	[A3PL_Veh_Interact] call A3PL_Vehicle_StorageVerify;
-
+	[] call A3PL_Inventory_Verify;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
 }] call Server_Setup_Compile;
 
@@ -783,7 +777,7 @@
 	_car = param [0,objNull];
 	if (isNull _car) exitwith {};
 	if (animationstate player == "Acts_carFixingWheel") exitwith {[localize"STR_NewVehicle_13", "red"] call A3PL_Player_Notification;};
-	if (!(vehicle player == player)) exitwith {[localize"STR_NewVehicle_14", "red"] call A3PL_Player_Notification;};
+	if (!(vehicle player isEqualTo player)) exitwith {[localize"STR_NewVehicle_14", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_NewVehicle_15","red"] call A3PL_Player_Notification;};
 	["Repairing...",30] spawn A3PL_Lib_LoadAction;
 	_success = true;
@@ -794,8 +788,9 @@
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 		if ((vehicle player) != player) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-		if (animationstate player == "Acts_carFixingWheel") then {player playMoveNow 'Acts_carFixingWheel';};
+		if ((animationstate player) != "Acts_carFixingWheel") then {player playMoveNow 'Acts_carFixingWheel';};
 	};
+	player playMoveNow "";
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewVehicle_16","red"] call A3PL_Player_Notification;};
 
 	[localize"STR_NewVehicle_17", "green"] call A3PL_Player_Notification;

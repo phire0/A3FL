@@ -1430,16 +1430,15 @@
 {
 	disableSerialization;
 	createDialog "A3PL_iPhone_appGangManagement";
-	_display = findDisplay 99300;
-
-	_group = group player;
-	_gang = _group getVariable ["gang_data",nil];
+	private _display = findDisplay 99300;
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
 
 	_control = _display displayCtrl 2100;
 	{
 		_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
-		_control lbSetData [_index, str _x];
+		_control lbSetData [_index, getPlayerUID _x];
 	} forEach (playableUnits - [player]);
 
 	_control = _display displayCtrl 1500;
@@ -1459,9 +1458,9 @@
 	disableSerialization;
 	private _display = findDisplay 99300;
 	private _control = _display displayCtrl 1500;
-	private _target = _control lbData (lbCurSel _control);
-	if (_target isEqualTo "") exitWith {["Please select a target.","red"] call A3PL_Player_Notification;};
-	[_target] call A3PL_Gang_SetLead;
+	private _uid = _control lbData (lbCurSel _control);
+	if (_uid isEqualTo "") exitWith {["Please select a target.","red"] call A3PL_Player_Notification;};
+	[_uid] call A3PL_Gang_SetLead;
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
@@ -1470,10 +1469,10 @@
 	disableSerialization;
 	private _display = findDisplay 99300;
 	private _control = _display displayCtrl 2100;
-	if ((_control lbData (lbCurSel _control)) isEqualTo "") exitWith {["Please select a target.","red"] call A3PL_Player_Notification;};
-	private _target = _control lbData (lbCurSel _control);
-	private _target = call compile _target;
-	[getPlayerUID _target] call A3PL_Gang_Invite;
+	private _uid = (_control lbData (lbCurSel _control));
+	if(_uid isEqualTo "") exitWith {["Please select a target.","red"] call A3PL_Player_Notification;};
+	diag_log format["A3PL_iPhoneX_GangInvite| _uid : %1",_uid];
+	[_uid] call A3PL_Gang_Invite;
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_GangKick",
@@ -1487,7 +1486,7 @@
 	private _group = group player;
 	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
-	if((_target == (_gang select 1)) || _target isEqualTo (getPlayerUID player)) exitWith {[format ["You cannot fire yourself"],"red"] call A3PL_Player_Notification;};
+	if((_target isEqualTo (_gang select 1)) || _target isEqualTo (getPlayerUID player)) exitWith {[format ["You cannot fire yourself"],"red"] call A3PL_Player_Notification;};
 
 	[_target, true] call A3PL_Gang_RemoveMember;
 	closeDialog 0;
@@ -1507,9 +1506,7 @@
 	if(_pBank < _gangPrice) exitWith {[format["You are missing $%1 in your bank account to create a gang",_gangPrice - _pBank],"red"] call A3PL_Player_Notification;};
 
 	private _gangName = ctrlText 99201;
-	if((_gangName isEqualTo "") || {(count _gangName > 15)}) exitWith {
-		[format["Invalid name",_gangPrice - _pBank],"red"] call A3PL_Player_Notification;
-	};
+	if((_gangName isEqualTo "") || {(count _gangName > 15)}) exitWith {[format["Invalid name",_gangPrice - _pBank],"red"] call A3PL_Player_Notification;};
 	player setVariable["Player_Bank",_pBank-_gangPrice,true];
 	[_gangName] call A3PL_Gang_Create;
 	closeDialog 0;
@@ -1933,7 +1930,7 @@
 {
 	private _id = param[0,0];
 	private _iPhone_Settings = profileNamespace getVariable ["A3PL_iPhoneX_Settings",[2,1,0]];
-	private _iPhone_Settings set[0, _id];
+	_iPhone_Settings set[0, _id];
 	profileNamespace setVariable ["A3PL_iPhoneX_Settings",_iPhone_Settings];
 	["You changed your wallpaper","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

@@ -12,8 +12,9 @@
 	_obj = param [0,objNull];
 	_name = param [1,""];
 
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
-		["There needs to be 3 FIMS on-duty to use the key card!","red"] call A3PL_Player_Notification;
+	_factionReq = ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) < 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 3));
+	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq) exitwith {
+		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
 	};
 
 
@@ -122,16 +123,16 @@
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 	["Lockpicking...",45] spawn A3PL_Lib_LoadAction;
 	_success = true;
-	while {uiSleep 0.5; Player_ActionDoing } do {
-		if (!(vehicle player == player)) exitwith {_success = false;};
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-		if (!(player_itemClass == "v_lockpick")) exitwith {_success = false;};
+		if (!(player_itemClass isEqualTo "v_lockpick")) exitwith {_success = false;};
 		if (!(["v_lockpick",1] call A3PL_Inventory_Has)) exitwith {_success = false;};
-		if (animationState player != "Acts_carFixingWheel") then {player playmove "Acts_carFixingWheel";}
+		if ((animationState player) != "Acts_carFixingWheel") then {player playmove "Acts_carFixingWheel";}
 	};
 	player switchMove "";
 	if(Player_ActionInterrupted || !_success) exitWith {
-		Player_ActionInterrupted = true;
 		["Failed to lockpick cell door!", "red"] call A3PL_Player_Notification;
 		if (vehicle player == player) then {player switchMove "";};
 	};
@@ -157,16 +158,16 @@
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 	["Searching Trash...",30] spawn A3PL_Lib_LoadAction;
 	_success = true;
-	while {uiSleep 1; Player_ActionDoing } do {
-		if (!(vehicle player == player)) exitwith {_success = false;};
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
 	};
 	player switchMove "";
 	if(Player_ActionInterrupted || !_success) exitWith {
-		Player_ActionInterrupted = true;
 		["Action cancelled!", "red"] call A3PL_Player_Notification;
-		if (vehicle player == player) then {player switchMove "";};
+		if ((vehicle player) isEqualTo player) then {player switchMove "";};
 	};
 
 	_rareItems = ["v_lockpick","keycard","ziptie"];

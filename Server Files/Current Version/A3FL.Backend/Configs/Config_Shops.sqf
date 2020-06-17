@@ -13,11 +13,11 @@ Config_Shops_TaxSystem = [
 ];
 publicVariable "Config_Shops_TaxSystem";
 
-Config_Shops_StockSystem = ["Shop_Supermarket","Shop_Guns_Vendor","Shop_Fuel"];
+Config_Shops_StockSystem = [];
 publicVariable "Config_Shops_StockSystem";
 
-Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
-publicVariableServer "Config_Shops_StockSystemObjects";
+// Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
+// publicVariableServer "Config_Shops_StockSystemObjects";
 
 Config_Shops_Factions = [
 	[["Shop_USCG_Supplies_Vendor","Shop_USCG_Pilot_Vendor","Shop_USCG_Weapons_Vendor","Shop_USCG_Car_Vendor","Shop_USCG_Boat_Vendor","Shop_USCG_Plane_Vendor"],"uscg"],
@@ -45,8 +45,8 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Fuel",[
-			["item","repairwrench",500,350,0],
-			["item","jerrycan",1075,600,0]
+			["item","repairwrench",750,350,0],
+			["item","jerrycan",1500,600,0]
 		],{[3852.065,9212.537,0.168]}
 	],
 
@@ -98,9 +98,11 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Supermarket",[
-			["item","repairwrench",450,120,0],
-			["item","jerrycan",845,230,0],
-			["item","coke",280,32,0],
+			["item","repairwrench",750,350,0],
+			["item","jerrycan",1500,600,0],
+			["item","coke",300,200,0],
+			["item","waterbottle",500,250,0],
+			["item","bread",300,200,0],
 			["item","apple",50,11,0],
 			["item", "beer", 300,50,0],
 			["item", "beer_gold", 300,50,0]
@@ -207,8 +209,8 @@ Config_Shops_Items = [
 	],
 
 	["Shop_GunsFML_Vendor",[
-			["item","Blueprint_Pistol_Legal",1600,-1,4],
-			["item","Blueprint_Pistol_Legal_Ammo",430,-1,4]
+			["item","Blueprint_Pistol_Legal",1300,-1,3],
+			["item","Blueprint_Pistol_Legal_Ammo",350,-1,3]
 		],{[6105.3,7367.8,0.2]}
 	],
 
@@ -256,8 +258,7 @@ Config_Shops_Items = [
 			["item","distillery",34000,-1,4],
 			["item","distillery_hose",950,-1,4],
 			["item","jug",450,-1,4],
-			["item","jug_green",500,-1,4],
-			["item","jug_moonshine",-1,6100,4]
+			["item","jug_green",500,-1,4]
 		],{[6975.15,5413.12,2]}
 	],
 
@@ -266,19 +267,23 @@ Config_Shops_Items = [
 		],{[6975.15,5413.12,2]}
 	],
 
-	["Shop_DrugsDealer",[["item","seed_marijuana",300,180,8]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
+	["Shop_DrugsDealer",[
+		["item","seed_marijuana",300,180,8],
+		["item","beer",50,30,0],
+		["item","beer_gold",280,150,0]
+	],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
 	["Shop_DrugsDealerCartel",[["item","seed_marijuana",150,75,2]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
 	["Shop_Gang",[
 			["vest","A3PL_SuicideVest",700000,-1,10],
 			["item","seed_marijuana",300,180,8],
-			["item","SMG_Part_Stock",50000,-1,0,0],
-			["item","SMG_Part_Body",50000,-1,0,0],
-			["item","SMG_Part_Grip",50000,-1,0,0],
-			["item","SMG_Part_Trigger",50000,-1,0,0],
-			["item","SMG_Part_Barrel",50000,-1,0,0],
-			["item","Blueprint_SMG",2800,-1,0,0],
+			// ["item","SMG_Part_Stock",50000,-1,0,0],
+			// ["item","SMG_Part_Body",50000,-1,0,0],
+			// ["item","SMG_Part_Grip",50000,-1,0,0],
+			// ["item","SMG_Part_Trigger",50000,-1,0,0],
+			// ["item","SMG_Part_Barrel",50000,-1,0,0],
+			// ["item","Blueprint_SMG",2800,-1,0,0],
 			["item","Blueprint_Shemag",2600,-1,0,0],
 			["item","Blueprint_balaclava",2600,-1,0,0],
 			["item","Blueprint_Bandanna",2600,-1,0,0],
@@ -291,24 +296,6 @@ Config_Shops_Items = [
 	],
 
 	["Shop_IllegalWeapons",[
-			["item","Blueprint_P07",2600,-1,0,0],
-			["item","Blueprint_P07_khk",2600,-1,0,0],
-			["item","Blueprint_Pistol_heavy_01",2600,-1,0,0],
-			["item","Blueprint_ACPC2",2600,-1,0,0],
-			["item","Blueprint_Pistol_01",2600,-1,0,0],
-			["item","Blueprint_Rook40",2600,-1,0,0],
-			["item","Blueprint_Pistol_heavy_02",2600,-1,0,0],
-			["item","Blueprint_A3PL_Red_Glock",2600,-1,0,0],
-			["item","Blueprint_A3PL_P226",2600,-1,0,0],
-			["item","Blueprint_SMG",2600,-1,0,0],
-			["item","Blueprint_16Rnd_9x21_Mag",1200,-1,0,0],
-			["item","Blueprint_11Rnd_45ACP_Mag",1200,-1,0,0],
-			["item","Blueprint_6Rnd_45ACP_Mag",1200,-1,0,0],
-			["item","Blueprint_9Rnd_45ACP_Mag",1200,-1,0,0],
-			["item","Blueprint_10Rnd_9x21_Mag",1200,-1,0,0],
-			["item","Blueprint_A3PL_Red_Glock_Mag",1200,-1,0,0],
-			["item","Blueprint_A3PL_P226_Mag",1200,-1,0,0],
-			["item","Blueprint_30Rnd_9x21_Mag_SMG_02",2000,-1,0,0],
 			["item","Blueprint_Shemag",1000,-1,0,0],
 			["item","Blueprint_balaclava",1000,-1,0,0],
 			["item","Blueprint_Bandanna",1000,-1,0,0],
@@ -322,24 +309,6 @@ Config_Shops_Items = [
 	],
 
 	["Shop_IllegalWeaponsCartel",[
-			["item","Blueprint_P07",1200,-1,0,0],
-			["item","Blueprint_P07_khk",1200,-1,0,0],
-			["item","Blueprint_Pistol_heavy_01",1200,-1,0,0],
-			["item","Blueprint_ACPC2",1200,-1,0,0],
-			["item","Blueprint_Pistol_01",1200,-1,0,0],
-			["item","Blueprint_Rook40",1200,-1,0,0],
-			["item","Blueprint_Pistol_heavy_02",1200,-1,0,0],
-			["item","Blueprint_A3PL_Red_Glock",1200,-1,0,0],
-			["item","Blueprint_A3PL_P226",1200,-1,0,0],
-			["item","Blueprint_SMG",2000,-1,0,0],
-			["item","Blueprint_16Rnd_9x21_Mag",600,-1,0,0],
-			["item","Blueprint_11Rnd_45ACP_Mag",600,-1,0,0],
-			["item","Blueprint_6Rnd_45ACP_Mag",600,-1,0,0],
-			["item","Blueprint_9Rnd_45ACP_Mag",600,-1,0,0],
-			["item","Blueprint_10Rnd_9x21_Mag",600,-1,0,0],
-			["item","Blueprint_A3PL_Red_Glock_Mag",600,-1,0,0],
-			["item","Blueprint_A3PL_P226_Mag",600,-1,0,0],
-			["item","Blueprint_30Rnd_9x21_Mag_SMG_02",600,-1,0,0],
 			["item","Blueprint_Bandanna",300,-1,0,0],
 			["item","Blueprint_Rangemaster_belt",1200,-1,0,0],
 			["item","v_lockpick",750,-1,5],
@@ -348,6 +317,34 @@ Config_Shops_Items = [
 			["backpack","A3PL_Backpack_Drill",10000,-1,8],
 			["backpack","A3PL_Backpack_Money",3000,-1,8]
 		],{[3852.065,9212.537,0.168]}
+	],
+
+	["Shop_CapturedShip",[
+		["weapon","hgun_Pistol_01_F",8000,-1,4],
+		["weapon","hgun_Pistol_heavy_02_F",10000,-1,9],
+		["weapon","hgun_Pistol_01_F",12000,-1,4],
+		["weapon","hgun_Rook40_F",13000,-1,5],
+		["weapon","hgun_P07_F",14000,-1,7],
+		["weapon","hgun_P07_khk_F",14000,-1,8],
+		["weapon","A3PL_Red_Glock",15000,-1,6],
+		["weapon","A3PL_P226",15000,-1,8],
+		["magazine","10Rnd_9x21_Mag",100,-1,4],
+		["magazine","A3PL_Red_Glock_Mag",100,-1,5],
+		["magazine","A3PL_P226_Mag",100,-1,5],
+		["magazine","16Rnd_9x21_green_Mag",100,-1,7],
+		["magazine","16Rnd_9x21_yellow_Mag",100,-1,7],
+		["magazine","6Rnd_45ACP_Cylinder",100,-1,9],
+		["magazine","11Rnd_45ACP_Mag",100,-1,9],
+		["weaponPrimary","SMG_05_F",30000,-1,0],
+		["weaponPrimary","SMG_02_F",30000,-1,0],
+		["weaponPrimary","SMG_01_F",30000,-1,0],
+		["weaponPrimary","A3PL_M16",50000,-1,0],
+		["weaponPrimary","arifle_AKM_F",50000,-1,0],
+		["magazine","A3PL_M16_Mag",100,-1,0],
+		["magazine","30Rnd_762x39_Mag_F",100,-1,0],
+		["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
+		["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0]
+		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
 
 	["Shop_BlackMarket",[
@@ -421,8 +418,8 @@ Config_Shops_Items = [
 	],
 
 	["Shop_DOC",[
-			["item","breathalizer",10,-1,0],
-			["item","drug_kit",10,-1,0],
+			// ["item","breathalizer",10,-1,0],
+			// ["item","drug_kit",10,-1,0],
             ["item","handcuffs",10,0,0],
             ["item","stinger",10,0,0],
 			["item","wood_barrier",10,0,0],
@@ -472,17 +469,20 @@ Config_Shops_Items = [
 			["weapon","A3PL_Taser2",250,0,0],
 			["weapon","A3PL_Red_Glock",500,0,0],
 			["weapon","hgun_Rook40_F",500,0,0],
-			["weapon","A3PL_P226",250,-1,0],
+			["weapon","A3PL_P226",500,-1,0],
 			["weapon","hgun_Pistol_heavy_01_F",500,0,0],
 			["weapon","A3FL_PepperSpray",100,-1,0],
-			["weaponPrimary","SMG_05_F",35000,-1,0],
+			["weaponPrimary","SMG_02_F",15000,-1,0],
+			["weaponPrimary","SMG_05_F",15000,-1,0],
+			["weaponPrimary","A3PL_M16",20000,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,0,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
-			["magazine","A3PL_Red_Glock_Mag",50,0,0],
-			["magazine","16Rnd_9x21_Mag",50,0,0],
-			["magazine","A3PL_P226_Mag",50,-1,0],
-			["magazine","11Rnd_45ACP_Mag",50,0,0],
-			["magazine","30Rnd_9x21_Mag_SMG_02",500,-1,0],
+			["magazine","A3PL_Red_Glock_Mag",100,0,0],
+			["magazine","16Rnd_9x21_Mag",100,0,0],
+			["magazine","A3PL_P226_Mag",100,-1,0],
+			["magazine","11Rnd_45ACP_Mag",100,0,0],
+			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
+			["magazine","A3PL_M16_Mag",100,0,0],
 			["aitem","acc_flashlight_pistol",50,0,0],
 			["aitem","acc_flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0]
@@ -663,7 +663,6 @@ Config_Shops_Items = [
 	],
 
 	["Shop_DOJ_Supplies_Vendor",[
-			["uniform","A3PL_DOJ_Badge_and_Shirt_Uniform",25,-1,0],
 			["uniform","A3PL_DOJ_DBlue_Uniform",25,-1,0],
 			["uniform","A3PL_DOJ_LBlue_Uniform",25,-1,0],
 			["uniform","A3PL_DOJ_Purp_Uniform",25,-1,0],
@@ -687,11 +686,11 @@ Config_Shops_Items = [
 	],
 
 	["Shop_SD_Supplies_Vendor",[
-			["item","breathalizer",10,-1,0],
-			["item","drug_kit",10,-1,0],
+			//["item","breathalizer",10,-1,0],
+			//["item","drug_kit",10,-1,0],
 			["item","handcuffs",10,-1,0],
-            ["item","stinger",10,-1,0],
-            ["item","roadcones",10,-1,0],
+    		["item","stinger",10,-1,0],
+      		["item","roadcones",10,-1,0],
 			["item","wood_barrier",10,-1,0],
 			["item","plastic_barrier_small",10,-1,0],
 			["item","plastic_barrier_large",10,-1,0],
@@ -724,12 +723,13 @@ Config_Shops_Items = [
 			["vest","A3PL_Sheriff_Belt_Test",25,-1,0],
       		["vest","A3PL_Rangemaster_belt_blk",25,-1,0],
 			["vest","A3PL_Sheriff_Rig_Test",25,-1,0],
-			["vest","A3PL_Sheriff_ERT_Vest_Brwn",25,-1,0],
+			["vest","A3PL_SD_Rig_ERT",25,-1,0],
 			["vest","A3PL_SD_ERTGreen_Vest_Test",25,-1,0],
-			["vest","A3PL_Sheriff_K9_Vest_Brwn",25,-1,0],
-			["vest","A3PL_Sheriff_HWay_Vest_Brwn",25,-1,0],
+			["vest","A3PL_SD_Rig_K9",25,-1,0],
+			["vest","A3PL_SD_Rig_HW",25,-1,0],
 			["vest","A3PL_SD_Detective_Vest_Lite",25,-1,0],
-			["vest","A3PL_Sheriff_Detective_Vest_Brwn",25,-1,0],
+			["vest","A3PL_SD_Rig",25,-1,0],
+			["vest","A3PL_SD_Rig_Air",25,-1,0],
 			["vest","A3PL_SD_High_Threat_Lite",25,-1,0],
 			["headgear","A3PL_Sheriff_Test_Cap",25,-1,0],
 			["headgear","A3PL_Sheriff_Black_Cap",25,-1,0],
@@ -751,16 +751,19 @@ Config_Shops_Items = [
 			["weapon","A3PL_Taser2",250,-1,0],
 			["weapon","A3PL_Red_Glock",500,-1,0],
 			["weapon","hgun_Rook40_F",500,-1,0],
-			["weapon","A3PL_P226",250,-1,0],
+			["weapon","A3PL_P226",500,-1,0],
 			["weapon","A3FL_PepperSpray",100,-1,0],
-			["weaponPrimary","SMG_05_F",35000,-1,0],
+			["weaponPrimary","SMG_05_F",15000,-1,0],
+			["weaponPrimary","SMG_02_F",15000,-1,0],
+			["weaponPrimary","A3PL_M16",20000,-1,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
-			["magazine","A3PL_Taser_Mag",50,-1,0],
+			["magazine","A3PL_TaserMag",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,-1,0],
-			["magazine","A3PL_Red_Glock_Mag",50,-1,0],
-			["magazine","A3PL_P226_Mag",50,-1,0],
-			["magazine","16Rnd_9x21_Mag",50,-1,0],
-			["magazine","30Rnd_9x21_Mag_SMG_02",500,-1,0],
+			["magazine","A3PL_Red_Glock_Mag",100,-1,0],
+			["magazine","A3PL_P226_Mag",100,-1,0],
+			["magazine","16Rnd_9x21_Mag",100,-1,0],
+			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
+			["magazine","A3PL_M16_Mag",100,0,0],
 			["aitem","acc_flashlight_pistol",50,-1,0],
 			["aitem","acc_flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0]
@@ -770,8 +773,8 @@ Config_Shops_Items = [
 	["Shop_USCG_Supplies_Vendor",[
 			["aitem","Rangefinder",10,-1,0],
 			["aitem","NVGoggles_OPFOR",10,-1,0],
-			["item","breathalizer",10,-1,0],
-			["item","drug_kit",10,-1,0],
+			// ["item","breathalizer",10,-1,0],
+			// ["item","drug_kit",10,-1,0],
 			["item","handcuffs",10,-1,0],
 			["item","stinger",10,-1,0],
 			["item","roadcones",10,-1,0],
@@ -861,22 +864,25 @@ Config_Shops_Items = [
 	["Shop_USCG_Weapons_Vendor",[
 			["weapon","hgun_Pistol_Signal_F",500,-1,0],
 			["weapon","A3PL_Taser2",250,-1,0],
-			["weapon","A3PL_Red_Glock",250,-1,0],
-			["weapon","hgun_Rook40_F",250,-1,0],
-			["weapon","A3PL_P226",250,-1,0],
-			["weapon","hgun_Pistol_heavy_01_F",250,-1,0],
+			["weapon","A3PL_Red_Glock",500,-1,0],
+			["weapon","hgun_Rook40_F",500,-1,0],
+			["weapon","A3PL_P226",500,-1,0],
+			["weapon","hgun_Pistol_heavy_01_F",500,-1,0],
 			["weapon","A3FL_PepperSpray",100,-1,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
-			["weaponPrimary","SMG_05_F",35000,-1,0],
+			["weaponPrimary","SMG_02_F",15000,-1,0],
+			["weaponPrimary","SMG_05_F",15000,-1,0],
+			["weaponPrimary","A3PL_M16",20000,-1,0],
 			["weaponPrimary","srifle_LRR_SOS_F",1000,-1,0],
 			["magazine","6Rnd_GreenSignal_F",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,-1,0],
-			["magazine","A3PL_Red_Glock_Mag",50,-1,0],
-			["magazine","16Rnd_9x21_Mag",50,-1,0],
-			["magazine","A3PL_P226_Mag",50,-1,0],
-			["magazine","11Rnd_45ACP_Mag",50,-1,0],
-			["magazine","30Rnd_9x21_Mag_SMG_02",500,-1,0],
-			["magazine","7Rnd_408_Mag",50,-1,0],
+			["magazine","A3PL_Red_Glock_Mag",100,-1,0],
+			["magazine","16Rnd_9x21_Mag",100,-1,0],
+			["magazine","A3PL_P226_Mag",100,-1,0],
+			["magazine","11Rnd_45ACP_Mag",100,-1,0],
+			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
+			["magazine","A3PL_M16_Mag",100,0,0],
+			["magazine","7Rnd_408_Mag",100,-1,0],
 			["aitem","acc_flashlight_pistol",50,-1,0],
 			["aitem","acc_flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0]
@@ -1216,6 +1222,18 @@ Config_Shops_Items = [
 			["vest","A3PL_Clean_Safety_Vest",160,-1,4],
 			["item","tag_meat",100,-1,0]
 		],{[5661.34,6125.97,-0.5]}
+	],
+	["Shop_Low_End_Car_Dealer",[
+			["vehicle","C_Quadbike_01_F",17870,0,0],
+			["vehicle","A3PL_CVPI_Rusty",30000,0,0],
+			["vehicle","A3PL_CVPI_Taxi",40750,0,0],
+			["vehicle","A3PL_CVPI",50760,0,0],
+			["vehicle","A3PL_CRX",50760,0,0],
+			["vehicle","A3PL_MailTruck",53620,0,0],
+			["vehicle","A3PL_Wrangler",55050,0,0],
+			["vehicle","A3PL_Ram",55050,0,0],
+			["vehicle","A3PL_Car_Trailer",10000,0,0]
+		],{[2942.43,5891.42,-0.75]}
 	]
 ];
 publicVariable "Config_Shops_Items";

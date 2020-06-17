@@ -17,12 +17,12 @@
 	["itemAdd", ["Loop_BusinessTags", {[] spawn A3PL_Player_BusinessTags;}, 5, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_RoadworkerMarkers", {[] spawn A3PL_JobRoadWorker_MarkerLoop;}, 15, 'seconds'],{ player getVariable ["job","unemployed"] == "Roadside" }, { player getVariable ["job","unemployed"] != "Roadside" }] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Medical", {[] spawn A3PL_Medical_Loop;}, 1, 'seconds',{ !((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) || (player getVariable ["bloodOverlay",false]) },{ ((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) && !(player getVariable ["bloodOverlay",false]) }]] call BIS_fnc_loop;
-	["itemAdd", ["Loop_GPS", {[] spawn A3PL_Police_GPS;}, 10, 'seconds',{ player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg","fims"] }, { !(player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg","fims"]) }]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_GPS", {[] spawn A3PL_Police_GPS;}, 10, 'seconds',{ player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg","fims"] }, { !(player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg","fims"]) && isNil "A3PL_Police_GPSmarkers" }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Drugs", {[] spawn A3PL_Drugs_Loop;}, 30, 'seconds',{ player getVariable ["drugs",false] },{ !(player getVariable["drugs",false]) }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Alcohol", {[] spawn A3PL_Alcohol_Loop;}, 30, 'seconds',{ player getVariable ["alcohol",false] },{ !(player getVariable["alcohol",false]) }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_JailMarkers", {[] spawn A3PL_Prison_Markers;}, 30, 'seconds',{ player getVariable ["job","unemployed"] IN ["usms"] },{ !(player getVariable ["job","unemployed"] IN ["usms"]) }]] call BIS_fnc_loop;
-	["itemAdd", ["drowningSystem", {call A3PL_Loop_Drowning;}, 1, "seconds", {(underwater player) && !(isAbleToBreathe player)}, {!(underwater player) || (isAbleToBreathe player)}]] call BIS_fnc_loop;
-	//["itemAdd", ["Loop_HousingTaxes", {call A3PL_Loop_HousingTaxes;}, 1800, 'seconds']] call BIS_fnc_loop;
+	["itemAdd", ["drowningSystem", {[] spawn A3PL_Loop_Drowning;}, 1, "seconds", {(underwater player) && !(isAbleToBreathe player)}, {!(underwater player) || (isAbleToBreathe player)}]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_HousingTaxes", {[] call A3PL_Loop_HousingTaxes;}, 1800, 'seconds',{!(player getVariable ["house",nil] isEqualTo nil)}, {player getVariable ["house",nil] isEqualTo nil}]] call BIS_fnc_loop;
 
 	//Events
 	//["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
@@ -109,7 +109,8 @@
 ["A3PL_Loop_HousingTaxes",
 {
 	if(isNil {player getVariable ["house",nil]}) exitWith {};
-	private _taxPrice = 200;
+	private _house = player getVariable ["house",nil];
+	private _taxPrice = [_house,2] call A3PL_Housing_GetData;
 	private _bank = player getVariable["Player_Bank",0];
 	player setVariable["Player_Bank",_bank-_taxPrice,true];
 	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];
@@ -139,6 +140,7 @@
 				_payAmount = call A3PL_Company_Paycheck;
 			};
 		};
+		_payAmount = _payAmount * A3PL_Event_Paycheck;
 		if(!_done) then {[format[localize"STR_NewLoop_6",_payAmount], "green"] call A3PL_Player_Notification;};
 
 		if(isNil "Player_Paycheck") then {Player_Paycheck = _payAmount;} else {Player_Paycheck = Player_Paycheck + _payAmount;};

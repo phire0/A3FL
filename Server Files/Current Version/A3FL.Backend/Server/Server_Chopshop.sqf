@@ -10,13 +10,18 @@
 {
 	private _veh = param [0,objNull];
 	private _player = param [1,objNull];
-	private _items = 2 + random(4);
-	private _itemsArray = ["Engine","Trans","Radiator","BrakeRotors","Diff","4WDDiff","FuelTank","Chassis","DriveShaft","Exhaust","Windows","SteelRims","AlloyRims","Tyres"];
-	for "_i" from 0 to _items do {
-		[selectRandom _itemsArray,1] remoteExec ["A3PL_Inventory_Add",_player];
-	};
+	private _amount = [_veh] call Server_Chopshop_VehValue;
+
+	[_player, 'Player_Cash', ((_player getVariable 'Player_Cash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
+	[format["You received $%1 for this vehicle!",_amount], "green"] remoteExec ["A3PL_Player_Notification",_player];
 	[_veh] call Server_Chopshop_Storecar;
 	[getPlayerUID _player,"chopchoped",[typeOf _veh,(_veh getVariable"owner") select 1]] remoteExec ["Server_Log_New",2];
+},true] call Server_Setup_Compile;
+
+["Server_Chopshop_VehValue",
+{
+	private _amount = 5000;
+	_amount;
 },true] call Server_Setup_Compile;
 
 ["Server_Chopshop_Storecar",

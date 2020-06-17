@@ -29,11 +29,11 @@
 		case "seed_sugar": {_plantClass = "A3PL_Sugarcane_Plant";};
 	};
 
-	if (_plantClass == "") exitwith {};
+	if (_plantClass isEqualTo "") exitwith {};
 	_plant = createVehicle [_plantClass,[_pos select 0,_pos select 1, (_pos select 2) + _ATLChange], [], 0, "CAN_COLLIDE"];
 	_plant animateSource ["plant_growth",1];
 
-	if(typeOf _plant == "A3PL_Cannabis") then {
+	if((typeOf _plant) isEqualTo "A3PL_Cannabis") then {
 		_plant setVariable ["inField",true,true];
 		if ((random 100) <= 10) then {
 			_plant setVariable ["female",true,true];
@@ -93,6 +93,7 @@
 	if (([[[_itemClass,_amount]],_player] call Server_Inventory_TotalWeight) > 600) exitWith {[6] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];_plant setVariable ["inuse",false,false];};
 
 	deleteVehicle _plant;
+	_amount = _amount * A3PL_Event_DblHarvest;
 	[_itemClass,_amount] remoteExec ["A3PL_Inventory_Add", (owner _player)];
 	[5,_itemClass,_amount] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];
 

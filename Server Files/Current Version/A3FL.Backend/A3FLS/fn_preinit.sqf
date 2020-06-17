@@ -68,6 +68,7 @@ Server_Setup_Compile = {
 	} else {
 		_sendTo = lbData [5472, (lbCurSel 5472)];
 		_sendToCompile = call compile _sendTo;
+		if(isNull _sendToCompile) exitWith {_format = "Error: Unable to transfer";};
 		_format = format[localize "STR_A3PLS_ATMTRANSFER_CIVILIANTRANSFER", [_amount] call A3PL_Lib_FormatNumber, (name _sendToCompile)];
 		[format[localize "STR_A3PLS_ATMTRANSFER_RECEIVETRANSFER",_amount], "green"] remoteExec ["A3PL_Player_Notification",_sendToCompile];
 		[_sendToCompile, 'Player_Bank', ((_sendToCompile getVariable 'Player_Bank') + _amount)] remoteExec ['Server_Core_ChangeVar', 2];
@@ -313,7 +314,7 @@ Server_Setup_Compile = {
 		[] spawn Server_Lumber_TreeRespawn;				//spawn trees for lumberyacking
 
 		//load stock values
-		[] spawn Server_ShopStock_Load;
+		// [] spawn Server_ShopStock_Load;
 		[] spawn Server_Locker_Load;
 	};
 
@@ -428,6 +429,12 @@ Server_Setup_Compile = {
 
 	A3PL_Event_DblXP = 1;
 	publicVariable "A3PL_Event_DblXP";
+
+	A3PL_Event_DblHarvest = 1;
+	publicVariable "A3PL_Event_DblHarvest";
+
+	A3PL_Event_Paycheck = 1;
+	publicVariable "A3PL_Event_Paycheck";
 
 	Server_AllBusStops = nearestObjects [[6420.21,7001.08,0], ["Land_A3PL_BusStop"], 5000, false];
 },true,true] call Server_Setup_Compile;
@@ -746,6 +753,7 @@ Server_Setup_Compile = {
 	_unit setVariable ["warehouse",_warehouseObj,true];
 	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
 	if(_firstOwnerWarehouse isEqualTo _uid) then {
+			diag_log "calling loadItems";
 			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};
@@ -913,10 +921,10 @@ Server_Setup_Compile = {
 		};
 
 		//look for nearest for sale sign and set the texture to sold
-		_signs = nearestObjects [_pos, ["Land_A3PL_EstateSign"], 25,true];
+		_signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"], 25,true];
 		if (count _signs > 0) then
 		{
-			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
+			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];
 		};
 
 		//Set Variables
@@ -968,12 +976,16 @@ Server_Setup_Compile = {
 	_warehouse = param [1,objNull];
 	_uid = param [2,""];
 
+	diag_log "In LoadItems";
+
 	//set furn loaded to true
 	if (_warehouse getVariable ["furn_loaded",false]) exitwith {};
 	_warehouse setVariable ["furn_loaded",true,false];
 
 	_pitems = [format ["SELECT pitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2] call Server_Database_Async;
 	_pitems = call compile (_pitems select 0);
+
+		diag_log format ["_pitems %1",_pitems];
 
 	[_warehouse,_pitems] remoteExec ["A3PL_Warehouse_Loaditems", (owner _player)];
 },true] call Server_Setup_Compile;

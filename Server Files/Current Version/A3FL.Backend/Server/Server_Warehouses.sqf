@@ -48,6 +48,8 @@
 	_warehouse = param [1,objNull];
 	_uid = param [2,""];
 
+	diag_log "in loaditems";
+
 	//set furn loaded to true
 	if (_warehouse getVariable ["furn_loaded",false]) exitwith {};
 	_warehouse setVariable ["furn_loaded",true,false];
@@ -55,7 +57,9 @@
 	_pitems = [format ["SELECT pitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2] call Server_Database_Async;
 	_pitems = call compile (_pitems select 0);
 
-	[_warehouse,_pitems] remoteExec ["A3PL_Warehouse_Loaditems", (owner _player)];
+	diag_log format ["_pitems = %1",_pitems];
+
+	[_warehouse,_pitems] remoteExec ["A3PL_Warehouses_Loaditems", (owner _player)];
 },true] call Server_Setup_Compile;
 
 ["Server_Warehouses_LoadItemsSimulation",
@@ -145,10 +149,10 @@
 		};
 
 		//look for nearest for sale sign and set the texture to sold
-		_signs = nearestObjects [_pos, ["Land_A3PL_EstateSign"], 25,true];
+		_signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"], 25,true];
 		if (count _signs > 0) then
 		{
-			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
+			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];
 		};
 
 		//Set Variables
@@ -204,4 +208,56 @@
 		(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];
 	};
 
+},true] call Server_Setup_Compile;
+
+["Server_Warehouses_AddMember",
+{
+	_owner = param [0,objNull];
+	_new = param [1,objNull];
+	_warehouse = param [2,objNull];
+
+	diag_log "running";
+
+	_actuals = _warehouse getVariable "owner";
+
+	if((_actuals find (getPlayerUID _new)) != -1) exitWith {};
+
+	_actuals pushback(getPlayerUID _new);
+	_warehouse setVariable["owner", _actuals,true];
+
+	_actuals = [_actuals] call Server_Database_Array;
+	_query = format ["UPDATE warehouses SET uids='%1' WHERE location ='%2'",_actuals,(getpos _warehouse)];
+	[_query,1] spawn Server_Database_Async;
+
+	_new setVariable ["warehouse",_warehouse,true];
+	_keysid = (_warehouse getVariable ["doorID",[]] select 1);
+	_oldKeys = _new getVariable ["keys",[]];
+	_oldKeys pushBack _keysid;
+	_new setVariable ["keys",_oldKeys,true];
+
+	["You now have keys to this warehouse!","green"] remoteExec ["A3PL_Player_Notification",owner _new];
+	[_warehouse] remoteExec ["A3PL_Warehouses_SetMarker",_new];
+},true] call Server_Setup_Compile;
+
+["Server_Warehouses_RemoveMember",
+{
+	private _old = param [0,objNull];
+	private _warehouse = param [1,objNull];
+	private _uid = getPlayerUID _old;
+	private _allMembers = _warehouse getVariable "owner";
+	if((_allMembers find _uid) != -1) then {
+		_allMembers deleteAt (_allMembers find (getPlayerUID _old));
+		_warehouse setVariable["owner", _allMembers,true];
+
+		private _allMembers = [_allMembers] call Server_Database_Array;
+		private _query = format ["UPDATE warehouse SET uids='%1' WHERE location ='%2'", _allMembers, (getpos _warehouse)];
+		[_query,1] spawn Server_Database_Async;
+
+
+		_keys = _old getVariable ["keys",[]];
+		_keys deleteAt (_keys find (_warehouse getVariable "doorid" select 1));
+		_old setVariable ["keys",_keys,true];
+		_old setVariable ["warehouse",nil,true];
+		["You no longer have keys to this warehouse!","yellow"] remoteExec ["A3PL_Player_Notification",owner _old];
+	};
 },true] call Server_Setup_Compile;

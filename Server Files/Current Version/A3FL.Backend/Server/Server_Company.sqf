@@ -8,10 +8,10 @@
 
 ["Server_Company_LoadAll",
 {
-	private _companies = ["SELECT id, name, boss, employees, bank, licenses, storage FROM companies WHERE disabled = '0'", 2,true] call Server_Database_Async;
+	private _companies = ["SELECT id, name, boss, employees, bank, licenses FROM companies WHERE disabled = '0'", 2,true] call Server_Database_Async;
 	Server_Companies = [];
 	{
-		Server_Companies pushback ([_x select 0, _x select 1, _x select 2, [_x select 3] call Server_Database_ToArray,_x select 4, [_x select 5] call Server_Database_ToArray, [_x select 6] call Server_Database_ToArray]);
+		Server_Companies pushback ([_x select 0, _x select 1, _x select 2, [_x select 3] call Server_Database_ToArray,_x select 4, [_x select 5] call Server_Database_ToArray]);
 	} foreach _companies;
 	publicVariable "Server_Companies";
 },true] call Server_Setup_Compile;
@@ -142,24 +142,28 @@
 {
 	private _id = param [0,-1];
 	private _uid = param [1,""];
+	private _fired = param[2,true];
 	private _query = format ["SELECT employees FROM companies WHERE id = '%1'",_id];
 	private _actual = [_query, 2] call Server_Database_Async;
 	private _actual = [(_actual select 0)] call Server_Database_ToArray;
 
-	{if(_x select 0 == _uid) exitWith {_actual deleteAt _forEachIndex;};} foreach _actual;
-	private _new = [_actual] call Server_Database_Array;
+	{if((_x select 0) isEqualTo _uid) exitWith {_actual deleteAt _forEachIndex;};} foreach _actual;
+
 	private _query = format ["UPDATE companies SET employees = '%1' WHERE id = '%2'",_actual, _id];
 	[_query, 1] call Server_Database_Async;
 	{
-		if(_id == (_x select 0)) exitWith {
+		if(_id isEqualTo (_x select 0)) exitWith {
 			Server_Companies set[_forEachIndex,[_x select 0, _x select 1, _x select 2, _actual, _x select 4, _x select 5, _x select 6]];
 		};
 	} foreach Server_Companies;
 	publicVariable "Server_Companies";
-	private _cName = [_id, "name"] call A3PL_Config_GetCompanyData;
-	{
-		if((getPlayerUID _x) == _uid) exitWith {[format[localize "STR_SERVER_COMPANY_FIREDCOMPANY",_cName], "red"] remoteExec ["A3PL_Player_Notification",_x];};
-	} foreach (playableUnits);
+
+	if(_fired) then {
+		private _cName = [_id, "name"] call A3PL_Config_GetCompanyData;
+		{
+			if((getPlayerUID _x) isEqualTo _uid) exitWith {[format[localize "STR_SERVER_COMPANY_FIREDCOMPANY",_cName], "red"] remoteExec ["A3PL_Player_Notification",_x];};
+		} foreach (playableUnits);
+	};
 },true] call Server_Setup_Compile;
 
 ["Server_Company_ManageSetup",
@@ -255,30 +259,4 @@
 	private _query = format ["SELECT companies_bills.cid, companies_bills.amount, companies_bills.description, players.name FROM companies_bills, players WHERE players.uid = companies_bills.recipient_id AND companies_bills.cid = '%1'",_cid];
 	private _result = [_query, 2, true] call Server_Database_Async;
 	[_result] remoteExec ["A3PL_iPhoneX_appCompaniesBills",owner _player];
-},true] call Server_Setup_Compile;
-
-["Server_Company_SaveStorage",
-{
-	private _cid = param [0,-1];
-	private _data = param[1,[]];
-	if(_cid < 0) exitWith {};
-	{
-		if(_id == (_x select 0)) exitWith {
-			Server_Companies set[_forEachIndex,[_x select 0, _x select 1, _x select 2, _x select 3, _x select 4, _x select 5, _data]];
-		};
-	} foreach Server_Companies;
-	publicVariable "Server_Companies";
-	private _data = [_data] call Server_Database_Array;
-	private _query = format ["UPDATE companies SET storage = '%1' WHERE id = '%2'",_data, _cid];
-	[_query, 1] call Server_Database_Async;
-},true] call Server_Setup_Compile;
-
-["Server_Company_GetStorageData",
-{
-	private _cid = param [0,-1];
-	private _player = param [1,objNull];
-	private _query = format ["SELECT storage FROM companies WHERE id='%1'",_cid];
-	private _result = [_query, 2] call Server_Database_Async;
-	private _storage = [_result select 0] call Server_Database_ToArray;
-	[_storage, _result select 1] remoteExec ["A3PL_Company_StorageDataReceived",_player];
 },true] call Server_Setup_Compile;

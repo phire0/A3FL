@@ -48,7 +48,8 @@
 			case ("fifr"): {_namepicture = "\A3PL_Common\icons\fire.paa"; _namecolor = "#FF0000";};
 			case ("fisd"): {_namepicture = "\A3PL_Common\icons\faction_sheriff.paa"; _namecolor = "#556B2F";};
 			case ("doj"): {_namepicture = "\A3PL_Common\icons\faction_doj.paa"; _namecolor = "#B18904";};
-			case ("usms"): {_namepicture = "\A3PL_Common\icons\faction_doj.paa"; _namecolor = "#B18904";};
+			case ("usms"): {_namepicture = "\A3PL_Common\icons\usms.paa"; _namecolor = "#B18904";};
+			case ("usms"): {_namepicture = "\A3PL_Common\icons\faction_doj.paa"; _namecolor = "#b9935c";};
 			case ("uscg"): {_namepicture = "\A3PL_Common\icons\faction_cg.paa"; _namecolor = "#16a085";};
 			case ("dmv"): {_namepicture = "\A3PL_Common\icons\faction_dmv.paa"; _namecolor = "#13CFD0";};
 		 };
@@ -75,23 +76,26 @@
 		_msgcolor = "#ffbfbf";
 		[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
 	};
-	// if (((toLower (_splitted select 0) == "/dn")) && !_doubleCommand) exitWith {
-	// 	_splitted deleteat 0;
-	// 	_messageto = ["darknet",["darknet",player,player getvariable ["name",(name player)],(time + 300)]];
-	// 	_todatabase = true;
-	// 	_doubleCommand = true;
-	// 	_msg = _splitted joinString " ";
-	// 	_name = format ["%1",_name];
-	// 	_namepicture = "\A3PL_Common\icons\citizen.paa";
-	// 	if(player getVariable ["Player_Bank",0] < _dnCost) exitWith {["You do not have enough to post on the DarkNet!","red"] call A3PL_Player_Notification;};
-	// 	[player, 'Player_Bank', ((player getVariable 'Player_Bank') - _dnCost)] remoteExec ['Server_Core_ChangeVar', 2];
-	// 	if(!isNil "A3PL_phoneNumberActive") then {
-	// 		_name = format ["DarkNet [%1]", A3PL_phoneNumberActive];
-	// 	};
-	// 	_namecolor = "#202020";
-	// 	_msgcolor = "#ffffff";
-	// 	[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
-	// };
+	if (!([] call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
+	if (((toLower (_splitted select 0) == "/dn")) && !_doubleCommand) exitWith {
+		_splitted deleteat 0;
+		_messageto = ["darknet",["darknet",player,player getvariable ["name",(name player)],(time + 300)]];
+		_todatabase = true;
+		_doubleCommand = true;
+		_msg = _splitted joinString " ";
+		_name = format ["%1",_name];
+		_namepicture = "\A3PL_Common\icons\citizen.paa";
+		if(player getVariable ["Player_Bank",0] < _dnCost) exitWith {["You do not have enough to post on the DarkNet!","red"] call A3PL_Player_Notification;};
+		[player, 'Player_Bank', ((player getVariable 'Player_Bank') - _dnCost)] remoteExec ['Server_Core_ChangeVar', 2];
+		if(!isNil "A3PL_phoneNumberActive") then {
+			_name = format ["DarkNet [%1]", A3PL_phoneNumberActive];
+		};
+		_namecolor = "#202020";
+		_msgcolor = "#ffffff";
+		[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
+
+		[getPlayerUID player,_msg,_msgcolor,_namepicture,_name,_namecolor,true] remoteExec ["Server_Twitter_HandleMsg", 2];
+	};
 	if (((toLower (_splitted select 0) == "/r")) && !_doubleCommand) exitWith {
 		if(!(pVar_AdminTwitter)) exitwith {
 			[localize"STR_NewTwitter_CantExecute","#a3ffc1","","Commands","#42f47d",""] spawn A3PL_Twitter_NewMsg;
@@ -194,9 +198,8 @@
 		};
 
 		if (_messageto select 0 == "darknet") then {
-			if(player getVariable["faction","citizen"] == "citizen") then {_cancelaction = false;};
+			if(player getVariable["faction","citizen"] IN ["citizen","cartel"]) then {_cancelaction = false;};
 			A3PL_Twitter_ReplyArr = (missionNameSpace getVariable ["A3PL_Twitter_ReplyArr",[]]) + [(_messageto select 1)];
-			diag_log "Darknet message recieved";
 		};
 
 		if (_messageto select 0 == "reply") then {

@@ -92,7 +92,7 @@
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			player setVariable ["inventory_opened", nil, true];
-			if (!(call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
+			if (!([] call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			call A3PL_iPhoneX_Locked;
 		}, "", [DIK_G, [false, false, false]]] call CBA_fnc_addKeybind;
@@ -100,7 +100,6 @@
 		["ArmA 3 Fishers Life","twitter_key", "Open Twitter Post",
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-			if (!(call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			if(!dialog) then {[] spawn A3PL_iPhoneX_appTwitterPost;};
 		}, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
@@ -222,7 +221,7 @@
 				if ((animationState player) != "A3PL_Dance_House1") then
 				{
 					[player, "A3PL_Dance_House1"] remoteExec ["A3PL_Lib_SyncAnim",0];
-					Player_ActionInterrupted = true;
+					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 				} else
 				{
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
@@ -238,7 +237,7 @@
 				if ((animationState player) != "A3PL_Dance_Samba") then
 				{
 					[player, "A3PL_Dance_Samba"] remoteExec ["A3PL_Lib_SyncAnim",0];
-					Player_ActionInterrupted = true;
+					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 				} else
 				{
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
@@ -272,7 +271,7 @@
 				if ((animationState player) != "Acts_Dance_01") then
 				{
 					[player, "Acts_Dance_01"] remoteExec ["A3PL_Lib_SyncAnim",0];
-					Player_ActionInterrupted = true;
+					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 				} else
 				{
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
@@ -288,7 +287,7 @@
 				if ((animationState player) != "Acts_Dance_02") then
 				{
 					[player, "Acts_Dance_02"] remoteExec ["A3PL_Lib_SyncAnim",0];
-					Player_ActionInterrupted = true;
+					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 				} else
 				{
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
@@ -331,23 +330,20 @@
 {
 	player addEventHandler ["Fired",
 	{
-		private ["_weapon"];
-		_weapon = param [1,""];
+		private _weapon = param [1,""];
+		private _ammo = param [4,""];
 
 		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe","A3FL_BaseballBat","A3FL_GolfDriver"]) then
 		{
 			player playAction "GestureSwing";
-			if (player inArea "LumberJack_Rectangle") then
-			{
+			if (player inArea "LumberJack_Rectangle") then {
 				if (_weapon == "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
 			} else {
 				call A3PL_FD_HandleFireAxe;
 			};
 		};
-		if (_weapon == "A3PL_Jaws") then
-		{
-			call A3PL_FD_HandleJaws;
-		};
+		if (_weapon isEqualTo "A3PL_Jaws") then {call A3PL_FD_HandleJaws;};
+		if (_ammo isEqualTo "A3FL_Mossberg_590K_Breach") then {call A3PL_Police_HandleBreach;};
 	}];
 }] call Server_Setup_Compile;
 
@@ -616,9 +612,8 @@
 			_unit setVariable ["getHit",_hit,false];
 		};
 
-			player setVariable ["lastDamage",(_source getVariable["db_id",0]),true];
-
-			[_unit] spawn A3PL_Medical_Hit;
+		player setVariable ["lastDamage",(_source getVariable["db_id",0]),true];
+		[_unit] spawn A3PL_Medical_Hit;
 		_dmg;
 	}];
 }] call Server_Setup_Compile;

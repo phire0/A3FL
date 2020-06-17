@@ -82,6 +82,14 @@
 			_return pushBack _name;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+		case "lookupwarehouse": {
+			private _queryUID = format["SELECT uid FROM players WHERE name='%1'",_name];
+			private _uid = ([_queryUID, 2] call Server_Database_Async) select 0;
+			private _query = format ["SELECT location FROM warehouses WHERE uids LIKE '%1%2%1'","%",_uid];
+			private _return = [([_query, 2] call Server_Database_Async) select 0];
+			_return pushBack _name;
+			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+		};
 		case "markstolen": {
 			private _query = format ["SELECT id,stolen FROM objects WHERE id = '%1'",_name];
 			private _return = [_query, 2] call Server_Database_Async;
@@ -234,6 +242,11 @@
 				[_query, 1] call Server_Database_Async;
 				[_name,_call,format[localize"STR_SERVER_POLICE_YOUINSEREWITHSUCCESSARREST",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
+		};
+		case "darknet": {
+			private _query = "SELECT name,chatmessage FROM darknetlog ORDER BY id DESC LIMIT 10";
+			private _return = [_query, 2,true] call Server_Database_Async;
+			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 	};
 },true] call Server_Setup_Compile;

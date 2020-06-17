@@ -139,12 +139,12 @@
 		_interObj = ([] call A3PL_Lib_Attached) select 0;
 		if (([_interObj] call A3PL_lib_CheckIfFurniture) && (_interObj IN ([] call A3PL_Lib_Attached))) exitwith
 		{
-			call A3PL_Placeables_QuickAction;
+			[] call A3PL_Placeables_QuickAction;
 		};
 
 		if (typeOf _interObj IN Config_Placeables) then
 		{
-			call A3PL_Placeables_QuickAction;
+			[] call A3PL_Placeables_QuickAction;
 		};
 	};
 

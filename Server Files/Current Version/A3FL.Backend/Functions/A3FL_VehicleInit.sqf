@@ -190,6 +190,12 @@
 	}];
 }] call Server_Setup_Compile;
 
+["A3PL_Vehicle_Init_C_Heli_Light_01_civil_F",
+{
+	private _veh = _this;
+	_veh animate["addDoors",1];
+}] call Server_Setup_Compile;
+
 ["A3PL_Vehicle_Init_A3PL_MiniExcavator",
 {
 	private ["_veh"];

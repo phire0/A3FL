@@ -74,7 +74,6 @@
 		deleteVehicle _x;
 	} foreach (attachedObjects _fireObject);
 
-	//loop through all fires, find the array this fire object is in, delete it, and delete whole array if last fire left
 	{
 		_loopIndex = _forEachIndex;
 		_fireArray = _x;
@@ -151,7 +150,7 @@
 			private _newDir = windDir + random(90);
 			private _dist = 2 + (random 3);
 			private _position = [_latestFire, _dist, _newDir] call BIS_fnc_relPos;
-			private _correctSurface = (surfaceType _position) IN ["#cype_grass","#cype_forest"];
+			private _correctSurface = (surfaceType _position) IN ["#cype_grass","#cype_forest","#cype_plowedfield","#GdtDirt"];
 			if (_correctSurface && (!isOnRoad _position)) then
 			{
 				private _fireobject = createVehicle ["A3PL_Fireobject",_position, [], 0, "CAN_COLLIDE"];
@@ -180,21 +179,17 @@
 		[_fireobject,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
 		[_uid,"VehicleExplode",[typeOf _fireObject, _id]] remoteExec ["Server_Log_New",2];
 
-		private _query = format ["UPDATE objects SET istorage = '[]', vstorage = '[]' WHERE id = '%1'",_id];
-		[_query,1] spawn Server_Database_Async;
-
-		private _whiteList = ["A3PL_CVPI_Rusty","A3PL_MiniExcavator","A3PL_Boat_Trailer","A3PL_Box_Trailer","A3PL_Lowloader","A3PL_Tanker_Trailer","A3PL_Drill_Trailer","A3PL_Small_Boat_Trailer","A3PL_Car_Trailer"];
-		if(((typeOf _fireObject) IN _whiteList)) then {
-			private _query = format ["UPDATE objects SET plystorage = '1' WHERE id = '%1'",_id];
+		private _isInsured = _fireObject getVariable ["insurance",false];
+		if(_isInsured) then {
+			[_fireObject] call Server_Storage_VehicleVirtual;
+			private _query = format ["UPDATE objects SET insurance = '0', plystorage = '1' WHERE id = '%1'",_id];
 			[_query,1] spawn Server_Database_Async;
 		} else {
-			private _isInsured = _fireObject getVariable ["insurance",false];
-			if(_isInsured) then {
-				private _query = format ["UPDATE objects SET insurance = '0', plystorage = '1' WHERE id = '%1'",_id];
-				[_query,1] spawn Server_Database_Async;
-			};
+			private _query = format ["UPDATE objects SET istorage = '[]', vstorage = '[]' WHERE id = '%1'",_id];
+			[_query,1] spawn Server_Database_Async;
 		};
 	};
+
 	private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
 	if ((count(_fifr)) >= 5) then {
 		private _marker = createMarker [format ["vehiclefire_%1",random 4000], position (_fireObject)];

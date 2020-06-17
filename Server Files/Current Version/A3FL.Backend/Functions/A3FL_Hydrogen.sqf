@@ -197,6 +197,7 @@
 			case (_classname IN ["A3PL_RBM"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.1,0,0];};
 			case (_classname IN ["A3PL_CLS63"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0,0,0];};
 			case (_classname IN ["A3PL_Urus"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
+			case (_classname IN ["A3PL_Taurus","A3PL_Taurus_PD","A3PL_Taurus_PD_ST"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
 			default {_vector = [[0.320857,-0.0197785,-0.946921],[0.946907,0.0282805,0.320261]];_attachTo = [-0.1,0,0];_maxlength = 7;};
 		};
 
@@ -487,10 +488,7 @@
 		_newStorage = (_station getVariable ["petrol",0]) + _amount; if (_newStorage < 0) then {_newStorage = 0;};
 		_source setVariable ["petrol",_newSource,true];
 		_station setVariable ["petrol",_newStorage,true];
-
 		player setVariable["Player_Cash",(player getVariable["Player_Cash",0]) + 10,true];
-		[format [localize"STR_NewHydrogen_39",_newSource,_newStorage],"green"] call A3PL_Player_Notification;
-
 		uiSleep 2;
 		_source = [_end] call A3PL_FD_FindSource;
 	};

@@ -76,11 +76,13 @@
 ["Server_Gang_DeleteGang",
 {
 	private _group = param [0,grpNull];
+	private _player = param[1,objNull];
 	private _gang = _group getVariable["gang_data",nil];
 	if(isNil '_gang') exitWith {};
 	private _groupID = _gang select 0;
 	deleteGroup _group;
 	[format["DELETE FROM gangs WHERE id = '%1'",_groupID], 1] call Server_Database_Async;
+	["You disbanded your gang, relog for this to take effect", "green"] remoteExec ["A3PL_Player_Notification",_player];
 },true] call Server_Setup_Compile;
 
 ["Server_Gang_SetLead",

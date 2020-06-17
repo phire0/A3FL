@@ -1021,12 +1021,12 @@
 	{[player_objintersect,player_nameintersect] call A3PL_FD_ConnectHoseAdapter;}
 ],
 [
-	"A3PL_Pierce_Pumper",
+	"",
 	localize"STR_INTSECT_CONHOSETOENGIN",
 	{[player_objintersect,player_nameintersect] call A3PL_FD_ConnectHoseAdapter;}
 ],
 [
-	"A3PL_Pierce_Pumper",
+	"",
 	localize"STR_INTSECT_CONHOSETOENGDIS",
 	{[player_objintersect,player_nameintersect] call A3PL_FD_ConnectHoseAdapter;}
 ],

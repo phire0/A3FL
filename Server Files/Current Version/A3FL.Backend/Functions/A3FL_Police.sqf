@@ -140,6 +140,29 @@
 	};
 }] call Server_Setup_Compile;
 
+["A3PL_Police_HandleBreach",
+{
+	private _whitelist = ["fisd","uscg","usms"];
+	private _pJob = player getVariable["job","unemployed"];
+	if(!(_pJob IN _whitelist)) exitWith {};
+
+	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];
+	private _nameIntersect = missionNameSpace getVariable ["player_nameintersect",""];
+	if ((player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 2) && (_nameIntersect IN ["door_bankvault","door_1","door_2","door_3","door_4","door_5","door_6","door_7","door_8","door_9","door_10","door_11","door_12","door_13","door_14","door_15","door_16","door_17","door_18","door_19","door_20","door_21","door_22","door_23","door_24","door_25","door_26","door_27","door_28","door_29","door_30","door_31","door_32","door_33","door_34","door_35","door_36","door_37","door_38","door_39","door_40","door_41","door_42","door_43","door_44","door_45","door_46","door_47","door_48","door_49","door_50","storagedoor1","storagedoor2","storagedoor3","sdstoragedoor3","sdstoragedoor6","door_1_button","door_2_button","door_3_button","door_4_button","door_5_button","door_6_button","door_7_button","door_8_button","door_9_button","door_10_button","door_11_button","door_12_button","door_13_button","door_14_button","door_15_button","door_16_button","door_17_button","door_18_button","door_19_button","door_20_button","door_21_button","door_22_button","door_23_button","door_24_button","door_25_button","door_26_button","door_27_button","door_28_button","door_29_button","door_30_button","door_1_button2","door_2_button2","door_3_button2","door_4_button2","door_5_button2","door_6_button2","door_7_button2","door_8_button2","door_9_button2","door_10_button2","door_11_button2","door_12_button2","door_13_button2","door_14_button2","door_15_button2","door_16_button2","door_17_button2","door_18_button2","door_19_button2","door_20_button2","door_21_button2","door_22_button2","door_23_button2","door_24_button2","door_25_button2","door_26_button2","door_27_button2","door_28_button2","door_29_button2","door_30_button2","door_8_button1","door_8_button2"])) then {
+		if (_nameIntersect IN ["door_1_button","door_2_button","door_3_button","door_4_button","door_5_button","door_6_button","door_7_button","door_8_button","door_9_button","door_10_button","door_11_button","door_12_button","door_13_button","door_14_button","door_15_button","door_16_button","door_17_button","door_18_button","door_19_button","door_20_button","door_21_button","door_22_button","door_23_button","door_24_button","door_25_button","door_26_button","door_27_button","door_28_button","door_29_button","door_30_button","door_1_button2","door_2_button2","door_3_button2","door_4_button2","door_5_button2","door_6_button2","door_7_button2","door_8_button2","door_9_button2","door_10_button2","door_11_button2","door_12_button2","door_13_button2","door_14_button2","door_15_button2","door_16_button2","door_17_button2","door_18_button2","door_19_button2","door_20_button2","door_21_button2","door_22_button2","door_23_button2","door_24_button2","door_25_button2","door_26_button2","door_27_button2","door_28_button2","door_29_button2","door_30_button2","door_8_button1","door_8_button2"]) then {[] call A3PL_Intersect_HandleDoors;};
+		private _var = format ["damage_%1",_nameintersect];
+		if (((_intersect getVariable [_var,0]) + 0.5) > 1) exitwith {
+			_intersect animate [_nameIntersect,1];
+			_intersect setvariable [_var,0,false];
+			if (_nameIntersect in ["storagedoor1","storagedoor2","storagedoor3"]) then {[] spawn {_intersect = cursorobject;_intersect animateSource ["storagedoor",1];sleep 60;_intersect animateSource ["storagedoor",0];};};
+			if (_nameIntersect == "door_bankvault") then {[] spawn {_intersect = cursorobject;_intersect animateSource ["door_bankvault",1];sleep 20;_intersect animateSource ["door_bankvault",0];};};
+			if (_nameIntersect == "sdstoragedoor3") then {[] spawn {_intersect = cursorobject;_intersect animateSource ["StorageDoor",1];sleep 60;_intersect animateSource ["StorageDoor",0];};};
+			if (_nameIntersect == "sdstoragedoor6") then {[] spawn {_intersect = cursorobject;_intersect animateSource ["StorageDoor2",1];sleep 60;_intersect animateSource ["StorageDoor2",0];};};
+		};
+		_intersect setVariable [_var,(_intersect getVariable [_var,0]) + 0.2,false];
+	};
+}] call Server_Setup_Compile;
+
 ["A3PL_Police_PatDown",
 {
 	disableSerialization;
@@ -162,13 +185,13 @@
 		_targetPos = getpos _target;
 		["Pat down in progress...",15] spawn A3PL_Lib_LoadAction;
 		_success = true;
-		while {uiSleep 2; Player_ActionDoing } do {
+		waitUntil{Player_ActionDoing};
+		while {Player_ActionDoing} do {
 			if ((player distance2D _target) > 5) exitWith {_success = false;};
 			if (animationState player != "AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];}
 		};
 		player switchMove "";
 		if(Player_ActionInterrupted || !_success) exitWith {
-			Player_ActionInterrupted = true;
 			["Patdown cancelled","red"] call A3PL_Player_Notification;
 			["The patdown was cancelled", "green"] remoteExec ["A3PL_Player_Notification",_target];
 			if (vehicle player == player) then {player switchMove "";};
@@ -848,7 +871,7 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseRequireLogin',
-	["lookup","warrantinfo","lookuplicense","lookupcompany","tickethistory","lookupaddress","insertarrest"]
+	["lookup","warrantinfo","lookuplicense","lookupcompany","tickethistory","lookupaddress","insertarrest","darknet","lookupwarehouse"]
 ] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseEnterReceive',
@@ -971,7 +994,18 @@
 				[_house, _name] spawn A3PL_Police_MarkHouse;
 				_output = format["%2 resides at %1",[parseSimpleArray(_house)] call A3PL_Housing_PosAddress, _name];
 			} else {
-				_output = "No adress found for this citizen!";
+				_output = "No address found for this citizen!";
+			};
+		};
+		case "lookupwarehouse":
+		{
+			_warehouse = _return select 0;
+			_name = _return select 1;
+			if(!isNil "_warehouse") then {
+				[_warehouse, _name,true] spawn A3PL_Police_MarkHouse;
+				_output = format["%2 resides at %1",[parseSimpleArray(_warehouse)] call A3PL_Housing_PosAddress, _name];
+			} else {
+				_output = "No registered warehouses found for this citizen!";
 			};
 		};
 		case "markstolen":
@@ -1069,6 +1103,33 @@
 		{
 			_output = _return;
 		};
+		case "lookupvehicles":
+		{
+
+			if (count _return > 0) then
+			{
+				{
+
+					_output = _output + (format ["<t align='center'>%1. License: %2 - Model: %3 - Stolen: %4</t><br />",_forEachIndex+1,_x select 0,_vehName,_stolen]);
+				} foreach _return;
+				_output = (_output + "<t align='center'>End of the list of vehicles</t>");
+			} else
+			{
+				_output = format ["<t align='center'>No vehicles found!</t>"];
+			};
+		};
+		case "darknet":
+		{
+			if (count _return > 0) then
+			{
+				{
+					_output = _output + (format ["<t align='center'>User: %1 - Message: %2</t><br />",_x select 0,_x select 1]);
+				} foreach _return;
+			} else
+			{
+				_output = "No Dark Net messages found!";
+			};
+		};
 		default {_output = "Unknown error - Contact the developer"};
 	};
 
@@ -1155,6 +1216,8 @@
 			<t align='center'>insertwarning [firstname] [lastname] [title] [description] - Insert a warning</t><br />
 			<t align='center'>insertarrest [firstname] [lastname] [time] [description] - Insert an arrest</t><br />
 			<t align='center'>lookupaddress [firstname] [lastname] - View house address</t><br />
+			<t align='center'>lookupwarehouse [firstname] [lastname] - View warehouse address</t><br />
+			<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t><br />
 			";
 		};
 		case "clear": {_output = "<t align='center'>Computer Database - F.I.S.D.</t><br /><t align='center'>Enter 'help' for the list of available commands</t>";};
@@ -1207,6 +1270,16 @@
 		};
 
 		case "lookupaddress":
+		{
+			private ["_name"];
+			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+
+			[player,_name,_edit0] remoteExec ["Server_Police_Database",2];
+
+			_output = format ["Searching for Addresses in F.I.S.D Database...",_name];
+		};
+
+		case "lookupwarehouse":
 		{
 			private ["_name"];
 			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
@@ -1397,9 +1470,17 @@
 			[player,_name,_license,_edit0] remoteExec ["Server_Police_Database", 2];
 			_ouput = format["License revoked ..."];
 		};
+		case "darknet":
+		{
+			private ["_name"];
+			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+
+			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
+
+			_output = format ["Search the darknet for hidden messages ..",_name];
+		};
 		default {_output = "Error: Unknown Command"};
 	};
-
 
 	_control = _display displayCtrl 1100;
 	if (_edit0 == "clear") then {
@@ -1724,14 +1805,19 @@
 
 ["A3PL_Police_MarkHouse",
 {
-	private ["_house","_name"];
+	private ["_house","_name","_warehouse"];
 	_house = parseSimpleArray (param [0,""]);
 	_name = param [1,"unknown"];
+	_warehouse = param [2,false];
 
 	_marker = createMarkerLocal [format ["Marked_House_%1",random 4000], _house];
 	_marker setMarkerShapeLocal "ICON";
 	_marker setMarkerTypeLocal "mil_warning";
-	_marker setMarkerTextLocal format["%1 House", _name];
+	if(_warehouse) then {
+		_marker setMarkerTextLocal format["%1 Warehouse", _name];
+	} else {
+		_marker setMarkerTextLocal format["%1 House", _name];
+	};
 	_marker setMarkerColorLocal "ColorRed";
 
 	uiSleep 120;

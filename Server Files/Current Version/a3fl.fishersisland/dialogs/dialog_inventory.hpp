@@ -25,7 +25,7 @@ class Dialog_Inventory
 			y = 0.22 * safezoneH + safezoneY;
 			w = 0.360937 * safezoneW;
 			h = 0.264 * safezoneH;
-			onLBDblClick = "call A3PL_Inventory_Use;";
+			onLBDblClick = "[] call A3PL_Inventory_Use;";
 		};
 		class amount: RscEdit
 		{

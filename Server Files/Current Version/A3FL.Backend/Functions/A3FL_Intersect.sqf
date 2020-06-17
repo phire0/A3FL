@@ -281,7 +281,6 @@
 
 				case ((typeOf _obj) IN ["Land_A3FL_Office_Building"]):
 				{
-					hint "here";
 					if (_name IN ["door_1","door_2","door_3","door_4"]) then
 					{
 						if (isNil {_obj getVariable "unlocked"}) exitwith
@@ -350,6 +349,23 @@
 				case ((typeOf _obj) IN ["Land_John_Hangar"]):
 				{
 					if (_name IN ["door_1","door_2"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
+				case ((typeOf _obj) IN ["Land_A3FL_Warehouse"]):
+				{
+					if (_name IN ["door_1","door_2","door_3","door_5","door_6","door_7"]) then
 					{
 						if (isNil {_obj getVariable "unlocked"}) exitwith
 						{

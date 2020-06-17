@@ -9,23 +9,20 @@
 ["A3PL_HouseRobbery_Rob",
 {
 	_house = param [0,objNull];
-	_status = missionNamespace getVariable ["HouseCooldown",0];
+	_robbedTime = missionNamespace getVariable ["HouseCooldown",serverTime-300];
 	_notify = 30;
 	_timeTaken = 45;
 	_fail = false;
 	_faction = "FISD";
 
-	if ((player getVariable ["house",objNull]) == cursorObject) exitWith{["You cannot rob your own house!","red"] call A3PL_Player_Notification;};
-	if (_status == 1) exitwith {["Another house robbery has taken place recently, you cannot rob this house!","red"] call A3PL_Player_Notification;};
-
-		_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
-
-		if(_nearCity IN ["Lubbock","Salt Point"]) then {
-			if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < 3) exitwith {_fail=true;_faction="USCG";};
-		} else {
-			if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 3) exitwith {_fail=true;_faction="FISD";};
-		};
-
+	if ((player getVariable ["house",objNull]) isEqualTo cursorObject) exitWith{["You cannot rob your own house!","red"] call A3PL_Player_Notification;};
+	if(_robbedTime > (serverTime-300)) exitWith {["Another house robbery has taken place recently, you cannot rob this house!","red"] call A3PL_Player_Notification;};
+	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
+	if(_nearCity IN ["Lubbock","Salt Point"]) then {
+		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < 3) exitwith {_fail=true;_faction="USCG";};
+	} else {
+		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 3) exitwith {_fail=true;_faction="FISD";};
+	};
 	if(_fail) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob this house!",3,_faction],"red"] call A3PL_Player_Notification;};
 
 	player playmove "Acts_carFixingWheel";
@@ -39,7 +36,7 @@
 	};
 
 	_notifyChance = random 100;
-	if(_notifyChance >= _notify) then {[_house] spawn A3PL_HouseRobbery_NotifySD;};
+	if(_notifyChance >= _notify) then {[_house,_faction] spawn A3PL_HouseRobbery_NotifySD;};
 
 	_alarmChance = random 100;
 	if(_alarmChance >= 30) then {[_house] spawn A3PL_HouseRobbery_Alarm;};
@@ -63,8 +60,7 @@
 			if (animationState player != "Acts_carFixingWheel") then {player playmove "Acts_carFixingWheel";}
 		};
 		player switchMove "";
-		if(!_success) exitWith {
-			Player_ActionInterrupted = true;
+		if(Player_ActionInterrupted || !_success) exitWith {
 			[localize"STR_CRIMINAL_PICKENDED", "red"] call A3PL_Player_Notification;
 			if (vehicle player == player) then {player switchMove "";};
 		};
@@ -133,15 +129,14 @@
 {
 	private["_house","_cops","_namePos"];
 	_house = param [0,objNull];
-	_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
+	_faction = param [1,"fisd"];
+	_cops = [_faction] call A3PL_Lib_FactionPlayers;
 
 	_namePos = [getPos _house] call A3PL_Housing_PosAddress;
-	[format["911: Robbery in progress at %1!",_namePos],"blue","fisd",1] call A3PL_Lib_JobMessage;
+	[format["911: Robbery in progress at %1!",_namePos],"blue",_faction,1] call A3PL_Lib_JobMessage;
 	[_house,"House Alarm","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
 
-	missionNamespace setVariable ["HouseCooldown",1,true];
-	uiSleep 900;
-	missionNamespace setVariable ["HouseCooldown",0,true];
+	missionNamespace setVariable ["HouseCooldown",serverTime,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_HouseRobbery_Alarm", {

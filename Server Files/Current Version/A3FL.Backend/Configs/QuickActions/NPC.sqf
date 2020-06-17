@@ -13,6 +13,11 @@
 ],
 [
 	"",
+	"Low End Car Dealer",
+	{["Shop_Low_End_Car_Dealer"] call A3PL_Shop_Open;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_AccessAcierie",
 	{["Steel Mill"] call A3PL_Factory_Open;}
 ],
@@ -103,6 +108,11 @@
 	"",
 	localize"STR_QuickActionsNPC_BusinessManagement",
 	{call A3PL_Company_ManageOpen;}
+],
+[
+	"",
+	localize"STR_QuickActionsNPC_ResignCompany",
+	{call A3PL_Company_Resign;}
 ],
 [
 	"",
@@ -216,6 +226,23 @@
 	"",
 	localize"STR_QuickActionsNPC_AccessShopSupply",
 	{["Shop_Furniture2"] call A3PL_Shop_Open;}
+],
+[
+	"",
+	localize"STR_INTSECT_CAPTSHIP",
+	{[] call A3PL_Robberies_RobPShip;}
+],
+[
+	"",
+	localize"STR_QuickActionsNPC_CatpuredShip",
+	{
+		_captured = Ship_BlackMarket getVariable["captured",false];
+		if(_captured) then {
+			["Shop_CapturedShip"] call A3PL_Shop_Open;
+		} else {
+			["You need to capture the ship first!","red"] call A3PL_Player_Notification;
+		};
+	}
 ],
 [
 	"",
@@ -704,11 +731,6 @@
 	"",
 	localize"STR_QuickActionsNPC_TalkToTheDrugDealer",
 	{["Shop_DrugsDealer"] call A3PL_Shop_Open;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_TalkToTheCriminalPrint",
-	{[] spawn A3PL_Criminal_Print;}
 ],
 [
 	"",

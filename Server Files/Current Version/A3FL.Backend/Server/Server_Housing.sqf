@@ -354,7 +354,6 @@
 		{
 			if(_x IN _keyNames) then {
 				_playerKeys deleteAt _forEachIndex;
-				diag_log format ["deleting key %1",_x];
 			};
 		} forEach _playerKeys;
 
@@ -528,7 +527,10 @@
 		_new setVariable ["aptnumber",nil,true];
 	};
 	_keysid = (_house getVariable ["doorID",[]]) select 1;
-	_new setVariable ["keys",[_keysid],true];
+	_keys = _new getVariable ["keys",[]];
+	_keys pushBack _keysid;
+
+	_new setVariable ["keys",_keys,true];
 
 	[localize"STR_SERVER_HOUSING_YOUNOWCOLOCHOUSE","green"] remoteExec ["A3PL_Player_Notification",owner _new];
 	[_house] remoteExec ["A3PL_Housing_SetMarker",_new];
@@ -536,21 +538,23 @@
 
 ["Server_Housing_RemoveMember",
 {
-	private _owner = param [0,objNull];
-	private _old = param [1,objNull];
-	private _house = param [2,objNull];
-	private _uid = getPlayerUID _old;
-	private _allMembers = _house getVariable "owner";
+	_old = param [0,objNull];
+	_house = param [1,objNull];
+	_uid = getPlayerUID _old;
+	_allMembers = _house getVariable "owner";
 	if((_allMembers find _uid) != -1) then {
 		_allMembers deleteAt (_allMembers find (getPlayerUID _old));
 		_house setVariable["owner", _allMembers,true];
 
-		private _allMembers = [_allMembers] call Server_Database_Array;
-		private _query = format ["UPDATE houses SET uids='%1' WHERE location ='%2'", _allMembers, (getpos _house)];
+		_allMembers = [_allMembers] call Server_Database_Array;
+		_query = format ["UPDATE houses SET uids='%1' WHERE location ='%2'", _allMembers, (getpos _house)];
 		[_query,1] spawn Server_Database_Async;
 
 		[_old] call Server_Housing_AssignApt;
-		_old setVariable ["keys",[],true];
+
+		_keys = _old getVariable ["keys",[]];
+		_keys deleteAt (_keys find (_house getVariable "doorid" select 1));
+		_old setVariable ["keys",_keys,true];
 		_old setVariable ["house",nil,true];
 		[localize"STR_SERVER_HOUSING_YOUNOWEXCOLOC","yellow"] remoteExec ["A3PL_Player_Notification",owner _old];
 	};

@@ -11,27 +11,18 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_mask"];
 	if (!(["ccp"] call A3PL_DMV_Check)) exitwith {[localize"STR_EXTERMINATOR_CCP"] call A3PL_Player_Notification;};
-	if ((player getVariable ["job","unemployed"]) == "exterminator") exitwith {[localize"STR_EXTERMINATOR_WORKSTOP","red"]; call A3PL_NPC_LeaveJob};
-	if (handgunWeapon player == "") exitwith {[localize"STR_EXTERMINATOR_WEAPON"] call A3PL_Player_Notification;};
+	if ((player getVariable ["job","unemployed"]) isEqualTo "exterminator") exitwith {[localize"STR_EXTERMINATOR_WORKSTOP","red"]; call A3PL_NPC_LeaveJob};
+	if (handgunWeapon player isEqualTo "") exitwith {[localize"STR_EXTERMINATOR_WEAPON"] call A3PL_Player_Notification;};
 	player setVariable ["job","exterminator"];
 	[localize"STR_EXTERMINATOR_WORKSTART","green"] call A3PL_Player_Notification;
 	[localize"STR_EXTERMINATOR_MAPLOCATION","green"] call A3PL_Player_Notification;
-	
-	_mask = createVehicle ["A3PL_FD_Mask_Obj", getpos player, [], 0, "CAN_COLLIDE"];
-	_mask attachto [player,[-0.12,-0.15,-0.73],"RightHand"];
-	player playaction "gesture_maskon";
-	[_mask] spawn {
-		uiSleep 2.5;
-		deleteVehicle (param [0,objNull]);
-	};
-	["A3PL_Mailtruck",[9913.171,7533.833,0],"EXTERMINATOR",1800] spawn A3PL_Lib_JobVehicle_Assign;
+	["A3PL_Mailtruck",[9986.59,7943.14,0],"EXTERMINATOR",1800] spawn A3PL_Lib_JobVehicle_Assign;
 	call A3PL_Exterminator_PestStart;
 }] call Server_Setup_Compile;
 
 ["A3PL_Exterminator_PestStart",
 {
-	private ["_houses","_animals"];
-	_animals = missionNameSpace getVariable ["A3PL_Exterminator_PestAnimals",[]];
+	private _animals = missionNameSpace getVariable ["A3PL_Exterminator_PestAnimals",[]];
 	if ((count _animals) >= 4) exitwith {[] spawn A3PL_Exterminator_Loop;};
 	call A3PL_Exterminator_SpawnPest;
 	[] spawn A3PL_Exterminator_Loop;
@@ -68,7 +59,7 @@
 			_marker setMarkerShapeLocal "ICON";
 			_marker setMarkerColorLocal "ColorRed";
 			_marker setMarkerTypeLocal "Mil_dot";
-			_marker setMarkerTextLocal [format[localize"STR_EXTERMINATOR_MARKERMAP"]];
+			_marker setMarkerTextLocal format[localize"STR_EXTERMINATOR_MARKERMAP"];
 			_markers pushback _marker;
 		} foreach _animals;
 		{ deleteMarkerLocal _x; } foreach (missionNameSpace getVariable ["A3PL_Exterminator_Markers",[]]);

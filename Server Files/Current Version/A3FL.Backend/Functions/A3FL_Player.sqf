@@ -15,7 +15,7 @@
 		Player_payCheckTime = 0;
 		Player_payCheckTime = profileNamespace setVariable ["player_payCheckTime",0];
 	};
-	Player_MaxWeight = 150;
+	Player_MaxWeight = 250;
 	Player_Hunger = profileNamespace getVariable ["player_hunger",100];
 	if (!(typeName Player_Hunger == "SCALAR")) then {
 		Player_Hunger = 100;
@@ -662,7 +662,7 @@
 
 ["A3PL_Player_EscapeControls",
 {
-	if ((getPlayerUID player) IN ["_SP_PLAYER_","76561198170351694","76561198343727655","76561198111737316","76561198096687678"]) exitWith {}; //Jason, Winston, David
+	if ((getPlayerUID player) IN ["_SP_PLAYER_","76561198070895974","76561198343727655","76561198111737316","76561198096687678"]) exitWith {}; //Jason, Winston, David
 	for "_i" from 0 to 1 step 0 do {
 		waitUntil {!isNull (findDisplay 49)};
 		private["_abortButton", "_respawnButton", "_manuelButton", "_display"];

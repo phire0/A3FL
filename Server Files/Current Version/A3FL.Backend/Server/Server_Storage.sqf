@@ -676,6 +676,8 @@
 	_player = param [1,objNull];
 	if (isNull _playerCar) exitwith {};
 
+	[_playerCar] call Server_Storage_VehicleVirtual;
+
 	_var = _playerCar getVariable ["owner",nil];
 	_id = _var select 1;
 	_Path = (getObjectTextures _playerCar) select 0;

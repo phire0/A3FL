@@ -23,10 +23,10 @@ Config_Vehicles_Admin = [
 publicVariable "Config_Vehicles_Admin";
 
 Config_Vehicles_Capacity = [
-	["A3PL_Fatboy",9],
+	["A3PL_Fatboy",20],
 
-	["K_Scooter_DarkBlue",20],
-	["C_Quadbike_01_F",20],
+	["K_Scooter_DarkBlue",25],
+	["C_Quadbike_01_F",40],
 
 	["A3PL_VetteZR1",140],
 	["A3PL_911GT2",140],
@@ -57,17 +57,18 @@ Config_Vehicles_Capacity = [
 	["A3PL_Taurus_PD_ST",180],
 	["A3PL_Taurus_FD",180],
 
-	["A3PL_P362_TowTruck",400],
+	["A3PL_P362",200],
+	["A3PL_P362_TowTruck",500],
 
 	["A3PL_Wrangler",240],
 	["A3PL_BMW_X5",240],
 	["A3PL_Urus",240],
 	["A3PL_MailTruck",240],
 
-	["A3PL_Ram",400],
-	["A3PL_Rover",400],
+	["A3PL_Ram",550],
+	["A3PL_Rover",550],
 
-	["A3PL_Tahoe",620],
+	["A3PL_Tahoe",630],
 	["A3PL_Tahoe_FD",620],
 	["A3PL_Tahoe_PD",620],
 	["A3PL_Tahoe_PD_Slicktop",620],
@@ -85,13 +86,14 @@ Config_Vehicles_Capacity = [
 	["jonzie_ambulance",660],
 	["A3PL_GMCVandura",660],
 
-	["A3PL_Pierce_Ladder",400],
-	["A3PL_Pierce_Heavy_Ladder",400],
-	["A3PL_Pierce_Pumper",400],
-	["A3PL_Pierce_Rescue",400],
+	["A3PL_MiniExcavator",150],
 
-	["A3PL_Zamak",700],
-	["A3PL_Box_Trailer",800],
+	["A3PL_Pierce_Ladder",800],
+	["A3PL_Pierce_Heavy_Ladder",800],
+	["A3PL_Pierce_Pumper",400],
+	["A3PL_Pierce_Rescue",800],
+
+	["A3PL_Box_Trailer",950],
 
 	["C_Scooter_Transport_01_F",40],
 	["A3PL_RHIB",80],
@@ -200,6 +202,7 @@ Config_Vehicles_Insurance = [
 	["A3PL_Motorboat_Rescue",5000],
 	["A3PL_RBM",5000],
 	["A3PL_Patrol",5000],
+	["A3FL_LCM",5000],
 	["A3PL_Yacht",100000],
 
 	["Heli_Medium01_H",40000],

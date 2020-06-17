@@ -132,11 +132,14 @@ class CfgRemoteExec
 
 		// Warehouses
 		class A3PL_Warehouses_Loaditems {allowedTargets = 0;};
+		class A3PL_Warehouses_SetMarker{allowedTargets=0;};
 		class Server_Warehouses_Assign {allowedTargets = 2;};
 		class Server_Warehouses_LoadBox {allowedTargets = 2;};
 		class Server_Warehouses_SaveBox {allowedTargets = 2;};
 		class Server_Warehouses_LoadItemsSimulation {allowedTargets = 2;};
 		class Server_Warehouses_Initialize{allowedTargets=2;};
+		class Server_Warehouses_RemoveMember{allowedTargets=2;};
+		class Server_Warehouses_AddMember{allowedTargets=2;};
 
 		//Police
 		class A3PL_Police_ReleasePlayer {allowedTargets = 0;};
@@ -192,6 +195,7 @@ class CfgRemoteExec
 		//Inventory
 		class A3PL_Inventory_Add{allowedTargets=0;};
 		class A3PL_Inventory_Clear{allowedTargets = 0;};
+		class A3PL_Inventory_SetCurrent{allowedTargets = 0;};
 		class Server_Inventory_RemoveAll{allowedTargets = 2;};
 		class Server_Inventory_Add{allowedTargets = 2;};
 		class Server_Inventory_Drop{allowedTargets = 2;};
@@ -206,6 +210,8 @@ class CfgRemoteExec
 		class Server_Core_RestartTimer{allowedTargets=2;};
 		class Server_Core_RestartDev{allowedTargets=2;};
 		class Server_Core_DblXP{allowedTargets=2;};
+		class Server_Core_DblHarvest{allowedTargets=2;};
+		class Server_Core_PaycheckBonus{allowedTargets=2;};
 		class Server_Core_WhitelistServer{allowedTargets=2;};
 
 		//NPC
@@ -343,11 +349,13 @@ class CfgRemoteExec
 
 		//Criminal
 		class Server_Criminal_RemoveJail{allowedTargets=2;};
+		class Server_Criminal_ShipCaptured{allowedTargets=2;};
 
 		//Debug
 		class A3PL_Debug_ExecuteCompiled{allowedTargets=2;};
 
 		//Medical
+		class A3PL_Medical_ApplyPWound{allowedTargets=0;};
 		class A3PL_Medical_Die{allowedTargets=0;};
 		class A3PL_Medical_DeadMarker{allowedTargets=0;};
 
@@ -369,6 +377,7 @@ class CfgRemoteExec
 		class A3PL_Store_Robbery_Marker{allowedTargets=0;};
 		class A3PL_Store_Robbery_Alert{allowedTargets=0;};
 		class A3PL_Robberies_PortAlert{allowedTargets=0;};
+		class A3PL_Robberies_PShipRobbed{allowedTargets=0;};
 		class A3PL_Robberies_SeizureAlert{allowedTargets=0;};
 
 		//iPhoneX
