@@ -632,7 +632,8 @@ Config_Factories =
 		["f_SmithCo_SafteyVest_Security_Vest","","inh","inh","A3PL_SmithCo_SafteyVest_Security_Vest","vest",true,5,[["Polyester",1]],1,"",1],
 		["f_SmithCo_SafteyVest_Towing_Vest","","inh","inh","A3PL_SmithCo_SafteyVest_Towing_Vest","vest",true,5,[["Polyester",1]],1,"",1],
 		["f_Reef_LifeVest_Vest","","inh","inh","A3PL_Reef_LifeVest_Vest","vest",true,5,[["Polyester",1]],1,"",1],
-		["f_Express_vest","","inh","inh","A3PL_Express_vest","vest",true,5,[["Polyester",1]],1,"",1]
+		["f_Express_vest","","inh","inh","A3PL_Express_vest","vest",true,5,[["Polyester",1]],1,"",1],
+		["f_Evergreen_Vest","","inh","inh","A3PL_Evergreen_Vest","vest",true,5,[["Polyester",1]],1,"",1]
 	],
 
 	["Headgear Factory",[3852.065,9212.537,0.168],
@@ -670,6 +671,7 @@ Config_Factories =
 		["f_Wulf_Racing_Cap_24","","inh","inh","A3PL_Wulf_Racing_Cap_24","headgear",true,5,[["Polyester",1]],1,"",1],
 		["f_Wulf_Racing_Helm_07","","inh","inh","A3PL_Wulf_Racing_Helm_07","headgear",true,5,[["Polyester",1]],1,"",1],
 		["f_Wulf_Racing_Helm_24","","inh","inh","A3PL_Wulf_Racing_Helm_24","headgear",true,5,[["Polyester",1]],1,"",1],
+		["f_Evergreen_Cap","","inh","inh","A3PL_Evergreen_Cap","headgear",true,5,[["Polyester",1]],1,"",1],
 		["f_The_Kings_Cap","","inh","inh","A3PL_The_Kings_Cap","headgear",true,5,[["Polyester",1]],1,"",1],
 		["f_Australian_Defence_Cap","","inh","inh","A3PL_Australian_Defence_Cap","headgear",true,5,[["Polyester",1]],1,"",1],
 		["f_RAAF_Cap","","inh","inh","A3PL_RAAF_Cap","headgear",true,5,[["Polyester",1]],1,"",1],

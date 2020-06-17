@@ -149,10 +149,10 @@
 		};
 
 		//look for nearest for sale sign and set the texture to sold
-		_signs = nearestObjects [_pos, ["Land_A3PL_EstateSign"], 25,true];
+		_signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"], 25,true];
 		if (count _signs > 0) then
 		{
-			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
+			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];
 		};
 
 		//Set Variables

@@ -1930,7 +1930,7 @@
 {
 	private _id = param[0,0];
 	private _iPhone_Settings = profileNamespace getVariable ["A3PL_iPhoneX_Settings",[2,1,0]];
-	private _iPhone_Settings set[0, _id];
+	_iPhone_Settings set[0, _id];
 	profileNamespace setVariable ["A3PL_iPhoneX_Settings",_iPhone_Settings];
 	["You changed your wallpaper","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
