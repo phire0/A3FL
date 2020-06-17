@@ -152,6 +152,10 @@
 	_sBullet = param [2,""];
 
 	switch (true) do {
+		case (_sBullet IN ["A3FL_Mossberg_590K_Beanie"]): {
+			[] call A3PL_Lib_Ragdoll;
+			if((vest player) isEqualTo "A3PL_SuicideVest") then {[] call A3PL_Criminal_SuicideVest;};
+ 		};
 		case (_sBullet IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo"]): {
 			[] call A3PL_Lib_Ragdoll;
 			if((vest player) isEqualTo "A3PL_SuicideVest") then {[] call A3PL_Criminal_SuicideVest;};

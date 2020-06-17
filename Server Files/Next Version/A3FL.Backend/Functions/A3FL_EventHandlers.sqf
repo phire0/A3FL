@@ -330,23 +330,20 @@
 {
 	player addEventHandler ["Fired",
 	{
-		private ["_weapon"];
-		_weapon = param [1,""];
+		private _weapon = param [1,""];
+		private _ammo = param [4,""];
 
 		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe","A3FL_BaseballBat","A3FL_GolfDriver"]) then
 		{
 			player playAction "GestureSwing";
-			if (player inArea "LumberJack_Rectangle") then
-			{
+			if (player inArea "LumberJack_Rectangle") then {
 				if (_weapon == "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
 			} else {
 				call A3PL_FD_HandleFireAxe;
 			};
 		};
-		if (_weapon == "A3PL_Jaws") then
-		{
-			call A3PL_FD_HandleJaws;
-		};
+		if (_weapon isEqualTo "A3PL_Jaws") then {call A3PL_FD_HandleJaws;};
+		if (_ammo isEqualTo "A3FL_Mossberg_590K_Breach") then {call A3PL_Police_HandleBreach;};
 	}];
 }] call Server_Setup_Compile;
 
