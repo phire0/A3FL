@@ -1,10 +1,3 @@
-/*
-	ArmA 3 Fishers Life
-	Code written by ArmA 3 Fishers Life Development Team
-	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
-	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
-	More informations : https://www.bistudio.com/community/game-content-usage-rules
-*/
 
 ["A3PL_Lib_CloseInventoryDialog",
 {
@@ -153,7 +146,7 @@
 	if (isDedicated) exitwith {};
 	private _player = param [0,objNull];
 	private _anim = param [1,""];
-	_player switchMoveNow _anim;
+	_player switchMove _anim;
 }] call Server_Setup_Compile;
 
 ['A3PL_Lib_Gesture',
@@ -279,7 +272,6 @@
 	_e1 = _bb select 0;
 	_e2 = _bb select 1;
 
-	//Bottom-left -> bottom-right
 	_posStart = _e1;
 	_posEnd = [_e2 select 0,_e1 select 1,_e1 select 2];
 	_intersect = lineIntersectsWith [AGLTOASL (_obj modelToWorld _posStart),AGLTOASL (_obj modelToWorld _posEnd ),_obj,objNull,true];
@@ -313,14 +305,12 @@
 		_intersect;
 	};
 
-	//Now try extremes (diagonal)
 	_intersect = lineIntersectsWith [AGLTOASL (_obj modelToWorld _e1),AGLTOASL (_obj modelToWorld _e2),_obj,objNull,true];
 	if (count _intersect > 0) exitwith
 	{
 		_intersect;
 	};
 
-	//Now try extremes (diagonal) -> other way
 	_intersect = lineIntersectsWith [AGLTOASL (_obj modelToWorld _e2),AGLTOASL (_obj modelToWorld _e1),_obj,objNull,true];
 	if (count _intersect > 0) exitwith
 	{
@@ -330,7 +320,6 @@
 	_return;
 }] call Server_Setup_Compile;
 
-//This will find our nearest marker and return it
 ["A3PL_Lib_NearestMarker",
 {
 	private ["_objPos","_d"];
@@ -349,14 +338,13 @@
 	_nearm;
 }] call Server_Setup_Compile;
 
-//Simple animation toggle, used in siren script and probably others
 ["A3PL_Lib_ToggleAnimation",
 {
 	private ["_obj","_animationName","_animateSource"];
 	_obj = param [0,objNull];
 	_animationName = param [1,""];
 	_animateSource = param [2,true];
-	_forceOnOff = param [3,-1]; //0 off 1 on
+	_forceOnOff = param [3,-1];
 
 	if (_animateSource) then
 	{
@@ -392,7 +380,6 @@
 	[_obj,_animName,false] call A3PL_Lib_ToggleAnimation;
 }] call Server_Setup_Compile;
 
-//Returns in what position of a turret we are
 ["A3PL_Lib_ReturnTurret",
 {
 	private ["_turret","_role","_arr"];
@@ -406,7 +393,6 @@
 	_turret;
 }] call Server_Setup_Compile;
 
-//Can Find An attached object, because sometimes you want to find something that is in attachedobjects rather than attachedTo
 ["A3PL_Lib_FindAttached",
 {
 	private _obj = param [0,objNull];
