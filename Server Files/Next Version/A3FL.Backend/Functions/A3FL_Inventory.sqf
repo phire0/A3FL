@@ -195,14 +195,18 @@
 	if (isNil "_keys") exitwith {};
 	{
 		_count = count _x;
-		if (count _x == 6) then
-		{
-			_index = lbAdd [1900,"Motel Key"];
-			lbSetData [1900, _index,_x];
+		if (count _x == 4) then {
+				_index = lbAdd [1900,format ["Greenhouse Key (%1)",_x]];
+				lbSetData [1900, _index,_x];
 		};
 		if (count _x == 5) then {
 				_index = lbAdd [1900,format ["House Key (%1)",_x]];
 				lbSetData [1900, _index,_x];
+		};
+		if (count _x == 6) then
+		{
+			_index = lbAdd [1900,"Motel Key"];
+			lbSetData [1900, _index,_x];
 		};
 		if (count _x == 8) then {
 				_index = lbAdd [1900,format ["Warehouse Key (%1)",_x]];
