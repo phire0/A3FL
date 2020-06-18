@@ -1636,6 +1636,35 @@
 
 }] call Server_Setup_Compile;
 
+["A3PL_Police_SeizePhysicalItems",
+{
+	_target = param [0,player_objintersect];
+	_class = _target getVariable["class",""];
+	_amount = _target getVariable["amount",1];
+
+	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
+	_targetPos = getpos _target;
+	["Seizing item...",15] spawn A3PL_Lib_LoadAction;
+	_success = true;
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if ((player distance2D _target) > 5) exitWith {_success = false;};
+		if (animationState player isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];}
+	};
+	player switchMove "";
+	if(Player_ActionInterrupted || !_success) exitWith {
+		["Item seizure cancelled!","red"] call A3PL_Player_Notification;
+		["Item seizure cancelled!", "green"] remoteExec ["A3PL_Player_Notification",_target];
+		if (vehicle player == player) then {player switchMove "";};
+	};
+
+	deleteVehicle _target;
+
+	_name = [_class, 'name'] call A3PL_Config_GetItem;
+	[format["You have seized %1 %2",_amount,_name],"red"] call A3PL_Player_Notification;
+
+}] call Server_Setup_Compile;
+
 ["A3PL_Police_StartJailPlayer",
 {
 	params[["_target",objNull,[objNull]]];
