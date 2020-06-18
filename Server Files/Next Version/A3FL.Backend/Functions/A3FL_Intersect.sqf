@@ -296,6 +296,23 @@
 					};
 				};
 
+				case ((typeOf _obj) isEqualTo "Land_A3PL_ModernHouse3"):
+				{
+					if (_name IN ["door_1","door_2","door_3","door_16","door_17","door_18"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
 				case ((typeOf _obj) IN Config_Houses_List):
 				{
 					if (_name IN ["door_1","door_2","door_3"]) then
