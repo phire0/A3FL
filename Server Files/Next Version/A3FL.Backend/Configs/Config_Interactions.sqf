@@ -724,7 +724,7 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_DROPITEM",
-		{call A3PL_Inventory_Drop;},
+		{[] call A3PL_Inventory_Drop;},
 		{([Player_ItemClass, 'canDrop'] call A3PL_Config_GetItem)}
 	],
 	[

@@ -374,6 +374,11 @@
 	_obj setVariable ["doorID",[_uid,_id],true];
 	};
 
+	if(_name == "greenhouse") then {
+		_id = [4] call Server_Housing_GenerateID;
+		_obj setVariable ["doorID",[_uid,_id],true];
+	};
+
 
 	_keys = _player getVariable ["keys",[]];
 	_keys pushback _id;

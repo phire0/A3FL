@@ -83,6 +83,11 @@
 ],
 [
 	"",
+	"Seize Item",
+	{[player_objintersect] call A3PL_Police_SeizePhysicalItems;}
+],
+[
+	"",
 	localize "STR_INTSECT_HIDEOUTSHOP",
 	{
 		_obj = player_objIntersect;
