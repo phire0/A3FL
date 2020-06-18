@@ -86,7 +86,7 @@
 	while {(_obj IN (attachedObjects player)) && (!isNull _obj)} do
 	{
 		_sleep = 0.5;
-		if (!alive player) exitwith {detach _obj; call A3PL_Inventory_Drop;};
+		if (!alive player) exitwith {detach _obj; [] call A3PL_Inventory_Drop;};
 		if (!(vehicle player == player)) exitwith
 		{
 			private ["_isItem"];
@@ -104,7 +104,7 @@
 			}
 			else
 			{
-				call A3PL_Inventory_Drop;
+				[] call A3PL_Inventory_Drop;
 			};
 		};
 		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfisherstable1","mcfisherstable2","mcfishergrill"]) then
