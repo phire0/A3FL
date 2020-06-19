@@ -67,6 +67,26 @@
 			};
 		}, "", [DIK_N, [false, false, false]]] call CBA_fnc_addKeybind;
 
+		["ArmA 3 Fishers Life","highbeams_key", "Toggle High Beams",
+		{
+			private _veh = vehicle player;
+			if(!(_veh isKindOf "Car") && !((driver _veh) isEqualTo player)) exitWith {hint "exit";};
+				if (_veh animationSourcePhase "High_Beam" < 0.5) then {
+					_veh animateSource ["High_Beam",1];
+				} else {
+					_veh animateSource ["High_Beam",0];
+				};
+		}, "", [DIK_COLON, [true, false, false]]] call CBA_fnc_addKeybind;
+
+		// ["ArmA 3 Fishers Life","lockunlock_key", "Lock/Unlock Vehicle",
+		// {
+		// 	if((vehicle player isEqualTo player) && (simulationEnabled cursorObject) && ((player distance cursorObject) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])) then {
+		// 		cursorObject setVariable ["locked",false,true];
+		// 		[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
+		// 		playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
+		// 	};
+		// }, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
+
 		["ArmA 3 Fishers Life","trunk_key", "Open/Close Vehicle Trunk",
 		{
 			private["_veh"];

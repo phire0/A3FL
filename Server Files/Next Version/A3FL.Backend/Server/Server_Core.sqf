@@ -162,8 +162,7 @@
 	switch(true) do {
 		case (_chance < 50): {_nextWeather = "sunny";};
 		case (_chance >= 50 && _chance <= 59): {_nextWeather = "thunder";};
-		case (_chance >= 60 && _chance <= 79): {_nextWeather = "windy";};
-		case (_chance >= 80 && _chance <= 89): {_nextWeather = "rainny";};
+		case (_chance >= 60 && _chance <= 89): {_nextWeather = "rainny";};
 		case (_chance >= 90): {_nextWeather = "foggy";};
 	};
 	switch(_nextWeather) do {
@@ -183,7 +182,6 @@
 			60 setRain 0.9;
 			60 setWaves 0.3;
 			60 setGusts 0.3;
-			setWind [2, -3, true];
 		};
 		case('thunder'): {
 			60 setFog 0;
@@ -192,7 +190,6 @@
 			60 setRain 1;
 			60 setWaves 0.6;
 			60 setGusts 0.5;
-			setWind [5, -10, true];
 		};
 		case('foggy'): {
 			60 setFog 0.3;
@@ -201,16 +198,6 @@
 			60 setRain 0;
 			60 setWaves 0.2;
 			60 setGusts 0;
-			setWind [0, 0, true];
-		};
-		case('windy'): {
-			60 setFog 0;
-			60 setOvercast 0;
-			60 setLightnings 0;
-			60 setRain 0;
-			60 setWaves 1;
-			60 setGusts 1;
-			setWind [5, 9, true];
 		};
 	};
 },true] call Server_Setup_Compile;
