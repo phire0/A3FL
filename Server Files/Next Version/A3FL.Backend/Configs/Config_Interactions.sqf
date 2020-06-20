@@ -16,7 +16,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_SWITCHPRESSURE",
 		{[cursorObject] call A3PL_FD_ChangeTruckPressure;},
-		{(typeOf cursorObject) isEqualTo "A3PL_Pierce_Pumper"}
+		{(typeOf cursorObject) IN ["A3PL_Pierce_Pumper","A3PL_Silverado_FD_Brush"]}
 	],
 	[
 		localize "STR_INTER_DELIVERY",
@@ -1101,7 +1101,7 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize"STR_INTER_WRIST_ADD",
-		{cursorObject setVariable ["jail_mark",true,true];},
+		{cursorObject setVariable ["jail_mark",true,true];[getPlayerUID player,"wristAdded",[cursorObject getVariable["name","undefined"]]] remoteExec ["Server_Log_New",2];},
 		{(vehicle player == player) && (player getVariable["job","unemployed"] isEqualTo "usms") && (isPlayer cursorObject) && !(cursorObject getVariable ["jail_mark",false])}
 	],
 	[

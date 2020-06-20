@@ -422,7 +422,6 @@
 	_light_2 setdir 180;
 	_this animate ["Pushbar_Addon",1];
 	_this animate ["Spotlight_Addon",1];
-	diag_log "Called";
 },true] call Server_Setup_Compile;
 
 ["Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop",{_this call Server_Vehicle_Siren_Init;},true] call Server_Setup_Compile;
@@ -445,7 +444,18 @@
 ["Server_Vehicle_Init_A3PL_Taurus_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
-["Server_Vehicle_Init_A3PL_Silverado_FD_Brush",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3PL_Silverado_FD_Brush",{
+	_this call Server_Vehicle_Siren_Init;
+	private _light_1 = "A3PL_Floodlight_Level" createVehicle [0,0,0];
+	private _light_2 = "A3PL_Floodlight_Level" createVehicle [0,0,0];
+	_light_1 attachTo [_this, [0.03, 0, 0.8], "Floodlight_1"];
+	_light_2 attachTo [_this, [-0.03, 0, 0.8], "Floodlight_2"];
+	_light_2 setdir 180;
+	[_this,"A3PL_Pierce_Pumper"] call A3PL_FD_SetPumperNumber;
+	_this setVariable ["water",0,true];
+	_this setVariable ["pressure","low",true];
+	_this animate ["Water_Gauge1",0];
+},true] call Server_Setup_Compile;
 
 ["Server_Vehicle_Init_C_Van_02_transport_F",
 {
