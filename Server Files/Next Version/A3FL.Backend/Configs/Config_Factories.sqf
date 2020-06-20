@@ -633,7 +633,8 @@ Config_Factories =
 		["f_SmithCo_SafteyVest_Towing_Vest","","inh","inh","A3PL_SmithCo_SafteyVest_Towing_Vest","vest",true,5,[["Polyester",1]],1,"",1],
 		["f_Reef_LifeVest_Vest","","inh","inh","A3PL_Reef_LifeVest_Vest","vest",true,5,[["Polyester",1]],1,"",1],
 		["f_Express_vest","","inh","inh","A3PL_Express_vest","vest",true,5,[["Polyester",1]],1,"",1],
-		["f_Evergreen_Vest","","inh","inh","A3PL_Evergreen_Vest","vest",true,5,[["Polyester",1]],1,"",1]
+		["f_Evergreen_Vest","","inh","inh","A3PL_Evergreen_Vest","vest",true,5,[["Polyester",1]],1,"",1],
+		["f_DeadwoodMC_Vest","","inh","inh","A3PL_DeadwoodMC_Vest","vest",true,5,[["Polyester",1]],1,"",1]
 	],
 
 	["Headgear Factory",[3852.065,9212.537,0.168],
