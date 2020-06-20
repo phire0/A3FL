@@ -488,10 +488,13 @@ Config_IntersectArray =
 	//engine truck
 	["inlet_ds", localize"STR_INTSECT_CONHOSETOENGIN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //Connect Hose To Engine Inlet
 	["ft_lever_11",localize"STR_INTSECT_OPCLDISCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Discharge
+	["BT_Lever_1",localize"STR_INTSECT_OPCLDISCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Discharge
 	["ft_lever_10",localize"STR_INTSECT_OPCLDISCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Discharge
+	["BT_Lever_2",localize"STR_INTSECT_OPCLDISCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Discharge
 	["ft_lever_8",localize"STR_INTSECT_OPCLDISCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Discharge
 	["ft_lever_7",localize"STR_INTSECT_OPCLDISCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Discharge
 	["ft_lever_1",localize"STR_INTSECT_OPCLDISCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Discharge
+	["BT_Lever_3",localize"STR_INTSECT_OPCLDISCH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Discharge
 	["outlet_ps",localize"STR_INTSECT_CONHOSETOENGDIS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //discharges ||Connect Hose To Engine Discharge
 	["outlet_ds",localize"STR_INTSECT_CONHOSETOENGDIS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //Connect Hose To Engine Discharge
 

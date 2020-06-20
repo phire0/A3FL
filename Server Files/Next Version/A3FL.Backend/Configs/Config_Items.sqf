@@ -21,7 +21,7 @@ Config_Items =
 	["SMG_Part_Barrel",localize"STR_ConfigItems_SMG_Part_Barrel",5,"A3PL_Crate",-90,true,true,true,false,false,"", [0,0,0], ""],
 	["matches",localize"STR_ConfigItems_matches", 0.5, "A3PL_Seed_Corn",0,true,true,true, true, true,"", [0,0,0], ""],
 
-	["zipties",localize"STR_ConfigItems_zipties", 1, "A3PL_Handcuffs", 0, true, true, true, true, true, "", [0,0,0], ""],
+	["zipties",localize"STR_ConfigItems_zipties", 1, "A3PL_Ziptie", 0, true, true, true, true, true, "", [0,0,0], ""],
 
 	["dirty_cash",localize"STR_ConfigItems_dirty_cash", 0.0005, "A3PL_Money", 0, true, true, true, true, true, "", [0,0,0], ""],
 	["dildo",localize"STR_ConfigItems_dildo",0.1,"A3PL_Dildo",0,true,true,true,true,true,"", [0,0,0], ""],

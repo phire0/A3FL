@@ -889,7 +889,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_EXITVEH",
 		{
-			if ((speed vehicle player) < 1) then {
+			if (((speed vehicle player) < 1) && (vehicle getVariable ["EngineOn",0] isEqualTo 0)) then {
 				player action ["GetOut", (vehicle player)];
 				[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
 			} else {
