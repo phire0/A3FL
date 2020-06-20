@@ -92,3 +92,17 @@
 	sleep 600;
 	Ship_BlackMarket setVariable["captured",false,true];
 },true] call Server_Setup_Compile;
+
+["Server_Criminal_TurtlesMove",
+{
+	private _markerArea = "A3PL_Marker_Fish5";
+	private _markerLabel = "Fishing5";
+	private _locations = [[6878,12890],[1406,2095],[7326,3808],[4300,6945],[1421,13334]];
+	private _currentLocation = missionNamespace getVariable ["TurtleAreaLocation",0];
+	private _nextLocation = selectRandom _locations;
+	if((_nextLocation find _locations) isEqualTo _currentLocation) exitWith {[] spawn Server_Criminal_TurtlesMove;};
+	_markerArea setMarkerPos _nextLocation;
+	_markerLabel setMarkerPos _nextLocation;
+	missionNamespace setVariable ["TurtleAreaLocation",(_locations find _nextLocation)];
+	[] remoteExec["A3PL_Player_SetMarkers",-2];
+},true] call Server_Setup_Compile;

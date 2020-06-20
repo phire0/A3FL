@@ -107,7 +107,7 @@
 	switch (true) do
 	{
 		case ((player inArea "A3PL_Marker_Fish3") OR (player inArea "A3PL_Marker_Fish6") OR (player inArea "A3PL_Marker_Fish7")): {_bait = "shark"};
-		case ((player inArea "A3PL_Marker_Fish5") OR (player inArea "A3PL_Marker_Fish8")): {_bait = "turtle"};
+		case (player inArea "A3PL_Marker_Fish5"): {_bait = "turtle"};
 	};
 
 	if (_bait == "none") exitwith {["Bait can only be used in a shark or turtle area to catch shark or turtle","red"] call A3PL_Player_Notification;};

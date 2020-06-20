@@ -386,6 +386,8 @@ Server_Setup_Compile = {
 	// Mushroom picking loop
 	["itemAdd", ["Server_Loop_ShroomPicking", {[] spawn Server_Shrooms_Loop;}, 60]] call BIS_fnc_loop;
 
+	["itemAdd", ["Server_Loop_TurtlesMove", {[] spawn Server_Criminal_TurtlesMove;}, 3600]] call BIS_fnc_loop;
+
 	// Mushroom area moving - every 2 hours
 	["itemAdd", ["Server_Loop_ShroomMove", {[] spawn Server_Shrooms_MoveMarker;}, 7200]] call BIS_fnc_loop;
 
