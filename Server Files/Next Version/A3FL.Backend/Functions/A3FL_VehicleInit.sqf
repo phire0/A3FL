@@ -91,6 +91,9 @@
 			case ("A3PL_Taurus"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus_PD_ST"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3PL_Charger15_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3PL_Charger15_PD_ST"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3PL_Charger15_FD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("M_explorer"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
@@ -735,7 +738,10 @@
 ["A3PL_Vehicle_Init_A3PL_Taurus_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Taurus_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Raptor_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
-["A3PL_Vehicle_Init_M_explorer",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3PL_Charger15_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3PL_Charger15_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3PL_Charger15_FD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+
 ["A3PL_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_VetteZR1_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Taurus_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;

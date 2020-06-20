@@ -237,9 +237,9 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	_myAdapter = [] call A3PL_Lib_AttachedFirst;
-	_otherEnd = [_myAdapter] call A3PL_FD_FindOtherEnd; //check other end
+	_otherEnd = [_myAdapter] call A3PL_FD_FindOtherEnd;
 
-	//IF THIS IS REMOVED IT CAN CAUSE SERVER CRASH IF ADAPTER CONNECTED TO SAME ADAPTER
+
 	if (_otherEnd == _end) exitwith
 	{
 		["Vous ne pouvez pas le connecter comme ça","red"] call A3PL_Player_Notification;
@@ -248,7 +248,7 @@
 	_TOEnd = typeOf _end;
 	_TOmyAdapter = typeOf _myAdapter;
 
-	if (!(_TOEnd IN ["A3PL_FD_HoseEnd1_Float","A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_FD_yAdapter","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van"])) exitwith {["You interact with no adapter or hose","red"] call A3PL_Player_Notification;};
+	if (!(_TOEnd IN ["A3PL_FD_HoseEnd1_Float","A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_FD_yAdapter","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush"])) exitwith {["You interact with no adapter or hose","red"] call A3PL_Player_Notification;};
 	if (!(_TOmyAdapter IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])) exitwith {["Vous ne possédez pas le type d'adaptateur correct (signalez-le s'il s'agit d'un bug)","red"] call A3PL_Player_Notification;};
 
 	if (_TOmyAdapter == "A3PL_FD_HoseEnd1" && _TOEnd == "A3PL_FD_HoseEnd1_Float") exitwith {["You connect a male adapter to a male adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
@@ -262,7 +262,7 @@
 
 	switch (_endName) do
 	{
-		case ("fd_yadapter_in"): {_dirOffset = -90; _attachOffset = [-0.15,0,0]; _end setVariable ["inlet",_myAdapter,true]}; //set additional value so we can check later what adapter was connected to the inlet of the y-adapter
+		case ("fd_yadapter_in"): {_dirOffset = -90; _attachOffset = [-0.15,0,0]; _end setVariable ["inlet",_myAdapter,true]};
 		case ("fd_yadapter_out1"): {_dirOffset = 115; _attachOffset = [0.07,-0.10,0];};
 		case ("fd_yadapter_out2"): {_dirOffset = 60; _attachOffset = [0.07,0.10,0];};
 		case ("inlet_r"): {_dirOffset = -180; _attachOffset = [0,0,0]; _memOffset = "inlet_r"; _animate = "Inlet_R_Cap";};
@@ -270,7 +270,6 @@
 		case ("outlet_ps"): {_dirOffset = 90; _attachOffset = [0.05,0,0]; _memOffset = "outlet_ps"; _animate = "Outlet_PS_Cap";};
 		case ("outlet_ds"): {_dirOffset = -90; _attachOffset = [-0.05,0,0]; _memOffset = "outlet_ds"; _animate = "Outlet_DS_Cap";};
 
-		//tanker
 		case ("outlet_1"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_1"; _animate = "outlet_1_cap";};
 		case ("outlet_2"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_2"; _animate = "outlet_2_cap";};
 		case ("outlet_3"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_3"; _animate = "outlet_3_cap";};
@@ -898,6 +897,49 @@
 		uiSleep 1;
 	};
 	A3PL_FD_EngineLoopRunning = nil;
+}] call Server_Setup_Compile;
+
+["A3PL_FD_BrushLoop",
+{
+	private ["_veh","_end","_water","_source","_sourceAmount","_i"];
+	_veh = param [0,objNull];
+
+	if (missionNameSpace getVariable ["A3PL_FD_BrushLoopRunning",false]) exitwith {};
+	A3PL_FD_BrushLoopRunning = true;
+
+	_i = 0;
+	waitUntil {sleep 0.1; _i = _i + 0.1; if (_i > 3) exitwith {_veh animate ["bt_lever_1",0,true]}; _veh animationPhase "bt_lever_1" > 0};
+	while {(_veh animationPhase "bt_lever_1" > 0)} do
+	{
+		_end = [objNull,_veh,"inlet_bt"] call A3PL_FD_FindAdapterCap;
+		if (!isNull _end) then
+		{
+			_source = [_end] call A3PL_FD_FindSource;
+			if (!isNull _source) then
+			{
+				_sourceAmount = [_source] call A3PL_FD_SourceAmount;
+				if (_sourceAmount >= 5) then
+				{
+					if (_veh animationPhase "bt_lever_1" > 0.9 && _veh animationPhase "FT_Pump_Switch" > 0.9) then //make sure the driver side aux intake/hydrant to tank is open, intake valve, and pump shift
+					{
+						_water = _veh getVariable ["water",0];
+						if (_water < 1800) then
+						{
+							_veh setVariable ["water",_water + 10,true];
+							_veh animate ["Water_Gauge1",(_water + 10) / 1800];
+						};
+						if (typeOf _source == "A3PL_Silverado_FD_Brush") then
+						{
+							_source setVariable ["water",_water - 10,true];
+							_source animate ["Water_Gauge1",(_water - 10) / 1800];
+						};
+					};
+				};
+			};
+		};
+		uiSleep 1;
+	};
+	A3PL_FD_BrushLoopRunning = nil;
 }] call Server_Setup_Compile;
 
 ["A3PL_FD_MaskOff",

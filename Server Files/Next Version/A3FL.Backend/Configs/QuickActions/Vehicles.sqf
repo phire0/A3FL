@@ -1016,6 +1016,32 @@
 	}
 ],
 [
+	"A3PL_Pierce_Pumper",
+	localize"STR_INTSECT_OPCLINLET",
+	{
+		private _veh = player_objintersect;
+		private _animName = player_nameintersect;
+		if ((!(_veh isKindOf "Car")) OR (_animName == "")) exitwith {};
+		if (_animName == "ft_lever_8" && (_veh animationPhase "ft_lever_8" < 0.5)) then {
+			[_veh] spawn A3PL_FD_EngineLoop;
+		};
+		[_veh,_animName,false] call A3PL_Lib_ToggleAnimation;
+	}
+],
+[
+	"A3PL_Silverado_FD_Brush",
+	localize"STR_INTSECT_OPCLINLET",
+	{
+		private _veh = player_objintersect;
+		private _animName = player_nameintersect;
+		if ((!(_veh isKindOf "Car")) OR (_animName == "")) exitwith {};
+		if (_animName == "bt_lever_1" && (_veh animationPhase "bt_lever_1" < 0.5)) then {
+			[_veh] spawn A3PL_FD_BrushLoop;
+		};
+		[_veh,_animName,false] call A3PL_Lib_ToggleAnimation;
+	}
+],
+[
 	"A3PL_Pierce_Heavy_Ladder",
 	localize"STR_INTSECT_CONHOSETOLADIN",
 	{[player_objintersect,player_nameintersect] call A3PL_FD_ConnectHoseAdapter;}

@@ -5817,8 +5817,11 @@
    <Key ID="STR_INTSECT_OPCLDISCH">
       <Original>Open / Close Discharge</Original>
    </Key>
+   <Key ID="STR_INTSECT_OPCLINLET">
+      <Original>Open / Close Inlet</Original>
+   </Key>
    <Key ID="STR_INTSECT_CONHOSETOENGDIS">
-      <Original>Connect A Motor Discharge Hose</Original>
+      <Original>Connect Discharge Hose</Original>
    </Key>
    <Key ID="STR_INTSECT_CREATEFISHB">
       <Original>Create Fish Hamburger</Original>
