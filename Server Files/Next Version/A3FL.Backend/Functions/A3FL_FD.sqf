@@ -274,6 +274,9 @@
 		case ("outlet_2"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_2"; _animate = "outlet_2_cap";};
 		case ("outlet_3"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_3"; _animate = "outlet_3_cap";};
 		case ("outlet_4"): {_dirOffset = 90; _attachOffset = [0.12,0,0]; _memOffset = "outlet_4"; _animate = "outlet_4_cap";};
+
+		case ("outlet_bt_1"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_bt_1"; _animate = "outlet_bt_1_cap";};
+		case ("outlet_bt_2"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_bt_2"; _animate = "outlet_bt_2_cap";};
 		case default {_dirOffset = -180; _attachOffset = [0,-0.04,0];};
 	};
 	switch (_TOEnd) do
@@ -361,7 +364,6 @@
 	_foundCap = "";
 	if (isNull _veh) exitwith {_foundcap;};
 
-	//this will return the _end instead if we found one
 	if (_memToFindEnd != "") exitwith
 	{
 		private ["_selectionPosition","_foundEnd"];
@@ -376,7 +378,7 @@
 		_foundEnd;
 	};
 
-	_selectionNames = ["inlet_r","inlet_ds","inlet_ps","outlet_ds","outlet_ps","outlet_1","outlet_2","outlet_3","outlet_4"];
+	_selectionNames = ["inlet_r","inlet_ds","inlet_ps","outlet_ds","outlet_ps","outlet_1","outlet_2","outlet_3","outlet_4","inlet_bt","outlet_bt_1","outlet_bt_2"];
 	{
 		_selectionPosition = _veh modelToWorld (_veh selectionPosition _x);
 		if ((_end distance _selectionPosition) < 0.1) exitwith
@@ -392,12 +394,16 @@
 		case ("inlet_r"): {_foundCap = "inlet_r_cap"};
 		case ("inlet_ds"): {_foundCap = "inlet_ds_cap"};
 		case ("inlet_ps"): {_foundCap = "inlet_ps_cap"};
+		case ("inlet_bt"): {_foundCap = "inlet_bt_cap"};
 		case ("outlet_ds"): {_foundCap = "outlet_ds_cap"};
 		case ("outlet_ps"): {_foundCap = "outlet_ps_cap"};
 		case ("outlet_1"): {_foundCap = "outlet_1_cap"};
 		case ("outlet_2"): {_foundCap = "outlet_2_cap"};
 		case ("outlet_3"): {_foundCap = "outlet_3_cap"};
 		case ("outlet_4"): {_foundCap = "outlet_4_cap"};
+
+		case ("outlet_bt_1"): {_foundCap = "outlet_bt_1_cap"};
+		case ("outlet_bt_2"): {_foundCap = "outlet_bt_2_cap"};
 	};
 	_foundCap;
 }] call Server_Setup_Compile;
@@ -714,32 +720,28 @@
 {
 	private ["_end","_latestObject","_source","_otherEnd","_adapter","_hydrants","_hydrant","_m"];
 	_end = param [0,objNull];
-	_getAdapter = param [1,false]; //get the latest end instead of the source
+	_getAdapter = param [1,false];
 	_latestObject = _end;
 	_source = objNull;
 
 	while {!isNull _latestObject} do
 	{
-		_m = true; //move on with adapter check
+		_m = true;
 
-		//find other adapter end
 		_otherEnd = [_latestObject] call A3PL_FD_FindOtherEnd;
 
-		//if the other end isNull we are save to exit
 		if (isNull _otherEnd) exitwith {};
 
-		//check what it is attached to
 		_attachedTo = [_otherEnd] call A3PL_Lib_FindAttached;
 
-		//if the other end is connected to a adapter on a firehydrant we are save to exit here (since we found a source)
 		if ((typeOf _attachedTo) == "A3PL_FD_HoseEnd1_Float") exitwith
 		{
-			//Now we just make sure here that the adapter is in fact connected to a hydrant, otherwise we will still return a null object
+
 			private ["_hydrants","_adapter","_hydrant"];
 			_latestObject = objNull;
 			_adapter = _attachedTo;
 			if (isNull _adapter) exitwith {};
-			_hydrants = nearestObjects [_adapter, ["Land_A3PL_FireHydrant"], 1]; //CHANGE TO TERRAIN OBJECTS WHEN FIRE HYDRANTS ARE TERRAIN OBJECTS INSTEAD
+			_hydrants = nearestObjects [_adapter, ["Land_A3PL_FireHydrant"], 1];
 			if (count _hydrants < 1) exitwith {};
 			_hydrant = _hydrants select 0;
 
@@ -749,44 +751,39 @@
 			};
 		};
 
-		if ((typeOf _attachedTo) IN ["A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van"]) exitwith
+		if ((typeOf _attachedTo) IN ["A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush"]) exitwith
 		{
 			_latestObject = _attachedTo;
 		};
 
-		//if the other end is connected to a Y-Adapter we need to continue on with the inlet, to make sure people dont connect outlets into inlets....
 		if ((typeOf _attachedTo) == "A3PL_FD_yAdapter") then
 		{
 			_otherEnd = (attachedTo _otherEnd) getVariable ["inlet",objNull];
 			_m = false;
 		};
 
-		//check if we are connected to an extender, if we are NOT connected to an extender it is safe to exit the loop or it will keep bouncing back and forth looking for the adapter end
 		if ((typeOf _attachedTo) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) then
 		{
 			_otherEnd = _attachedTo;
 		} else
 		{
-			if (_m) then //make sure that we did not find an adapter, otherwise the script will end :(
+			if (_m) then
 			{
 				_otherEnd = objNull;
 			};
 		};
 
-		//otherwise set _latestobject
+
 		_latestObject = _otherEnd;
 	};
 
-	//player globalchat format ["Other End: %1",_latestObject];
 
-	//exit if we need the adapter instead
 	if (_getAdapter) exitwith
 	{
 		_source = _otherEnd; _source;
 	};
 
-	//now check if it is a valid source
-	if (typeOf _latestObject in ["Land_A3PL_FireHydrant","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer"]) then
+	if (typeOf _latestObject in ["Land_A3PL_FireHydrant","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Silverado_FD_Brush"]) then
 	{
 		_source = _latestObject;
 	} else
@@ -912,16 +909,17 @@
 	while {(_veh animationPhase "bt_lever_1" > 0)} do
 	{
 		_end = [objNull,_veh,"inlet_bt"] call A3PL_FD_FindAdapterCap;
+		diag_log format ["_end: %1",_end];
 		if (!isNull _end) then
 		{
 			_source = [_end] call A3PL_FD_FindSource;
+			diag_log format ["_source: %1",_source];
 			if (!isNull _source) then
 			{
 				_sourceAmount = [_source] call A3PL_FD_SourceAmount;
 				if (_sourceAmount >= 5) then
 				{
-					if (_veh animationPhase "bt_lever_1" > 0.9 && _veh animationPhase "FT_Pump_Switch" > 0.9) then //make sure the driver side aux intake/hydrant to tank is open, intake valve, and pump shift
-					{
+					if (_veh animationPhase "bt_lever_1" > 0.9 && _veh animationPhase "FT_Pump_Switch" > 0.9) then {
 						_water = _veh getVariable ["water",0];
 						if (_water < 1800) then
 						{

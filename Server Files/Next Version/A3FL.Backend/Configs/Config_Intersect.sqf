@@ -500,6 +500,8 @@ Config_IntersectArray =
 	["outlet_ds",localize"STR_INTSECT_CONHOSETOENGDIS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //Connect Hose To Engine Discharge
 	["outlet_1",localize"STR_INTSECT_CONHOSETOENGDIS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //discharges ||Connect Hose To Engine Discharge
 	["outlet_2",localize"STR_INTSECT_CONHOSETOENGDIS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //Connect Hose To Engine Discharge
+	["outlet_bt_1",localize"STR_INTSECT_CONHOSETOENGDIS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //discharges ||Connect Hose To Engine Discharge
+	["outlet_bt_2",localize"STR_INTSECT_CONHOSETOENGDIS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //Connect Hose To Engine Discharge
 
 	["burger",localize"STR_INTSECT_CREATEFISHB",_dir+"IGUI\Cfg\Actions\take_ca.paa",{_burgers = nearestObjects [player_objIntersect, ["A3PL_Burger_Bun"], 1]; (count _burgers) > 0}], //Create Fish Burger
 	["tacoshell",localize"STR_INTSECT_CREATEFTACO",_dir+"IGUI\Cfg\Actions\take_ca.paa",{_burgers = nearestObjects [player_objIntersect, ["A3PL_Fish_Raw","A3PL_Fish_Cooked","A3PL_Fish_Burned"], 1]; _salads= nearestObjects [player_objIntersect, ["A3PL_Salad"], 1]; ((count _burgers) > 0) && ((count _salads) > 0)}], //Create Fish Taco
