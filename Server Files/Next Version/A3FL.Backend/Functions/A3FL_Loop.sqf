@@ -23,6 +23,7 @@
 	["itemAdd", ["Loop_JailMarkers", {[] spawn A3PL_Prison_Markers;}, 30, 'seconds',{ player getVariable ["job","unemployed"] IN ["usms"] },{ !(player getVariable ["job","unemployed"] IN ["usms"]) }]] call BIS_fnc_loop;
 	["itemAdd", ["drowningSystem", {[] spawn A3PL_Loop_Drowning;}, 1, "seconds", {(underwater player) && !(isAbleToBreathe player)}, {!(underwater player) || (isAbleToBreathe player)}]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_HousingTaxes", {[] call A3PL_Loop_HousingTaxes;}, 1800, 'seconds',{!(player getVariable ["house",nil] isEqualTo nil)}, {player getVariable ["house",nil] isEqualTo nil}]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_WarehouseTaxes", {[] call A3PL_Loop_WarehouseTaxes;}, 1800, 'seconds',{!(player getVariable ["warehouse",nil] isEqualTo nil)}, {player getVariable ["warehouse",nil] isEqualTo nil}]] call BIS_fnc_loop;
 
 	//Events
 	//["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
@@ -111,6 +112,17 @@
 	if(isNil {player getVariable ["house",nil]}) exitWith {};
 	private _house = player getVariable ["house",nil];
 	private _taxPrice = [_house,2] call A3PL_Housing_GetData;
+	private _bank = player getVariable["Player_Bank",0];
+	player setVariable["Player_Bank",_bank-_taxPrice,true];
+	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];
+	[format [localize"STR_NewLoop_1",_taxPrice],"yellow"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
+
+["A3PL_Loop_WarehouseTaxes",
+{
+	if(isNil {player getVariable ["warehouse",nil]}) exitWith {};
+	private _warehouse = player getVariable ["warehouse",nil];
+	private _taxPrice = [_warehouse,2] call A3PL_Warehouses_GetData;
 	private _bank = player getVariable["Player_Bank",0];
 	player setVariable["Player_Bank",_bank-_taxPrice,true];
 	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];

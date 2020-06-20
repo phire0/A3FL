@@ -14,7 +14,7 @@ publicVariable "Config_Warehouses_List";
 
 Config_Warehouses_Prices = [
 
-	["Land_John_Hangar",350000],
-	["Land_A3FL_Warehouse",450000]
+	["Land_John_Hangar",350000,500],
+	["Land_A3FL_Warehouse",450000,600]
 ];
 publicVariable "Config_Warehouses_Prices";

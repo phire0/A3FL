@@ -82,14 +82,14 @@
 		{
 			private _veh = vehicle player;
 			if(!(_veh isKindOf "Car") && !((driver _veh) isEqualTo player)) exitWith {};
-				if (_veh getVariable ["EngineOn",0]) then {
-					_veh setVariable ["EngineOn",1];
+				if (_veh getVariable ["EngineOn",0] isEqualTo 0) then {
+					_veh setVariable ["EngineOn",1,true];
 					["The engine of this vehicle will now remain running when you exit","green"] call A3PL_Player_Notification;
 				} else {
-					_veh setVariable ["EngineOn",0];
+					_veh setVariable ["EngineOn",0,true];
 					["The engine of this vehicle will now stop running when you exit","red"] call A3PL_Player_Notification;
 				};
-		}, "", [DIK_INSERT, [true, false, false]]] call CBA_fnc_addKeybind;
+		}, "", [DIK_INSERT, [false, false, false]]] call CBA_fnc_addKeybind;
 
 		// ["ArmA 3 Fishers Life","lockunlock_key", "Lock/Unlock Vehicle",
 		// {

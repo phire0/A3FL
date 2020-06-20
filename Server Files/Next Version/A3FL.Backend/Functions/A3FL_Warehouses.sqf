@@ -30,7 +30,7 @@
 	if (count _warehouses < 1) exitwith {[localize"STR_NewHousing_12","red"] call A3PL_Player_Notification;};
 	A3PL_Warehouses_Object = _warehouses select 0;
 
-	_price = [A3PL_Warehouses_Object] call A3PL_Warehouses_GetPrice;
+	_price = [A3PL_Warehouses_Object,1] call A3PL_Warehouses_GetData;
  	createDialog "Dialog_WarehouseBuy";
 	_display = findDisplay 75;
 	_control = _display displayCtrl 1000;
@@ -43,7 +43,7 @@
 	_warehouses = nearestObjects [player, Config_Warehouses_List, 20];
 	if (count _warehouses < 1) exitwith {[localize"STR_NewHousing_12","red"] call A3PL_Player_Notification;};
 	A3PL_Warehouses_Object = _warehouses select 0;
-	_price = [A3PL_Warehouses_Object] call A3PL_Warehouses_GetPrice;
+	_price = [A3PL_Warehouses_Object,1] call A3PL_Warehouses_GetData;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
 	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {["This warehouse is already owned!","red"] call A3PL_Player_Notification;};
 	if (!isNil {player getVariable ["warehouse",nil]}) exitwith {["You already own a warehouse!","red"] call A3PL_Player_Notification;};
@@ -138,4 +138,18 @@
 	_marker setMarkerAlphaLocal 1;
 	_marker setMarkerColorLocal "ColorGreen";
 	_marker setMarkerTextLocal (format [" Warehouse (%1)",toUpper((_warehouse getVariable ["doorid",["1","Unknown"]]) select 1)]);
+}] call Server_Setup_Compile;
+
+["A3PL_Warehouses_GetData",
+{
+	private _warehouse = param [0,objNull];
+	private _search = param [1,1];
+	private _class = typeOf _warehouse;
+	private _price = 0;
+	{
+		if((_x select 0) == _class) exitWith {
+			_price = _x select _search;
+		};
+	} forEach Config_Warehouses_Prices;
+	_price;
 }] call Server_Setup_Compile;
