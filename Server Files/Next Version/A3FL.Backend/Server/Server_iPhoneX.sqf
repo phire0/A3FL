@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-['Server_iPhoneX_AddPhoneNumber', 
+['Server_iPhoneX_AddPhoneNumber',
 {
 	private ["_unit","_phoneNumber","_type","_serialNumber","_query"];
 	_unit = [_this,0,"",[""]] call BIS_fnc_param;
@@ -24,7 +24,7 @@
 	[_query,1] call Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_CallSwitchboard', 
+['Server_iPhoneX_CallSwitchboard',
 {
 	private ["_unit","_phoneNumberActive","_ownerID","_playerUID"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -43,7 +43,7 @@
 	};
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_NumberIsUsed', 
+['Server_iPhoneX_NumberIsUsed',
 {
 	private ["_unit", "_phoneNumber","_query","_result"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -55,7 +55,7 @@
 	[_result] remoteExec ["A3PL_iPhoneX_NumberIsUsed", owner _unit];
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_DeleteContact', 
+['Server_iPhoneX_DeleteContact',
 {
 	private ["_unit","_phoneNumberContact","_playerUID","_query"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -72,7 +72,7 @@
 	[_unit] remoteExec ["Server_iPhoneX_GetContacts",2];
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_GetContacts', 
+['Server_iPhoneX_GetContacts',
 {
 	private ["_unit","_ownerID","_playerUID","_query","_result"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -97,7 +97,7 @@
 	};
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_GetConversations', 
+['Server_iPhoneX_GetConversations',
 {
 	private ["_unit","_ownerID","_playerUID","_query","_result"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -123,14 +123,14 @@
 	};
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_GetListNumber', 
+['Server_iPhoneX_GetListNumber',
 {
 	private _unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
 	if (isNil "_unit") exitWith {};
 	[A3PL_iPhoneX_ListNumber] remoteExec ["A3PL_iPhoneX_listNumber", owner _unit];
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_GetPhoneNumber', 
+['Server_iPhoneX_GetPhoneNumber',
 {
 	private ["_unit","_ownerID","_playerUID","_query","_resultPrimary","_resultSecondary","_resultEnterprise","_resultActive","_inList"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -179,7 +179,7 @@
 	[_unit] remoteExec ["Server_iPhoneX_GetContacts",2];
 	[_unit] remoteExec ["Server_iPhoneX_GetConversations",2];
 
-	
+
 	_inList = ([A3PL_iPhoneX_ListNumber, _resultPrimary] call BIS_fnc_findNestedElement);
 	if (_inList isEqualTo []) then {
 		A3PL_iPhoneX_ListNumber pushBack [_resultPrimary, _ownerID];
@@ -195,7 +195,7 @@
 	};
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_GetPhoneNumberActive', 
+['Server_iPhoneX_GetPhoneNumberActive',
 {
 	private ["_unit","_playerUID","_query","_result"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -213,7 +213,7 @@
 	};
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_GetPhoneNumberEnterprise', 
+['Server_iPhoneX_GetPhoneNumberEnterprise',
 {
 	private ["_unit","_ownerID","_playerUID"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -271,7 +271,7 @@
 	[_result] remoteExec ["A3PL_iPhoneX_SMSEnterprise", _ownerID];
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_SaveContact', 
+['Server_iPhoneX_SaveContact',
 {
 	private ["_uid","_ownerPhoneNumber","_nameContact","_phoneNumberContact","_query"];
 	_uid  = [_this,0,"",[""]] call BIS_fnc_param;
@@ -285,7 +285,7 @@
 	[_query,1] call Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_SaveConversation', 
+['Server_iPhoneX_SaveConversation',
 {
 	private ["_uid","_nameContact","_phoneNumberContact","_query"];
 	_uid  = [_this,0,"",[""]] call BIS_fnc_param;
@@ -299,7 +299,7 @@
 	[_query,1] call Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_SaveLastSMS', 
+['Server_iPhoneX_SaveLastSMS',
 {
 	private ["_uid","_nameContact","_phoneNumberContact","_message","_query"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -317,7 +317,7 @@
 	[_unit] remoteExec ["A3PL_iPhoneX_getConversations",2];
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_SavePhoneNumberActive', 
+['Server_iPhoneX_SavePhoneNumberActive',
 {
 	private ["_unit","_phoneNumberActive","_ownerID","_playerUID"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -334,7 +334,7 @@
 	[_phoneNumberActive,"Active"] remoteExec ["A3PL_iPhoneX_setPhoneNumber", _ownerID];
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_SendSMS', 
+['Server_iPhoneX_SendSMS',
 {
 	private ["_unit","_from","_to","_message","_query","_exists"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
@@ -345,15 +345,16 @@
 	if (isNil "_unit" || _from isEqualTo "" || _to isEqualTo "" || _message isEqualTo "") exitWith {};
 
 	_position = mapGridPosition _unit;
+	_actualPos = getPos _unit;
 	_query = format ["INSERT INTO iphone_messages (from_num, to_num, message, position) VALUES ('%1', '%2', '""%3""', '%4')", _from, _to, _message, _position];
 	[_query,1] call Server_Database_Async;
 
 	if(_to IN ["911","912"]) then {
 		if (_to isEqualTo "911") then {
-			{[_from, _message, _to, _position] remoteExec ["A3PL_iPhoneX_receiveSMS", _x];} foreach (["uscg"] call A3PL_Lib_FactionPlayers);
-			{[_from, _message, _to, _position] remoteExec ["A3PL_iPhoneX_receiveSMS", _x];} foreach (["fisd"] call A3PL_Lib_FactionPlayers);
-			{[_from, _message, _to, _position] remoteExec ["A3PL_iPhoneX_receiveSMS", _x];} foreach (["usms"] call A3PL_Lib_FactionPlayers);
-			{[_from, _message, _to, _position] remoteExec ["A3PL_iPhoneX_receiveSMS", _x];} foreach (["fifr"] call A3PL_Lib_FactionPlayers);
+			{[_from, _message, _to, _position,_actualPos] remoteExec ["A3PL_iPhoneX_receiveSMS", _x];} foreach (["uscg"] call A3PL_Lib_FactionPlayers);
+			{[_from, _message, _to, _position,_actualPos] remoteExec ["A3PL_iPhoneX_receiveSMS", _x];} foreach (["fisd"] call A3PL_Lib_FactionPlayers);
+			{[_from, _message, _to, _position,_actualPos] remoteExec ["A3PL_iPhoneX_receiveSMS", _x];} foreach (["usms"] call A3PL_Lib_FactionPlayers);
+			{[_from, _message, _to, _position,_actualPos] remoteExec ["A3PL_iPhoneX_receiveSMS", _x];} foreach (["fifr"] call A3PL_Lib_FactionPlayers);
 		};
 		if (_to isEqualTo "912") then {
 			{[_from, _message, _to, _position] remoteExec ["A3PL_iPhoneX_receiveSMS", _x];} foreach (["doj"] call A3PL_Lib_FactionPlayers);
@@ -366,7 +367,7 @@
 	};
 },true] call Server_Setup_Compile;
 
-['Server_iPhoneX_UpdatePhoneNumberActive', 
+['Server_iPhoneX_UpdatePhoneNumberActive',
 {
 	private ["_unit","_phoneNumberActive","_playerUID"];
 	_unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;

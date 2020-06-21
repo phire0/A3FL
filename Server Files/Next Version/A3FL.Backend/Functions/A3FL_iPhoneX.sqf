@@ -856,6 +856,7 @@
 	_message = _this select 1;
 	_to = _this select 2;
 	_position = _this select 3;
+	_actualPos = _this select 4;
 	_SMS = A3PL_SMS;
 	_conversations = A3PL_conversations;
 
@@ -872,6 +873,7 @@
 		{
 			if (!(_to isEqualTo "911") OR !(_to isEqualTo "912")) then {_position = "unknown"};
 			_SMS pushBack [_from, _message, _position];
+			[_actualPos,format["911 - %1",_from],"ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
 
 			{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
 
