@@ -9,7 +9,6 @@
 //['class',gain,isDrug]
 Config_Food =
 [
-	["donut",12,false],
 	["tacoshell",2,false],
 	["lettuce",4,false],
 	["salad",5,false],

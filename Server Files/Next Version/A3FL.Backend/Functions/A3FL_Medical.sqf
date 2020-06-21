@@ -162,8 +162,13 @@
 			[player,([_sHit] call A3PL_Medical_GetHitPart),"taser"] call A3PL_Medical_ApplyWound;
  		};
 		if (_sBullet IN ["A3FL_PepperSpray_Ball"]) exitwith {
-				[player,"head","pepper_spray"] call A3PL_Medical_ApplyWound;
-				[] call A3PL_Medical_PepperSpray;
+			private _masks = ["G_Balaclava_combat","A3PL_FD_Mask"];
+			if(!((goggles player) IN _masks)) then {
+				if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
+					[player,"head","pepper_spray"] call A3PL_Medical_ApplyWound;
+					[] call A3PL_Medical_PepperSpray;
+				};
+			};
 		};
 		case (_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_GolfDriver"]): {
 			[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;

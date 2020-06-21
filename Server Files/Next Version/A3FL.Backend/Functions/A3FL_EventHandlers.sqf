@@ -628,22 +628,18 @@
 {
 	player addEventHandler ["HandleDamage",
 	{
-		private ["_damage","_bullet","_unit","_dmg"];
-		_unit = _this select 0;
-		_selection = _this select 1;
-		_damage = _this select 2;
-		_source = _this select 3;
-		_projectile = _this select 4;
-		_dmg = 0;
-
-		if (_damage > 0) then
-		{
-			private ["_hit"];
-			_hit = _unit getVariable ["getHit",[]];
+		private _unit = _this select 0;
+		private _selection = _this select 1;
+		private _damage = _this select 2;
+		private _source = _this select 3;
+		private _projectile = _this select 4;
+		private _dmg = 0;
+		if (_damage > 0) then {
+			diag_log format["HandleDamage: _damage = %1",_damage];
+			private _hit = _unit getVariable ["getHit",[]];
 			_hit pushback [_selection,_damage,_projectile,_source];
 			_unit setVariable ["getHit",_hit,false];
 		};
-
 		player setVariable ["lastDamage",(_source getVariable["db_id",0]),true];
 		[_unit] spawn A3PL_Medical_Hit;
 		_dmg;
