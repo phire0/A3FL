@@ -2587,7 +2587,8 @@ Config_GenArray =
 	localize"STR_INTSECT_HIDEOUTSHOP",
 	"Low End Car Dealer",
 	localize"STR_INTSECT_CONHOSETOENGIN",
-	localize"STR_INTSECT_CONHOSETOENGDIS"
+	localize"STR_INTSECT_CONHOSETOENGDIS",
+	localize"STR_INTSECT_OPCLINLET"
 ];
 publicVariable "Config_GenArray";
 
