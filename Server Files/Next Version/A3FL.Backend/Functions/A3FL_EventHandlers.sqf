@@ -635,7 +635,6 @@
 		private _projectile = _this select 4;
 		private _dmg = 0;
 		if (_damage > 0) then {
-			diag_log format["HandleDamage: _damage = %1",_damage];
 			private _hit = _unit getVariable ["getHit",[]];
 			_hit pushback [_selection,_damage,_projectile,_source];
 			_unit setVariable ["getHit",_hit,false];
