@@ -8861,7 +8861,7 @@
         <Original>The current department budget does not have enough funds to pay you!</Original>
       </Key>
       <Key ID="STR_NewLoop_3">
-        <Original>You received your %1 salary in the amount of $%2, you can sign your pay check at the bank</Original>
+        <Original>You received your %1 paycheck of $%2</Original>
       </Key>
       <Key ID="STR_NewLoop_4">
         <Original>The company does not have enough left in the bank for your salary!</Original>
