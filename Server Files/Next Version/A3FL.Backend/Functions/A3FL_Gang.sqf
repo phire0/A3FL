@@ -276,7 +276,8 @@
 	if(_gangID isEqualTo 0) exitWith {};
 
 	_gangName = _gangHideout getVariable ["capturedName",""];
+	_gangData = [_gangID,_gangName];
 
-	
 
+	_gangData
 }] call Server_Setup_Compile;
