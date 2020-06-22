@@ -267,6 +267,7 @@
 		case ("fd_yadapter_out2"): {_dirOffset = 60; _attachOffset = [0.07,0.10,0];};
 		case ("inlet_r"): {_dirOffset = -180; _attachOffset = [0,0,0]; _memOffset = "inlet_r"; _animate = "Inlet_R_Cap";};
 		case ("inlet_ds"): {_dirOffset = -90; _attachOffset = [0,0,0]; _memOffset = "inlet_ds"; _animate = "Inlet_DS_Cap";};
+		case ("inlet_bt"): {_dirOffset = 180; _attachOffset = [0,0.05,0]; _memOffset = "inlet_bt"; _animate = "inlet_bt_cap";};
 		case ("outlet_ps"): {_dirOffset = 90; _attachOffset = [0.05,0,0]; _memOffset = "outlet_ps"; _animate = "Outlet_PS_Cap";};
 		case ("outlet_ds"): {_dirOffset = -90; _attachOffset = [-0.05,0,0]; _memOffset = "outlet_ds"; _animate = "Outlet_DS_Cap";};
 
@@ -275,8 +276,8 @@
 		case ("outlet_3"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_3"; _animate = "outlet_3_cap";};
 		case ("outlet_4"): {_dirOffset = 90; _attachOffset = [0.12,0,0]; _memOffset = "outlet_4"; _animate = "outlet_4_cap";};
 
-		case ("outlet_bt_1"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_bt_1"; _animate = "outlet_bt_1_cap";};
-		case ("outlet_bt_2"): {_dirOffset = 90; _attachOffset = [0,0,0]; _memOffset = "outlet_bt_2"; _animate = "outlet_bt_2_cap";};
+		case ("outlet_bt_1"): {_dirOffset = 180; _attachOffset = [0,0,0]; _memOffset = "outlet_bt_1"; _animate = "outlet_bt_1_cap";};
+		case ("outlet_bt_2"): {_dirOffset = 180; _attachOffset = [0,0,0]; _memOffset = "outlet_bt_2"; _animate = "outlet_bt_2_cap";};
 		case default {_dirOffset = -180; _attachOffset = [0,-0.04,0];};
 	};
 	switch (_TOEnd) do
@@ -413,48 +414,42 @@
 {
 	private ["_end","_hose","_otherEnd","_ropeLength","_attachedTo","_nozzleClass","_connectedMem"];
 	_end = param [0,objNull];
-	_nozzleClass = "A3PL_High_Pressure"; //if we ever change the nozzle classname we can change it here
+	_nozzleClass = "A3PL_High_Pressure";
 
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
-	//do checks
+
 	if (!isNull Player_Item) exitwith { _format = format["You already have an item"]; [_format, "red"] call A3PL_Player_Notification; };
 	if (!(typeOf _end IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])) exitwith {["You are not interacting with the correct typeOf adapter (report this)","red"] call A3PL_Player_Notification;};
 	if (isPlayer (attachedTo _end)) exitwith {["Another person holds this hose, you can not take it","red"] call A3PL_Player_Notification;};
-	//find other adapter end
+
 	_otherEnd = [_end] call A3PL_FD_FindOtherEnd;
 	if (!local _end) exitwith
 	{
-		[netID _end,netID player] remoteExec ["A3PL_Lib_ChangeLocality", 2];["Try again","yellow"] call A3PL_Player_Notification;
+		[netID _end,netID player] remoteExec ["A3PL_Lib_ChangeLocality", 2];
+		["Try again","yellow"] call A3PL_Player_Notification;
 		if (!local _otherEnd && !isNull _otherend) then {[netID _otherEnd,netID player] remoteExec ["A3PL_Lib_ChangeLocality", 2];};
 	};
 	if (isPlayer (attachedTo _otherEnd)) exitwith {["Another person holds this hose, you can not take it","red"] call A3PL_Player_Notification;};
-	//if the end we are connected to is attached to a Y-Adapter we need to do an additional check, and nil the variable if required otherwise the source stays active
 	_attachedTo = attachedTo _end;
 	if (typeOf _attachedTo == "A3PL_FD_yAdapter") then
 	{
-		//check if _end == the variable assigned
 		if (_end == _attachedTo getVariable ["inlet",objNull]) then
 		{
 			_attachedTo setVariable ["inlet",objNull,true];
 		};
 	};
-	//end of the Y-adapter additional check
 
-	//check if we need to close animate an inlet/discharge
     _connectedMem = [_end,(attachedTo _end)] call A3PL_FD_FindAdapterCap;
 	if (_connectedMem != "") then {(attachedTo _end) animate [_connectedMem,0]};
 
-	//attach
 	_end attachTo [player,[0,0,0],"RightHand"];
 	Player_Item = _end;
 
-	//find hose
 	_hose = [_end] call A3PL_FD_FindHose;
 	_ropeLength = ropeLength _hose - 0.25;
 	_ropeLength = _ropeLength - 2;
 
-	//loop
 	missionNamespace setVariable ["A3PL_FD_FiredCount",0];
 	A3PL_FD_PlayerFiredIndex = player addEventHandler ["Fired",{[(param [0,objNull])] call A3PL_FD_WaterFiredEH;}];
 	while {(attachedTo _end == player) && (!isNull _end)} do
@@ -464,15 +459,15 @@
 		if (currentWeapon player == "A3PL_High_Pressure") then
 		{
 			private ["_hasMag","_shouldMag","_bullets","_shouldBullets","_source"];
-			_hasMag = (handgunMagazine player) select 0; //could be Nil if no magazine, this will not return out of index error if array size is 0!
-			if (isNil "_hasMag") then {_hasMag = ""}; //take care of Nil value, this happends if there is no handgunMagazine
+			_hasMag = (handgunMagazine player) select 0;
+			if (isNil "_hasMag") then {_hasMag = ""};
 
 
-			_source = [_end] call A3PL_FD_FindSource; //we also handle checks on the source itself (proper valves opened etc)
-			//change magazine if pressure changed
+			_source = [_end] call A3PL_FD_FindSource;
+
 			_pressure = "low";
 			_shouldMag = "A3PL_Low_Pressure_Water_Mag";
-			if (typeOf _source == "A3PL_Pierce_Pumper") then
+			if (typeOf _source IN ["A3PL_Pierce_Pumper","A3PL_Silverado_FD_Brush"]) then
 			{
 				_pressure = _source getVariable["pressure","low"];
 				switch (_pressure) do
@@ -483,32 +478,32 @@
 				};
 			};
 
-			//add a magazine if it is not the correct one, and load it
+
 			if (_hasMag != _shouldMag) then
 			{
 				player addMagazine _shouldMag;
 				player addWeapon _nozzleClass;
 			};
 
-			//add bullets based on source
+
 			_bullets = player ammo _nozzleClass;
-			if (!isNull _source) then //valid source
+			if (!isNull _source) then
 			{
-				if (typeOf _source == "A3PL_Pierce_Pumper") then
+				if (typeOf _source IN ["A3PL_Pierce_Pumper","A3PL_Silverado_FD_Brush"]) then
 				{
 					_shouldBullets = [_source,[_end,true] call A3PL_FD_FindSource] call A3PL_FD_SourceAmount;
 				} else
 				{
 					_shouldBullets = [_source] call A3PL_FD_SourceAmount;
 				};
-				//hintSilent format ["EAU : %1 GALLONS",_shouldBullets];
+
 				if (((_bullets - _shouldBullets > 10) OR (_bullets - _shouldBullets < -10)) OR (_shouldBullets == 0 && _bullets != 0)) then //only perform a setammo in certain cases
 				{
 					player setAmmo [_nozzleClass,_shouldBullets];
 				};
-			} else //not a valid source so set the ammo to 0
+			} else
 			{
-				if (_bullets != 0) then //we dont want to continously setAmmo, that would be stupid so only do it if there aren't 0 bullets in it already, according to wiki setAmmo has global effect
+				if (_bullets != 0) then
 				{
 					player setAmmo [_nozzleClass,0];
 				};
@@ -542,7 +537,7 @@
 	if ((isNull _inlet) OR (!(typeOf _inlet IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]))) exitwith {};
 
 	_source = [_inlet] call A3PL_FD_FindSource;
-	if (typeOf _source != "A3PL_Pierce_Pumper") exitwith {};
+	if (!(typeOf _source IN ["A3PL_Pierce_Pumper","A3PL_Silverado_FD_Brush"])) exitwith {};
 
 	_firedCount = missionNamespace getVariable ["A3PL_FD_FiredCount",0];
 	_firedCount = _firedCount + 1;
@@ -801,16 +796,16 @@
 	_end = param [1,objNull];
 	_amount = 0;
 
-	if (isNull _source) exitwith {_amount;}; // no use doing anything below this is the source is a null object
+	if (isNull _source) exitwith {_amount;};
 
-	//handle every source different
+
 	switch (typeOf _source) do
 	{
 		case ("Land_A3PL_FireHydrant") do
 		{
 			private ["_wrench"];
-			//now check if the wrench is actually in the open position
-			_wrench = (nearestObjects [_source, ["A3PL_FD_HydrantWrench_F"], 1]) select 0; //TERRAIN OBJECTS LATER
+
+			_wrench = (nearestObjects [_source, ["A3PL_FD_HydrantWrench_F"], 1]) select 0;
 			if (!isNil "_wrench") then
 			{
 				if (_wrench animationSourcePhase "WrenchRotation" > 0.5) then
@@ -822,7 +817,7 @@
 
 		case ("A3PL_Pierce_Pumper") do
 		{
-			if (_source animationPhase "ft_lever_7" < 0.5) exitwith {}; //no water on pump cause valve closed
+			if (_source animationPhase "ft_lever_7" < 0.5) exitwith {};
 			_line = [_end,_source] call A3PL_FD_FindAdapterCap;
 
 			if (_line == "outlet_ds_cap" && (_source animationPhase "ft_lever_10" > 0.5)) then
@@ -830,6 +825,21 @@
 				_amount = _source getVariable ["water",0];
 			};
 			if (_line == "outlet_ps_cap" && (_source animationPhase "ft_lever_1" > 0.5)) then
+			{
+				_amount = _source getVariable ["water",0];
+			};
+		};
+
+		case ("A3PL_Silverado_FD_Brush") do
+		{
+			if (_source animationPhase "bt_lever_1" < 0.5) exitwith {};
+			_line = [_end,_source] call A3PL_FD_FindAdapterCap;
+
+			if (_line == "outlet_bt_1" && (_source animationPhase "bt_lever_3" > 0.5)) then
+			{
+				_amount = _source getVariable ["water",0];
+			};
+			if (_line == "outlet_bt_2" && (_source animationPhase "bt_lever_2" > 0.5)) then
 			{
 				_amount = _source getVariable ["water",0];
 			};
@@ -905,7 +915,7 @@
 	A3PL_FD_BrushLoopRunning = true;
 
 	_i = 0;
-	waitUntil {sleep 0.1; _i = _i + 0.1; if (_i > 3) exitwith {_veh animate ["bt_lever_1",0,true]}; _veh animationPhase "bt_lever_1" > 0};
+	waitUntil {sleep 0.1; _i = _i + 0.1; if (_i > 3) exitwith {_veh animate ["bt_lever_1",0,true]}; _veh animationPhase "bt_lever_1" > 0;};
 	while {(_veh animationPhase "bt_lever_1" > 0)} do
 	{
 		_end = [objNull,_veh,"inlet_bt"] call A3PL_FD_FindAdapterCap;
@@ -917,9 +927,10 @@
 			if (!isNull _source) then
 			{
 				_sourceAmount = [_source] call A3PL_FD_SourceAmount;
+				diag_log format ["_sourceAmount: %1",_sourceAmount];
 				if (_sourceAmount >= 5) then
 				{
-					if (_veh animationPhase "bt_lever_1" > 0.9 && _veh animationPhase "FT_Pump_Switch" > 0.9) then {
+					if (_veh animationPhase "bt_lever_1" > 0.9 && _veh animationPhase "ft_pump_switch" > 0.9) then {
 						_water = _veh getVariable ["water",0];
 						if (_water < 1800) then
 						{
