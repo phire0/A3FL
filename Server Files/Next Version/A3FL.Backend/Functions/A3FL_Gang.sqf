@@ -193,7 +193,7 @@
 	private _win = 10000;
 	private _group = group player;
 
-	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","dmv","usms"]) exitWith {};
+	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","dmv","usms"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
 	if((currentWeapon player) isEqualTo "") exitwith {["You do not brandish any weapon","red"] call A3PL_Player_Notification;};
 	if((currentWeapon player) IN ["A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
 
@@ -222,12 +222,16 @@
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;};
+	_gangName = _gang select 2;
 
 	_obj setVariable["captured",_gangID,true];
+	_obj setVariable["capturedName",_gangName,true];
 	_obj setVariable["CapturedTime",serverTime,true];
 
-	_gangName = _gang select 2;
 	[format[localize "STR_GANG_CAPTURED",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
+
+	_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
+	[getPos player,format["Gang Hideout Captured - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",_cops];
 
 	[localize"STR_NewGang_22","green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
@@ -249,4 +253,30 @@
 
 	[format[localize"STR_NewGang_27",_win],"green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
+}] call Server_Setup_Compile;
+
+["A3PL_Gang_GangTax",{
+
+	private _shop = param [0,objNull];
+	private _gangHideout = objNull;
+
+	if(_shop IN [npc_fuel_1,npc_fuel_2,NPC_general_1,npc_supermarket_1,Robbable_Shop_1,npc_perkfurniture,npc_perkfurniture_1,npc_perkfurniture_2,npc_roadworker]) then {
+		_gangHideout = hideout_obj_1;
+	};
+	if(_shop IN [npc_roadworker_3,npc_fuel_9,NPC_general_3,Robbable_Shop_2,npc_supermarket_2,npc_furniture_5,npc_furniture_6,npc_furniture_7,npc_fuel_8]) then {
+		_gangHideout = hideout_obj_2;
+	};
+	if(_shop IN [npc_fuel_10,Low_End_Car_Shop,npc_shopguns]) then {
+		_gangHideout = hideout_obj_5;
+	};
+
+	if(_gangHideout isEqualTo objNull) exitWith {};
+	_gangID = _gangHideout getVariable ["captured",0];
+
+	if(_gangID isEqualTo 0) exitWith {};
+
+	_gangName = _gangHideout getVariable ["capturedName",""];
+
+	
+
 }] call Server_Setup_Compile;
