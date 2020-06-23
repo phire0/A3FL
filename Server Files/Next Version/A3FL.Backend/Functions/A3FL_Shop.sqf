@@ -126,20 +126,18 @@
 	_index = lbCurSel _control;
 	if(_index < 0) exitwith {};
 	_item = _allItems select _index;
-	_itemType = _item select 0; // item type
-	_itemClass = _item select 1; // item class
-	_itemBuy = _item select 2; //number containing buy price
+	_itemType = _item select 0;
+	_itemClass = _item select 1;
+	_itemBuy = _item select 2;
 
-	//get amount
 	_amount = 1;
 	if (_itemType IN ["item","magazine"]) then
 	{
 		_control = _display displayCtrl 1400;
 		_amount = parseNumber (ctrlText _control);
 	};
-	if (_amount < 1) exitwith {[localize "STR_SHOP_ENTERVALAMOUNT","red"] call A3PL_Player_Notification;}; //System: Please enter a valid amount
+	if (_amount < 1) exitwith {[localize "STR_SHOP_ENTERVALAMOUNT","red"] call A3PL_Player_Notification;};
 
-	//check stock value
 	_stockCheck = true;
 	if (_shop IN Config_Shops_StockSystem) then
 	{
@@ -148,21 +146,20 @@
 	};
 	if (!_stockCheck) exitwith {["There is not enough stock available to buy this item!","red"] call A3PL_Player_Notification;};
 
-	//get total amount
 	_totalPrice = round(_itemBuy*_amount);
 	_taxed = [_shop] call A3PL_Config_isTaxed;
 	if(_taxed) then {
 		_taxName = [_shop, "tax"] call A3PL_Config_GetTaxSeting;
 		_totalPrice = _totalPrice + floor(_totalPrice*([_taxName] call A3PL_Config_GetTaxes));
 	};
-	//check money
+
 	_moneyCheck = false;
 	switch (_currency) do
 	{
 		case ("candy"):
 		{
 			if (["candy",_totalprice] call A3PL_Inventory_Has) then {_moneyCheck = true;} else {
-				[format[localize "STR_SHOP_NOTENOUGHCANDY",_totalprice-(["candy"] call A3PL_Inventory_Return)],"red"] call A3PL_Player_Notification; //System: You don't have enough candy to buy this item
+				[format[localize "STR_SHOP_NOTENOUGHCANDY",_totalprice-(["candy"] call A3PL_Inventory_Return)],"red"] call A3PL_Player_Notification;
 			};
 		};
 		case ("gift"):
@@ -186,13 +183,11 @@
 	};
 	if (!_moneyCheck) exitwith {};
 
-	//take stock if this was a stock item
 	if (_shop IN Config_Shops_StockSystem) then
 	{
 		[_shopObject,_index,_amount] call A3PL_ShopStock_Decrease;
 	};
 
-	//give item
 	_itemName = "UNKNOWN";
 	_canTake = true;
 	switch (_itemType) do
@@ -246,13 +241,12 @@
 	};
 	if(!_canTake) exitWith {[format [localize "STR_SHOP_NOTENOUGHSPACE",_amount, _itemName],"red"] call A3PL_Player_Notification;};
 
-	//take money
 	switch (_currency) do
 	{
 		case ("candy"):
 		{
 			["candy",-(_totalPrice)] call A3PL_Inventory_Add;
-			[format [localize "STR_SHOP_BOUGHTITEMCANDY",_itemName,_totalPrice,(["candy"] call A3PL_Inventory_Return),_amount],"green"] call A3PL_Player_Notification; //System: You bought %4 %1(s) for %2 candy, you have %3 candy remaining
+			[format [localize "STR_SHOP_BOUGHTITEMCANDY",_itemName,_totalPrice,(["candy"] call A3PL_Inventory_Return),_amount],"green"] call A3PL_Player_Notification;
 		};
 		case ("gift"):
 		{
@@ -275,6 +269,15 @@
 				[_taxBudget,floor(_totalPrice*_taxes)] remoteExec ["Server_Government_AddBalance",2];
 			} else {
 				[format [localize "STR_SHOP_BOUGHITEMCASH",_itemName,[_totalPrice, 1, 0, true] call CBA_fnc_formatNumber,[((player getVariable [_currency,0])-_totalPrice), 1, 0, true] call CBA_fnc_formatNumber,_amount],"green"] call A3PL_Player_Notification;
+			};
+			_isGangControlled = [_shopObject] call A3PL_Gang_GangTax;
+			diag_log format ["_isGangControlled %1",_isGangControlled];
+			if(!(isNil "_isGangControlled")) then {
+				_taxedAmount = _totalPrice / 100 * 5;
+				hint str format ["_taxedAmount: %1",_taxedAmount];
+				[(_isGangControlled select 0),round(_taxedAmount)] remoteExec ["Server_Gang_UpdateGangBalance",2];
+				[(_isGangControlled select 0),round(_taxedAmount)] remoteExec ["Server_Gang_NotifyPurchase",2];
+
 			};
 			player setVariable [_currency,(player getVariable [_currency,0]) - _totalPrice,true];
 		};

@@ -932,7 +932,7 @@
 				{
 					if (_veh animationPhase "bt_lever_1" > 0.9 && _veh animationPhase "ft_pump_switch" > 0.9) then {
 						_water = _veh getVariable ["water",0];
-						if (_water < 1800) then
+						if (_water < 800) then
 						{
 							_veh setVariable ["water",_water + 10,true];
 							_veh animate ["Water_Gauge1",(_water + 10) / 1800];
