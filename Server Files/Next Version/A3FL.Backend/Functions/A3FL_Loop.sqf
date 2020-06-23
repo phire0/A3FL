@@ -147,7 +147,7 @@
 			_payAmount = call A3PL_Government_FactionPay;
 		} else {
 			private _inCompany = [getPlayerUID player] call A3PL_Config_InCompany;
-			if(_inCompany) then {
+			if(_inCompany && (_job isEqualTo "unemployed")) then {
 				_done = true;
 				_payAmount = call A3PL_Company_Paycheck;
 			};
