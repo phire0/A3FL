@@ -832,14 +832,14 @@
 
 		case ("A3PL_Silverado_FD_Brush") do
 		{
-			if (_source animationPhase "bt_lever_1" < 0.5) exitwith {};
+			if (_source animationPhase "ft_pump_switch" < 0.5) exitwith {};
 			_line = [_end,_source] call A3PL_FD_FindAdapterCap;
 
-			if (_line == "outlet_bt_1" && (_source animationPhase "bt_lever_3" > 0.5)) then
+			if (_line == "outlet_bt_1_cap" && (_source animationPhase "bt_lever_3" > 0.5)) then
 			{
 				_amount = _source getVariable ["water",0];
 			};
-			if (_line == "outlet_bt_2" && (_source animationPhase "bt_lever_2" > 0.5)) then
+			if (_line == "outlet_bt_2_cap" && (_source animationPhase "bt_lever_2" > 0.5)) then
 			{
 				_amount = _source getVariable ["water",0];
 			};
@@ -919,15 +919,12 @@
 	while {(_veh animationPhase "bt_lever_1" > 0)} do
 	{
 		_end = [objNull,_veh,"inlet_bt"] call A3PL_FD_FindAdapterCap;
-		diag_log format ["_end: %1",_end];
 		if (!isNull _end) then
 		{
 			_source = [_end] call A3PL_FD_FindSource;
-			diag_log format ["_source: %1",_source];
 			if (!isNull _source) then
 			{
 				_sourceAmount = [_source] call A3PL_FD_SourceAmount;
-				diag_log format ["_sourceAmount: %1",_sourceAmount];
 				if (_sourceAmount >= 5) then
 				{
 					if (_veh animationPhase "bt_lever_1" > 0.9 && _veh animationPhase "ft_pump_switch" > 0.9) then {
