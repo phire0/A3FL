@@ -271,12 +271,10 @@
 				[format [localize "STR_SHOP_BOUGHITEMCASH",_itemName,[_totalPrice, 1, 0, true] call CBA_fnc_formatNumber,[((player getVariable [_currency,0])-_totalPrice), 1, 0, true] call CBA_fnc_formatNumber,_amount],"green"] call A3PL_Player_Notification;
 			};
 			_isGangControlled = [_shopObject] call A3PL_Gang_GangTax;
-			diag_log format ["_isGangControlled %1",_isGangControlled];
 			if(!(isNil "_isGangControlled")) then {
 				_taxedAmount = _totalPrice / 100 * 5;
-				hint str format ["_taxedAmount: %1",_taxedAmount];
 				[(_isGangControlled select 0),round(_taxedAmount)] remoteExec ["Server_Gang_UpdateGangBalance",2];
-				[(_isGangControlled select 0),round(_taxedAmount)] remoteExec ["Server_Gang_NotifyPurchase",2];
+				[(_isGangControlled select 0),round(_taxedAmount),"purchased"] remoteExec ["Server_Gang_NotifyPurchase",2];
 
 			};
 			player setVariable [_currency,(player getVariable [_currency,0]) - _totalPrice,true];
@@ -293,6 +291,7 @@
 	private ["_shop","_has","_allItems","_price","_currency","_item","_itemBuy","_itemSell","_itemType","_itemClass","_itemName","_index","_display","_isAbove"];
 	_shop = param [0,""];
 	_currency = param [1,"player_cash"];
+	_shopObject = cursorobject;
 
 	if(_shop isEqualTo "Shop_Guns_Vendor") exitWith {["You need a FML license to sell guns and ammo to this shop!","red"] call A3PL_Player_Notification;};
 
@@ -471,6 +470,13 @@
 				[_taxBudget,floor(_basePrice-_totalPrice)] remoteExec ["Server_Government_AddBalance",2];
 			} else {
 				[format [localize "STR_SHOP_SOLDITEM",_itemName,[_totalPrice, 1, 0, true] call CBA_fnc_formatNumber,[(player getVariable [_currency,0]), 1, 0, true] call CBA_fnc_formatNumber,_amount],"green"] call A3PL_Player_Notification;
+			};
+			_isGangControlled = [_shopObject] call A3PL_Gang_GangTax;
+			if(!(isNil "_isGangControlled")) then {
+				_taxedAmount = _totalPrice / 100 * 5;
+				[(_isGangControlled select 0),round(_taxedAmount)] remoteExec ["Server_Gang_UpdateGangBalance",2];
+				[(_isGangControlled select 0),round(_taxedAmount),"sold"] remoteExec ["Server_Gang_NotifyPurchase",2];
+
 			};
 			player setVariable [_currency,(player getVariable [_currency,0]) + _totalPrice,true];
 		};

@@ -120,6 +120,7 @@
 ["Server_Gang_NotifyPurchase",{
 	private _gangID = param [0,0];
 	private _amount = param [1,0];
+	private _type = param [2,"purchased"];
 	private _group = grpNull;
 
 	{
@@ -130,5 +131,5 @@
 			};
 	} forEach allGroups;
 
-	[format["Someone purchased goods from a store you are recieving protection money from, your gang has made $%1 from this sale!",_amount],"green"] remoteExec ["A3PL_Player_Notification",_group];
+	[format["Someone %1 goods from a store you are recieving protection money from, your gang has made $%2 from this sale!",_type,_amount],"green"] remoteExec ["A3PL_Player_Notification",_group];
 }] call Server_Setup_Compile;
