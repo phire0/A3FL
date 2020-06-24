@@ -220,14 +220,18 @@
 ["A3PL_IE_collectShipment",
 {
 	disableSerialization;
-	private ["_display","_control","_index","_lbIndex"];
+	private ["_display","_control","_index","_lbIndex","_amount"];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_display = findDisplay 48;
-	_control = _display displayCtrl 1501;
 
+	_control = _display displayCtrl 1404;
+	_amount = parseNumber (ctrlText _control);
+	if (_amount < 1) exitwith {["Please enter a valid amount"] call A3PL_Player_notification;};
+
+	_control = _display displayCtrl 1501;
 	_lbIndex = lbCurSel _control;
 	if (_lbIndex < 0) exitwith {["You have not selected shipping"] call A3PL_Player_notification;};
-	if ((_control lbData _lbIndex) == "import") then
+	if ((_control lbData _lbIndex) isEqualTo "import") then
 	{
 		private ["_importArray","_currentItemArray","_item","_arrived","_amount"];
 		_importArray = player getVariable ["player_importing",[]];

@@ -98,5 +98,14 @@ class Dialog_IE
 			canModify = 0;
 			style = "0x02 + 0x40";
 		};
+		class amount_retrieve: RscEdit
+		{
+			idc = 1404;
+			text = "1";
+			x = 0.66 * safezoneW + safezoneX;
+			y = 0.773037 * safezoneH + safezoneY;
+			w = 0.045 * safezoneW;
+			h = 0.0339259 * safezoneH;
+		};
 	};
 };
