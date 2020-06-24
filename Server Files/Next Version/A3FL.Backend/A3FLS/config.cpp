@@ -144,6 +144,7 @@ class CfgRemoteExec
 		class Server_Warehouses_AddMember{allowedTargets=2;};
 
 		//Police
+		class A3PL_Police_MirandaCard {allowedTargets = 0;};
 		class A3PL_Police_ReleasePlayer {allowedTargets = 0;};
 		class A3PL_Police_PanicMarker{allowedTargets=0;};
 		class A3PL_Police_HandleAnim {allowedTargets = 0;};

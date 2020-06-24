@@ -3924,6 +3924,9 @@
    <Key ID="STR_INTER_CHECKTANKK">
       <Original>Check Tank Content</Original>
    </Key>
+   <Key ID="STR_INTER_SHOWMIRANDA">
+      <Original>Show Miranda Card</Original>
+   </Key>
    <Key ID="STR_INTER_SHOWID">
       <Original>Show ID</Original>
    </Key>

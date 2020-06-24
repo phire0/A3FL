@@ -416,6 +416,11 @@ A3PL_Interaction_Options =
 		{([getPlayerUID player] call A3PL_Config_InCompany) && (isPlayer cursorObject) && (alive cursorObject) && (player distance cursorObject < 3)}
 	],
 	[
+		localize "STR_INTER_SHOWMIRANDA",
+		{if(!(call A3PL_Player_AntiSpam)) exitWith {}; [] remoteExec ["A3PL_Police_MirandaCard",cursorObject];},
+		{((player getVariable["faction","citizen"]) IN ["fisd","uscg","usms","doj"]) && (isPlayer cursorObject) && (player distance cursorObject < 3)}
+	],
+	[
 		localize "STR_INTER_GRABID",
 		{[cursorObject] spawn A3PL_Hud_IDCard;},
 		{isPlayer cursorObject && alive cursorObject && (player distance cursorObject < 3) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && animationState cursorObject IN ["a3pl_handsuptokneel","a3pl_handsupkneelgetcuffed","a3pl_cuff","a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","a3pl_cuffkickdown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","a3pl_handsupkneel"]}

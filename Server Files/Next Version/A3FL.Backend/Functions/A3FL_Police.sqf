@@ -1979,3 +1979,11 @@
 	[format["You now have a fake ID and are known as %1",_name],"green"] call A3PL_Player_Notification;
 	[getPlayerUID player,"FakeIdSelected",[_name]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
+
+["A3PL_Police_MirandaCard",
+{
+	disableSerialization;
+	("Hud_MirandaCard" call BIS_fnc_rscLayer) cutRsc ["Dialog_Miranda", "PLAIN", 2];
+	sleep 10;
+	("Hud_MirandaCard" call BIS_fnc_rscLayer) cutFadeOut 1;
+}] call Server_Setup_Compile;
