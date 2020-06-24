@@ -83,7 +83,7 @@
 ],
 [
 	"",
-	"Seize Item",
+	"Enter into Evidince",
 	{[player_objintersect] call A3PL_Police_SeizePhysicalItems;}
 ],
 [

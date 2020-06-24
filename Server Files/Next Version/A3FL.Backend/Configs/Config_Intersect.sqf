@@ -1991,7 +1991,7 @@ Config_IntersectArray =
 	["cell_door_14","Lockpick Cell Door",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_Itemclass isEqualTo "v_lockpick") && {((typeOf player_objIntersect) != "Land_A3PL_Sheriffpd")}}],
 
 	["item_pickup","Seize Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player_objintersect getVariable["class",""]) IN Player_illegalItems) && {(player getVariable["job","unemployed"] IN ["fisd","uscg","usms"])}}],
-	["item_pickup","Seize Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player_objintersect getVariable["class",""]) IN Player_IllegalPhysicalItems) && {(player getVariable["job","unemployed"] IN ["fisd","uscg","usms"])}}],
+	["item_pickup","Enter into Evidince","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player_objintersect getVariable["class",""]) IN Player_IllegalPhysicalItems) && {(player getVariable["job","unemployed"] IN ["fisd","uscg","usms"])}}],
 	["buoy","Seize Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{(player getVariable["job","unemployed"] IN ["fisd","uscg","usms"])}],
 	["shipramp","Ship Ramp","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{}]
 ];
@@ -2000,6 +2000,7 @@ publicVariable "Config_IntersectArray";
 //If a specific intersection name is in this array it will execute and not check for a specific typeOf aka it ignores that parameter
 Config_GenArray =
 [
+	"Enter into Evidince",
 	"Talk to the Ship Captain",
 	"Big Dicks Sports Store",
 	localize"STR_INTSECT_IMPNEARVEH",
