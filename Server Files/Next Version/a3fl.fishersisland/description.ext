@@ -117,6 +117,7 @@ class RscTitles {
 	#include "Dialogs\Dialog_mapfilter.hpp"
 	#include "Dialogs\Dialog_HUD_GPS.hpp"
 	#include "Dialogs\dialog_news.hpp"
+	#include "Dialogs\dialog_miranda.hpp"
 };
 
 class A3PL_mapAreas {
