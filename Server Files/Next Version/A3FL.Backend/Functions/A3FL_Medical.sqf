@@ -433,11 +433,14 @@
 ["A3PL_Medical_CaliberDamage",
 {
 	private _bullet = param[0,""];
+	diag_log str(_bullet);
 	private _coef = switch(_bullet) do {
 		default {1};
 		case "B_9x21_Ball": {1.2};
+		case "B_45ACP_Ball": {1.2};
 		case "A3PL_M16_Ball": {1.5};
 		case "B_762x39_Ball_F": {1.6};
+		case "A3FL_Mossberg_590K_buck": {1.8};
 	};
 	_coef;
 }] call Server_Setup_Compile;
