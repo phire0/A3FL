@@ -236,10 +236,8 @@
 {
 	disableSerialization;
 	private ['_selection', '_classname', '_itemClass', '_itemDir', '_canUse', '_format',"_display","_attach"];
-
 	_className = param [0,""];
-
-	if (_className == "") then
+	if (_className isEqualTo "") then
 	{
 		_display = findDisplay 1001;
 		_selection = lbCurSel 14571;
@@ -251,19 +249,19 @@
 	_canUse = [_classname, 'canUse'] call A3PL_Config_GetItem;
 	_attach = [_classname, 'attach'] call A3PL_Config_GetItem;
 
-	if ((_selection == -1) && (!isNil "_display")) exitWith {};
+	if ((_selection isEqualTo -1) && (!isNil "_display")) exitWith {};
 
 	if (_canUse isEqualTo false) exitWith {
 		[localize"STR_NewInventory_4", "red"] call A3PL_Player_Notification;
 	};
 
-	if (animationState player == "A3PL_TakenHostage") exitwith {[localize"STR_NewInventory_5","red"] call A3PL_Player_Notification;};
+	if ((animationState player) isEqualTo "A3PL_TakenHostage") exitwith {[localize"STR_NewInventory_5","red"] call A3PL_Player_Notification;};
 
 	if (!(isNull Player_Item)) then {
 		[false] call A3PL_Inventory_PutBack;
 	};
 
-	if (!(player == vehicle player)) exitwith
+	if (!(player isEqualTo (vehicle player))) exitwith
 	{
 		[localize"STR_NewInventory_6", "red"] call A3PL_Player_Notification;
 	};
@@ -273,28 +271,25 @@
 		[localize"STR_NewInventory_7", "red"] call A3PL_Player_Notification;
 	};
 
-	if (_classname == "cash") then
+	if (_classname isEqualTo "cash") then
 	{
 		Player_ItemAmount = parseNumber (ctrlText (_display displayCtrl 14471));
-		if (Player_ItemAmount < 1) then
-		{
+		if (Player_ItemAmount < 1) then {
 			Player_ItemAmount = Nil;
 		};
-		if (Player_ItemAmount > (player getVariable "player_cash")) then
-		{
+		if (Player_ItemAmount > (player getVariable "player_cash")) then {
 			Player_ItemAmount = Nil;
 			[localize"STR_NewInventory_8", "red"] call A3PL_Player_Notification;
 		};
-	} else
-	{
+	} else {
 		Player_ItemAmount = Nil;
 	};
 
-	if ((_classname == "cash") && (isNil "Player_ItemAmount")) exitwith {};
+	if ((_classname isEqualTo "cash") && (isNil "Player_ItemAmount")) exitwith {};
 
 	Player_Item = _itemClass createVehicle (getPos player);
 
-	if (_classname == "popcornbucket") then
+	if (_classname isEqualTo "popcornbucket") then
 	{
 		Player_Item attachTo [player, _attach, 'LeftHand'];
 	} else
@@ -302,47 +297,36 @@
 		Player_Item attachTo [player, _attach, 'RightHand'];
 	};
 
-	if ((vehicle player == player) && (!(animationState player IN ["crew"]))) then
+	if (((vehicle player) isEqualTo player) && (!(animationState player IN ["crew"]))) then
 	{
 		player playMove 'AmovPercMstpSnonWnonDnon_AmovPercMstpSrasWpstDnon';
 	};
 
 	Player_Item setDir _itemDir;
-
 	Player_ItemClass = _classname;
-
-	if (!isNil "_display") then
-	{
-		[0] call A3PL_Lib_CloseDialog;
-	};
+	if (!isNil "_display") then {[0] call A3PL_Lib_CloseDialog;};
 
 	[Player_Item,_attach] spawn A3PL_Placeable_AttachedLoop;
-
 	_format = format[localize'STR_NewInventory_9', [Player_ItemClass, 'name'] call A3PL_Config_GetItem];
 	[_format, "yellow"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_PutBack", {
 	private ['_itemClass', '_displayNotification', '_format'];
-
 	_itemClass = Player_ItemClass;
 	_displayNotification = [_this, 0, true, [true]] call BIS_fnc_param;
 
-	if (_itemClass == "") exitwith {["System: There is no itemClass assigned", "red"] call A3PL_Player_Notification;};
+	if (_itemClass isEqualTo "") exitwith {["There is no itemClass assigned", "red"] call A3PL_Player_Notification;};
 
 	detach Player_Item;
 	deleteVehicle Player_Item;
 
 	Player_Item = objNull;
 	Player_ItemClass = '';
-
 	if (_displayNotification isEqualTo true) then {
-
-		if (!(animationState player IN ["crew"])) then
-		{
+		if (!(animationState player IN ["crew"])) then {
 			player playMove 'AmovPercMstpSnonWnonDnon_AmovPercMstpSrasWpstDnon';
 		};
-
 		_format = format[localize"STR_NewInventory_10", [_itemClass, 'name'] call A3PL_Config_GetItem];
 		[_format, "yellow"] call A3PL_Player_Notification;
 	};
@@ -356,8 +340,8 @@
 	_obj = Player_Item;
 	_droppedItems = server getVariable 'droppedObjects';
 
-
-	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith { [localize"STR_NewInventory_11","red"] call A3PL_Player_Notification; };
+	if(_amount < 1) exitWith {["Please enter a valid amount","red"] call A3PL_Player_Notification;};
+	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 
 	if (isNull _obj) exitwith
 	{
