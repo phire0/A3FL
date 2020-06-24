@@ -266,9 +266,16 @@
 	if(_shop IN [npc_roadworker_3,npc_fuel_9,NPC_general_3,Robbable_Shop_2,npc_supermarket_2,npc_furniture_5,npc_furniture_6,npc_furniture_7,npc_fuel_8]) then {
 		_gangHideout = hideout_obj_2;
 	};
+	if(_shop IN [Robbable_Shop_3,npc_roadworker_1,npc_fuel_6,npc_hunting,npc_illegal_eq,NPC_Big_Weapon_Dealer,npc_weaponfactory_1]) then {
+		_gangHideout = hideout_obj_3;
+	};
+	if(_shop IN [npc_captureship,npc_blackmarket]) then {
+		_gangHideout = hideout_obj_4;
+	};
 	if(_shop IN [npc_fuel_10,Low_End_Car_Shop,npc_shopguns]) then {
 		_gangHideout = hideout_obj_5;
 	};
+
 
 	if(_gangHideout isEqualTo objNull) exitWith {};
 	_gangID = _gangHideout getVariable ["captured",0];

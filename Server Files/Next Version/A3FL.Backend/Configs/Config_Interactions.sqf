@@ -245,7 +245,7 @@ A3PL_Interaction_Options =
 			private _intersect = player_objintersect;
 			if (isNull _intersect) exitwith {};
 			if ((typeOf _intersect) IN ["A3PL_Jayhawk","A3PL_Cutter","B_supplyCrate_F"]) exitWith {["You cannot lockpick this vehicle", "red"] call A3PL_Player_Notification;};
-			[_intersect] call A3PL_Criminal_PickCar;
+			[_intersect] spawn A3PL_Criminal_PickCar;
 		},
 		{(vehicle player == player) && {(player distance cursorObject < 7)} && {(player_ItemClass == "v_lockpick")}}
 	],
