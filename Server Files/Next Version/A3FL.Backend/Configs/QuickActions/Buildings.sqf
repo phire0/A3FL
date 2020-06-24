@@ -528,6 +528,11 @@
 	{[player_objintersect] call A3PL_RealEstates_Open;}
 ],
 [
+	"Land_A3PL_EstateSign",
+	localize"STR_INTSECT_LEAVHOUSE",
+	{[] call A3PL_Housing_LeaveHouse;}
+],
+[
 	"Land_A3PL_Showroom",
 	localize"STR_INTSECT_OPENSHOWDOOR",
 	{

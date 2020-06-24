@@ -446,6 +446,7 @@ Config_IntersectArray =
 	["EstateSign",localize"STR_INTSECT_ESTATESHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}}],
 	["EstateSign",localize"STR_INTSECT_SELLHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}}],
 	["EstateSign",localize"STR_INTSECT_SELLESTATE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")} && {(player getVariable["job","unemployed"] isEqualTo "RealEstate")}}],
+	["EstateSign",localize"STR_INTSECT_LEAVHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")} && {(getPlayerUID player) IN (player_objintersect getVariable['roommates',[]])}}],
 
 	//signs
 	["greenhousesign",localize"STR_INTSECT_RENTGH",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{true}], //Rent Greenhouse

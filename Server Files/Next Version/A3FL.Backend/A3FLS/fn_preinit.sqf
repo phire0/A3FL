@@ -835,6 +835,9 @@ Server_Setup_Compile = {
 		if (count _signs > 0) then
 		{
 			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
+			_rms = _uids;
+			_rms deleteAt 0;
+			(signs select 0) setVariable["roommates",_rms,true];
 		};
 
 		//Set Variables

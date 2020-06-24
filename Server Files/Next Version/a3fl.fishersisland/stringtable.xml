@@ -5766,6 +5766,9 @@
    <Key ID="STR_INTSECT_SELLESTATE">
       <Original>Conclude Sale</Original>
    </Key>
+   <Key ID="STR_INTSECT_LEAVHOUSE">
+      <Original>Leave House</Original>
+   </Key>
    <Key ID="STR_INTSECT_ESTATESHOUSE">
       <Original>Start Selling</Original>
    </Key>
