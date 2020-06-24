@@ -4188,7 +4188,7 @@ class A3PL_iPhone_appCreateBill
 			y = 0.731 * safezoneH + safezoneY;
 			w = 0.0876563 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "call A3PL_iPhoneX_sendBill;";
+			action = "[] call A3PL_iPhoneX_sendBill;";
 		};
 	};
 };
