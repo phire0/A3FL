@@ -466,6 +466,7 @@ Config_Shops_Items = [
 	],
 
 	["Shop_DOC_Weapons_Vendor",[
+			["weapon","A3PL_Taser",250,-1,0],
 			["weapon","A3PL_Taser2",250,0,0],
 			["weapon","A3PL_Red_Glock",500,0,0],
 			["weapon","hgun_Rook40_F",500,0,0],
@@ -475,6 +476,7 @@ Config_Shops_Items = [
 			["weaponPrimary","SMG_02_F",15000,-1,0],
 			["weaponPrimary","SMG_05_F",15000,-1,0],
 			["weaponPrimary","A3PL_M16",20000,-1,0],
+			["magazine","A3PL_TaserMag",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,0,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_Red_Glock_Mag",100,0,0],
