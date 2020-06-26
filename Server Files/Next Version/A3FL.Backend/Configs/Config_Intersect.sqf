@@ -228,6 +228,7 @@ Config_IntersectArray =
 
 	//BodyDead
 	["takebody",localize"STR_INTSECT_TAKEBODY",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'A3PL_BodyDead'}],
+	["takebody","Secure Gang Hideout",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) == 'A3PL_BodyDead') && (player getVariable ["job","unemployed"] IN ["fisd","uscg"])}],
 	["takebody",localize"STR_INTSECT_HIDEOUTSHOP",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'A3PL_BodyDead'}],
 
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheMcFishersEmpl",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mcfisher,npc_mcfisher_1,npc_mcfisher_2,npc_mcfisher_3,npc_mcfisher_4]}],
@@ -2000,6 +2001,7 @@ publicVariable "Config_IntersectArray";
 //If a specific intersection name is in this array it will execute and not check for a specific typeOf aka it ignores that parameter
 Config_GenArray =
 [
+	"Secure Gang Hideout",
 	"Enter into Evidince",
 	"Talk to the Ship Captain",
 	"Big Dicks Sports Store",

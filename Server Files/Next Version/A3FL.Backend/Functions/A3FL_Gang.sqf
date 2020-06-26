@@ -288,3 +288,40 @@
 
 	_gangData
 }] call Server_Setup_Compile;
+
+["A3PL_Gang_Secure",
+{
+	private _obj = param [0,objNull];
+
+	if((currentWeapon player) isEqualTo "") exitwith {["You do not brandish any weapon","red"] call A3PL_Player_Notification;};
+	if((currentWeapon player) IN ["A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
+
+
+	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
+	Player_ActionCompleted = false;
+	["Securing Gang Hideout...",75] spawn A3PL_Lib_LoadAction;
+	waitUntil{Player_ActionDoing};
+	_success = true;
+	_animTime = diag_tickTime;
+	while {Player_ActionDoing} do {
+		if(_animTime >= diag_tickTime-5) then {
+			player playMoveNow 'AinvPknlMstpSnonWnonDnon_medic_1';
+			_animTime = diag_tickTime;
+		};
+		if (Player_ActionInterrupted) exitWith {_success = false;};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+		if (!(vehicle player == player)) exitwith {_success = false;};
+		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+	};
+	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;};
+
+	_gangName = _obj getVariable["capturedName",""];
+	_faction = player getVariable["faction",""];
+
+	_obj setVariable["captured",nil,true];
+	_obj setVariable["capturedName",nil,true];
+	_obj setVariable["CapturedTime",nil,true];
+
+	[format["%1 has secured a gang hideout from %2",_faction,_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
+
+}] call Server_Setup_Compile;

@@ -78,6 +78,11 @@
 ],
 [
 	"",
+	"Secure Gang Hideout",
+	{[player_objIntersect] spawn A3PL_Gang_Secure;}
+],
+[
+	"",
 	"Seize Item",
 	{[player_objintersect] call A3PL_Police_SeizeVirtualItems;}
 ],
