@@ -81,7 +81,7 @@
 		["ArmA 3 Fishers Life","enginekeep_key", "Keep Engine Running Toggle",
 		{
 			private _veh = vehicle player;
-			if(!(_veh isKindOf "Car") && !((driver _veh) isEqualTo player)) exitWith {};
+			if((!(_veh isKindOf "Car") && !((driver _veh) isEqualTo player)) || (vehicle player isEqualTo player)) exitWith {};
 				if (_veh getVariable ["EngineOn",0] isEqualTo 0) then {
 					_veh setVariable ["EngineOn",1,true];
 					["The engine of this vehicle will now remain running when you exit","green"] call A3PL_Player_Notification;
