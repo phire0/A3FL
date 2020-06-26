@@ -140,6 +140,9 @@
         <Key ID="STR_GANG_CAPTURED">
             <Original>%1 gang has captured a hideout!</Original>
         </Key>
+        <Key ID="STR_GANG_TRANSFERED">
+            <Original>You have transferred $%1 to the %2 bank account using your gang funds.</Original>
+        </Key>
     </Package>
     <Package name="iPhoneX">
         <Key ID="STR_iPhoneX_ErroNumber">
