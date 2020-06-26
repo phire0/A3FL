@@ -615,7 +615,7 @@ Config_Factories =
 		["f_Evergreen_Coverall","","inh","inh","A3PL_Evergreen_Coverall_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_jenkinsunifor_Man","","inh","inh","A3PL_jenkinsunifor_Man","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_PI_StreetWear_Man","","inh","inh","A3PL_PI_StreetWear_Man","uniform",true,5,[["Polyester",1]],1,"",1],
-		["f_Strictly_Sand_Man","","inh","inh","A3PL_Strictly_Sand_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Strictly_Sand_Man","","inh","inh","A3PL_Strictly_Sand_Man","uniform",true,5,[["Polyester",1]],1,"",1]
 	],
 
 	["Vest Factory",[3852.065,9212.537,0.168],
