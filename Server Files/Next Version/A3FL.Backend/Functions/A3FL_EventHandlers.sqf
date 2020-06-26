@@ -365,7 +365,7 @@
 		private _weapon = param [1,""];
 		private _ammo = param [4,""];
 
-		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe","A3FL_BaseballBat","A3FL_GolfDriver"]) then
+		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver"]) then
 		{
 			player playAction "GestureSwing";
 			if (player inArea "LumberJack_Rectangle") then {
@@ -588,6 +588,10 @@
 			player removeMagazines "A3FL_BaseballBatMag";
 			player addMagazine "A3FL_BaseballBatMag";
 		};
+		if (_itemClass == "A3FL_PoliceBaton") then{
+			player removeMagazines "A3FL_PoliceBatonMag";
+			player addMagazine "A3FL_PoliceBatonMag";
+		};
 
 		if (_itemClass IN ["U_B_Protagonist_VR","U_I_Protagonist_VR","U_O_Protagonist_VR"]) then {
 			if (!(["motorhead"] call A3PL_Lib_hasPerk)) then {
@@ -654,7 +658,7 @@
 		if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 		_distance = param [2,100];
 		_weaponClass = param [3,""];
-		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_GolfDriver","A3FL_PepperSpray"];
+		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
 
 		if(_distance <= 30 && (!(_weaponClass IN _except))) then
 		{
