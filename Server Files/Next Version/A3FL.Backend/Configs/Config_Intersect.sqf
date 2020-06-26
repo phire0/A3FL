@@ -846,11 +846,11 @@ Config_IntersectArray =
 	["Spine1",localize"STR_INTSECT_DRAGH","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(isPlayer player_objintersect) && {(player_objintersect getVariable ["Zipped",true])}}], //Drag
 	["Spine3",localize"STR_INTSECT_PATDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(isPlayer player_objintersect) && {(player_objintersect getVariable ["Zipped",true])}}], //Pat down
 
-	["Retract_Stinger",localize"STR_INTSECT_RETRACTSTR","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player getVariable "job") IN ["fisd","uscg","usms"]) && {({player_objintersect animationSourcePhase "Deploy_Stinger" > 0.5})}}], //Retract Stinger
-	["Deploy_Stinger",localize"STR_INTSECT_RETRACTSTR","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player getVariable "job") IN ["fisd","uscg","usms"])&& {({player_objintersect animationSourcePhase "Deploy_Stinger" > 0.1})}}], //Retract Stinger
-	["Deploy_Stinger",localize"STR_INTSECT_DEPLSTR","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player getVariable "job") IN ["fisd","uscg","usms"])&& {({player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5})}}], //Deploy Stinger
-	["Deploy_Stinger",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]}) && {(player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5)}}], //Pickup Item
-	["Deploy_Stinger",localize"STR_INTSECT_PICKITEMTOHAND",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]}) && {(player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5)}}], //Pickup Item To Hand
+	["Retract_Stinger",localize"STR_INTSECT_RETRACTSTR","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player getVariable "job") IN ["fisd","uscg","usms"]) && ({player_objintersect animationSourcePhase "Deploy_Stinger" > 0.5})}], //Retract Stinger
+	["Deploy_Stinger",localize"STR_INTSECT_RETRACTSTR","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player getVariable "job") IN ["fisd","uscg","usms"]) && ({player_objintersect animationSourcePhase "Deploy_Stinger" > 0.1})}], //Retract Stinger
+	["Deploy_Stinger",localize"STR_INTSECT_DEPLSTR","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player getVariable "job") IN ["fisd","uscg","usms"])&& ({player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5})}], //Deploy Stinger
+	["Deploy_Stinger",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]}) && (player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5)}], //Pickup Item
+	["Deploy_Stinger",localize"STR_INTSECT_PICKITEMTOHAND",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]}) && (player_objintersect animationSourcePhase "Deploy_Stinger" < 0.5)}], //Pickup Item To Hand
 	["Deploy_Stinger",localize"STR_INTSECT_BUYITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objintersect getVariable ["bitem",nil]})}], //Buy Item
 	["Deploy_Stinger",localize"STR_INTSECT_SELLITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect getVariable ["owner","0"]) == (getPlayerUID player)}], //Sell Item
 

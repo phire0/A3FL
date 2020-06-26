@@ -1953,8 +1953,13 @@
 		_veh lock 1;
 		player leaveVehicle _veh;
 		unassignVehicle player;
-		player action ["GetOut", _veh];
-		[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];};};
+		if (((speed vehicle player) < 1) && (vehicle player getVariable ["EngineOn",0] isEqualTo 0)) then {
+			player action ["GetOut", (vehicle player)];
+			[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
+		} else {
+			player action ["eject", (vehicle player)];
+			[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
+		};
 		_veh lock 2;
 	}
 ],
