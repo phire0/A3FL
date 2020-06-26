@@ -1234,7 +1234,8 @@ Config_Shops_Items = [
 			["vehicle","A3PL_MailTruck",53620,0,0],
 			["vehicle","A3PL_Wrangler",55050,0,0],
 			["vehicle","A3PL_Ram",55050,0,0],
-			["vehicle","A3PL_Car_Trailer",10000,0,0]
+			["vehicle","A3PL_Car_Trailer",10000,0,0],
+			["vehicle","K_Scooter_DarkBlue",17870,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	]
 ];
