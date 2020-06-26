@@ -178,6 +178,7 @@ Config_Vehicles_Insurance = [
 	["A3PL_Tahoe_PD_Slicktop",5000],
 	["A3PL_F150",13500],
 	["A3PL_F150_Marker",14000],
+	["A3PL_Raptor",15000],
 	["A3PL_Raptor_PD",14000],
 	["A3PL_Raptor_PD_ST",14000],
 
