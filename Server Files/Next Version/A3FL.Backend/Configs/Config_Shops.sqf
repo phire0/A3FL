@@ -331,6 +331,7 @@ Config_Shops_Items = [
 		["weaponPrimary","SMG_05_F",75000,-1,0],
 		["weaponPrimary","SMG_02_F",75000,-1,0],
 		["weaponPrimary","SMG_01_F",75000,-1,0],
+		["weaponPrimary","A3FL_Mossberg_590K",85000,-1,0],
 		["weaponPrimary","A3PL_M16",125000,-1,0],
 		["weaponPrimary","arifle_AKM_F",125000,-1,0],
 		["magazine","10Rnd_9x21_Mag",100,-1,4],
@@ -343,7 +344,8 @@ Config_Shops_Items = [
 		["magazine","A3PL_M16_Mag",100,-1,0],
 		["magazine","30Rnd_762x39_Mag_F",100,-1,0],
 		["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
-		["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0]
+		["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0],
+		["magazine","A3FL_Mossberg_590K_8Rnd_buck",100,-1,0]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
 
@@ -476,6 +478,9 @@ Config_Shops_Items = [
 			["weaponPrimary","SMG_02_F",15000,-1,0],
 			["weaponPrimary","SMG_05_F",15000,-1,0],
 			["weaponPrimary","A3PL_M16",20000,-1,0],
+			["weaponPrimary","A3FL_M4",20000,-1,0],
+			["weaponPrimary","A3FL_Mossberg_590K",15000,-1,0],
+			["weaponPrimary","A3FL_PoliceBaton",500,-1,0],
 			["magazine","A3PL_TaserMag",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,0,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
@@ -485,6 +490,9 @@ Config_Shops_Items = [
 			["magazine","11Rnd_45ACP_Mag",100,0,0],
 			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
 			["magazine","A3PL_M16_Mag",100,0,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_buck",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_Breach",100,-1,0],
 			["aitem","acc_flashlight_pistol",50,0,0],
 			["aitem","acc_flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0]
@@ -758,6 +766,9 @@ Config_Shops_Items = [
 			["weaponPrimary","SMG_05_F",15000,-1,0],
 			["weaponPrimary","SMG_02_F",15000,-1,0],
 			["weaponPrimary","A3PL_M16",20000,-1,0],
+			["weaponPrimary","A3FL_M4",20000,-1,0],
+			["weaponPrimary","A3FL_Mossberg_590K",15000,-1,0],
+			["weaponPrimary","A3FL_PoliceBaton",500,-1,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_TaserMag",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,-1,0],
@@ -766,6 +777,9 @@ Config_Shops_Items = [
 			["magazine","16Rnd_9x21_Mag",100,-1,0],
 			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
 			["magazine","A3PL_M16_Mag",100,0,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_buck",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_Breach",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
 			["aitem","acc_flashlight_pistol",50,-1,0],
 			["aitem","acc_flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0]
@@ -875,6 +889,8 @@ Config_Shops_Items = [
 			["weaponPrimary","SMG_02_F",15000,-1,0],
 			["weaponPrimary","SMG_05_F",15000,-1,0],
 			["weaponPrimary","A3PL_M16",20000,-1,0],
+			["weaponPrimary","A3FL_M4",20000,-1,0],
+			["weaponPrimary","A3FL_Mossberg_590K",15000,-1,0],
 			["weaponPrimary","srifle_LRR_SOS_F",1000,-1,0],
 			["magazine","6Rnd_GreenSignal_F",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,-1,0],
@@ -885,6 +901,9 @@ Config_Shops_Items = [
 			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
 			["magazine","A3PL_M16_Mag",100,0,0],
 			["magazine","7Rnd_408_Mag",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_buck",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_Breach",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
 			["aitem","acc_flashlight_pistol",50,-1,0],
 			["aitem","acc_flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0]

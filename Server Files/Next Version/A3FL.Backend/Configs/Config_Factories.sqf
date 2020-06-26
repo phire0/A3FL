@@ -204,7 +204,9 @@ Config_Factories =
 		["f_SMG_01_F","","inh","inh","SMG_01_F","weapon",true,300,[["Steel",400]],1,"",1],
 		["f_SMG_02_F","","inh","inh","SMG_02_F","weapon",true,300,[["Steel",400]],1,"",1],
 		["f_SMG_05_F","","inh","inh","SMG_05_F","weapon",true,300,[["Steel",400]],1,"",1],
+		["f_Mossberg_590K","","inh","inh","A3FL_Mossberg_590k","weapon",true,300,[["Steel",500]],1,"",1],
 		["f_arifle_AKM_F","","inh","inh","arifle_AKM_F","weapon",true,600,[["Steel",600]],1,"",1],
+		["f_m16","","inh","inh","A3PL_M16","weapon",true,600,[["Steel",600]],1,"",1],
 		["f_16Rnd_9x21_Mag","","inh","inh","16Rnd_9x21_Mag","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
 		["f_11Rnd_45ACP_Mag","","inh","inh","11Rnd_45ACP_Mag","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
 		["f_6Rnd_45ACP_Mag","","inh","inh","6Rnd_45ACP_Cylinder","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
@@ -214,7 +216,9 @@ Config_Factories =
 		["f_P226_Mag","","inh","inh","A3PL_P226_Mag","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
 		["f_30Rnd_45ACP_Mag_SMG_01","","inh","inh","30Rnd_45ACP_Mag_SMG_01","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
 		["f_30Rnd_9x21_Mag_SMG_02","","inh","inh","30Rnd_9x21_Mag_SMG_02","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
-		["f_30Rnd_762x39_Mag_F","","inh","inh","30Rnd_762x39_Mag_F","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1]
+		["f_30Rnd_762x39_Mag_F","","inh","inh","30Rnd_762x39_Mag_F","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
+		["f_m16_mag","","inh","inh","A3PL_M16_Mag","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
+		["f_Mossberg_590K_8Rnd_buck","","inh","inh","A3FL_Mossberg_590k_8Rnd_buck","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1]
 	],
 
 	["Marine Factory",[4898.23,5060.04,13],
