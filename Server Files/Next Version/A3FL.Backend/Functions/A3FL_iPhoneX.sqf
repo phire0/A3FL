@@ -1428,6 +1428,60 @@
 	};
 }] call Server_Setup_Compile;
 
+["A3PL_iPhoneX_appGangBank",
+{
+	disableSerialization;
+	createDialog "A3PL_iPhone_appGangBank";
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
+	if(isNil '_gang') exitWith {};
+	private _display = findDisplay 102100;
+	private _gBank = _gang select 4;
+	private _control = _display displayCtrl 99400;
+	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[_gBank, 1, 0, true] call CBA_fnc_formatNumber];
+	_control = _display displayCtrl 99402;
+	{
+		_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
+		_control lbSetData [_index, str _x];
+	} forEach playableUnits;
+}] call Server_Setup_Compile;
+
+["A3PL_iPhoneX_gangBankSend",
+{
+	disableSerialization;
+	private _display = findDisplay 99400;
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
+	if(isNil '_gang') exitWith {};
+	private _gBank = _gang select 4;
+	private _cooldown = player getVariable["transferCooldown",nil];
+	if(!isNil '_cooldown') exitWith {["You can only transfer money every 10 minutes!", "red"] call A3PL_Player_Notification;};
+
+	_control = _display displayCtrl 99401;
+	_amount = round(parseNumber(ctrlText _control));
+	if(_amount < 1) then {["Please enter a valid number", "red"] call A3PL_Player_Notification;};
+	if(_amount > _gBank) exitWith {[localize"STR_Various_INVALIDAMOUNT", "red"] call A3PL_Player_Notification;};
+	if(_amount > 100000) exitWith {["You cannot send more than $100.000 per transfer", "red"] call A3PL_Player_Notification;};
+	_control = _display displayCtrl 99402;
+	_sendTo = _control lbData (lbCurSel _control);
+	if(_sendTo isEqualTo "") exitWith {["Please select a recipient.", "red"] call A3PL_Player_Notification;};
+	_sendToCompile = call compile _sendTo;
+
+	[getPlayerUID player,"gangBankAppTransfer",[str(_sendToCompile getVariable["name","unknown"]), str(_amount)]] remoteExec ["Server_Log_New",2];
+
+	[_group, -_amount] call A3PL_Gang_AddBank;
+	[format[localize"STR_GANG_TRANSFERED", [_amount] call A3PL_Lib_FormatNumber, (_sendToCompile getVariable ["name","unknown"])], "green"] call A3PL_Player_Notification;
+
+	[_sendToCompile, 'Player_Bank', ((_sendToCompile getVariable 'Player_Bank') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
+	[format[localize"STR_ATM_YOURECEIVETRANSFER",_amount], "green"] remoteExec ["A3PL_Player_Notification",_sendToCompile];
+
+	player setVariable["transferCooldown",true,false];
+	[] spawn {
+		sleep 600;
+		player setVariable["transferCooldown",nil,false];
+	};
+}] call Server_Setup_Compile;
+
 ["A3PL_iPhoneX_appGangManagement",
 {
 	disableSerialization;
