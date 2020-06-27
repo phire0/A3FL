@@ -16,7 +16,7 @@
 	disableSerialization;
 	private ["_display","_control","_totalBalance"];
 
-	if (!(["gov"] call A3PL_Government_isFactionLeader)) exitwith {[localize"STR_NewGovernment_AccessErr1","red"] call A3PL_Player_Notification;};
+	if (!(["fbi"] call A3PL_Government_isFactionLeader)) exitwith {[localize"STR_NewGovernment_AccessErr1","red"] call A3PL_Player_Notification;};
 
 	createDialog "Dialog_Treasury";
 	_display = findDisplay 109;
@@ -125,8 +125,6 @@
 	disableSerialization;
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_display","_control","_selectedBalance","_selectedBalanceAmount","_transferTo","_amount"];
-	if (!(["gov"] call A3PL_Government_isFactionLeader)) exitwith {[localize"STR_NewGovernment_AccessErr1","red"] call A3PL_Player_Notification;};
-
 	_display = findDisplay 109;
 	_control = _display displayCtrl 2100;
 
@@ -155,7 +153,6 @@
 	private ["_fail","_display","_control","_taxChanged","_rate"];
 	_display = findDisplay 109;
 	_control = _display displayCtrl 1403;
-	if (!(["gov"] call A3PL_Government_isFactionLeader)) exitwith {[localize"STR_NewGovernment_AccessErr1","red"] call A3PL_Player_Notification;};
 
 	//check input
 	_fail = false;

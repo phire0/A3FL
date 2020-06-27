@@ -530,7 +530,7 @@ Config_IntersectArray =
 	//city hall
 	["Door_8_button1",localize"STR_INTSECT_OPCLDEFROOM",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player getVariable "job") IN ["uscg","fisd","usms"])}], //Open/Close Defendant Room
 	["Door_8_button2",localize"STR_INTSECT_OPCLDEFROOM",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player getVariable "job") IN ["uscg","fisd","usms"])}], //Open/Close Defendant Room
-	["spine3",localize"STR_INTSECT_OPTREASINF",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect == npc_government_2) && {(["gov"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_INTSECT_OPTREASINF",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect isEqualTo npc_government_2) && {(["fbi"] call A3PL_Government_isFactionLeader)}}],
 
 	//Sheriff DP
 	["jailDoor_1",localize"STR_INTSECT_OPCLJAILD",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]}], //Open/Close Jail Door
@@ -1699,10 +1699,10 @@ Config_IntersectArray =
 	["Anchor",localize"STR_INTSECT_ANCHOR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])}],//Drop/Retrieve Anchor
 
 	// Locker
-	["Door_1",localize"STR_INTSECT_BUYLOCKER",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo "") && (typeOf player_objintersect == "A3PL_EMS_Locker") && (player getVariable["job","unemployed"] IN ["fifr","uscg","fisd","doj","dmv","gov","usms"])}],
-	["Door_1",localize"STR_INTSECT_OCLOCKERDOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo getPlayerUID player) && (typeOf player_objintersect == "A3PL_EMS_Locker")}],
-	["lockerbottom",localize"STR_INTSECT_LOCKERSTORE","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo getPlayerUID player) && (typeOf player_objintersect == "A3PL_EMS_Locker")}],
-	["lockertop",localize"STR_INTSECT_LOCKERSTORE","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo getPlayerUID player) && (typeOf player_objintersect == "A3PL_EMS_Locker")}],
+	["Door_1",localize"STR_INTSECT_BUYLOCKER",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo "") && (typeOf player_objintersect isEqualTo "A3PL_EMS_Locker") && (player getVariable["job","unemployed"] IN ["fifr","uscg","fisd","doj","dmv","usms"])}],
+	["Door_1",localize"STR_INTSECT_OCLOCKERDOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo getPlayerUID player) && (typeOf player_objintersect isEqualTo "A3PL_EMS_Locker")}],
+	["lockerbottom",localize"STR_INTSECT_LOCKERSTORE","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo getPlayerUID player) && (typeOf player_objintersect isEqualTo "A3PL_EMS_Locker")}],
+	["lockertop",localize"STR_INTSECT_LOCKERSTORE","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo getPlayerUID player) && (typeOf player_objintersect isEqualTo "A3PL_EMS_Locker")}],
 
 	//Common Cars Doors
 	["doorL",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench"}], //Repair Vehicle

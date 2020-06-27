@@ -334,8 +334,6 @@
 	["Init"] call BIS_fnc_camera;
 }] call Server_Setup_Compile;
 
-["A3PL_Admin_Mayor",{[] remoteExec ['Server_Government_StartVote', 2];}] call Server_Setup_Compile;
-
 ["A3PL_AdminWatch", {
 	_display = findDisplay 98;
 	_selectedIndex = lbCurSel 1500;

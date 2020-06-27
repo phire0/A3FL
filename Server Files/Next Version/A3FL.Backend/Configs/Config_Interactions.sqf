@@ -29,7 +29,7 @@ A3PL_Interaction_Options =
 			[(getPlayerUID cursorObject), (player getVariable["faction","citizen"])] remoteExec ["A3PL_Player_Whitelist",cursorObject];
 			[format[localize"STR_Inter_Notifications_Recruit", name cursorObject],"green"] call A3PL_Player_Notification;
 		},
-		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo "citizen")} && {((player getVariable["faction","citizen"]) IN ["gov","fifr","uscg","fisd","usms","dmv","doj","cartel"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
+		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo "citizen")} && {((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","usms","dmv","doj","cartel"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
 	],
 	[
 		localize "STR_INTER_FACTIONFIRE",
@@ -37,7 +37,7 @@ A3PL_Interaction_Options =
 			[(getPlayerUID cursorObject), "citizen"] remoteExec ["A3PL_Player_Whitelist",cursorObject];
 			[format[localize"STR_Inter_Notifications_Fire", name cursorObject],"green"] call A3PL_Player_Notification;
 		},
-		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo (player getVariable["faction","citizen"]))} && {((player getVariable["faction","citizen"]) IN ["gov","fifr","uscg","fisd","usms","dmv","doj","cartel"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
+		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo (player getVariable["faction","citizen"]))} && {((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","usms","dmv","doj","cartel"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
 	],
 	[
 		localize "STR_INTER_SETNAMET",

@@ -154,7 +154,7 @@
 
 ["Server_Government_HistorySetup",
 {
-	private _faction = [param [0,"gov"]] call A3PL_Config_GetBalance;
+	private _faction = [param [0,"fisd"]] call A3PL_Config_GetBalance;
 	private _player = param [1,objNull];
 	private _query = format ["SELECT amount, description, date_log FROM factions_budget_logs WHERE faction='%1'",_faction];
 	private _logs = [_query, 2, true] call Server_Database_Async;

@@ -334,7 +334,6 @@
 			case ("fisd"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 20])) > 0) then {_correctLoc = true;};};
 			case ("uscg"): {if ((count (nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 20])) > 0) then {_correctLoc = true;};};
 			case ("fifr"): {if ((count (nearestObjects [player, ["Land_A3PL_Firestation"], 20])) > 0) then {_correctLoc = true;};};
-			case ("gov"): {if ((count (nearestObjects [player, ["land_a3pl_ch"], 20])) > 0) then {_correctLoc = true;};};
 		};
 	} else {
 		if (_businessItem) then {

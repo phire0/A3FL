@@ -295,7 +295,7 @@
 	(owner _unit) publicVariableClient "A3PL_RetrievedInventory";
 
 	//Enterprise number for jobs
-	if((_return select 9) IN ["gov","fifr","uscg","fisd"]) then {
+	if((_return select 9) IN ["fifr","uscg","fisd"]) then {
 		[(_return select 9)] remoteExec["A3PL_iPhoneX_SetJobNumber",_unit];
 	};
 
