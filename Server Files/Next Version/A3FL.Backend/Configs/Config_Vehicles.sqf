@@ -250,7 +250,7 @@ Config_Police_Vehs = [
 	"A3PL_Taurus_PD_ST",
 	"A3PL_Silverado_FD",
 	"A3PL_Silverado_FD_Brush",
-	"A3PL_Silverado_SD_ST",
+	"A3PL_Silverado_PD_ST",
 	"A3PL_Taurus_FD",
 	"A3PL_Charger15_PD",
 	"A3PL_Charger15_PD_ST",
