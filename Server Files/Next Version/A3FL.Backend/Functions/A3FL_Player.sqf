@@ -181,6 +181,7 @@
 
 			_hasMaskCheck = false;
 			if (goggles _x IN ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","A3PL_Horse_Mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"]) then {_hasMaskCheck = true;};
+			if (headgear _x IN["A3PL_Wulf_Racing_Helm_07","A3PL_Wulf_Racing_Helm_24","H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs"]) then {_hasMaskCheck = true;};
 			_cansee = (profilenamespace getVariable ["Player_EnableID",true]) && (([objNull, "VIEW"] checkVisibility [eyePos player, eyePos _x]) > 0) && (!isObjectHidden _x);
 			if (_cansee) then
 			{
@@ -643,7 +644,7 @@
 	} else {
 		{_x setMarkerAlphaLocal 1;} forEach ["trash_bin_1","trash_bin_2","trash_bin_3","trash_bin_4","trash_bin_5","trash_bin_6","trash_bin_7","trash_bin_8","trash_bin_9","trash_bin_10","trash_bin_11","trash_bin_12","trash_bin_13","trash_bin_14","trash_bin_15","trash_bin_16","trash_bin_17","trash_bin_18","trash_bin_19","trash_bin_20","trash_bin_21","trash_bin_22","trash_bin_23","trash_bin_24","trash_bin_25","trash_bin_26","trash_bin_27","trash_bin_28","trash_bin_29","trash_bin_30","trash_bin_31","trash_bin_32","trash_bin_33","trash_bin_34","trash_bin_35","trash_bin_36","trash_bin_37","trash_bin_38","trash_bin_39","trash_bin_40","trash_bin_41","trash_bin_42","trash_bin_43","trash_bin_44","trash_bin_45","trash_bin_46","trash_bin_47","trash_bin_48","trash_bin_49","trash_bin_50","trash_bin_51","trash_bin_52","trash_bin_53","trash_bin_54","trash_bin_55","trash_bin_56","trash_bin_57","trash_bin_58","trash_bin_59","trash_bin_60","trash_bin_61","trash_bin_62","trash_bin_63","trash_bin_64","trash_bin_65","trash_bin_66","trash_bin_67","trash_bin_68","trash_bin_69","trash_bin_70","trash_bin_71"];
 	};
-	if(_faction IN ["fifr","uscg","gov","fisd","usms","doj","dmv"]) then {
+	if(_faction IN ["fifr","uscg","fisd","usms","doj","dmv"]) then {
 		{_x setMarkerAlphaLocal 0;} forEach ["chemical_dealer","Shroom_Picking","Crime_Base","Shrooms_Field","Moonshine_Shop","Moonshine_Shop_1"];
 	} else {
 		{_x setMarkerAlphaLocal 1;} forEach ["chemical_dealer","Shroom_Picking","Crime_Base","Shrooms_Field","Moonshine_Shop","Moonshine_Shop_1"];
@@ -713,7 +714,6 @@
 	if(_faction != "citizen") then {
 		_fname = "";
 		switch(_faction) do {
-			case ("gov"): {_fname = "Government"};
 			case ("fifr"): {_fname = "Fire Department"};
 			case ("uscg"): {_fname = "United States Coast Guard"};
 			case ("fisd"): {_fname = "Sheriff Department"};
