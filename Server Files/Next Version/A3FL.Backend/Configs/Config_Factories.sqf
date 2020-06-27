@@ -218,7 +218,9 @@ Config_Factories =
 		["f_30Rnd_9x21_Mag_SMG_02","","inh","inh","30Rnd_9x21_Mag_SMG_02","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
 		["f_30Rnd_762x39_Mag_F","","inh","inh","30Rnd_762x39_Mag_F","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
 		["f_m16_mag","","inh","inh","A3PL_M16_Mag","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
-		["f_Mossberg_590K_8Rnd_buck","","inh","inh","A3FL_Mossberg_590k_8Rnd_buck","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1]
+		["f_Mossberg_590K_8Rnd_buck","","inh","inh","A3FL_Mossberg_590k_8Rnd_buck","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
+		["f_optic_Holosight_blk_F","","inh","inh","optic_Holosight_blk_F","aitem",true,60,[["Steel",100]],1,"",1],
+		["f_optic_ACO_grn","","inh","inh","optic_Holosight_blk_F","aitem",true,60,[["Steel",100]],1,"",1]
 	],
 
 	["Marine Factory",[4898.23,5060.04,13],
