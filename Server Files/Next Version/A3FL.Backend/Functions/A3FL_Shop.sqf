@@ -121,6 +121,7 @@
 	_currency = param [1,"player_cash"];
 	_display = findDisplay 20;
 	_allItems = [_shop] call A3PL_Config_GetShop;
+	_taxedAmount = 0;
 
 	_control = _display displayCtrl 1500;
 	_index = lbCurSel _control;
@@ -260,16 +261,6 @@
 		};
 		default
 		{
-			if(_taxed) then {
-				_taxBudget = [_shop, "tax"] call A3PL_Config_GetTaxSeting;
-				_taxName = [_shop, "tax"] call A3PL_Config_GetTaxSeting;
-				_taxes = [_taxName] call A3PL_Config_GetTaxes;
-
-				[format [localize "STR_SHOP_BOUGHITEMCASHTAXES",_itemName,[_totalPrice, 1, 0, true] call CBA_fnc_formatNumber,[((player getVariable [_currency,0])-_totalPrice), 1, 0, true] call CBA_fnc_formatNumber,_amount, _taxes*100, [floor(_totalPrice*_taxes), 1, 0, true] call CBA_fnc_formatNumber, "%"],"green"] call A3PL_Player_Notification;
-				[_taxBudget,floor(_totalPrice*_taxes)] remoteExec ["Server_Government_AddBalance",2];
-			} else {
-				[format [localize "STR_SHOP_BOUGHITEMCASH",_itemName,[_totalPrice, 1, 0, true] call CBA_fnc_formatNumber,[((player getVariable [_currency,0])-_totalPrice), 1, 0, true] call CBA_fnc_formatNumber,_amount],"green"] call A3PL_Player_Notification;
-			};
 			_isGangControlled = [_shopObject] call A3PL_Gang_GangTax;
 			if(!(isNil "_isGangControlled")) then {
 				_taxedAmount = _totalPrice / 100 * 5;
@@ -277,7 +268,17 @@
 				[(_isGangControlled select 0),round(_taxedAmount),"purchased"] remoteExec ["Server_Gang_NotifyPurchase",2];
 
 			};
-			player setVariable [_currency,(player getVariable [_currency,0]) - _totalPrice,true];
+			if(_taxed) then {
+				_taxBudget = [_shop, "tax"] call A3PL_Config_GetTaxSeting;
+				_taxName = [_shop, "tax"] call A3PL_Config_GetTaxSeting;
+				_taxes = [_taxName] call A3PL_Config_GetTaxes;
+
+				[format [localize "STR_SHOP_BOUGHITEMCASHTAXES",_itemName,[(_totalPrice + _taxedAmount), 1, 0, true] call CBA_fnc_formatNumber,[((player getVariable [_currency,0]) - _totalPrice + _taxedAmount), 1, 0, true] call CBA_fnc_formatNumber,_amount, _taxes*100, [floor(_totalPrice*_taxes), 1, 0, true] call CBA_fnc_formatNumber, "%"],"green"] call A3PL_Player_Notification;
+				[_taxBudget,floor(_totalPrice*_taxes)] remoteExec ["Server_Government_AddBalance",2];
+			} else {
+				[format [localize "STR_SHOP_BOUGHITEMCASH",_itemName,[(_totalPrice + _taxedAmount), 1, 0, true] call CBA_fnc_formatNumber,[((player getVariable [_currency,0]) - _totalPrice + _taxedAmount), 1, 0, true] call CBA_fnc_formatNumber,_amount],"green"] call A3PL_Player_Notification;
+			};
+			player setVariable [_currency,((player getVariable [_currency,0]) - _totalPrice + _taxedAmount),true];
 		};
 	};
 
@@ -292,6 +293,7 @@
 	_shop = param [0,""];
 	_currency = param [1,"player_cash"];
 	_shopObject = cursorobject;
+	_taxedAmount = 0;
 
 	if(_shop isEqualTo "Shop_Guns_Vendor") exitWith {["You need a FML license to sell guns and ammo to this shop!","red"] call A3PL_Player_Notification;};
 
@@ -458,6 +460,13 @@
 		{
 			_totalPrice = round(_itemSell*_amount);
 			_taxed = [_shop] call A3PL_Config_isTaxed;
+			_isGangControlled = [_shopObject] call A3PL_Gang_GangTax;
+			if(!(isNil "_isGangControlled")) then {
+				_taxedAmount = _totalPrice / 100 * 5;
+				[(_isGangControlled select 0),round(_taxedAmount)] remoteExec ["Server_Gang_UpdateGangBalance",2];
+				[(_isGangControlled select 0),round(_taxedAmount),"sold"] remoteExec ["Server_Gang_NotifyPurchase",2];
+
+			};
 			if(_taxed) then {
 				_taxBudget = [_shop, "tax"] call A3PL_Config_GetTaxSeting;
 				_taxName = [_shop, "tax"] call A3PL_Config_GetTaxSeting;
@@ -466,19 +475,13 @@
 				_basePrice = _totalPrice;
 				_totalPrice = round(_totalPrice - (_totalPrice*(_tAmount)));
 
-				[format [localize "STR_SHOP_SOLDITEMTAXES",_itemName,[_totalPrice, 1, 0, true] call CBA_fnc_formatNumber,_amount,_tAmount*100,[(floor(_basePrice-_totalPrice)), 1, 0, true] call CBA_fnc_formatNumber,"%"],"green"] call A3PL_Player_Notification;
+				[format [localize "STR_SHOP_SOLDITEMTAXES",_itemName,[(_totalPrice - _taxedAmount), 1, 0, true] call CBA_fnc_formatNumber,_amount,_tAmount*100,[(floor(_basePrice-_totalPrice)), 1, 0, true] call CBA_fnc_formatNumber,"%"],"green"] call A3PL_Player_Notification;
 				[_taxBudget,floor(_basePrice-_totalPrice)] remoteExec ["Server_Government_AddBalance",2];
 			} else {
-				[format [localize "STR_SHOP_SOLDITEM",_itemName,[_totalPrice, 1, 0, true] call CBA_fnc_formatNumber,[(player getVariable [_currency,0]), 1, 0, true] call CBA_fnc_formatNumber,_amount],"green"] call A3PL_Player_Notification;
+				[format [localize "STR_SHOP_SOLDITEM",_itemName,[(_totalPrice - _taxedAmount), 1, 0, true] call CBA_fnc_formatNumber,[(player getVariable [_currency,0]), 1, 0, true] call CBA_fnc_formatNumber,_amount],"green"] call A3PL_Player_Notification;
 			};
-			_isGangControlled = [_shopObject] call A3PL_Gang_GangTax;
-			if(!(isNil "_isGangControlled")) then {
-				_taxedAmount = _totalPrice / 100 * 5;
-				[(_isGangControlled select 0),round(_taxedAmount)] remoteExec ["Server_Gang_UpdateGangBalance",2];
-				[(_isGangControlled select 0),round(_taxedAmount),"sold"] remoteExec ["Server_Gang_NotifyPurchase",2];
 
-			};
-			player setVariable [_currency,(player getVariable [_currency,0]) + _totalPrice,true];
+			player setVariable [_currency,((player getVariable [_currency,0]) + _totalPrice - _taxedAmount),true];
 		};
 	};
 
@@ -511,6 +514,12 @@
 	_itemBuy = _item select 2;
 	_itemSell = _item select 3;
 	_itemLevel = _item select 4;
+
+	_isGangControlled = [_shopObject] call A3PL_Gang_GangTax;
+	if(!(isNil "_isGangControlled")) then {
+		_itemSell = _itemSell - (_itemSell / 100 * 5);
+		_itemBuy = _itemBuy + (_itemBuy / 100 * 5);
+	};
 
 	_type = "item";
 	switch (_itemType) do
@@ -556,7 +565,6 @@
 		default {"$"};
 	};
 
-	/* BUY BLOCK */
 	if(_itemBuy >= 0) then {
 		if(_itemBuy isEqualTo 0) then {
 			_priceBCtrl ctrlSetStructuredText parseText format ["<t align='right'>Free</t>"];
@@ -569,7 +577,6 @@
 		_buyBtn ctrlEnable false;
 	};
 
-	/* SELL BLOCK */
 	if(_itemSell >= 0) then {
 		_priceSCtrl ctrlSetStructuredText parseText format ["<t align='right'>%1%2</t>",_currency, [_itemSell, 1, 0, true] call CBA_fnc_formatNumber];
 		_sellBtn ctrlEnable true;
@@ -578,7 +585,6 @@
 		_sellBtn ctrlEnable false;
 	};
 
-	/* LEVEL BLOCK */
 	_playerLevel = player getVariable["Player_Level",0];
 	if(_playerLevel < _itemLevel) then {
 		_priceBCtrl ctrlSetStructuredText parseText format ["<t align='right' color='#FD1703'>Level %1 needed</t>",_itemLevel];
@@ -594,10 +600,8 @@
 		A3PL_SHOP_ITEMPREVIEW setPosATL [3852.065,9212.537,0.168];
 		A3PL_SHOP_ITEMPREVIEW enableSimulation false;
 
-		/* SET PLAYER EQUIPMENT */
 		A3PL_SHOP_ITEMPREVIEW setUnitLoadout (getUnitLoadout player);
 
-		/* ADD EQUIPMENT */
 		switch (_type) do {
 			case("headgear"): {A3PL_SHOP_ITEMPREVIEW addHeadGear _itemClass;};
 			case("goggles"): {A3PL_SHOP_ITEMPREVIEW addGoggles _itemClass;};
@@ -638,7 +642,6 @@
 		if (typeName _posConfig == "OBJECT") then { A3PL_SHOP_ITEMPREVIEW setDir (getDir _posConfig); };
 	};
 
-	//set camera position
 	switch (_type) do
 	{
 		case ("vh"):
@@ -669,10 +672,8 @@
 		};
 	};
 
-	//enable amount if item
 	if (_itemType IN ["item","magazine"]) then
 	{
-		//enable ctrls for setting the amount
 		_control = _display displayCtrl 1400;
 		_control ctrlSetText "1";
 		_control ctrlSetFade 0;
@@ -682,7 +683,6 @@
 		_control ctrlCommit 0;
 	} else
 	{
-		//make sure control is faded
 		_control = _display displayCtrl 1400;
 		_control ctrlSetFade 1;
 		_control ctrlCommit 0;
