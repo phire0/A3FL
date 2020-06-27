@@ -347,6 +347,8 @@ Config_Shops_Items = [
 		["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
 		["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0],
 		["magazine","A3FL_Mossberg_590K_8Rnd_buck",100,-1,0],
+		["aitem","optic_ACO_grn",5000,-1,10],
+		["aitem","optic_Holosight_blk_F",5000,-1,10]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
 
