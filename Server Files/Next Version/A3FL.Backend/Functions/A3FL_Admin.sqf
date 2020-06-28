@@ -399,7 +399,7 @@
 ["A3PL_AdminCursorTarget", {
 	("Dialog_HUD_AdminCursor" call BIS_fnc_rscLayer) cutRsc ["Dialog_HUD_AdminCursor", "PLAIN"];
 	pVar_CursorTargetEnabled = true;
-	((uiNamespace getVariable "Dialog_HUD_AdminCursor") displayCtrl 2414) ctrlSetStructuredText (parseText format["<t font='PuristaSemiBold' align='left' size='0.85'>Numpad 0: Driver<br/>Numpad 1: Attach<br/>Numpad 2: Detach<br/>Numpad 3: Impound<br/>Numpad 4: Delete<br/>Numpad 5: Move<br/>Numpad 6: Eject passangers<br/>Numpad 7: Heal<br/>Numpad 8: Repair</t>"]);
+	((uiNamespace getVariable "Dialog_HUD_AdminCursor") displayCtrl 2414) ctrlSetStructuredText (parseText format["<t font='PuristaSemiBold' align='left' size='0.85'>Numpad 0: Driver<br/>Numpad 1: Attach<br/>Numpad 2: Detach<br/>Numpad 3: Impound<br/>Numpad 4: Delete<br/>Numpad 5: Move<br/>Numpad 6: Eject passangers<br/>Numpad 7: Heal<br/>Numpad 8: Repair</t><br/>Numpad 9: Refuel</t>"]);
 
 	while {pVar_CursorTargetEnabled} do {
 		((uiNamespace getVariable "Dialog_HUD_AdminCursor") displayCtrl 1000) ctrlSetStructuredText (parseText format["<t font='PuristaSemiBold' align='center' size='1'>Cursor: %1</t>",(name cursorObject)]);

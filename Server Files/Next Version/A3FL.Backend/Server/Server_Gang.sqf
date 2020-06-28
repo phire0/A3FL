@@ -134,7 +134,7 @@
 	[format["Someone %1 goods from a store you are recieving protection money from, your gang has made $%2 from this sale!",_type,_amount],"green"] remoteExec ["A3PL_Player_Notification",_group];
 }] call Server_Setup_Compile;
 
-["Server_Gang_RewardFactions"{
+["Server_Gang_RewardFactions",{
 	_faction = param [0,"fisd"];
 	_amount = 2000;
 
@@ -142,5 +142,5 @@
 		[_x, 'Player_Bank', ((_x getVariable 'Player_Bash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
 		[format["Your faction has captured a gang hideout, you have been rewarded $%1 for good performance!",_amount],"green"] remoteExec ["A3PL_Player_Notification",_x];
 	} foreach ([_faction] call A3PL_Lib_FactionPlayers);
-	
+
 },true] call Server_Setup_Compile;

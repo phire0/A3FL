@@ -810,16 +810,17 @@ Server_Setup_Compile = {
 
 ["Server_Housing_Initialize",
 {
-	private ["_houses","_query","_return","_uid","_pos","_doorID","_near","_signs"];
+
+	private ["_houses","_query","_return","_uids","_pos","_doorID","_near","_signs"];
 	//also make sure to update _obj location if it's changed (just incase we move anything slightly with terrain builder), delete it if it cannot be found nearby
-	_houses = ["SELECT uids,location,doorid FROM houses", 2, true] call Server_Database_Async;
+	_houses = ["SELECT uids, location, doorid FROM houses", 2, true] call Server_Database_Async;
 	{
 		private ["_pos","_uids","_doorid"];
 		_uids = [(_x select 0)] call Server_Database_ToArray;
 		_pos = call compile (_x select 1);
 		_doorid = _x select 2;
 
-		_near = nearestObjects [_pos, ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion","Land_A3FL_Office_Building"], 10,true];
+		_near = nearestObjects [_pos, HOUSESLIST, 10,true];
 		if (count _near == 0) exitwith
 		{
 			_query = format ["CALL RemovedHouse('%1');",_pos];
@@ -839,16 +840,16 @@ Server_Setup_Compile = {
 		{
 			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
 			_rms = _uids;
-			_rms deleteAt 0;
-			(signs select 0) setVariable["roommates",_rms,true];
+			if(count _rms > 1) then {
+				_rms deleteAt 0;
+				(_signs select 0) setVariable["roommates",_rms,true];
+			};
 		};
 
-		//Set Variables
 		_near setVariable ["doorID",[_uids,_doorid],true];
-		_near setVariable ["owner",_uids,true];
+		_near setVariable ["owner",_uids, true];
 		Server_HouseList pushback _near;
 	} foreach _houses;
-	publicVariable "Server_HouseList";
 },true,true] call Server_Setup_Compile;
 
 ["Server_Housing_LoadItems",

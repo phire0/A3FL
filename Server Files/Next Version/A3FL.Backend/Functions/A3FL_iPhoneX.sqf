@@ -1399,6 +1399,7 @@
 	if(_amount > 100000) exitWith {["You cannot send more than $100.000 per transfer", "red"] call A3PL_Player_Notification;};
 	_control = _display displayCtrl 99402;
 	_sendTo = _control lbData (lbCurSel _control);
+
 	if(_sendTo isEqualTo "") exitWith {["Please select a recipient.", "red"] call A3PL_Player_Notification;};
 	_sendToCompile = call compile _sendTo;
 
@@ -1464,6 +1465,8 @@
 	if(_amount > 100000) exitWith {["You cannot send more than $100.000 per transfer", "red"] call A3PL_Player_Notification;};
 	_control = _display displayCtrl 99402;
 	_sendTo = _control lbData (lbCurSel _control);
+
+	hint str _sendTo;
 	if(_sendTo isEqualTo "") exitWith {["Please select a recipient.", "red"] call A3PL_Player_Notification;};
 	_sendToCompile = call compile _sendTo;
 

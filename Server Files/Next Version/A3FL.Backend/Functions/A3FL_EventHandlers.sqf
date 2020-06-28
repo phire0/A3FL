@@ -516,6 +516,12 @@
 		player_objintersect setdammage 0;
 		true;
 	};
+
+	if ((_dikCode == 73) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+		[player,"admin_refuel",[typeOf player_objintersect]] remoteExec ["Server_AdminLoginsert", 2];
+		player_objintersect setFuel 1;
+		true;
+	};
 	false;
 }] call Server_Setup_Compile;
 
