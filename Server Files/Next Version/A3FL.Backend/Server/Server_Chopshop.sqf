@@ -10,7 +10,7 @@
 {
 	private _veh = param [0,objNull];
 	private _player = param [1,objNull];
-	private _amount = [_veh] call Server_Chopshop_VehValue;
+	private _amount = ([_veh] call Server_Chopshop_VehValue) * A3PL_Event_CrimePayout;
 
 	[_player, 'Player_Cash', ((_player getVariable 'Player_Cash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
 	[format["You received $%1 for this vehicle!",_amount], "green"] remoteExec ["A3PL_Player_Notification",_player];

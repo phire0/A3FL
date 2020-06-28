@@ -215,6 +215,7 @@ class CfgRemoteExec
 		class Server_Core_DblXP{allowedTargets=2;};
 		class Server_Core_DblHarvest{allowedTargets=2;};
 		class Server_Core_PaycheckBonus{allowedTargets=2;};
+		class Server_Core_CrimeBonus{allowedTargets=2;};
 		class Server_Core_WhitelistServer{allowedTargets=2;};
 
 		//NPC

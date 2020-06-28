@@ -212,6 +212,7 @@
 		["Double EXP",false,A3PL_AdminEXP],
 		["Double Harvest",false,A3PL_AdminHarvest],
 		["1.5 Paychecks",false,A3PL_AdminPaychecks],
+		["1.5 Crime Payout",false,A3PL_AdminCrime],
 		["Players Stats",false,A3PL_Admin_ViewStats],
 		["Ressources Makers", pVar_RessourcesMarkersOn, A3PL_AdminRessourcesMarkers],
 		["Camera",false,A3PL_Admin_Camera],
@@ -257,6 +258,7 @@
 		case "Double EXP": {[] remoteExec ["Server_Core_DblXP",2];};
 		case "Double Harvest": {[] remoteExec ["Server_Core_DblHarvest",2];};
 		case "1.5 Paychecks": {[] remoteExec ["Server_Core_PaycheckBonus",2];};
+		case "1.5 Crime Payout": {[] remoteExec ["Server_Core_CrimeBonus",2];};
 
 		case "Players Stats": {call A3PL_Admin_ViewStats;};
 		case "Ressources Makers": {call A3PL_AdminRessourcesMarkers;};
