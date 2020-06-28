@@ -239,7 +239,7 @@
 
 ["A3PL_Gang_CapturedPaycheck",
 {
-	private _objects = [hideout_obj_1,hideout_obj_2,hideout_obj_3];
+	private _objects = [hideout_obj_1,hideout_obj_2,hideout_obj_3,hideout_obj_4,hideout_obj_5,hideout_obj_6];
 	private _win = 0;
 	private _group = group player;
 	private _gang = _group getVariable["gang_data",nil];
@@ -274,6 +274,9 @@
 	};
 	if(_shop IN [npc_fuel_10,Low_End_Car_Shop,npc_shopguns]) then {
 		_gangHideout = hideout_obj_5;
+	};
+	if(_shop IN [npc_perkfurniture_5,npc_perkfurniture_4,npc_perkfurniture_3,Robbable_Shop_5,NPC_general_4,npc_big_dicks_sports,npc_fuel_11,chemical_dealer,npc_fuel_12,NPC_Buckeye]) then {
+		_gangHideout = hideout_obj_6;
 	};
 
 
