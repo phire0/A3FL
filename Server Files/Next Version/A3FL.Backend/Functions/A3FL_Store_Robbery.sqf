@@ -79,14 +79,14 @@
 	if(_isStation) then {
 		if(_cops < 5) then
 		{
-			_reward = 5000 + (round (random 6000));
+			_reward = 5000 + (round (random 6000)) * A3PL_Event_CrimePayout;
 			[format ["You earned $%1",str(_reward)], "green"] call A3PL_Player_Notification;
 			player setVariable ["player_cash",((player getVariable ["player_cash",0]) + _reward),true];
 			[player, 30] call A3PL_Level_AddXP;
 		};
 		if(_cops >= 5) then
 		{
-			_reward = 10000 + (round (random 5000));
+			_reward = 10000 + (round (random 5000)) * A3PL_Event_CrimePayout;
 			[format ["You earned $%1",str(_reward)], "green"] call A3PL_Player_Notification;
 			player setVariable ["player_cash",((player getVariable ["player_cash",0]) + _reward),true];
 			[player, 45] call A3PL_Level_AddXP;
@@ -96,14 +96,14 @@
 	{
 		if(_cops < 5) then
 		{
-			_reward = 5000 + (round (random 6000));
+			_reward = 5000 + (round (random 6000)) * A3PL_Event_CrimePayout;
 			[format ["You earned $%1",str(_reward)], "green"] call A3PL_Player_Notification;
 			player setVariable ["player_cash",((player getVariable ["player_cash",0]) + _reward),true];
 			[player, 30] call A3PL_Level_AddXP;
 		};
 		if(_cops >= 5) then
 		{
-			_reward = 10000 + (round (random 5000));
+			_reward = 10000 + (round (random 5000)) * A3PL_Event_CrimePayout;
 			[format ["You earned $%1",str(_reward)], "green"] call A3PL_Player_Notification;
 			player setVariable ["player_cash",((player getVariable ["player_cash",0]) + _reward),true];
 			[player, 45] call A3PL_Level_AddXP;

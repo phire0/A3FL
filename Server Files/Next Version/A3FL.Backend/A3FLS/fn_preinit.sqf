@@ -438,6 +438,9 @@ Server_Setup_Compile = {
 	A3PL_Event_Paycheck = 1;
 	publicVariable "A3PL_Event_Paycheck";
 
+	A3PL_Event_CrimePayout = 1;
+	publicVariable "A3PL_Event_CrimePayout";
+
 	Server_AllBusStops = nearestObjects [[6420.21,7001.08,0], ["Land_A3PL_BusStop"], 5000, false];
 },true,true] call Server_Setup_Compile;
 

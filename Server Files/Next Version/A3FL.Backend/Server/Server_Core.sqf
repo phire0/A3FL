@@ -232,11 +232,24 @@
 		["The x1.5 paycheck event has began!", "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 		A3PL_Event_Paycheck = 1.5;
 	} else {
-		["The x1.5 paycheck event has began!", "yellow"] remoteExec ["A3PL_Player_Notification",-2];
+		["The x1.5 paycheck event has ended!", "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 		A3PL_Event_Paycheck = 1;
 	};
 	publicVariable "A3PL_Event_Paycheck";
 },true] call Server_Setup_Compile;
+
+["Server_Core_CrimeBonus",
+{
+	if ((A3PL_Event_CrimePayout) == 1) then {
+		["The x1.5 Crime Payout event has began!", "yellow"] remoteExec["A3PL_Player_Notification",-2];
+		A3PL_Event_CrimePayout = 1.5;
+	}
+ else {
+  ["The x1.5 Crime Payout event has ended!", "yellow"] remoteExec["A3PL_Player_Notification",-2];
+  A3PL_Event_CrimePayout = 1;
+};
+publicVariable "A3PL_Event_CrimePayout";
+}, true] call Server_Setup_Compile;
 
 /*["Server_Core_WhitelistServer",
 {

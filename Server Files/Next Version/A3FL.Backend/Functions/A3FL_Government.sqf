@@ -680,6 +680,6 @@
 	if(_factionBalanceError) exitwith {[format[localize"STR_NewLoop_2"], "red"] call A3PL_Player_Notification;};
 	_balance = [_job] call A3PL_Config_GetBalance;
 	[_balance, -_payAmount] remoteExec ["Server_Government_AddBalance",2];
-	[format[localize"STR_NewLoop_3",_rankName, _payAmount], "green"] call A3PL_Player_Notification;
+	[format[localize"STR_NewLoop_3",_rankName,(_payAmount * A3PL_Event_Paycheck)], "green"] call A3PL_Player_Notification;
 	_payAmount;
 }] call Server_Setup_Compile;
