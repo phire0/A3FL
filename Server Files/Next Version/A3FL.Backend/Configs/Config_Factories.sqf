@@ -220,7 +220,7 @@ Config_Factories =
 		["f_m16_mag","","inh","inh","A3PL_M16_Mag","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
 		["f_Mossberg_590K_8Rnd_buck","","inh","inh","A3FL_Mossberg_590k_8Rnd_buck","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
 		["f_optic_Holosight_blk_F","","inh","inh","optic_Holosight_blk_F","aitem",true,60,[["Steel",100]],1,"",1],
-		["f_optic_ACO_grn","","inh","inh","optic_Holosight_blk_F","aitem",true,60,[["Steel",100]],1,"",1]
+		["f_optic_ACO_grn","","inh","inh","optic_ACO_grn","aitem",true,60,[["Steel",100]],1,"",1]
 	],
 
 	["Marine Factory",[4898.23,5060.04,13],
@@ -606,8 +606,8 @@ Config_Factories =
 		["f_FRIGGUS_Polo","","inh","inh","A3PL_FRIGGUS_Polo","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_FRIGGUS_Shirt","","inh","inh","A3PL_FRIGGUS_Shirt","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_3_Industries_Suit","","inh","inh","A3PL_3_Industries_Suit","uniform",true,5,[["Polyester",1]],1,"",1],
-		["f_Gritsky_Suit","","inh","inh","A3PL_Gritsky_Suit_Man","uniform",true,5,[["Polyester",1]],1,"",1],
-		["f_Gritsky_Family","","inh","inh","A3PL_Gritsky_Family_Man","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Gritsky_Suit","","inh","inh","A3PL_Gritsky_Suit","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Gritsky_Family","","inh","inh","A3PL_Gritsky_Family","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Strictly_Sand_company_Swimmer","","inh","inh","A3PL_Strictly_Sand_company_Swimmer","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Strictly_Sand_company_Diver","","inh","inh","A3PL_Strictly_Sand_company_Diver_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Journalist_Hardy","","inh","inh","A3PL_Journalist_Hardy_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
@@ -615,9 +615,9 @@ Config_Factories =
 		["f_Express_clothing","","inh","inh","A3PL_Express_clothing","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Evergreen_Polo","","inh","inh","A3PL_Evergreen_Polo","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Evergreen_Coverall","","inh","inh","A3PL_Evergreen_Coverall_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
-		["f_jenkinsunifor_Man","","inh","inh","A3PL_jenkinsunifor_Man","uniform",true,5,[["Polyester",1]],1,"",1],
-		["f_PI_StreetWear_Man","","inh","inh","A3PL_PI_StreetWear_Man","uniform",true,5,[["Polyester",1]],1,"",1],
-		["f_Strictly_Sand_Man","","inh","inh","A3PL_Strictly_Sand_Man","uniform",true,5,[["Polyester",1]],1,"",1]
+		["f_jenkinsunifor_Man","","inh","inh","A3PL_jenkinsunifor_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_PI_StreetWear_Man","","inh","inh","A3PL_PI_StreetWear_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Strictly_Sand_Man","","inh","inh","A3PL_Strictly_Sand_Uniform","uniform",true,5,[["Polyester",1]],1,"",1]
 	],
 
 	["Vest Factory",[3852.065,9212.537,0.168],
