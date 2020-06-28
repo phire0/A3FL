@@ -50,7 +50,7 @@
 	{
 		deleteVehicle _package;
 		[localize"STR_DELIVERY_JOBOK","green"] call A3PL_Player_Notification;
-		player setVariable ["player_cash",(player getVariable ["player_cash",0])+200,true];
+		player setVariable ["player_cash",(player getVariable ["player_cash",0])+ (300 * A3PL_Event_Paycheck),true];
 		player setVariable ["jobVehicleTimer",(player getVariable ["jobVehicleTimer",0]) + 240,true]; //extend job vehicle time by 4 minutes
 		[player, 5] call A3PL_Level_AddXP;
 	} else {

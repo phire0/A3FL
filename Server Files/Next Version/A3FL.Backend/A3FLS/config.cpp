@@ -97,6 +97,7 @@ class CfgRemoteExec
 		class Server_Gang_SetLead{allowedTargets=2;};
 		class Server_Gang_UpdateGangBalance{allowedTargets=2;};
 		class Server_Gang_NotifyPurchase{allowedTargets=2;};
+		class Server_Gang_RewardFactions{allowedTargets=2;};
 
 		//Locker
 		class Server_Locker_Save{allowedTargets=2;};

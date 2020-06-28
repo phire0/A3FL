@@ -325,5 +325,6 @@
 	_obj setVariable["CapturedTime",nil,true];
 
 	[format["%1 has secured a gang hideout from %2",_faction,_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
+	[_faction] remoteExec ["Server_Gang_RewardFactions",2];
 
 }] call Server_Setup_Compile;

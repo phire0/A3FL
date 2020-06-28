@@ -32,7 +32,7 @@
 {
 	private _veh = param [0,objNull];
 	private _player = param [1,objNull];
-	private _cash = 2000;
+	private _cash = 2000 * A3PL_Event_Paycheck;
 	if (((_veh getVariable "owner") select 0) != (getPlayerUID _player)) then {
 		[format[localize"STR_SERVER_ROAD_PAY",_cash],"green"] remoteExec ["A3PL_Player_Notification",_player];
 		[_player,"Player_Cash",((_player getVariable ["player_cash",0]) + _cash)] call Server_Core_ChangeVar;
