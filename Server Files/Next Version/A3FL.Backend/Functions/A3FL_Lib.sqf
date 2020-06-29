@@ -72,7 +72,7 @@
 		uiSleep 1;
 		player allowDamage true;
 		uiSleep 5;
-		disableUserInput false;
+		if(_shouldDisableInput) then {disableUserInput false;};
 	};
 	if(_shouldDropWeapon) then {
 		private _weapon = currentWeapon player;

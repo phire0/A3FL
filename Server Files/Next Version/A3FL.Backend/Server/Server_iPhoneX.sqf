@@ -6,6 +6,32 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
+["Server_iPhoneX_GrantNumber",
+{
+	private _player = param[0,objNull];
+	_phoneNumber = [6,3];
+	for "_i" from 0 to 4 do {
+		_phoneNumber pushBack (selectRandom [0,1,2,3,4,5,6,7,8,9]);
+	};
+	_phoneNumber = _phoneNumber joinString "";
+
+	_query = format ["SELECT phone_number FROM iphone_phone_numbers WHERE phone_number='%1'", _phoneNumber];
+	_result = [_query,2] call Server_Database_Async;
+	while{count(_result) > 0} do {
+		_phoneNumber = [6,3];
+		for "_i" from 0 to 4 do {
+			_phoneNumber pushBack (selectRandom [0,1,2,3,4,5,6,7,8,9]);
+		};
+		_phoneNumber = _phoneNumber joinString "";
+		_query = format ["SELECT phone_number FROM iphone_phone_numbers WHERE phone_number='%1'", _phoneNumber];
+		_result = [_query,2] call Server_Database_Async;
+	};
+
+	[(getPlayerUID _player), _phoneNumber, "1"] remoteExec ["Server_iPhoneX_addPhoneNumber",2];
+	sleep 3;
+	[_player] remoteExec ["Server_iPhoneX_getPhoneNumber",2];
+}] call Server_Setup_Compile;
+
 ['Server_iPhoneX_AddPhoneNumber',
 {
 	private ["_unit","_phoneNumber","_type","_serialNumber","_query"];
