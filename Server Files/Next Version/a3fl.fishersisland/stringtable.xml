@@ -8864,7 +8864,10 @@
     </Package>
     <Package name="STR_NewLoop">
       <Key ID="STR_NewLoop_1">
-        <Original>You paid $%2 of taxes for your house.</Original>
+        <Original>You paid $%1 of taxes for your house.</Original>
+      </Key>
+      <Key ID="STR_NewLoop_1_2">
+        <Original>You paid $%1 of taxes for your warehouse.</Original>
       </Key>
       <Key ID="STR_NewLoop_2">
         <Original>The current department budget does not have enough funds to pay you!</Original>
