@@ -205,6 +205,8 @@
 	_gangID = _gang select 0;
 	if((_obj getVariable["captured",-1]) isEqualTo _gangID) exitWith {[localize"STR_NewGang_17","red"] call A3PL_Player_Notification;};
 
+	[getPos player,format["Gang Activity - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
+
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
 	["Capture...",75] spawn A3PL_Lib_LoadAction;
@@ -230,8 +232,7 @@
 
 	[format[localize "STR_GANG_CAPTURED",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 
-	_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
-	[getPos player,format["Gang Hideout Captured - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",_cops];
+	[getPos player,format["Gang Hideout Captured - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
 
 	[localize"STR_NewGang_22","green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
@@ -309,10 +310,6 @@
 	_success = true;
 	_animTime = diag_tickTime;
 	while {Player_ActionDoing} do {
-		if(_animTime >= diag_tickTime-5) then {
-			player playMoveNow 'AinvPknlMstpSnonWnonDnon_medic_1';
-			_animTime = diag_tickTime;
-		};
 		if (Player_ActionInterrupted) exitWith {_success = false;};
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 		if (!(vehicle player == player)) exitwith {_success = false;};
@@ -327,7 +324,7 @@
 	_obj setVariable["capturedName",nil,true];
 	_obj setVariable["CapturedTime",nil,true];
 
-	[format["%1 has secured a gang hideout from %2",_faction,_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
+	[format["%1 has secured a gang hideout from %2",(toUpper _faction),_gangName], "blue"] remoteExec ["A3PL_Player_Notification",-2];
 	[_faction] remoteExec ["Server_Gang_RewardFactions",2];
 
 }] call Server_Setup_Compile;
