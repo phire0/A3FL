@@ -113,7 +113,6 @@
 
 ["A3PL_Medical_GetHitPart",
 {
-<<<<<<< HEAD
     private _sHit = param [0,""];
     private _mHit = "";
     switch (true) do {
@@ -126,20 +125,6 @@
         case (_sHit isEqualTo "legs"): {_mHit = ["right upper leg","right lower leg","left lower leg","left upper leg"] call A3PL_Lib_ArrayRandom;};
     };
     _mHit;
-=======
-	private _sHit = param [0,""];
-	private _mHit = "";
-	switch (true) do {
-		default {_mHit = "head"};
-		case (_sHit IN ["face_hub","head"]): {_mHit = "head"};
-		case (_sHit IN ["pelvis","spine1"]): {_mHit = "pelvis"};
-		case (_sHit isEqualTo "spine2"): {_mHit = "torso"};
-		case (_sHit IN ["neck","spine3","body"]): {_mHit = "chest"};
-		case (_sHit IN ["arms","hands"]): {_mHit = ["right upper arm","right lower arm","left lower arm","left upper arm"] call A3PL_Lib_ArrayRandom;};
-		case (_sHit isEqualTo "legs"): {_mHit = ["right upper leg","right lower leg","left lower leg","left upper leg"] call A3PL_Lib_ArrayRandom;};
-	};
-	_mHit;
->>>>>>> 68313840001a33cf354c4ed3b934297b306ee52e
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_GetHitPartBI",
@@ -181,12 +166,25 @@
 			};
 		};
 	};
+<<<<<<< HEAD
 	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver_Bullet"]) exitWith {
+		[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
+=======
+	if(_sBullet IN ["A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) exitWith {
+>>>>>>> 0eeacd5ba7bf27d6b57e5fe7f1259f94f23153cc
+		private _chance = random 100;
+		if(_chance > 40) then {
+			[] call A3PL_Lib_Ragdoll;
+			[player,([_sHit] call A3PL_Medical_GetHitPart),"hematoma"] call A3PL_Medical_ApplyWound;
+		} else {
+			[player,([_sHit] call A3PL_Medical_GetHitPart),"bruise"] call A3PL_Medical_ApplyWound;
+		};
+	};
+	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet"]) exitWith {
 		[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
 		private _chance = random 100;
 		if(_chance > 40) then {
 			[] call A3PL_Lib_Ragdoll;
-			[player,([_sHit] call A3PL_Medical_GetHitPart),"bruise"] call A3PL_Medical_ApplyWound;
 		};
 	};
 	if((_sHit isEqualTo "") && (_sBullet isEqualTo "") && (vehicle player != player)) exitWith {
