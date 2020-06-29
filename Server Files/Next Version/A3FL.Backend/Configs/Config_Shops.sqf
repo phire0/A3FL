@@ -1016,6 +1016,7 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Silverado_PD",20000,0,0],
+			["vehicle","A3PL_Silverado_PD_ST",20000,0,0],
 			["vehicle","A3PL_Raptor_PD",20000,0,0],
 			["vehicle","A3PL_Raptor_PD_ST",20000,0,0],
 			["vehicle","A3PL_Taurus_PD",20000,0,0],
