@@ -144,12 +144,8 @@
 		_signs = nearestObjects [_pos, ["Land_A3PL_EstateSign"], 25,true];
 		if (count _signs > 0) then
 		{
-			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
-			_rms = _uids;
-			if(count _rms > 1) then {
-				_rms deleteAt 0;
-				(_signs select 0) setVariable["roommates",_rms,true];
-			};
+		    (_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
+		    (_signs select 0) setVariable["roommates",_uids,true];
 		};
 
 		_near setVariable ["doorID",[_uids,_doorid],true];
