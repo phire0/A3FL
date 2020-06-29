@@ -18,7 +18,8 @@ Config_Vehicles_Admin = [
 	["A3FL",["LCM"]],
 	["M",["explorer"]],
 	["Heli_Medium01",["H","Luxury_H","Medic_H","Military_H","Veteran_H","Coastguard_H","Sheriff_H"]],
-	["C",["Heli_Light_01_civil_F","Van_02_transport_F"]]
+	["C",["Heli_Light_01_civil_F","Van_02_transport_F"]],
+	["K",["Scooter_DarkBlue"]]
 ];
 publicVariable "Config_Vehicles_Admin";
 
