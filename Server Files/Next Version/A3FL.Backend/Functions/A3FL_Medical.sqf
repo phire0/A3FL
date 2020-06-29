@@ -114,8 +114,9 @@
 ["A3PL_Medical_GetHitPart",
 {
 	private _sHit = param [0,""];
-	private _mHit = switch (true) do {
-		default {"head"};
+	private _mHit = "";
+	switch (true) do {
+		default {_mHit = "head"};
 		case (_sHit IN ["face_hub","head"]): {_mHit = "head"};
 		case (_sHit IN ["pelvis","spine1"]): {_mHit = "pelvis"};
 		case (_sHit isEqualTo "spine2"): {_mHit = "torso"};
@@ -135,8 +136,8 @@
 		case (_sHit IN ["pelvis"]): {"pelvis"};
 		case (_sHit IN ["torso"]): {"spine2"};
 		case (_sHit IN ["chest"]): {"body"};
-		case (_sHit IN ["right upper arm","right lower arm","left lower arm","left upper arm"]): {"arms";};
-		case (_sHit IN ["right upper leg","right lower leg","left lower leg","left upper leg"]): {"legs";};
+		case (_sHit IN ["right upper arm","right lower arm","left lower arm","left upper arm"]): {"arms"};
+		case (_sHit IN ["right upper leg","right lower leg","left lower leg","left upper leg"]): {"legs"};
 	};
 	_mHit;
 }] call Server_Setup_Compile;
@@ -165,7 +166,7 @@
 			};
 		};
 	};
-	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) then {
+	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) exitWith {
 		[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
 		private _chance = random 100;
 		if(_chance > 40) then {
