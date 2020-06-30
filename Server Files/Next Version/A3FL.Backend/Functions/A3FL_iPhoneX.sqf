@@ -1450,7 +1450,7 @@
 ["A3PL_iPhoneX_gangBankSend",
 {
 	disableSerialization;
-	private _display = findDisplay 99400;
+	private _display = findDisplay 102100;
 	private _group = group player;
 	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
@@ -1463,10 +1463,9 @@
 	if(_amount < 1) then {["Please enter a valid number", "red"] call A3PL_Player_Notification;};
 	if(_amount > _gBank) exitWith {[localize"STR_Various_INVALIDAMOUNT", "red"] call A3PL_Player_Notification;};
 	if(_amount > 100000) exitWith {["You cannot send more than $100.000 per transfer", "red"] call A3PL_Player_Notification;};
+
 	_control = _display displayCtrl 99402;
 	_sendTo = _control lbData (lbCurSel _control);
-
-	hint str _sendTo;
 	if(_sendTo isEqualTo "") exitWith {["Please select a recipient.", "red"] call A3PL_Player_Notification;};
 	_sendToCompile = call compile _sendTo;
 
