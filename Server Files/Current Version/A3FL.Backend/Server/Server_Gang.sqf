@@ -96,3 +96,51 @@
 	private _owner = [_owner] call A3PL_Lib_UIDToObject;
 	[format[localize"STR_SERVER_GANG_SETLEADER"], "red"] remoteExec ["A3PL_Player_Notification",_owner];
 },true] call Server_Setup_Compile;
+
+["Server_Gang_UpdateGangBalance",{
+	private _gangID = param [0,objNull];
+	private _amount = param [1,0];
+	private _gangObj = grpNull;
+
+	{
+			private _gang = _x getVariable ["gang_data",nil];
+			private _groupID = _gang select 0;
+			if(_groupID isEqualTo _gangID) exitWith {
+				_prevBal = _gang select 4;
+				_gang set[4,(_prevBal + _amount)];
+				_gangObj = _x;
+				_x setVariable["gang_data",_gang,true];
+			};
+	} forEach allGroups;
+
+	[_gangObj] spawn Server_Gang_SaveBank;
+
+},true] call Server_Setup_Compile;
+
+["Server_Gang_NotifyPurchase",{
+	private _gangID = param [0,0];
+	private _amount = param [1,0];
+	private _type = param [2,"purchased"];
+	private _group = grpNull;
+
+	{
+			private _gang = _x getVariable ["gang_data",nil];
+			private _groupID = _gang select 0;
+			if(_groupID isEqualTo _gangID) exitWith {
+				_group = _x;
+			};
+	} forEach allGroups;
+
+	[format["Someone %1 goods from a store you are recieving protection money from, your gang has made $%2 from this sale!",_type,_amount],"green"] remoteExec ["A3PL_Player_Notification",_group];
+}] call Server_Setup_Compile;
+
+["Server_Gang_RewardFactions",{
+	_faction = param [0,"fisd"];
+	_amount = 2000;
+
+	{
+		[_x, 'Player_Bank', ((_x getVariable 'Player_Bash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
+		[format["Your faction has captured a gang hideout, you have been rewarded $%1 for good performance!",_amount],"green"] remoteExec ["A3PL_Player_Notification",_x];
+	} foreach ([_faction] call A3PL_Lib_FactionPlayers);
+
+},true] call Server_Setup_Compile;

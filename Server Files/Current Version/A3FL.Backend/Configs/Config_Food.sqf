@@ -9,7 +9,6 @@
 //['class',gain,isDrug]
 Config_Food =
 [
-	["donut",12,false],
 	["tacoshell",2,false],
 	["lettuce",4,false],
 	["salad",5,false],
@@ -21,13 +20,13 @@ Config_Food =
 	["fish_cooked",15,false],
 	["bread",16,false],
 	["applecookies",17,false],
-	["taco_cooked",18,false],
+	["taco_cooked",40,false],
 	["burger_cooked",18,false],
 	["cookies",18,false],
-	["burger_full_cooked",21,false],
+	["burger_full_cooked",40,false],
 	["lamington",22,false],
 	["soupcup",34,false],
-	["meatpie",39,false],
+	["meatpie",70,false],
 	["sausages",42,false],
 	["pizzabites",55,false],
 	["fish_raw",-4,false],

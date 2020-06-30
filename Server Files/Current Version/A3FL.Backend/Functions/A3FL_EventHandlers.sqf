@@ -9,7 +9,6 @@
 #include "\a3\editor_f\Data\Scripts\dikCodes.h"
 #define KINDOF_ARRAY(a,b) [##a,##b] call {_veh = _this select 0;_types = _this select 1;_res = false; {if (_veh isKindOf _x) exitWith { _res = true };} forEach _types;_res}
 
-
 ["A3PL_EventHandlers_Setup",
 {
 	call A3PL_EventHandlers_HandleDamage;
@@ -67,6 +66,39 @@
 				};
 			};
 		}, "", [DIK_N, [false, false, false]]] call CBA_fnc_addKeybind;
+
+		["ArmA 3 Fishers Life","highbeams_key", "Toggle High Beams",
+		{
+			private _veh = vehicle player;
+			if(!(_veh isKindOf "Car") && !((driver _veh) isEqualTo player)) exitWith {};
+				if (_veh animationSourcePhase "High_Beam" < 0.5) then {
+					_veh animateSource ["High_Beam",1];
+				} else {
+					_veh animateSource ["High_Beam",0];
+				};
+		}, "", [DIK_COLON, [true, false, false]]] call CBA_fnc_addKeybind;
+
+		["ArmA 3 Fishers Life","enginekeep_key", "Keep Engine Running Toggle",
+		{
+			private _veh = vehicle player;
+			if((!(_veh isKindOf "Car") && !((driver _veh) isEqualTo player)) || (vehicle player isEqualTo player)) exitWith {};
+				if (_veh getVariable ["EngineOn",0] isEqualTo 0) then {
+					_veh setVariable ["EngineOn",1,true];
+					["The engine of this vehicle will now remain running when you exit","green"] call A3PL_Player_Notification;
+				} else {
+					_veh setVariable ["EngineOn",0,true];
+					["The engine of this vehicle will now stop running when you exit","red"] call A3PL_Player_Notification;
+				};
+		}, "", [DIK_INSERT, [false, false, false]]] call CBA_fnc_addKeybind;
+
+		// ["ArmA 3 Fishers Life","lockunlock_key", "Lock/Unlock Vehicle",
+		// {
+		// 	if((vehicle player isEqualTo player) && (simulationEnabled cursorObject) && ((player distance cursorObject) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])) then {
+		// 		cursorObject setVariable ["locked",false,true];
+		// 		[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
+		// 		playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
+		// 	};
+		// }, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","trunk_key", "Open/Close Vehicle Trunk",
 		{
@@ -333,7 +365,7 @@
 		private _weapon = param [1,""];
 		private _ammo = param [4,""];
 
-		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe","A3FL_BaseballBat","A3FL_GolfDriver"]) then
+		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver"]) then
 		{
 			player playAction "GestureSwing";
 			if (player inArea "LumberJack_Rectangle") then {
@@ -484,6 +516,12 @@
 		player_objintersect setdammage 0;
 		true;
 	};
+
+	if ((_dikCode == 73) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+		[player,"admin_refuel",[typeOf player_objintersect]] remoteExec ["Server_AdminLoginsert", 2];
+		player_objintersect setFuel 1;
+		true;
+	};
 	false;
 }] call Server_Setup_Compile;
 
@@ -556,6 +594,10 @@
 			player removeMagazines "A3FL_BaseballBatMag";
 			player addMagazine "A3FL_BaseballBatMag";
 		};
+		if (_itemClass == "A3FL_PoliceBaton") then{
+			player removeMagazines "A3FL_PoliceBatonMag";
+			player addMagazine "A3FL_PoliceBatonMag";
+		};
 
 		if (_itemClass IN ["U_B_Protagonist_VR","U_I_Protagonist_VR","U_O_Protagonist_VR"]) then {
 			if (!(["motorhead"] call A3PL_Lib_hasPerk)) then {
@@ -596,22 +638,17 @@
 {
 	player addEventHandler ["HandleDamage",
 	{
-		private ["_damage","_bullet","_unit","_dmg"];
-		_unit = _this select 0;
-		_selection = _this select 1;
-		_damage = _this select 2;
-		_source = _this select 3;
-		_projectile = _this select 4;
-		_dmg = 0;
-
-		if (_damage > 0) then
-		{
-			private ["_hit"];
-			_hit = _unit getVariable ["getHit",[]];
+		private _unit = _this select 0;
+		private _selection = _this select 1;
+		private _damage = _this select 2;
+		private _source = _this select 3;
+		private _projectile = _this select 4;
+		private _dmg = 0;
+		if (_damage > 0) then {
+			private _hit = _unit getVariable ["getHit",[]];
 			_hit pushback [_selection,_damage,_projectile,_source];
 			_unit setVariable ["getHit",_hit,false];
 		};
-
 		player setVariable ["lastDamage",(_source getVariable["db_id",0]),true];
 		[_unit] spawn A3PL_Medical_Hit;
 		_dmg;
@@ -627,7 +664,7 @@
 		if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 		_distance = param [2,100];
 		_weaponClass = param [3,""];
-		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_GolfDriver","A3FL_PepperSpray"];
+		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
 
 		if(_distance <= 30 && (!(_weaponClass IN _except))) then
 		{

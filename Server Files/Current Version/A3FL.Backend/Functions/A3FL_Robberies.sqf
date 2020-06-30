@@ -180,17 +180,14 @@
 
 		_chance = random 100;
 		if(_chance >= 35) then {
+			_storage setVariable["locked",false,true];
+			_storage setVariable ["timer",serverTime,true];
 			[localize"STR_CRIMINAL_PICKSUCCESSFULLHC", "green"] call A3PL_Player_Notification;
 			[player,20] call A3PL_Level_AddXP;
 		} else {
-			_storage setVariable["locked",false,true];
-			_storage setVariable ["timer",serverTime,true];
 			[localize"STR_CRIMINAL_YOUCANNOTPICKTHISVEHICLEHC", "red"] call A3PL_Player_Notification;
 		};
 	};
-
-	uiSleep 1800;
-	_storage setVariable ["cooldown",false,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_Robberies_SeizureAlert",

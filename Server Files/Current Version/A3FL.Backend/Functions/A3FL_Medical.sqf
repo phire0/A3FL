@@ -64,7 +64,7 @@
 
 ["A3PL_Medical_Hit",
 {
-	private ["_getHit","_unit","_sHit","_sDamage","_sSource","_sBullet","_tmpDmg","_woundArray"];
+	private ["_getHit","_unit","_sHit","_sDamage","_sSource","_sBullet","_tmpDmg"];
 	_unit = param [0,objNull];
 	_getHit = _unit getVariable ["getHit",[]];
 	_unit setVariable ["getHit",nil,false];
@@ -113,306 +113,348 @@
 
 ["A3PL_Medical_GetHitPart",
 {
-	private ["_sHit","_mHit"];
-	_sHit = param [0,""];
-	_mHit = "head";
-	switch (true) do
-	{
-		case (_sHit IN ["face_hub","head"]): {_mHit = "head"};
-		case (_sHit IN ["pelvis","spine1"]): {_mHit = "pelvis"};
-		case (_sHit == "spine2"): {_mHit = "torso"};
-		case (_sHit IN ["neck","spine3","body"]): {_mHit = "chest"};
-		case (_sHit IN ["arms","hands"]): {_mHit = ["right upper arm","right lower arm","left lower arm","left upper arm"] call A3PL_Lib_ArrayRandom;};
-		case (_sHit == "legs"): {_mHit = ["right upper leg","right lower leg","left lower leg","left upper leg"] call A3PL_Lib_ArrayRandom;};
-	};
-	_mHit;
+    private _sHit = param [0,""];
+    private _mHit = "";
+    switch (true) do {
+        default {_mHit = "head"};
+        case (_sHit IN ["face_hub","head"]): {_mHit = "head"};
+        case (_sHit IN ["pelvis","spine1"]): {_mHit = "pelvis"};
+        case (_sHit isEqualTo "spine2"): {_mHit = "torso"};
+        case (_sHit IN ["neck","spine3","body"]): {_mHit = "chest"};
+        case (_sHit IN ["arms","hands"]): {_mHit = ["right upper arm","right lower arm","left lower arm","left upper arm"] call A3PL_Lib_ArrayRandom;};
+        case (_sHit isEqualTo "legs"): {_mHit = ["right upper leg","right lower leg","left lower leg","left upper leg"] call A3PL_Lib_ArrayRandom;};
+    };
+    _mHit;
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_GetHitPartBI",
 {
 	private _sHit = param [0,""];
-	private _mHit = "";
-	switch (true) do {
-		case (_sHit IN ["head"]): {_mHit = "head"};
-		case (_sHit IN ["pelvis"]): {_mHit = "pelvis"};
-		case (_sHit IN ["torso"]): {_mHit = "spine2"};
-		case (_sHit IN ["chest"]): {_mHit = "body"};
-		case (_sHit IN ["right upper arm","right lower arm","left lower arm","left upper arm"]): {_mHit = "arms";};
-		case (_sHit IN ["right upper leg","right lower leg","left lower leg","left upper leg"]): {_mHit = "legs";};
+	private _mHit = switch (true) do {
+		default{""};
+		case (_sHit IN ["head"]): {"head"};
+		case (_sHit IN ["pelvis"]): {"pelvis"};
+		case (_sHit IN ["torso"]): {"spine2"};
+		case (_sHit IN ["chest"]): {"body"};
+		case (_sHit IN ["right upper arm","right lower arm","left lower arm","left upper arm"]): {"arms"};
+		case (_sHit IN ["right upper leg","right lower leg","left lower leg","left upper leg"]): {"legs"};
 	};
 	_mHit;
 }] call Server_Setup_Compile;
 
-//Generate a wound array, based on hit
 ["A3PL_Medical_GenerateWounds",
 {
-	private ["_sHit","_sDamage","_sBullet"];
-	_sHit = param [0,""];
-	_sDamage = param [1,0];
-	_sBullet = param [2,""];
+	private _sHit = param [0,""];
+	private _sDamage = param [1,0];
+	private _sBullet = param [2,""];
 
-	switch (true) do {
-		case (_sBullet IN ["A3FL_Mossberg_590K_Beanie"]): {
-			[] call A3PL_Lib_Ragdoll;
-			if((vest player) isEqualTo "A3PL_SuicideVest") then {[] call A3PL_Criminal_SuicideVest;};
- 		};
-		case (_sBullet IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo"]): {
-			[] call A3PL_Lib_Ragdoll;
-			if((vest player) isEqualTo "A3PL_SuicideVest") then {[] call A3PL_Criminal_SuicideVest;};
-			[player,([_sHit] call A3PL_Medical_GetHitPart),"taser"] call A3PL_Medical_ApplyWound;
- 		};
-		if (_sBullet IN ["A3FL_PepperSpray_Ball"]) exitwith {
+	if(_sBullet isEqualTo "A3FL_Mossberg_590K_Beanie") exitwith {
+		[] call A3PL_Lib_Ragdoll;
+		if((vest player) isEqualTo "A3PL_SuicideVest") then {[] call A3PL_Criminal_SuicideVest;};
+	};
+	if(_sBullet IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo"]) exitwith {
+		[] call A3PL_Lib_Ragdoll;
+		if((vest player) isEqualTo "A3PL_SuicideVest") then {[] call A3PL_Criminal_SuicideVest;};
+		[player,([_sHit] call A3PL_Medical_GetHitPart),"taser"] call A3PL_Medical_ApplyWound;
+ 	};
+ 	if(_sBullet isEqualTo "A3FL_PepperSpray_Ball") exitwith {
+		private _masks = ["G_Balaclava_combat","A3PL_FD_Mask"];
+		if(!((goggles player) IN _masks)) then {
+			if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
 				[player,"head","pepper_spray"] call A3PL_Medical_ApplyWound;
 				[] call A3PL_Medical_PepperSpray;
-		};
-		case (_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_GolfDriver"]): {
-			[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
-			_chance = random 100;
-			if(_chance > 50) then {
-				[] call A3PL_Lib_Ragdoll;
-				[player,([_sHit] call A3PL_Medical_GetHitPart),"bruise"] call A3PL_Medical_ApplyWound;
 			};
 		};
-		case ((_sHit == "") && (_sBullet == "") && (vehicle player != player)):
+	};
+	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver_Bullet"]) exitWith {
+		[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
+	};
+	if(_sBullet IN ["A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) exitWith {
+		private _chance = random 100;
+		if(_chance > 40) then {
+			[] call A3PL_Lib_Ragdoll;
+			[player,([_sHit] call A3PL_Medical_GetHitPart),"hematoma"] call A3PL_Medical_ApplyWound;
+		} else {
+			[player,([_sHit] call A3PL_Medical_GetHitPart),"bruise"] call A3PL_Medical_ApplyWound;
+		};
+	};
+	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet"]) exitWith {
+		[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
+		private _chance = random 100;
+		if(_chance > 40) then {
+			[] call A3PL_Lib_Ragdoll;
+		};
+	};
+	if((_sHit isEqualTo "") && (_sBullet isEqualTo "") && (vehicle player != player)) exitWith {
+		if (_sDamage > 0.005) then
 		{
-			if (_sDamage > 0.005) then
-			{
-				if(((driver (vehicle player)) isEqualTo player) && (_sDamage > 0.009)) then {
-					_fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
-					if((count(_fifr) >= 5)) then {
-						_chance = random 100;
-						if(_chance > 85) then {
-							vehicle player setVariable["trapped",true,true];
-							["You have crashed and are trapped inside your vehicle, FIFR has been called!","red"] call A3PL_Player_Notification;
-							["911: Someone is trapped in their vehicle, check your map for the location!","red","fifr",3] call A3PL_Lib_JobMessage;
-							[position player, "Trapped in Vehicle","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_fifr];
-						};
-						_fireChance = random 100;
-						if((_sDamage > 0.04) && (_fireChance > 90)) then {
-							[(getPosATL player)] call A3PL_Fire_StartFire;
-							["Your vehicle has gone on fire due to a crash, FIFR has been called!","red"] call A3PL_Player_Notification;
-							["911: A vehicle fire has been reported, check your map for the location!","red","fifr",3] call A3PL_Lib_JobMessage;
-							[position player, "Vehicle Fire","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_fifr];
-						};
+			if(((driver (vehicle player)) isEqualTo player) && (_sDamage > 0.009)) then {
+				_fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
+				if((count(_fifr) >= 5)) then {
+					_chance = random 100;
+					if(_chance > 85) then {
+						vehicle player setVariable["trapped",true,true];
+						["You have crashed and are trapped inside your vehicle, FIFR has been called!","red"] call A3PL_Player_Notification;
+						["911: Someone is trapped in their vehicle, check your map for the location!","red","fifr",3] call A3PL_Lib_JobMessage;
+						[position player, "Trapped in Vehicle","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_fifr];
 					};
-				};
-				_injuries = round (random 3);
-				for "_i" from 1 to _injuries do {
-					_parts = ["torso","pelvis","left upper leg","left lower leg","right upper leg","head","chest","right lower leg","right upper arm","left upper arm","left lower arm","right lower arm"];
-					_part = _parts select (round (random [0,5,11]));
-					switch (true) do
-					{
-						case (_part == "head"): { if (!([player,_part,"concussion_minor"] call A3PL_Medical_HasWound)) then { [player,"head","concussion_minor"] call A3PL_Medical_ApplyWound; }; };
-						case default {[player,_part,(["cut","bruise","wound_minor"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;};
+					_fireChance = random 100;
+					if((_sDamage > 0.04) && (_fireChance > 90)) then {
+						[(getPosATL player)] call A3PL_Fire_StartFire;
+						["Your vehicle has gone on fire due to a crash, FIFR has been called!","red"] call A3PL_Player_Notification;
+						["911: A vehicle fire has been reported, check your map for the location!","red","fifr",3] call A3PL_Lib_JobMessage;
+						[position player, "Vehicle Fire","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_fifr];
 					};
 				};
 			};
-
-			if (_sDamage >= 0.016) then {
-				_injuries = round (random 4);
-				for "_i" from 1 to _injuries do {
-					_parts = ["torso","pelvis","left upper leg","left lower leg","right upper leg","chest","right lower leg","head","right upper arm","left lower arm","right lower arm","left upper arm"];
-					_part = _parts select (round (random [0,5,11]));
-					switch (true) do {
-						case (_part == "head"): { if (!([player,_part,"concussion_major"] call A3PL_Medical_HasWound)) then { [player,"head","concussion_major"] call A3PL_Medical_ApplyWound; }; };
-						case default { [player,_part,(["cut","bruise","wound_minor","wound_major","bone_broken","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound; };
-					};
-				};
-			};
-		};
-		case ((_sHit IN ["pelvis","head"]) && (_sBullet == "") && (vehicle player == player)): {
-			if ((count (nearestObjects [player,["A3PL_Goose_Default"],5])) > 0) exitwith {};
-			if ((count (nearestObjects [player,["Land_Pier_F"],50])) > 0) exitwith {};
-
-			if (_sDamage >= 0.1 && _sDamage < 0.25) then {
-				_injuries = round (random 2);
-				for "_i" from 1 to _injuries do {
-					_parts = ["left lower leg","right upper leg","left lower leg","pelvis","left upper leg","right upper leg","left upper leg","right lower leg","left lower leg","left upper leg","head","right upper leg","right lower leg","head","head","right lower leg"];
-					_part = _parts select (round (random [0,7,15]));
-					switch (true) do
-					{
-						case (_part == "head"): { [player,"head","concussion_minor"] call A3PL_Medical_ApplyWound; };
-						case default { [player,_part,(["cut","bruise","wound_minor"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound; };
-					};
-				};
-			};
-			if (_sDamage > 0.25) then
-			{
-				_injuries = 1 + round (random 1);
-				for "_i" from 1 to _injuries do
+			_injuries = round (random 3);
+			for "_i" from 1 to _injuries do {
+				_parts = ["torso","pelvis","left upper leg","left lower leg","right upper leg","head","chest","right lower leg","right upper arm","left upper arm","left lower arm","right lower arm"];
+				_part = _parts select (round (random [0,5,11]));
+				switch (true) do
 				{
-					_parts = ["left lower leg","right upper leg","left lower leg","left upper leg","pelvis","left upper leg","right lower leg","left lower leg","left upper leg","head","right upper leg","right upper leg","right lower leg","head","head","right lower leg"];
-					_part = _parts select (round (random [0,7,15]));
-					switch (true) do
-					{
-						case (_part == "head"): { [player,"head","concussion_major"] call A3PL_Medical_ApplyWound; };
-						case default { [player,_part,(["cut","bruise","wound_major","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound; };
-					};
+					case (_part isEqualTo "head"): { if (!([player,_part,"concussion_minor"] call A3PL_Medical_HasWound)) then {[player,"head","concussion_minor"] call A3PL_Medical_ApplyWound;};};
+					case default {[player,_part,(["cut","bruise","wound_minor"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;};
 				};
 			};
 		};
-
-		case (_sBullet == "FireDamage"): {
-			_fireDamage = (player getVariable ["A3PL_FireDamage",0]) + 1;
-			player setVariable ["A3PL_FireDamage",_fireDamage,false];
-			if ((_fireDamage > 6 && _fireDamage < 10)) then
+		if (_sDamage >= 0.016) then {
+			_injuries = round (random 4);
+			for "_i" from 1 to _injuries do {
+				_parts = ["torso","pelvis","left upper leg","left lower leg","right upper leg","chest","right lower leg","head","right upper arm","left lower arm","right lower arm","left upper arm"];
+				_part = _parts select (round (random [0,5,11]));
+				switch (true) do {
+					case (_part isEqualTo "head"): { if (!([player,_part,"concussion_major"] call A3PL_Medical_HasWound)) then { [player,"head","concussion_major"] call A3PL_Medical_ApplyWound; }; };
+					case default { [player,_part,(["cut","bruise","wound_minor","wound_major","bone_broken","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound; };
+				};
+			};
+		};
+	};
+	if((_sHit IN ["pelvis","head"]) && (_sBullet isEqualTo "") && ((vehicle player) isEqualTo player)) exitWith {
+		if ((count (nearestObjects [player,["A3PL_Goose_Default"],5])) > 0) exitwith {};
+		if ((count (nearestObjects [player,["Land_Pier_F"],50])) > 0) exitwith {};
+		if ((_sDamage >= 0.1) && (_sDamage < 0.25)) then {
+			_injuries = round (random 2);
+			for "_i" from 1 to _injuries do {
+				_parts = ["left lower leg","right upper leg","left lower leg","pelvis","left upper leg","right upper leg","left upper leg","right lower leg","left lower leg","left upper leg","head","right upper leg","right lower leg","head","head","right lower leg"];
+				_part = _parts select (round (random [0,7,15]));
+				if(_part isEqualTo "head") then {
+					[player,"head","concussion_minor"] call A3PL_Medical_ApplyWound;
+				} else {
+					[player,_part,(["cut","bruise","wound_minor"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;
+				};
+			};
+		};
+		if (_sDamage > 0.25) then
+		{
+			_injuries = 1 + round (random 1);
+			for "_i" from 1 to _injuries do
 			{
-				_parts = ["torso","torso","torso","pelvis","left upper leg","left lower leg","right upper leg","chest","right lower leg","right upper arm","torso","right lower arm","left lower arm","left upper arm","right lower arm","left lower arm","head","right lower arm","head","head","head"];
-				_part = _parts select (round (random [0,8,20]));
-				if (_part == "chest") then {
-					if(((goggles player) == "A3PL_FD_Mask") && (_vest == "A3PL_FD_Oxygen")) then {
-						if((uniform player) != "A3PL_FD_Protective_Uniform") then {
-							_wound = (["burn_second","burn_first","burn_second"] call A3PL_Lib_ArrayRandom);
-							if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
-						};
+				_parts = ["left lower leg","right upper leg","left lower leg","left upper leg","pelvis","left upper leg","right lower leg","left lower leg","left upper leg","head","right upper leg","right upper leg","right lower leg","head","head","right lower leg"];
+				_part = _parts select (round (random [0,7,15]));
+				if(_part isEqualTo "head") then {
+					[player,"head","concussion_major"] call A3PL_Medical_ApplyWound;
+				} else {
+					[player,_part,(["cut","bruise","wound_major","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;
+				};
+			};
+		};
+	};
+	if((_sHit IN ["pelvis","head"]) && (_sBullet isEqualTo "") && ((vehicle player) isEqualTo player)) exitWith {
+		if ((count (nearestObjects [player,["A3PL_Goose_Default"],5])) > 0) exitwith {};
+		if ((count (nearestObjects [player,["Land_Pier_F"],50])) > 0) exitwith {};
+		if ((_sDamage >= 0.1) && (_sDamage < 0.25)) then {
+			_injuries = round (random 2);
+			for "_i" from 1 to _injuries do {
+				_parts = ["left lower leg","right upper leg","left lower leg","pelvis","left upper leg","right upper leg","left upper leg","right lower leg","left lower leg","left upper leg","head","right upper leg","right lower leg","head","head","right lower leg"];
+				_part = _parts select (round (random [0,7,15]));
+				if(_part isEqualTo "head") then {
+					[player,"head","concussion_minor"] call A3PL_Medical_ApplyWound;
+				} else {
+					[player,_part,(["cut","bruise","wound_minor"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;
+				};
+			};
+		};
+		if (_sDamage > 0.25) then
+		{
+			_injuries = 1 + round (random 1);
+			for "_i" from 1 to _injuries do
+			{
+				_parts = ["left lower leg","right upper leg","left lower leg","left upper leg","pelvis","left upper leg","right lower leg","left lower leg","left upper leg","head","right upper leg","right upper leg","right lower leg","head","head","right lower leg"];
+				_part = _parts select (round (random [0,7,15]));
+				if(_part isEqualTo "head") then {
+					[player,"head","concussion_major"] call A3PL_Medical_ApplyWound;
+				} else {
+					[player,_part,(["cut","bruise","wound_major","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;
+				};
+			};
+		};
+	};
+	if(_sBullet isEqualTo "FireDamage") exitWith {
+		_fireDamage = (player getVariable ["A3PL_FireDamage",0]) + 1;
+		player setVariable ["A3PL_FireDamage",_fireDamage,false];
+		if ((_fireDamage > 6 && _fireDamage < 10)) then
+		{
+			_parts = ["torso","torso","torso","pelvis","left upper leg","left lower leg","right upper leg","chest","right lower leg","right upper arm","torso","right lower arm","left lower arm","left upper arm","right lower arm","left lower arm","head","right lower arm","head","head","head"];
+			_part = _parts select (round (random [0,8,20]));
+			if (_part == "chest") then {
+				if(((goggles player) isEqualTo "A3PL_FD_Mask") && (_vest isEqualTo "A3PL_FD_Oxygen")) then {
+					if((uniform player) != "A3PL_FD_Protective_Uniform") then {
+						_wound = (["burn_second","burn_first","burn_second"] call A3PL_Lib_ArrayRandom);
+						if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
+					};
+				} else {
+					if((uniform player) == "A3PL_FD_Protective_Uniform") then {
+						_wound = (["smoke_minor","smoke_medium"] call A3PL_Lib_ArrayRandom);
+						if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
 					} else {
-						if((uniform player) == "A3PL_FD_Protective_Uniform") then {
-							_wound = (["smoke_minor","smoke_medium"] call A3PL_Lib_ArrayRandom);
-							if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
-						} else {
-							_wound = (["smoke_minor","smoke_medium","burn_second","burn_first","burn_second"] call A3PL_Lib_ArrayRandom);
-							if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
-						};
+						_wound = (["smoke_minor","smoke_medium","burn_second","burn_first","burn_second"] call A3PL_Lib_ArrayRandom);
+						if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
 					};
-				} else {
-					if((uniform player) != "A3PL_FD_Protective_Uniform") then {[player,_part,(["burn_first","burn_second"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;};
 				};
-				[] spawn {
-					if (missionNameSpace getVariable ["A3PL_MedicalVar_BurnLoop",false]) exitwith {};
-					A3PL_MedicalVar_BurnLoop = true;
-					uiSleep 2;
-					if (!isBurning player) then {player setVariable ["A3PL_FireDamage",nil,false]};
-					A3PL_MedicalVar_BurnLoop = nil;
-				};
+			} else {
+				if((uniform player) != "A3PL_FD_Protective_Uniform") then {[player,_part,(["burn_first","burn_second"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;};
 			};
-			if (_fireDamage > 13) then
+			[] spawn {
+				if (missionNameSpace getVariable ["A3PL_MedicalVar_BurnLoop",false]) exitwith {};
+				A3PL_MedicalVar_BurnLoop = true;
+				uiSleep 2;
+				if (!isBurning player) then {player setVariable ["A3PL_FireDamage",nil,false]};
+				A3PL_MedicalVar_BurnLoop = nil;
+			};
+		};
+		if (_fireDamage > 13) then
+		{
+			_parts = ["torso","torso","torso","pelvis","left upper leg","left lower leg","right upper leg","chest","right lower leg","right upper arm","torso","right lower arm","left lower arm","left upper arm","right lower arm","left lower arm","head","right lower arm","head","head","head"];
+			_part = _parts select (round (random [0,5,20]));
+			if (_part isEqualTo "chest") then
 			{
-				_parts = ["torso","torso","torso","pelvis","left upper leg","left lower leg","right upper leg","chest","right lower leg","right upper arm","torso","right lower arm","left lower arm","left upper arm","right lower arm","left lower arm","head","right lower arm","head","head","head"];
-				_part = _parts select (round (random [0,5,20]));
-				if (_part == "chest") then
-				{
-					_wound = (["smoke_medium","smoke_major","burn_second","burn_third"] call A3PL_Lib_ArrayRandom);
-					if(((goggles player) == "A3PL_FD_Mask") && (_vest == "A3PL_FD_Oxygen")) then {
-						if((uniform player) != "A3PL_FD_Protective_Uniform") then {
-							_wound = (["burn_second","burn_third"] call A3PL_Lib_ArrayRandom);
-							if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
-						};
-					} else  {
-						if((uniform player) == "A3PL_FD_Protective_Uniform") then {
-							_wound = (["smoke_medium","smoke_major"] call A3PL_Lib_ArrayRandom);
-							if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
-						} else {
-							_wound = (["smoke_medium","smoke_major","burn_second","burn_third"] call A3PL_Lib_ArrayRandom);
-							if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
-						};
+				_wound = (["smoke_medium","smoke_major","burn_second","burn_third"] call A3PL_Lib_ArrayRandom);
+				if(((goggles player) isEqualTo "A3PL_FD_Mask") && (_vest isEqualTo "A3PL_FD_Oxygen")) then {
+					if((uniform player) != "A3PL_FD_Protective_Uniform") then {
+						_wound = (["burn_second","burn_third"] call A3PL_Lib_ArrayRandom);
+						if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
 					};
-				} else {
-					if((uniform player) != "A3PL_FD_Protective_Uniform") then {[player,_part,(["burn_first","burn_second"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;};
+				} else  {
+					if((uniform player) isEqualTo "A3PL_FD_Protective_Uniform") then {
+						_wound = (["smoke_medium","smoke_major"] call A3PL_Lib_ArrayRandom);
+						if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
+					} else {
+						_wound = (["smoke_medium","smoke_major","burn_second","burn_third"] call A3PL_Lib_ArrayRandom);
+						if (!([player,_part,_wound] call A3PL_Medical_HasWound)) then {[player,_part,_wound] call A3PL_Medical_ApplyWound;};
+					};
 				};
-				player setVariable ["A3PL_FireDamage",nil,false];
+			} else {
+				if((uniform player) != "A3PL_FD_Protective_Uniform") then {[player,_part,(["burn_first","burn_second"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;};
 			};
+			player setVariable ["A3PL_FireDamage",nil,false];
 		};
-
-		case ((_sHit IN ["face_hub","head"]) && (_sBullet != "")): {
-			_wound = "bullet_head";
-			[player,"head",_wound] call A3PL_Medical_ApplyWound;
-		};
-		case ((_sHit IN ["pelvis","spine1"]) && (_sBullet != "")): {
-			_wound = (["bullet_minor","bullet_minor","bullet_major"] call A3PL_Lib_ArrayRandom);
-			[player,"pelvis",_wound] call A3PL_Medical_ApplyWound;
-		};
-		case ((_sHit == "spine2") && (_sBullet != "")): {
-			_wound = (["bullet_minor","bullet_minor","bullet_major"] call A3PL_Lib_ArrayRandom);
-			[player,"torso",_wound] call A3PL_Medical_ApplyWound;
-		};
-
-		case ((_sHit IN ["neck","spine3","body"]) && (_sBullet != "")): {
+	};
+	if(_sBullet != "") then {
+		if(_sHit IN ["neck","spine3","body"]) exitwith {
 			private _vest = vest player;
 			private _kevlar = 0;
 			if((_vest != "")) then {_kevlar = getNumber(configFile >> "CfgWeapons" >> _vest >> "ItemInfo" >> "mass");};
 			if((_vest) isEqualTo "A3PL_SuicideVest") then {[] call A3PL_Criminal_SuicideVest;};
-			if(_kevlar == 0) then {
-				_wound = "bullet_major";
-				[player,"chest",_wound] call A3PL_Medical_ApplyWound;
+			if(_kevlar isEqualTo 0) then {
+				[player,"chest","bullet_major",_sBullet] call A3PL_Medical_ApplyWound;
 			} else {
 				if(_kevlar >= 80) then {
-					_wound = "bullet_minor";
-					[player,"chest",_wound] call A3PL_Medical_ApplyWound;
+					[player,"chest","bullet_minor",_sBullet] call A3PL_Medical_ApplyWound;
 				} else {
 					if(_kevlar >= 40) then {
-						_wound = "bullet_minor";
-						[player,"chest",_wound] call A3PL_Medical_ApplyWound;
+						[player,"chest","bullet_minor",_sBullet] call A3PL_Medical_ApplyWound;
 					} else {
-						_wound = "bullet_major";
-						[player,"chest",_wound] call A3PL_Medical_ApplyWound;
+						[player,"chest","bullet_major",_sBullet] call A3PL_Medical_ApplyWound;
 					};
 				};
 			};
-			_chance = round(random 100);
-			if(_chance >= 60) then {[player,"chest","breathing"] call A3PL_Medical_ApplyWound;};
 		};
-
-		case ((_sHit IN ["arms","hands"]) && (_sBullet != "")): {
+		if(_sHit IN ["face_hub","head"]) exitwith {
+			[player,"head","bullet_head",_sBullet] call A3PL_Medical_ApplyWound;
+		};
+		if(_sHit IN ["pelvis","spine1"]) exitwith {
+			private _wound = (["bullet_minor","bullet_minor","bullet_major"] call A3PL_Lib_ArrayRandom);
+			[player,"pelvis",_wound,_sBullet] call A3PL_Medical_ApplyWound;
+		};
+		if(_sHit isEqualTo "spine2") exitwith {
+			private _wound = (["bullet_minor","bullet_minor","bullet_major"] call A3PL_Lib_ArrayRandom);
+			[player,"torso",_wound,_sBullet] call A3PL_Medical_ApplyWound;
+		};
+		if(_sHit IN ["arms","hands"]) exitwith {
 			_part = ["right upper arm","right lower arm","left lower arm","left upper arm"] call A3PL_Lib_ArrayRandom;
-			_wound = "bullet_minor";
-			[player,_part,_wound] call A3PL_Medical_ApplyWound;
+			[player,_part,"bullet_minor",_sBullet] call A3PL_Medical_ApplyWound;
 		};
-		case ((_sHit == "legs") && (_sBullet != "")): {
+		if(_sHit isEqualTo "legs") exitwith {
 			_part = ["right upper leg","right lower leg","left lower leg","left upper leg"] call A3PL_Lib_ArrayRandom;
-			_wound = "bullet_minor";
-			[player,_part,_wound] call A3PL_Medical_ApplyWound;
+			[player,_part,"bullet_minor",_sBullet] call A3PL_Medical_ApplyWound;
 		};
 	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_ApplyWound",
 {
-	private ["_part","_wound","_partF","_player","_set","_wounds"];
-	_player = param [0,player];
-	_part = param [1,""];
-	_wound = param [2,""];
-	_dmg = param [3,0];
-	_partF = false;
-	_set = true;
-	_wounds = _player getVariable ["A3PL_Wounds",[]];
+	private _player = param [0,player];
+	private _part = param [1,""];
+	private _wound = param [2,""];
+	private _bullet = param [3,""];
+	private _partF = false;
+	private _set = true;
+	private _wounds = _player getVariable ["A3PL_Wounds",[]];
 
 	{
-		if ((_x select 0) == _part) then {
-			if (count _x > 4) exitwith {_partF=true;_set=false;};
+		if ((_x select 0) isEqualTo _part) then {
+			if ((count _x) > 4) exitwith {_partF=true;_set=false;};
 			_x pushback [_wound,false];
 			_partF = true;
 		};
 	} foreach _wounds;
 
-	if (!_partF) then {
-		_wounds pushback [_part,[_wound,false]];
-	};
-
+	if (!_partF) then {_wounds pushback [_part,[_wound,false]];};
 	[_part,_wound] remoteExec ["A3PL_Medical_ApplyPWound",_player];
 
 	if (_set) then {
 		_player setVariable ["A3PL_Wounds",_wounds,true];
 		[_player,format ["%1 sustained a %2 on the %3",(_player getVariable ["name",name _player]),([_wound,"name"] call A3PL_Config_GetWound),_part],[1, 0, 0, 1]] call A3PL_Medical_AddLog;
 		private _bloodLoss = [_wound,"bloodLossInstant"] call A3PL_Config_GetWound;
-		if (_bloodLoss > 0) then {[_player,[-(_bloodLoss)]] call A3PL_Medical_ApplyVar;};
+		if (_bloodLoss > 0) then {
+			private _damageCoef = [_bullet] call A3PL_Medical_CaliberDamage;
+			_bloodLoss = _bloodLoss*_damageCoef;
+			[_player,[-(_bloodLoss)]] call A3PL_Medical_ApplyVar;
+		};
 	};
 
-	_format = "";
-	switch(_part) do {
-		case ("head"): {_format = "You are wounded at the head"};
-		case ("chest"): {_format = "You are wounded at the chest"};
-		case ("torso"): {_format = "You are wounded at the torso"};
-		case ("pelvis"): {_format = "You are wounded at the pelvis"};
-		case ("left upper leg"): {_format = "You are wounded at the left thigh"};
-		case ("left lower leg"): {_format = "You are wounded at the left leg"};
-		case ("right upper leg"): {_format = "You are wounded at the right thigh"};
-		case ("right lower leg"): {_format = "You are wounded at the right leg"};
-		case ("left upper arm"): {_format = "You are wounded at the left arm"};
-		case ("left lower arm"): {_format = "You are wounded at the left forearm"};
-		case ("right upper arm"): {_format = "You are wounded at the right arm"};
-		case ("right lower arm"): {_format = "You are wounded at the right forearm"};
+	private _format = switch(_part) do {
+		default {"You are wounded"};
+		case ("head"): {"You are wounded at the head"};
+		case ("chest"): {"You are wounded at the chest"};
+		case ("torso"): {"You are wounded at the torso"};
+		case ("pelvis"): {"You are wounded at the pelvis"};
+		case ("left upper leg"): {"You are wounded at the left thigh"};
+		case ("left lower leg"): {"You are wounded at the left leg"};
+		case ("right upper leg"): {"You are wounded at the right thigh"};
+		case ("right lower leg"): {"You are wounded at the right leg"};
+		case ("left upper arm"): {"You are wounded at the left arm"};
+		case ("left lower arm"): {"You are wounded at the left forearm"};
+		case ("right upper arm"): {"You are wounded at the right arm"};
+		case ("right lower arm"): {"You are wounded at the right forearm"};
 	};
 	[_format, "red"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
+
+["A3PL_Medical_CaliberDamage",
+{
+	private _bullet = param[0,""];
+	diag_log str(_bullet);
+	private _coef = switch(_bullet) do {
+		default {1};
+		case "B_9x21_Ball": {1.2};
+		case "B_45ACP_Ball": {1.2};
+		case "A3PL_M16_Ball": {1.5};
+		case "B_762x39_Ball_F": {1.6};
+		case "A3FL_Mossberg_590K_buck": {1.8};
+	};
+	_coef;
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_ApplyPWound",
@@ -476,30 +518,22 @@
 
 ["A3PL_Medical_Die",
 {
-	private ["_effect","_timer","_exit"];
-	_effect = ["DynamicBlur",[5]] call A3PL_Lib_PPEffect;
+	private _effect = ["DynamicBlur",[5]] call A3PL_Lib_PPEffect;
+	private _timer = A3PL_Respawn_Time;
 
 	closeDialog 0;
 	moveOut player;
 	[false] call A3PL_Lib_Ragdoll;
-
-	if ((player getVariable "dbVar_AdminLevel") < 3) then {
-		disableUserInput true;
-	};
-
-	_timer = A3PL_Respawn_Time;
+	waitUntil{!userInputDisabled};
+	if(pVar_AdminLevel < 3) then {disableUserInput true;};
+	[player,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 	player setVariable ["TimeRemaining",_timer,true];
-
 	player setVariable ["tf_voiceVolume", 0, true];
 	player setVariable ["A3PL_Medical_Alive",false,true];
-
 	player setVariable ["Zipped",false,true];
 	player setVariable ["Cuffed",false,true];
 
-	[player,"Incapacitated"] remoteExec ["A3PL_Lib_SyncAnim",-2];
-
 	Player_Drugs = [0,0,0];
-
 	_exit = false;
 	while {!(player getVariable ["A3PL_Medical_Alive",true])} do
 	{

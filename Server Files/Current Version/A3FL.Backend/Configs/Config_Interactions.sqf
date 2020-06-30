@@ -16,7 +16,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_SWITCHPRESSURE",
 		{[cursorObject] call A3PL_FD_ChangeTruckPressure;},
-		{(typeOf cursorObject) isEqualTo "A3PL_Pierce_Pumper"}
+		{(typeOf cursorObject) IN ["A3PL_Pierce_Pumper","A3PL_Silverado_FD_Brush"]}
 	],
 	[
 		localize "STR_INTER_DELIVERY",
@@ -29,7 +29,7 @@ A3PL_Interaction_Options =
 			[(getPlayerUID cursorObject), (player getVariable["faction","citizen"])] remoteExec ["A3PL_Player_Whitelist",cursorObject];
 			[format[localize"STR_Inter_Notifications_Recruit", name cursorObject],"green"] call A3PL_Player_Notification;
 		},
-		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo "citizen")} && {((player getVariable["faction","citizen"]) IN ["gov","fifr","uscg","fisd","usms","dmv","doj","cartel"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
+		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo "citizen")} && {((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","usms","dmv","doj","cartel"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
 	],
 	[
 		localize "STR_INTER_FACTIONFIRE",
@@ -37,7 +37,7 @@ A3PL_Interaction_Options =
 			[(getPlayerUID cursorObject), "citizen"] remoteExec ["A3PL_Player_Whitelist",cursorObject];
 			[format[localize"STR_Inter_Notifications_Fire", name cursorObject],"green"] call A3PL_Player_Notification;
 		},
-		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo (player getVariable["faction","citizen"]))} && {((player getVariable["faction","citizen"]) IN ["gov","fifr","uscg","fisd","usms","dmv","doj","cartel"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
+		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo (player getVariable["faction","citizen"]))} && {((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","usms","dmv","doj","cartel"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
 	],
 	[
 		localize "STR_INTER_SETNAMET",
@@ -245,7 +245,7 @@ A3PL_Interaction_Options =
 			private _intersect = player_objintersect;
 			if (isNull _intersect) exitwith {};
 			if ((typeOf _intersect) IN ["A3PL_Jayhawk","A3PL_Cutter","B_supplyCrate_F"]) exitWith {["You cannot lockpick this vehicle", "red"] call A3PL_Player_Notification;};
-			[_intersect] call A3PL_Criminal_PickCar;
+			[_intersect] spawn A3PL_Criminal_PickCar;
 		},
 		{(vehicle player == player) && {(player distance cursorObject < 7)} && {(player_ItemClass == "v_lockpick")}}
 	],
@@ -414,6 +414,11 @@ A3PL_Interaction_Options =
 		localize "STR_INTER_SHOWID_COMPANY",
 		{if(!(call A3PL_Player_AntiSpam)) exitWith {}; [player,"company"] remoteExec ["A3PL_Hud_IDCard",cursorObject];},
 		{([getPlayerUID player] call A3PL_Config_InCompany) && (isPlayer cursorObject) && (alive cursorObject) && (player distance cursorObject < 3)}
+	],
+	[
+		localize "STR_INTER_SHOWMIRANDA",
+		{if(!(call A3PL_Player_AntiSpam)) exitWith {}; [] remoteExec ["A3PL_Police_MirandaCard",cursorObject];},
+		{((player getVariable["faction","citizen"]) IN ["fisd","uscg","usms","doj"]) && (isPlayer cursorObject) && (player distance cursorObject < 3)}
 	],
 	[
 		localize "STR_INTER_GRABID",
@@ -724,7 +729,7 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_DROPITEM",
-		{call A3PL_Inventory_Drop;},
+		{[] call A3PL_Inventory_Drop;},
 		{([Player_ItemClass, 'canDrop'] call A3PL_Config_GetItem)}
 	],
 	[
@@ -889,7 +894,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_EXITVEH",
 		{
-			if ((speed vehicle player) < 1) then {
+			if (((speed vehicle player) < 1) && (vehicle player getVariable ["EngineOn",0] isEqualTo 0)) then {
 				player action ["GetOut", (vehicle player)];
 				[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
 			} else {
@@ -1101,7 +1106,7 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize"STR_INTER_WRIST_ADD",
-		{cursorObject setVariable ["jail_mark",true,true];},
+		{cursorObject setVariable ["jail_mark",true,true];[getPlayerUID player,"wristAdded",[cursorObject getVariable["name","undefined"]]] remoteExec ["Server_Log_New",2];},
 		{(vehicle player == player) && (player getVariable["job","unemployed"] isEqualTo "usms") && (isPlayer cursorObject) && !(cursorObject getVariable ["jail_mark",false])}
 	],
 	[
@@ -1112,7 +1117,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_OPCOMPUTER",
 		{call A3PL_Police_DatabaseOpen;},
-		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","usms"]) && (typeOf(vehicle player) IN ["A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Silverado_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","M_explorer","A3PL_Taurus_PD"]) && ((gunner (vehicle player)) isEqualTo player)}
+		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","usms"]) && (typeOf(vehicle player) IN Config_Police_Vehs) && ((gunner (vehicle player)) isEqualTo player)}
 	],
 	[
 		localize "STR_INTER_RESETLOCKF",
@@ -1130,7 +1135,7 @@ A3PL_Interaction_Options =
 				[_veh,"locktarget",0] call A3PL_Police_RadarSet;
 			};
 		},
-		{(typeOf vehicle player IN ["A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST"])}
+		{(typeOf vehicle player IN ["A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Charger15_PD","A3PL_Charger15_PD_ST"])}
 	],
 	[
 		localize "STR_INTER_CHECKALCOHOL",

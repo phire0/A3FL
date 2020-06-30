@@ -144,10 +144,10 @@
 		_signs = nearestObjects [_pos, ["Land_A3PL_EstateSign"], 25,true];
 		if (count _signs > 0) then
 		{
-			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
+		    (_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
+		    (_signs select 0) setVariable["roommates",_uids,true];
 		};
 
-		//Set variables
 		_near setVariable ["doorID",[_uids,_doorid],true];
 		_near setVariable ["owner",_uids, true];
 		Server_HouseList pushback _near;
@@ -372,6 +372,11 @@
 	if(_name == "house") then {
 	_id = [5] call Server_Housing_GenerateID;
 	_obj setVariable ["doorID",[_uid,_id],true];
+	};
+
+	if(_name == "greenhouse") then {
+		_id = [4] call Server_Housing_GenerateID;
+		_obj setVariable ["doorID",[_uid,_id],true];
 	};
 
 

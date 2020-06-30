@@ -212,6 +212,7 @@
 		["Double EXP",false,A3PL_AdminEXP],
 		["Double Harvest",false,A3PL_AdminHarvest],
 		["1.5 Paychecks",false,A3PL_AdminPaychecks],
+		["1.5 Crime Payout",false,A3PL_AdminCrime],
 		["Players Stats",false,A3PL_Admin_ViewStats],
 		["Ressources Makers", pVar_RessourcesMarkersOn, A3PL_AdminRessourcesMarkers],
 		["Camera",false,A3PL_Admin_Camera],
@@ -257,6 +258,7 @@
 		case "Double EXP": {[] remoteExec ["Server_Core_DblXP",2];};
 		case "Double Harvest": {[] remoteExec ["Server_Core_DblHarvest",2];};
 		case "1.5 Paychecks": {[] remoteExec ["Server_Core_PaycheckBonus",2];};
+		case "1.5 Crime Payout": {[] remoteExec ["Server_Core_CrimeBonus",2];};
 
 		case "Players Stats": {call A3PL_Admin_ViewStats;};
 		case "Ressources Makers": {call A3PL_AdminRessourcesMarkers;};
@@ -334,8 +336,6 @@
 	["Init"] call BIS_fnc_camera;
 }] call Server_Setup_Compile;
 
-["A3PL_Admin_Mayor",{[] remoteExec ['Server_Government_StartVote', 2];}] call Server_Setup_Compile;
-
 ["A3PL_AdminWatch", {
 	_display = findDisplay 98;
 	_selectedIndex = lbCurSel 1500;
@@ -399,7 +399,7 @@
 ["A3PL_AdminCursorTarget", {
 	("Dialog_HUD_AdminCursor" call BIS_fnc_rscLayer) cutRsc ["Dialog_HUD_AdminCursor", "PLAIN"];
 	pVar_CursorTargetEnabled = true;
-	((uiNamespace getVariable "Dialog_HUD_AdminCursor") displayCtrl 2414) ctrlSetStructuredText (parseText format["<t font='PuristaSemiBold' align='left' size='0.85'>Numpad 0: Driver<br/>Numpad 1: Attach<br/>Numpad 2: Detach<br/>Numpad 3: Impound<br/>Numpad 4: Delete<br/>Numpad 5: Move<br/>Numpad 6: Eject passangers<br/>Numpad 7: Heal<br/>Numpad 8: Repair</t>"]);
+	((uiNamespace getVariable "Dialog_HUD_AdminCursor") displayCtrl 2414) ctrlSetStructuredText (parseText format["<t font='PuristaSemiBold' align='left' size='0.85'>Numpad 0: Driver<br/>Numpad 1: Attach<br/>Numpad 2: Detach<br/>Numpad 3: Impound<br/>Numpad 4: Delete<br/>Numpad 5: Move<br/>Numpad 6: Eject passangers<br/>Numpad 7: Heal<br/>Numpad 8: Repair</t><br/>Numpad 9: Refuel</t>"]);
 
 	while {pVar_CursorTargetEnabled} do {
 		((uiNamespace getVariable "Dialog_HUD_AdminCursor") displayCtrl 1000) ctrlSetStructuredText (parseText format["<t font='PuristaSemiBold' align='center' size='1'>Cursor: %1</t>",(name cursorObject)]);

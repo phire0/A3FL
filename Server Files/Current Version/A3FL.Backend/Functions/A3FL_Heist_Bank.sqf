@@ -341,7 +341,7 @@
 	_container = backpackContainer player;
 	_cash = _container getVariable ["bankCash",0];
 	if (_cash < 1) exitwith {["There is no dirty money in this backpack to convert to real cash","red"] call A3PL_Player_Notification;};
-	player setVariable ["player_cash",(player getVariable ["player_cash",0])+_cash,true];
+	player setVariable ["player_cash",(player getVariable ["player_cash",0])+_cash * A3PL_Event_CrimePayout,true];
 	_container setVariable ["bankCash",nil,true];
 	[getPlayerUID player,"moneyLaundering",[str(_cash)]] remoteExec ["Server_Log_New",2];
 	[format ["You converted $%1 dirty money into laundered money, the cash is now in your inventory",_cash],"green"] call A3PL_Player_Notification;

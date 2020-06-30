@@ -95,6 +95,9 @@ class CfgRemoteExec
 		class Server_Gang_SaveBank{allowedTargets=2;};
 		class Server_Gang_DeleteGang{allowedTargets=2;};
 		class Server_Gang_SetLead{allowedTargets=2;};
+		class Server_Gang_UpdateGangBalance{allowedTargets=2;};
+		class Server_Gang_NotifyPurchase{allowedTargets=2;};
+		class Server_Gang_RewardFactions{allowedTargets=2;};
 
 		//Locker
 		class Server_Locker_Save{allowedTargets=2;};
@@ -142,6 +145,7 @@ class CfgRemoteExec
 		class Server_Warehouses_AddMember{allowedTargets=2;};
 
 		//Police
+		class A3PL_Police_MirandaCard {allowedTargets = 0;};
 		class A3PL_Police_ReleasePlayer {allowedTargets = 0;};
 		class A3PL_Police_PanicMarker{allowedTargets=0;};
 		class A3PL_Police_HandleAnim {allowedTargets = 0;};
@@ -212,6 +216,7 @@ class CfgRemoteExec
 		class Server_Core_DblXP{allowedTargets=2;};
 		class Server_Core_DblHarvest{allowedTargets=2;};
 		class Server_Core_PaycheckBonus{allowedTargets=2;};
+		class Server_Core_CrimeBonus{allowedTargets=2;};
 		class Server_Core_WhitelistServer{allowedTargets=2;};
 
 		//NPC

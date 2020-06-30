@@ -1016,6 +1016,34 @@
 	}
 ],
 [
+	"A3PL_Silverado_FD_Brush",
+	localize"STR_INTSECT_OPCLDISCH",
+	{
+		private _veh = player_objintersect;
+		private _animName = player_nameintersect;
+		if ((!(_veh isKindOf "Car")) OR (_animName == "")) exitwith {};
+		if (((_animName == "bt_lever_2") && (_veh animationPhase "bt_lever_2" < 0.5)) || ((_animName == "bt_lever_3") && (_veh animationPhase "bt_lever_3" < 0.5)) ) then {
+			[_veh] spawn A3PL_FD_BrushLoop;
+		};
+		[_veh,_animName,false] call A3PL_Lib_ToggleAnimation;
+	}
+],
+[
+	"",
+	localize"STR_INTSECT_OPCLINLET",
+	{
+		private _veh = player_objintersect;
+		private _animName = player_nameintersect;
+		if ((!(_veh isKindOf "Car")) OR (_animName == "")) exitwith {};
+		if (_animName == "ft_lever_8" && (_veh animationPhase "ft_lever_8" < 0.5)) then {
+			[_veh] spawn A3PL_FD_EngineLoop;
+		} else {
+			[_veh] spawn A3PL_FD_BrushLoop;
+		};
+		[_veh,_animName,false] call A3PL_Lib_ToggleAnimation;
+	}
+],
+[
 	"A3PL_Pierce_Heavy_Ladder",
 	localize"STR_INTSECT_CONHOSETOLADIN",
 	{[player_objintersect,player_nameintersect] call A3PL_FD_ConnectHoseAdapter;}
@@ -1925,8 +1953,13 @@
 		_veh lock 1;
 		player leaveVehicle _veh;
 		unassignVehicle player;
-		player action ["GetOut", _veh];
-		[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];};};
+		if (((speed vehicle player) < 1) && (vehicle player getVariable ["EngineOn",0] isEqualTo 0)) then {
+			player action ["GetOut", (vehicle player)];
+			[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
+		} else {
+			player action ["eject", (vehicle player)];
+			[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
+		};
 		_veh lock 2;
 	}
 ],

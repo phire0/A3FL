@@ -131,6 +131,8 @@
 	// Mushroom area moving - every 2 hours
 	["itemAdd", ["Server_Loop_ShroomMove", {[] spawn Server_Shrooms_MoveMarker;}, 7200]] call BIS_fnc_loop;
 
+	["itemAdd", ["Server_Loop_TurtlesMove", {[] spawn Server_Criminal_TurtlesMove;}, 3600]] call BIS_fnc_loop;
+
 	//tree respawn for lumberyack
 	["itemAdd", ["Server_Loop_TreeRespawn", {[] spawn Server_Lumber_TreeRespawn;}, 1800]] call BIS_fnc_loop;
 
@@ -177,6 +179,9 @@
 
 	A3PL_Event_Paycheck = 1;
 	publicVariable "A3PL_Event_Paycheck";
+
+	A3PL_Event_CrimePayout = 1;
+	publicVariable "A3PL_Event_CrimePayout";
 
 	Server_AllBusStops = nearestObjects [[6420.21,7001.08,0], ["Land_A3PL_BusStop"], 5000, false];
 },true,true] call Server_Setup_Compile;

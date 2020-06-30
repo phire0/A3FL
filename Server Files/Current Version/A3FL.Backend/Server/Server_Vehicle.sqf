@@ -199,8 +199,8 @@
 	private _sirenType = "police";
 	switch (true) do {
 		case (_classname IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]): {_sirenType = "fire";};
-		case (_classname IN ["A3PL_Tahoe_FD","A3PL_Taurus_FD","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush"]): {_sirenType = "fire_FR";};
-		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST"]): {_sirenType = "police";};
+		case (_classname IN ["A3PL_Tahoe_FD","A3PL_Taurus_FD","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Charger15_FD"]): {_sirenType = "fire_FR";};
+		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Charger15_FD"]): {_sirenType = "police";};
 		case (_classname IN ["Jonzie_Ambulance","A3PL_E350"]): {_sirenType = "ems";};
 	};
 	switch (_sirenType) do {
@@ -422,7 +422,6 @@
 	_light_2 setdir 180;
 	_this animate ["Pushbar_Addon",1];
 	_this animate ["Spotlight_Addon",1];
-	diag_log "Called";
 },true] call Server_Setup_Compile;
 
 ["Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop",{_this call Server_Vehicle_Siren_Init;},true] call Server_Setup_Compile;
@@ -436,16 +435,29 @@
 ["Server_Vehicle_Init_A3PL_Silverado_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_VetteZR1_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Taurus_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3PL_Charger15_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3PL_Charger15_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3PL_Charger15_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Taurus_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Raptor_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_M_explorer",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Taurus_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
-["Server_Vehicle_Init_A3PL_Taurus_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Taurus_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
-["Server_Vehicle_Init_A3PL_Silverado_FD_Brush",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3PL_Silverado_FD_Brush",{
+	_this call Server_Vehicle_Siren_Init;
+	private _light_1 = "A3PL_Floodlight_Level" createVehicle [0,0,0];
+	private _light_2 = "A3PL_Floodlight_Level" createVehicle [0,0,0];
+	_light_1 attachTo [_this, [0.03, 0, 0.8], "Floodlight_1"];
+	_light_2 attachTo [_this, [-0.03, 0, 0.8], "Floodlight_2"];
+	_light_2 setdir 180;
+	[_this,"A3PL_Pierce_Pumper"] call A3PL_FD_SetPumperNumber;
+	_this setVariable ["water",0,true];
+	_this setVariable ["pressure","low",true];
+	_this animate ["Water_Gauge1",0];
+},true] call Server_Setup_Compile;
 
 ["Server_Vehicle_Init_C_Van_02_transport_F",
 {

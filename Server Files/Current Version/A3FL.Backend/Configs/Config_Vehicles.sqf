@@ -14,11 +14,12 @@ Config_Vehicles_Admin = [
 	["Jonzie",["Ambulance"]],
 	["A3PL_Pierce",["Ladder","Pumper","Heavy_Ladder","Rescue"]],
 	["A3PL_BMW",["X5","M3"]],
-	["A3PL",["Silverado_PD","Silverado","Silverado_PD_ST","Silverado_FD","Silverado_FD_Brush","911GT2","Charger15","Charger69","VetteZR1","Mailtruck","Gallardo","Cessna172","Lowloader","Mustang","Mustang_PD","Mustang_PD_Slicktop","F150","F150_Marker","F150_Marker_PD","Ram","Wrangler","Charger","E350","Tahoe_FD","Tahoe_PD","Tahoe_PD_Slicktop","Tahoe","CVPI","CVPI_Taxi","CVPI_PD","CVPI_PD_Slicktop","Charger_PD","Charger_PD_Slicktop","P362","P362_TowTruck","P362_Garbage_Truck","Rover","Camaro","RBM","Motorboat","RHIB","Fuel_Van","MiniExcavator","CRX","Challenger_Hellcat","Car_Trailer","Yacht","Yacht_Pirate","Challenger_Hellcat","Gallardo","Suburban","CLS63","Fatboy","1100R","Knucklehead","Monster","Kx","Urus","Cessna172","Goose_Base","Goose_USCG","Jayhawk","Taurus","Taurus_PD","Taurus_PD_ST","Taurus_FD","Raptor","Raptor_PD","Raptor_PD_ST","GMCVandura"]],
+	["A3PL",["Silverado_PD","Silverado","Silverado_PD_ST","Silverado_FD","Silverado_FD_Brush","911GT2","Charger15","Charger15_PD","Charger15_PD_ST","Charger15_FD","Charger69","VetteZR1","Mailtruck","Gallardo","Cessna172","Lowloader","Mustang","Mustang_PD","Mustang_PD_Slicktop","F150","F150_Marker","F150_Marker_PD","Ram","Wrangler","Charger","E350","Tahoe_FD","Tahoe_PD","Tahoe_PD_Slicktop","Tahoe","CVPI","CVPI_Taxi","CVPI_PD","CVPI_PD_Slicktop","Charger_PD","Charger_PD_Slicktop","P362","P362_TowTruck","P362_Garbage_Truck","Rover","Camaro","RBM","Motorboat","RHIB","Fuel_Van","MiniExcavator","CRX","Challenger_Hellcat","Car_Trailer","Yacht","Yacht_Pirate","Challenger_Hellcat","Gallardo","Suburban","CLS63","Fatboy","1100R","Knucklehead","Monster","Kx","Urus","Cessna172","Goose_Base","Goose_USCG","Jayhawk","Taurus","Taurus_PD","Taurus_PD_ST","Taurus_FD","Raptor","Raptor_PD","Raptor_PD_ST","GMCVandura"]],
 	["A3FL",["LCM"]],
 	["M",["explorer"]],
 	["Heli_Medium01",["H","Luxury_H","Medic_H","Military_H","Veteran_H","Coastguard_H","Sheriff_H"]],
-	["C",["Heli_Light_01_civil_F","Van_02_transport_F"]]
+	["C",["Heli_Light_01_civil_F","Van_02_transport_F"]],
+	["K",["Scooter_DarkBlue"]]
 ];
 publicVariable "Config_Vehicles_Admin";
 
@@ -51,6 +52,9 @@ Config_Vehicles_Capacity = [
 	["A3PL_Charger_PD",180],
 	["A3PL_Charger_PD_Slicktop",180],
 	["A3PL_Charger15",180],
+	["A3PL_Charger15_PD",180],
+	["A3PL_Charger15_PD_ST",180],
+	["A3PL_Charger15_FD",180],
 	["A3PL_Monster",180],
 	["A3PL_Taurus",180],
 	["A3PL_Taurus_PD",180],
@@ -82,6 +86,9 @@ Config_Vehicles_Capacity = [
 	["C_Van_02_transport_F",660],
 	["A3PL_Silverado",660],
 	["A3PL_Silverado_PD",660],
+	["A3PL_Silverado_PD_ST",660],
+	["A3PL_Silverado_FD",660],
+	["A3PL_Silverado_FD_Brush",660],
 	["A3PL_E350",660],
 	["jonzie_ambulance",660],
 	["A3PL_GMCVandura",660],
@@ -178,6 +185,7 @@ Config_Vehicles_Insurance = [
 	["A3PL_Tahoe_PD_Slicktop",5000],
 	["A3PL_F150",13500],
 	["A3PL_F150_Marker",14000],
+	["A3PL_Raptor",15000],
 	["A3PL_Raptor_PD",14000],
 	["A3PL_Raptor_PD_ST",14000],
 
@@ -249,8 +257,11 @@ Config_Police_Vehs = [
 	"A3PL_Taurus_PD_ST",
 	"A3PL_Silverado_FD",
 	"A3PL_Silverado_FD_Brush",
-	"A3PL_Silverado_SD_ST",
-	"A3PL_Taurus_FD"
+	"A3PL_Silverado_PD_ST",
+	"A3PL_Taurus_FD",
+	"A3PL_Charger15_PD",
+	"A3PL_Charger15_PD_ST",
+	"A3PL_Charger15_FD"
 ];
 publicVariable "Config_Police_Vehs";
 

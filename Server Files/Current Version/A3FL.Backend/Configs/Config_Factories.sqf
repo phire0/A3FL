@@ -201,10 +201,12 @@ Config_Factories =
 		["f_Pistol_heavy_02","","inh","inh","hgun_Pistol_heavy_02_F","weapon",true,120,[["Steel",100]],1,"",1],
 		["f_glock17","","inh","inh","A3PL_Red_Glock","weapon",true,120,[["Steel",100]],1,"",1],
 		["f_P226","","inh","inh","A3PL_P226","weapon",true,120,[["Steel",100]],1,"",1],
-		["f_SMG_01_F","","inh","inh","SMG_01_F","weapon",true,300,[["Steel",300]],1,"",1],
-		["f_SMG_02_F","","inh","inh","SMG_02_F","weapon",true,300,[["Steel",300]],1,"",1],
-		["f_SMG_05_F","","inh","inh","SMG_05_F","weapon",true,300,[["Steel",300]],1,"",1],
-		["f_arifle_AKM_F","","inh","inh","arifle_AKM_F","weapon",true,600,[["Steel",400]],1,"",1],
+		["f_SMG_01_F","","inh","inh","SMG_01_F","weapon",true,300,[["Steel",400]],1,"",1],
+		["f_SMG_02_F","","inh","inh","SMG_02_F","weapon",true,300,[["Steel",400]],1,"",1],
+		["f_SMG_05_F","","inh","inh","SMG_05_F","weapon",true,300,[["Steel",400]],1,"",1],
+		["f_Mossberg_590K","","inh","inh","A3FL_Mossberg_590k","weapon",true,300,[["Steel",500]],1,"",1],
+		["f_arifle_AKM_F","","inh","inh","arifle_AKM_F","weapon",true,600,[["Steel",600]],1,"",1],
+		["f_m16","","inh","inh","A3PL_M16","weapon",true,600,[["Steel",600]],1,"",1],
 		["f_16Rnd_9x21_Mag","","inh","inh","16Rnd_9x21_Mag","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
 		["f_11Rnd_45ACP_Mag","","inh","inh","11Rnd_45ACP_Mag","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
 		["f_6Rnd_45ACP_Mag","","inh","inh","6Rnd_45ACP_Cylinder","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
@@ -214,7 +216,11 @@ Config_Factories =
 		["f_P226_Mag","","inh","inh","A3PL_P226_Mag","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
 		["f_30Rnd_45ACP_Mag_SMG_01","","inh","inh","30Rnd_45ACP_Mag_SMG_01","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
 		["f_30Rnd_9x21_Mag_SMG_02","","inh","inh","30Rnd_9x21_Mag_SMG_02","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
-		["f_30Rnd_762x39_Mag_F","","inh","inh","30Rnd_762x39_Mag_F","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1]
+		["f_30Rnd_762x39_Mag_F","","inh","inh","30Rnd_762x39_Mag_F","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
+		["f_m16_mag","","inh","inh","A3PL_M16_Mag","magazine",true,60,[["Steel",35],["Gunpowder",5]],10,"",1],
+		["f_Mossberg_590K_8Rnd_buck","","inh","inh","A3FL_Mossberg_590k_8Rnd_buck","magazine",true,60,[["Steel",30],["Gunpowder",5]],10,"",1],
+		["f_optic_Holosight_blk_F","","inh","inh","optic_Holosight_blk_F","aitem",true,60,[["Steel",100]],1,"",1],
+		["f_optic_ACO_grn","","inh","inh","optic_ACO_grn","aitem",true,60,[["Steel",100]],1,"",1]
 	],
 
 	["Marine Factory",[4898.23,5060.04,13],
@@ -601,13 +607,17 @@ Config_Factories =
 		["f_FRIGGUS_Shirt","","inh","inh","A3PL_FRIGGUS_Shirt","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_3_Industries_Suit","","inh","inh","A3PL_3_Industries_Suit","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Gritsky_Suit","","inh","inh","A3PL_Gritsky_Suit","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Gritsky_Family","","inh","inh","A3PL_Gritsky_Family","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Strictly_Sand_company_Swimmer","","inh","inh","A3PL_Strictly_Sand_company_Swimmer","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Strictly_Sand_company_Diver","","inh","inh","A3PL_Strictly_Sand_company_Diver_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Journalist_Hardy","","inh","inh","A3PL_Journalist_Hardy_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Two_Fours_Green","","inh","inh","A3PL_Two_Fours_Green","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Express_clothing","","inh","inh","A3PL_Express_clothing","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_Evergreen_Polo","","inh","inh","A3PL_Evergreen_Polo","uniform",true,5,[["Polyester",1]],1,"",1],
-		["f_Evergreen_Coverall","","inh","inh","A3PL_Evergreen_Coverall_Uniform","uniform",true,5,[["Polyester",1]],1,"",1]
+		["f_Evergreen_Coverall","","inh","inh","A3PL_Evergreen_Coverall_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_jenkinsunifor_Man","","inh","inh","A3PL_jenkinsunifor_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_PI_StreetWear_Man","","inh","inh","A3PL_PI_StreetWear_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
+		["f_Strictly_Sand_Man","","inh","inh","A3PL_Strictly_Sand_Uniform","uniform",true,5,[["Polyester",1]],1,"",1]
 	],
 
 	["Vest Factory",[3852.065,9212.537,0.168],
@@ -633,7 +643,8 @@ Config_Factories =
 		["f_SmithCo_SafteyVest_Towing_Vest","","inh","inh","A3PL_SmithCo_SafteyVest_Towing_Vest","vest",true,5,[["Polyester",1]],1,"",1],
 		["f_Reef_LifeVest_Vest","","inh","inh","A3PL_Reef_LifeVest_Vest","vest",true,5,[["Polyester",1]],1,"",1],
 		["f_Express_vest","","inh","inh","A3PL_Express_vest","vest",true,5,[["Polyester",1]],1,"",1],
-		["f_Evergreen_Vest","","inh","inh","A3PL_Evergreen_Vest","vest",true,5,[["Polyester",1]],1,"",1]
+		["f_Evergreen_Vest","","inh","inh","A3PL_Evergreen_Vest","vest",true,5,[["Polyester",1]],1,"",1],
+		["f_DeadwoodMC_Vest","","inh","inh","A3PL_DeadwoodMC_Vest","vest",true,5,[["Polyester",1]],1,"",1]
 	],
 
 	["Headgear Factory",[3852.065,9212.537,0.168],

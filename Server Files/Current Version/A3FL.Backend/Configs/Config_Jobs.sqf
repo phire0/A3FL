@@ -24,7 +24,6 @@ Config_Paychecks = [
 	["exterminator",150,1],
 	["freight pilot",350,1],
 	["captain",500,1],
-	["gov",150,1],
 	["dispatch",150,1],
 	["cartel",150,1],
 	["dmv",-1,8],

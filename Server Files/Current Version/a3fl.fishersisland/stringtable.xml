@@ -140,6 +140,9 @@
         <Key ID="STR_GANG_CAPTURED">
             <Original>%1 gang has captured a hideout!</Original>
         </Key>
+        <Key ID="STR_GANG_TRANSFERED">
+            <Original>You have transferred $%1 to the %2 bank account using your gang funds.</Original>
+        </Key>
     </Package>
     <Package name="iPhoneX">
         <Key ID="STR_iPhoneX_ErroNumber">
@@ -3924,6 +3927,9 @@
    <Key ID="STR_INTER_CHECKTANKK">
       <Original>Check Tank Content</Original>
    </Key>
+   <Key ID="STR_INTER_SHOWMIRANDA">
+      <Original>Show Miranda Card</Original>
+   </Key>
    <Key ID="STR_INTER_SHOWID">
       <Original>Show ID</Original>
    </Key>
@@ -5766,6 +5772,9 @@
    <Key ID="STR_INTSECT_SELLESTATE">
       <Original>Conclude Sale</Original>
    </Key>
+   <Key ID="STR_INTSECT_LEAVHOUSE">
+      <Original>Leave House</Original>
+   </Key>
    <Key ID="STR_INTSECT_ESTATESHOUSE">
       <Original>Start Selling</Original>
    </Key>
@@ -5817,8 +5826,11 @@
    <Key ID="STR_INTSECT_OPCLDISCH">
       <Original>Open / Close Discharge</Original>
    </Key>
+   <Key ID="STR_INTSECT_OPCLINLET">
+      <Original>Open / Close Inlet</Original>
+   </Key>
    <Key ID="STR_INTSECT_CONHOSETOENGDIS">
-      <Original>Connect A Motor Discharge Hose</Original>
+      <Original>Connect Discharge Hose</Original>
    </Key>
    <Key ID="STR_INTSECT_CREATEFISHB">
       <Original>Create Fish Hamburger</Original>
@@ -8852,13 +8864,16 @@
     </Package>
     <Package name="STR_NewLoop">
       <Key ID="STR_NewLoop_1">
-        <Original>You paid $%2 of taxes for your house.</Original>
+        <Original>You paid $%1 of taxes for your house.</Original>
+      </Key>
+      <Key ID="STR_NewLoop_1_2">
+        <Original>You paid $%1 of taxes for your warehouse.</Original>
       </Key>
       <Key ID="STR_NewLoop_2">
         <Original>The current department budget does not have enough funds to pay you!</Original>
       </Key>
       <Key ID="STR_NewLoop_3">
-        <Original>You received your %1 salary in the amount of $%2, you can sign your pay check at the bank</Original>
+        <Original>You received your %1 paycheck of $%2</Original>
       </Key>
       <Key ID="STR_NewLoop_4">
         <Original>The company does not have enough left in the bank for your salary!</Original>

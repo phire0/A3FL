@@ -424,6 +424,18 @@ class A3PL_iPhone_Locked
 	};
 	class Controls
 	{
+		class iPhone_FactionCounter: RscStructuredText
+		{
+			idc = 1000;
+			text = "";
+			x = 0.70625 * safezoneW + safezoneX;
+			y = 0.6 * safezoneH + safezoneY;
+			w = 0.12375 * safezoneW;
+			h = 0.05 * safezoneH;
+			sizeEx = 0.018 * safezoneW;
+			style = "16";
+			colorText[] = {1,1,1,1};
+		};
 		class iPhone_PhoneNumber: RscText
 		{
 			idc = 97800;
@@ -4188,7 +4200,7 @@ class A3PL_iPhone_appCreateBill
 			y = 0.731 * safezoneH + safezoneY;
 			w = 0.0876563 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "call A3PL_iPhoneX_sendBill;";
+			action = "[] call A3PL_iPhoneX_sendBill;";
 		};
 	};
 };
@@ -4267,6 +4279,90 @@ class A3PL_iPhone_appCompaniesBills
 			w = 0.0928125 * safezoneW;
 			h = 0.033 * safezoneH;
 			action = "closeDialog 0; call A3PL_iPhoneX_appCreateBill;";
+		};
+	};
+};
+
+class A3PL_iPhone_appGangBank
+{
+	idd = 102100;
+	movingEnable = true;
+	enableSimulation = true;
+	name = "A3PL_iPhone_appBank";
+	class ControlsBackground
+	{
+		class iPhone_X_background: RscPicture
+		{
+			idc = 97002;
+			x = safeZoneX + safeZoneW * 0.5625;
+			y = safeZoneY + safeZoneH * 0.21701389;
+			w = safeZoneW * 0.41210938;
+			h = safeZoneH * 0.72743056;
+			text = "A3PL_Common\GUI\phone\iPhone_X_appGangBank.paa";
+		};
+		class iPhone_Base: RscPicture
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.5625;
+			y = safeZoneY + safeZoneH * 0.21701389;
+			w = safeZoneW * 0.41210938;
+			h = safeZoneH * 0.72743056;
+			text = "A3PL_Common\GUI\phone\iPhone_X_base.paa";
+		};
+	};
+	class Controls
+	{
+		class iPhone_IconHome: RscPicture
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.80948282;
+			y = safeZoneY + safeZoneH * 0.31525;
+			w = safeZoneW * 0.0175;
+			h = safeZoneH * 0.0175;
+			text = "A3PL_Common\GUI\phone\iPhone_X_icon_home.paa";
+		};
+		class iPhone_ButtonHome: RscButtonEmpty
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.80948282;
+			y = safeZoneY + safeZoneH * 0.31525;
+			w = safeZoneW * 0.0175;
+			h = safeZoneH * 0.0175;
+			action = "closeDialog 0; [] spawn A3PL_iPhoneX_Home;";
+			class Attributes{align = "center";};
+		};
+		class iPhone_SendAmount: RscEdit
+		{
+			idc = 99401;
+			x = 0.742344 * safezoneW + safezoneX;
+			y = 0.643 * safezoneH + safezoneY;
+			w = 0.0825 * safezoneW;
+			h = 0.022 * safezoneH;
+		};
+		class iPhone_Button_SendAmount: RscButtonEmpty
+		{
+			idc = -1;
+			x = 0.70625 * safezoneW + safezoneX;
+			y = 0.632 * safezoneH + safezoneY;
+			w = 0.0257812 * safezoneW;
+			h = 0.044 * safezoneH;
+			action = "call A3PL_iPhoneX_gangBankSend;";
+		};
+		class iPhone_BankAmount: RscStructuredText
+		{
+			idc = 99400;
+			x = 0.711406 * safezoneW + safezoneX;
+			y = 0.434 * safezoneH + safezoneY;
+			w = 0.113437 * safezoneW;
+			h = 0.033 * safezoneH;
+		};
+		class iPhone_BankPlayersList: RscCombo
+		{
+			idc = 99402;
+			x = 0.70625 * safezoneW + safezoneX;
+			y = 0.599 * safezoneH + safezoneY;
+			w = 0.12375 * safezoneW;
+			h = 0.022 * safezoneH;
 		};
 	};
 };

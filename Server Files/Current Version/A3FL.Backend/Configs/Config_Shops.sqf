@@ -291,7 +291,8 @@ Config_Shops_Items = [
 			["item","v_lockpick",1350,-1,5],
 			["item","zipties",2500,-1,5],
 			["aitem","acc_flashlight",3000,-1,10],
-			["aitem","optic_ACO_grn",5000,-1,10]
+			["aitem","optic_ACO_grn",5000,-1,10],
+			["aitem","optic_Holosight_blk_F",5000,-1,10]
 		],{[3852.065,9212.537,0.168]}
 	],
 
@@ -328,6 +329,12 @@ Config_Shops_Items = [
 		["weapon","hgun_P07_khk_F",14000,-1,8],
 		["weapon","A3PL_Red_Glock",15000,-1,6],
 		["weapon","A3PL_P226",15000,-1,8],
+		["weaponPrimary","SMG_05_F",75000,-1,0],
+		["weaponPrimary","SMG_02_F",75000,-1,0],
+		["weaponPrimary","SMG_01_F",75000,-1,0],
+		["weaponPrimary","A3FL_Mossberg_590K",85000,-1,0],
+		["weaponPrimary","A3PL_M16",125000,-1,0],
+		["weaponPrimary","arifle_AKM_F",125000,-1,0],
 		["magazine","10Rnd_9x21_Mag",100,-1,4],
 		["magazine","A3PL_Red_Glock_Mag",100,-1,5],
 		["magazine","A3PL_P226_Mag",100,-1,5],
@@ -335,15 +342,13 @@ Config_Shops_Items = [
 		["magazine","16Rnd_9x21_yellow_Mag",100,-1,7],
 		["magazine","6Rnd_45ACP_Cylinder",100,-1,9],
 		["magazine","11Rnd_45ACP_Mag",100,-1,9],
-		["weaponPrimary","SMG_05_F",30000,-1,0],
-		["weaponPrimary","SMG_02_F",30000,-1,0],
-		["weaponPrimary","SMG_01_F",30000,-1,0],
-		["weaponPrimary","A3PL_M16",50000,-1,0],
-		["weaponPrimary","arifle_AKM_F",50000,-1,0],
 		["magazine","A3PL_M16_Mag",100,-1,0],
 		["magazine","30Rnd_762x39_Mag_F",100,-1,0],
 		["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
-		["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0]
+		["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0],
+		["magazine","A3FL_Mossberg_590K_8Rnd_buck",100,-1,0],
+		["aitem","optic_ACO_grn",5000,-1,10],
+		["aitem","optic_Holosight_blk_F",5000,-1,10]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
 
@@ -442,6 +447,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_FI_Marshal_DeputyDirector_Uniform",25,-1,0],
 			["uniform","A3PL_FI_Marshal_Director_Uniform",25,-1,0],
 			["uniform","A3PL_FI_Marshal_SOG_Casual_Uniform",25,-1,0],
+			["uniform","A3PL_FIMS_Lead_Super_Uniform",25,-1,0],
 			["uniform","A3PL_Marshall_FGTF_Uniform",25,-1,0],
 			["uniform","A3PL_FIMS_SOG_Swimmer_Uniform",25,-1,0],
 			["uniform","A3PL_FIMS_DBlue_Uniform",25,-1,0],
@@ -466,6 +472,7 @@ Config_Shops_Items = [
 	],
 
 	["Shop_DOC_Weapons_Vendor",[
+			["weapon","A3PL_Taser",250,-1,0],
 			["weapon","A3PL_Taser2",250,0,0],
 			["weapon","A3PL_Red_Glock",500,0,0],
 			["weapon","hgun_Rook40_F",500,0,0],
@@ -475,6 +482,10 @@ Config_Shops_Items = [
 			["weaponPrimary","SMG_02_F",15000,-1,0],
 			["weaponPrimary","SMG_05_F",15000,-1,0],
 			["weaponPrimary","A3PL_M16",20000,-1,0],
+			["weaponPrimary","A3FL_M4",20000,-1,0],
+			["weaponPrimary","A3FL_Mossberg_590K",15000,-1,0],
+			["weaponPrimary","A3FL_PoliceBaton",500,-1,0],
+			["magazine","A3PL_TaserMag",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,0,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_Red_Glock_Mag",100,0,0],
@@ -483,9 +494,13 @@ Config_Shops_Items = [
 			["magazine","11Rnd_45ACP_Mag",100,0,0],
 			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
 			["magazine","A3PL_M16_Mag",100,0,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_buck",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_Breach",100,-1,0],
 			["aitem","acc_flashlight_pistol",50,0,0],
 			["aitem","acc_flashlight",50,-1,0],
-			["aitem","optic_ACO_grn",50,-1,0]
+			["aitem","optic_ACO_grn",50,-1,0],
+			["aitem","optic_Holosight_blk_F",50,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}
 	],
 
@@ -517,6 +532,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_FIFR_Fire_Chief_Uniform",25,-1,0],
 			["uniform","A3PL_Air_Ambulance_Pilot_Uniform",25,-1,0],
 			["uniform","A3PL_Air_Ambulance_Paramedic_Uniform",25,-1,0],
+			["uniform","A3PL_FIFR_PR_Man",25,-1,0],
 			["vest","A3PL_FIFR_RideAlong_Safety",25,-1,0],
 			["vest","A3PL_FIFR_Safety",25,-1,0],
 			["vest","A3PL_FIFR_Student_Safety",25,-1,0],
@@ -528,6 +544,7 @@ Config_Shops_Items = [
 			["vest","A3PL_Air_Ambulance_EMT_Vest",25,-1,0],
 			["vest","A3PL_Air_Ambulance_Paramedic_Vest",25,-1,0],
 			["vest","A3PL_Air_Ambulance_Pilot_Vest",25,-1,0],
+			["vest","A3PL_FIFR_Public_Relations_vest",25,-1,0],
 			["headgear","A3PL_FIFR_Cap_VibrantBlue_Hat",25,-1,0],
 			["headgear","A3PL_FIFR_Cap_White_Hat",25,-1,0],
 			["headgear","A3PL_FIFR_Cap_Red_Hat",25,-1,0],
@@ -756,6 +773,9 @@ Config_Shops_Items = [
 			["weaponPrimary","SMG_05_F",15000,-1,0],
 			["weaponPrimary","SMG_02_F",15000,-1,0],
 			["weaponPrimary","A3PL_M16",20000,-1,0],
+			["weaponPrimary","A3FL_M4",20000,-1,0],
+			["weaponPrimary","A3FL_Mossberg_590K",15000,-1,0],
+			["weaponPrimary","A3FL_PoliceBaton",500,-1,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_TaserMag",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,-1,0],
@@ -764,9 +784,13 @@ Config_Shops_Items = [
 			["magazine","16Rnd_9x21_Mag",100,-1,0],
 			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
 			["magazine","A3PL_M16_Mag",100,0,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_buck",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_Breach",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
 			["aitem","acc_flashlight_pistol",50,-1,0],
 			["aitem","acc_flashlight",50,-1,0],
-			["aitem","optic_ACO_grn",50,-1,0]
+			["aitem","optic_ACO_grn",50,-1,0],
+			["aitem","optic_Holosight_blk_F",50,-1,0]
         ],{[2597.15,5429.76,10]}
     ],
 
@@ -807,6 +831,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_USCG_CGIS_Uniform_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_DTF_Uniform",25,-1,0],
 			["uniform","A3PL_JAG_Suit_Uniform",25,-1,0],
+			["uniform","A3PL_MSRT_BLMC_Trial_Uniform",25,-1,0],
 			["vest","A3PL_DutyBelt",25,-1,0],
 			["vest","A3PL_Holster_1",25,-1,0],
 			["vest","A3PL_Rangemaster_belt_blk",25,-1,0],
@@ -840,16 +865,27 @@ Config_Shops_Items = [
 	["Shop_USCG_Pilot_Vendor",[
 			["vest","A3PL_USCG_Ground_Safety_Vest",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_Apprentice_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Apprentice_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_Seaman_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Seaman_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_PO_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Petty_Officer_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_CPO_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Chief_Petty_Officer_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_SCPO_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Senior_Chief_Petty_Officer_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_MCPO_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Master_Chief_Petty_Officer_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_Ensign_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Ensign_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_LtJG_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Lieutenant_JG_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_Lt_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Lieutenant_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_LCDR_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Lieutenant_Commander_Uniform",25,-1,0],
 			["uniform","A3PL_USCG_Aviation_CDR_Uniform",25,-1,0],
+			["uniform","A3PL_Aviation_Green_Commander_Uniform",25,-1,0],
 			["headgear","A3PL_SWRebel_Pilot",50,-1,0],
 			["headgear","A3PL_HelloKitty_Pilot",50,-1,0],
 			["headgear","A3PL_USCG_Blue_White_Pilot_Helm",50,-1,0],
@@ -873,6 +909,8 @@ Config_Shops_Items = [
 			["weaponPrimary","SMG_02_F",15000,-1,0],
 			["weaponPrimary","SMG_05_F",15000,-1,0],
 			["weaponPrimary","A3PL_M16",20000,-1,0],
+			["weaponPrimary","A3FL_M4",20000,-1,0],
+			["weaponPrimary","A3FL_Mossberg_590K",15000,-1,0],
 			["weaponPrimary","srifle_LRR_SOS_F",1000,-1,0],
 			["magazine","6Rnd_GreenSignal_F",50,-1,0],
 			["magazine","A3PL_Taser2_Mag",50,-1,0],
@@ -883,9 +921,13 @@ Config_Shops_Items = [
 			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
 			["magazine","A3PL_M16_Mag",100,0,0],
 			["magazine","7Rnd_408_Mag",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_buck",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_8rnd_Breach",100,-1,0],
+			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
 			["aitem","acc_flashlight_pistol",50,-1,0],
 			["aitem","acc_flashlight",50,-1,0],
-			["aitem","optic_ACO_grn",50,-1,0]
+			["aitem","optic_ACO_grn",50,-1,0],
+			["aitem","optic_Holosight_blk_F",50,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}
 	],
 
@@ -896,14 +938,16 @@ Config_Shops_Items = [
 			["vehicle","A3PL_CVPI_PD",20000,0,0],
 			["vehicle","A3PL_Tahoe_FD",20000,0,0],
 			["vehicle","A3PL_Tahoe_PD",20000,0,0],
-			["vehicle","A3PL_Silverado_PD",35000,0,0],
+			["vehicle","A3PL_Silverado_FD",35000,0,0],
 			["vehicle","A3PL_Charger_PD",20000,0,0],
+			["vehicle","A3PL_Charger15_FD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Taurus_FD",20000,0,0],
 			["vehicle","A3PL_Pierce_Ladder",25000,0,0],
 			["vehicle","A3PL_Pierce_Heavy_Ladder",25000,0,0],
 			["vehicle","A3PL_Pierce_Pumper",25000,0,0],
-			["vehicle","A3PL_Pierce_Rescue",25000,0,0]
+			["vehicle","A3PL_Pierce_Rescue",25000,0,0],
+			["vehicle","A3PL_Silverado_FD_Brush",25000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	],
 
@@ -928,6 +972,8 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Tahoe_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Charger_PD",20000,0,0],
 			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Charger15_PD",20000,0,0],
+			["vehicle","A3PL_Charger15_PD_ST",20000,0,0],
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Silverado_PD",35000,0,0],
@@ -946,6 +992,8 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Tahoe_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Charger_PD",20000,0,0],
 			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Charger15_PD",20000,0,0],
+			["vehicle","A3PL_Charger15_PD_ST",20000,0,0],
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Silverado_PD",20000,0,0],
@@ -961,11 +1009,14 @@ Config_Shops_Items = [
 			["vehicle","A3PL_CVPI_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Charger_PD",20000,0,0],
 			["vehicle","A3PL_Charger_PD_Slicktop",20000,0,0],
+			["vehicle","A3PL_Charger15_PD",20000,0,0],
+			["vehicle","A3PL_Charger15_PD_ST",20000,0,0],
 			["vehicle","A3PL_Tahoe_PD",20000,0,0],
 			["vehicle","A3PL_Tahoe_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",20000,0,0],
 			["vehicle","A3PL_Silverado_PD",20000,0,0],
+			["vehicle","A3PL_Silverado_PD_ST",20000,0,0],
 			["vehicle","A3PL_Raptor_PD",20000,0,0],
 			["vehicle","A3PL_Raptor_PD_ST",20000,0,0],
 			["vehicle","A3PL_Taurus_PD",20000,0,0],
@@ -1232,7 +1283,8 @@ Config_Shops_Items = [
 			["vehicle","A3PL_MailTruck",53620,0,0],
 			["vehicle","A3PL_Wrangler",55050,0,0],
 			["vehicle","A3PL_Ram",55050,0,0],
-			["vehicle","A3PL_Car_Trailer",10000,0,0]
+			["vehicle","A3PL_Car_Trailer",10000,0,0],
+			["vehicle","K_Scooter_DarkBlue",17870,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	]
 ];

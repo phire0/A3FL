@@ -201,7 +201,7 @@
 		{
 			deleteVehicle _objectItem;
 		};
-		
+
 		_totalPrice = _exportPrice * _amount;
 		player setVariable ["player_exporting",(player getVariable ["player_exporting",[]]) + [[_item,_amount,false,_totalPrice]],true];
 		[format ["You have exported (%2 %3), you will be paid $%1 ",_totalPrice,_amount,[_item,"name"] call A3PL_Config_GetItem],"green"] call A3PL_Player_Notification;
@@ -220,14 +220,18 @@
 ["A3PL_IE_collectShipment",
 {
 	disableSerialization;
-	private ["_display","_control","_index","_lbIndex"];
+	private ["_display","_control","_index","_lbIndex","_amount"];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_display = findDisplay 48;
-	_control = _display displayCtrl 1501;
 
+	_control = _display displayCtrl 1404;
+	_collectAmount = parseNumber (ctrlText _control);
+	if (_collectAmount < 1) exitwith {["Please enter a valid amount"] call A3PL_Player_notification;};
+
+	_control = _display displayCtrl 1501;
 	_lbIndex = lbCurSel _control;
 	if (_lbIndex < 0) exitwith {["You have not selected shipping"] call A3PL_Player_notification;};
-	if ((_control lbData _lbIndex) == "import") then
+	if ((_control lbData _lbIndex) isEqualTo "import") then
 	{
 		private ["_importArray","_currentItemArray","_item","_arrived","_amount"];
 		_importArray = player getVariable ["player_importing",[]];
@@ -236,20 +240,34 @@
 		_amount = _currentItemArray select 1;
 		_arrived = _currentItemArray select 2;
 
-		//check if item arrived
 		if (!_arrived) exitwith {["Not arrived yet.","red"] call A3PL_Player_Notification;};
 
-		//remove from player_importing array
 		call A3PL_IE_RefreshShipments;
 
-		//handle physical items later
 		if ([_item,"canPickup"] call A3PL_Config_GetItem) then
 		{
-			if (([[_item,_amount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {
+			if (([[_item,_collectAmount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {
 				[format ["You don't have enough space in your inventory to take this"],"red"] call A3PL_Player_Notification;
 			};
-			[_item,_amount] call A3PL_Inventory_Add;
-			_importArray deleteAt _lbIndex;
+
+			_importItem = _importArray select _lbIndex;
+			_currentImportAmount = _importItem select 1;
+			if(_collectAmount > _currentImportAmount) exitWith {
+				["You do not have this amount of that item to collect!","red"] call A3PL_Player_Notification;
+			};
+			[_item,_collectAmount] call A3PL_Inventory_Add;
+			if (_currentImportAmount > 1) then
+			{
+				_importItem set [1,(_currentImportAmount - _collectAmount)];
+				_importArray set [_lbIndex,_importItem];
+				if(_currentImportAmount isEqualTo _collectAmount) then {
+						_importArray deleteAt _lbIndex;
+				};
+			} else
+			{
+				_importArray deleteAt _lbIndex;
+			};
+			[format ["You have successfully collected %1 %2(s)",_collectAmount,([_item,"name"] call A3PL_Config_GetItem)],"green"] call A3PL_Player_Notification;
 		} else
 		{
 			_class = [_item,"class"] call A3PL_Config_GetItem;
@@ -268,15 +286,12 @@
 			{
 				_importArray deleteAt _lbIndex;
 			};
-
+			[format ["You have successfully collected %1 %2(s)",_amount,([_item,"name"] call A3PL_Config_GetItem)],"green"] call A3PL_Player_Notification;
 		};
 
-		//set new array
 		player setVariable ["player_importing",_importArray,true];
 		call A3PL_IE_RefreshShipments;
 
-		//msg
-		[format ["You have successfully collected %1 %2(s)",_amount,([_item,"name"] call A3PL_Config_GetItem)],"green"] call A3PL_Player_Notification;
 	} else
 	{
 		["Unable to recover because it is an export shipment, the money will automatically be transferred to your bank account.","red"] call A3PL_Player_Notification;

@@ -100,7 +100,7 @@
 	//send request to create a key for this greenhouse
 	player setVariable ["player_cash",((player getVariable ["player_cash",0]) - 350),true];
 	_greenHouse setVariable ["buyTime",serverTime,true];
-	[player,_greenHouse,"",false] remoteExec ["Server_Housing_CreateKey", 2];
+	[player,_greenHouse,"",false,"greenhouse"] remoteExec ["Server_Housing_CreateKey", 2];
 	["You bought this greenhouse for $350, you now own this greenhouse for 30 minutes.","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 

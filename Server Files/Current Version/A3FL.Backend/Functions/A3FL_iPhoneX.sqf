@@ -856,6 +856,7 @@
 	_message = _this select 1;
 	_to = _this select 2;
 	_position = _this select 3;
+	_actualPos = _this select 4;
 	_SMS = A3PL_SMS;
 	_conversations = A3PL_conversations;
 
@@ -872,6 +873,7 @@
 		{
 			if (!(_to isEqualTo "911") OR !(_to isEqualTo "912")) then {_position = "unknown"};
 			_SMS pushBack [_from, _message, _position];
+			[_actualPos,format["911 - %1",_from],"ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
 
 			{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
 
@@ -1217,6 +1219,17 @@
 
 	_control = _display displayCtrl 97800;
 	if !(isNil "A3PL_phoneNumberActive") then {_control ctrlSetText A3PL_phoneNumberActive;};
+
+	private _control = _display displayCtrl 1000;
+	private _FIFR = count(["fifr"] call A3PL_Lib_FactionPlayers);
+	private _FISD = count(["fisd"] call A3PL_Lib_FactionPlayers);
+	private _CG = count(["uscg"] call A3PL_Lib_FactionPlayers);
+	private _FIMS = count(["usms"] call A3PL_Lib_FactionPlayers);
+	_control ctrlSetStructuredText parseText format ["<t align='center'>
+		<img image='\A3PL_Common\icons\fire.paa'/><t color='#ffffff'> %1 </t>
+		<t color='#ffffff'> %2 </t><img image='\A3PL_Common\icons\faction_sheriff.paa'/><br/>
+		<img image='\A3PL_Common\icons\faction_cg.paa'/><t color='#ffffff'> %3 </t>
+		<t color='#ffffff'> %4 </t><img image='\A3PL_Common\icons\usms.paa'/></t>",_FIFR,_FISD,_CG,_FIMS];
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_Home",
@@ -1397,6 +1410,7 @@
 	if(_amount > 100000) exitWith {["You cannot send more than $100.000 per transfer", "red"] call A3PL_Player_Notification;};
 	_control = _display displayCtrl 99402;
 	_sendTo = _control lbData (lbCurSel _control);
+
 	if(_sendTo isEqualTo "") exitWith {["Please select a recipient.", "red"] call A3PL_Player_Notification;};
 	_sendToCompile = call compile _sendTo;
 
@@ -1423,6 +1437,61 @@
 		call A3PL_iPhoneX_appGangCreation;
 	} else {
 		call A3PL_iPhoneX_appGangManagement;
+	};
+}] call Server_Setup_Compile;
+
+["A3PL_iPhoneX_appGangBank",
+{
+	disableSerialization;
+	createDialog "A3PL_iPhone_appGangBank";
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
+	if(isNil '_gang') exitWith {};
+	private _display = findDisplay 102100;
+	private _gBank = _gang select 4;
+	private _control = _display displayCtrl 99400;
+	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[_gBank, 1, 0, true] call CBA_fnc_formatNumber];
+	_control = _display displayCtrl 99402;
+	{
+		_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
+		_control lbSetData [_index, str _x];
+	} forEach playableUnits;
+}] call Server_Setup_Compile;
+
+["A3PL_iPhoneX_gangBankSend",
+{
+	disableSerialization;
+	private _display = findDisplay 102100;
+	private _group = group player;
+	private _gang = _group getVariable ["gang_data",nil];
+	if(isNil '_gang') exitWith {};
+	private _gBank = _gang select 4;
+	private _cooldown = player getVariable["transferCooldown",nil];
+	if(!isNil '_cooldown') exitWith {["You can only transfer money every 10 minutes!", "red"] call A3PL_Player_Notification;};
+
+	_control = _display displayCtrl 99401;
+	_amount = round(parseNumber(ctrlText _control));
+	if(_amount < 1) then {["Please enter a valid number", "red"] call A3PL_Player_Notification;};
+	if(_amount > _gBank) exitWith {[localize"STR_Various_INVALIDAMOUNT", "red"] call A3PL_Player_Notification;};
+	if(_amount > 100000) exitWith {["You cannot send more than $100.000 per transfer", "red"] call A3PL_Player_Notification;};
+
+	_control = _display displayCtrl 99402;
+	_sendTo = _control lbData (lbCurSel _control);
+	if(_sendTo isEqualTo "") exitWith {["Please select a recipient.", "red"] call A3PL_Player_Notification;};
+	_sendToCompile = call compile _sendTo;
+
+	[getPlayerUID player,"gangBankAppTransfer",[str(_sendToCompile getVariable["name","unknown"]), str(_amount)]] remoteExec ["Server_Log_New",2];
+
+	[_group, -_amount] call A3PL_Gang_AddBank;
+	[format[localize"STR_GANG_TRANSFERED", [_amount] call A3PL_Lib_FormatNumber, (_sendToCompile getVariable ["name","unknown"])], "green"] call A3PL_Player_Notification;
+
+	[_sendToCompile, 'Player_Bank', ((_sendToCompile getVariable 'Player_Bank') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
+	[format[localize"STR_ATM_YOURECEIVETRANSFER",_amount], "green"] remoteExec ["A3PL_Player_Notification",_sendToCompile];
+
+	player setVariable["transferCooldown",true,false];
+	[] spawn {
+		sleep 600;
+		player setVariable["transferCooldown",nil,false];
 	};
 }] call Server_Setup_Compile;
 
