@@ -1219,6 +1219,17 @@
 
 	_control = _display displayCtrl 97800;
 	if !(isNil "A3PL_phoneNumberActive") then {_control ctrlSetText A3PL_phoneNumberActive;};
+
+	private _control = _display displayCtrl 1000;
+	private _FIFR = count(["fifr"] call A3PL_Lib_FactionPlayers);
+	private _FISD = count(["fisd"] call A3PL_Lib_FactionPlayers);
+	private _CG = count(["uscg"] call A3PL_Lib_FactionPlayers);
+	private _FIMS = count(["usms"] call A3PL_Lib_FactionPlayers);
+	_control ctrlSetStructuredText parseText format ["<t align='center'>
+		<img image='\A3PL_Common\icons\fire.paa'/><t color='#ffffff'> %1 </t>
+		<t color='#ffffff'> %2 </t><img image='\A3PL_Common\icons\faction_sheriff.paa'/><br/>
+		<img image='\A3PL_Common\icons\faction_cg.paa'/><t color='#ffffff'> %3 </t>
+		<t color='#ffffff'> %4 </t><img image='\A3PL_Common\icons\usms.paa'/></t>",_FIFR,_FISD,_CG,_FIMS];
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_Home",

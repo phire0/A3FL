@@ -424,6 +424,18 @@ class A3PL_iPhone_Locked
 	};
 	class Controls
 	{
+		class iPhone_FactionCounter: RscStructuredText
+		{
+			idc = 1000;
+			text = "";
+			x = 0.70625 * safezoneW + safezoneX;
+			y = 0.6 * safezoneH + safezoneY;
+			w = 0.12375 * safezoneW;
+			h = 0.05 * safezoneH;
+			sizeEx = 0.018 * safezoneW;
+			style = "16";
+			colorText[] = {1,1,1,1};
+		};
 		class iPhone_PhoneNumber: RscText
 		{
 			idc = 97800;
