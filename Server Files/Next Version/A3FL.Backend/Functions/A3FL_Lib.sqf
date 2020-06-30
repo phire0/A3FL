@@ -77,11 +77,12 @@
 	if(_shouldDropWeapon) then {
 		private _weapon = currentWeapon player;
 		if(_weapon != "") then {
+			private _accs = player weaponAccessories (currentWeapon player);
 			player removeWeapon _weapon;
-			if(isTouchingGround player )then {
+			if(isTouchingGround player) then {
 				_dir = getDir player;
 				_droppedWeap = createVehicle ["groundweaponHolder",(ASLToAGL getPosASL player) vectorAdd [-cos ( -25 + _dir) * 1.4,sin (-25 + _dir) * 1.4,0], [], 0, "CAN_COLLIDE"];
-				_droppedWeap addWeaponCargoGlobal [_weapon,1];
+				_droppedWeap addWeaponWithAttachmentsCargoGlobal [[_weapon, _accs select 0, _accs select 1, _accs select 2, [], [], ""], 1];
 				_droppedWeap setDir (190 + _dir);
 			};
 		};
