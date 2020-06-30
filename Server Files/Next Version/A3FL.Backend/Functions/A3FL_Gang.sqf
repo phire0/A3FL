@@ -202,17 +202,19 @@
 	if(_capturedTime > (serverTime-1800)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
 
 	_gang = _group getVariable["gang_data",nil];
+	_gangName = _gang select 2;
 	if(isNil '_gang') exitWith {[localize"STR_NewGang_16","red"] call A3PL_Player_Notification;};
 	_gangID = _gang select 0;
 	if((_obj getVariable["captured",-1]) isEqualTo _gangID) exitWith {[localize"STR_NewGang_17","red"] call A3PL_Player_Notification;};
 
 	_obj setVariable ["CaptureInProgress",true,true];
 
-	[getPos player,format["Gang Activity - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
+	[getPos _obj,format["Gang Activity - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
+	[format["%1 has started capturing a gang hideout!",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
-	["Capture...",75] spawn A3PL_Lib_LoadAction;
+	["Capture...",120] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
 	_animTime = diag_tickTime;
@@ -227,7 +229,6 @@
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification; _obj setVariable ["CaptureInProgress",false,true];};
-	_gangName = _gang select 2;
 
 	_obj setVariable["captured",_gangID,true];
 	_obj setVariable["capturedName",_gangName,true];
@@ -236,7 +237,7 @@
 
 	[format[localize "STR_GANG_CAPTURED",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 
-	[getPos player,format["Gang Hideout Captured - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
+	[getPos _obj,format["Gang Hideout Captured - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
 
 	[localize"STR_NewGang_22","green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
@@ -309,9 +310,14 @@
 
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
+
+	_gangName = _obj getVariable["capturedName",""];
+	_faction = player getVariable["faction",""];
+	[getPos _obj,format["%1 Gang Hideout - %1",(toUpper _faction),_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
+	[format["%1 has started capturing a gang hideout from %2!",(toUpper _faction),_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 	Player_ActionCompleted = false;
 	_obj setVariable ["CaptureInProgress",true,true];
-	["Securing Gang Hideout...",75] spawn A3PL_Lib_LoadAction;
+	["Securing Gang Hideout...",120] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
 	_animTime = diag_tickTime;
@@ -323,8 +329,6 @@
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;_obj setVariable ["CaptureInProgress",false,true];};
 
-	_gangName = _obj getVariable["capturedName",""];
-	_faction = player getVariable["faction",""];
 
 	_obj setVariable["captured",nil,true];
 	_obj setVariable["capturedName",nil,true];
