@@ -55,7 +55,6 @@
 
 ['A3PL_Lib_Ragdoll', {
 	private _shouldDropWeapon = param [0,true];
-	private _shouldDisableInput = param [1,true];
 	if (vehicle player != player) exitWith {};
 	private _can = "Land_Can_V3_F" createVehicleLocal [0,0,0];
 	player allowDamage false;
@@ -63,7 +62,7 @@
 	_can attachTo [player, [0,0,0], "Spine3"];
 	_can setVelocity [0,0,6];
 	detach _can;
-	if(_shouldDisableInput) then {disableUserInput true;};
+	disableUserInput true;
 	_can spawn {
 		uiSleep 0.1;
 		player setVelocity [0,0,20];
@@ -72,7 +71,7 @@
 		uiSleep 1;
 		player allowDamage true;
 		uiSleep 5;
-		if(userInputDisabled) then {disableUserInput false;};
+		disableUserInput false;
 	};
 	if(_shouldDropWeapon) then {
 		private _weapon = currentWeapon player;

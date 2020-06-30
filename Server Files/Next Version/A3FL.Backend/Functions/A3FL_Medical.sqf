@@ -166,12 +166,10 @@
 			};
 		};
 	};
-<<<<<<< HEAD
 	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver_Bullet"]) exitWith {
 		[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
-=======
+	};
 	if(_sBullet IN ["A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) exitWith {
->>>>>>> 0eeacd5ba7bf27d6b57e5fe7f1259f94f23153cc
 		private _chance = random 100;
 		if(_chance > 40) then {
 			[] call A3PL_Lib_Ragdoll;
@@ -520,28 +518,22 @@
 
 ["A3PL_Medical_Die",
 {
-	private ["_effect","_timer","_exit"];
-	_effect = ["DynamicBlur",[5]] call A3PL_Lib_PPEffect;
+	private _effect = ["DynamicBlur",[5]] call A3PL_Lib_PPEffect;
+	private _timer = A3PL_Respawn_Time;
 
 	closeDialog 0;
 	moveOut player;
-	[false,false] call A3PL_Lib_Ragdoll;
-
-	if ((player getVariable ["dbVar_AdminLevel",0]) < 3) then {disableUserInput true;};
-
-	_timer = A3PL_Respawn_Time;
+	[false] call A3PL_Lib_Ragdoll;
+	waitUntil{!userInputDisabled};
+	if(pVar_AdminLevel < 3) then {disableUserInput true;};
+	[player,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 	player setVariable ["TimeRemaining",_timer,true];
-
 	player setVariable ["tf_voiceVolume", 0, true];
 	player setVariable ["A3PL_Medical_Alive",false,true];
-
 	player setVariable ["Zipped",false,true];
 	player setVariable ["Cuffed",false,true];
 
-	[player,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
-
 	Player_Drugs = [0,0,0];
-
 	_exit = false;
 	while {!(player getVariable ["A3PL_Medical_Alive",true])} do
 	{
