@@ -1117,7 +1117,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_OPCOMPUTER",
 		{call A3PL_Police_DatabaseOpen;},
-		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","usms"]) && (typeOf(vehicle player) IN ["A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Silverado_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","M_explorer","A3PL_Taurus_PD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST"]) && ((gunner (vehicle player)) isEqualTo player)}
+		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","usms"]) && (typeOf(vehicle player) IN Config_Police_Vehs) && ((gunner (vehicle player)) isEqualTo player)}
 	],
 	[
 		localize "STR_INTER_RESETLOCKF",
