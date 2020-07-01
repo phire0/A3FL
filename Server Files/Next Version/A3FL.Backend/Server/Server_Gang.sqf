@@ -104,13 +104,15 @@
 
 	{
 			private _gang = _x getVariable ["gang_data",nil];
-			private _groupID = _gang select 0;
-			if(_groupID isEqualTo _gangID) exitWith {
-				_prevBal = _gang select 4;
-				_gang set[4,(_prevBal + _amount)];
-				_gangObj = _x;
-				_x setVariable["gang_data",_gang,true];
-			};
+			if(!isNil '_gang') then {
+				private _groupID = _gang select 0;
+				if(_groupID isEqualTo _gangID) exitWith {
+					_prevBal = _gang select 4;
+					_gang set[4,(_prevBal + _amount)];
+					_gangObj = _x;
+					_x setVariable["gang_data",_gang,true];
+				};
+			};			
 	} forEach allGroups;
 
 	[_gangObj] spawn Server_Gang_SaveBank;
@@ -125,9 +127,11 @@
 
 	{
 			private _gang = _x getVariable ["gang_data",nil];
-			private _groupID = _gang select 0;
-			if(_groupID isEqualTo _gangID) exitWith {
-				_group = _x;
+			if(!isNil '_gang') then {
+				private _groupID = _gang select 0;
+				if(_groupID isEqualTo _gangID) exitWith {
+					_group = _x;
+				};
 			};
 	} forEach allGroups;
 

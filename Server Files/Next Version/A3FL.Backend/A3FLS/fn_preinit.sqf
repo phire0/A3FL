@@ -810,9 +810,7 @@ Server_Setup_Compile = {
 
 ["Server_Housing_Initialize",
 {
-
 	private ["_houses","_query","_return","_uids","_pos","_doorID","_near","_signs"];
-	//also make sure to update _obj location if it's changed (just incase we move anything slightly with terrain builder), delete it if it cannot be found nearby
 	_houses = ["SELECT uids, location, doorid FROM houses", 2, true] call Server_Database_Async;
 	{
 		private ["_pos","_uids","_doorid"];
@@ -829,12 +827,10 @@ Server_Setup_Compile = {
 		_near = _near select 0;
 		if (!([_pos,(getpos _near)] call BIS_fnc_areEqual)) then
 		{
-			//Update position in DB
 			_query = format ["UPDATE houses SET location='%1', classname = '%3' WHERE location ='%2'",(getpos _near),_pos, (typeOf _near)];
 			[_query,1] spawn Server_Database_Async;
 		};
 
-		//look for nearest for sale sign and set the texture to sold
 		_signs = nearestObjects [_pos, ["Land_A3PL_EstateSign"], 25,true];
 		if (count _signs > 0) then
 		{
@@ -850,18 +846,13 @@ Server_Setup_Compile = {
 
 ["Server_Housing_LoadItems",
 {
-	private ["_house","_player","_uid","_pitems"];
-	_player = param [0,objNull];
-	_house = param [1,objNull];
-	_uid = param [2,""];
-
-	//set furn loaded to true
+	private _player = param [0,objNull];
+	private _house = param [1,objNull];
+	private _uid = param [2,""];
 	if (_house getVariable ["furn_loaded",false]) exitwith {};
 	_house setVariable ["furn_loaded",true,false];
-
-	_pitems = [format ["SELECT pitems FROM houses WHERE location = '%1'",(getpos _house)], 2] call Server_Database_Async;
+	private _pitems = [format ["SELECT pitems FROM houses WHERE location = '%1'",(getpos _house)], 2] call Server_Database_Async;
 	_pitems = call compile (_pitems select 0);
-
 	[_house,_pitems] remoteExec ["A3PL_Housing_Loaditems", (owner _player)];
 },true] call Server_Setup_Compile;
 
@@ -914,8 +905,8 @@ Server_Setup_Compile = {
 		_near = nearestObjects [_pos, ["Land_John_Hangar","Land_A3FL_Warehouse"], 10,true];
 		if (count _near == 0) exitwith
 		{
-			_query = format ["CALL RemovedHouse('%1');",_pos];
-			[_query,1] spawn Server_Database_Async;
+			/*_query = format ["CALL RemovedHouse('%1');",_pos];
+			[_query,1] spawn Server_Database_Async;*/
 		};
 		_near = _near select 0;
 		if (!([_pos,(getpos _near)] call BIS_fnc_areEqual)) then
