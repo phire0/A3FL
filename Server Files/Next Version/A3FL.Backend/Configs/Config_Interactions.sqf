@@ -304,7 +304,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_FABRICACTIONINTER",
 		{[] call A3PL_Combine_Open;},
-		{!(surfaceIsWater position player) && (vehicle player == player) && (Player_ItemClass isEqualTo "")}
+		{!(surfaceIsWater position player) && (vehicle player == player) && (Player_ItemClass isEqualTo "") && (animationState player) != "a3pl_takenhostage"}
 	],
 	[
 		localize "STR_INTER_TAKEPHOST",
@@ -595,7 +595,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_INVENTORY",
 		{call A3PL_Inventory_Open;},
-		{(Player_ItemClass isEqualTo "") && (vehicle player isEqualTo player)}
+		{(Player_ItemClass isEqualTo "") && (vehicle player isEqualTo player) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && (animationState player) != "a3pl_takenhostage"}
 	],
 	[
 		localize "STR_INTER_INVENTORY",

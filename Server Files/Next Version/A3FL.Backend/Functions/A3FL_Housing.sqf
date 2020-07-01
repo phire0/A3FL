@@ -185,25 +185,21 @@
 
 ["A3PL_Housing_Grabkey",
 {
-	private ["_keyID","_format"];
-	_keyID = lbdata [1900,(lbCurSel 1900)];
+	if((animationState player) isEqualTo "a3pl_takenhostage") exitwith {[localize"STR_NewInventory_5","red"] call A3PL_Player_Notification;};
+	if(animationState player IN ["a3pl_handsuptokneel","a3pl_handsupkneelgetcuffed","a3pl_cuff","a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","a3pl_cuffkickdown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","a3pl_handsupkneel"]) exitWith {[localize"STR_NewInventory_7", "red"] call A3PL_Player_Notification;};
 
-	if (!(isNull Player_Item)) then {
-		[false] call A3PL_Inventory_PutBack;
-	};
+	private _keyID = lbdata [1900,(lbCurSel 1900)];
+	if (!(isNull Player_Item)) then {[false] call A3PL_Inventory_PutBack;};
 
 	Player_Item = "A3PL_HouseKey" createVehicle (getPos player);
-
 	Player_Item attachTo [player, [0,0,1], 'RightHand'];
-
 	Player_ItemClass = "doorkey";
 	Player_Item setVariable ["keyID",_keyID,true];
-
 	[Player_Item] spawn A3PL_Placeable_AttachedLoop;
 
 	player setVariable ["inventory_opened", nil, true];
 	closeDialog 0;
-	_format = format[localize'STR_NewHousing_11',_keyID];
+	private _format = format[localize'STR_NewHousing_11',_keyID];
 	[_format, "yellow"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 

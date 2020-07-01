@@ -80,7 +80,7 @@ class Dialog_Inventory
 			y = 0.548 * safezoneH + safezoneY;
 			w = 0.159844 * safezoneW;
 			h = 0.135 * safezoneH;
-			onLBDblClick = "call A3PL_Housing_Grabkey;";
+			onLBDblClick = "[] call A3PL_Housing_Grabkey;";
 		};
 		class button_usekey: RscButtonEmpty
 		{
@@ -89,7 +89,7 @@ class Dialog_Inventory
 			y = 0.577 * safezoneH + safezoneY;
 			w = 0.042 * safezoneW;
 			h = 0.077 * safezoneH;
-			action = "call A3PL_Housing_Grabkey";
+			action = "[] call A3PL_Housing_Grabkey";
 			tooltip = $STR_INVENTORY_GUITAKEKEY;
 		};
 		class list_licenses: RscListbox
