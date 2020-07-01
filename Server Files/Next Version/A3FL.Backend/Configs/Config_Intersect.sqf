@@ -377,7 +377,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessUSMSSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usmsshop}],
 	["spine3",localize"STR_QuickActionsNPC_AccessDMVCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_dmv_vehicles}],
 
-	["spine3",localize"STR_QuickActionsNPC_FIFDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) && {(["fifr"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_FIFDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2_1) && {(["fifr"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_USCGManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_uscg_supplier) && {(["uscg"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_FISDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_sd_silverton_1,npc_sd_elk_shop]) && {(["fisd"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_DMVManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_dmv) && {(["dmv"] call A3PL_Government_isFactionLeader)}}],

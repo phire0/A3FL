@@ -490,7 +490,7 @@ A3PL_Interaction_Options =
 			[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
 			playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
 		},
-		{(vehicle player != player) && {(vehicle player getVariable ["locked",true])}}
+		{(vehicle player != player) && {(vehicle player getVariable ["locked",true])}  && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true]))}
 	],
 	[
 		localize "STR_INTER_UNLOCKV",

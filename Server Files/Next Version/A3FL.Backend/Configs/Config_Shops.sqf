@@ -235,7 +235,7 @@ Config_Shops_Items = [
 			["item","net",80,0,0],
 			["item","bucket_empty",150,0,0],
 			["item","seed_corn",100,-1,0],
-			["item","seed_wheat",100,-1,30],
+			["item","seed_wheat",100,-1,0],
 			["item","seed_lettuce",100,-1,0],
 			["item","seed_coca",100,-1,0],
 			["item","seed_sugar",100,-1,0],
