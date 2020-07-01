@@ -347,7 +347,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessShopFIMS",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_fifr_supplier, NPC_fifr_supplier_1, NPC_fifr_supplier_2, NPC_fifr_supplier_3, NPC_fifr_supplier_air, NPC_fifr_supplier_4]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopFIFR",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopVFD",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
-	["spine3",localize"STR_QuickActionsNPC_AccessFIFRVEHShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_fifr_vehicles}],
+	["spine3",localize"STR_QuickActionsNPC_AccessFIFRVEHShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fifr_vehicles,npc_fifr_vehicles_elk]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGVehShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_vehicles,NPC_uscg_vehicles_1]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGBoatShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_uscg_boats}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGAirShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_aircraft,NPC_uscg_aircraft_1]}],
