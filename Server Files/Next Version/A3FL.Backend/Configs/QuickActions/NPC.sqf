@@ -294,7 +294,7 @@
 	localize"STR_QuickActionsNPC_Shop_BlackMarketCartel",
 	{
 		_rank = ["cartel","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;
-		if(_rank IN ["Boss","UnderBoss","Consigliere","Caporegime","Reserves"]) then {
+		if(_rank IN ["Drug Lord","Under Lord","Lieutenant","Hitmen","Falcon","Reserve"]) then {
 			["Shop_BlackMarketCartel"] call A3PL_Shop_Open;
 		} else {
 			["You current doesn't allow you to access this.","red"] call A3PL_Player_notification;
