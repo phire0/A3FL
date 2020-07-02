@@ -15,7 +15,7 @@
 
 ['A3PL_Company_Create', {
 	disableSerialization;
-	private _price = 100000;
+	private _price = 175000;
 	private _display = findDisplay 136;
 	private _name = ctrlText (_display displayCtrl 1400);
 	private _desc = ctrlText (_display displayCtrl 1401);

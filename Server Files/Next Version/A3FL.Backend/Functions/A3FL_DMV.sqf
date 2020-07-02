@@ -73,7 +73,7 @@
 	} foreach (_player getVariable ["licenses",[]]);
 }] call Server_Setup_Compile;
 
-//[player,'fml',true] remoteExec ["Server_DMV_Add",2];
+//[player,'driver',true] remoteExec ["Server_DMV_Add",2];
 ["A3PL_DMV_Add",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};

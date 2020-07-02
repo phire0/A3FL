@@ -16,9 +16,6 @@ publicVariable "Config_Shops_TaxSystem";
 Config_Shops_StockSystem = [];
 publicVariable "Config_Shops_StockSystem";
 
-// Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
-// publicVariableServer "Config_Shops_StockSystemObjects";
-
 Config_Shops_Factions = [
 	[["Shop_USCG_Supplies_Vendor","Shop_USCG_Pilot_Vendor","Shop_USCG_Weapons_Vendor","Shop_USCG_Car_Vendor","Shop_USCG_Boat_Vendor","Shop_USCG_Plane_Vendor"],"uscg"],
 	[["Shop_SD_Supplies_Vendor","Shop_SD_Weapons_Vendor","Shop_SD_Car_Vendor"],"fisd"],
@@ -104,29 +101,29 @@ Config_Shops_Items = [
 			["item","waterbottle",500,250,0],
 			["item","bread",300,200,0],
 			["item","apple",50,11,0],
-			["item", "beer", 300,50,0],
-			["item", "beer_gold", 300,50,0]
+			["item", "beer", 450,50,0],
+			["item", "beer_gold", 600,50,0]
 		],{[2597.17,5626.85,0.5]}
 	],
 
 	["Shop_Hunting_Supplies",[
 			["weaponPrimary","A3PL_CZ550",20000,-1,4],
-			["magazine","A3PL_5rnd_3006",168,-1,4],
-			["uniform","A3PL_Hunting_Uniform",140,-1,4],
-			["vest","A3PL_Clean_Safety_Vest",160,-1,4],
+			["magazine","A3PL_5rnd_3006",260,-1,4],
+			["uniform","A3PL_Hunting_Uniform",220,-1,4],
+			["vest","A3PL_Clean_Safety_Vest",180,-1,4],
 			["item","tag_meat",100,-1,0]
 		],{[2612.93,5615.92,0.08]}
 	],
 
 	["Shop_General_Supplies",[
-			["aitem","A3PL_Cellphone",1300,-1,0],
-			["aitem","tfar_anprc152",850,-1,3],
-			["aitem","ItemCompass",60,-1,0],
-			["aitem","ItemGPS",130,-1,0],
+			["aitem","A3PL_Cellphone",1400,-1,0],
+			["aitem","tfar_anprc152",1000,-1,3],
+			["aitem","ItemCompass",100,-1,0],
+			["aitem","ItemGPS",450,-1,0],
 			["aitem","ItemMap",30,-1,0],
-			["item","Camper_Light",680,-1,0],
-			["item","FD_adapter",60,-1,0],
-			["item","FD_hose",140,-1,0]
+			["item","Camper_Light",750,-1,0],
+			["item","FD_adapter",200,-1,0],
+			["item","FD_hose",260,-1,0]
 		],{[2621.08,5610.15,0.08]}
 	],
 
@@ -137,16 +134,16 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Hardware",[
-			["item","scale",120,-1,8],
-			["item","fan",250,-1,8],
+			["item","scale",350,-1,8],
+			["item","fan",480,-1,8],
 			["item","grinder",360,-1,8],
-			["item","planter",450,-1,8],
-			["item","lamp_200w",300,-1,8],
-			["item","lamp_500w",580,-1,8],
-			["item","lamp_1000w",750,-1,8],
+			["item","planter",560,-1,8],
+			["item","lamp_200w",450,-1,8],
+			["item","lamp_500w",630,-1,8],
+			["item","lamp_1000w",850,-1,8],
 			["item","pavilion",1100,-1,8],
-			["item","workbench",600,-1,8],
-			["item","cocaine_barrel",100,-1,8]
+			["item","workbench",850,-1,8],
+			["item","cocaine_barrel",460,-1,8]
 		],{[3456.32,7513.2,1]}
 	],
 
@@ -208,12 +205,6 @@ Config_Shops_Items = [
 		],{[2362.97,5480.64,0.3]}
 	],
 
-	["Shop_GunsFML_Vendor",[
-			["item","Blueprint_Pistol_Legal",1300,-1,3],
-			["item","Blueprint_Pistol_Legal_Ammo",350,-1,3]
-		],{[6105.3,7367.8,0.2]}
-	],
-
 	["Shop_Guns_Vendor",[
 			["weapon","hgun_Pistol_01_F",8000,600,4],
 			["weapon","hgun_Rook40_F",8000,6000,5],
@@ -247,13 +238,6 @@ Config_Shops_Items = [
 		],{[2621.08,5610.15,0.08]}
 	],
 
-	["Shop_Ill_Attachments",[
-			["aitem","optic_Holosight_smg_blk_F",5850,-1,0,0],
-			["aitem","optic_aco_smg",2600,-1,0,0],
-			["aitem","acc_flashlight",2080,-1,0,0]
-		],{[3520.06,7622.76,2]}
-	],
-
 	["Shop_Buckeye",[
 			["item","distillery",34000,-1,4],
 			["item","distillery_hose",950,-1,4],
@@ -278,12 +262,6 @@ Config_Shops_Items = [
 	["Shop_Gang",[
 			["vest","A3PL_SuicideVest",700000,-1,10],
 			["item","seed_marijuana",300,180,8],
-			// ["item","SMG_Part_Stock",50000,-1,0,0],
-			// ["item","SMG_Part_Body",50000,-1,0,0],
-			// ["item","SMG_Part_Grip",50000,-1,0,0],
-			// ["item","SMG_Part_Trigger",50000,-1,0,0],
-			// ["item","SMG_Part_Barrel",50000,-1,0,0],
-			// ["item","Blueprint_SMG",2800,-1,0,0],
 			["item","Blueprint_Shemag",2600,-1,0,0],
 			["item","Blueprint_balaclava",2600,-1,0,0],
 			["item","Blueprint_Bandanna",2600,-1,0,0],
@@ -1268,13 +1246,15 @@ Config_Shops_Items = [
 			["weaponPrimary","A3FL_GolfDriver",2500,-1,0],
 			["weaponPrimary","A3FL_BaseballBat",2500,-1,0],
 			["weaponPrimary","A3PL_CZ550",20000,-1,4],
-			["magazine","A3PL_5rnd_3006",168,-1,4],
-			["uniform","A3PL_Hunting_Uniform",140,-1,4],
-			["vest","A3PL_Clean_Safety_Vest",160,-1,4],
+			["magazine","A3PL_5rnd_3006",260,-1,4],
+			["uniform","A3PL_Hunting_Uniform",220,-1,4],
+			["vest","A3PL_Clean_Safety_Vest",180,-1,4],
 			["item","tag_meat",100,-1,0]
 		],{[5661.34,6125.97,-0.5]}
 	],
+	
 	["Shop_Low_End_Car_Dealer",[
+			["vehicle","K_Scooter_DarkBlue",17870,0,0],
 			["vehicle","C_Quadbike_01_F",17870,0,0],
 			["vehicle","A3PL_CVPI_Rusty",30000,0,0],
 			["vehicle","A3PL_CVPI_Taxi",40750,0,0],
@@ -1283,9 +1263,11 @@ Config_Shops_Items = [
 			["vehicle","A3PL_MailTruck",53620,0,0],
 			["vehicle","A3PL_Wrangler",55050,0,0],
 			["vehicle","A3PL_Ram",55050,0,0],
-			["vehicle","A3PL_Car_Trailer",10000,0,0],
-			["vehicle","K_Scooter_DarkBlue",17870,0,0]
+			["vehicle","A3PL_Car_Trailer",10000,0,0]
 		],{[2942.43,5891.42,-0.75]}
 	]
 ];
 publicVariable "Config_Shops_Items";
+
+// Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
+// publicVariableServer "Config_Shops_StockSystemObjects";

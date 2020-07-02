@@ -34,7 +34,6 @@ Config_Licenses =
 	["ccp",localize"STR_ConfigLicenses_CCP",false,["doj"]],
 	["fiba",localize"STR_ConfigLicenses_FIBA",false,["doj"]],
 	["sfp",localize"STR_ConfigLicenses_SFP",false,["doj"]],
-	["figl",localize"STR_ConfigLicenses_GameLicense",true,["doj"]],
-	["fml",localize"STR_ConfigLicenses_FirearmManufacturingLicense",false,["doj"]]
+	["figl",localize"STR_ConfigLicenses_GameLicense",true,["doj"]]
 ];
 publicVariable "Config_Licenses";

@@ -295,8 +295,6 @@
 	_shopObject = cursorobject;
 	_taxedAmount = 0;
 
-	if(_shop isEqualTo "Shop_Guns_Vendor") exitWith {["You need a FML license to sell guns and ammo to this shop!","red"] call A3PL_Player_Notification;};
-
 	_display = findDisplay 20;
 	_allItems = [_shop] call A3PL_Config_GetShop;
 

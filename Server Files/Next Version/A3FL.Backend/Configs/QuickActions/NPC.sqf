@@ -650,7 +650,7 @@
 	localize"STR_QuickActionsNPC_TalkToSheriff",
 	{
 		["police_initial"] call A3PL_NPC_Start;
-		if(((["fisd","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData) IN ["Detective","Reserve","Lieutenant","Captain","Undersheriff","Sheriff"])) then {
+		if(((["fisd","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData) IN ["Detective Sergeant","Detective","Reserve","Lieutenant","Captain","Undersheriff","Sheriff"])) then {
 			player setVariable["FakeIDAccess",true,false];
 		};
 	}
@@ -738,17 +738,6 @@
 	{
 		//if (((count(["uscg"] call A3PL_Lib_FactionPlayers))) < 2) exitwith {[localize"STR_QuickActionsNPC_MinimumUSCGToSpeak","red"] call A3PL_Player_Notification;};
 		["Shop_BlackMarket"] call A3PL_Shop_Open;
-	}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_TalkToTheGunsFMLVendor",
-	{
-		if (["fml",player] call A3PL_DMV_Check) then {
-			["Shop_GunsFML_Vendor"] call A3PL_Shop_Open;
-		} else {
-			[localize"STR_QuickActionsNPC_NoCCP2","red"] call A3PL_Player_Notification;
-		};
 	}
 ],
 [
