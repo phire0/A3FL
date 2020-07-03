@@ -156,6 +156,8 @@ Config_Vehicles_Insurance = [
 	["A3PL_Charger_PD",6500],
 	["A3PL_Charger_PD_Slicktop",6500],
 	["A3PL_Charger15",21000],
+	["A3PL_Charger15_PD",10000],
+	["A3PL_Charger15_PD_ST",15000],
 	["A3PL_Monster",38000],
 
 	["A3PL_Fuel_Van",10000],
