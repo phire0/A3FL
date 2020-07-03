@@ -294,6 +294,7 @@
 	if ((lbCurSel _control) < 0) exitwith {["Please select a material","red"] call A3PL_Player_Notification;};
 	A3PL_Garage_NewMaterial = (Config_Garage_Materials select _selectedIndex) select 0;
 
+	player setVariable["Player_Cash", _pCash - _price, true];
 	["You changed the material of your vehicle!","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -398,6 +399,7 @@
 	A3PL_Garage_NewColor = _text;
 
 	[_veh,_text] remoteExec ["Server_Vehicle_SetPaint",2];
+	player setVariable["Player_Cash", _pCash - _price, true];
 	["You have repainted your vehicle.","green"] call A3PL_Player_Notification;	
 }] call Server_Setup_Compile;
 
