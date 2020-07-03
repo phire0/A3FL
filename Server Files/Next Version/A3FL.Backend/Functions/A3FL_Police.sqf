@@ -780,10 +780,10 @@
 		{
 				uiSleep 2;
 				if (isNull _cop) exitwith {};
-				if ((player distance _cop) > 4 && vehicle _cop isKindOf "Civilian_F") then
-				{
+				if ((player distance _cop) > 4 && vehicle _cop isKindOf "Civilian_F") then {
 					player setposATL (getposATL _cop);
 				};
+				if(!(player getVariable["Cuffed",true])) then {player setVariable ["dragged",nil,true];};
 		};
 		[localize"STR_NewPolice_10", "red"] call A3PL_Player_Notification;
 		player forceWalk false;

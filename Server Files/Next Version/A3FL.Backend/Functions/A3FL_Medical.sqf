@@ -103,6 +103,7 @@
 	if (_sBullet IN ["B_408_Ball","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball"]) exitwith {};
 	if (_sBullet isEqualTo "A3PL_Paintball_Bullet") exitwith {
 		if ((missionNameSpace getVariable ["A3PL_Medical_PaintballHit",false]) OR (_sSource == player)) exitwith {};
+		if((player distance (getMarkerPos "paintball_larry")) > 300) exitWith {};
 		A3PL_Medical_PaintBallHit = true;
 		player playaction "gestureFreeze";
 		uiSleep 0.6;
