@@ -285,7 +285,7 @@
 
 	// check if we have enough cash
 	_pCash = player getVariable["player_cash", 0];
-	_price = 5000;
+	_price = 2000;
 	if (_price > _pCash) exitwith{[format["You are missing $%1 to change the vehicle material!",_price-_pCash]] call A3PL_Player_notification;};
 
 	//check if we own the vehicle
@@ -362,6 +362,11 @@
 		_veh = [_veh] call A3PL_Lib_vehStringToObj;
 	};
 	_display = findDisplay 62;
+
+	// check if we have enough cash
+	_pCash = player getVariable["player_cash", 0];
+	_price = 2000;
+	if (_price > _pCash) exitwith{ [format["You are missing $%1 to change the vehicle color!",_price - _pCash]] call A3PL_Player_notification; };
 
 	if (_texture != "") exitwith
 	{
