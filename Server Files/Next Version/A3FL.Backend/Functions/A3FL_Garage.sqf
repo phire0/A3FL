@@ -283,6 +283,11 @@
 	//check if we have motorhead perk
 	if (!(["motorhead"] call A3PL_Lib_hasPerk)) exitwith {["You don't have the motorhead perk, for more information -> www.arma3fisherslife.net","red"] call A3PL_Player_Notification;};
 
+	// check if we have enough cash
+	_pCash = player getVariable["player_cash", 0];
+	_price = 5000;
+	if (_price > _pCash) exitwith{[format["You are missing $%1 to change the vehicle material!",_price-_pCash]] call A3PL_Player_notification;};
+
 	//check if we own the vehicle
 	if (!(((_veh getVariable ["owner",["",""]]) select 0) == (getPlayerUID player))) exitwith {["This is not your vehicle!","red"] call A3PL_Player_Notification;};
 
