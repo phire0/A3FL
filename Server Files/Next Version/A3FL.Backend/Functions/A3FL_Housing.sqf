@@ -382,7 +382,7 @@
 
 	_percentage = _this select 1;
 	_house = (nearestObjects [player, Config_Houses_List, 10,true]) select 0;
-	_housePrice = [_house,1] call A3PL_Housing_GetData;
+	_housePrice = ([_house,1] call A3PL_Housing_GetData) * 0.7;
 	_value = round((_percentage / 100) * _housePrice);
 
 	_control = _display displayCtrl 1100;
@@ -397,7 +397,7 @@
 	_display = findDisplay 67;
 	_slider = _display displayCtrl 1900;
 
-	_housePrice = [_house,1] call A3PL_Housing_GetData;
+	_housePrice = ([_house,1] call A3PL_Housing_GetData) * 0.7;
 	_percentage = round(sliderPosition _slider);
 	_com = round(_percentage / 100 * (_housePrice));
 	_clientPart = _housePrice - _com;

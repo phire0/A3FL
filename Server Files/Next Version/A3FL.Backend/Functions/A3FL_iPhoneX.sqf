@@ -339,7 +339,7 @@
 			_addXP = 25;
 		};
 		case("2"): {
-			_price = 20000;
+			_price = 50000;
 			_var = "A3PL_phoneNumberSecondary";
 			_addXP = 50;
 		};
