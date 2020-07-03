@@ -361,7 +361,7 @@
 	
 	{
 		if((_x select 0) == _class) exitWith {
-			_config = append _x;
+			_config append _x;
 			_index = _forEachIndex;
 		};
 	} forEach Server_Government_FactionRanks;

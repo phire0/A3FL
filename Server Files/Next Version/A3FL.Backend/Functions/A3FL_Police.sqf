@@ -743,18 +743,12 @@
 
 ['A3PL_Police_Drag',
 {
-	private ['_civ',"_dragged"];
-	_civ = _this select 0;
-
-	_dragged = _civ getVariable ["dragged",false];
-	//stop dragging here
-	if (_dragged) exitwith
-	{
+	private _civ = _this select 0;
+	private _dragged = _civ getVariable ["dragged",false];
+	if (_dragged) exitwith {
 		_civ setVariable ["dragged",Nil,true];
 	};
-
-	if ((animationState _civ IN ["a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked"]) || (surfaceIsWater position player)) then
-	{
+	if ((animationState _civ IN ["a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked"]) || (surfaceIsWater position player)) then {
 		[player] remoteExec ["A3PL_Police_DragReceive", _civ];
 	} else {
 		[localize"STR_NewPolice_8", "red"] call A3PL_Player_Notification;
@@ -763,27 +757,25 @@
 
 ['A3PL_Police_DragReceive',
 {
-	private ["_dragState","_cop"];
-	_cop = param [0,objNull];
-
+	private _cop = param [0,objNull];
 	[localize"STR_NewPolice_9", "red"] call A3PL_Player_Notification;
 	player setVariable ["dragged",true,true];
-	[player,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
 	["gesture_restrain"] call A3PL_Lib_Gesture;
+	[player,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
 	player forceWalk true;
 	[_cop] spawn
 	{
-		private ["_var","_cop"];
-		_cop = param [0,objNull];
+		private _cop = param [0,objNull];
 		if (isNull _cop) exitwith {};
-		while {player getVariable ["dragged",false] && vehicle _cop isKindOf "Civilian_F"} do
+		while {player getVariable ["dragged",false] && ((vehicle _cop) isKindOf "Civilian_F")} do
 		{
 				uiSleep 2;
 				if (isNull _cop) exitwith {};
-				if ((player distance _cop) > 4 && vehicle _cop isKindOf "Civilian_F") then {
+				if ((player distance _cop) > 4 && ((vehicle _cop) isKindOf "Civilian_F")) then {
 					player setposATL (getposATL _cop);
 				};
 				if(!(player getVariable["Cuffed",true])) then {player setVariable ["dragged",nil,true];};
+				["gesture_restrain"] call A3PL_Lib_Gesture;
 		};
 		[localize"STR_NewPolice_10", "red"] call A3PL_Player_Notification;
 		player forceWalk false;

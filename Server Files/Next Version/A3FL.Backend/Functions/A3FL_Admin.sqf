@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Department Of Motor Vehicles","dmv","dmv"],["Fishers Island Cartel","cartel","cartel"],["Federal Bureau of Investigation","fbi","fbi"]]
+#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Fishers Island Cartel","cartel","cartel"],["Federal Bureau of Investigation","fbi","fbi"]]
 #define adminTagsList [["Civilian Tag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]],["Executive Tag",["#B5B5B5","#8410ff","\A3PL_Common\icons\executive.paa"]],["Executive Supervisor Tag",["#B5B5B5","#5ab2ff","\A3PL_Common\icons\exec_supervisor.paa"]],["Developer Tag",["#B5B5B5","#FFFFFF","\A3PL_Common\icons\creator.paa"]],["Lead Dev Tag",["#B5B5B5","#2c82c9","\A3PL_Common\icons\leaddev.paa"]],["Chief Tag",["#B5B5B5","#2f9baa","\A3PL_Common\icons\chief.paa"]],["Sub-Director Tag",["#B5B5B5","#ff6d29","\A3PL_Common\icons\subdirector.paa"]],["Director Tag",["#B5B5B5","#cece08","\A3PL_Common\icons\director.paa"]]]
 
 ["A3PL_Admin_Check",

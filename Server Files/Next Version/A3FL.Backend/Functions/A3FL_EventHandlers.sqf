@@ -151,6 +151,7 @@
 
 		["ArmA 3 Fishers Life","holster_gun", "Holster/Unholster",
 		{
+			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			if (currentWeapon player != "") exitWith {
 				A3PL_Holster = currentWeapon player;
 				player action ["SwitchWeapon", player, player, 100];
@@ -378,8 +379,7 @@
 	{
 		private _weapon = param [1,""];
 		private _ammo = param [4,""];
-
-		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver"]) then
+		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
 		{
 			player playAction "GestureSwing";
 			if (player inArea "LumberJack_Rectangle") then {

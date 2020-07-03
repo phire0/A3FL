@@ -309,7 +309,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_TAKEPHOST",
 		{[cursorobject] spawn A3PL_Player_TakeHostage;},
-		{isNil "A3PL_EnableHostage" && (cursorobject IN allPlayers) && (player distance cursorobject < 2) &&(([cursorobject, player] call BIS_fnc_relativeDirTo) < 220)&&(([cursorobject, player] call BIS_fnc_relativeDirTo) > 130)}
+		{(!(player getVariable ["Cuffed",false])) && (!(player getVariable ["Zipped",false])) && (isNil "A3PL_EnableHostage") && (isPlayer cursorObject) && (player distance cursorobject < 2) &&(([cursorobject, player] call BIS_fnc_relativeDirTo) < 220)&&(([cursorobject, player] call BIS_fnc_relativeDirTo) > 130)}
 	],
 	[
 		localize "STR_INTER_RELHOST",
@@ -657,7 +657,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_SURRENDER",
 		{[player,true] call A3PL_Police_Surrender;},
-		{(((animationState player) IN ["amovpercmstpsnonwnondnon","amovpercmrunsnonwnondf","amovpercmrunsnonwnondb"]) && (vehicle player == player))}
+		{(((animationState player) IN ["amovpercmstpsnonwnondnon","amovpercmrunsnonwnondf","amovpercmrunsnonwnondb"]) && ((vehicle player) isEqualTo player)) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true]))}
 	],
 	[
 		localize "STR_INTER_ENDSURRENDER",

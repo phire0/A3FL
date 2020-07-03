@@ -155,7 +155,7 @@
 	if (isDedicated) exitwith {};
 	private _anim = param [0,"gesture_stop"];
 	private _player = param [1,player];
-	_player playAction _anim;
+	_player playActionNow _anim;
 }] call Server_Setup_Compile;
 
 ['A3PL_Lib_Sit',
