@@ -91,14 +91,27 @@
 				};
 		}, "", [DIK_INSERT, [false, false, false]]] call CBA_fnc_addKeybind;
 
-		// ["ArmA 3 Fishers Life","lockunlock_key", "Lock/Unlock Vehicle",
-		// {
-		// 	if((vehicle player isEqualTo player) && (simulationEnabled cursorObject) && ((player distance cursorObject) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])) then {
-		// 		cursorObject setVariable ["locked",false,true];
-		// 		[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
-		// 		playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
-		// 	};
-		// }, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
+		["ArmA 3 Fishers Life","lockunlock_key", "Lock/Unlock Vehicle",
+		{
+			_veh = objNull;
+			if((vehicle player) isEqualTo player) then {
+				_veh = player_objintersect;
+			} else {
+				_veh = vehicle player;
+			};
+			if(isNull _veh) exitWith {};
+			if(!(_veh IN A3PL_Player_Vehicles)) exitWith {};
+			if((player distance _veh) < 15) exitWith {};
+			if(_veh getVariable ["locked",true]) then {
+				_veh setVariable ["locked",false,true];
+				[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
+				playSound3D ["A3PL_Common\effects\carunlock.ogg", _veh, true, _veh, 3, 1, 30];
+			} else {
+				_veh setVariable ["locked",true,true];
+				[localize "STR_INTER_LOCKVD", "green"] call A3PL_Player_Notification;
+				playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", _veh, true, _veh, 3, 1, 30];
+			};
+		}, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","trunk_key", "Open/Close Vehicle Trunk",
 		{
@@ -134,7 +147,7 @@
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			if(!dialog) then {[] spawn A3PL_iPhoneX_appTwitterPost;};
-		}, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
+		}, "", [DIK_U, [false, true, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","holster_gun", "Holster/Unholster",
 		{
