@@ -138,13 +138,26 @@
 	} forEach Server_Companies;
 }] call Server_Setup_Compile;
 
+['A3PL_Company_NameEdit', {
+	private _display = findDisplay 137;
+	private _newName = ctrlText (_display displayCtrl 1402);
+	private _cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
+	private _pBank = player getVariable["Player_Bank",0];
+	private _price = 25000;
+	if(_price > _pBank) exitWith {["You need $25.000 to change your company description!", "red"] call A3PL_Player_Notification;};
+	player setVariable["Player_Bank",_pBank-_price,true];
+	closeDialog 0;
+	[_cid, _newName] remoteExec ["Server_Company_SetName",2];
+}] call Server_Setup_Compile;
+
 ['A3PL_Company_DescEdit', {
-	private ["_display", "_cid","_newDesc"];
-	//Get values
-	_display = findDisplay 137;
-	_newDesc = ctrlText (_display displayCtrl 1402);
-	_cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
-	//Act
+	private _display = findDisplay 137;
+	private _newDesc = ctrlText (_display displayCtrl 1402);
+	private _cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
+	private _pBank = player getVariable["Player_Bank",0];
+	private _price = 5000;
+	if(_price > _pBank) exitWith {["You need $5.000 to change your company description!", "red"] call A3PL_Player_Notification;};
+	player setVariable["Player_Bank",_pBank-_price,true];
 	closeDialog 0;
 	[_cid, _newDesc] remoteExec ["Server_Company_SetDesc",2];
 }] call Server_Setup_Compile;

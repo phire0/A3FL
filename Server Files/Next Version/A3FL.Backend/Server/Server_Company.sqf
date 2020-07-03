@@ -64,6 +64,14 @@
 	} foreach (playableUnits);
 },true] call Server_Setup_Compile;
 
+["Server_Company_SetName",
+{
+	private _id = param [0,-1];
+	private _name = param [1,""];
+	private _query = format ["UPDATE companies SET name = '%1' WHERE id = '%2'",_desc, _id];
+	[_query, 1] call Server_Database_Async;
+},true] call Server_Setup_Compile;
+
 ["Server_Company_SetDesc",
 {
 	private _id = param [0,-1];
