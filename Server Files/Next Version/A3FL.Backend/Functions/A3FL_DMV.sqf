@@ -92,8 +92,8 @@
 	_control = _display displayCtrl 2100;
 	_isCompany = (_control lbValue (lbCurSel _control)) IsEqualTo 1;
 	_inCompany = [getPlayerUID _target] call A3PL_Config_InCompany;
-	if(_isCompany && (!_inCompany)) exitWith {[localize"STR_DMV_LICNOTCOMP","red"] call A3PL_Player_Notification;};	
-	
+	if(_isCompany && (!_inCompany)) exitWith {[localize"STR_DMV_LICNOTCOMP","red"] call A3PL_Player_Notification;};
+
 	if (lbCurSel _control < 0) exitwith {[localize"STR_DMV_SELECTIONLICENSE","red"] call A3PL_Player_Notification;};
 	_license = _control lbData (lbCurSel _control);
 
