@@ -830,7 +830,7 @@ A3PL_Interaction_Options =
 			if (count ropes _veh < 1) exitwith {};
 			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) + 5];
 		},
-		{((typeOf (vehicle player) == "A3PL_Jayhawk") && (local vehicle player) && ((player == ((vehicle player) turretUnit [0])) OR (player == ((vehicle player) turretUnit [1])) OR (player == (driver vehicle player))))}
+		{((typeOf (vehicle player) == "A3PL_Jayhawk") && (local vehicle player) && ((player == ((vehicle player) turretUnit [0])) OR (player == ((vehicle player) turretUnit [1])) OR (player == (driver vehicle player)))) && (vehicle player animationPhase "Basket" > 0.5)}
 	],
 	[
 		localize "STR_INTER_DECREASERL",
@@ -840,7 +840,7 @@ A3PL_Interaction_Options =
 			if ((count (ropes _veh)) < 1) exitwith {};
 			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) - 5];
 		},
-		{((typeOf (vehicle player) == "A3PL_Jayhawk") && (local vehicle player) && ((player == ((vehicle player) turretUnit [0])) OR (player == ((vehicle player) turretUnit [1])) OR (player == (driver vehicle player))))}
+		{((typeOf (vehicle player) == "A3PL_Jayhawk") && (local vehicle player) && ((player == ((vehicle player) turretUnit [0])) OR (player == ((vehicle player) turretUnit [1])) OR (player == (driver vehicle player)))) && (vehicle player animationPhase "Basket" > 0.5)}
 	],
 	[
 		localize "STR_INTER_TOGGLEAH",

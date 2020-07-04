@@ -99,9 +99,9 @@
 			} else {
 				_veh = vehicle player;
 			};
-			if(isNull _veh) exitWith {};
-			if(!(_veh IN A3PL_Player_Vehicles)) exitWith {};
-			if((player distance _veh) < 15) exitWith {};
+			if(isNull _veh) exitWith {hint "1"};
+			if(!(_veh IN A3PL_Player_Vehicles)) exitWith {hint "2"};
+			if((player distance _veh) < 15) exitWith {hint "3"};
 			if(_veh getVariable ["locked",true]) then {
 				_veh setVariable ["locked",false,true];
 				[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
@@ -111,6 +111,7 @@
 				[localize "STR_INTER_LOCKVD", "green"] call A3PL_Player_Notification;
 				playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", _veh, true, _veh, 3, 1, 30];
 			};
+			hint "4";
 		}, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","trunk_key", "Open/Close Vehicle Trunk",
