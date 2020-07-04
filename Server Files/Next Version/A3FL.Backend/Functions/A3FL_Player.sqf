@@ -664,7 +664,7 @@
 
 ["A3PL_Player_EscapeControls",
 {
-	if ((getPlayerUID player) IN ["_SP_PLAYER_","76561198070895974","76561198343727655","76561198111737316","76561198096687678"]) exitWith {}; //Jason, Winston, David
+	if ((getPlayerUID player) IN ["_SP_PLAYER_","76561198070895974","76561198343727655","76561198111737316","76561198096687678"]) exitWith {};
 	for "_i" from 0 to 1 step 0 do {
 		waitUntil {!isNull (findDisplay 49)};
 		private["_abortButton", "_respawnButton", "_manuelButton", "_display"];
@@ -679,7 +679,7 @@
 		_respawnButton ctrlEnable false;
 		_respawnButton ctrlShow false;
 
-		if (alive player && !(animationState player IN ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then	{
+		if ((alive player) && !(player getVariable["Zipped",false]) && !(player getVariable["Cuffed",false])) then {
 			[_abortButton, _display] spawn {
 				_timeStamp = time + 10;
 				waitUntil {
