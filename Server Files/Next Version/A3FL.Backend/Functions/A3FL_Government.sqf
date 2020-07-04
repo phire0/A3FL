@@ -7,7 +7,7 @@
 */
 
 #define CHARMAXLAWCOUNT 120
-#define FACTIONBALANCES ["Fire Rescue","US Coast Guard","Sheriff Department","Department of Motor Vehicles","Department of Justice","Marshals Service","Cartel"]
+#define FACTIONBALANCES ["Fire Rescue","US Coast Guard","Sheriff Department","Department of Justice","Marshals Service","Cartel"]
 #define FACTIONMINPAY 200
 #define FACTIONMAXPAY 5000
 

@@ -277,7 +277,26 @@
 			_class = _control lbData (lbCurSel _control);
 			if(isClass (configFile >> "CfgWeapons" >> _class)) then {
 				_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
-				_target removeWeaponGlobal _class;
+				{
+					if (_x isEqualTo _class) exitWith {
+						_target removeWeaponGlobal _x;
+					};
+				} forEach weapons _target;
+				{
+					if (_x isEqualTo _class) exitWith {
+						_target removeItemFromUniform _x;
+					};
+				} forEach uniformItems _target;
+				{
+					if (_x isEqualTo _class) exitWith {
+						_target removeItemFromVest _x;
+					};
+				} forEach vestItems _target;
+				{
+					if (_x isEqualTo _class) exitWith {
+						_target removeItemFromBackpack _x;
+					};
+				} forEach backpackItems _target;
 				_weaponHolder addWeaponCargoGlobal [_class,1];
 			} else {
 				_itemName = getText (configFile >> "CfgMagazines" >> _class >> "displayName");
@@ -746,9 +765,9 @@
 	private _civ = _this select 0;
 	private _dragged = _civ getVariable ["dragged",false];
 	if (_dragged) exitwith {
-		_civ setVariable ["dragged",Nil,true];
+		_civ setVariable ["dragged",nil,true];
 	};
-	if ((animationState _civ IN ["a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked"]) || (surfaceIsWater position player)) then {
+	if (_civ getVariable["Cuffed",false]) then {
 		[player] remoteExec ["A3PL_Police_DragReceive", _civ];
 	} else {
 		[localize"STR_NewPolice_8", "red"] call A3PL_Player_Notification;
@@ -769,18 +788,20 @@
 		if (isNull _cop) exitwith {};
 		while {player getVariable ["dragged",false] && ((vehicle _cop) isKindOf "Civilian_F")} do
 		{
-				uiSleep 2;
 				if (isNull _cop) exitwith {};
-				if ((player distance _cop) > 4 && ((vehicle _cop) isKindOf "Civilian_F")) then {
+				if ((player distance _cop) > 5 && ((vehicle _cop) isKindOf "Civilian_F")) then {
 					player setposATL (getposATL _cop);
 				};
 				if(!(player getVariable["Cuffed",true])) then {player setVariable ["dragged",nil,true];};
 				["gesture_restrain"] call A3PL_Lib_Gesture;
 		};
-		[localize"STR_NewPolice_10", "red"] call A3PL_Player_Notification;
 		player forceWalk false;
-		["gesture_stop"] call A3PL_Lib_Gesture;
-		[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];
+		player setVariable ["dragged",nil,true];
+		[localize"STR_NewPolice_10", "red"] call A3PL_Player_Notification;
+		if((vehicle player) isEqualTo player) then {
+			["gesture_stop"] call A3PL_Lib_Gesture;
+			[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];
+		};
 	};
 }] call Server_Setup_Compile;
 
@@ -788,18 +809,12 @@
 {
 	private ["_car","_near"];
 	_car = param [0,objNull];
-
 	_near = nearestObjects [player,["C_man_1"],5];
 	_near = _near - [player];
 	if (count _near < 1) exitwith {[localize"STR_NewPolice_11", "red"] call A3PL_Player_Notification;};
 	_near = _near select 0;
-	if (_near getVariable ["dragged",false]) exitwith
-	{
-		[_near,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
-		[_car] remoteExec ["A3PL_Lib_MoveInPass",_near];
-	};
-	if (animationState _near IN ["a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","A3PL_HandsupKneelGetCuffed"]) exitwith
-	{
+	if((_near getVariable["Cuffed",false]) || _near getVariable["Zipped",false]) exitwith {
+		_near setVariable["dragged",nil,true];
 		[_near,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
 		[_car] remoteExec ["A3PL_Lib_MoveInPass",_near];
 	};

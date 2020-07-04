@@ -296,7 +296,7 @@
 
 	_level = player getVariable ['Player_Level',0];
     _xp = player getVariable ['Player_XP',0];
-    _nextLevel = [_level, 'next'] call A3PL_Config_GetLevel;
+    _nextLevel = [_level] call A3PL_Config_GetLevel;
     _bar = (_xp / _nextLevel);
 
 	_control = _display displayCtrl 1604;

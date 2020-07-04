@@ -11,7 +11,7 @@
 	private _toAdd = param [1,0];
 	private _currentLevel = _player getvariable 'Player_Level';
 	private _currentXP = _player getVariable 'Player_XP';
-	private _nextLevelXP = [_currentLevel, 'next'] call A3PL_Config_GetLevel;
+	private _nextLevelXP = [_currentLevel] call A3PL_Config_GetLevel;
 	if(_toAdd >= (_nextLevelXP - _currentXP)) then {
 		_player setVariable['Player_Level',_currentLevel + 1,true];
 		_player setVariable['Player_XP',0,true];
