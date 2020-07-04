@@ -678,8 +678,9 @@
 		_respawnButton = _display displayCtrl 1010;
 		_respawnButton ctrlEnable false;
 		_respawnButton ctrlShow false;
-
-		if ((alive player) && !(player getVariable["Zipped",false]) && !(player getVariable["Cuffed",false])) then {
+		if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) then {
+			_abortButton ctrlSetText "YOU CANNOT DISCONNECT";
+		} else {
 			[_abortButton, _display] spawn {
 				_timeStamp = time + 10;
 				waitUntil {
@@ -688,7 +689,7 @@
 					round(_timeStamp - time) <= 0 || isNull (_this select 1)
 				};
 				if (!(isNull (_this select 1))) then {
-					if (alive player && !(animationState player IN ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then	{
+					if (alive player) then	{
 						(_this select 0) ctrlSetText "YOU CAN NOW DISCONNECT";
 						(_this select 0) ctrlCommit 0;
 						(_this select 0) ctrlEnable true;

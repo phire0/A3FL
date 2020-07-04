@@ -73,6 +73,14 @@ class Dialog_Factory
 			w = 0.195573 * safezoneW;
 			h = 0.288889 * safezoneH;
 		};
+		class search_recipes: RscEdit
+		{
+			idc = 1405;
+			x = 0.28552 * safezoneW + safezoneX;
+			y = 0.549445 * safezoneH + safezoneY;
+			w = 0.195573 * safezoneW;
+			h = 0.0192221 * safezoneH;
+		};
 		class list_requires: RscListbox
 		{
 			idc = 1501;

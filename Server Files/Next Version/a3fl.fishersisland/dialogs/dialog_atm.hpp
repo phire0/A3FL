@@ -166,6 +166,9 @@ class Dialog_ATM_Menu {
 			y = 0.566 * safezoneH + safezoneY;
 			w = 0.0825 * safezoneW;
 			h = 0.022 * safezoneH;
+			style = "16 + 512";
+			colorText[] = {0,0,0,1};
+			class Attributes {align = "center";};
 		};
 
 		class MoenyDisplay: RscText
@@ -176,6 +179,8 @@ class Dialog_ATM_Menu {
 			w = 0.0825 * safezoneW;
 			h = 0.022 * safezoneH;
 			colorBackground[] = {0,0,0,0};
+			colorText[] = {0,0,0,1};
+			class Attributes {align = "center";};
 		};
 	};
 };

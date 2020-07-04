@@ -1722,7 +1722,7 @@
 	private _currentLevel = player getvariable ['Player_Level',0];
 	private _currentXP = player getVariable ['Player_XP',0];
 	private _nextLevel = (_currentLevel + 1);
-	private _nextLevelXP = [_currentLevel, 'next'] call A3PL_Config_GetLevel;
+	private _nextLevelXP = [_currentLevel] call A3PL_Config_GetLevel;
 	private _barEnd = (_currentXP / _nextLevelXP);
 
 	createDialog "A3PL_iPhone_appLevel";
