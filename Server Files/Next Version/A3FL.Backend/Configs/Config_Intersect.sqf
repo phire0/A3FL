@@ -263,7 +263,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheGunsVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_shopguns}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToExterminator",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_exterminatorjob}],
 	["spine3",localize"STR_QuickActionsNPC_ExterminatorShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_exterminatorjob}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheSupermarket",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_supermarket_1]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheSupermarket",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_supermarket_1,npc_supermarket_N]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheSupermarket2",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_supermarket_2]}],
 	["spine3",localize"STR_QuickActionsNPC_SpeaktoAdherent",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkshop]}],
 	["spine3",localize"STR_QuickActionsNPC_SpeaktoThingsPerk",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkthingshop]}],
