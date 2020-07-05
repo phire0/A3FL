@@ -24,6 +24,8 @@ Config_Vehicles_Admin = [
 publicVariable "Config_Vehicles_Admin";
 
 Config_Vehicles_Capacity = [
+	["A3PL_EMS_Locker",800],
+
 	["A3PL_Fatboy",20],
 
 	["K_Scooter_DarkBlue",25],
