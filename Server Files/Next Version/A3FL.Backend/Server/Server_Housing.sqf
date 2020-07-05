@@ -85,12 +85,15 @@
 	_actualitems = _cargoItems select 2;
 	_backpacks = _cargoItems select 3;
 
-	//add items [["srifle_EBR_F"],[],[]]
 	{_box addWeaponCargoGlobal [_x,1]} foreach _weapons;
 	{_box addMagazineCargoGlobal [_x,1]} foreach _magazines;
 	{_box addItemCargoGlobal [_x,1]} foreach _actualitems;
 	{_box addBackpackCargoGlobal [_x,1]} foreach _backpacks;
 	_box setVariable ["storage",_vitems,true];
+
+	//Capacity
+	private _sCapacity = [_house,3] call A3PL_Housing_GetData;
+	_box setVariable ["capacity",_sCapacity,true];
 },true] call Server_Setup_Compile;
 
 ["Server_Housing_SaveBox",

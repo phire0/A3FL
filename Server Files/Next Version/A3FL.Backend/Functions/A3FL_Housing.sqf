@@ -12,7 +12,6 @@
 	private ["_box","_display","_control"];
 	_box = param [0,player_objintersect];
 	if (isNull _box) exitwith {[localize"STR_NewHousing_1)"] call A3PL_Player_Notification;};
-
 	if (player distance _box > 5 ) exitwith {["You are too far away from this box to open it!","red"] call A3PL_Player_Notification;};
 	if (_box getVariable ["inuse",false]) exitwith {[localize"STR_NewHousing_2","red"] call A3PL_Player_Notification;};
 	_box setVariable ["inuse",true,true];
@@ -27,6 +26,8 @@
 	_control ctrlAddeventhandler ["ButtonDown",{[false] call A3PL_Housing_VirtualChange;}];
 
 	_display displayAddEventHandler ["unload",{A3PL_Housing_StorageBox setVariable ["inuse",nil,true]; A3PL_Housing_StorageBox = nil;}];
+
+	_capacity = _box getVariable ["capacity",0];
 
 	[_display,_box] call A3PL_Housing_VirtualFillLB;
 }] call Server_Setup_Compile;
@@ -229,7 +230,7 @@
 		if((_x select 0) == _class) exitWith {
 			_price = _x select _search;
 		};
-	} forEach Config_Houses_Prices;
+	} forEach Config_Houses;
 	_price;
 }] call Server_Setup_Compile;
 
