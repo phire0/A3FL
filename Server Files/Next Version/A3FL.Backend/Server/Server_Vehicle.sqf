@@ -80,41 +80,6 @@
 	_return;
 },true] call Server_Setup_Compile;
 
-["Server_Vehicle_HandleDestroyed",
-{
-	private ["_veh","_ownerID","_sirenObj"];
-	_veh = param [0,objNull];
-	_ownerID = _veh getVariable "owner";
-	_msg = param [1,false];
-	if (!isNil "_ownerID") then //just in-case
-	{
-		private ["_player"];
-		_ownerUID = _ownerID select 0;
-		_ownerID = _ownerID select 1;
-
-		//delete vehicle from database
-		/*_query = format ["DELETE FROM objects WHERE id=""%1""",_ownerID];
-		[_query,1] spawn Server_Database_Async;*/
-
-		if (_msg) then
-		{
-			_player = objNull;
-			{
-				if (getPlayerUID _x == _ownerUID) exitwith
-				{
-					_player = _x;
-				};
-			} foreach allPlayers;
-			if (!isNull _player) then {[] remoteExec ["A3PL_Vehicle_DestroyedMsg",_player];};
-		};
-	};
-	[_veh] call A3PL_Vehicle_SoundSourceClear;
-	_sirenObj = _veh getVariable ["sirenObj",objNull];
-
-	if (!isNull _sirenObj) then {deleteVehicle _sirenObj;};
-	deleteVehicle _veh;
-},true] call Server_Setup_Compile;
-
 ['Server_Vehicle_Spawn', {
 	private ['_class','_pos','_initfunction','_veh','_id',"_owner"];
 
@@ -453,7 +418,7 @@
 	_light_1 attachTo [_this, [0.03, 0, 0.8], "Floodlight_1"];
 	_light_2 attachTo [_this, [-0.03, 0, 0.8], "Floodlight_2"];
 	_light_2 setdir 180;
-	[_this,"A3PL_Pierce_Pumper"] call A3PL_FD_SetPumperNumber;
+	[_this,"A3PL_Silverado_FD_Brush"] call A3PL_FD_SetBrushNumber;
 	_this setVariable ["water",0,true];
 	_this setVariable ["pressure","low",true];
 	_this animate ["Water_Gauge1",0];
@@ -497,7 +462,6 @@
         private _role = param [1,"none"];
         if(_role isEqualTo "driver") then {[_vehicle] spawn Server_Fuel_Vehicle;};
     }];
-	_veh addEventHandler ["Killed",{[(_this select 0)] call Server_Vehicle_HandleDestroyed;}];
 	if (_veh isKindOf "LandVehicle") then {
 		_veh animate ["Camo1",1];
 		_veh animate ["Glass0_destruct",1];

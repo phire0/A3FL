@@ -67,6 +67,16 @@
 	_veh setVariable["rescue_id", str(_Number2) + str(_Number3),true];
 }] call Server_Setup_Compile;
 
+['A3PL_FD_SetBrushNumber',
+{
+	private _veh = _this select 0;
+	private _type_1 = _this select 1;
+	private _TruckNumber = {(typeOf _x isEqualTo _type_1)} count vehicles;
+	private _TruckNumber1 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _TruckNumber + 6];
+	_veh setObjectTextureGlobal [8, _TruckNumber1 ];
+	_veh setVariable["brush_id", str(_Number1),true];
+}] call Server_Setup_Compile;
+
 ["A3PL_FD_HandleJaws",
 {
 	private _pJob = player getVariable["job","unemployed"];
@@ -74,7 +84,6 @@
 	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];
 	private _nameIntersect = missionNameSpace getVariable ["player_nameintersect",""];
 
-	//front left/driver
 	if ((player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 2) && (_nameIntersect IN ["glass2","door_lf","door_lf2","door_lf3","door_lf4","door_lf5","door_lf6"])) exitwith
 	{
 		if ((round random 10) > 6) then {
@@ -86,7 +95,6 @@
 			[localize"STR_NewFD_PinceError","red"] call A3PL_Player_Notification;
 		};
 	};
-
 	if ((player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 2) && (_nameIntersect IN ["glass3","glass4","glass5","door_lb","door_rb","door_rf","door_lb2","door_lb3","door_lb4","door_lb5","door_lb6","door_rb2","door_rb3","door_rb4","door_rb5","door_rb6","door_rf2","door_rf3","door_rf4","door_rf5","door_rf6"])) exitwith
 	{
 		if ((round random 10) > 6) then {
@@ -100,7 +108,6 @@
 			[localize"STR_NewFD_PinceError2","red"] call A3PL_Player_Notification;
 		};
 	};
-
 	if ((player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 10)) exitwith
 	{
 		if ((round random 10) > 6) then {
@@ -118,23 +125,16 @@
 
 ["A3PL_FD_HandleFireAxe",
 {
-	private ["_intersect","_nameintersect","_whitelist","_pJob"];
-
-	_whitelist = ["fifr","fisd","uscg","usms"];
-	_pJob = player getVariable["job","unemployed"];
+	private _whitelist = ["fifr","fisd","uscg","usms"];
+	private _pJob = player getVariable["job","unemployed"];
 	if(!(_pJob IN _whitelist)) exitWith {};
-
-	//get the intersect variables
-	_intersect = missionNameSpace getVariable ["player_objintersect",objNull];
-	_nameIntersect = missionNameSpace getVariable ["player_nameintersect",""];
-
-	//distance to door < 2 and we are looking at a door
+	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];
+	private _nameIntersect = missionNameSpace getVariable ["player_nameintersect",""];
 	if ((player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 2) && (_nameIntersect IN ["door_bankvault","door_1","door_2","door_3","door_4","door_5","door_6","door_7","door_8","door_9","door_10","door_11","door_12","door_13","door_14","door_15","door_16","door_17","door_18","door_19","door_20","door_21","door_22","door_23","door_24","door_25","door_26","door_27","door_28","door_29","door_30","door_31","door_32","door_33","door_34","door_35","door_36","door_37","door_38","door_39","door_40","door_41","door_42","door_43","door_44","door_45","door_46","door_47","door_48","door_49","door_50","storagedoor1","storagedoor2","storagedoor3","sdstoragedoor3","sdstoragedoor6","door_1_button","door_2_button","door_3_button","door_4_button","door_5_button","door_6_button","door_7_button","door_8_button","door_9_button","door_10_button","door_11_button","door_12_button","door_13_button","door_14_button","door_15_button","door_16_button","door_17_button","door_18_button","door_19_button","door_20_button","door_21_button","door_22_button","door_23_button","door_24_button","door_25_button","door_26_button","door_27_button","door_28_button","door_29_button","door_30_button","door_1_button2","door_2_button2","door_3_button2","door_4_button2","door_5_button2","door_6_button2","door_7_button2","door_8_button2","door_9_button2","door_10_button2","door_11_button2","door_12_button2","door_13_button2","door_14_button2","door_15_button2","door_16_button2","door_17_button2","door_18_button2","door_19_button2","door_20_button2","door_21_button2","door_22_button2","door_23_button2","door_24_button2","door_25_button2","door_26_button2","door_27_button2","door_28_button2","door_29_button2","door_30_button2","door_8_button1","door_8_button2"])) then
 	{
-		private ["_var"];
 		if (_nameIntersect IN ["door_1_button","door_2_button","door_3_button","door_4_button","door_5_button","door_6_button","door_7_button","door_8_button","door_9_button","door_10_button","door_11_button","door_12_button","door_13_button","door_14_button","door_15_button","door_16_button","door_17_button","door_18_button","door_19_button","door_20_button","door_21_button","door_22_button","door_23_button","door_24_button","door_25_button","door_26_button","door_27_button","door_28_button","door_29_button","door_30_button","door_1_button2","door_2_button2","door_3_button2","door_4_button2","door_5_button2","door_6_button2","door_7_button2","door_8_button2","door_9_button2","door_10_button2","door_11_button2","door_12_button2","door_13_button2","door_14_button2","door_15_button2","door_16_button2","door_17_button2","door_18_button2","door_19_button2","door_20_button2","door_21_button2","door_22_button2","door_23_button2","door_24_button2","door_25_button2","door_26_button2","door_27_button2","door_28_button2","door_29_button2","door_30_button2","door_8_button1","door_8_button2"]) then {[] call A3PL_Intersect_HandleDoors;};
-		_var = format ["damage_%1",_nameintersect]; //ex. damage_door1
-		if (((_intersect getVariable [_var,0]) + 0.2) > 1) exitwith //open door and reset damage variable
+		private _var = format ["damage_%1",_nameintersect];
+		if (((_intersect getVariable [_var,0]) + 0.2) > 1) exitwith
 		{
 			_intersect animate [_nameIntersect,1];
 			_intersect setvariable [_var,0,false];
@@ -150,28 +150,20 @@
 //Connect an adapter to a source such as a fire hydrant
 ["A3PL_FD_ConnectAdapter",
 {
-	private ["_hydrant","_adapter","_itemClass","_pos","_dir"];
-
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-
-	//check for correct types just to make sure (ropes can cause crashes sometimes)
-	_hydrant = param [0,objNull];
+	private _hydrant = param [0,objNull];
 	if (!((typeOf _hydrant) IN ["Land_A3PL_FireHydrant","Land_A3PL_Gas_Station"])) exitwith {[localize"STR_NewFD_Hydrant","red"] call A3PL_Player_Notification;};
 	if (((count (attachedObjects _hydrant)) > 0) && (typeOf _hydrant == "Land_A3PL_FireHydrant")) exitwith {[localize"STR_NewFD_Adaptator","red"] call A3PL_Player_Notification;};
 	if (player_itemClass != "FD_adapter") exitwith {[localize"STR_NewFD_AdapterNo","red"] call A3PL_Player_Notification;};
-
-	switch (typeOf _hydrant) do
-	{
+	switch (typeOf _hydrant) do {
 		case ("Land_A3PL_FireHydrant"): {_pos = [-0.005,0.15,-0.076]; _dir = -180; _hydrant animateSource ["cap_hide",1];};
 		case ("Land_A3PL_Gas_Station"): {_pos = [-3.72154,3.51953,-2.1]; _dir = -90;};
 	};
 
-	_adapter = createVehicle ["A3PL_FD_HoseEnd1_Float",_hydrant modelToWorld _pos, [], 0, "CAN_COLLIDE"];
+	private _adapter = createVehicle ["A3PL_FD_HoseEnd1_Float",_hydrant modelToWorld _pos, [], 0, "CAN_COLLIDE"];
 	_adapter setDir (getDir _hydrant + _dir);
 
-	_itemClass = "FD_adapter";
-	//get rid of item
-	[player,_adapter,_itemClass] remoteExec ["Server_Inventory_Drop", 2];
+	[player,_adapter,"FD_adapter"] remoteExec ["Server_Inventory_Drop", 2];
 	deleteVehicle Player_Item;
 	Player_Item = objNull;
 	Player_ItemClass = "";
@@ -180,14 +172,10 @@
 
 ["A3PL_FD_WrenchRotate",
 {
-	private ["_wrench"];
-	_wrench = param [0,objNull];
-
-	if (_wrench animationSourcePhase "WrenchRotation" < 0.5) then
-	{
+	private _wrench = param [0,objNull];
+	if (_wrench animationSourcePhase "WrenchRotation" < 0.5) then {
 		_wrench animateSource ["WrenchRotation",1];
-	} else
-	{
+	} else {
 		_wrench animateSource ["WrenchRotation",0];
 	};
 	call A3PL_FD_ConnectAnimation;
@@ -195,18 +183,13 @@
 
 ["A3PL_FD_ConnectWrench",
 {
-	private ["_hydrant"];
-
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-
-	//check for correct types just to make sure (ropes can cause crashes sometimes)
-	_hydrant = param [0,objNull];
+	private _hydrant = param [0,objNull];
 	if (!(_hydrant isKindOf "Land_A3PL_FireHydrant")) exitwith {[localize"STR_NewFD_HydrantNo","red"] call A3PL_Player_Notification;};
 
-	_newWrench = createVehicle ["A3PL_FD_HydrantWrench_F",_hydrant modelToWorld [0,-0.25,0.445], [], 0, "CAN_COLLIDE"];
+	private _newWrench = createVehicle ["A3PL_FD_HydrantWrench_F",_hydrant modelToWorld [0,-0.25,0.445], [], 0, "CAN_COLLIDE"];
 	_newWrench setDir (getDir _hydrant);
 
-	//get rid of item
 	[player,_newWrench,"FD_hydrantwrench"] remoteExec ["Server_Inventory_Drop", 2];
 	deleteVehicle Player_Item;
 	Player_Item = objNull;
@@ -217,11 +200,8 @@
 //Connects a hose based on holding rolled hose
 ["A3PL_FD_ConnectHose",
 {
-	private ["_end"];
-
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-
-	_end = param [0,objNull];
+	private _end = param [0,objNull];
 	if (!(_end isKindOf "A3PL_FD_HoseEnd1_Float")) exitwith {[localize"STR_NewFD_AdapterNo2","red"] call A3PL_Player_Notification;};
 	if (!((attachedTo _end) isKindOf "Land_A3PL_FireHydrant")) exitwith {[localize"STR_NewFD_HydrantNo2","red"] call A3PL_Player_Notification;};
 	if ((count (ropes _end)) > 0) exitwith {[localize"STR_NewFD_HoseNo","red"] call A3PL_Player_Notification;};
@@ -239,29 +219,23 @@
 	_myAdapter = [] call A3PL_Lib_AttachedFirst;
 	_otherEnd = [_myAdapter] call A3PL_FD_FindOtherEnd;
 
-
-	if (_otherEnd == _end) exitwith
-	{
-		["Vous ne pouvez pas le connecter comme ça","red"] call A3PL_Player_Notification;
-	};
+	if (_otherEnd isEqualTo _end) exitwith {};
 
 	_TOEnd = typeOf _end;
 	_TOmyAdapter = typeOf _myAdapter;
 
 	if (!(_TOEnd IN ["A3PL_FD_HoseEnd1_Float","A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_FD_yAdapter","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush"])) exitwith {["You interact with no adapter or hose","red"] call A3PL_Player_Notification;};
 	if (!(_TOmyAdapter IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])) exitwith {["Vous ne possédez pas le type d'adaptateur correct (signalez-le s'il s'agit d'un bug)","red"] call A3PL_Player_Notification;};
+	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd1") && _TOEnd isEqualTo "A3PL_FD_HoseEnd1_Float") exitwith {["You connect a male adapter to a male adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
+	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd1") && _TOEnd isEqualTo "A3PL_FD_HoseEnd1") exitwith {["You connect a male adapter to a male adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
+	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd2") && _TOEnd isEqualTo "A3PL_FD_HoseEnd2") exitwith {["You connect a female adapter to a female adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
+	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd2") && _endName isEqualTo "fd_yadapter_in") exitwith {["You connect a female adapter to a Y adapter socket, use the other adapter on the other side of your hose","red"] call A3PL_Player_Notification;};
+	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd1") && _endName isEqualTo "fd_yadapter_out1") exitwith {["You connect a male adapter to a Y plug, use the other adapter on the other side of your pipe","red"] call A3PL_Player_Notification;};
+	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd1") && _endName isEqualTo "fd_yadapter_out2") exitwith {["You connect a male adapter to a Y plug, use the other adapter on the other side of your pipe","red"] call A3PL_Player_Notification;};
+	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd1") && _endName isEqualTo "fd_yadapter_out2") exitwith {["You connect a male adapter to a Y plug, use the other adapter on the other side of your pipe","red"] call A3PL_Player_Notification;};
+	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd2") && _endName IN ["inlet_ds"]) exitwith {["You connect a female adapter to a female input, use the other adapter on the other side of your hose","red"] call A3PL_Player_Notification;};
 
-	if (_TOmyAdapter == "A3PL_FD_HoseEnd1" && _TOEnd == "A3PL_FD_HoseEnd1_Float") exitwith {["You connect a male adapter to a male adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
-	if (_TOmyAdapter == "A3PL_FD_HoseEnd1" && _TOEnd == "A3PL_FD_HoseEnd1") exitwith {["You connect a male adapter to a male adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
-	if (_TOmyAdapter == "A3PL_FD_HoseEnd2" && _TOEnd == "A3PL_FD_HoseEnd2") exitwith {["You connect a female adapter to a female adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
-	if (_TOmyAdapter == "A3PL_FD_HoseEnd2" && _endName == "fd_yadapter_in") exitwith {["You connect a female adapter to a Y adapter socket, use the other adapter on the other side of your hose","red"] call A3PL_Player_Notification;};
-	if (_TOmyAdapter == "A3PL_FD_HoseEnd1" && _endName == "fd_yadapter_out1") exitwith {["You connect a male adapter to a Y plug, use the other adapter on the other side of your pipe","red"] call A3PL_Player_Notification;};
-	if (_TOmyAdapter == "A3PL_FD_HoseEnd1" && _endName == "fd_yadapter_out2") exitwith {["You connect a male adapter to a Y plug, use the other adapter on the other side of your pipe","red"] call A3PL_Player_Notification;};
-	if (_TOmyAdapter == "A3PL_FD_HoseEnd1" && _endName == "fd_yadapter_out2") exitwith {["You connect a male adapter to a Y plug, use the other adapter on the other side of your pipe","red"] call A3PL_Player_Notification;};
-	if (_TOmyAdapter == "A3PL_FD_HoseEnd2" && _endName IN ["inlet_ds"]) exitwith {["You connect a female adapter to a female input, use the other adapter on the other side of your hose","red"] call A3PL_Player_Notification;};
-
-	switch (_endName) do
-	{
+	switch (_endName) do {
 		case ("fd_yadapter_in"): {_dirOffset = -90; _attachOffset = [-0.15,0,0]; _end setVariable ["inlet",_myAdapter,true]};
 		case ("fd_yadapter_out1"): {_dirOffset = 115; _attachOffset = [0.07,-0.10,0];};
 		case ("fd_yadapter_out2"): {_dirOffset = 60; _attachOffset = [0.07,0.10,0];};
@@ -280,20 +254,16 @@
 		case ("outlet_bt_2"): {_dirOffset = 180; _attachOffset = [0,0,0]; _memOffset = "outlet_bt_2"; _animate = "outlet_bt_2_cap";};
 		case default {_dirOffset = -180; _attachOffset = [0,-0.04,0];};
 	};
-	switch (_TOEnd) do
-	{
+	switch (_TOEnd) do {
 		case ("A3PL_Fuel_Van"): {_dirOffset = 180; _attachOffset = [0,0,0]; _memOffset = "outlet_1"; _animate = "outlet_1_cap";};
 	};
 	_dir = getDir _end + _dirOffset;
 
-	if (!isNil "_memOffset") then
-	{
+	if (!isNil "_memOffset") then {
 		_myAdapter attachTo [_end,_attachOffset,_memOffset];
-	} else
-	{
+	} else {
 		_myAdapter attachTo [_end,_attachOffset];
 	};
-
 	if (!isNil "_animate") then { _end animate [_animate,1]; };
 
 	_myAdapter setDir (_dir + (360 - (getDir _end)));
@@ -303,8 +273,7 @@
 ["A3PL_FD_ConnectAnimation",
 {
 	player playmove "Acts_carFixingWheel";
-	[] spawn
-	{
+	[] spawn {
 		uiSleep 4;
 		player switchmove "";
 	};
@@ -313,22 +282,16 @@
 //This function can find a rope on an object, the first one it finds though
 ["A3PL_FD_FindHose",
 {
-	private ["_obj","_ropes"];
-	_obj = param [0,objNull];
-	_hose = objNull;
-
-	//find the hose
-	_ropes = ropes _obj;
-	if (count _ropes == 0) then
-	{
+	private _obj = param [0,objNull];
+	private _hose = objNull;
+	private _ropes = ropes _obj;
+	if ((count _ropes) isEqualTo 0) then {
 		_obj = ropeAttachedTo _obj;
 		_ropes = ropes _obj;
-		if (count _ropes != 0) then
-		{
+		if (count _ropes != 0) then {
 			_hose = _ropes select 0;
 		};
-	} else
-	{
+	} else {
 		_hose = _ropes select 0;
 	};
 	_hose;
@@ -337,18 +300,12 @@
 //find other end of rope
 ["A3PL_FD_FindOtherEnd",
 {
-	private ["_oEnd","_end"];
-	_end = param [0,objNull];
-	_oEnd = objNull;
-
-	_oEnd = ropeAttachedTo _end;
-
-	if (isNull _oEnd OR _oEnd == _end) then
-	{
-		private ["_ropeAttached"];
-		_ropeAttached = ropeAttachedObjects _end;
-		if (count _ropeAttached != 0) then
-		{
+	private _end = param [0,objNull];
+	private _oEnd = objNull;
+	private _oEnd = ropeAttachedTo _end;
+	if ((isNull _oEnd) OR (_oEnd isEqualTo _end)) then {
+		private _ropeAttached = ropeAttachedObjects _end;
+		if (count _ropeAttached != 0) then {
 			_oEnd = _ropeAttached select 0;
 		};
 	};
@@ -382,14 +339,12 @@
 	_selectionNames = ["inlet_r","inlet_ds","inlet_ps","outlet_ds","outlet_ps","outlet_1","outlet_2","outlet_3","outlet_4","inlet_bt","outlet_bt_1","outlet_bt_2"];
 	{
 		_selectionPosition = _veh modelToWorld (_veh selectionPosition _x);
-		if ((_end distance _selectionPosition) < 0.1) exitwith
-		{
+		if ((_end distance _selectionPosition) < 0.1) exitwith {
 			_found = _x;
 		};
 	} foreach _selectionNames;
 
 	if (isNil "_found") exitwith {_foundCap;};
-
 	switch (_found) do
 	{
 		case ("inlet_r"): {_foundCap = "inlet_r_cap"};
@@ -402,7 +357,6 @@
 		case ("outlet_2"): {_foundCap = "outlet_2_cap"};
 		case ("outlet_3"): {_foundCap = "outlet_3_cap"};
 		case ("outlet_4"): {_foundCap = "outlet_4_cap"};
-
 		case ("outlet_bt_1"): {_foundCap = "outlet_bt_1_cap"};
 		case ("outlet_bt_2"): {_foundCap = "outlet_bt_2_cap"};
 	};
@@ -622,7 +576,7 @@
 			_setZero = true;
 		};
 
-		if (_setZero && (_ammoWaterGun != 0)) then //only set to 0 if it isn't 0
+		if (_setZero && (_ammoWaterGun != 0)) then
 		{
 			_veh setVehicleAmmoDef 0;
 		};
@@ -633,9 +587,7 @@
 
 ["A3PL_FD_DropHose",
 {
-	private ["_adapter"];
-	_adapter = param [0,objNull];
-	detach _adapter;
+	detach (param [0,objNull]);
 }] call Server_Setup_Compile;
 
 //Roll a hose back up so it can be stored
@@ -767,22 +719,15 @@
 				_otherEnd = objNull;
 			};
 		};
-
-
 		_latestObject = _otherEnd;
 	};
 
-
-	if (_getAdapter) exitwith
-	{
+	if (_getAdapter) exitwith {
 		_source = _otherEnd; _source;
 	};
-
-	if (typeOf _latestObject in ["Land_A3PL_FireHydrant","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Silverado_FD_Brush"]) then
-	{
+	if (typeOf _latestObject in ["Land_A3PL_FireHydrant","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Silverado_FD_Brush"]) then {
 		_source = _latestObject;
-	} else
-	{
+	} else {
 		_source = objNull;
 	};
 	_source;
@@ -791,14 +736,10 @@
 //check the validity of a water source
 ["A3PL_FD_SourceAmount",
 {
-	private ["_source","_amount","_line","_end"];
-	_source = param [0,objNull];
-	_end = param [1,objNull];
-	_amount = 0;
-
+	private _source = param [0,objNull];
+	private _end = param [1,objNull];
+	private _amount = 0;
 	if (isNull _source) exitwith {_amount;};
-
-
 	switch (typeOf _source) do
 	{
 		case ("Land_A3PL_FireHydrant") do
@@ -814,7 +755,6 @@
 				};
 			};
 		};
-
 		case ("A3PL_Pierce_Pumper") do
 		{
 			if (_source animationPhase "ft_lever_7" < 0.5) exitwith {};
@@ -829,7 +769,6 @@
 				_amount = _source getVariable ["water",0];
 			};
 		};
-
 		case ("A3PL_Silverado_FD_Brush") do
 		{
 			if (_source animationPhase "ft_pump_switch" < 0.5) exitwith {};
@@ -850,11 +789,9 @@
 
 ["A3PL_FD_ChangeTruckPressure",
 {
-	private ["_currentPressure","_newPressure"];
-	_engine = _this select 0;
-	_currentPressure = _engine getvariable ["pressure","high"];
-	switch (_currentPressure) do
-	{
+	private _engine = _this select 0;
+	private _currentPressure = _engine getvariable ["pressure","high"];
+	switch (_currentPressure) do {
 		case ("high"): {_newPressure = "medium";};
 		case ("medium"): {_newPressure = "low";};
 		case ("low"): {_newPressure = "high";};

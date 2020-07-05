@@ -14,7 +14,7 @@
 	_type = param [1,""];
 	_info = param [2,""];
 
-	if (_type == "item") exitwith {
+	if (_type isEqualTo "item") exitwith {
 		switch (_info) do
 		{
 			case ("img"): {_return = "";};
@@ -22,22 +22,22 @@
 			case ("mainClass"): { _return = _mainClass;};
 		};
 		if (isNil "_return") then {_return = "ERROR"};
-		if (typeName _return == "BOOL") then {_return = "ERROR"};
+		if ((typeName _return) isEqualTo "BOOL") then {_return = "ERROR"};
 		_return;
 	};
 
-	switch (_type) do {
-		case ("car"): {_mainClass = "cfgVehicles"};
-		case ("weapon"): {_mainClass = "CfgWeapons"};
-		case ("magazine"): {_mainClass = "cfgMagazines"};
-		case ("mag"): {_mainClass = "cfgMagazines"};
-		case ("uniform"): {_mainClass = "CfgWeapons"};
-		case ("vest"): {_mainClass = "CfgWeapons"};
-		case ("headgear"): {_mainClass = "CfgWeapons"};
-		case ("backpack"): {_mainClass = "CfgWeapons"};
-		case ("goggles"): {_mainClass = "CfgGlasses"};
-		case ("aitem"): {_mainClass = "CfgWeapons"};
-		default {_mainClass = "cfgVehicles"};
+	_mainClass = switch (_type) do {
+		case ("car"): {"cfgVehicles"};
+		case ("weapon"): {"CfgWeapons"};
+		case ("magazine"): {"cfgMagazines"};
+		case ("mag"): {"cfgMagazines"};
+		case ("uniform"): {"CfgWeapons"};
+		case ("vest"): {"CfgWeapons"};
+		case ("headgear"): {"CfgWeapons"};
+		case ("backpack"): {"CfgWeapons"};
+		case ("goggles"): {"CfgGlasses"};
+		case ("aitem"): {"CfgWeapons"};
+		default {"cfgVehicles"};
 	};
 
 	switch (_info) do {
@@ -54,34 +54,28 @@
 ["A3PL_Factory_DialogLoop",
 {
 	disableSerialization;
-	private ["_display","_var","_craftID","_control","_duration","_secLeft","_id","_timeEnd","_name"];
-	_display = findDisplay 45;
+	private _display = findDisplay 45;
 	if (isNull _display) exitwith {};
-	_type = ctrlText (_display displayCtrl 1100);
-	_var = player getVariable ["player_factories",[]];
+	private _type = ctrlText (_display displayCtrl 1100);
+	private _var = player getVariable ["player_factories",[]];
 	{
-		private ["_id"];
-		_id = _x select 0;
-		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) == _type) exitwith
-		{
-			_craftID = _id; //select what we are currently crafting at this factory
+		private _id = _x select 0;
+		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _type) exitwith {
+			_craftID = _id;
 		};
 	} foreach _var;
+	if (isNil "_craftID") exitwith {};
 
-	if (isNil "_craftID") exitwith {}; //no point in running this loop if we aren't crafting shit here
-
-	_id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
-	_duration = ([_id,_type,"time"] call A3PL_Config_GetFactory) * ([_craftID, "count"] call A3PL_Config_GetPlayerFactory); //duration for this item to finish crafting
-	_timeEnd = [_craftID, "finish"] call A3PL_Config_GetPlayerFactory;
-	_name = [_id,_type,"name"] call A3PL_Config_GetFactory;
-	if (_name == "inh") then {_name = [([_id,_type,"class"] call A3PL_Config_GetFactory),([_id,_type,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
-	_timeSleep = 0;
-	//Time End with level boost
-	_duration = [_duration] call A3PL_Factory_LevelBoost;
+	private _id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
+	private _duration = ([_id,_type,"time"] call A3PL_Config_GetFactory) * ([_craftID, "count"] call A3PL_Config_GetPlayerFactory);
+	private _timeEnd = [_craftID, "finish"] call A3PL_Config_GetPlayerFactory;
+	private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
+	if (_name isEqualTo "inh") then {_name = [([_id,_type,"class"] call A3PL_Config_GetFactory),([_id,_type,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
+	private _timeSleep = 0;
+	private _duration = [_duration] call A3PL_Factory_LevelBoost;
 	while {!isNull _display} do {
-		_secLeft = -(diag_ticktime) + _timeEnd;
+		private _secLeft = -(diag_ticktime) + _timeEnd;
 		(_display displayCtrl 1105) progressSetPosition (1-(_secLeft / _duration));
-		//set what we are currently crafting
 		if (_secLeft < 0) then {_secLeft = 0};
 		if(_secLeft > 60) then {
 			_minLeft = ceil (_secLeft/60);
@@ -95,7 +89,7 @@
 			(_display displayCtrl 1104) ctrlSetStructuredText parseText format ["<t size='0.92'>%1<br/>%2 second(s) remaining</t>",_name,ceil _secLeft];
 			_timeSleep = 1;
 		};
-		uiSleep _timeSleep;
+		sleep _timeSleep;
 		if (_secLeft <= 0) exitwith {};
 	};
 }] call Server_Setup_Compile;
@@ -103,30 +97,25 @@
 //can check whether we have an item in the factory storage or not. can also be used by the server
 ["A3PL_Factory_Has",
 {
-	private ["_item","_amount","_player","_has","_found","_storage","_type"];
-	_item = param [0,""];
-	_amount = param [1,1];
-	_type = param [2,""];
-	_player = param [3,player];
-	_has = false;
-	_found = false;
-	_storage = _player getVariable ["player_fstorage",[]];
-
+	private _item = param [0,""];
+	private _amount = param [1,1];
+	private _type = param [2,""];
+	private _player = param [3,player];
+	private _has = false;
+	private _found = false;
+	private _storage = _player getVariable ["player_fstorage",[]];
 	{
-		if (_x select 0 == _type) then
+		if ((_x select 0) isEqualTo _type) then
 		{
 			{
-				private ["_storageItem","_isFactory","_itemType"];
-				_storageItem = _x select 0;
-
-				_isFactory = _storageItem splitString "_";
-				if ((_isFactory select 0) == "f") then {_isFactory = true; _itemType = [_storageItem,_type,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
+				private _storageItem = _x select 0;
+				private _isFactory = _storageItem splitString "_";
+				if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true; _itemType = [_storageItem,_type,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
 				if (isNil "_itemType") then {_itemType = ""};
-				if (_isFactory && (_itemType == "item")) then {_storageItem = [_storageItem,_type,"class"] call A3PL_Config_GetFactory;};
-				if (_storageItem == _item) exitwith
+				if (_isFactory && (_itemType isEqualTo "item")) then {_storageItem = [_storageItem,_type,"class"] call A3PL_Config_GetFactory;};
+				if (_storageItem isEqualTo _item) exitwith
 				{
-					if ((_x select 1) >= _amount) then
-					{
+					if ((_x select 1) >= _amount) then {
 						_has = true
 					};
 					_found = true;
@@ -135,7 +124,6 @@
 			if (_found) exitwith {};
 		};
 	} foreach _storage;
-
 	_has;
 }] call Server_Setup_Compile;
 
@@ -152,7 +140,7 @@
 	{
 		private ["_id"];
 		_id = _x select 0;
-		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) == _type) exitwith {_alreadyCrafting = true;};
+		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _type) exitwith {_alreadyCrafting = true;};
 	} foreach _var;
 
 	if (!isNil "_alreadyCrafting") exitwith {[localize"STR_FACTORY_ACTIONINPROGRESS","red"] call A3PL_Player_Notification;};
@@ -202,7 +190,7 @@
 		_classname = [_craftID, "classname"] call A3PL_Config_GetPlayerFactory;
 		_id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
 		_name = [_id,_type,"name"] call A3PL_Config_GetFactory;
-		if (_name == "inh") then {_name = [_classname,_classType,"name"] call A3PL_Factory_Inheritance;};
+		if (_name isEqualTo "inh") then {_name = [_classname,_classType,"name"] call A3PL_Factory_Inheritance;};
 
 		uiSleep _sec;
 		[format [localize"STR_FACTORY_CRAFTEND",_name,_type,_toCraft],"green"] call A3PL_Player_Notification;
@@ -217,7 +205,7 @@
 		//delete from player_factories
 		_var = player getVariable ["player_factories",[]];
 		{
-			if (_x select 0 == _craftID) exitwith {_var deleteAt _forEachIndex};
+			if ((_x select 0) isEqualTo _craftID) exitwith {_var deleteAt _forEachIndex};
 		} foreach _var;
 	};
 }] call Server_Setup_Compile;
@@ -268,7 +256,7 @@
 
 	//set item information
 	_desc = [_id,"desc"] call A3PL_Config_GetItem;
-	if (typeName _desc == "BOOL") then
+	if (typeName _desc isEqualTo "BOOL") then
 	{
 		switch (_classType) do
 		{
@@ -286,41 +274,35 @@
 ["A3PL_Factory_Open",
 {
 	disableSerialization;
-	private ["_type","_display","_control","_recipes"];
-	_type = param [0,""];
-
-	//if we are carrying something
-	if (!isNull Player_Item) then {call A3PL_Inventory_PutBack;}; //fixes a dupe glitch
+	private _type = param [0,""];
+	if (!isNull Player_Item) then {call A3PL_Inventory_PutBack;};
 	createDialog "Dialog_Factory";
-	[] spawn A3PL_Factory_DialogLoop; //seperate dialog loop, takes care of progressbar
-	[_type] spawn A3PL_Factory_ObjectPreview; //seperate object preview loop
-	[_type] spawn
-	{
+	[] spawn A3PL_Factory_DialogLoop;
+	[_type] spawn A3PL_Factory_ObjectPreview;
+	[_type] spawn {
 		disableSerialization;
-		_type = param [0,""];
-		_display = findDisplay 45;
-		while {!isNull _display} do
-		{
+		private _type = param [0,""];
+		private _display = findDisplay 45;
+		while {!isNull _display} do {
 			[_type] call A3PL_Factory_Refresh;
 			uiSleep 0.5;
 		};
-	}; //loop to keep refreshing info
+	};
 
 	_display = findDisplay 45;
-
 	_control = _display displayCtrl 1600;
 	_control buttonSetAction "call A3PL_Factory_Craft";
 	_control = _display displayCtrl 1603;
 	_control buttonSetAction "call A3PL_Factory_Collect";
 	_control = _display displayCtrl 1601;
 	_control buttonSetAction "call A3PL_Factory_Add";
-	_control = _display displayCtrl 1100; //deal with setting text
+	_control = _display displayCtrl 1100;
 	_control CtrlSetText _type;
 	_control = _display displayCtrl 1502;
 	_control ctrlAddEventHandler ["LBSelChanged",{}];
 	_control = _display displayCtrl 1500; //controlgroup
 	_control ctrlAddEventHandler ["LBSelChanged",{[1500] call A3PL_Factory_SetRecipe;}];
-	_recipes = ["all",_type] call A3PL_Config_GetFactory; //return the recipe array
+	_recipes = ["all",_type] call A3PL_Config_GetFactory;
 	{
 		private ["_id","_img","_class","_i","_name"];
 		_id = _x select 0;
@@ -329,12 +311,10 @@
 		_name = [_id,_type,"name"] call A3PL_Config_GetFactory;
 		_classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
 		_parent = [_id,_type,"parent"] call A3PL_Config_GetFactory;
-		if (_img == "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;};
-		if (_name == "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;};
-
-		if (_parent != "") then {}; //Deal with parenting listbox, this is not *really* implemented yet,
-
-		_i = _control lbAdd _name; //prepare new lb entry
+		if (_img isEqualTo "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;};
+		if (_name isEqualTo "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;};
+		if (_parent != "") then {};
+		_i = _control lbAdd _name;
 		_control lbSetPicture [_i,_img];
 		_control lbSetData [_i,_id];
 	} foreach _recipes;
@@ -346,21 +326,19 @@
 //get the storage minus what we are using in crafting right now
 ["A3PL_Factory_GetStorage",
 {
-	private ["_subtract","_storage","_fact","_type"];
-	_type = param [0,""];
-
-	_storage = [_type,"items"] call A3PL_Config_GetPlayerFStorage;
-	if (typeName _storage == "BOOL") exitwith {_storage = []; _storage;};
-	_fact = player getVariable ["player_factories",[]];
-	_subtract = [];
+	private _type = param [0,""];
+	private _storage = [_type,"items"] call A3PL_Config_GetPlayerFStorage;
+	if ((typeName _storage) isEqualTo "BOOL") exitwith {_storage = []; _storage;};
+	private _fact = player getVariable ["player_factories",[]];
+	private _subtract = [];
 
 	{
 		private ["_class","_amount","_items"];
 		{
 			_class = _x select 0;
 			_amount = _x select 1;
-			_subtract = [_subtract, _class, _amount, true] call BIS_fnc_addToPairs; //required items as in A3PL_Config
-		} foreach (_x select 2); //as in 'required' from A3PL_Config
+			_subtract = [_subtract, _class, _amount, true] call BIS_fnc_addToPairs;
+		} foreach (_x select 2);
 	} foreach _fact;
 
 	{
@@ -370,56 +348,45 @@
 		_storage = [_storage, _class, -(_amount), true] call BIS_fnc_addToPairs;
 	} foreach _subtract;
 
-	//verify, delete less than 0
 	{
-		if ((_x select 1) < 1) then
-		{
+		if ((_x select 1) < 1) then {
 			_storage deleteAt _forEachIndex;
 		};
 	} forEach _storage;
-	//end of formating _storage
-
 	_storage;
 }] call Server_Setup_Compile;
 
-//refreshes info such as item storage and required
 ["A3PL_Factory_Refresh",
 {
 	disableSerialization;
-	private ["_type","_storage","_control","_display","_curSel","_inventory","_i","_near","_LBarray"];
-	_type = param [0,""];
-	_display = findDisplay 45;
+	private _type = param [0,""];
+	private _display = findDisplay 45;
 	if (isNull _display) exitwith {};
-	_control = _display displayCtrl 1502;
-	_storage = [_type] call A3PL_Factory_GetStorage;
-	_inventory = player getVariable ["player_inventory",[]];
-	if (typeName _storage == "BOOL") then {_storage = []};
+	private _control = _display displayCtrl 1502;
+	private _storage = [_type] call A3PL_Factory_GetStorage;
+	private _inventory = player getVariable ["player_inventory",[]];
+	if ((typeName _storage) isEqualTo "BOOL") then {_storage = []};
 
-	_lbArray = []; //we use this to quickly perform lbadd
+	_lbArray = [];
 	{
-		private ["_id","_name","_amount","_i","_img","_classType","_class","_isFactory"];
-		_id = _x select 0;
-		_amount = _x select 1;
-		_isFactory = _id splitString "_";
-		if ((_isFactory select 0) == "f") then {_isFactory = true;} else {_isFactory = false;};
-		if (_isFactory) then
-		{
+		private _id = _x select 0;
+		private _amount = _x select 1;
+		private _isFactory = _id splitString "_";
+		if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true;} else {_isFactory = false;};
+		if (_isFactory) then {
 			_img = [_id,_type,"img"] call A3PL_Config_GetFactory;
 			_name = [_id,_type,"name"] call A3PL_Config_GetFactory;
 			_class = [_id,_type,"class"] call A3PL_Config_GetFactory;
 			_classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
-			if (_img == "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;}; //get inheritant info if necesarry
-			if (_name == "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;}; //get inheritant info if necesarry
-		} else
-		{
+			if (_img isEqualTo "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;};
+			if (_name isEqualTo "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;};
+		} else {
 			_name = [_id,"name"] call A3PL_Config_GetItem;
 			_img = [_id,"icon"] call A3PL_Config_GetItem;
 		};
-
 		_lbArray pushback [format ["%1 (%2x)",_name,_amount],_id];
 	} foreach _storage;
 
-	//Refresh storage LB
 	lbClear _control;
 	{
 		_i = _control lbAdd (_x select 0);
@@ -444,7 +411,6 @@
 	_i = _control lbAdd format ["Cash (%1x)",(player getvariable ["player_cash",0])]; //add money
 	_control lbSetData [_i,"cash"];
 
-	//delete items with faction inventory or arma inventory
 	_near = nearestObjects [player, ["Thing"], 20];
 	{
 		if ((!isNil {_x getVariable ["ainv",nil]}) || (!isNil {_x getVariable ["finv",nil]}) || (isNil {_x getVariable ["class",nil]})) then
@@ -453,17 +419,15 @@
 		};
 	} foreach _near;
 	{
-		if ((_x getVariable ["owner",""]) == (getPlayerUID player)) then
+		if ((_x getVariable ["owner",""]) isEqualTo (getPlayerUID player)) then
 		{
-			private ["_i","_id","_amount"];
-			_id = _x getVariable ["class",""];
-			_amount = 1;
-			_i = _control lbAdd format ["%1 (%2x)",([_id,"name"] call A3PL_Config_GetItem),_amount];
+			private _id = _x getVariable ["class",""];
+			private _amount = 1;
+			private _i = _control lbAdd format ["%1 (%2x)",([_id,"name"] call A3PL_Config_GetItem),_amount];
 			_control lbSetData [_i,format ["OBJ_%1",_x]];
 		};
 	} foreach _near;
-
-	[1500,false] call A3PL_Factory_SetRecipe; //refresh recipe
+	[1500,false] call A3PL_Factory_SetRecipe;
 }] call Server_Setup_Compile;
 
 //this runs when we press the collect button
@@ -480,7 +444,7 @@
 	//anti-dupe for collecting items that are currently being crafted
 	_isCrafting = false;
 	{
-		if ((_x select 3) == _type) exitwith {_isCrafting = true;};
+		if ((_x select 3) isEqualTo _type) exitwith {_isCrafting = true;};
 	} foreach (player getVariable ["player_factories",[]]);
 	if (_isCrafting) exitwith {[localize"STR_FACTORY_EXTRACTITEM"] call A3PL_Player_Notification;};
 	//end of anti-dupe
@@ -514,7 +478,7 @@
 
 	//check if this was a near object
 	_splitted = _id splitString "_";
-	if ((_splitted select 0) == "OBJ") then
+	if ((_splitted select 0) isEqualTo "OBJ") then
 	{
 		_typeOf = "";
 		_typeOf = toArray _id;
@@ -529,7 +493,7 @@
 	if (_fail) exitwith {["System: Error retrieving object in _Factory_Add","red"] call A3PL_Player_Notification;};
 	if (isNil "_obj") then
 	{
-		if(_id == "cash")	exitwith {[localize"STR_FACTORY_STOCKMONEY","red"] call A3PL_Player_Notification;};
+		if(_id isEqualTo "cash")	exitwith {[localize"STR_FACTORY_STOCKMONEY","red"] call A3PL_Player_Notification;};
 		if(_id IN ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","keycard"]) exitwith {[localize"STR_FACTORY_ILLEGAL","red"] call A3PL_Player_Notification;};
 		[player,_type,[_id,_amount]] remoteExec ["Server_Factory_Add",2];
 	}
@@ -547,23 +511,20 @@
 ["A3PL_Factory_ObjectPreview",
 {
 	disableSerialization;
-	private ["_cam","_logic","_factory","_display","_dir","_interval"];
-	_factory = param [0,""];
-	_display = findDisplay 45;
-
-	_logic = "logic" createvehicleLocal [0,0,0];
+	private _factory = param [0,""];
+	private _display = findDisplay 45;
+	private _logic = "logic" createvehicleLocal [0,0,0];
 	_logic setposATL (["pos",_factory] call A3PL_Config_GetFactory);
-	_cam = "camera" camCreate [0,0,0];
+	private _cam = "camera" camCreate [0,0,0];
 	FACTORYCAMERA = _cam;
 	FACTORYLOGIC = _logic;
 	_cam camSetTarget _logic;
 	_cam camCommit 0;
 	_cam cameraEffect ["internal", "BACK"];
 	_cam attachto [_logic, [0,5,2]];
-	_dir = random 359;
-	_interval = 0.1;
-	while {!isNull _display} do
-	{
+	private _dir = random 359;
+	private _interval = 0.1;
+	while {!isNull _display} do {
 		_dir = _dir + _interval;
 		_logic setDir _dir;
 		uiSleep 0.01;
@@ -583,15 +544,14 @@
 ["A3PL_Factory_ObjectPreviewSpawn",
 {
 	disableSerialization;
-	private ["_factory","_id","_pos","_display","_camera","_logic","_itemType","_class"];
-	_factory = param [0,""];
-	_id = param [1,""];
-	_class = [_id,_factory,"class"] call A3PL_Config_GetFactory;
-	_itemType = [_id,_factory,"type"] call A3PL_Config_GetFactory;
-	_pos = ["pos",_factory] call A3PL_Config_GetFactory;
-	_display = findDisplay 45;
-	_camera = missionNameSpace getVariable ["FACTORYCAMERA",objNull];
-	_logic = missionNameSpace getVariable ["FACTORYLOGIC",objNull];
+	private _factory = param [0,""];
+	private _id = param [1,""];
+	private _class = [_id,_factory,"class"] call A3PL_Config_GetFactory;
+	private _itemType = [_id,_factory,"type"] call A3PL_Config_GetFactory;
+	private _pos = ["pos",_factory] call A3PL_Config_GetFactory;
+	private _display = findDisplay 45;
+	private _camera = missionNameSpace getVariable ["FACTORYCAMERA",objNull];
+	private _logic = missionNameSpace getVariable ["FACTORYLOGIC",objNull];
 	if (isNull _display) exitwith {};
 	{
 		deleteVehicle _x;
@@ -600,10 +560,9 @@
 	uiSleep 0.01;
 	if (!(call A3PL_Player_AntiListboxSpam)) exitwith {};
 
-	//deal with spawning item
 	switch (true) do
 	{
-		case (_itemType =="item"): //spawn with simulation disabled
+		case (_itemType isEqualTo "item"):
 		{
 			_class = [_class,"class"] call A3PL_Config_GetItem;
 			A3PL_FACTORY_OBJPRV = _class createvehicleLocal [0,0,0];
@@ -614,7 +573,7 @@
 			_camera attachto [_logic, [0,2,2]];
 		};
 
-		case (_itemType IN ["weapon","magazine","aitem","weaponitem","secweaponitem"]): //groundweaponholder
+		case (_itemType IN ["weapon","magazine","aitem","weaponitem","secweaponitem"]):
 		{
 			A3PL_FACTORY_OBJPRV = "groundWeaponHolder" createvehicleLocal [0,0,0];
 			switch (_itemType) do
@@ -631,7 +590,7 @@
 			_camera attachto [_logic, [0,0.1,1]];
 		};
 
-		case (_itemType IN ["car","plane","heli"]): //spawn with simulation enabled
+		case (_itemType IN ["car","plane","heli"]):
 		{
 			A3PL_FACTORY_OBJPRV = _class createvehicleLocal [0,0,0];
 			A3PL_FACTORY_OBJPRV allowDamage false;
@@ -640,14 +599,13 @@
 			_camera attachto [_logic, [0,5,2]];
 		};
 
-		case (_itemType IN ["vest","uniform","goggles","headgear","backpack"]): //spawn AI
+		case (_itemType IN ["vest","uniform","goggles","headgear","backpack"]):
 		{
 			A3PL_FACTORY_OBJPRV = "C_man_p_beggar_F" createvehicleLocal [0,0,0];
 			A3PL_FACTORY_OBJPRV allowDamage false;
 			A3PL_FACTORY_OBJPRV setPosATL [_pos select 0,_pos select 1,((_pos select 2) - 1)];
 			A3PL_FACTORY_OBJPRV setDir (random 359);
 			A3PL_FACTORY_OBJPRV enableSimulation false;
-			//A3PL_FACTORY_OBJPRV addweapon "arifle_AKM_F";
 			switch (_itemType) do
 			{
 				case ("uniform"): {removeUniform A3PL_FACTORY_OBJPRV; A3PL_FACTORY_OBJPRV addUniform _class; };
@@ -664,13 +622,12 @@
 
 ["A3PL_Factory_CrateInfo",
 {
-	private ["_crate","_ainv","_finv","_classType","_id","_amount","_forFaction"];
-	_crate = param [0,objNull];
-	_aInv = _crate getVariable ["ainv",nil]; //or finv
+	private _crate = param [0,objNull];
+	private _aInv = _crate getVariable ["ainv",nil];
 	if (isNil "_aInv") then {
 		_finv = _crate getVariable ["finv",nil];
 	};
-	if (isNil "_aInv" && isNil "_finv") exitwith {
+	if ((isNil "_aInv") && (isNil "_finv")) exitwith {
 		["System: Missing inv variables on this object in _CrateCheck -> report this bug","red"] call A3PL_Player_Notification;
 	};
 
@@ -685,38 +642,33 @@
 		_amount = _fInv select 2;
 		_forFaction = _fInv select 3;
 	};
-	if (_forFaction == "") then {_forFaction = "All"};
+	if (_forFaction isEqualTo "") then {_forFaction = "All"};
 	_return = [_classType,_id,_amount,_forFaction];
 	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Factory_CrateName",
 {
-	private ["_classType","_id","_name"];
-	_id = param [0,""];
-	_classType = param [1,""];
-
-	_name = "ERROR";
-	switch (true) do
-	{
-		case (_classType == "item"): {
+	private _id = param [0,""];
+	private _classType = param [1,""];
+	private _name = "ERROR";
+	switch (true) do {
+		case (_classType isEqualTo "item"): {
 			_name = [_id,"name"] call A3PL_Config_GetItem;
 		};
-		//["car","weapon","magazine","mag","uniform","vest","headgear","backpack","goggles"]
 		case default {
-			private ["_mainClass"];
-			switch (_classtype) do {
-				case ("car"): {_mainClass = "cfgVehicles"};
-				case ("weapon"): {_mainClass = "CfgWeapons"};
-				case ("magazine"): {_mainClass = "cfgMagazines"};
-				case ("mag"): {_mainClass = "cfgMagazines"};
-				case ("uniform"): {_mainClass = "CfgWeapons"};
-				case ("vest"): {_mainClass = "CfgWeapons"};
-				case ("headgear"): {_mainClass = "CfgWeapons"};
-				case ("backpack"): {_mainClass = "CfgWeapons"};
-				case ("goggles"): {_mainClass = "CfgGlasses"};
-				case ("aitem"): {_mainClass = "CfgWeapons"};
-				default {_mainClass = "cfgVehicles"};
+			private _mainClass = switch (_classtype) do {
+				case ("car"): {"cfgVehicles"};
+				case ("weapon"): {"CfgWeapons"};
+				case ("magazine"): {"cfgMagazines"};
+				case ("mag"): {"cfgMagazines"};
+				case ("uniform"): {"CfgWeapons"};
+				case ("vest"): {"CfgWeapons"};
+				case ("headgear"): {"CfgWeapons"};
+				case ("backpack"): {"CfgWeapons"};
+				case ("goggles"): {"CfgGlasses"};
+				case ("aitem"): {"CfgWeapons"};
+				default {"cfgVehicles"};
 			};
 			_name = getText (configFile >> _mainClass >> _id >> "displayName");
 		};
@@ -737,7 +689,7 @@
 	_forFaction = _info select 3;
 
 	_exit = false;
-	if(_forFaction == "All") then {
+	if(_forFaction isEqualTo "All") then {
 		_owner = _crate getVariable ["owner",""];
 		if (_owner != (getPlayerUID player)) exitwith {
 			[localize"STR_FACTORY_OWNERSELL","red"] call A3PL_Player_Notification;
@@ -754,7 +706,7 @@
 
 	_fail = false;
 	_exit = false;
-	if(_classType == "item") then {
+	if(_classType isEqualTo "item") then {
 		[_id,_amount] call A3PL_Inventory_Add;
 	} else {
 		switch (_classtype) do {
@@ -790,33 +742,25 @@
 	[format [localize"STR_FACTORY_COLLECTOK",_amount,_name],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
-//Check what's inside a crate/garmant
 ["A3PL_Factory_CrateCheck",
 {
-	private ["_crate","_info","_classType","_id","_amount","_forFaction","_name"];
-	_crate = param [0,objNull];
-	if ((isNil {_crate getVariable ["aInv",nil]}) && (isNil {_crate getVariable ["fInv",nil]})) exitwith
-	{
-		//regular item
-		_id = _crate getVariable ["class",""];
-		_amount = _crate getVariable ["amount",1];
-		_name = [_id,"name"] call A3PL_Config_GetItem;
+	private _crate = param [0,objNull];
+	if ((isNil {_crate getVariable ["aInv",nil]}) && (isNil {_crate getVariable ["fInv",nil]})) exitwith {
+		private _id = _crate getVariable ["class",""];
+		private _amount = _crate getVariable ["amount",1];
+		private _name = [_id,"name"] call A3PL_Config_GetItem;
 		[format [localize"STR_FACTORY_GETITEM",_amount,_name],"green"] call A3PL_Player_Notification;
 	};
-	_info = [_crate] call A3PL_Factory_CrateInfo;
-	_classtype = _info select 0;
-	_id = _info select 1;
-	_amount = _info select 2;
-
+	private _info = [_crate] call A3PL_Factory_CrateInfo;
+	private _amount = _info select 2;
 	[format [localize"STR_FACTORY_GETITEMFACTION",_amount,_name],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Factory_LevelBoost",
 {
-	private ["_timeEnd","_coeff","_level"];
-	_timeEnd = param [0,0];
-	_level = player getVariable["Player_Level",0];
-	_coeff = switch(true) do {
+	private _timeEnd = param [0,0];
+	private _level = player getVariable["Player_Level",0];
+	private _coeff = switch(true) do {
 		case (_level >= 5): {0.05};
 		case (_level >= 10): {0.1};
 		case (_level >= 15): {0.15};
@@ -833,19 +777,16 @@
 	_timeEnd;
 }] call Server_Setup_Compile;
 
-//USED FOR IPHONE APP
 ["A3PL_Factory_GetRemaining",
 {
-	private ["_factory","_time","_craftID","_var"];
-	_factory = param [0,"Undefined"];
-
+	private _factory = param [0,"Undefined"];
 	if(_factory isEqualTo "Undefined") exitWith {};
-
-	_time = "";
-	_craftID = -1;
-	_var = player getVariable ["player_factories",[]];
+	private _time = "";
+	private _craftID = -1;
+	private _var = player getVariable ["player_factories",[]];
+	private _time = "";
 	{
-		if (([(_x select 0), "type"] call A3PL_Config_GetPlayerFactory) == _factory) exitWith {_craftID = (_x select 0);};
+		if (([(_x select 0), "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _factory) exitWith {_craftID = (_x select 0);};
 	} foreach _var;
 
 	if(_craftID < 0) then {
@@ -859,32 +800,27 @@
 
 ["A3PL_Factory_GetRemainingName",
 {
-	private ["_factory","_return","_craftID","_var","_id"];
-	_factory = param [0,"Undefined"];
-
+	private _factory = param [0,"Undefined"];
 	if(_factory isEqualTo "Undefined") exitWith {};
-
-	_return = "";
-	_craftID = -1;
-	_var = player getVariable ["player_factories",[]];
+	private _return = "";
+	private _craftID = -1;
+	private _var = player getVariable ["player_factories",[]];
 	{
-		if (([(_x select 0), "type"] call A3PL_Config_GetPlayerFactory) == _factory) exitWith {_craftID = (_x select 0);};
+		if (([(_x select 0), "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _factory) exitWith {_craftID = (_x select 0);};
 	} foreach _var;
-
 	if(_craftID < 0) exitWith {""};
 
-	_id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
-	_return = [_id,_factory,"name"] call A3PL_Config_GetFactory;
-	if (_return == "inh") then {_return = [([_id,_factory,"class"] call A3PL_Config_GetFactory),([_id,_factory,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
+	private _id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
+	private _return = [_id,_factory,"name"] call A3PL_Config_GetFactory;
+	if (_return isEqualTo "inh") then {_return = [([_id,_factory,"class"] call A3PL_Config_GetFactory),([_id,_factory,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
 	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Factory_AdjustRemaining",
 {
-	private ["_time","_return"];
-	_time = param [0,"0"];
-
-	_time = round(parseNumber(_time));
+	private _time = param [0,"0"];
+	private _time = round(parseNumber(_time));
+	private _return = "";
 	if (_time < 0) then {_time = 0};
 	if(_time > 60) then {
 		_minLeft = ceil (_time/60);

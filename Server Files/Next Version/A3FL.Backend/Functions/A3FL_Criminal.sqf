@@ -190,18 +190,12 @@
 
 ['A3PL_Criminal_Drag',
 {
-	private ['_civ',"_dragged"];
-	_civ = _this select 0;
-
-	_dragged = _civ getVariable ["dragged",false];
-	//stop dragging here
-	if (_dragged) exitwith
-	{
-		_civ setVariable ["dragged",Nil,true];
+	private _civ = _this select 0;
+	private _dragged = _civ getVariable ["dragged",false];
+	if (_dragged) exitwith {
+		_civ setVariable ["dragged",nil,true];
 	};
-
-	if ((animationState _civ IN ["a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked"]) || (surfaceIsWater position player)) then
-	{
+	if (_civ getVariable["Zipped",false]) then {
 		[player] remoteExec ["A3PL_Criminal_DragReceive", _civ];
 	} else {
 		[localize"STR_NewPolice_8", "red"] call A3PL_Player_Notification;
@@ -210,32 +204,32 @@
 
 ['A3PL_Criminal_DragReceive',
 {
-	private ["_dragState","_crim"];
-	_crim = param [0,objNull];
-
+	private _crim = param [0,objNull];
 	[localize"STR_NewPolice_9", "red"] call A3PL_Player_Notification;
 	player setVariable ["dragged",true,true];
-	[player,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
 	["gesture_restrain"] call A3PL_Lib_Gesture;
+	[player,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
 	player forceWalk true;
 	[_crim] spawn
 	{
-		private ["_var","_crim"];
-		_crim = param [0,objNull];
+		private _crim = param [0,objNull];
 		if (isNull _crim) exitwith {};
-		while {(player getVariable ["dragged",false]) && (vehicle _crim isKindOf "Civilian_F")} do
+		while {player getVariable ["dragged",false] && ((vehicle _crim) isKindOf "Civilian_F")} do
 		{
-				uiSleep 2;
 				if (isNull _crim) exitwith {};
-				if (((player distance _crim) > 4) && (vehicle _crim isKindOf "Civilian_F")) then
-				{
+				if ((player distance _crim) > 5 && ((vehicle _crim) isKindOf "Civilian_F")) then {
 					player setposATL (getposATL _crim);
 				};
+				if(!(player getVariable["Zipped",true])) then {player setVariable ["dragged",nil,true];};
+				["gesture_restrain"] call A3PL_Lib_Gesture;
 		};
-		[localize"STR_NewPolice_10", "red"] call A3PL_Player_Notification;
 		player forceWalk false;
-		["gesture_stop"] call A3PL_Lib_Gesture;
-		[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];
+		player setVariable ["dragged",nil,true];
+		[localize"STR_NewPolice_10", "red"] call A3PL_Player_Notification;
+		if((vehicle player) isEqualTo player) then {
+			["gesture_stop"] call A3PL_Lib_Gesture;
+			[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];
+		};
 	};
 }] call Server_Setup_Compile;
 

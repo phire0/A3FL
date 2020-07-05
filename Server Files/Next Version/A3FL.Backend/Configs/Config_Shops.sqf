@@ -477,6 +477,7 @@ Config_Shops_Items = [
 			["magazine","A3FL_Mossberg_590K_8rnd_Breach",100,-1,0],
 			["aitem","acc_flashlight_pistol",50,0,0],
 			["aitem","acc_flashlight",50,-1,0],
+			["aitem","A3FL_Mossberg_590K_Flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0],
 			["aitem","optic_Holosight_blk_F",50,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}
@@ -767,6 +768,7 @@ Config_Shops_Items = [
 			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
 			["aitem","acc_flashlight_pistol",50,-1,0],
 			["aitem","acc_flashlight",50,-1,0],
+			["aitem","A3FL_Mossberg_590K_Flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0],
 			["aitem","optic_Holosight_blk_F",50,-1,0]
         ],{[2597.15,5429.76,10]}
@@ -904,6 +906,7 @@ Config_Shops_Items = [
 			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
 			["aitem","acc_flashlight_pistol",50,-1,0],
 			["aitem","acc_flashlight",50,-1,0],
+			["aitem","A3FL_Mossberg_590K_Flashlight",50,-1,0],
 			["aitem","optic_ACO_grn",50,-1,0],
 			["aitem","optic_Holosight_blk_F",50,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}

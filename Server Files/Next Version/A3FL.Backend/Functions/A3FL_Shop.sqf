@@ -24,8 +24,8 @@
 	};
 
 	_posConfig = [_shop,"pos"] call A3PL_Config_GetShop;
-	if (typeName _posConfig == "CODE") then {_pos = call _posConfig;};
-	if (typeName _posConfig == "OBJECT") then {_pos = getposASL _posConfig;};
+	if (typeName _posConfig isEqualTo "CODE") then {_pos = call _posConfig;};
+	if (typeName _posConfig isEqualTo "OBJECT") then {_pos = getposASL _posConfig;};
 
 	createDialog "Dialog_Shop";
 	_display = findDisplay 20;
@@ -228,7 +228,7 @@
 		case ("plane"): {[player,[_itemClass,1],"","plane"] remoteExec ["Server_Factory_Create", 2]; _itemName = getText (configFile >> "CfgVehicles" >> _itemClass >> "displayName");};
 		case ("weapon"): {
 			_itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName");
-			if(_itemClass == "A3PL_FireExtinguisher") then {
+			if(_itemClass isEqualTo "A3PL_FireExtinguisher") then {
 				player addWeapon _itemClass;
 				uiSleep 0.1;
 				player addMagazines["A3PL_Extinguisher_Water_Mag", 1];
@@ -329,8 +329,8 @@
 		["Can not sell this item quantity because the store does not need more stock! (maximum stock of 500)","red"] call A3PL_Player_Notification;
 	};
 
-	if (_itemClass == "net") exitwith {[localize "STR_SHOP_SELLNETS","red"] call A3PL_Player_Notification;};
-	if (_itemClass == "bucket_empty") exitwith {[localize "STR_SHOP_SELLEMPTYBUCKETS","red"] call A3PL_Player_Notification;};
+	if (_itemClass isEqualTo "net") exitwith {[localize "STR_SHOP_SELLNETS","red"] call A3PL_Player_Notification;};
+	if (_itemClass isEqualTo "bucket_empty") exitwith {[localize "STR_SHOP_SELLEMPTYBUCKETS","red"] call A3PL_Player_Notification;};
 
 	_itemName = "UNKNOWN";
 	_has = false;
@@ -348,7 +348,7 @@
 				{
 					_near = nearestObjects [player, [([_itemClass,"class"] call A3PL_Config_GetItem)], 2, true];
 					{
-						if ((_x getVariable "class") == _itemClass) exitwith
+						if ((_x getVariable "class") isEqualTo _itemClass) exitwith
 						{
 							deleteVehicle _x;
 							_has = true;
@@ -360,7 +360,7 @@
 		};
 		case ("backpack"):
 		{
-			if (backpack player == _itemClass) then
+			if ((backpack player) isEqualTo _itemClass) then
 			{
 				removeBackpack player;
 				_itemName = getText (configFile >> "CfgVehicles" >> _itemClass >> "displayName");
@@ -374,7 +374,7 @@
 			_vehicle = objNull;
 			if (count _vehicles < 1) exitwith {["You can not find your vehicle nearby! Thank you to bring it closer to the store to sell!"] call A3PL_Player_Notification;};
 			{
-				if (((_x getVariable ["owner",[]]) select 0) == (getPlayerUID player) && (typeOf _x) == _itemClass) exitwith {
+				if (((_x getVariable ["owner",[]]) select 0) isEqualTo (getPlayerUID player) && (typeOf _x) isEqualTo _itemClass) exitwith {
 					_vehicle = _x;
 				};
 			} foreach _vehicles;
@@ -390,7 +390,7 @@
 			_vehicle = objNull;
 			if (count _vehicles < 1) exitwith {["You can not find your vehicle nearby! Thank you to bring it closer to the store to sell!"] call A3PL_Player_Notification;};
 			{
-				if (((_x getVariable ["owner",[]]) select 0) == (getPlayerUID player) && (typeOf _x) == _itemClass) exitwith {
+				if (((_x getVariable ["owner",[]]) select 0) isEqualTo (getPlayerUID player) && (typeOf _x) isEqualTo _itemClass) exitwith {
 					_vehicle = _x;
 				};
 			} foreach _vehicles;
@@ -423,7 +423,7 @@
 		};
 		case ("magazine"):
 		{
-			_MagCount = {_x == _itemClass} count magazines player;
+			_MagCount = {_x isEqualTo _itemClass} count magazines player;
 			if(_MagCount >= _amount) then {
 				_has = true;
 				for "_i" from 0 to _amount do {player removeMagazine _itemClass;};
@@ -501,8 +501,8 @@
 	_allItems = [_shop] call A3PL_Config_GetShop;
 
 	_posConfig = [_shop,"pos"] call A3PL_Config_GetShop;
-	if (typeName _posConfig == "CODE") then {_pos = call _posConfig;};
-	if (typeName _posConfig == "OBJECT") then {_pos = getposASL _posConfig;};
+	if (typeName _posConfig isEqualTo "CODE") then {_pos = call _posConfig;};
+	if (typeName _posConfig isEqualTo "OBJECT") then {_pos = getposASL _posConfig;};
 
 	_index = lbCurSel _control;
 	_item = _allItems select _index;
@@ -527,7 +527,7 @@
 		{
 			_itemName = [_itemClass,"name"] call A3PL_Config_GetItem;
 			_itemObjectClass = [_itemClass,"class"] call A3PL_Config_GetItem;
-			if (((_itemClass splitString "_") select 0) == "furn") then {_type = "furn";};
+			if (((_itemClass splitString "_") select 0) isEqualTo "furn") then {_type = "furn";};
 		};
 		case ("backpack"): { _itemName = getText (configFile >> "CfgVehicles" >> _itemClass >> "displayName"); _itemObjectClass = _itemClass; _type = "backpack"; };
 		case ("uniform"): { _itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName"); _itemObjectClass = _itemClass; _type = "uniform"; };
@@ -637,7 +637,7 @@
 			case ("A3PL_Jaws"): { A3PL_SHOP_ITEMPREVIEW setposATL [_pos select 0,_pos select 1,(_pos select 2)+1.2]; };
 			case default { A3PL_SHOP_ITEMPREVIEW setposATL [_pos select 0,_pos select 1,(_pos select 2)+0.9]; };
 		};
-		if (typeName _posConfig == "OBJECT") then { A3PL_SHOP_ITEMPREVIEW setDir (getDir _posConfig); };
+		if ((typeName _posConfig) isEqualTo "OBJECT") then { A3PL_SHOP_ITEMPREVIEW setDir (getDir _posConfig); };
 	};
 
 	switch (_type) do

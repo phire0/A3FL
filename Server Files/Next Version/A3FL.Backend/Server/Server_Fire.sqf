@@ -170,36 +170,41 @@
 
 ["Server_Fire_VehicleExplode",
 {
-	private _fireObject = param [0,objNull];
-	private _var = _fireObject getVariable ["owner",[]];
+	private _veh = param [0,objNull];
+	private _var = _veh getVariable ["owner",[]];
+
+	[_veh] call A3PL_Vehicle_SoundSourceClear;
+	_sirenObj = _veh getVariable ["sirenObj",objNull];
+	if (!isNull _sirenObj) then {deleteVehicle _sirenObj;};
+
 	if((count _var) > 0) then {
 		private _id = _var select 1;
 		private _uid = _var select 0;
 		private _player = [_uid] call A3PL_Lib_UIDToObject;
 		[_fireobject,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
-		[_uid,"VehicleExplode",[typeOf _fireObject, _id]] remoteExec ["Server_Log_New",2];
+		[_uid,"VehicleExplode",[typeOf _veh, _id]] remoteExec ["Server_Log_New",2];
 
-		private _isInsured = _fireObject getVariable ["insurance",false];
+		private _isInsured = _veh getVariable ["insurance",false];
 		if(_isInsured) then {
-			[_fireObject] call Server_Storage_VehicleVirtual;
+			[_veh] call Server_Storage_VehicleVirtual;
 			private _query = format ["UPDATE objects SET insurance = '0', plystorage = '1' WHERE id = '%1'",_id];
 			[_query,1] spawn Server_Database_Async;
 		} else {
-			private _query = format ["UPDATE objects SET istorage = '[]', vstorage = '[]' WHERE id = '%1'",_id];
+			private _query = format ["UPDATE objects SET istorage = '[]', vstorage = '[]',impounded='1' WHERE id = '%1'",_id];
 			[_query,1] spawn Server_Database_Async;
 		};
 	};
 
 	private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
 	if ((count(_fifr)) >= 5) then {
-		private _marker = createMarker [format ["vehiclefire_%1",random 4000], position (_fireObject)];
+		private _marker = createMarker [format ["vehiclefire_%1",random 4000], position (_veh)];
 		_marker setMarkerShape "ICON";
 		_marker setMarkerType "A3PL_Markers_FIFD";
 		_marker setMarkerText "FIRE";
 		_marker setMarkerColor "ColorWhite";
 		[localize"STR_SERVER_FIRE_VEHICLEFIREREPORT","red","fifr",3] call A3PL_Lib_JobMessage;
 		["A3PL_Common\effects\firecall.ogg",150,2,10] spawn A3PL_FD_FireStationAlarm;
-		[getposATL (_fireObject)] spawn Server_Fire_StartFire;
+		[getposATL (_veh)] spawn Server_Fire_StartFire;
 		sleep 230;
 		deleteMarker _marker;
 	};
