@@ -467,6 +467,10 @@
 		_veh animate ["Glass0_destruct",1];
 		if (_id != "-1") then {[_id,_veh] call Server_Vehicle_Init_SetLicensePlate;};
 	};
+	_veh addEventHandler ["Killed",{
+		_veh = param [0,objNull];
+		[_veh] spawn Server_Fire_VehicleExplode;
+	}];
 },true] call Server_Setup_Compile;
 
 ['Server_Vehicle_Trailer_Hitch',

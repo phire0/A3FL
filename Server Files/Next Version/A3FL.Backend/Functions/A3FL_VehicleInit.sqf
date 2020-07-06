@@ -109,11 +109,6 @@
 		_container = param [0,objNull];
 		[_container] remoteExec ["Server_Storage_Vehicle", 2];
 	}];
-	_veh addEventHandler ["Killed",{
-		_veh = param [0,objNull];
-		[_veh] remoteExec ["Server_Fire_VehicleExplode", 2];
-	}];
-
 	_initfunction = !isNil ('A3PL_Vehicle_Init_' + _class);
 
 	if (_initfunction) then

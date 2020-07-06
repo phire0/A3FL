@@ -99,36 +99,35 @@
 			} else {
 				_veh = vehicle player;
 			};
-			if(isNull _veh) exitWith {hint "1"};
-			if(!(_veh IN A3PL_Player_Vehicles)) exitWith {hint "2"};
-			if((player distance _veh) < 15) exitWith {hint "3"};
+			if(isNull _veh) exitWith {};
+			if(!(_veh IN A3PL_Player_Vehicles)) exitWith {};
+			if((player distance _veh) > 10) exitWith {};
 			if(_veh getVariable ["locked",true]) then {
 				_veh setVariable ["locked",false,true];
 				[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
 				playSound3D ["A3PL_Common\effects\carunlock.ogg", _veh, true, _veh, 3, 1, 30];
 			} else {
 				_veh setVariable ["locked",true,true];
-				[localize "STR_INTER_LOCKVD", "green"] call A3PL_Player_Notification;
+				[localize "STR_INTER_LOCKVD", "red"] call A3PL_Player_Notification;
 				playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", _veh, true, _veh, 3, 1, 30];
 			};
-			hint "4";
 		}, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","trunk_key", "Open/Close Vehicle Trunk",
 		{
 			private["_veh"];
 			if (animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
-
-			if(vehicle player == player) then {
+			if((vehicle player) isEqualTo player) then {
 				_veh = player_objintersect;
 			} else {
 				_veh = vehicle player;
 			};
 
-			if(!(_veh isKindOf "Car")) exitWith {};
+			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {};
 			if ((player distance _veh > 5)) exitWith {};
-			if ((_veh getVariable["locked",true])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
+			if ((_veh getVariable["locked",false])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
 			if(isNull _veh || {isNil '_veh'}) exitWith {};
+			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && ((_veh getVariable["owner",""]) != (getPlayerUID player))) exitWith {};
 			if([typeOf (_veh)] call A3PL_Config_HasStorage) then {
 				[_veh] call A3PL_Vehicle_OpenStorage;
 			};
