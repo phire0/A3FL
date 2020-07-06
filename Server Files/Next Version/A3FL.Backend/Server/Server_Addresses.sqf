@@ -157,6 +157,7 @@
 	private _nearestRoad = (_building nearRoads 200) select 0;
 	private _roadObject = str(_nearestRoad);
 	private _roadID = parseNumber((_roadObject splitString ":") select 0);
+	if(isNil "_roadID") exitWith {_road;};
 	{
 		private ["_a","_b"];
 		_a = _x select 0;
