@@ -103,7 +103,7 @@
             <Original>Actually, I like this job, nevermind.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Accepted">
-            <Original>You are now a Roadside Service workerbr&lt;/&gt;Do I need to explain the job?</Original>
+            <Original>You are now a Roadside Service worker&lt;br/&gt;Do I need to explain the job?</Original>
         </Key>
         <Key ID="STR_NPC_Road_Accepted1">
             <Original>Nah, I'm good.</Original>
@@ -5492,7 +5492,7 @@
       <Original>1. Main Number ($800)</Original>
    </Key>
    <Key ID="STR_NPC_SECONDARYPHONE">
-      <Original>2. Secondary Number ($12500)</Original>
+      <Original>2. Secondary Number ($50000)</Original>
    </Key>
    <Key ID="STR_NPC_COMPANYPHONE">
       <Original>3. Business Number ($30000)</Original>
