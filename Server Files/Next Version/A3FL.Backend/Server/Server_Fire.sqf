@@ -181,7 +181,7 @@
 		private _id = _var select 1;
 		private _uid = _var select 0;
 		private _player = [_uid] call A3PL_Lib_UIDToObject;
-		[_fireobject,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
+		[_veh,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
 		[_uid,"VehicleExplode",[typeOf _veh, _id]] remoteExec ["Server_Log_New",2];
 
 		private _isInsured = _veh getVariable ["insurance",false];
