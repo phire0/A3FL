@@ -322,23 +322,22 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Cuff', {
-	private ['_obj'];
-	_obj = _this select 0;
-	if (animationState _obj IN ["amovpercmstpsnonwnondnon","amovpercmstpsraswrfldnon","amovpercmstpsraswpstdnon","amovpercmstpsraswlnrdnon"]) exitwith
+	private _obj = _this select 0;
+	if ((animationState _obj) IN ["amovpercmstpsnonwnondnon","amovpercmstpsraswrfldnon","amovpercmstpsraswpstdnon","amovpercmstpsraswlnrdnon"]) exitwith
 	{
 		[player,_obj,1] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
 		_obj setVariable ["Cuffed",true,true];
 	};
-	if (animationState _obj == "a3pl_idletohandsup") exitwith
+	if ((animationState _obj) isEqualTo "a3pl_idletohandsup") exitwith
 	{
 		[player,_obj,2] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
 		_obj setVariable ["Cuffed",true,true];
 	};
-	if (animationState _obj == "a3pl_handsuptokneel") exitwith
+	if ((animationState _obj) isEqualTo "a3pl_handsuptokneel") exitwith
 	{
 		[player,_obj,3] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
@@ -359,7 +358,7 @@
 		["handcuffs", 1] call A3PL_Inventory_Remove;
 		_obj setVariable ["Cuffed",true,true];
 	};
-	if (animationState _obj == "unconscious") exitwith
+	if ((animationState _obj) isEqualTo "unconscious") exitwith
 	{
 		[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
@@ -369,75 +368,51 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Uncuff', {
-	private ['_obj'];
-	_obj = _this select 0;
-
-	_Cuffed = _obj getVariable ["Cuffed",true];
-	if ((animationState _obj IN ["a3pl_handsuptokneel"]) && (_Cuffed)) exitwith
-	{
+	private _obj = _this select 0;
+	private _Cuffed = _obj getVariable ["Cuffed",true];
+	if (_Cuffed) then {
 		["handcuffs",1] call A3PL_Inventory_Add;
 		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",0];
 		_obj setVariable ["Cuffed",false,true];
-	};
-	if ((animationState _obj == "a3pl_handsupkneelkicked") && (_Cuffed)) exitwith
-	{
-		["handcuffs",1] call A3PL_Inventory_Add;
-		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",0];
-		_obj setVariable ["Cuffed",false,true];
-	};
-	if ((animationState _obj == "a3pl_handsupkneelcuffed") && (_Cuffed)) exitwith
-	{
-		["handcuffs",1] call A3PL_Inventory_Add;
-		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",0];
-		_obj setVariable ["Cuffed",false,true];
+		_obj setVariable ["dragged",nil,true];
 	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_CuffKick', {
-	private ['_obj'];
-	_obj = _this select 0;
-	if (animationState _obj IN ["a3pl_handsupkneelcuffed"]) exitwith {
+	private _obj = _this select 0;
+	if ((animationState _obj) isEqualTo "a3pl_handsupkneelcuffed") then {
 		[player,_obj,6] remoteExec ["A3PL_Police_HandleAnim", -2];
 	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_HandleAnim', {
-	private ['_cop','_civ','_number'];
-	_cop = _this select 0;
-	_civ = _this select 1;
-	_number = _this select 2;
-
+	private _cop = _this select 0;
+	private _civ = _this select 1;
+	private _number = _this select 2;
 	switch (_number) do
 	{
 		case 1:
 		{
-			//setDir of civ
 			if (local _civ) then
 			{
-				if (!isPlayer _civ) exitwith
-				{
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) + 50);
 				};
 				player setdir ((getDir player) + 50);
 			};
-
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_civ switchmove "A3PL_HandsupToKneel";
 				sleep 5;
 				_civ switchmove "A3PL_HandsupKneelGetCuffed";
 				_cop switchmove "A3PL_Cuff";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 4;
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
 				_civ switchmove "A3PL_HandsupKneelCuffed";
@@ -448,21 +423,17 @@
 		{
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_civ switchmove "A3PL_HandsupToKneel";
 				sleep 5;
 				_civ switchmove "A3PL_HandsupKneelGetCuffed";
 				_cop switchmove "A3PL_Cuff";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 4;
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
 				_civ switchmove "A3PL_HandsupKneelCuffed";
@@ -473,19 +444,15 @@
 		{
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_civ switchmove "A3PL_HandsupKneelGetCuffed";
 				_cop switchmove "A3PL_Cuff";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 4;
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
 				_civ switchmove "A3PL_HandsupKneelCuffed";
@@ -494,31 +461,23 @@
 		};
 		case 4:
 		{
-			//setDir of civ
-			if (local _civ) then
-			{
-				if (!isPlayer _civ) exitwith
-				{
+			if (local _civ) then {
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) + 50);
 				};
 				player setdir ((getDir player) + 50);
 			};
-
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_civ switchmove "A3PL_HandsupKneelGetCuffed";
 				_cop switchmove "A3PL_Cuff";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 4;
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
 				_civ switchmove "A3PL_HandsupKneelCuffed";
@@ -527,7 +486,6 @@
 		};
 		case 5:
 		{
-			//setDir of civ
 			if (local _civ) then
 			{
 				if (!isPlayer _civ) exitwith
@@ -538,33 +496,25 @@
 			};
 			_civ switchmove "A3PL_HandsupKneelKicked";
 		};
-
 		case 6:
 		{
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_cop switchmove "A3PL_CuffKickDown";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 1;
 				_civ switchmove "A3PL_HandsupKneelKicked";
 				sleep 3;
 				_cop switchmove "";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
-
-				if (local _civ) then
-				{
-					if (!isPlayer _civ) exitwith
-					{
+				if (local _civ) then {
+					if (!isPlayer _civ) exitwith {
 						_civ setdir ((getDir _civ) - 50);
 					};
 					player setdir ((getDir player) - 50);
@@ -572,22 +522,15 @@
 
 			};
 		};
-
 		case 7:
 		{
-			_civ spawn
-			{
-				private ["_cop","_civ"];
-				if (local _this) then
-				{
+			_civ spawn {
+				if (local _this) then {
 					_this setdir ((getDir _this) - 50);
 				};
-
-				if (animationState _this == "a3pl_handsupkneelcuffed") then
-				{
+				if ((animationState _this) isEqualTo "a3pl_handsupkneelcuffed") then {
 					_this switchmove "amovpknlmstpsnonwnondnon";
-				} else
-				{
+				} else {
 					_this switchmove "amovppnemstpsnonwnondnon";
 				};
 			};
@@ -597,9 +540,8 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Surrender', {
-	private ['_obj'];
-	_obj = _this select 0;
-	_upDown = _this select 1;
+	private _obj = _this select 0;
+	private _upDown = _this select 1;
 
 	//1 No hands up -> Hands up
 	//2 Hands up -> Normal
@@ -608,27 +550,27 @@
 	//5 Kneeled -> Kneeled hands up
 	//6 Prone -> Kneeled hands up
 
-	/*if (animationState _obj == "amovpercmstpsnonwnondnon") exitwith
+	/*if ((animationState _obj) isEqualTo "amovpercmstpsnonwnondnon") exitwith
 	{
 		[player,1] remoteExec ["A3PL_Police_SurrenderAnim",true];
 	};*/
-	if ((animationState _obj IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (_upDown)) exitwith
+	if (((animationState _obj) IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (_upDown)) exitwith
 	{
 		[player,2] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
-	if ((animationState _obj IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (!_upDown)) exitwith
+	if (((animationState _obj) IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (!_upDown)) exitwith
 	{
 		[player,3] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
-	if ((animationState _obj == "a3pl_handsuptokneel") && (_upDown)) exitwith
+	if (((animationState _obj) isEqualTo "a3pl_handsuptokneel") && (_upDown)) exitwith
 	{
 		[player,4] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
-	if (animationState _obj == "amovpknlmstpsnonwnondnon") exitwith
+	if ((animationState _obj) isEqualTo "amovpknlmstpsnonwnondnon") exitwith
 	{
 		[player,5] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
-	if (animationState _obj == "amovppnemstpsnonwnondnon") exitwith
+	if ((animationState _obj) isEqualTo "amovppnemstpsnonwnondnon") exitwith
 	{
 		[player,6] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
@@ -636,15 +578,12 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_SurrenderAnim', {
-	private ['_civ','_number'];
-	_civ = _this select 0;
-	_number = _this select 1;
-
+	private _civ = _this select 0;
+	private _number = _this select 1;
 	switch (_number) do
 	{
 		case 1:
 		{
-			//setDir of civ
 			if (local _civ) then
 			{
 				if (!isPlayer _civ) exitwith
@@ -655,59 +594,46 @@
 			};
 			_civ switchmove "A3PL_IdleToHandsup";
 		};
-
 		case 2:
 		{
-			//setDir of civ
-			if (local _civ) then
-			{
-				if (!isPlayer _civ) exitwith
-				{
+			if (local _civ) then {
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) - 50);
 				};
 				player setdir ((getDir player) - 50);
 			};
 			_civ switchmove "";
 		};
-
 		case 3:
 		{
 			_civ switchmove "A3PL_HandsupToKneel";
 		};
-
 		case 4:
 		{
 			_civ switchmove "A3PL_KneelToHandsup";
 		};
-
 		case 5:
 		{
 			if (local _civ) then
 			{
-				if (!isPlayer _civ) exitwith
-				{
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) - 50);
 				};
 				player setdir ((getDir player) - 50);
 			};
 			_civ switchmove "A3PL_HandsupKneel";
 		};
-
 		case 6:
 		{
-			if (local _civ) then
-			{
-				if (!isPlayer _civ) exitwith
-				{
+			if (local _civ) then {
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) - 50);
 				};
 				player setdir ((getDir player) - 50);
 			};
 			_civ switchmove "A3PL_HandsupKneel";
 		};
-
 	};
-
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DeploySpikes', {
