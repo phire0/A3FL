@@ -27,7 +27,7 @@
 	}
 	else {
 		_amount = _vehPrice * 0.04;
-	}
+	};
 	_amount;
 },true] call Server_Setup_Compile;
 

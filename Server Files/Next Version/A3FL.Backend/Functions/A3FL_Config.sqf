@@ -544,19 +544,6 @@
 	_return;
 }] call Server_Setup_Compile;
 
-["A3PL_Config_GetInsurancePrice",
-{
-	private _veh = param [0,objNull];
-	private _class = typeOf _veh;
-	private _return = 150000;
-	{
-		if((_x select 0) == _class) exitWith {
-			_return = (_x select 1);
-		};
-	} forEach Config_Vehicles_Insurance;
-	_return;
-}] call Server_Setup_Compile;
-
 ["A3PL_Config_isTaxed",
 {
 	private _class = param [0,""];

@@ -1703,7 +1703,7 @@
 		}
 		else {
 			_price = _vehPrice * 0.15;
-		}
+		};
 
 		_control = _display displayCtrl 1100;
 		_control ctrlSetStructuredText parseText format ["$%1",_price];
@@ -1723,7 +1723,7 @@
 	}
 	else {
 		_price = _vehPrice * 0.15;
-	}
+	};
 
 	//Pay
 	if (_price > (player getVariable ["Player_Bank",0])) exitwith {[format [localize"STR_NewVehicle_56"]] call A3PL_Player_notification;};

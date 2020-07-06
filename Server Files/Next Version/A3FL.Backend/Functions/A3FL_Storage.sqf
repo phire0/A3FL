@@ -77,7 +77,7 @@
 			}
 			else {
 				_price = _vehPrice * 0.02;
-			}
+			};
 			_cash = player getVariable ["player_cash",0];
 			_bank = player getVariable ["player_bank",0];
 			if (_price > _cash) then {
@@ -99,7 +99,7 @@
 			}
 			else {
 				_price = _vehPrice * 0.02;
-			}
+			};
 			_cash = player getVariable ["player_cash",0];
 			_bank = player getVariable ["player_bank",0];
 			if (_price > _cash) then {
@@ -121,7 +121,7 @@
 			}
 			else {
 				_price = _vehPrice * 0.04;
-			}
+			};
 			_cash = player getVariable ["player_cash",0];
 			_bank = player getVariable ["player_bank",0];
 			if (_price > _cash) then {
