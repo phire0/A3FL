@@ -138,6 +138,17 @@
 	_return;
 }] call Server_Setup_Compile;
 
+["A3PL_Config_GetVehicleMSRP", {
+	private _class = param[0,""];
+	private _return = 0;
+	{
+		if ((_x select 0) == _class) exitWith {
+			_return = _x select 1;
+		};
+	} forEach Config_Vehicles_MSRP;
+	_return;
+}] call Server_Setup_Compile;
+
 ["A3PL_Config_GetShop", {
 	private _class = param [0,""];
 	private _itemClass = param [1,""];
