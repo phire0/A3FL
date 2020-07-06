@@ -1698,6 +1698,7 @@
 		_vehClass = _control lbData (lbCurSel _control);
 		_veh = nearestObject [player,_vehClass];
 		_vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
+		_price = 0;
 		if (_VehPrice < 150000) then{
 			_price = _vehPrice * 0.10;
 		}
@@ -1718,6 +1719,7 @@
 	_vehClass = _control lbData (lbCurSel _control);
 	_veh = nearestObject [player,_vehClass];
 	_vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
+	_price = 0;
 	if (_VehPrice < 150000) then{
 		_price = _vehPrice * 0.10;
 	}
