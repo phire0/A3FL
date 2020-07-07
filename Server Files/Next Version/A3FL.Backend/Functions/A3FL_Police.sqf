@@ -9,7 +9,6 @@
 ["A3PL_Police_GPS",
 {
 	private _job = player getVariable ["faction","unemployed"];
-
 	if (!(_job IN ["uscg","fifr","fisd","usms"])) exitwith {};
 	if (!isNil "A3PL_Police_GPSEnabled") exitwith {};
 	A3PL_Police_GPSEnabled = true;
@@ -314,7 +313,6 @@
 			[_class,_amount] call A3PL_Inventory_Add;
 		};
 	};
-
 	_control lbDelete (lbCurSel _control);
 
 	[format [localize"STR_NewPolice_6",_itemName,_amount],"green"] call A3PL_Player_Notification;
@@ -375,6 +373,10 @@
 		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",0];
 		_obj setVariable ["Cuffed",false,true];
 		_obj setVariable ["dragged",nil,true];
+		if((vehicle _obj) isEqualTo _obj) then {
+			["gesture_stop",_obj] call A3PL_Lib_Gesture;
+			[_obj,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
+		};
 	};
 }] call Server_Setup_Compile;
 
@@ -519,7 +521,6 @@
 					};
 					player setdir ((getDir player) - 50);
 				};
-
 			};
 		};
 		case 7:
@@ -584,10 +585,8 @@
 	{
 		case 1:
 		{
-			if (local _civ) then
-			{
-				if (!isPlayer _civ) exitwith
-				{
+			if (local _civ) then {
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) + 50);
 				};
 				player setdir ((getDir player) + 50);
@@ -614,8 +613,7 @@
 		};
 		case 5:
 		{
-			if (local _civ) then
-			{
+			if (local _civ) then {
 				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) - 50);
 				};
@@ -749,14 +747,11 @@
 
 ["A3PL_Police_Impound",
 {
-	private ["_veh"];
-	_veh = player_objIntersect;
+	private _veh = player_objIntersect;
 	if (isnull _veh) then {_veh = cursorObject};
 	if (isNull _veh) exitwith {[localize"STR_NewPolice_13", "red"] call A3PL_Player_Notification;};
 	if(_veh distance player > 7) exitWith {[localize"STR_NewPolice_14", "red"] call A3PL_Player_Notification;};
-
 	if ((_veh isKindOf "Car") && (!((typeOf _veh) IN A3PL_Jobroadworker_MarkBypass))) exitwith {[_veh] call A3PL_JobRoadWorker_ToggleMark;};
-
 	[_veh] remoteExec ["Server_Police_Impound", 2];
 	[localize"STR_NewPolice_15", "red"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
@@ -768,10 +763,9 @@
 
 ["A3PL_Police_unDetain",
 {
-	private ['_car','_pass'];
-	_car = _this select 0;
-	_pass = crew _car;
-	if(speed _car >= 4) exitWith {};
+	private _car = _this select 0;
+	private _pass = crew _car;
+	if((speed _car) >= 4) exitWith {};
 	{
 		_x action ["getOut", _car];
 		[_x,_car]spawn {_pass = _this select 0;_car = _this select 1;if (_pass getVariable ["Cuffed",true]) then {sleep 1.5;_pass setVelocityModelSpace [0,3,1];[_pass,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];};};
@@ -1747,12 +1741,10 @@
 
 ["A3PL_Police_MarkHouse",
 {
-	private ["_house","_name","_warehouse"];
-	_house = parseSimpleArray (param [0,""]);
-	_name = param [1,"unknown"];
-	_warehouse = param [2,false];
-
-	_marker = createMarkerLocal [format ["Marked_House_%1",random 4000], _house];
+	private _house = parseSimpleArray (param [0,""]);
+	private _name = param [1,"unknown"];
+	private _warehouse = param [2,false];
+	private _marker = createMarkerLocal [format ["Marked_House_%1",random 4000], _house];
 	_marker setMarkerShapeLocal "ICON";
 	_marker setMarkerTypeLocal "mil_warning";
 	if(_warehouse) then {
@@ -1761,9 +1753,7 @@
 		_marker setMarkerTextLocal format["%1 House", _name];
 	};
 	_marker setMarkerColorLocal "ColorRed";
-
 	uiSleep 120;
-
 	deleteMarkerLocal _marker;
 }] call Server_Setup_Compile;
 
@@ -1794,13 +1784,9 @@
 
 ["A3PL_Police_PanicMarker",
 {
-	private ["_player","_marker"];
-	_player = param [0,objNull];
-
-	//play sound & display notification
+	private _player = param [0,objNull];
 	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 2, 5];
 	[localize"STR_NewPolice_31","red"] call A3PL_Player_Notification;
-
 	[_player,"Panic Button","ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
 }] call Server_Setup_Compile;
 

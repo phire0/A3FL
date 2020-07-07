@@ -36,7 +36,6 @@
 		} foreach (player getVariable ["A3PL_Wounds",[]]);
 		if (_bloodChange != 0) then {[player,[_bloodChange]] call A3PL_Medical_ApplyVar;};
 	};
-	if((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) then {player setDamage 0;};
 	{
 		switch (_forEachIndex) do {
 			case (0): {
@@ -167,7 +166,7 @@
 			};
 		};
 	};
-	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver_Bullet"]) exitWith {
+	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet"]) exitWith {
 		[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
 	};
 	if(_sBullet IN ["A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) exitWith {
@@ -522,7 +521,9 @@
 	private _effect = ["DynamicBlur",[5]] call A3PL_Lib_PPEffect;
 	private _timer = A3PL_Respawn_Time;
 
-	closeDialog 0;
+	if (dialog) then {
+   		closeDialog 0;
+	};
 	moveOut player;
 	[false] call A3PL_Lib_Ragdoll;
 	waitUntil{!userInputDisabled};
@@ -702,7 +703,7 @@
 		[_player,_part,_wound,_item,lbCurSel 1501] call A3PL_Medical_Treat;
 		if (_item != "") then
 		{
-			if (player_itemClass == _item) then {[] call A3PL_Inventory_Clear}; //if we have it in our hand we should probably delete it to prevent duplication
+			if (player_itemClass isEqualTo _item) then {[] call A3PL_Inventory_Clear};
 			[_item,-1] call A3PL_Inventory_Add;
 		};
 	} else {
@@ -815,6 +816,7 @@
 	[(findDisplay 73),_player] call A3PL_Medical_LoadParts;
 	[] call A3PL_Medical_SelectPart;
 	_player setVariable ["A3PL_Wounds",_wounds,true];
+	if((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) then {player setDamage 0;};
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_AddLog",

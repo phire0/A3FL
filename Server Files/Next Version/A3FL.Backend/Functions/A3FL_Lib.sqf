@@ -64,13 +64,13 @@
 	detach _can;
 	disableUserInput true;
 	_can spawn {
-		uiSleep 0.1;
+		sleep 0.1;
 		player setVelocity [0,0,20];
-		uiSleep 0.1;
+		sleep 0.1;
 		deleteVehicle _this;
-		uiSleep 1;
+		sleep 1;
 		player allowDamage true;
-		uiSleep 5;
+		sleep 5;
 		disableUserInput false;
 	};
 	if(_shouldDropWeapon) then {

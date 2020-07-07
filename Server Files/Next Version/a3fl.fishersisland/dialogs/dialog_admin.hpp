@@ -112,3 +112,12 @@ class Dialog_HUD_AdminCursor
 		};
 	};
 };
+
+class Dialog_Dead {
+	idd = 268;
+	name= "Dialog_Dead";
+	movingEnable = false;
+	enableSimulation = true;
+	class controlsBackground { };
+	class Controls { };
+};
