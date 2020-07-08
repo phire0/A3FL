@@ -36,38 +36,38 @@ publicVariable "Config_Houses_List";
 
 Config_Houses = [
 	//Moonshien sheds
-	["Land_A3PL_Shed2",40000,250,1500],
-	["Land_A3PL_Shed3",35000,250,1500],
-	["Land_A3PL_Shed4",50000,250,1500],
-	["Land_A3PL_BostonHouse",80000,250,1500],
+	["Land_A3PL_Shed2",40000,50,1500],
+	["Land_A3PL_Shed3",35000,50,1500],
+	["Land_A3PL_Shed4",50000,50,1500],
+	["Land_A3PL_BostonHouse",80000,50,1500],
 
 	//One-story without garage
-	["Land_John_House_Grey",110000,300,1500],
-	["Land_John_House_Blue",110000,300,1500],
-	["Land_John_House_Red",110000,300,1500],
-	["Land_John_House_Green",110000,300,1500],
+	["Land_John_House_Grey",110000,150,1500],
+	["Land_John_House_Blue",110000,150,1500],
+	["Land_John_House_Red",110000,150,1500],
+	["Land_John_House_Green",110000,150,1500],
 
 	//One-story with garage
-	["Land_A3PL_Ranch1",135000,350,1500],
-	["Land_A3PL_Ranch2",135000,350,1500],
-	["Land_A3PL_Ranch3",135000,350,1500],
+	["Land_A3PL_Ranch1",135000,150,1500],
+	["Land_A3PL_Ranch2",135000,150,1500],
+	["Land_A3PL_Ranch3",135000,150,1500],
 
-	["Land_Home1g_DED_Home1g_01_F",150000,400,1500],
-	["Land_Home2b_DED_Home2b_01_F",150000,400,1500],
-	["Land_Home4w_DED_Home4w_01_F",150000,400,1500],
-	["Land_Home5y_DED_Home5y_01_F",150000,400,1500],
+	["Land_Home1g_DED_Home1g_01_F",150000,200,1500],
+	["Land_Home2b_DED_Home2b_01_F",150000,200,1500],
+	["Land_Home4w_DED_Home4w_01_F",150000,200,1500],
+	["Land_Home5y_DED_Home5y_01_F",150000,200,1500],
 
-	["Land_Home3r_DED_Home3r_01_F",250000,500,1500],
-	["Land_Home6b_DED_Home6b_01_F",250000,500,1500],
+	["Land_Home3r_DED_Home3r_01_F",250000,300,1500],
+	["Land_Home6b_DED_Home6b_01_F",250000,300,1500],
 
-	["Land_Mansion01",500000,550,1500],
+	["Land_Mansion01",500000,350,1500],
 
-	["Land_A3PL_ModernHouse1",550000,600,1500],
-	["Land_A3PL_ModernHouse2",550000,600,1500],
-	["Land_A3PL_ModernHouse3",550000,600,1500],
+	["Land_A3PL_ModernHouse1",550000,400,1500],
+	["Land_A3PL_ModernHouse2",550000,40,1500],
+	["Land_A3PL_ModernHouse3",550000,400,1500],
 
-	["Land_A3FL_Mansion",550000,700,1500],
-	["Land_A3FL_Office_Building",1000000,800,1500]
+	["Land_A3FL_Mansion",550000,450,1500],
+	["Land_A3FL_Office_Building",1000000,500,1500]
 ];
 publicVariable "Config_Houses";
 
