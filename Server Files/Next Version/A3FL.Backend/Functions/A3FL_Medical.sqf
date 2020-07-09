@@ -1127,7 +1127,7 @@
 {
 	if (!A3PL_FD_Clinic) exitwith {["You can not be healed here when the FIFR is available!","red"] call A3PL_Player_Notification;};
 
-	private _healPrice = 600;
+	private _healPrice = 750;
 	private _pCash = player getVariable ["player_cash",0];
 	private _npc = player_objintersect;
 	if (_healPrice > _pCash) exitwith {[format [localize"STR_NPC_FIFRHEALERROR",_healPrice-_pCash]] call A3PL_Player_notification;};
@@ -1141,12 +1141,10 @@
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
-		if (!(vehicle player == player)) exitwith {_success = false;};
+		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
 		if (player distance2D _npc > 10) then {_success = false;}
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {["Treatment cancelled!", "red"] call A3PL_Player_Notification;};
-
-	["You are completely treated","green"] call A3PL_Player_Notification;
 
 	player setDamage 0;
 	player setVariable ["A3PL_Wounds",[],true];
@@ -1157,14 +1155,27 @@
 
 ["A3PL_Medical_Heal_Ill",
 {
-	private ["_healPrice","_pCash"];
-	_healPrice = 4500;
-	_pCash = player getVariable ["player_cash",0];
+	private _healPrice = 4500;
+	private _pCash = player getVariable ["player_cash",0];
+	private _npc = player_objintersect;
 	if (_healPrice > _pCash) exitwith {[format [localize"STR_NPC_FIFRHEALERROR",_healPrice-_pCash]] call A3PL_Player_notification;};
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - _healPrice,true];
 
+	["You must wait 2 minutes before being fully treated, stay nearby!","orange"] call A3PL_Player_Notification;
+	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
+	["Patching you up...",120] spawn A3PL_Lib_LoadAction;
+	_success = true;
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
+		if (player distance2D _npc > 10) then {_success = false;}
+	};
+	if(Player_ActionInterrupted || !_success) exitWith {["Treatment cancelled!", "red"] call A3PL_Player_Notification;};
+
+	player setDamage 0;
 	player setVariable ["A3PL_Wounds",[],true];
 	player setVariable ["A3PL_MedicalVars",[MAXBLOODLVL,"120/80",37],true];
+	player setVariable ["A3PL_Medical_Alive",true,true];
 	['fifr_healdoneill'] call A3PL_NPC_Start;
 }] call Server_Setup_Compile;
 
