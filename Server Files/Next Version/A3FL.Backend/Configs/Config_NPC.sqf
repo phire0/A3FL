@@ -87,10 +87,8 @@ Config_NPC_Text =
 	["dmv_drivingtestpass","Congratulations, you have passed your driving test! Your license has been issued.",["Thank you, see you later!"],[""]],
 	["dmv_drivingtestfail","Unfortunatly you have failed your driving test, you can retake the test at any time for $500",["I'm ready for a second chance","I'll come back later"],["['dmv_drivingtest1'] call A3PL_NPC_Start;",""]],
 
-
-
 	["verizon_initial",localize"STR_NPC_HELLOHOWICANHELPYOU",[localize"STR_NPC_CHOOSESUB"],["['verizon_howto'] call A3PL_NPC_Start;"]],
-	["verizon_howto",localize"STR_NPC_VERIZONCHOOSESUBSCRIPTION",[localize"STR_NPC_PRIMARYPHONE",localize"STR_NPC_SECONDARYPHONE"],["['1'] spawn A3PL_iPhoneX_AddPhoneNumber;","['2'] spawn A3PL_iPhoneX_AddPhoneNumber;"]],
+	["verizon_howto",localize"STR_NPC_VERIZONCHOOSESUBSCRIPTION",[localize"STR_NPC_SECONDARYPHONE"],["['2'] spawn A3PL_iPhoneX_AddPhoneNumber;"]],
 
 	["fifrb_initial", localize"STR_NPC_FIFRINIT",[localize"STR_NPC_FIFRINIT2",localize"STR_NPC_FIFRINIT3"],["['fifrb_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'fifr') exitwith {['fifrb_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'fifr') then { ['fifrb_work'] call A3PL_NPC_Start; } else {['fifrb_workdenied'] call A3PL_NPC_Start;};"]],
 	["fifrb_howto", localize"STR_NPC_FIFRHOWTO",[localize"STR_NPC_ALRIGHTTNX"],[""]],

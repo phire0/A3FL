@@ -76,6 +76,7 @@
 	//give them a rusted CVPI
 	_query = format ["INSERT INTO objects (id,type,class,uid,plystorage) VALUES ('%1','vehicle','A3PL_CVPI_Rusty','%2','1')",([7] call Server_Housing_GenerateID),_uid];
 	[_query,1] spawn Server_Database_Async;
+	[_unit] call Server_iPhoneX_GrantNumber;
 },true] call Server_Setup_Compile;
 
 //COMPILE BLOCK WARNING

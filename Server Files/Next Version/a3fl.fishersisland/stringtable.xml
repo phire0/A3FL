@@ -5492,7 +5492,7 @@
       <Original>1. Main Number ($800)</Original>
    </Key>
    <Key ID="STR_NPC_SECONDARYPHONE">
-      <Original>2. Secondary Number ($50000)</Original>
+      <Original>1. Secondary Number ($50000)</Original>
    </Key>
    <Key ID="STR_NPC_COMPANYPHONE">
       <Original>3. Business Number ($30000)</Original>
