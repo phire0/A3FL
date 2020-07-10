@@ -73,14 +73,6 @@ class Dialog_Factory
 			w = 0.195573 * safezoneW;
 			h = 0.288889 * safezoneH;
 		};
-		class search_recipes: RscEdit
-		{
-			idc = 1405;
-			x = 0.28552 * safezoneW + safezoneX;
-			y = 0.549445 * safezoneH + safezoneY;
-			w = 0.195573 * safezoneW;
-			h = 0.0192221 * safezoneH;
-		};
 		class list_requires: RscListbox
 		{
 			idc = 1501;
@@ -156,6 +148,23 @@ class Dialog_Factory
 			y = 0.844444 * safezoneH + safezoneY;
 			w = 0.0452084 * safezoneW;
 			h = 0.0192221 * safezoneH;
+		};
+		class search_recipes: RscEdit
+		{
+			idc = 1405;
+			x = 0.283437 * safezoneW + safezoneX;
+			y = 0.55 * safezoneH + safezoneY;
+			w = 0.170156 * safezoneW;
+			h = 0.022 * safezoneH;
+		};
+		class button_search: RscButtonEmpty
+		{
+			idc = -1;
+			x = 0.453594 * safezoneW + safezoneX;
+			y = 0.545 * safezoneH + safezoneY;
+			w = 0.0309375 * safezoneW;
+			h = 0.03 * safezoneH;
+			action = "[] call A3PL_Factory_Search;";
 		};
 	};
 };

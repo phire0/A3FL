@@ -833,3 +833,12 @@
 	};
 	_return;
 }] call Server_Setup_Compile;
+
+["A3PL_Factory_Search",
+{
+	disableSerialization;
+	private _display = findDisplay 45;
+	if (isNull _display) exitwith {};
+	private _search = ctrlText (_display displayCtrl 1405);
+	hint str(_search);
+}] call Server_Setup_Compile;
