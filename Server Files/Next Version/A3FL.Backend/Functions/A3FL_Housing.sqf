@@ -53,6 +53,31 @@
 		_control lbAdd format ["%1 (x%2)",([_item,"name"] call A3PL_Config_GetItem),_x select 1];
 		_control lbSetData [_forEachIndex,_item];
 	} foreach (_box getVariable ["storage",[]]);
+
+	_totalWeight = [] call A3PL_Inventory_TotalWeight;
+	_capacity = round((_totalWeight/Player_MaxWeight)*100);
+	_capColor = switch(true) do {
+		case (_capacity < 20): {"#00FF00"};
+		case (_capacity >= 50): {"#FFFF00"};
+		case (_capacity >= 75): {"#FFA500"};
+		case (_capacity >= 100): {"#ff0000"};
+		default {"#ffffff"};
+	};
+	_control = _display displayCtrl 1100;
+	_control ctrlSetStructuredText parseText format["<t font='PuristaSemiBold' align='center' size='1.35' color='%3'>%1%2</t>", _capacity, "%", _capColor];
+
+	_boxTotalWeight = [_box] call A3PL_Vehicle_TotalWeight;
+	_vehCapacity = [(typeOf _box)] call A3PL_Config_GetVehicleCapacity;
+	_capacity = round((_boxTotalWeight/_vehCapacity)*100);
+	_capColor = switch(true) do {
+		case (_capacity < 20): {"#00FF00"};
+		case (_capacity >= 50): {"#FFFF00"};
+		case (_capacity >= 75): {"#FFA500"};
+		case (_capacity >= 100): {"#ff0000"};
+		default {"#ffffff"};
+	};
+	_control = _display displayCtrl 1101;
+	_control ctrlSetStructuredText parseText format["<t font='PuristaSemiBold' align='center' size='1.35' color='%3'>%1%2</t>", _capacity, "%", _capColor];
 }] call Server_Setup_Compile;
 
 ["A3PL_Housing_VirtualChange",
@@ -67,7 +92,7 @@
 	_storage = A3PL_Housing_StorageBox getVariable ["storage",[]];
 	_inventory = player getVariable ["player_inventory",[]];
 	_index = lbCurSel _control;
-	if (_control lbText _index == "") exitwith {[localize"STR_NewHousing_4","red"] call A3PL_Player_Notification;};
+	if ((_control lbText _index) isEqualTo "") exitwith {[localize"STR_NewHousing_4","red"] call A3PL_Player_Notification;};
 
 	if (_add) then
 	{
@@ -76,6 +101,11 @@
 		_itemAmount = parseNumber (ctrlText 1400);
 		if (_itemAmount < 1) exitwith {[localize"STR_NewHousing_5","red"] call A3PL_Player_Notification;};
 		if (_itemAmount > ((_inventory select _index) select 1)) exitwith {[localize"STR_NewHousing_6","red"] call A3PL_Player_Notification;};
+
+		_boxCapacity = [(typeOf A3PL_Housing_StorageBox)] call A3PL_Config_GetVehicleCapacity;
+		_itemTotalWeight = ([_itemClass, 'weight'] call A3PL_Config_GetItem) * _itemAmount;
+		_boxTotalWeight = [A3PL_Housing_StorageBox] call A3PL_Vehicle_TotalWeight;
+		if ((_itemTotalWeight + _boxTotalWeight) > _boxCapacity) exitwith {["There is not enough capacity to add this","red"] call A3PL_Player_Notification;};
 
 		A3PL_Housing_StorageBox setVariable ["storage",([_storage, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 		player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];

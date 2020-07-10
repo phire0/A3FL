@@ -185,6 +185,7 @@
 		[_uid,"VehicleExplode",[typeOf _veh, _id]] remoteExec ["Server_Log_New",2];
 
 		private _isInsured = _veh getVariable ["insurance",false];
+		if((typeOf _veh) IN ["A3PL_MiniExcavator","A3PL_Car_Trailer","A3PL_Lowloader","A3PL_Small_Boat_Trailer","A3PL_Drill_Trailer","A3PL_Tanker_Trailer","A3PL_Box_Trailer"]) then {_isInsured = true;};
 		if(_isInsured) then {
 			[_veh] call Server_Storage_VehicleVirtual;
 			private _query = format ["UPDATE objects SET insurance = '0', plystorage = '1' WHERE id = '%1'",_id];

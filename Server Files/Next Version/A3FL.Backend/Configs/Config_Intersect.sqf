@@ -1646,6 +1646,8 @@ Config_IntersectArray =
 	["clothing",localize"STR_INTSECT_COLLECTITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Collect Item
 	["clothing",localize"STR_INTSECT_BUYITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objintersect getVariable ["bitem",nil]})}], //Buy Item
 	["clothing",localize"STR_INTSECT_SELLITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect getVariable ["owner","0"]) == (getPlayerUID player)}], //Sell Item
+
+	["Item_Pickup","Refuel Jerrycan",_dir+"IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa",{(typeOf player_objintersect isEqualTo 'A3PL_JerryCan') && (typeOf Player_Item) IN ["A3PL_Gas_Hose","A3PL_GasHose"]}],
 	["Item_Pickup",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]})}], //Pickup Item
 	["Item_Pickup",localize"STR_INTSECT_CHECKITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Check Item
 	["Item_Pickup",localize"STR_INTSECT_BUYITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objintersect getVariable ["bitem",nil]})}], //Buy Item

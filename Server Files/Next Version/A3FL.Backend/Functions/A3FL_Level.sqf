@@ -15,14 +15,12 @@
 	if(_toAdd >= (_nextLevelXP - _currentXP)) then {
 		_player setVariable['Player_Level',_currentLevel + 1,true];
 		_player setVariable['Player_XP',0,true];
-		[format[localize"STR_LEVEL_LevelUpgrade",_currentLevel + 1],"green"] call A3PL_Player_Notification;
 		_loop = _toAdd - (_nextLevelXP - _currentXP);
 		[_player, _loop] spawn A3PL_Level_AddXP;
 	} else {
 		_toAdd = _toAdd * A3PL_Event_DblXP;
 		_player setVariable['Player_XP',_currentXP + _toAdd,true];
 		if(_toAdd != 0) then {
-			[format[localize"STR_LEVEL_ExpUpgrade",_toAdd],"green"] call A3PL_Player_Notification;
 		};
 		_Level = _player getvariable 'Player_Level';
 		_XP = _player getVariable 'Player_XP';

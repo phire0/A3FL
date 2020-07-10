@@ -85,10 +85,29 @@ class Dialog_HouseVirtual
 			w = 0.0868228 * safezoneW;
 			h = 0.0210741 * safezoneH;
 		};
-		////////////////////////////////////////////////////////
-		// GUI EDITOR OUTPUT END
-		////////////////////////////////////////////////////////
-				
-		
+		class InventoryCapacity: RscStructuredText
+		{
+			idc = 1100;
+			x = 0.329844 * safezoneW + safezoneX;
+			y = 0.291 * safezoneH + safezoneY;
+			w = 0.0876563 * safezoneW;
+			h = 0.033 * safezoneH;
+		};
+		class HouseCapacity: RscStructuredText
+		{
+			idc = 1101;
+			x = 0.577344 * safezoneW + safezoneX;
+			y = 0.291 * safezoneH + safezoneY;
+			w = 0.0876563 * safezoneW;
+			h = 0.033 * safezoneH;
+		};
+		class Close: RscButtonEmpty
+		{
+			idc = 1602;
+			x = 0.716563 * safezoneW + safezoneX;
+			y = 0.214 * safezoneH + safezoneY;
+			w = 0.0257812 * safezoneW;
+			h = 0.044 * safezoneH;
+		};
 	};
 };
