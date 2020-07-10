@@ -840,5 +840,26 @@
 	private _display = findDisplay 45;
 	if (isNull _display) exitwith {};
 	private _search = ctrlText (_display displayCtrl 1405);
-	hint str(_search);
+	private _type = ctrlText (_display displayCtrl 1100);
+	private _control = _display displayCtrl 1500;
+	lbClear _control;
+	private _recipes = ["all",_type] call A3PL_Config_GetFactory;
+	{
+		private _id = _x select 0;
+		private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
+		private _class = [_id,_type,"class"] call A3PL_Config_GetFactory;
+		private _classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
+		if (_name isEqualTo "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;};
+		diag_log format["%1 - %2 [%3]",_search,_name,([_search, _name] call BIS_fnc_inString)];
+		if([_search, _name] call BIS_fnc_inString) then {
+			private _img = [_id,_type,"img"] call A3PL_Config_GetFactory;
+			private _parent = [_id,_type,"parent"] call A3PL_Config_GetFactory;
+			if (_img isEqualTo "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;};
+			if (_parent != "") then {};
+			_i = _control lbAdd _name;
+			_control lbSetPicture [_i,_img];
+			_control lbSetData [_i,_id];
+		};
+	} foreach _recipes;
+	_control lbSetCurSel 0;
 }] call Server_Setup_Compile;
