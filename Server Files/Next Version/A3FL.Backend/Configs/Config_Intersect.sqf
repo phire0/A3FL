@@ -2205,6 +2205,7 @@ Config_GenArray =
 	localize"STR_INTSECT_CONNBUCKET",
 	localize"STR_INTSECT_CONNJACKHAM",
 	localize"STR_INTSECT_CONNECTCLAW",
+	"Refuel Jerrycan",
 	localize"STR_INTSECT_PICKUPITEM",
 	localize"STR_INTSECT_PickupDeliveryBox",
 	localize"STR_INTSECT_PICKITEMTOHAND",

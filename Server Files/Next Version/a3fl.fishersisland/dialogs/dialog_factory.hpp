@@ -152,6 +152,7 @@ class Dialog_Factory
 		class search_recipes: RscEdit
 		{
 			idc = 1405;
+			style = "16 + 512";
 			x = 0.283437 * safezoneW + safezoneX;
 			y = 0.55 * safezoneH + safezoneY;
 			w = 0.170156 * safezoneW;
