@@ -9,25 +9,20 @@
 //deals with getting inherance information from configFile for usage in text by Factory_Open
 ["A3PL_Factory_Inheritance",
 {
-	private ["_class","_type","_info","_return","_mainClass"];
-	_class = param [0,""];
-	_type = param [1,""];
-	_info = param [2,""];
+	private _class = param [0,""];
+	private _type = param [1,""];
+	private _info = param [2,""];
+	private _return = "";
+	private _mainClass = "";
 
 	if (_type isEqualTo "item") exitwith {
-		switch (_info) do
-		{
-			case ("img"): {_return = "";};
-			case ("name"): {_return = [_class,"name"] call A3PL_Config_GetItem; };
-			case ("mainClass"): { _return = _mainClass;};
+		_return = switch (_info) do {
+			case ("img"): {""};
+			case ("name"): {[_class,"name"] call A3PL_Config_GetItem};
 		};
-		if (isNil "_return") then {_return = "ERROR"};
-		if ((typeName _return) isEqualTo "BOOL") then {_return = "ERROR"};
 		_return;
 	};
-
 	_mainClass = switch (_type) do {
-		case ("car"): {"cfgVehicles"};
 		case ("weapon"): {"CfgWeapons"};
 		case ("magazine"): {"cfgMagazines"};
 		case ("mag"): {"cfgMagazines"};
@@ -40,13 +35,11 @@
 		default {"cfgVehicles"};
 	};
 
-	switch (_info) do {
-		case ("img"): { _return = getText (configFile >> _mainClass >> _class >> "picture") };
-		case ("name"): { _return = getText (configFile >> _mainClass >> _class >> "displayName") };
-		case ("mainClass"): { _return = _mainClass;};
+	_return = switch (_info) do {
+		case ("img"): { getText (configFile >> _mainClass >> _class >> "picture") };
+		case ("name"): { getText (configFile >> _mainClass >> _class >> "displayName") };
+		case ("mainClass"): { _mainClass };
 	};
-
-	if (isNil "_return") then {_return = "";};
 	_return;
 }] call Server_Setup_Compile;
 
@@ -300,20 +293,18 @@
 	_control CtrlSetText _type;
 	_control = _display displayCtrl 1502;
 	_control ctrlAddEventHandler ["LBSelChanged",{}];
-	_control = _display displayCtrl 1500; //controlgroup
+	_control = _display displayCtrl 1500;
 	_control ctrlAddEventHandler ["LBSelChanged",{[1500] call A3PL_Factory_SetRecipe;}];
+
 	_recipes = ["all",_type] call A3PL_Config_GetFactory;
 	{
-		private ["_id","_img","_class","_i","_name"];
-		_id = _x select 0;
-		_img = [_id,_type,"img"] call A3PL_Config_GetFactory;
-		_class = [_id,_type,"class"] call A3PL_Config_GetFactory;
-		_name = [_id,_type,"name"] call A3PL_Config_GetFactory;
-		_classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
-		_parent = [_id,_type,"parent"] call A3PL_Config_GetFactory;
+		private _id = _x select 0;
+		private _img = [_id,_type,"img"] call A3PL_Config_GetFactory;
+		private _class = [_id,_type,"class"] call A3PL_Config_GetFactory;
+		private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
+		private _classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
 		if (_img isEqualTo "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;};
 		if (_name isEqualTo "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;};
-		if (_parent != "") then {};
 		_i = _control lbAdd _name;
 		_control lbSetPicture [_i,_img];
 		_control lbSetData [_i,_id];
@@ -850,12 +841,9 @@
 		private _class = [_id,_type,"class"] call A3PL_Config_GetFactory;
 		private _classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
 		if (_name isEqualTo "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;};
-		diag_log format["%1 - %2 [%3]",_search,_name,([_search, _name] call BIS_fnc_inString)];
 		if([_search, _name] call BIS_fnc_inString) then {
 			private _img = [_id,_type,"img"] call A3PL_Config_GetFactory;
-			private _parent = [_id,_type,"parent"] call A3PL_Config_GetFactory;
 			if (_img isEqualTo "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;};
-			if (_parent != "") then {};
 			_i = _control lbAdd _name;
 			_control lbSetPicture [_i,_img];
 			_control lbSetData [_i,_id];
