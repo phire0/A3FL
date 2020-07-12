@@ -1909,6 +1909,12 @@
 	} else {
 		_control ctrlSetText "A3PL_Common\GUI\phone\iPhone_X_icon_silentOFF.paa";
 	};
+	_control = _display displayCtrl 99726;
+	if (profilenamespace getVariable ["A3PL_ShowGPS",true]) then {
+		_control ctrlSetText "A3PL_Common\GUI\phone\iPhone_X_icon_silentON.paa";
+	} else {
+		_control ctrlSetText "A3PL_Common\GUI\phone\iPhone_X_icon_silentOFF.paa";
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_AppWallpaper",

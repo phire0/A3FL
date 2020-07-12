@@ -7,47 +7,45 @@
 */
 
 ['A3PL_Criminal_Ziptie', {
-	private ['_obj'];
-	_obj = _this select 0;
-	_Cuffed = _obj getVariable ["Zipped",true];
-	if (animationState _obj IN ["amovpercmstpsnonwnondnon","amovpercmstpsraswrfldnon","amovpercmstpsraswpstdnon","amovpercmstpsraswlnrdnon"]) exitwith
+	private _obj = _this select 0;
+	if ((animationState _obj) IN ["amovpercmstpsnonwnondnon","amovpercmstpsraswrfldnon","amovpercmstpsraswpstdnon","amovpercmstpsraswlnrdnon"]) exitwith
 	{
-		[player,_obj,1] remoteExec ["A3PL_Police_HandleAnim",-2];
+		[player,_obj,1] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["zipties", 1] call A3PL_Inventory_Remove;
 		_obj setVariable ["Zipped",true,true];
 	};
-	if (animationState _obj == "a3pl_idletohandsup") exitwith
+	if ((animationState _obj) isEqualTo "a3pl_idletohandsup") exitwith
 	{
-		[player,_obj,2] remoteExec ["A3PL_Police_HandleAnim",-2];
+		[player,_obj,2] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["zipties", 1] call A3PL_Inventory_Remove;
 		_obj setVariable ["Zipped",true,true];
 	};
-	if (animationState _obj == "a3pl_handsuptokneel") exitwith
+	if ((animationState _obj) isEqualTo "a3pl_handsuptokneel") exitwith
 	{
-		[player,_obj,3] remoteExec ["A3PL_Police_HandleAnim",-2];
+		[player,_obj,3] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["zipties", 1] call A3PL_Inventory_Remove;
 		_obj setVariable ["Zipped",true,true];
 	};
 	if (animationState _obj IN ["amovpknlmstpsnonwnondnon","amovpknlmstpsraswpstdnon","amovpknlmstpsraswrfldnon","amovpknlmstpsraswlnrdnon"]) exitwith
 	{
-		[player,_obj,4] remoteExec ["A3PL_Police_HandleAnim",-2];
+		[player,_obj,4] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["zipties", 1] call A3PL_Inventory_Remove;
 		_obj setVariable ["Zipped",true,true];
 	};
 	if (animationState _obj IN ["amovppnemstpsnonwnondnon","amovppnemstpsraswrfldnon","amovppnemstpsraswpstdnon"]) exitwith
 	{
-		[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",-2];
+		[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["zipties", 1] call A3PL_Inventory_Remove;
 		_obj setVariable ["Zipped",true,true];
 	};
-	if (animationState _obj == "unconscious") exitwith
+	if ((animationState _obj) isEqualTo "unconscious") exitwith
 	{
-		[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",-2];
+		[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["zipties", 1] call A3PL_Inventory_Remove;
 		_obj setVariable ["Zipped",true,true];
@@ -55,35 +53,22 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Criminal_Unzip', {
-	private ['_obj'];
-	_obj = _this select 0;
-
-	//7 Uncuff
-	_Zipped = _obj getVariable ["Zipped",true];
-	if ((animationState _obj IN ["a3pl_handsuptokneel"])&&(_Zipped)) exitwith
-	{
+	private _obj = _this select 0;
+	private _Cuffed = _obj getVariable ["Zipped",true];
+	if (_Cuffed) then {
 		["zipties",1] call A3PL_Inventory_Add;
-		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",-2];
+		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",0];
 		_obj setVariable ["Zipped",false,true];
-	};
-
-	if ((animationState _obj == "a3pl_handsupkneelkicked")&&(_Zipped)) exitwith
-	{
-		["zipties",1] call A3PL_Inventory_Add;
-		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",-2];
-		_obj setVariable ["Zipped",false,true];
-	};
-
-	if ((animationState _obj == "a3pl_handsupkneelcuffed")&&(_Zipped)) exitwith
-	{
-		["zipties",1] call A3PL_Inventory_Add;
-		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",-2];
-		_obj setVariable ["Zipped",false,true];
+		_obj setVariable ["dragged",nil,true];
+		if((vehicle _obj) isEqualTo _obj) then {
+			["gesture_stop",_obj] call A3PL_Lib_Gesture;
+			[_obj,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
+		};
 	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Criminal_RemoveTime",{
-	if (5000 > (player getVariable ["player_cash",0])) exitwith {[format ["You don't have $5,000 to remove your electronic bracelet!"]] call A3PL_Player_notification;};
+	if (10000 > (player getVariable ["player_cash",0])) exitwith {[format ["You don't have $10,000 to remove your electronic bracelet!"]] call A3PL_Player_notification;};
 
 	if(!(player getVariable "jail_mark")) exitwith {[localize"STR_CRIMINAL_YOUDONTPURGEPRISON"] call A3PL_Player_notification;};
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - 5000,true];
@@ -118,7 +103,6 @@
 		["Action cancelled","red"] call A3PL_Player_Notification;
 	};
 
-
 	_chance = selectRandom[1,2];
 	if(_chance == 2) then {
 		_time = player getVariable "jailtime";
@@ -131,8 +115,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Criminal_PickCar", {
-	private ["_car"];
-	_car = param [0,objNull];
+	private _car = param [0,objNull];
 	if((typeOf _car) IN ["A3PL_EMS_Locker"]) exitWith {["This is not meant to be lockpicked", "red"] call A3PL_Player_Notification;};
 	if (animationstate player isEqualTo "Acts_carFixingWheel") exitwith {[localize"STR_CRIMINAL_YOUALREADYTAKEANACTION", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player isEqualTo player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
@@ -234,9 +217,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Criminal_PickHandcuffs",{
-	private ["_target"];
-	_target = param [0,objNull];
-
+	private _target = param [0,objNull];
 	if (animationstate player == "Acts_carFixingWheel") exitwith {[localize"STR_CRIMINAL_YOUALREADYTAKEANACTION", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player == player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_CRIMINAL_YOUALREADYPICKVEHICLE", "red"] call A3PL_Player_Notification;};
@@ -245,8 +226,7 @@
 	player setVariable ["picking",true,true];
 	[_target] spawn
 	{
-		private ["_target"];
-		_target = param [0,objNull];
+		private _target = param [0,objNull];
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 		["Lockpicking handcuffs...",30] spawn A3PL_Lib_LoadAction;
 		_success = true;
@@ -264,11 +244,9 @@
 			[localize"STR_CRIMINAL_PICKENDED", "red"] call A3PL_Player_Notification;
 			if (vehicle player == player) then {player switchMove "";};
 		};
-
 		[player_item] call A3PL_Inventory_Clear;
 		[player,"v_lockpick",-1] remoteExec ["Server_Inventory_Add",2];
 
-		// 60% chance to unlock
 		_chance = random 100;
 		if(_chance >= 40) then {
 			[_target] call A3PL_Police_Uncuff;
@@ -282,11 +260,9 @@
 
 ["A3PL_Criminal_CartelStart",
 {
-	private["_faction","_job"];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-
-	_faction = player getVariable ["faction","citizen"];
-	_job = player getVariable ["job","unemployed"];
+	private _faction = player getVariable ["faction","citizen"];
+	private _job = player getVariable ["job","unemployed"];
 	if(_faction != "cartel") exitWith {[localize "STR_A3PL_CRIMINAL_NOTCARTEL","Red"];};
  	if (_job == "cartel") exitwith {[localize "STR_A3PL_CRIMINAL_CARTELSTOP","Red"]; call A3PL_NPC_LeaveJob};
 	player setVariable ["job","cartel"];
