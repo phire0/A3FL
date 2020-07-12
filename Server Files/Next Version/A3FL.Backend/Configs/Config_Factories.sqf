@@ -322,7 +322,7 @@ Config_Factories =
 		["f_Box_Trailer","","inh","inh","A3PL_Box_Trailer","car",true,10,[["Steel_Pellet",6],["Aluminium_Pellet",1],["Tyres",6]],1,"",1]
 	],
 
-	["Clothing Factory",[3852.065,9212.537,0.168],
+	["Clothing Factory",[3852.065,9212.537,1.2],
 		["f_A3PL_Indelicato_Family_Uniform","","inh","inh","A3PL_Indelicato_Family_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_HF_Charter_Polo_Uniform","","inh","inh","A3PL_HF_Charter_Polo_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
 		["f_RL_Polo_LBluBla_Uniform","","inh","inh","A3PL_RL_Polo_LBluBla_Uniform","uniform",true,5,[["Polyester",1]],1,"",1],
@@ -528,7 +528,7 @@ Config_Factories =
 		["f_Strictly_Sand_Man","","inh","inh","A3PL_Strictly_Sand_Uniform","uniform",true,5,[["Polyester",1]],1,"",1]
 	],
 
-	["Vest Factory",[3852.065,9212.537,0.168],
+	["Vest Factory",[3852.065,9212.537,1.2],
 		["f_A3PL_Holster_1","","inh","inh","A3PL_Holster_1","vest",true,5,[["Polyester",1]],1,"",1],
 		["f_BandollierB_blk","","inh","inh","V_BandollierB_blk","vest",true,30,[["Steel",5],["Blueprint_BandollierB_blk",1]],1,"",1],
 		["f_Press_F","","inh","inh","A3PL_Press_Vest_F","vest",true,30,[["Steel",5],["Blueprint_Press_F",1]],1,"",1],
@@ -549,7 +549,7 @@ Config_Factories =
 		["f_DeadwoodMC_Vest","","inh","inh","A3PL_DeadwoodMC_Vest","vest",true,5,[["Polyester",1]],1,"",1]
 	],
 
-	["Headgear Factory",[3852.065,9212.537,0.168],
+	["Headgear Factory",[3852.065,9212.537,1.2],
 		["f_Polo_Black_Cap","","inh","inh","A3PL_Polo_Black_Cap","headgear",true,5,[["Polyester",1]],1,"",1],
 		["f_Polo_LBlu_Cap","","inh","inh","A3PL_Polo_LBlu_Cap","headgear",true,5,[["Polyester",1]],1,"",1],
 		["f_Polo_Navy_Cap","","inh","inh","A3PL_Polo_Navy_Cap","headgear",true,5,[["Polyester",1]],1,"",1],
@@ -709,7 +709,7 @@ Config_Factories =
 		["f_H_FRIGGUS_Cap","","inh","inh","H_FRIGGUS_Cap","headgear",true,5,[["Polyester",1]],1,"",1]
 	],
 
-	["Goggle Factory",[3852.065,9212.537,0.168],
+	["Goggle Factory",[3852.065,9212.537,1.2],
 		["f_aviator_goggles","","inh","inh","G_Aviator","goggles",true,5,[["Glass",1]],1,"",1],
 		["f_square_goggles","","inh","inh","G_Squares","goggles",true,5,[["Glass",1]],1,"",1],
 		["f_squaretinted_goggles","","inh","inh","G_Squares_Tinted","goggles",true,5,[["Glass",1]],1,"",1],
