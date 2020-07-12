@@ -185,22 +185,20 @@
 	private _factory = param [1,""];
 	private _search = param [2,""];
 	private _config = [];
-	private _return = "";
+	private _return = false;
 	
 	{
-		if(_x select 0 == _factory) then 
-		{
-			_config = [] + _x; //save a copy to prevent deleteAt delete the title from main factory config
+		if((_x select 0) isEqualTo _factory) exitWith {
+			_config append _x;
 		};
 	} forEach Config_Factories;
 	
 	if (_class isEqualTo "all") exitwith { _return = _config; _return deleteAt 0; _return deleteAt 0; _return;};
 	if (_class isEqualTo "pos") exitwith { _return = _config select 1; _return;};
 	
-	_config deleteAt 0; //dont need title, array shifting
-	_config deleteAt 0; //dont need pos
+	_config deleteRange [0, 1];
 	{
-		if (_x select 0 isEqualTo _class) then {_config = _x};
+		if ((_x select 0) isEqualTo _class) then {_config = _x};
 	} foreach _config;
 	switch (_search) do {
 		case "id": { _return = _config select 0; };
@@ -215,9 +213,8 @@
 		case "output": { _return = _config select 9; };
 		case "faction": { _return = _config select 10; };
 		case "xp": { _return = _config select 11; };
-		default { _return = false; };
-	};		
-	_return;	
+	};
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetPlayerFactory",
