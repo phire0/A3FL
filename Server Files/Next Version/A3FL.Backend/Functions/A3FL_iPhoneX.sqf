@@ -2047,9 +2047,9 @@
 	};
 	if(_var isEqualTo "A3PL_ShowGrass") then {
 		if (profilenamespace getVariable ["A3PL_ShowGrass",true]) then {
-			setTerrainGrid 50;
-		} else {
 			setTerrainGrid 25;
+		} else {
+			setTerrainGrid 50;
 		};
 	};
 }] call Server_Setup_Compile;
