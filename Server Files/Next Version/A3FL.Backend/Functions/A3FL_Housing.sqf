@@ -102,7 +102,7 @@
 		if (_itemAmount < 1) exitwith {[localize"STR_NewHousing_5","red"] call A3PL_Player_Notification;};
 		if (_itemAmount > ((_inventory select _index) select 1)) exitwith {[localize"STR_NewHousing_6","red"] call A3PL_Player_Notification;};
 
-		_boxCapacity = [(typeOf A3PL_Housing_StorageBox)] call A3PL_Config_GetVehicleCapacity;
+		_boxCapacity = A3PL_Housing_StorageBox getVariable["capacity",0];
 		_itemTotalWeight = ([_itemClass, 'weight'] call A3PL_Config_GetItem) * _itemAmount;
 		_boxTotalWeight = [A3PL_Housing_StorageBox] call A3PL_Vehicle_TotalWeight;
 		if ((_itemTotalWeight + _boxTotalWeight) > _boxCapacity) exitwith {["There is not enough capacity to add this","red"] call A3PL_Player_Notification;};
