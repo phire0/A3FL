@@ -161,7 +161,7 @@
 
 ["A3PL_Criminal_SuicideVest",
 {
-	private _nearP = player nearEntities ["Man", 10];
+	private _nearP = player nearEntities ["Man", 15];
 	private _suicide = "Bo_Mk82" createVehicle [0,0,9999];
 	_suicide setPos (getPos player);
 	_suicide setVelocity [100,0,0];
