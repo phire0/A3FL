@@ -1012,6 +1012,7 @@ Config_Factories =
 		["f_cannabis_bud","","inh","inh","cannabis_bud","item",true,0,[["cash",1]],1,""],
 		["f_cannabis_bud_cured","","inh","inh","cannabis_bud_cured","item",true,0,[["cash",1]],1,""],
 		["f_cannabis_grinded_5g","","inh","inh","cannabis_grinded_5g","item",true,0,[["cash",1]],1,""],
+		["f_weed_100g","","inh","inh","weed_100g","item",true,0,[["cash",1]],1,""],
 		["f_cocaine","","inh","inh","cocaine","item",true,0,[["cash",1]],1,""],
 		["f_scale","","inh","inh","scale","item",true,0,[["cash",1]],1,""],
 		["f_fan","","inh","inh","fan","item",true,0,[["cash",1]],1,""],
@@ -1079,8 +1080,8 @@ Config_Factories =
 		["f_Paintball_Mag","","inh","inh","A3PL_Paintball_Mag","magazine",true,60,[["Blueprint_7Rnd_408_Mag",1]],10,"",1],
 		["f_Pickaxe","","inh","inh","A3PL_Pickaxe","weapon",true,60,[["Steel",210],["Blueprint_Pistol_Legal",1]],1,"",1],
 		["f_Shovel","","inh","inh","A3PL_Shovel","weapon",true,60,[["Steel",210],["Blueprint_Pistol_Legal",1]],1,"",1],
-		["f_GolfDriver","","inh","inh","A3PL_GolfDriver","weapon",true,60,[["Steel",210],["Blueprint_Pistol_Legal",1]],1,"",1],
-		["f_BaseballBat","","inh","inh","A3PL_BaseballBat", "weapon", true, 60, [["Steel", 210], ["Blueprint_Pistol_Legal", 1]], 1, "", 1],
+		["f_GolfDriver","","inh","inh","A3FL_GolfDriver","weapon",true,60,[["Steel",210],["Blueprint_Pistol_Legal",1]],1,"",1],
+		["f_BaseballBat","","inh","inh","A3FL_BaseballBat","weapon",true,60,[["Steel",210],["Blueprint_Pistol_Legal",1]],1,"",1],
 
 		["f_Blueprint_A3PL_Taser","","inh","inh","Blueprint_A3PL_Taser","item",true,0,[["cash",1]],1,""],
 		["f_Blueprint_P07","","inh","inh","Blueprint_P07","item",true,0,[["cash",1]],1,""],
