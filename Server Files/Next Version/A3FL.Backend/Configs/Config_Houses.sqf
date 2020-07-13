@@ -122,7 +122,7 @@ Config_Houses = [
 	["Land_A3FL_House4_Yellow",110000,110,625],
 
 	//One-story without garage
-	["Land_A3FL_Anton_Modern_Bungalow",200000,250,900]
+	["Land_A3FL_Anton_Modern_Bungalow",350000,350,900]
 ];
 publicVariable "Config_Houses";
 
