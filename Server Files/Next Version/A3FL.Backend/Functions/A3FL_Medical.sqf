@@ -520,18 +520,17 @@
 {
 	private _effect = ["DynamicBlur",[5]] call A3PL_Lib_PPEffect;
 	private _timer = A3PL_Respawn_Time;
-
+	player setVariable ["A3PL_Medical_Alive",false,true];
 	if (dialog) then {
    		closeDialog 0;
 	};
 	moveOut player;
 	[false] call A3PL_Lib_Ragdoll;
 	waitUntil{!userInputDisabled};
-	if(pVar_AdminLevel < 3) then {disableUserInput true;};
+	if(pVar_AdminLevel < 3) then {disableUserInput true;};	
 	[player,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 	player setVariable ["TimeRemaining",_timer,true];
 	player setVariable ["tf_voiceVolume", 0, true];
-	player setVariable ["A3PL_Medical_Alive",false,true];
 	player setVariable ["Zipped",false,true];
 	player setVariable ["Cuffed",false,true];
 

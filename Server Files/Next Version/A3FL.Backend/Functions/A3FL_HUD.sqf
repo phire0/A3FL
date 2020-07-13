@@ -214,7 +214,7 @@
 	_display = uiNamespace getVariable ["A3PL_HUDDisplay",displayNull];
 
 	_isHudEnabled = profileNameSpace getVariable ["A3PL_HUD_Enabled",true];
-	if (isNull _display && _isHudEnabled) then
+	if ((isNull _display) && _isHudEnabled) then
 	{
 		private ["_ctrl"];
 		("A3PL_Hud" call BIS_fnc_rscLayer) cutRsc ["Dialog_HUD","PLAIN"];
@@ -227,7 +227,7 @@
 		_ctrl ctrlSetFade 1;
 		_ctrl ctrlCommit 0;
 	};
-	if (!isNull _display && !_isHudEnabled) then
+	if (!(isNull _display) && !_isHudEnabled) then
 	{
 		("A3PL_Hud" call BIS_fnc_rscLayer) cutText ["","PLAIN"];
 		uiNameSpace setVariable ["A3PL_HUDDisplay",nil];
@@ -243,16 +243,13 @@
 		_control ctrlShow false;
 	};
 
-	//health
 	_control = _display displayCtrl 1201;
 	_bloodLvl = (player getVariable ["A3PL_MedicalVars",[5000]]) select 0;
 	_imgnr = round (((_bloodLvl/5000))*45);
 
-	if (_imgnr < 1) then
-	{
+	if (_imgnr < 1) then {
 		_control ctrlSetText "";
-	} else
-	{
+	} else {
 		_control ctrlSetText format ["A3PL_Common\HUD\new\MBLoad_%1.paa",_imgnr];
 	};
 
@@ -298,13 +295,8 @@
     _xp = player getVariable ['Player_XP',0];
     _nextLevel = [_level] call A3PL_Config_GetLevel;
     _bar = (_xp / _nextLevel);
-
 	_control = _display displayCtrl 1604;
 	_control progressSetPosition _bar;
-
-	//Display amount of cops online
- 	_control = _display displayCtrl 1001;
- 	// _control ctrlSetStructuredText parseText format ["<t font='PuristaSemiBold' align='center' size='0.85'><img image='\A3PL_Common\icons\faction_sheriff.paa' /> %1  <img image='\A3PL_Common\icons\faction_cg.paa' /> %2  <img image='\A3PL_Common\icons\faction_fifr.paa' /> %3</t>", count(["fisd"] call A3PL_Lib_FactionPlayers), count(["uscg"] call A3PL_Lib_FactionPlayers), count(["fifr"] call A3PL_Lib_FactionPlayers)];
 }] call Server_Setup_Compile;
 
 ["A3PL_HUD_SetOverlay",
@@ -350,7 +342,7 @@
 			"myGPS" setMarkerSizeLocal [0.7, 0.7];
 
 			while {!(isNull _hud)} do {
-				if (("ItemGPS" in (assignedItems player)) && (profilenamespace getVariable ["A3PL_HUD_Enabled",true])) then {
+				if (("ItemGPS" in (assignedItems player)) && (profilenamespace getVariable ["A3PL_ShowGPS",true])) then {
 					_ctrl_gps_image ctrlSetText "A3PL_Common\GUI\player_hud\gps_day.paa";
 
 					if (((vehicle player) distance _gps_old_pos) > 2) then {

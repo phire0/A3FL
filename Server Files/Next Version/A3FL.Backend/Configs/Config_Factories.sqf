@@ -530,8 +530,8 @@ Config_Factories =
 
 	["Vest Factory",[3852.065,9212.537,1.2],
 		["f_A3PL_Holster_1","","inh","inh","A3PL_Holster_1","vest",true,5,[["Polyester",1]],1,"",1],
-		["f_BandollierB_blk","","inh","inh","V_BandollierB_blk","vest",true,30,[["Steel",5],["Blueprint_BandollierB_blk",1]],1,"",1],
-		["f_Press_F","","inh","inh","A3PL_Press_Vest_F","vest",true,30,[["Steel",5],["Blueprint_Press_F",1]],1,"",1],
+		["f_BandollierB_blk","","inh","inh","V_BandollierB_blk","vest",true,30,[["Steel",5]],1,"",1],
+		["f_Press_F","","inh","inh","A3PL_Press_Vest_F","vest",true,30,[["Steel",5]],1,"",1],
 		["f_Rangemaster_belt_khk","","inh","inh","A3PL_Rangemaster_belt","vest",true,5,[["Polyester",1],["Blueprint_Rangemaster_belt",1]],1,"",1],
 		["f_Rangemaster_belt_blk","","inh","inh","A3PL_Rangemaster_belt_blk","vest",true,5,[["Polyester",1],["Blueprint_Rangemaster_belt",1]],1,"",1],
 		["f_V_Safety_blue_F","","inh","inh","V_Safety_blue_F","vest",true,5,[["Polyester",1]],1,"",1],

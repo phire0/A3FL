@@ -82,7 +82,8 @@
 					disableSerialization;
 					_road = A3PL_Last_Road;
 
-					_display = uiNamespace getVariable "A3PL_HUDDisplay";
+					_display = uiNamespace getVariable ["A3PL_HUDDisplay",nil];
+					if(isNil "_display") exitWith {};
 					_ctrl = _display displayCtrl 9520;
 					_ctrlBack = _display displayCtrl 9521;
 

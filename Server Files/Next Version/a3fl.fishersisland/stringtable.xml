@@ -6614,7 +6614,7 @@
             <Original>Ringtone 3</Original>
         </Key>
         <Key ID="STR_IPHONEX_GUIHELP1">
-            <Original>Interface</Original>
+            <Original>Player Stats</Original>
         </Key>
         <Key ID="STR_IPHONEX_GUIHELP2">
             <Original>Twitter</Original>
@@ -6633,6 +6633,9 @@
         </Key>
         <Key ID="STR_IPHONEX_GUIHELP7">
             <Original>Show Grass</Original>
+        </Key>
+        <Key ID="STR_IPHONEX_GUIHELP8">
+            <Original>Show GPS</Original>
         </Key>
         <Key ID="STR_IPHONEX_GUISIM1">
             <Original>PRIMARY : No SIM</Original>

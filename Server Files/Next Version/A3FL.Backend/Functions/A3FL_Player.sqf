@@ -568,12 +568,13 @@
 //hostage, spawn this
 ["A3PL_Player_TakeHostage",
 {
-	private ["_target","_ehFired","_ehReload"];
-	_target = param [0,objNull];
+	private _target = param [0,objNull];
 
-	if (!(_target IN allPlayers)) exitwith {[localize "STR_PLAYER_NOTLOOKINGVALPL","red"] call A3PL_Player_Notification;}; //System: You are not looking at a valid player
-	if ((handgunWeapon player == "") OR ((handgunWeapon player) IN ["A3PL_Jaws","A3PL_Taser2","A3PL_Pickaxe","A3PL_Shovel","A3PL_High_Pressure","A3PL_FireExtinguisher","A3PL_Predator"])) exitwith {["You need a handgun","red"] call A3PL_Player_Notification;};
-	if (!isNil "A3PL_EnableHostage") exitwith {[localize "STR_PLAYER_TAKESOMEONEHOST","red"] call A3PL_Player_Notification;}; //System: You are already taking someone hostage!
+	if (!(_target IN allPlayers)) exitwith {[localize "STR_PLAYER_NOTLOOKINGVALPL","red"] call A3PL_Player_Notification;};
+	if ((handgunWeapon player isEqualTo "") OR ((handgunWeapon player) IN ["A3PL_Jaws","A3PL_Taser2","A3PL_Pickaxe","A3PL_Shovel","A3PL_High_Pressure","A3PL_FireExtinguisher","A3PL_Predator"])) exitwith {["You need a handgun","red"] call A3PL_Player_Notification;};
+	if (!isNil "A3PL_EnableHostage") exitwith {[localize "STR_PLAYER_TAKESOMEONEHOST","red"] call A3PL_Player_Notification;};
+
+	player selectWeapon handgunWeapon player;
 
 	A3PL_EnableHostage = true;
 	A3PL_HostageMode = "hostage";
@@ -582,55 +583,53 @@
 
 	_ehFired = player addEventHandler ["Fired",
 	{
-		if (A3PL_HostageMode == "hostage") exitwith
-		{
-			if ((!isNull A3PL_HostageTarget) && ((handgunWeapon player) != "A3PL_Taser")) then {[] remoteExec ["A3PL_Medical_Die",A3PL_HostageTarget];};
+		if ((A3PL_HostageMode isEqualTo "hostage")) exitwith {
+			if ((!isNull A3PL_HostageTarget) && ((handgunWeapon player) != "A3PL_Taser")) then {detach A3PL_HostageTarget; [] remoteExec ["A3PL_Medical_Die",A3PL_HostageTarget];};
 			A3PL_EnableHostage = false;
 		};
 	}];
-
 	_ehReload = (findDisplay 46) displayAddEventHandler ["KeyDown",
 	{
-		if ((_this select 1) in actionKeys "ReloadMagazine") then
-		{
-			[] spawn
-			{
+		if ((_this select 1) in actionKeys "ReloadMagazine") then {
+			[] spawn {
 				A3PL_HostageReloading = true;
-				uiSleep 3.5;
+				sleep 3.5;
 				if (!isNil "A3PL_HostageReloading") then {A3PL_HostageReloading = false};
 			};
 			false;
 		};
 	}];
 
-	//set animation
 	player playAction "gesture_takehostage";
-	[_target,"A3PL_TakenHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2]; //change to -2
-	_target attachto [player,[-0.05,0.2,-0.02]];//_target attachTo [player,[-0.14,-0.15,-1.45],"LeftHand"];
-	uiSleep 2;
+	[_target,"A3PL_TakenHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2];
+	_target attachto [player,[-0.05,0.2,-0.02]];
 
 	while {A3PL_EnableHostage} do
 	{
-		if (A3PL_HostageMode == "hostage" && !A3PL_HostageReloading) then { player playAction "gesture_takehostageloop"; };
-		if (A3PL_HostageMode == "shoot" && !A3PL_HostageReloading) then { player playAction "gesture_takehostageshootloop"; };
-		uiSleep 2;
-		if ((isNull A3PL_HostageTarget) OR (([_target,"blood"] call A3PL_Medical_GetVar) <= 0)) exitwith {}; //change (false) to player alive check
+		if ((A3PL_HostageMode isEqualTo "hostage") && !A3PL_HostageReloading) then { player playAction "gesture_takehostageloop"; };
+		if ((A3PL_HostageMode isEqualTo "shoot") && !A3PL_HostageReloading) then { player playAction "gesture_takehostageshootloop"; };
+		if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
+		if(!(A3PL_HostageTarget getVariable["A3PL_Medical_Alive",true])) exitWith {};
+		if(isNull A3PL_HostageTarget) exitWith {};
+		sleep 0.5;
 	};
 
-	player playaction "gesture_stop";
+	player playAction "gesture_stop";
 	player removeEventHandler ["Fired",_ehFired];
 	(findDisplay 46) displayRemoveEventHandler ["KeyDown",_ehReload];
 	A3PL_EnableHostage = nil; A3PL_HostageMode = nil; A3PL_HostageTarget = nil; A3PL_HostageReloading = nil;
 
-	if (([_target,"blood"] call A3PL_Medical_GetVar) > 0) then //if alive target
+	if((_target getVariable["A3PL_Medical_Alive",true]) && (player getVariable["A3PL_Medical_Alive",true])) then
 	{
-		[_target,"A3PL_ReleasedHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2]; //change to -2
-		if (([player,"blood"] call A3PL_Medical_GetVar) > 0) then {[player,"A3PL_ReleaseHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2];}; //if alive player
+		[_target,"A3PL_ReleasedHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2];
+		[player,"A3PL_ReleaseHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 		sleep 3;
 		detach _target;
-		if (([_target,"blood"] call A3PL_Medical_GetVar) > 0) then {[_target,""] remoteExec ["A3PL_Lib_SyncAnim",-2];}; //if alive target
-		if (([player,"blood"] call A3PL_Medical_GetVar) > 0) then {[player,""] remoteExec ["A3PL_Lib_SyncAnim",-2];}; //if alive player
+		[_target,""] remoteExec ["A3PL_Lib_SyncAnim",-2];
+		[player,""] remoteExec ["A3PL_Lib_SyncAnim",-2];
 	} else {
+		if(player getVariable["A3PL_Medical_Alive",true]) then {[player,""] remoteExec ["A3PL_Lib_SyncAnim",-2];};
+		if(_target getVariable["A3PL_Medical_Alive",true]) then {[_target,""] remoteExec ["A3PL_Lib_SyncAnim",-2];};
 		detach _target;
 	};
 }] call Server_Setup_Compile;

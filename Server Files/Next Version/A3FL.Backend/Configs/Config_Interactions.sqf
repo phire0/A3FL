@@ -224,7 +224,7 @@ A3PL_Interaction_Options =
 	[
 		localize"STR_INTER_FLIPVEH",
 		{[cursorObject] spawn A3PL_Vehicle_Unflip;},
-		{((cursorObject isKindOf "Car") || (cursorObject isKindOf "Tank")) && {((vehicle player) == player)}}
+		{((cursorObject isKindOf "Car") || (cursorObject isKindOf "Tank")) && {((vehicle player) isEqualTo player)} && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}
 	],
 	[
 		localize "STR_INTER_CHECKVIN",
@@ -237,7 +237,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_PANIC",
 		{[] spawn A3PL_Police_Panic;},
-		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && {!(player getVariable "zipped")} && {!(player getVariable ["panicActive",false])} && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}
+		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && {!(player getVariable ["panicActive",false])} && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}
 	],
 	[
 		localize "STR_INTER_CROCHETER",
@@ -897,7 +897,7 @@ A3PL_Interaction_Options =
 				[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
 			};
 		},
-		{((vehicle player) != player) && (!(vehicle player getVariable ["locked",true])) && (!(vehicle player getVariable ["trapped",false])) && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}
+		{((vehicle player) != player) && (!(vehicle player getVariable ["locked",true])) && (!(vehicle player getVariable ["trapped",false])) && {!(player getVariable ["Cuffed",false])}}
 	],
 	[
 		localize "STR_INTER_PPFOR",
