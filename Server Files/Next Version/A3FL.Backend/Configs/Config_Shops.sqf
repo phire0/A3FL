@@ -101,7 +101,10 @@ Config_Shops_Items = [
 			["item","bread",300,200,0],
 			["item","apple",50,11,0],
 			["item", "beer", 450,50,0],
-			["item", "beer_gold", 600,50,0]
+			["item", "beer_gold", 600,50,0],
+			["item", "A3FL_Coffee_Cups_Large",1500,750,0],
+			["item", "A3FL_Coffee_Cups_Medium",1200,600,0],
+			["item", "A3FL_Coffee_Cups_Small",900,450,0]
 		],{[2597.17,5626.85,0.5]}
 	],
 

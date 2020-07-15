@@ -104,6 +104,9 @@ Config_Factories =
 
 	["Food Processing Plant",[3852.065,9212.537,0.168],
 		["f_cola","","inh","inh","coke","item",true,5,[["coca",1],["sugarcane",1],["Aluminium_Ingot",1]],6,"",1],
+		["f_Coffee_Cups_Large","","inh","inh","A3FL_Coffee_Cups_Large","item",true,5,[["coca",6],["plastic",6]],6,"",1],
+		["f_Coffee_Cups_Medium","","inh","inh","A3FL_Coffee_Cups_Medium","item",true,5,[["coca",4],["plastic",4]],6,"",1],
+		["f_Coffee_Cups_Small","","inh","inh","A3FL_Coffee_Cups_Small","item",true,5,[["coca",2],["plastic",2]],6,"",1],
 		["f_popcornbucket","","inh","inh","popcornbucket","item",true,5,[["Corn",1]],10,"",1],
 		["f_burgerbun","Burger bun","inh","inh","burger_bun","item",true,5,[["wheat",1]],10,"",1],
 		["f_burger_raw","","inh","inh","burger_raw","item",true,5,[["bucket_full",1]],10,"",1],
