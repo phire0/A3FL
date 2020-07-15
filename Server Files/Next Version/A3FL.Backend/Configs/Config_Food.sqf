@@ -70,6 +70,9 @@ Config_Thirst =
 	["coffee",30,false],
 	["coke",30,false],
 	["waterbottle",25,false],
+	["coffee_cup_large",50,false],
+	["coffee_cup_medium",40,false],
+	["coffee_cup_small",30,false],
 
 	//Alcohol
 	["beer",10,true],
