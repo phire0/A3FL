@@ -142,3 +142,10 @@
 	[localize"A3PL_P362_TowTruck",[2757.38,5465.27,0],"DMV",1800] spawn A3PL_Lib_JobVehicle_Assign;
 	["STR_DMV_TRUCKSPAWN","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
+
+["A3PL_DMV_StartTest",{
+	if(player getVariable['player_cash',0] < 500) exitWith {['You do not have enough money for the driving test!','red'] call A3PL_Player_Notification;};
+	if(['driver'] call A3PL_DMV_Check) exitWith {['You already have a driving license!','red'] call A3PL_Player_Notification;};
+	['dmv_drivingtest1'] call A3PL_NPC_Start;
+	_cash = player getVariable ['player_cash',0]; player setVariable ['player_cash',(_cash - 500),true];
+}] call Server_Setup_Compile;
