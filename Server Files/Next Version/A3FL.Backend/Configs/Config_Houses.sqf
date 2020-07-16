@@ -63,20 +63,20 @@ Config_Houses = [
 	["Land_A3PL_BostonHouse",80000,50,250],
 
 	//One-story without garage
-	["Land_John_House_Grey",110000,110,600],
-	["Land_John_House_Blue",110000,110,600],
-	["Land_John_House_Red",110000,110,600],
-	["Land_John_House_Green",110000,110,600],
+	["Land_John_House_Grey",110000,100,600],
+	["Land_John_House_Blue",110000,100,600],
+	["Land_John_House_Red",110000,100,600],
+	["Land_John_House_Green",110000,100,600],
 
 	//One-story with garage
 	["Land_A3PL_Ranch1",135000,150,800],
 	["Land_A3PL_Ranch2",135000,150,800],
 	["Land_A3PL_Ranch3",135000,150,800],
 
-	["Land_Home4w_DED_Home4w_01_F",150000,200,1000],
-	["Land_Home1g_DED_Home1g_01_F",150000,200,1000],
-	["Land_Home2b_DED_Home2b_01_F",150000,200,1000],
-	["Land_Home5y_DED_Home5y_01_F",150000,200,1000],
+	["Land_Home4w_DED_Home4w_01_F",150000,180,1000],
+	["Land_Home1g_DED_Home1g_01_F",150000,180,1000],
+	["Land_Home2b_DED_Home2b_01_F",150000,180,1000],
+	["Land_Home5y_DED_Home5y_01_F",150000,180,1000],
 
 	//One-story ranch
 	["Land_A3FL_House2_Cream",150000,100,550],
@@ -99,9 +99,9 @@ Config_Houses = [
 	["Land_A3FL_House3_Brown",175000,130,700],
 	["Land_A3FL_House3_Yellow",175000,130,700],
 
-	//Two-Story with garage			
-	["Land_Home3r_DED_Home3r_01_F",250000,300,1200],
-	["Land_Home6b_DED_Home6b_01_F",250000,300,1200],
+	//Two-Story with garage
+	["Land_Home3r_DED_Home3r_01_F",250000,280,1200],
+	["Land_Home6b_DED_Home6b_01_F",250000,280,1200],
 
 	//Two-story without garage
 	["Land_A3FL_House1_Cream",250000,250,1100],
@@ -109,7 +109,6 @@ Config_Houses = [
 	["Land_A3FL_House1_Blue",250000,250,1100],
 	["Land_A3FL_House1_Brown",250000,250,1100],
 	["Land_A3FL_House1_Yellow",250000,250,1100],
-
 
 	//One-story without garage
 	["Land_A3FL_Anton_Modern_Bungalow",500000,350,900],

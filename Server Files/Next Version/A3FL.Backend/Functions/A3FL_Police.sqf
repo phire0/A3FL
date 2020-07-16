@@ -197,7 +197,30 @@
 		{
 			_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _x >> "displayName")];
 			_control lbSetData [_index,_x];
+			_control lbSetValue [_index,0];
 		} foreach _items;
+
+		_uniform = uniform _target;
+		if(!(_uniform isEqualTo "")) then {
+			_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _uniform >> "displayName")];
+			_control lbSetData [_index,_uniform];
+			_control lbSetValue [_index,1];
+		};
+
+		_vest = vest _target;
+		if(!(_vest isEqualTo "")) then {
+			_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _vest >> "displayName")];
+			_control lbSetData [_index,_vest];
+			_control lbSetValue [_index,2];
+		};
+
+		_backpack = backpack _target;
+		if(!(_backpack isEqualTo "")) then {
+			_index = _control lbAdd format ["%1",getText (configFile >> "CfgVehicles" >> _backpack >> "displayName")];
+			_control lbSetData [_index,_backpack];
+			_control lbSetValue [_index,3];
+		};
+		
 		_control lbSetCurSel 0;
 
 
@@ -220,6 +243,10 @@
 			_control lbSetData [_index,_x select 0];
 			_control lbSetValue [_index,_x select 1];
 		} foreach _vitems;
+
+		_index = _control lbAdd format["$%1", [_target getVariable ["Player_Cash",0]] call A3PL_Lib_MoneyFormat];
+		_control lbSetData [_index,"cash"];
+		_control lbSetValue [_index,_target getVariable ["Player_Cash",0]];
 		_control lbSetCurSel 0;
 
 		_control = _display displayCtrl 1600;
@@ -262,13 +289,38 @@
 		{
 			_control = _display displayCtrl 1500;
 			_class = _control lbData (lbCurSel _control);
-			_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
-			if (_class IN (assignedItems _target)) then
+			_itemtype = _control lbValue (lbCurSel _control);
+			switch (_itemtype) do
 			{
-				_target unAssignItem _class;
+				case 0:
+				{
+					_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
+					if (_class IN (assignedItems _target)) then
+					{
+						_target unAssignItem _class;
+					};
+					_target removeItem _class;
+					_weaponHolder addItemCargoGlobal [_class,1];
+				};
+				case 1:
+				{
+					_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
+					removeUniform _target;
+					_weaponHolder addItemCargoGlobal [_class,1];
+				};
+				case 2:
+				{
+					_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
+					removeVest _target;
+					_weaponHolder addItemCargoGlobal [_class,1];
+				};
+				case 3:
+				{
+					_itemName = getText (configFile >> "CfgVehicles" >> _class >> "displayName");
+					removeBackpackGlobal _target;
+					_weaponHolder addBackpackCargoGlobal [_class,1];
+				};
 			};
-			_target removeItem _class;
-			_weaponHolder addItemCargoGlobal [_class,1];
 		};
 		case ("wep"):
 		{

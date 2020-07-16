@@ -37,9 +37,7 @@
 
 	sleep 1;
 
-	private _req = format["SELECT id, owner, name, members, bank, maxmembers FROM gangs WHERE active='1' AND members LIKE '%2%1%2'",_uid,'%'];
-	private _gang = [_req, 2] call Server_Database_Async;
-	_group setVariable["gang_data",_gang,true];
+	[_owner] call Server_Gang_Load;
 	[_group] remoteExecCall ["A3PL_Gang_Created",_owner];
 },true] call Server_Setup_Compile;
 
@@ -94,7 +92,7 @@
 	private _owner = _gang select 1;
 	[format ["UPDATE gangs SET owner='%1' WHERE id='%2'",_owner,_groupID], 1] call Server_Database_Async;
 	private _owner = [_owner] call A3PL_Lib_UIDToObject;
-	[format[localize"STR_SERVER_GANG_SETLEADER"], "red"] remoteExec ["A3PL_Player_Notification",_owner];
+	[format[localize"STR_SERVER_GANG_SETLEADER"], "green"] remoteExec ["A3PL_Player_Notification",_owner];
 },true] call Server_Setup_Compile;
 
 ["Server_Gang_UpdateGangBalance",{
@@ -139,12 +137,11 @@
 }] call Server_Setup_Compile;
 
 ["Server_Gang_RewardFactions",{
-	_faction = param [0,"fisd"];
-	_amount = 2000;
+	private _faction = param [0,"fisd"];
+	private _amount = 2000;
 
 	{
 		[_x, 'Player_Bank', ((_x getVariable 'Player_Bash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
 		[format["Your faction has captured a gang hideout, you have been rewarded $%1 for good performance!",_amount],"green"] remoteExec ["A3PL_Player_Notification",_x];
 	} foreach ([_faction] call A3PL_Lib_FactionPlayers);
-
 },true] call Server_Setup_Compile;

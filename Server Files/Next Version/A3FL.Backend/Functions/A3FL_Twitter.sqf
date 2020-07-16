@@ -144,14 +144,34 @@
 			if(!isNil "A3PL_phoneNumberActive") then {
 				_name = format ["%1 [%2]",_name, A3PL_phoneNumberActive];
 			};
-				_namecolor = "#00bfbf";
-				_msgcolor = "#4cffff";
+			_namecolor = "#00bfbf";
+			_msgcolor = "#4cffff";
 		};
 		if (((_splitted select 0 == "/h") or (_splitted select 0 == "/H")) && !_doubleCommand) exitwith {
 			A3PL_Twitter_Cooldown = 0;
 			["/h [Guide] | /a [admin] | /ad [AD]","#a3ffc1","","Commands","#42f47d",""] spawn A3PL_Twitter_NewMsg;
 		};
 		if (_exitwith) exitwith {};
+
+		_a = 0;
+		while {_a < 11} do {
+			_toFind = [";)","<3",":)",":fuck:",":hi:",":o",":yes:",":p",":@",":-(",":("];
+			_toFind = _toFind select _a;
+			_replaceBy = ["<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_cleinoeil.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_coeur.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_content.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_fuck.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_hi.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_o.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_ok.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_p.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_pascontent.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_pleure.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_triste.paa'/>"];
+			_replaceBy = _replaceBy select _a;
+			_numberCharToReplace = count _toFind;
+			_numberFind = _msg find _toFind;
+			while {_numberFind != -1} do {
+				_numberFind = _msg find _toFind;
+				if (_numberFind isEqualTo -1) exitWith {};
+					_splitMessage = _msg splitString "";
+					_splitMessage deleteRange [(_numberFind +1), _numberCharToReplace -1];
+					_splitMessage set [_numberFind, _replaceBy];
+					_msg = _splitMessage joinString "";
+				};
+			_a = _a + 1;
+		};
+		
 		if (!_doubleCommand) exitwith {
 			A3PL_Twitter_Cooldown = 0;
 			["Unknown command (type /h to get help)","#a3ffc1","","Commands","#42f47d",""] spawn A3PL_Twitter_NewMsg;

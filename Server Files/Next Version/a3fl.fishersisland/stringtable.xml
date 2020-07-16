@@ -1449,6 +1449,15 @@
    <Key ID="STR_ConfigItems_Coffee">
       <Original>Coffee Cup</Original>
    </Key>
+   <Key ID="STR_ConfigItems_CoffeeLarge">
+      <Original>Small Coffee</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_CoffeeMedium">
+      <Original>Medium Coffee</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_CoffeeSmall">
+      <Original>Small Coffee</Original>
+   </Key>
    <Key ID="STR_ConfigItems_Donut">
       <Original>Donut</Original>
    </Key>
@@ -8629,7 +8638,7 @@
         <Original>You can not be a leader yourself!</Original>
       </Key>
       <Key ID="STR_NewGang_15">
-        <Original>You have to appoint a new leader for your gang</Original>
+        <Original>You have appointed a new leader for your gang</Original>
       </Key>
       <Key ID="STR_NewGang_16">
         <Original>You are not in a gang</Original>

@@ -72,41 +72,6 @@ A3PL_Interaction_Options =
 		{(typeOf (vehicle player) == "A3PL_RHIB") && {((["Camper_Light",1] call A3PL_Inventory_Has) || {!isNull((vehicle player) getVariable["rhib_light",objNull])})}}
 	],
 	[
-    "Land_A3FL_Anton_RoadWork_Sign",
-    "Use RoadWork Sign",
-    {
-        private ["_name","_anim","_inter"];
-        _name = player_nameintersect;
-        _inter = player_objintersect;
-
-        switch (_name) do
-        {
-            case "Leg1_button": {_anim = ["Leg1","Leg2","Leg3","Leg4"]};
-        };
-
-        if (typeName _anim == "ARRAY") exitwith
-        {
-            {
-                if (_inter animationPhase _x < 0.1) then
-                {
-                    _inter animate [_x,1];
-                } else
-                {
-                    _inter animate [_x,0];
-                };
-            } foreach _anim;
-        };
-
-        if (_inter animationPhase _anim < 0.1) then
-        {
-            _inter animate [_anim,1];
-        } else
-        {
-            _inter animate [_anim,0];
-        };
-    }
-	],
-	[
 		localize"STR_INTER_SETCOLLOC",
 		{
 			private _playerLevel = player getVariable["Player_Level",0];
@@ -309,7 +274,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_TAKEPHOST",
 		{[cursorobject] spawn A3PL_Player_TakeHostage;},
-		{(cursorobject getVariable ["A3PL_Medical_Alive",true]) && (!(player getVariable ["Cuffed",false])) && (!(player getVariable ["Zipped",false])) && (isNil "A3PL_EnableHostage") && (isPlayer cursorObject) && (player distance cursorobject < 2) &&(([cursorobject, player] call BIS_fnc_relativeDirTo) < 220)&&(([cursorobject, player] call BIS_fnc_relativeDirTo) > 130)}
+		{(cursorobject getVariable ["A3PL_Medical_Alive",true]) && (!(player getVariable ["Cuffed",false])) && (!(player getVariable ["Zipped",false])) && (isNil "A3PL_EnableHostage") && (isPlayer cursorObject) && (player distance cursorobject < 2) &&(([cursorobject, player] call BIS_fnc_relativeDirTo) < 220)&&(([cursorobject, player] call BIS_fnc_relativeDirTo) > 130) && !{cursorObject getVariable["takingHostage",false]}}
 	],
 	[
 		localize "STR_INTER_RELHOST",

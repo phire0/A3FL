@@ -1540,7 +1540,6 @@
 	private _control = _display displayCtrl 2100;
 	private _uid = (_control lbData (lbCurSel _control));
 	if(_uid isEqualTo "") exitWith {["Please select a target.","red"] call A3PL_Player_Notification;};
-	diag_log format["A3PL_iPhoneX_GangInvite| _uid : %1",_uid];
 	[_uid] call A3PL_Gang_Invite;
 }] call Server_Setup_Compile;
 
@@ -1557,6 +1556,7 @@
 	if(isNil '_gang') exitWith {};
 	if((_target isEqualTo (_gang select 1)) || _target isEqualTo (getPlayerUID player)) exitWith {[format ["You cannot fire yourself"],"red"] call A3PL_Player_Notification;};
 
+	["You have removed someone from your gang","green"] call A3PL_Player_Notification;
 	[_target, true] call A3PL_Gang_RemoveMember;
 	closeDialog 0;
 }] call Server_Setup_Compile;
