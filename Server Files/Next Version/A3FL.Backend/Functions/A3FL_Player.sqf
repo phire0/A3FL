@@ -580,6 +580,7 @@
 	A3PL_HostageMode = "hostage";
 	A3PL_HostageTarget = _target;
 	A3PL_HostageReloading = false;
+	player setVariable["takingHostage",true,true];
 
 	_ehFired = player addEventHandler ["Fired",
 	{
@@ -604,6 +605,7 @@
 	[_target,"A3PL_TakenHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 	_target attachto [player,[-0.05,0.2,-0.02]];
 
+	_target setVariable ["tf_unable_to_use_radio", true];
 	while {A3PL_EnableHostage} do
 	{
 		if ((A3PL_HostageMode isEqualTo "hostage") && !A3PL_HostageReloading) then { player playAction "gesture_takehostageloop"; };
@@ -613,6 +615,7 @@
 		if(isNull A3PL_HostageTarget) exitWith {};
 		sleep 0.5;
 	};
+	_target setVariable ["tf_unable_to_use_radio", false];
 
 	player playAction "gesture_stop";
 	player removeEventHandler ["Fired",_ehFired];

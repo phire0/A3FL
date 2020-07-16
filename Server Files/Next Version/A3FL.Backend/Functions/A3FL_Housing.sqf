@@ -67,7 +67,7 @@
 	_control ctrlSetStructuredText parseText format["<t font='PuristaSemiBold' align='center' size='1.35' color='%3'>%1%2</t>", _capacity, "%", _capColor];
 
 	_boxTotalWeight = [_box] call A3PL_Vehicle_TotalWeight;
-	_vehCapacity = [(typeOf _box)] call A3PL_Config_GetVehicleCapacity;
+	_vehCapacity = _box getVariable["capacity",0];
 	_capacity = round((_boxTotalWeight/_vehCapacity)*100);
 	_capColor = switch(true) do {
 		case (_capacity < 20): {"#00FF00"};

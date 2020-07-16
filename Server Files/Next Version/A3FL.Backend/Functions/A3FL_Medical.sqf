@@ -190,10 +190,10 @@
 		{
 			if(((driver (vehicle player)) isEqualTo player) && (_sDamage > 0.009)) then {
 				_fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
-				if((count(_fifr) >= 5)) then {
+				if((count(_fifr) >= 5) && ((vehicle player) isKindOf "Car")) then {
 					_chance = random 100;
 					if(_chance > 85) then {
-						vehicle player setVariable["trapped",true,true];
+						(vehicle player) setVariable["trapped",true,true];
 						["You have crashed and are trapped inside your vehicle, FIFR has been called!","red"] call A3PL_Player_Notification;
 						["911: Someone is trapped in their vehicle, check your map for the location!","red","fifr",3] call A3PL_Lib_JobMessage;
 						[position player, "Trapped in Vehicle","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_fifr];
@@ -618,7 +618,7 @@
 	_woundsCheck = param [2,"",["",[]]];
 	_hasWound = false;
 
-	if (typeName _woundsCheck == "STRING") then {_woundsCheck = [_woundsCheck];};
+	if ((typeName _woundsCheck) isEqualTo "STRING") then {_woundsCheck = [_woundsCheck];};
 	{
 		_wound = _x;
 		{
@@ -658,7 +658,7 @@
 	if (lbCurSel _control == -1) exitwith {["Please select a treatment"] call A3PL_Player_Notification;};
 	_item = _control lbData (lbCurSel _control);
 
-	_isEMS = (player getVariable ["job","unemployed"]) == "fifr";
+	_isEMS = (player getVariable ["job","unemployed"]) isEqualTo "fifr";
 
 	_exit = false;
 	switch (_item) do
@@ -820,12 +820,11 @@
 
 ["A3PL_Medical_AddLog",
 {
-	private ["_text","_color","_log","_player"];
-	_player = param [0,player];
-	_text = param [1,""];
-	_color = param [2,""];
-	_log = _player getVariable ["A3PL_MedicalLog",[]];
-	if (count _log >= LOGLIMIT) then {_log deleteAt 0;};
+	private _player = param [0,player];
+	private _text = param [1,""];
+	private _color = param [2,""];
+	private _log = _player getVariable ["A3PL_MedicalLog",[]];
+	if ((count _log) >= LOGLIMIT) then {_log deleteAt 0;};
 	_log pushback [format ["%2:%3 - %1",_text,(date select 3),(date select 4)],_color];
 	_player setVariable ["A3PL_MedicalLog",_log,true];
 }] call Server_Setup_Compile;
@@ -1184,13 +1183,12 @@
 	private _success = true;
 
 	if(_isBeingRevived) exitWith {["Someone is already performing CPR on this person","red"] call A3PL_Player_Notification;};
-	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
+	if(Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
 
     player playmove "AinvPknlMstpSnonWnonDr_medic0";
 	[_target] spawn
 	{
-		private ["_target"];
-		_target = param [0,objNull];
+		private _target = param [0,objNull];
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 		["CPR in progress...",30] spawn A3PL_Lib_LoadAction;
 		_success = true;
@@ -1199,7 +1197,6 @@
 			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 			if (!(vehicle player == player)) exitwith {_success = false;};
 			if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-			diag_log str (animationState player);
 			if (animationState player != "AinvPknlMstpSnonWnonDr_medic0") then {player playmove "AinvPknlMstpSnonWnonDr_medic0";}
 		};
 		player switchMove "";
@@ -1209,11 +1206,11 @@
 			if ((vehicle player) isEqualTo player) then {player switchMove "";};
 		};
 
-		_target getVariable["reviving",false];
+		_target setVariable["reviving",true,true];
 
 		private _chance = random 100;
 		if(["cpr",player] call A3PL_DMV_Check) then {_chance = random 50;};
-		if((player getVariable ["job", "unemployed"]) IN ["fifr"]) then {_chance = 0;};
+		if((player getVariable ["job", "unemployed"]) isEqualTo "fifr") then {_chance = 0;};
 		if(_chance <= 25) then {
 			[_target,[1500]] call A3PL_Medical_ApplyVar;
 			_target setVariable ["A3PL_Medical_Alive",true,true];

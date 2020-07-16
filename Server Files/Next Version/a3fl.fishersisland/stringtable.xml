@@ -8638,7 +8638,7 @@
         <Original>You can not be a leader yourself!</Original>
       </Key>
       <Key ID="STR_NewGang_15">
-        <Original>You have to appoint a new leader for your gang</Original>
+        <Original>You have appointed a new leader for your gang</Original>
       </Key>
       <Key ID="STR_NewGang_16">
         <Original>You are not in a gang</Original>
