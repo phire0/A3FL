@@ -91,7 +91,8 @@
 				[format[localize"STR_NewStorage_5",_price],"red"] call A3PL_Player_Notification;
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
-			["Federal Reserve",_lockerPrice] remoteExec ["Server_Government_AddBalance",2];
+			//Put money into Federal Reserve
+			["Federal Reserve",_Price] remoteExec ["Server_Government_AddBalance",2];
 		};
 		if(_type == "airimpound") then {
 			_vehPrice = [_class] call A3PL_Config_GetVehicleMSRP;
@@ -114,7 +115,8 @@
 				[format[localize"STR_NewStorage_5",_price],"red"] call A3PL_Player_Notification;
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
-			["Federal Reserve",_lockerPrice] remoteExec ["Server_Government_AddBalance",2];
+			//Put money into Federal Reserve
+			["Federal Reserve",_Price] remoteExec ["Server_Government_AddBalance",2];
 		};
 		if(_type == "chopshop") then {
 			_vehPrice = [_class] call A3PL_Config_GetVehicleMSRP;
@@ -138,6 +140,8 @@
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
 		};
+		//Put money into Federal Reserve
+		["Federal Reserve", _Price] remoteExec["Server_Government_AddBalance", 2];
 		if(_type == "vehicle") then {
 			[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 		};

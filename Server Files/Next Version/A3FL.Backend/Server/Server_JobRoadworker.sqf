@@ -37,5 +37,6 @@
 		[format[localize"STR_SERVER_ROAD_PAY",_cash],"green"] remoteExec ["A3PL_Player_Notification",_player];
 		[_player,"Player_Cash",((_player getVariable ["player_cash",0]) + _cash)] call Server_Core_ChangeVar;
 	};
+	["Federal Reserve", _cash] remoteExec["Server_Government_AddBalance", 2];
 	[_veh] call Server_Police_Impound;
 },true] call Server_Setup_Compile;

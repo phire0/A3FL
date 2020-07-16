@@ -1727,9 +1727,11 @@
 		_price = _vehPrice * 0.15;
 	};
 
-	//Pay
+	//Take cash from Player
 	if (_price > (player getVariable ["Player_Bank",0])) exitwith {[format [localize"STR_NewVehicle_56"]] call A3PL_Player_notification;};
 	player setVariable ["Player_Bank",(player getVariable ["Player_Bank",0]) - _price,true];
+	//Put cash in Federal Bank
+	["Federal Reserve", _price] remoteExec["Server_Government_AddBalance", 2];
 
 	[format [localize"STR_NewVehicle_57", getText (configFile >> "CfgVehicles" >> typeOf _veh >> "displayName"), _price], "green"] call A3PL_Player_Notification;
 	//Insure
