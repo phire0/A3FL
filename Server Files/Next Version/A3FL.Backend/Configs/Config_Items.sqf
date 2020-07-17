@@ -27,7 +27,7 @@ Config_Items =
 	["dildo",localize"STR_ConfigItems_dildo",0.1,"A3PL_Dildo",0,true,true,true,true,true,"", [0,0,0], ""],
 
 	["v_lockpick",localize"STR_ConfigItems_v_lockpick",0.1,"A3PL_Lockpick",0,true,true,true,true,true,"", [0,0,0], ""],
-	["keycard",localize"STR_ConfigItems_keycard",0.1,"A3PL_Lockpick",0,true,true,true,true,true,"", [0,0,0], ""],
+	["keycard",localize"STR_ConfigItems_keycard",0.1,"A3FL_Keycard",0,true,true,true,true,true,"", [0,0,0], ""],
 
 	["pizzabites",localize"STR_ConfigItems_pizzabites", 0.1, "A3PL_PartyPack",0,true,true,true, true, true,"A3PL_Items_Food", [0,0,0], ""],
 	["soupcup",localize"STR_ConfigItems_soupcup", 0.1, "A3PL_MaggiiNoodle",0,true,true,true, true, true,"A3PL_Items_Food", [0,0,0], ""],
@@ -488,8 +488,8 @@ Config_Items =
     ["furn_fridge",localize"STR_ConfigItems_Fridge", 15, "A3PL_Fridge",0,true,true,true,false,false,"", [0,0,0], ""],
     ["gift",localize"STR_ConfigItems_gift", 0.1, "A3PL_hw_candybucket",0,true,true,true,true,true,"", [0,0,0], ""],
 
-    ["breathalizer",localize"STR_ConfigItems_breathalizer", 0.1, "A3PL_Breathalizer",0,true,true,true,true,true,"", [0,0,0], ""],
-	["drug_kit",localize"STR_ConfigItems_drug_kit", 0.1, "A3PL_DrugTestingKit",0,true,true,true,true,true,"", [0,0,0], ""],
+    ["breathalizer",localize"STR_ConfigItems_breathalizer", 0.1, "A3FL_Breathalyzer",0,true,true,true,true,true,"", [0,0,0], ""],
+	["drug_kit",localize"STR_ConfigItems_drug_kit", 0.1, "A3FL_DrugTest",0,true,true,true,true,true,"", [0,0,0], ""],
 
     ["sulphuric_acid",localize"STR_ConfigItems_sulphuric_acid", 0.1, "A3FL_SulphuricAcid",0,true,true,true,true,true,"", [0,0,0], ""],
     ["calcium_carbonate",localize"STR_ConfigItems_calcium_carbonate", 0.1, "A3FL_CalciumCarbonate",0,true,true,true,true,true,"", [0,0,0], ""],
