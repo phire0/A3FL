@@ -378,7 +378,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_SHOWMIRANDA",
 		{if(!(call A3PL_Player_AntiSpam)) exitWith {}; [] remoteExec ["A3PL_Police_MirandaCard",cursorObject];},
-		{(cursorobject getVariable ["A3PL_Medical_Alive",true]) && ((player getVariable["faction","citizen"]) IN ["fisd","uscg","usms","doj"]) && (isPlayer cursorObject) && (player distance cursorObject < 3)}
+		{(cursorobject getVariable ["A3PL_Medical_Alive",true]) && ((player getVariable["job","unemployed"]) IN ["fisd","uscg","usms","doj"]) && (isPlayer cursorObject) && (player distance cursorObject < 3)}
 	],
 	[
 		localize "STR_INTER_GRABID",

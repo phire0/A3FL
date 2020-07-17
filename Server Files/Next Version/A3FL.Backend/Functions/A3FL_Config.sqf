@@ -14,7 +14,7 @@
 	if (_class isEqualTo "") exitWith {false};
 
 	{
-		if((_x select 0) isEqualTo _class) exitWith {_config = _x;};
+		if((_x select 0) == _class) exitWith {_config = _x;};
 	} forEach Config_Items;
 	if ((count _config) isEqualTo 0) exitwith {false;};
 

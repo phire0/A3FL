@@ -54,7 +54,7 @@
 	switch(_player getVariable["dbVar_AdminLevel",0]) do {
 		case(0): {_title = "";};
 		case(1): {_title = "Executive";};
-		case(2): {_title = "Executive Supervisor";};
+		case(2): {_title = "Exec. Supervisor";};
 		case(3): {_title = "Developer";};
 		case(4): {_title = "Lead Developer";};
 		case(5): {_title = "Chief";};
@@ -666,6 +666,7 @@
 	if (player getVariable ["pVar_RedNameOn",false]) then {
 		player setVariable ["pVar_RedNameOn",false,true];
 	} else {
+		player setDamage 0;
 		player setVariable ["pVar_RedNameOn",true,true];
 		player setVariable ["A3PL_Wounds",[],true];
 		player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
@@ -691,6 +692,7 @@
 	player setVariable ["A3PL_Medical_Alive",true,true];
 	player setVariable ["A3PL_Wounds",[],true];
 	player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+	player setDamage 0;
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminSelfFeed", {

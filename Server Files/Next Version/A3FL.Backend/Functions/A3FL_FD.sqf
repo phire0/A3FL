@@ -152,6 +152,7 @@
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _hydrant = param [0,objNull];
+	private _pos = [];
 	if (!((typeOf _hydrant) IN ["Land_A3PL_FireHydrant","Land_A3PL_Gas_Station"])) exitwith {[localize"STR_NewFD_Hydrant","red"] call A3PL_Player_Notification;};
 	if (((count (attachedObjects _hydrant)) > 0) && (typeOf _hydrant == "Land_A3PL_FireHydrant")) exitwith {[localize"STR_NewFD_Adaptator","red"] call A3PL_Player_Notification;};
 	if (player_itemClass != "FD_adapter") exitwith {[localize"STR_NewFD_AdapterNo","red"] call A3PL_Player_Notification;};
@@ -557,9 +558,8 @@
 			_source = [_inlet] call A3PL_FD_FindSource;
 			if (!isNull _source) then
 			{
-				_otherEnd = [_inlet,true] call A3PL_FD_FindSource; //get adapter here
+				_otherEnd = [_inlet,true] call A3PL_FD_FindSource;
 				_sourceAmount = [_source,_otherEnd] call A3PL_FD_SourceAmount;
-				hintSilent format ["EAU : %1 GALLONS",_sourceAmount];
 				if (_sourceAmount != 0 && ((_ammoWaterGun - _sourceAmount > 10) OR (_ammoWaterGun - _sourceAmount < -10))) then
 				{
 					_veh setVehicleAmmoDef (0.001 * _sourceAmount);
@@ -791,6 +791,7 @@
 {
 	private _engine = _this select 0;
 	private _currentPressure = _engine getvariable ["pressure","high"];
+	private _newPressure = "low";
 	switch (_currentPressure) do {
 		case ("high"): {_newPressure = "medium";};
 		case ("medium"): {_newPressure = "low";};
@@ -1114,7 +1115,7 @@
 			if (count _return > 0) then
 			{
 				{
-					_output = _output + (format ["<t align='center'>%1 - %2 à %3 - EMS : %4</t><br />",_x select 5,_x select 3,_x select 2,_x select 4]);
+					_output = _output + (format ["<t align='center'>%1 - %2 at %3 - EMS : %4</t><br />",_x select 5,_x select 3,_x select 2,_x select 4]);
 				} foreach _return;
 			} else
 			{

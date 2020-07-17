@@ -375,45 +375,45 @@
 	private _obj = _this select 0;
 	if ((animationState _obj) IN ["amovpercmstpsnonwnondnon","amovpercmstpsraswrfldnon","amovpercmstpsraswpstdnon","amovpercmstpsraswlnrdnon"]) exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,1] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
 	if ((animationState _obj) isEqualTo "a3pl_idletohandsup") exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,2] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
 	if ((animationState _obj) isEqualTo "a3pl_handsuptokneel") exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,3] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
 	if (animationState _obj IN ["amovpknlmstpsnonwnondnon","amovpknlmstpsraswpstdnon","amovpknlmstpsraswrfldnon","amovpknlmstpsraswlnrdnon"]) exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,4] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
 	if (animationState _obj IN ["amovppnemstpsnonwnondnon","amovppnemstpsraswrfldnon","amovppnemstpsraswpstdnon"]) exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
 	if ((animationState _obj) isEqualTo "unconscious") exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
 }] call Server_Setup_Compile;
 
