@@ -220,7 +220,7 @@
 			_control lbSetData [_index,_backpack];
 			_control lbSetValue [_index,3];
 		};
-		
+
 		_control lbSetCurSel 0;
 
 
@@ -366,6 +366,7 @@
 		};
 	};
 	_control lbDelete (lbCurSel _control);
+	[player, 5] call A3PL_Level_AddXP;
 
 	[format [localize"STR_NewPolice_6",_itemName,_amount],"green"] call A3PL_Player_Notification;
 	[format [localize"STR_NewPolice_7",_itemName,_amount]] remoteExec ["A3PL_Player_Notification",_target];
@@ -415,6 +416,7 @@
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
 	};
+	[player, 5] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Uncuff', {
@@ -1594,6 +1596,7 @@
 
 	_name = [_class, 'name'] call A3PL_Config_GetItem;
 	[format["You have seized %1 %2",_amount,_name],"red"] call A3PL_Player_Notification;
+	[player, 5] call A3PL_Level_AddXP;
 
 }] call Server_Setup_Compile;
 
@@ -1620,6 +1623,7 @@
 
 	deleteVehicle _target;
 	_name = [_class, 'name'] call A3PL_Config_GetItem;
+	[player, 5] call A3PL_Level_AddXP;
 	[format["You have seized %1 %2",_amount,_name],"red"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 

@@ -36,6 +36,6 @@
 
 	["shrooms",1] call A3PL_Inventory_Add;
 	[format[localize"STR_NewRessources_ShromGathered",1],"green"] call A3PL_Player_Notification;
-	[player,1] call A3PL_Level_AddXP;
+	[player,3] call A3PL_Level_AddXP;
 	deleteVehicle _shroom;
 }] call Server_Setup_Compile;

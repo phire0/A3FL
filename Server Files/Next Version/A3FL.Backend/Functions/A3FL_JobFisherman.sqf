@@ -68,6 +68,7 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	_buoy setVariable ["used",true,true];
+	[player, 3] call A3PL_Level_AddXP;
 	[player,_buoy] remoteExec ["Server_JobFisherman_GrabNet",2];
 }] call Server_Setup_Compile;
 

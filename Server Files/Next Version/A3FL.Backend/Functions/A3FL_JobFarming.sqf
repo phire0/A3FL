@@ -369,5 +369,6 @@
 
 	[format ["You bagged %1 grams into a marijuana bag, it's now in your inventory!",_grams],"green"] call A3PL_Player_Notification;
 	[format ["weed_%1g",_grams],1] call A3PL_Inventory_Add;
+	[player, 5] call A3PL_Level_AddXP;
 	closeDialog 0;
 }] call Server_Setup_Compile;

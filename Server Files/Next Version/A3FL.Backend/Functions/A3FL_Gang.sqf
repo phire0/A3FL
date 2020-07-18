@@ -236,6 +236,7 @@
 
 	[localize"STR_NewGang_22","green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
+	[player, 20] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_CapturedPaycheck",
@@ -323,4 +324,5 @@
 
 	[format["%1 has secured a gang hideout from %2",(toUpper _faction),_gangName], "blue"] remoteExec ["A3PL_Player_Notification",-2];
 	[_faction] remoteExec ["Server_Gang_RewardFactions",2];
+	[player, 20] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;

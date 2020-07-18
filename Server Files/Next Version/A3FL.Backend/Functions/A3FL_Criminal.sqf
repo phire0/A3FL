@@ -111,6 +111,7 @@
 		[_newTime, player] remoteExec ["Server_Police_JailPlayer",2];
 	};
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) + 250,true];
+	[player, 3] call A3PL_Level_AddXP;
 	[localize"STR_CRIMINAL_WORKENDED", "green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 

@@ -75,6 +75,7 @@
 
 	[player,_business,_name,_rentTime,_rentCost,_sign] remoteExec ["Server_Business_Buy", 2];
 	closeDialog 0;
+	[player, 1] call A3PL_Level_AddXP;
 	[localize"STR_BUSINESS_BUSINESSBUY","yellow"] call A3PL_Player_Notification;
 	[getPlayerUID player,"businessRented",[str(getpos player)]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
