@@ -138,11 +138,11 @@
 		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _type) exitwith {_alreadyCrafting = true;};
 	} foreach _var;
 
-	if(_type IN ["Vehicle Factory","Aircraft Factory","Marine Factory","Illegal Weapon Factory"]) then {
-		_levelRequired = ([_id,_type,"level"] call A3PL_Config_GetFactory);
-		if(player getVariable["player_level",0] < _levelRequired) exitWith {_hasLevel = false};
-	};
-	if (!_hasLevel) exitwith {[format["You need to be level %1 to craft this item!",_level],"red"]"Vehicle Factory","Aircraft Factory","Marine Factory","Illegal Weapon Factory" call A3PL_Player_Notification;};
+	// if(_type IN ["Vehicle Factory","Aircraft Factory",]) then {
+	// 	_levelRequired = ([_id,_type,"level"] call A3PL_Config_GetFactory);
+	// 	if(player getVariable["player_level",0] < _levelRequired) exitWith {_hasLevel = false};
+	// };
+	// if (!_hasLevel) exitwith {[format["You need to be level %1 to craft this item!",_level],"red"]"Vehicle Factory","Aircraft Factory", call A3PL_Player_Notification;};
 
 	if (!isNil "_alreadyCrafting") exitwith {[localize"STR_FACTORY_ACTIONINPROGRESS","red"] call A3PL_Player_Notification;};
 	if(!(call A3PL_Player_AntiSpam)) exitWith {}; //anti spam

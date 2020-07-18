@@ -236,6 +236,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TalkToThePhoneOperator",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_phone_operator}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDoctorWithoutDiploma",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_medicaldirty}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDoctorGuard",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_emt,npc_emt_1,NPC_emt_2,NPC_emt_3,npc_emt_4]}],
+	["spine3","Get Weapons",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_emt,npc_emt_1,NPC_emt_2,NPC_emt_3,npc_emt_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheBankEmployee",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_bank,npc_bank_1,npc_bank_2,npc_bank_3,npc_bank_4,npc_bank_5]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheFreight",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_freight_svt,npc_freight_nd,npc_freight_lubbock]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToInsurer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_insurance,npc_insurance_1,npc_insurance_2]}],
@@ -2592,7 +2593,8 @@ Config_GenArray =
 	"Low End Car Dealer",
 	localize"STR_INTSECT_CONHOSETOENGIN",
 	localize"STR_INTSECT_CONHOSETOENGDIS",
-	localize"STR_INTSECT_OPCLINLET"
+	localize"STR_INTSECT_OPCLINLET",
+	"Get Weapons"
 ];
 publicVariable "Config_GenArray";
 
