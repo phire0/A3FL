@@ -21,7 +21,7 @@
 	switch (_search) do {
 		default {_return = _config;};
 		case "name": {
-			_return = _config select 1; 
+			_return = _config select 1;
 			if (_return isEqualTo "inh") then {
 				_return = getText (configFile >> "CfgVehicles" >> (_config select 3) >> "displayName");
 			};
@@ -47,7 +47,7 @@
 	private _class = param [0,""];
 	private _search = param [1,""];
 	private _config = [];
-	private _return = "";	
+	private _return = "";
 
 	{
 		if((_x select 0) isEqualTo _class) exitWith {_config = _x;};
@@ -59,7 +59,7 @@
 		case "type": { _return = _config select 2; };
 		case "issuer": { _return = _config select 3; };
 	};
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetPaycheckInfo", {
@@ -186,16 +186,16 @@
 	private _search = param [2,""];
 	private _config = [];
 	private _return = false;
-	
+
 	{
 		if((_x select 0) isEqualTo _factory) exitWith {
 			_config append _x;
 		};
 	} forEach Config_Factories;
-	
+
 	if (_class isEqualTo "all") exitwith { _return = _config; _return deleteAt 0; _return deleteAt 0; _return;};
 	if (_class isEqualTo "pos") exitwith { _return = _config select 1; _return;};
-	
+
 	_config deleteRange [0, 1];
 	{
 		if ((_x select 0) isEqualTo _class) then {_config = _x};
@@ -213,6 +213,7 @@
 		case "output": { _return = _config select 9; };
 		case "faction": { _return = _config select 10; };
 		case "xp": { _return = _config select 11; };
+		case "level": { _return = _config select 12; };
 	};
 	_return;
 }] call Server_Setup_Compile;
@@ -223,7 +224,7 @@
 	private _search = param [1,""];
 	private _config = [];
 	private _return = "";
-	
+
 	{
 		if ((_x select 0) == _class) exitWith {
 			_config = _x;
@@ -242,7 +243,7 @@
 		case "finish": { _return = _config select 7; };
 		case "count": { _return = _config select 8; };
 	};
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetPlayerFStorage",
@@ -252,7 +253,7 @@
 	private _player = param [2,player];
 	private _config = [];
 	private _return = "";
-	
+
 	{
 		if ((_x select 0) == _class) then {
 			_config = _x;
@@ -265,7 +266,7 @@
 		case "type": { _return = _config select 0; };
 		case "items": { _return = _config select 1; };
 	};
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetGarageUpgrade",
@@ -275,14 +276,14 @@
 	private _search = param [2,""];
 	private _config = [];
 	private _return = "";
-	
+
 	{
 		if((_x select 0) isEqualTo _typeOf) exitWith {
 			_config = [] + _x; //save a copy to prevent deleteAt delete the title from main factory config
 		};
 	} forEach Config_Garage_Upgrade;
 	if (_class isEqualTo "all") exitwith {_config deleteAt 0;_config;};
-	
+
 	_config deleteAt 0; //dont need typeof, array shifting
 	{
 		if ((_x select 0) == _class) then {_config = _x};
@@ -300,7 +301,7 @@
 		case "level": { _return = _config select 9; }; //required level
 		default { _return = false; };
 	};
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetGaragePaint",
@@ -332,7 +333,7 @@
 		case "title": { _return = _config select 2; };
 		default { _return = false; };
 	};
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetGarageRepair",
@@ -341,13 +342,13 @@
 	private _search = param [1,""];
 	private _config = [];
 	private _return = "";
-	
+
 	{
 		if((_x select 0) isEqualTo _class) then  {
 			_config append _x;
 		};
 	} forEach Config_Garage_Repair;
-	
+
 	if ((count _config) isEqualTo 0) exitwith {false;};
 	switch (_search) do {
 		case "id": { _return = _config select 0; };
@@ -364,22 +365,22 @@
 	private _config = [];
 	private _return = "";
 	private _index = -1;
-	
+
 	{
 		if((_x select 0) == _class) exitWith {
 			_config append _x;
 			_index = _forEachIndex;
 		};
 	} forEach Server_Government_FactionRanks;
-	
+
 	if ((count _config) isEqualTo 0) exitwith {[[],_index];};
 	switch (_search) do {
 		case "faction": { _return = _config select 0; };
 		case "ranks": { _return = _config select 1; };
 		default { _return = false; };
-	};		
+	};
 	_return = [_return,_index];
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetWound",
@@ -502,7 +503,7 @@
 			};
 		};
 	} forEach Server_Companies;
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetCompanyID",
@@ -544,7 +545,7 @@
 ["A3PL_Config_isTaxed",
 {
 	private _class = param [0,""];
-	private _return = false;	
+	private _return = false;
 	{
 		if((_x select 0) == _class) exitWith {_return = true;};
 	} forEach Config_Shops_TaxSystem;
@@ -556,8 +557,8 @@
 	private _class = param [0,""];
 	private _search = param [1,""];
 	private _config = [];
-	private _return = "";	
-	
+	private _return = "";
+
 	{
 		if((_x select 0) == _class) exitWith {
 			_config = _x;

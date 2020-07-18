@@ -128,6 +128,8 @@
 	_display = findDisplay 45;
 	_type = ctrlText (_display displayCtrl 1100); //factory id from dialog text
 	_toCraft = parseNumber(ctrlText (_display displayCtrl 1400));
+	_hasLevel = true;
+	_levelRequired = 0
 
 	_var = player getVariable ["player_factories",[]]; //check to see if we are already crafting something here
 	{
@@ -135,6 +137,12 @@
 		_id = _x select 0;
 		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _type) exitwith {_alreadyCrafting = true;};
 	} foreach _var;
+
+	if(_type IN ["Vehicle Factory","Aircraft Factory","Marine Factory","Illegal Weapon Factory"]) then {
+		_levelRequired = ([_id,_type,"level"] call A3PL_Config_GetFactory);
+		if(player getVariable["player_level",0] < _levelRequired) exitWith {_hasLevel = false};
+	};
+	if (!_hasLevel) exitwith {[format["You need to be level %1 to craft this item!",_level],"red"]"Vehicle Factory","Aircraft Factory","Marine Factory","Illegal Weapon Factory" call A3PL_Player_Notification;};
 
 	if (!isNil "_alreadyCrafting") exitwith {[localize"STR_FACTORY_ACTIONINPROGRESS","red"] call A3PL_Player_Notification;};
 	if(!(call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
