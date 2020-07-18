@@ -285,7 +285,9 @@
 {
 	private ["_price"];
 	_price = [A3PL_Housing_Object,1] call A3PL_Housing_GetData;
+	_level = [A3PL_Housing_Object,4] call A3PL_Housing_GetData;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
+	if ((player getVariable ["player_level",0]) < _level) exitwith {[format["You need to be level %1 to purchase this house!",_level],"red"] call A3PL_Player_Notification;};
 	if (!isNil {A3PL_Housing_Object getVariable ["doorid",nil]}) exitwith {[localize"STR_NewHousing_14","red"] call A3PL_Player_Notification;};
 	if (!isNil {player getVariable ["house",nil]}) exitwith {[localize"STR_NewHousing_15","red"] call A3PL_Player_Notification;};
 
