@@ -129,7 +129,7 @@
 	_type = ctrlText (_display displayCtrl 1100); //factory id from dialog text
 	_toCraft = parseNumber(ctrlText (_display displayCtrl 1400));
 	_hasLevel = true;
-	_levelRequired = 0
+	_levelRequired = 0;
 
 	_var = player getVariable ["player_factories",[]]; //check to see if we are already crafting something here
 	{

@@ -29,19 +29,19 @@
 		//+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>TEXT_HERE.</t>"
 
 		_control = (_display displayCtrl 69);
-		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.0.9</t>"
+		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.1</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Dodge Charger 2015 PD/FD</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Emojis in Twitter </t> <img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\pepePoggers.paa'/>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>FIFR Brush Truck</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Driving test at DMV NPC (RIP DMV)</t>"
 		+ "<br/>"
 		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Can now withdraw money from gang funds</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Colt M4A1 Rifle/Mossberg 590k Shotgun</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Money sinks</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Weapon caliber now affects damage recieved</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Springfield has been re-vamped</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Some animations being really messed up</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Withdrawing money from gang funds</t>"
 		+ "<br/>"
 		+ "<t size='0.8' align='center'>For the full changelog visit the forum @ arma3fisherslife.net</t>";
 		_control ctrlSetStructuredText (parseText _format);
