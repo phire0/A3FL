@@ -154,7 +154,9 @@
 {
 	private _building = param [0,objNull];
 	private _road = "Unknown Street";
-	private _nearestRoad = (_building nearRoads 200) select 0;
+	private _nearestRoad = _building nearRoads 200;
+	if(count(_nearestRoad) isEqualTo 0) exitWith {_road;};
+	_nearestRoad = _nearestRoad select 0;
 	private _roadObject = str(_nearestRoad);
 	private _roadID = parseNumber((_roadObject splitString ":") select 0);
 	if(isNil "_roadID") exitWith {_road;};
