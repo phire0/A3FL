@@ -395,7 +395,7 @@ Config_Shops_Items = [
 			["item","diamond_emerald_ill",-1,4000,8],
 			["item","diamond_ill",-1,6000,8],
 			["item","keycard",10000,-1,5],
-			["item","cocaine_brick",-1,10000]
+			["item","cocaine_brick",-1,10000,8]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
 
