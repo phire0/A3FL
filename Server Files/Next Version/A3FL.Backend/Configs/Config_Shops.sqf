@@ -136,45 +136,45 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Hardware",[
-			["item","scale",650,-1,8],
-			["item","fan",560,-1,8],
-			["item","grinder",480,-1,8],
-			["item","planter",680,-1,8],
-			["item","lamp_200w",450,-1,8],
-			["item","lamp_500w",630,-1,8],
-			["item","lamp_1000w",850,-1,8],
-			["item","pavilion",1100,-1,8],
-			["item","workbench",850,-1,8],
-			["item","cocaine_barrel",460,-1,8]
+			["item","scale",487,-1,8],
+			["item","fan",420,-1,8],
+			["item","grinder",360,-1,8],
+			["item","planter",510,-1,8],
+			["item","lamp_200w",337,-1,8],
+			["item","lamp_500w",472,-1,8],
+			["item","lamp_1000w",637,-1,8],
+			["item","pavilion",825,-1,8],
+			["item","workbench",637,-1,8],
+			["item","cocaine_barrel",345,-1,8]
 		],{[3456.32,7513.2,1]}
 	],
 
 	["Shop_ChemicalSupplies",[
-		["item","sulphuric_acid",100,-1,12],
-		["item","calcium_carbonate",100,-1,12],
-		["item","potassium_permangate",100,-1,12],
-		["item","ammonium_hydroxide",100,-1,12],
-		["item","acetone",100,-1,12],
-		["item","hydrocloric_acid",100,-1,12]
+		["item","sulphuric_acid",50,-1,12],
+		["item","calcium_carbonate",50,-1,12],
+		["item","potassium_permangate",50,-1,12],
+		["item","ammonium_hydroxide",50,-1,12],
+		["item","acetone",50,-1,12],
+		["item","hydrocloric_acid",50,-1,12]
 	],{[3456.32,7513.2,1]}],
 
 	["Shop_GemStone",[
-			["item","diamond_tourmaline",-1,210,0],
-			["item","diamond_aqua",-1,320,0],
-			["item","diamond_alex",-1,440,0],
-			["item","diamond_sapphire",-1,630,0],
-			["item","diamond_ruby",-1,700,0],
-			["item","diamond_emerald",-1,930,0],
-			["item","diamond",-1,1600,0]
+			["item","diamond_tourmaline",-1,315,0],
+			["item","diamond_aqua",-1,480,0],
+			["item","diamond_alex",-1,660,0],
+			["item","diamond_sapphire",-1,945,0],
+			["item","diamond_ruby",-1,1050,0],
+			["item","diamond_emerald",-1,1395,0],
+			["item","diamond",-1,2400,0]
 		],{[7120.54,7250.23,0.2]}
 	],
 
 	["Shop_Seeds",[
-			["item","seed_corn",100,-1,0],
-			["item","seed_wheat",100,-1,0],
-			["item","seed_lettuce",100,-1,0],
-			["item","seed_coca",100,-1,0],
-			["item","seed_sugar",100,-1,0]
+			["item","seed_corn",50,-1,0],
+			["item","seed_wheat",50,-1,0],
+			["item","seed_lettuce",50,-1,0],
+			["item","seed_coca",50,-1,0],
+			["item","seed_sugar",50,-1,0]
 		],{[4147.36,5685,0.3]}
 	],
 
@@ -249,17 +249,48 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Moonshine",[
-			["item","jug_moonshine",-1,5500,4]
+			["item","jug_moonshine",-1,4125,4]
 		],{[6975.15,5413.12,2]}
 	],
 
 	["Shop_DrugsDealer",[
 		["item","seed_marijuana",300,180,8],
 		["item","beer",50,30,0],
-		["item","beer_gold",280,150,0]
+		["item","beer_gold",280,150,0],
+		["item","weed_5g",-1,405,4],
+		["item","weed_10g",-1,686,4],
+		["item","weed_15g",-1,776,4],
+		["item","weed_20g",-1,1327,4],
+		["item","weed_25g",-1,1659,4],
+		["item","weed_30g",-1,1991,4],
+		["item","weed_35g",-1,2322,4],
+		["item","weed_40g",-1,2655,4],
+		["item","weed_45g",-1,2986,4],
+		["item","weed_50g",-1,3318,4],
+		["item","weed_55g",-1,3650,4],
+		["item","weed_60g",-1,3982,4],
+		["item","weed_65g",-1,4314,4],
+		["item","weed_70g",-1,4646,4],
+		["item","weed_75g",-1,4977,4],
+		["item","weed_80g",-1,5310,4],
+		["item","weed_85g",-1,5641,4],
+		["item","weed_90g",-1,5973,4],
+		["item","weed_95g",-1,6305,4],
+		["item","weed_100g",-1,6637,4],
+		["item","turtle",-1,11250,6],
+		["item","shrooms",-1,393,7],
+		["item","cocaine",-1,750,8],
+		["item","diamond_tourmaline_ill",-1,1050,8],
+		["item","diamond_aqua_ill",-1,1425,8],
+		["item","diamond_alex_ill",-1,1725,8],
+		["item","diamond_sapphire_ill",-1,2055,8],
+		["item","diamond_ruby_ill",-1,2400,8],
+		["item","diamond_emerald_ill",-1,3000,8],
+		["item","diamond_ill",-1,4500,8],
+		["item","cocaine_brick",-1,7500,8]
 	],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
-	["Shop_DrugsDealerCartel",[["item","seed_marijuana",150,75,2]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
+	["Shop_DrugsDealerCartel",[["item","seed_marijuana",-1,0,2]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
 	["Shop_Gang",[
 			["vest","A3PL_SuicideVest",700000,-1,10],
@@ -333,29 +364,29 @@ Config_Shops_Items = [
 	],
 
 	["Shop_BlackMarket",[
-			["item","weed_5g",-1,720,4],
-			["item","weed_10g",-1,1220,4],
-			["item","weed_15g",-1,1380,4],
-			["item","weed_20g",-1,2360,4],
-			["item","weed_25g",-1,2950,4],
-			["item","weed_30g",-1,3540,4],
-			["item","weed_35g",-1,4130,4],
-			["item","weed_40g",-1,4720,4],
-			["item","weed_45g",-1,5310,4],
-			["item","weed_50g",-1,5900,4],
-			["item","weed_55g",-1,6490,4],
-			["item","weed_60g",-1,7080,4],
-			["item","weed_65g",-1,7670,4],
-			["item","weed_70g",-1,8260,4],
-			["item","weed_75g",-1,8850,4],
-			["item","weed_80g",-1,9440,4],
-			["item","weed_85g",-1,10030,4],
-			["item","weed_90g",-1,10620,4],
-			["item","weed_95g",-1,11210,4],
-			["item","weed_100g",-1,11800,4],
+			["item","weed_5g",-1,540,4],
+			["item","weed_10g",-1,915,4],
+			["item","weed_15g",-1,1035,4],
+			["item","weed_20g",-1,1770,4],
+			["item","weed_25g",-1,2212,4],
+			["item","weed_30g",-1,2655,4],
+			["item","weed_35g",-1,3097,4],
+			["item","weed_40g",-1,3540,4],
+			["item","weed_45g",-1,3982,4],
+			["item","weed_50g",-1,4425,4],
+			["item","weed_55g",-1,4867,4],
+			["item","weed_60g",-1,5310,4],
+			["item","weed_65g",-1,5752,4],
+			["item","weed_70g",-1,6195,4],
+			["item","weed_75g",-1,6637,4],
+			["item","weed_80g",-1,7080,4],
+			["item","weed_85g",-1,7522,4],
+			["item","weed_90g",-1,7965,4],
+			["item","weed_95g",-1,8407,4],
+			["item","weed_100g",-1,8850,4],
 			["item","turtle",-1,15000,6],
-			["item","shrooms",-1,700,7],
-			["item","cocaine",-1,1500,8],
+			["item","shrooms",-1,525,7],
+			["item","cocaine",-1,1000,8],
 			["item","diamond_tourmaline_ill",-1,1400,8],
 			["item","diamond_aqua_ill",-1,1900,8],
 			["item","diamond_alex_ill",-1,2300,8],
@@ -363,9 +394,11 @@ Config_Shops_Items = [
 			["item","diamond_ruby_ill",-1,3200,8],
 			["item","diamond_emerald_ill",-1,4000,8],
 			["item","diamond_ill",-1,6000,8],
-			["item","keycard",10000,-1,5]
+			["item","keycard",10000,-1,5],
+			["item","cocaine_brick",-1,10000]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
+
 
 	["Shop_BlackMarketCartel",[
 			["item","weed_5g",-1,0,1],
@@ -706,7 +739,7 @@ Config_Shops_Items = [
 			["item","plastic_barrier_large",0,-1,0],
 			["aitem","Rangefinder",0,-1,0],
 			["weapon","A3PL_FireAxe",250,-1,0],
-			["uniform","A3PL_SD_NR_Tan_Uniform",0,-1,0]
+			["uniform","A3PL_SD_NR_Tan_Uniform",0,-1,0],
 			["uniform","A3PL_SD_Cad_Tan_Uniform",0,-1,0],
 			["uniform","A3PL_SD_Dep_Tan_Uniform",0,-1,0],
 			["uniform","A3PL_SD_SDep_Tan_Uniform",0,-1,0],
