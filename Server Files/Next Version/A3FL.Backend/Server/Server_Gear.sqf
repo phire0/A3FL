@@ -436,3 +436,14 @@
 		};
 	}, _timeSave]] call BIS_fnc_loop;
 }, true] call Server_Setup_Compile;
+
+
+["Server_Gear_WipeRusty",{
+	_query = format ["SELECT uid FROM players;"];
+	_return = [_query, 2] call Server_Database_Async;
+	{
+		_query = format ["INSERT INTO objects (id,type,class,uid,plystorage) VALUES ('%1','vehicle','A3PL_CVPI_Rusty','%2','1')",([7] call Server_Housing_GenerateID),(_x select 0)];
+		[_query,1] spawn Server_Database_Async;
+	} forEach _return;
+
+},true] call Server_Setup_Compile; 
