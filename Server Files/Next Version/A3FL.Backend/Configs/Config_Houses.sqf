@@ -104,11 +104,11 @@ Config_Houses = [
 	["Land_Home6b_DED_Home6b_01_F",250000,280,1200,13],
 
 	//Two-story without garage
-	["Land_A3FL_House1_Cream",250000,250,1100,15],
-	["Land_A3FL_House1_Green",250000,250,1100,15],
-	["Land_A3FL_House1_Blue",250000,250,1100,15],
-	["Land_A3FL_House1_Brown",250000,250,1100,15],
-	["Land_A3FL_House1_Yellow",250000,250,1100,15],
+	["Land_A3FL_House1_Cream",350000,300,1100,15],
+	["Land_A3FL_House1_Green",350000,300,1100,15],
+	["Land_A3FL_House1_Blue",350000,300,1100,15],
+	["Land_A3FL_House1_Brown",350000,300,1100,15],
+	["Land_A3FL_House1_Yellow",350000,300,1100,15],
 
 	//One-story without garage
 	["Land_A3FL_Anton_Modern_Bungalow",500000,350,900,20],

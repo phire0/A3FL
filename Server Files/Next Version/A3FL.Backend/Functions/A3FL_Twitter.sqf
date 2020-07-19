@@ -154,10 +154,10 @@
 		if (_exitwith) exitwith {};
 
 		_a = 0;
-		while {_a < 11} do {
-			_toFind = [";)","<3",":)",":fuck:",":hi:",":o",":yes:",":p",":@",":-(",":("];
+		while {_a < 18} do {
+			_toFind = [";)","<3",":)",":fuck:",":hi:",":o",":yes:",":p",":@",":-(",":(",":christ:",":hands:",":k:",":POG:",":sad:",":think:",":yikes:"];
 			_toFind = _toFind select _a;
-			_replaceBy = ["<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_cleinoeil.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_coeur.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_content.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_fuck.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_hi.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_o.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_ok.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_p.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_pascontent.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_pleure.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_triste.paa'/>"];
+			_replaceBy = ["<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_cleinoeil.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_coeur.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_content.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_fuck.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_hi.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_o.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_ok.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_p.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_pascontent.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_pleure.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\iPhone_X_icon_triste.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\pepeChrist.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\pepeHands.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\pepeOk.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\pepePoggers.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\pepeSad.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\pepeThink.paa'/>","<img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\pepeYikes.paa'/>"];
 			_replaceBy = _replaceBy select _a;
 			_numberCharToReplace = count _toFind;
 			_numberFind = _msg find _toFind;
@@ -171,7 +171,7 @@
 				};
 			_a = _a + 1;
 		};
-		
+
 		if (!_doubleCommand) exitwith {
 			A3PL_Twitter_Cooldown = 0;
 			["Unknown command (type /h to get help)","#a3ffc1","","Commands","#42f47d",""] spawn A3PL_Twitter_NewMsg;

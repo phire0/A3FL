@@ -13,6 +13,11 @@
 ],
 [
 	"",
+	"Get Weapons",
+	{["Open",[true]] call BIS_fnc_arsenal;}
+],
+[
+	"",
 	"Low End Car Dealer",
 	{["Shop_Low_End_Car_Dealer"] call A3PL_Shop_Open;}
 ],

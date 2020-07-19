@@ -8,7 +8,7 @@
 
 #define LOGLIMIT 12
 #define MAXBLOODLVL 5000
-#define RESPAWNTIME 600
+#define RESPAWNTIME 30
 #define BLOODPERBAG 2000
 
 ["A3PL_Medical_Init",
