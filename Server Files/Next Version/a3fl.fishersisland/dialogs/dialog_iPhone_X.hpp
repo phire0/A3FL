@@ -3530,15 +3530,15 @@ class A3PL_iPhone_appGangManagement
 			h = 0.022 * safezoneH;
 			action = "call A3PL_Gang_Leave;";
 		};
-		/*class btn_upgrade: RscButtonEmpty
+		class btn_gangbank: RscButtonEmpty
 		{
 			idc = -1;
-			x = 0.778437 * safezoneW + safezoneX;
-			y = 0.775 * safezoneH + safezoneY;
-			w = 0.0567187 * safezoneW;
-			h = 0.022 * safezoneH;
-			action = "[] spawn A3PL_Gang_Upgrade;";
-		};*/
+			x = 0.742344 * safezoneW + safezoneX;
+			y = 0.764 * safezoneH + safezoneY;
+			w = 0.0515625 * safezoneW;
+			h = 0.033 * safezoneH;
+			action = "call A3PL_iPhoneX_appGangBank;";
+		};
 		class btn_deletegang: RscButtonEmpty
 		{
 			idc = -1;
