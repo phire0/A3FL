@@ -581,6 +581,7 @@
 	A3PL_HostageTarget = _target;
 	A3PL_HostageReloading = false;
 	player setVariable["takingHostage",true,true];
+	player forceWalk true;
 
 	_ehFired = player addEventHandler ["Fired",
 	{
@@ -616,7 +617,7 @@
 		sleep 0.5;
 	};
 	_target setVariable ["tf_unable_to_use_radio", false];
-
+	player forceWalk false;
 	player playAction "gesture_stop";
 	player removeEventHandler ["Fired",_ehFired];
 	(findDisplay 46) displayRemoveEventHandler ["KeyDown",_ehReload];
