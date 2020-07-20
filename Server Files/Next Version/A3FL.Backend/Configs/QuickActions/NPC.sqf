@@ -146,11 +146,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_CartelManagment",
-	{["cartel"] call A3PL_Government_FactionSetup;}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_RentATowTruck",
 	{[player_objintersect] call A3PL_JobRoadWorker_RentVehicle;}
 ],
@@ -273,33 +268,6 @@
 	"",
 	localize"STR_QuickActionsNPC_RemoveElectronicBracelet",
 	{call A3PL_Criminal_RemoveTime;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_StartCartelWork",
-	{call A3PL_Criminal_CartelStart;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_Shop_DrugsDealerCartel",
-	{["Shop_DrugsDealerCartel"] call A3PL_Shop_Open;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_Shop_IllegalWeaponsCartel",
-	{["Shop_IllegalWeaponsCartel"] call A3PL_Shop_Open;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_Shop_BlackMarketCartel",
-	{
-		_rank = ["cartel","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;
-		if(_rank IN ["Drug Lord","Under Lord","Lieutenant","Hitmen","Reserve"]) then {
-			["Shop_BlackMarketCartel"] call A3PL_Shop_Open;
-		} else {
-			["You current doesn't allow you to access this.","red"] call A3PL_Player_notification;
-		};
-	}
 ],
 [
 	"",
