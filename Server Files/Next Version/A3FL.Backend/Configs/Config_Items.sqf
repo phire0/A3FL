@@ -506,8 +506,8 @@ Config_Items =
 
 	["coffee",localize"STR_ConfigItems_Coffee", 0.1, "A3FL_Coffee",0,true,true,true,false,false,"A3PL_Items_Thirst", [0,0,0], ""],
 	["donut",localize"STR_ConfigItems_Donut", 0.1, "A3FL_Donut",0,true,true,true,false,false,"A3PL_Items_Food", [0,0,0], ""],
-	["coffee_cup_large",localize"STR_ConfigItems_CoffeeLarge",0.1,"A3FL_Coffee_Cups_Large",0,true,true,true,true,true,"", [0,0,0], ""],
-	["coffee_cup_medium", localize"STR_ConfigItems_CoffeeMedium",0.1,"A3FL_Coffee_Cups_Medium",0,true,true,true,true,true,"", [0,0,0], ""],
-	["coffee_cup_small", localize"STR_ConfigItems_CoffeeSmall",0.1,"A3FL_Coffee_Cups_Small",0,true,true,true,true,true,"", [0,0,0], ""]
+	["coffee_cup_large",localize"STR_ConfigItems_CoffeeLarge",0.1,"A3FL_Coffee_Cups_Large",0,true,true,true,true,true,"A3PL_Items_Thirst", [0,0,0], ""],
+	["coffee_cup_medium", localize"STR_ConfigItems_CoffeeMedium",0.1,"A3FL_Coffee_Cups_Medium",0,true,true,true,true,true,"A3PL_Items_Thirst", [0,0,0], ""],
+	["coffee_cup_small", localize"STR_ConfigItems_CoffeeSmall",0.1,"A3FL_Coffee_Cups_Small",0,true,true,true,true,true,"A3PL_Items_Thirst", [0,0,0], ""]
 ];
 publicVariable "Config_Items";
