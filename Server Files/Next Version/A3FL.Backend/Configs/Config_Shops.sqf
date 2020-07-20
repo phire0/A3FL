@@ -859,7 +859,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_USCG_CGIS_Uniform_Uniform",0,-1,0],
 			["uniform","A3PL_USCG_DTF_Uniform",0,-1,0],
 			["uniform","A3PL_JAG_Suit_Uniform",0,-1,0],
-			["uniform","A3PL_MSRT_BLMC_Uniform",0,-1,0]
+			["uniform","A3PL_MSRT_BLMC_Uniform",0,-1,0],
 			["uniform","A3PL_MSRT_BLMC_Trial_Uniform",0,-1,0],
 			["vest","A3PL_DutyBelt",0,-1,0],
 			["vest","A3PL_Holster_1",0,-1,0],
