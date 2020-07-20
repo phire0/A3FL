@@ -685,7 +685,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_CJ_Polo_Uniform",0,-1,0],
 			["uniform","A3PL_ACJ_Polo_Uniform",0,-1,0],
 			["uniform","A3PL_J_Polo_Uniform",0,-1,0],
-			["uniform","A3PL_Judy_Uniform",0,-1,0],
+			["uniform","A3PL_Judy_Polo_Uniform",0,-1,0],
 			["uniform","A3PL_DOJ_Blk_Suit_Uniform",0,-1,0],
 			["uniform","A3PL_DOJ_Blu_Suit_Uniform",0,-1,0],
 			["uniform","A3PL_DOJ_Grn_Suit_Uniform",0,-1,0],
