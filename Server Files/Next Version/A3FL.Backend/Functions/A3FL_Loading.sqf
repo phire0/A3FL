@@ -35,7 +35,7 @@
 		+ "<br/>"
 		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Driving test at DMV NPC (RIP DMV)</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Can now withdraw money from gang funds</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Some new houses/buildings</t>"
 		+ "<br/>"
 		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Money sinks</t>"
 		+ "<br/>"

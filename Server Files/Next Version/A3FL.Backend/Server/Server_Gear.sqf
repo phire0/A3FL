@@ -446,7 +446,6 @@
 	{
 		_query = format ["INSERT INTO objects (id,type,class,uid,plystorage) VALUES ('%1','vehicle','A3PL_CVPI_Rusty','%2','1')",([7] call Server_Housing_GenerateID),(_x select 0)];
 		[_query,1] spawn Server_Database_Async;
-		sleep 1;
 	} forEach _return;
 
 },true] call Server_Setup_Compile;

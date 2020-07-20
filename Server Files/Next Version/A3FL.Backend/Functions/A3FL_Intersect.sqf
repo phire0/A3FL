@@ -206,8 +206,6 @@
 	private _obj = call A3PL_Intersect_cursortarget;
 	private _name = Player_NameIntersect;
 
-	hint str (typeOf _obj);
-
 	if ((typeOf _obj) isEqualTo "Land_A3PL_Prison") exitwith {[_obj,_name] call A3PL_Prison_HandleDoor;};
 
 	private _split = _name splitstring "_";
@@ -261,7 +259,6 @@
 
 		if (((typeOf _obj) IN ["Land_A3PL_Motel"]) || ((typeOf _obj) IN Config_Houses_List) || ((typeOf _obj) IN Config_Warehouses_List)) exitwith
 		{
-			hint "we here";
 			switch (true) do
 			{
 				case ((typeOf _obj) isEqualTo "Land_A3PL_Motel"):
@@ -402,7 +399,6 @@
 
 				case ((typeOf _obj) IN ["Land_A3FL_House1_Cream","Land_A3FL_House1_Green","Land_A3FL_House1_Blue","Land_A3FL_House1_Brown","Land_A3FL_House1_Yellow","Land_A3FL_House3_Cream","Land_A3FL_House3_Green","Land_A3FL_House3_Blue","Land_A3FL_House3_Brown","Land_A3FL_House3_Yellow"]):
 				{
-					hint "here";
 					if (_name IN ["door_1","door_2","door_3","door_4","door_5"]) then
 					{
 						if (isNil {_obj getVariable "unlocked"}) exitwith
@@ -417,6 +413,7 @@
 						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
 					};
 				};
+
 			};
 		};
 		[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
