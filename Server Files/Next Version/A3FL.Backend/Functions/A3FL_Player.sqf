@@ -669,7 +669,8 @@
 
 ["A3PL_Player_EscapeControls",
 {
-	if(pVar_AdminLevel >= 4) exitWith {};
+	_admin = player getVariable ["dbVar_AdminLevel",0];
+	if(_admin >= 4) exitWith {};
 	for "_i" from 0 to 1 step 0 do {
 		waitUntil {!isNull (findDisplay 49)};
 		private["_abortButton", "_respawnButton", "_manuelButton", "_display"];
