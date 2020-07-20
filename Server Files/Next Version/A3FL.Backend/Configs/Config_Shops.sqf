@@ -119,7 +119,7 @@ Config_Shops_Items = [
 
 	["Shop_General_Supplies",[
 			["aitem","A3PL_Cellphone",1400,-1,0],
-			["aitem","tfar_anprc152",1000,-1,3],
+			["aitem","tfar_anprc152",1000,-1,0],
 			["aitem","ItemCompass",100,-1,0],
 			["aitem","ItemGPS",450,-1,0],
 			["aitem","ItemMap",30,-1,0],
@@ -602,7 +602,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_Jaws",250,-1,0],
 			["weapon","A3PL_FireAxe",250,-1,0],
 			["aitem","Rangefinder",100,-1,0],
-			["aitem","tfar_anprc152",250,-1,3],
+			["aitem","tfar_anprc152",250,-1,0],
 			["uniform","A3PL_FIFR_STUDENT_Uniform",0,-1,0],
 			["uniform","A3PL_FIFR_EMT_Uniform",0,-1,0],
 			["uniform","A3PL_FIFR_Paramedic_Uniform",0,-1,0],
@@ -662,7 +662,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_FireExtinguisher",250,-1,0],
 			["magazine","A3PL_Extinguisher_Water_Mag",10,-1,0],
 			["weapon","A3PL_FireAxe",250,-1,0],
-			["aitem","tfar_anprc152",300,-1,3],
+			["aitem","tfar_anprc152",300,-1,0],
 			["uniform","A3PL_FD_Protective_Uniform",0,-1,0],
 			["uniform","A3PL_VFD_Lieutenant_Uniform",0,-1,0],
 			["uniform","A3PL_VFD_Engineer_Uniform",0,-1,0],
