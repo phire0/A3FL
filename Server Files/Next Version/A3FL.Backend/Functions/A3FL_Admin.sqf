@@ -936,9 +936,9 @@
 ["A3PL_Admin_PauseCheckReturn", {
 	params [["_looping", false]];
 	if (!_looping) then {
-		lbSetColor [1504, 8, [1,.8,0,1]];
+		lbSetColor [1504, 5, [1,.8,0,1]];
 	} else {
-		lbSetColor [1504, 8, [1,1,1,1]];
+		lbSetColor [1504, 5, [1,1,1,1]];
 	};
 	pVar_FiresFrozen = _looping;
 }] call Server_Setup_Compile;
