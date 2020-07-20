@@ -167,7 +167,7 @@
 		if (simulationEnabled _x) then
 		{
 			_uid = getPlayerUID _x;
-			_saved = profileNamespace getVariable ["A3PL_NameTags",[]];
+			_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 			_savedName = "";
 
 			{
@@ -508,7 +508,7 @@
 	_player = param [0,objNull];
 	_uid = getPlayerUID _player;
 
-	_saved = profileNamespace getVariable ["A3PL_NameTags",[]];
+	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 	_name = "Unknown";
 
 	{
@@ -529,7 +529,7 @@
 	_uid = getPlayerUID _player;
 
 	A3PL_Nametag_Uid = _uid;
-	_saved = profileNamespace getVariable ["A3PL_NameTags",[]];
+	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 	_name = "";
 
 	{
@@ -545,7 +545,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Player_SaveNametag", {
-	_saved = profileNamespace getVariable ["A3PL_NameTags",[]];
+	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 	_name = ctrlText 1400;
 
 	_id = -1;
@@ -561,7 +561,7 @@
 	} else {
 		_saved pushBack [A3PL_Nametag_Uid,_name];
 	};
-	profileNamespace setVariable ["A3PL_NameTags",_saved];
+	profileNamespace setVariable ["A3FL_NameTags",_saved];
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
@@ -573,6 +573,8 @@
 	if (!(_target IN allPlayers)) exitwith {[localize "STR_PLAYER_NOTLOOKINGVALPL","red"] call A3PL_Player_Notification;};
 	if ((handgunWeapon player isEqualTo "") OR ((handgunWeapon player) IN ["A3PL_Jaws","A3PL_Taser2","A3PL_Pickaxe","A3PL_Shovel","A3PL_High_Pressure","A3PL_FireExtinguisher","A3PL_Predator"])) exitwith {["You need a handgun","red"] call A3PL_Player_Notification;};
 	if (!isNil "A3PL_EnableHostage") exitwith {[localize "STR_PLAYER_TAKESOMEONEHOST","red"] call A3PL_Player_Notification;};
+
+	if ((_target distance2D player) > 3) exitwith {["Too far away to take this person hostage!","red"] call A3PL_Player_Notification;};
 
 	player selectWeapon handgunWeapon player;
 
