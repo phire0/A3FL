@@ -915,7 +915,7 @@ Config_Factories =
 		//FISD Headgear
 		["f_Sheriff_Test_Cap","","inh","inh","A3PL_Sheriff_Test_Cap","headgear",true,5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,""],
 		["f_Sheriff_Black_Cap","","inh","inh","A3PL_Sheriff_Black_Cap","headgear",true,5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,""],
-		["f_Sheriff_Campaign_Hat","","inh","inh","A3PL_Sheriff_Campaign_Hat","headgear",true,5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,""],
+		["f_Sheriff_Campaign_Hat_Grey","","inh","inh","A3PL_Sheriff_Campaign_Hat_Grey","headgear",true,5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,""],
 		["f_Sheriff_Grey_Cap","","inh","inh","A3PL_Sheriff_Grey_Cap","headgear",true,5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,""],
 		["f_Sheriff_ERTGrn_Cap","","inh","inh","A3PL_Sheriff_ERTGrn_Cap","headgear",true,5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,""],
 		["f_Back_FISD_ERT_Cap","","inh","inh","A3PL_Back_FISD_ERT_Cap","headgear",true,5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,""],
