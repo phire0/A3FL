@@ -106,7 +106,7 @@
 				if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true; _itemType = [_storageItem,_type,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
 				if (isNil "_itemType") then {_itemType = ""};
 				if (_isFactory && (_itemType isEqualTo "item")) then {_storageItem = [_storageItem,_type,"class"] call A3PL_Config_GetFactory;};
-				if (_storageItem isEqualTo _item) exitwith
+				if (_storageItem == _item) exitwith
 				{
 					if ((_x select 1) >= _amount) then {
 						_has = true
@@ -371,6 +371,8 @@
 		private _id = _x select 0;
 		private _amount = _x select 1;
 		private _isFactory = _id splitString "_";
+		private _name = "";
+		private _img = "";
 		if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true;} else {_isFactory = false;};
 		if (_isFactory) then {
 			_img = [_id,_type,"img"] call A3PL_Config_GetFactory;
@@ -407,7 +409,7 @@
 		_i = _control lbAdd (_x select 0);
 		_control lbSetData [_i,(_x select 1)];
 	} foreach _lbArray;
-	_i = _control lbAdd format ["Cash (%1x)",(player getvariable ["player_cash",0])]; //add money
+	_i = _control lbAdd format ["Cash (%1x)",(player getvariable ["player_cash",0])];
 	_control lbSetData [_i,"cash"];
 
 	_near = nearestObjects [player, ["Thing"], 20];
