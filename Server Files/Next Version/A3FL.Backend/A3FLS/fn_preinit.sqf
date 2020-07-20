@@ -807,6 +807,12 @@ Server_Setup_Compile = {
 
 	//Markers
 	[] remoteExec ["A3PL_Player_SetMarkers",_unit];
+
+	_query = format ["SELECT phone_number FROM iphone_phone_numbers WHERE player_id='%1'", getPlayerUID _unit];
+	_result = [_query,2] call Server_Database_Async;
+	if(count(_result) isEqualTo 0) then {
+		[_unit] call Server_iPhoneX_GrantNumber;
+	};
 }, true,true] call Server_Setup_Compile;
 
 ["Server_Housing_Initialize",
