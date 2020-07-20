@@ -188,10 +188,10 @@
 		if((typeOf _veh) IN ["A3PL_MiniExcavator","A3PL_Car_Trailer","A3PL_Lowloader","A3PL_Small_Boat_Trailer","A3PL_Drill_Trailer","A3PL_Tanker_Trailer","A3PL_Box_Trailer"]) then {_isInsured = true;};
 		if(_isInsured) then {
 			[_veh] call Server_Storage_VehicleVirtual;
-			private _query = format ["UPDATE objects SET insurance = '0', plystorage = '1' WHERE id = '%1'",_id];
+			private _query = format ["UPDATE objects SET plystorage = '1' WHERE id = '%1'",_id];
 			[_query,1] spawn Server_Database_Async;
 		} else {
-			private _query = format ["UPDATE objects SET istorage = '[]', vstorage = '[]',impounded='1' WHERE id = '%1'",_id];
+			private _query = format ["UPDATE objects SET istorage = '[]', vstorage = '[]', impounded='1' WHERE id = '%1'",_id];
 			[_query,1] spawn Server_Database_Async;
 		};
 	};
