@@ -248,7 +248,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_VehiclesFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_vehiclefactory}],
 	["spine3",localize"STR_QuickActionsNPC_AccessChemicalPlant",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_chimicalfactory}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFactoryLegalArms",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_factionweaponfactory}],
-	// ["spine3",localize"STR_QuickActionsNPC_WeaponIllegalFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_weaponfactory_1)}],
+	["spine3",localize"STR_QuickActionsNPC_WeaponIllegalFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_weaponfactory_1)}],
 	// ["spine3",localize"STR_QuickActionsNPC_VehiclePartsFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_piecevehiclefactory}],
 	["spine3",localize"STR_QuickActionsNPC_FactoryBoat",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_boatfactory}],
 	["spine3",localize"STR_QuickActionsNPC_AirbuyFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_aircraftfactory}],

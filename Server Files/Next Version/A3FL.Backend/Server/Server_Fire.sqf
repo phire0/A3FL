@@ -177,6 +177,8 @@
 	_sirenObj = _veh getVariable ["sirenObj",objNull];
 	if (!isNull _sirenObj) then {deleteVehicle _sirenObj;};
 
+	diag_log format["Server_Fire_VehicleExplode: %1 / %2",_veh, _var];
+
 	if((count _var) > 0) then {
 		private _id = _var select 1;
 		private _uid = _var select 0;
