@@ -504,12 +504,7 @@
 	"Land_A3PL_EstateSign",
 	localize"STR_INTSECT_BUYHOUSE",
 	{
-		_playerLevel = player getVariable["Player_Level",0];
-		if(_playerLevel < 8) then {
-			[format[localize"STR_QuickActions_Notifications_Buildings_ThingsLevel8required"], "red"] call A3PL_Player_Notification;
-		} else {
 			[player_objIntersect] call A3PL_Housing_OpenBuyMenu;
-		};
 	}
 ],
 [

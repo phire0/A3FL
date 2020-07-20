@@ -274,7 +274,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_TAKEPHOST",
 		{[cursorobject] spawn A3PL_Player_TakeHostage;},
-		{(cursorobject getVariable ["A3PL_Medical_Alive",true]) && (!(player getVariable ["Cuffed",false])) && (!(player getVariable ["Zipped",false])) && (isNil "A3PL_EnableHostage") && (isPlayer cursorObject) && (player distance cursorobject < 2) &&(([cursorobject, player] call BIS_fnc_relativeDirTo) < 220)&&(([cursorobject, player] call BIS_fnc_relativeDirTo) > 130) && !{cursorObject getVariable["takingHostage",false]}}
+		{(cursorobject getVariable ["A3PL_Medical_Alive",true]) && (!(player getVariable ["Cuffed",false])) && (!(player getVariable ["Zipped",false])) && (isNil "A3PL_EnableHostage") && (isPlayer cursorObject) && (player distance cursorobject < 2) && (([cursorobject, player] call BIS_fnc_relativeDirTo) < 220) && (([cursorobject, player] call BIS_fnc_relativeDirTo) > 130) && !(cursorObject getVariable["takingHostage",false])}
 	],
 	[
 		localize "STR_INTER_RELHOST",
