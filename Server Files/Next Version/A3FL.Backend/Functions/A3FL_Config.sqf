@@ -198,7 +198,7 @@
 
 	_config deleteRange [0, 1];
 	{
-		if ((_x select 0) isEqualTo _class) then {_config = _x};
+		if ((_x select 0) isEqualTo _class) exitWith {_config = _x};
 	} foreach _config;
 	switch (_search) do {
 		case "id": { _return = _config select 0; };
