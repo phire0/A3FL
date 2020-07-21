@@ -17,6 +17,7 @@
 	player setVariable ["pVar_RedNameOn",false,true];
 	pVar_MapTeleportReady = false;
 	pVar_MapPlayerMarkersOn = false;
+	pVar_MapVehicleMarkersOn = false;
 	pVar_RessourcesMarkersOn = false;
 	pVar_FastAnimationOn = false;
 	pVar_FiresFrozen = false;
@@ -207,6 +208,7 @@
 		["Self Heal",false,A3PL_AdminSelfHeal],
 		["Self Feed",false,A3PL_AdminSelfFeed],
 		["Freeze",false,A3PL_Admin_Freeze],
+		["Vehicle Markers",pVar_MapVehicleMarkersOn,A3PL_AdminVehicleMarkers],
 		["Player Markers",pVar_MapPlayerMarkersOn,A3PL_AdminMapMarkers],
 		["Double EXP",false,A3PL_AdminEXP],
 		["Double Harvest",false,A3PL_AdminHarvest],
@@ -252,6 +254,7 @@
 		case "Self Heal": {call A3PL_AdminSelfHeal};
 		case "Self Feed": {call A3PL_AdminSelfFeed};
 		case "Freeze": {call A3PL_Admin_Freeze};
+		case "Vehicle Markers": {call A3PL_AdminVehicleMarkers;};
 
 		case "Player Markers": {call A3PL_AdminMapMarkers;};
 		case "Double EXP": {[] remoteExec ["Server_Core_DblXP",2];};
@@ -272,62 +275,8 @@
 	["Open",true] spawn BIS_fnc_arsenal;
 }] call Server_Setup_Compile;
 
-/*["A3PL_AdminRestartServer", {
-	if ("Restart" IN (player getVariable ["dbVar_AdminPerms",[]])) then {
-		_playerText = format["%1 players",count allPlayers];
-		if((count allPlayers) < 2) then {
-			_playerText = format["%1 player",count allPlayers];
-		};
-		_action = [format["Are you sure you want <t color='#FF4000'>restart</t> the <t color='#FF4000'>official server</t> with <t color='#FF4000'>%1</t> connected ?<br/>",_playerText],
-			"Restart","Yes","No"
-		] call BIS_fnc_guiMessage;
-		if (!isNil "_action" && (_action)) then {
-			[] remoteExec ["Server_Core_Restart",2];
-			[player,"admin_restart",[format ["Restart"]]] remoteExec ["Server_AdminLoginsert", 2];
-		};
-	} else {
-		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
-	};
-}] call Server_Setup_Compile;
-
-["A3PL_AdminBanPlayer", {
-	if ("Ban" IN (player getVariable ["dbVar_AdminPerms",[]])) then {
-		_selectedIndex = lbCurSel 1500;
-		_selectedPlayer = (A3PL_Admin_PlayerList select _selectedIndex);
-		_uid = getPlayerUID _selectedPlayer;
-		_action = [format["Are you sure you want to ban <t color='#FF4000'>permanantly</t> <t color='#FF4000'>%1</t> from the server ?<br/>",name _selectedPlayer],
-			"Ban (Perm)","Yes","No"
-		] call BIS_fnc_guiMessage;
-		if (!isNil "_action" && (_action)) then {
-			[_uid] remoteExec ["Server_Core_BanPlayer",2];
-			[player,"admin_ban",[format ["Ban %1",name _selectedPlayer]]] remoteExec ["Server_AdminLoginsert", 2];
-		};
-	} else {
-		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
-	};
-}] call Server_Setup_Compile;
-
-["A3PL_AdminKickPlayer", {
-	if ("Kick" IN (player getVariable ["dbVar_AdminPerms",[]])) then {
-		_selectedIndex = lbCurSel 1500;
-		_selectedPlayer = (A3PL_Admin_PlayerList select _selectedIndex);
-		_uid = getPlayerUID _selectedPlayer;
-		closeDialog 0;
-		_action = [
-	        format["Are you sure you want to kick <t color='#FF4000'>%1</t> from the server ?<br/>",name _selectedPlayer],
-	        "Kick","Yes","No"
-	    ] call BIS_fnc_guiMessage;
-		if (!isNil "_action" && (_action)) then {
-			[_uid] remoteExec ["Server_Core_KickPlayer",2];
-			[player,"admin_kick",[format ["Kick %1",name _selectedPlayer]]] remoteExec ["Server_AdminLoginsert", 2];
-		};
-	} else {
-		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
-	};
-}] call Server_Setup_Compile;*/
-
 ["A3PL_Admin_FixGarage", {
-	if (player_objIntersect getVariable ["inUse",false]) then {player_objIntersect setVariable ["inUse",false,true];};
+	player_objIntersect setVariable ["inUse",false,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_Camera", {
@@ -795,6 +744,62 @@
 	[player,"directmessage",[format ["DirectMessage: %1",_message]]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
 
+["A3PL_AdminVehicleMarkers", {
+	if(pVar_MapVehicleMarkersOn) then
+	{
+		pVar_MapVehicleMarkersOn = false;
+		A3PL_Admin_VehMarkersEnabled = false;
+		lbSetColor [1504, 11, [1,1,1,1]];
+	} else {
+		pVar_MapVehicleMarkersOn = true;
+		lbSetColor [1504, 11, [1,.8,0,1]];
+		A3PL_Admin_VehMarkersEnabled = true;
+		[] spawn
+		{
+			_vehMarkers = [];
+			_blacklist = ["A3PL_EMS_Locker","A3PL_WheelieBin","A3PL_DogCage","A3PL_Gas_Hose","A3PL_Gas_Box","Land_CampingTable_small_f","A3PL_MobileCrane","Box_NATO_Equip_F","B_supplyCrate_F","Land_ToolTrolley_02_F"];
+			while {A3PL_Admin_VehMarkersEnabled} do
+			{
+				sleep 0.5;
+				if(visibleMap) then
+				{
+					_vehicles = player nearEntities [["Car", "Ship", "Tank", "Air", "Plane", "Thing"], 50000];
+					{
+						if(!((typeOf _x) IN _blacklist)) then {
+							_marker = createMarkerLocal [format["%1_marker",_x],visiblePosition _x];
+							_marker setMarkerColorLocal "ColorBlue";
+							_marker setMarkerTypeLocal "Mil_dot";
+							_marker setMarkerSizeLocal [0.5, 0.5];
+							_marker setMarkerAlphaLocal 1;
+							_marker setMarkerTextLocal format[" %1", getText (configFile >> "CfgVehicles" >> typeOf _x >> "displayName")];
+							_vehMarkers pushBack [_marker,_x];
+						};
+					} foreach _vehicles;
+					while {visibleMap} do
+					{
+						{
+							private _marker = _x select 0;
+							private _veh = _x select 1;
+							if(!isNil "_veh") then
+							{
+								if(!isNull _veh) then
+								{
+								    _marker setMarkerPosLocal (visiblePosition _veh);
+								};
+							};
+						} foreach _vehMarkers;
+						if(!visibleMap) exitWith {};
+						sleep 0.02;
+					};
+					{deleteMarkerLocal (_x select 0);} foreach _vehMarkers;
+					_vehMarkers = [];
+				};
+			};
+		};
+	};
+	[player,"AdminVehicleMarkers",[A3PL_Admin_VehMarkersEnabled]] remoteExec ["Server_AdminLoginsert", 2];
+}] call Server_Setup_Compile;
+
 ["A3PL_AdminMapMarkers", {
 	if(pVar_MapPlayerMarkersOn) then
 	{
@@ -807,7 +812,6 @@
 		A3PL_Admin_MapMarkersEnabled = true;
 		[] spawn
 		{
-			_markers = [];
 			_playerMarkers = [];
 			while {A3PL_Admin_MapMarkersEnabled} do
 			{
