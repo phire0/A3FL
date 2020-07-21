@@ -180,13 +180,13 @@
 	if (!isNil "_owner") then {
 		private _ownerObj = [_owner] call A3PL_Lib_UIDToObject;
 		if (!isNull _ownerObj) then {
-			_ownerObj setVariable ["player_cash",((_ownerObj getVariable ["player_cash",0]) + _price),true]; //also add money to seller
+			_ownerObj setVariable ["player_cash",((_ownerObj getVariable ["player_cash",0]) + _price),true];
 			[0,_price] remoteExec ["A3PL_Business_BuyItemReceive",(owner _ownerObj)];
 		};
 	};
 	[1] remoteExec ["A3PL_Business_BuyItemReceive",(owner _buyer)];
 	[getPlayerUID _buyer,"BusinessBought",[typeOf(_obj),str(_price)]] remoteExec ["Server_Log_New",2];
-	[getPlayerUID _owner,"BusinessSold",[typeOf(_obj),str(_price)]] remoteExec ["Server_Log_New",2];
+	[_owner,"BusinessSold",[typeOf(_obj),str(_price)]] remoteExec ["Server_Log_New",2];
 },true] call Server_Setup_Compile;
 
 ["Server_Business_CheckRentTime", {
