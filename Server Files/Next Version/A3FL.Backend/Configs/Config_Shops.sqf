@@ -534,7 +534,7 @@ Config_Shops_Items = [
 			["item","medS_bloodbag",0,-1,0],
 			["item","matches",0,-1,0],
 			["aitem","Rangefinder",10,-1,0],
-			["aitem","tfar_anprc152",850,-1,3],
+			["aitem","tfar_anprc152",850,-1,0],
 			["weapon","A3PL_Jaws",250,-1,0],
 			["uniform","A3PL_FIFR_STUDENT_Uniform",0,-1,0],
 			["uniform","A3PL_FIFR_EMT_Uniform",0,-1,0],
