@@ -208,19 +208,19 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Guns_Vendor",[
-			["weapon","hgun_Pistol_01_F",15000,12000,4],
-			["weapon","hgun_Rook40_F",15000,12000,5],
-			["weapon","A3PL_Red_Glock",15000,12000,6],
-			["weapon","hgun_P07_F",15000,12000,7],
-			["weapon","hgun_P07_khk_F",15000,12000,8],
-			["weapon","A3PL_P226",15000,12000,8],
-			["weapon","hgun_Pistol_heavy_02_F",15000,12000,9],
-			["magazine","10Rnd_9x21_Mag",500,250,4],
-			["magazine","A3PL_Red_Glock_Mag",500,250,5],
-			["magazine","A3PL_P226_Mag",500,250,5],
-			["magazine","16Rnd_9x21_green_Mag",500,250,7],
-			["magazine","16Rnd_9x21_yellow_Mag",500,250,7],
-			["magazine","6Rnd_45ACP_Cylinder",500,250,9]
+			["weapon","hgun_Pistol_01_F",15000,-1,4],
+			["weapon","hgun_Rook40_F",15000,-1,5],
+			["weapon","A3PL_Red_Glock",15000,-1,6],
+			["weapon","hgun_P07_F",15000,-1,7],
+			["weapon","hgun_P07_khk_F",15000,-1,8],
+			["weapon","A3PL_P226",15000,-1,8],
+			["weapon","hgun_Pistol_heavy_02_F",15000,-1,9],
+			["magazine","10Rnd_9x21_Mag",500,-1,4],
+			["magazine","A3PL_Red_Glock_Mag",500,-1,5],
+			["magazine","A3PL_P226_Mag",500,-1,5],
+			["magazine","16Rnd_9x21_green_Mag",500,-1,7],
+			["magazine","16Rnd_9x21_yellow_Mag",500,-1,7],
+			["magazine","6Rnd_45ACP_Cylinder",500,-1,9]
 		],{[6105.3,7367.8,0.2]}
 	],
 
@@ -460,7 +460,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_FI_Marshal_HeadMarshal_Uniform",0,-1,0],
 			["uniform","A3PL_FI_Marshal_DeputyDirector_Uniform",0,-1,0],
 			["uniform","A3PL_FI_Marshal_Director_Uniform",0,-1,0],
-			["uniform","A3PL_FI_Marshal_SOG_Casual_Uniform",0,-1,0],			
+			["uniform","A3PL_FI_Marshal_SOG_Casual_Uniform",0,-1,0],
 			["uniform","A3PL_Marshall_FGTF_Uniform",0,-1,0],
 			["uniform","A3PL_FIMS_SOG_Swimmer_Uniform",0,-1,0],
 			["uniform","A3PL_FIMS_DBlue_Uniform",0,-1,0],
@@ -500,7 +500,7 @@ Config_Shops_Items = [
 			["weaponPrimary","A3FL_M4",12000,-1,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_TaserMag",50,-1,0],
-			["magazine","A3PL_Taser2_Mag",50,0,0],			
+			["magazine","A3PL_Taser2_Mag",50,0,0],
 			["magazine","A3PL_Red_Glock_Mag",100,0,0],
 			["magazine","16Rnd_9x21_Mag",100,0,0],
 			["magazine","A3PL_P226_Mag",100,-1,0],
@@ -805,7 +805,7 @@ Config_Shops_Items = [
 			["weaponPrimary","A3FL_M4",12000,-1,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_TaserMag",50,-1,0],
-			["magazine","A3PL_Taser2_Mag",50,0,0],			
+			["magazine","A3PL_Taser2_Mag",50,0,0],
 			["magazine","A3PL_Red_Glock_Mag",100,0,0],
 			["magazine","16Rnd_9x21_Mag",100,0,0],
 			["magazine","A3PL_P226_Mag",100,-1,0],
@@ -932,7 +932,7 @@ Config_Shops_Items = [
 			["weaponPrimary","srifle_LRR_SOS_F",1000,-1,0],
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_TaserMag",50,-1,0],
-			["magazine","A3PL_Taser2_Mag",50,0,0],			
+			["magazine","A3PL_Taser2_Mag",50,0,0],
 			["magazine","A3PL_Red_Glock_Mag",100,0,0],
 			["magazine","16Rnd_9x21_Mag",100,0,0],
 			["magazine","A3PL_P226_Mag",100,-1,0],
@@ -1293,7 +1293,7 @@ Config_Shops_Items = [
 			["item","tag_meat",100,-1,0]
 		],{[5661.34,6125.97,-0.5]}
 	],
-	
+
 	["Shop_Low_End_Car_Dealer",[
 			["vehicle","K_Scooter_DarkBlue",17870,0,0],
 			["vehicle","C_Quadbike_01_F",17870,0,0],
