@@ -184,7 +184,7 @@
 		};
 		_target setVariable ["patdown",nil,true];
 
-		_items = assignedItems _target;
+		_items = assignedItems _target + items _target;
 		_vitems = [_target] call A3PL_Inventory_Get;
 		_weps = weapons _target;
 		_mags = magazines _target;
