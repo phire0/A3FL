@@ -43,31 +43,34 @@
 	_return;
 }] call Server_Setup_Compile;
 
-//a loop in the dialog to set the progress among other things
 ["A3PL_Factory_DialogLoop",
 {
 	disableSerialization;
-	private _display = findDisplay 45;
+	private ["_display","_var","_craftID","_control","_duration","_secLeft","_id","_timeEnd","_name"];
+	_display = findDisplay 45;
 	if (isNull _display) exitwith {};
-	private _type = ctrlText (_display displayCtrl 1100);
-	private _var = player getVariable ["player_factories",[]];
+	_type = ctrlText (_display displayCtrl 1100);
+	_var = player getVariable ["player_factories",[]];
 	{
-		private _id = _x select 0;
-		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _type) exitwith {
+		private ["_id"];
+		_id = _x select 0;
+		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) == _type) exitwith
+		{
 			_craftID = _id;
 		};
 	} foreach _var;
+
 	if (isNil "_craftID") exitwith {};
 
-	private _id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
-	private _duration = ([_id,_type,"time"] call A3PL_Config_GetFactory) * ([_craftID, "count"] call A3PL_Config_GetPlayerFactory);
-	private _timeEnd = [_craftID, "finish"] call A3PL_Config_GetPlayerFactory;
-	private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
-	if (_name isEqualTo "inh") then {_name = [([_id,_type,"class"] call A3PL_Config_GetFactory),([_id,_type,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
-	private _timeSleep = 0;
-	private _duration = [_duration] call A3PL_Factory_LevelBoost;
+	_id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
+	_duration = ([_id,_type,"time"] call A3PL_Config_GetFactory) * ([_craftID, "count"] call A3PL_Config_GetPlayerFactory);
+	_timeEnd = [_craftID, "finish"] call A3PL_Config_GetPlayerFactory;
+	_name = [_id,_type,"name"] call A3PL_Config_GetFactory;
+	if (_name == "inh") then {_name = [([_id,_type,"class"] call A3PL_Config_GetFactory),([_id,_type,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
+	_timeSleep = 0;
+	_duration = [_duration] call A3PL_Factory_LevelBoost;
 	while {!isNull _display} do {
-		private _secLeft = -(diag_ticktime) + _timeEnd;
+		_secLeft = -(diag_ticktime) + _timeEnd;
 		(_display displayCtrl 1105) progressSetPosition (1-(_secLeft / _duration));
 		if (_secLeft < 0) then {_secLeft = 0};
 		if(_secLeft > 60) then {
@@ -82,7 +85,7 @@
 			(_display displayCtrl 1104) ctrlSetStructuredText parseText format ["<t size='0.92'>%1<br/>%2 second(s) remaining</t>",_name,ceil _secLeft];
 			_timeSleep = 1;
 		};
-		sleep _timeSleep;
+		uiSleep _timeSleep;
 		if (_secLeft <= 0) exitwith {};
 	};
 }] call Server_Setup_Compile;
@@ -90,25 +93,30 @@
 //can check whether we have an item in the factory storage or not. can also be used by the server
 ["A3PL_Factory_Has",
 {
-	private _item = param [0,""];
-	private _amount = param [1,1];
-	private _type = param [2,""];
-	private _player = param [3,player];
-	private _has = false;
-	private _found = false;
-	private _storage = _player getVariable ["player_fstorage",[]];
+	private ["_item","_amount","_player","_has","_found","_storage","_type"];
+	_item = param [0,""];
+	_amount = param [1,1];
+	_type = param [2,""];
+	_player = param [3,player];
+	_has = false;
+	_found = false;
+	_storage = _player getVariable ["player_fstorage",[]];
+
 	{
-		if ((_x select 0) isEqualTo _type) then
+		if (_x select 0 == _type) then
 		{
 			{
-				private _storageItem = _x select 0;
-				private _isFactory = _storageItem splitString "_";
-				if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true; _itemType = [_storageItem,_type,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
+				private ["_storageItem","_isFactory","_itemType"];
+				_storageItem = _x select 0;
+
+				_isFactory = _storageItem splitString "_";
+				if ((_isFactory select 0) == "f") then {_isFactory = true; _itemType = [_storageItem,_type,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
 				if (isNil "_itemType") then {_itemType = ""};
-				if (_isFactory && (_itemType isEqualTo "item")) then {_storageItem = [_storageItem,_type,"class"] call A3PL_Config_GetFactory;};
+				if (_isFactory && (_itemType == "item")) then {_storageItem = [_storageItem,_type,"class"] call A3PL_Config_GetFactory;};
 				if (_storageItem == _item) exitwith
 				{
-					if ((_x select 1) >= _amount) then {
+					if ((_x select 1) >= _amount) then
+					{
 						_has = true
 					};
 					_found = true;
@@ -117,6 +125,7 @@
 			if (_found) exitwith {};
 		};
 	} foreach _storage;
+
 	_has;
 }] call Server_Setup_Compile;
 

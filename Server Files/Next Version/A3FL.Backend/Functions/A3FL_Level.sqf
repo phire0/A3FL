@@ -13,6 +13,7 @@
 	private _currentXP = _player getVariable 'Player_XP';
 	private _nextLevelXP = [_currentLevel] call A3PL_Config_GetLevel;
 	if(_toAdd >= (_nextLevelXP - _currentXP)) then {
+		["You have reach a higher level!","green"] call A3PL_Player_Notification;
 		_player setVariable['Player_Level',_currentLevel + 1,true];
 		_player setVariable['Player_XP',0,true];
 		_loop = _toAdd - (_nextLevelXP - _currentXP);
@@ -20,8 +21,6 @@
 	} else {
 		_toAdd = _toAdd * A3PL_Event_DblXP;
 		_player setVariable['Player_XP',_currentXP + _toAdd,true];
-		if(_toAdd != 0) then {
-		};
 		_Level = _player getvariable 'Player_Level';
 		_XP = _player getVariable 'Player_XP';
 		[_player] remoteExec ["Server_Player_Level_Save", 2];
