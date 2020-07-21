@@ -276,7 +276,7 @@
 	if(_shop IN [npc_fuel_10,Low_End_Car_Shop,npc_shopguns]) then {
 		_gangHideout = hideout_obj_5;
 	};
-	if(_shop IN [npc_perkfurniture_5,npc_perkfurniture_4,npc_perkfurniture_3,Robbable_Shop_5,NPC_general_4,npc_big_dicks_sports,npc_fuel_11,chemical_dealer,npc_fuel_12,NPC_Buckeye]) then {
+	if(_shop IN [npc_perkfurniture_5,npc_perkfurniture_4,npc_perkfurniture_3,Robbable_Shop_5,NPC_general_4,npc_big_dicks_sports,npc_fuel_11,npc_chemicaldealer,npc_fuel_12,NPC_Buckeye]) then {
 		_gangHideout = hideout_obj_6;
 	};
 
