@@ -7,7 +7,7 @@
 */
 
 #define CHARMAXLAWCOUNT 120
-#define FACTIONBALANCES ["Fire Rescue","US Coast Guard","Sheriff Department","Department of Justice","Marshals Service","Cartel"]
+#define FACTIONBALANCES ["Fire Rescue","US Coast Guard","Sheriff Department","Department of Justice","Marshals Service"]
 #define FACTIONMINPAY 200
 #define FACTIONMAXPAY 5000
 
@@ -105,14 +105,21 @@
 
 ["A3PL_Government_MyFactionBalance",
 {
-	private ["_player","_faction","_balanceAmount","_balance","_justName"];
-	_player = param [0,player];
-	_justName = param [1,false]; //if we dont want the balance, but the name of the balance
-	_faction = _player getVariable ["faction","citizen"];
-
-	//set structured texts
-	_balance = [_faction] call A3PL_Config_GetBalance;
+	private _player = param [0,player];
+	private _justName = param [1,false];
+	private _faction = _player getVariable ["faction","citizen"];
+	private _balance = [_faction] call A3PL_Config_GetBalance;
 	if (_justName) exitwith {_balance;};
+	_balanceAmount = 0;
+	{
+		if ((_x select 0) == _balance) exitwith {_balanceAmount = _x select 1;};
+	} foreach (missionNameSpace getVariable ["Config_Government_Balances",[]]);
+	_balanceAmount;
+}] call Server_Setup_Compile;
+
+["A3PL_Government_FactionBalance",
+{
+	private _balance = param [0,""];
 	_balanceAmount = 0;
 	{
 		if ((_x select 0) == _balance) exitwith {_balanceAmount = _x select 1;};

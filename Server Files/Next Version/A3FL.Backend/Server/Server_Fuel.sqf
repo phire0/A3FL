@@ -35,24 +35,16 @@
 	private _pcash = _player getVariable ["player_cash",0];
 	private _pbank = _player getVariable ["player_bank",0];
 	private _bOwner = _station getVariable ["bOwner","0"];
-	private _factionList = ["fifr","uscg","fisd"];
-	private _job = _player getVariable["job","unemployed"];
 	if(_bOwner == "0") then {
-		if(_job IN _factionList) then {
-			private _balance = [_job] call A3PL_Config_GetBalance;
-			[_balance,-_price,"",format["Fuel %1",_owner getVariable["name","unknown"]]] remoteExec ["Server_Government_AddBalance",2];
-			[format[localize "STR_SERVER_FUEL_FACTIONPAIDREFUEL",_price,_balance], "green"] remoteExec ["A3PL_Player_Notification",_player];
-		} else {
-			if(_pcash >= _price) exitwith {
-				[_player,"Player_Cash",(_pcash - _price)] call Server_Core_ChangeVar;
-				[format[localize "STR_SERVER_FUEL_PAIDCASHREFUEL",_price], "green"] remoteExec ["A3PL_Player_Notification",_player];
-			};
-			if(_pbank >= _price) exitwith {
-				[_player,"Player_Bank",(_pbank - _price)] call Server_Core_ChangeVar;
-				[format[localize "STR_SERVER_FUEL_PAIDBANKREFUEL",_price], "green"] remoteExec ["A3PL_Player_Notification",_player];
-			};
-			[format[localize "STR_SERVER_FUEL_ENOUGHMONEYREFUEL",_price], "red"] remoteExec ["A3PL_Player_Notification",_player];
+		if(_pcash >= _price) exitwith {
+			[_player,"Player_Cash",(_pcash - _price)] call Server_Core_ChangeVar;
+			[format[localize "STR_SERVER_FUEL_PAIDCASHREFUEL",_price], "green"] remoteExec ["A3PL_Player_Notification",_player];
 		};
+		if(_pbank >= _price) exitwith {
+			[_player,"Player_Bank",(_pbank - _price)] call Server_Core_ChangeVar;
+			[format[localize "STR_SERVER_FUEL_PAIDBANKREFUEL",_price], "green"] remoteExec ["A3PL_Player_Notification",_player];
+		};
+		[format[localize "STR_SERVER_FUEL_ENOUGHMONEYREFUEL",_price], "red"] remoteExec ["A3PL_Player_Notification",_player];
 	} else {
 		private _scash = _station getVariable ["bCash",0];
 		if(_pcash >= _price) exitwith {
