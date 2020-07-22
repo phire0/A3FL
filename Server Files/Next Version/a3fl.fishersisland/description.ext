@@ -229,7 +229,6 @@ class CfgSounds {
 
 class CfgDisabledCommands
 {
-
     class COPYTOCLIPBOARD
     {
         class SYNTAX1
@@ -238,7 +237,6 @@ class CfgDisabledCommands
             args[] = {{},{"STRING"}};
         };
     };
-
     class SERVERCOMMANDEXECUTABLE
     {
         class SYNTAX1
@@ -247,7 +245,6 @@ class CfgDisabledCommands
             args[] = {{},{"STRING"}};
         };
     };
-
     class SERVERCOMMAND
     {
         class SYNTAX1
@@ -262,7 +259,6 @@ class CfgDisabledCommands
             args[] = {{},{"STRING"}};
         };
     };
-
     class LOADFILE
     {
         class SYNTAX1
@@ -271,7 +267,6 @@ class CfgDisabledCommands
             args[] = {{},{"STRING"}};
         };
     };
-
     class DRAWLINE3D
     {
         class SYNTAX1
@@ -280,13 +275,4 @@ class CfgDisabledCommands
             args[] = {{},{"ARRAY"}};
         };
     };
-
-	class ADDMPEVENTHANDLER
-	{
-		class SYNTAX1
-		{
-			targets[] = {0,0,0};
-			args[] = {{"OBJECT"},{"ARRAY"}};
-		};
-	};
 };

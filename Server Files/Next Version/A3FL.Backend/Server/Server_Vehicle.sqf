@@ -457,12 +457,12 @@
 	private _veh = param [0,objNull];
 	private _id = param [1,"-1"];
 	_veh lock 2;
-
+	_veh addMPEventHandler ["MPKilled", {[_this select 0] spawn Server_Fire_VehicleExplode;}]; 
 	_veh addEventHandler ["GetOut", {
-        private _vehicle = param [0,objNull];
-        private _role = param [1,"none"];
-        if(_role isEqualTo "driver") then {[_vehicle] spawn Server_Fuel_Vehicle;};
-    }];
+		private _vehicle = param [0,objNull];
+		private _role = param [1,"none"];
+		if(_role isEqualTo "driver") then {[_vehicle] spawn Server_Fuel_Vehicle;};
+	}];
 	if (_veh isKindOf "LandVehicle") then {
 		_veh animate ["Camo1",1];
 		_veh animate ["Glass0_destruct",1];
