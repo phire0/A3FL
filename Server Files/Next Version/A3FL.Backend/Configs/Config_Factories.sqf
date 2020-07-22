@@ -66,7 +66,7 @@ Config_Factories =
 	],
 
 	["Goods Factory",[3852.065,9212.537,0.168],
-		["f_repairwrench","","inh","inh","repairwrench","item",true,5,[["Steel",5]],2,"",1],
+		["f_repairwrench","","inh","inh","repairwrench","item",true,5,[["Steel",15]],3,"",1],
 		["f_Rangefinder","","inh","inh","Rangefinder","aitem",true,5,[["Steel",2],["Glass",2],["Plastic",5]],1,"",1],
 		["f_FD_Adapter","","inh","inh","FD_Adapter","item",true,5,[["Steel",5]],5,"",1],
 		["f_FD_Hose","","inh","inh","FD_Hose","item",true,5,[["Rubber",1]],3,"",1],
