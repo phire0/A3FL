@@ -216,6 +216,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_P226",15000,-1,8],
 			["weapon","hgun_Pistol_heavy_02_F",15000,-1,9],
 			["magazine","10Rnd_9x21_Mag",500,-1,4],
+			["magazine","16Rnd_9x21_Mag",500,-1,4],
 			["magazine","A3PL_Red_Glock_Mag",500,-1,5],
 			["magazine","A3PL_P226_Mag",500,-1,5],
 			["magazine","16Rnd_9x21_green_Mag",500,-1,7],
