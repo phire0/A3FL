@@ -64,13 +64,13 @@
 	detach _can;
 	disableUserInput true;
 	_can spawn {
-		uiSleep 0.1;
+		sleep 0.1;
 		player setVelocity [0,0,20];
-		uiSleep 0.1;
+		sleep 0.1;
 		deleteVehicle _this;
-		uiSleep 1;
+		sleep 1;
 		player allowDamage true;
-		uiSleep 5;
+		sleep 5;
 		disableUserInput false;
 	};
 	if(_shouldDropWeapon) then {
@@ -155,7 +155,7 @@
 	if (isDedicated) exitwith {};
 	private _anim = param [0,"gesture_stop"];
 	private _player = param [1,player];
-	_player playAction _anim;
+	_player playActionNow _anim;
 }] call Server_Setup_Compile;
 
 ['A3PL_Lib_Sit',

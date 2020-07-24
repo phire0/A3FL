@@ -9,7 +9,6 @@
 ["A3PL_Police_GPS",
 {
 	private _job = player getVariable ["faction","unemployed"];
-
 	if (!(_job IN ["uscg","fifr","fisd","usms"])) exitwith {};
 	if (!isNil "A3PL_Police_GPSEnabled") exitwith {};
 	A3PL_Police_GPSEnabled = true;
@@ -159,90 +158,106 @@
 
 ["A3PL_Police_PatDown",
 {
-	disableSerialization;
-	private ["_target","_display","_control","_items","_weps","_mags","_targetPos"];
-	_target = param [0,objNull];
-
+	private _target = param [0,objNull];
 	if (!Player_ActionCompleted) exitwith {[localize"STR_NewPolice_1","red"] call A3PL_Player_Notification;};
-
 	if (_target getVariable ["patdown",false]) exitwith {[localize"STR_NewPolice_2","red"] call A3PL_Player_Notification;};
 	_target setVariable ["patdown",true,true];
 
 	[localize"STR_NewPolice_3", "green"] remoteExec ["A3PL_Player_Notification",_target];
-
 	[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];
 	[_target] spawn
 	{
-		private ["_target"];
-		_target = param [0,objNull];
+		private _target = param [0,objNull];
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-		_targetPos = getpos _target;
-		["Pat down in progress...",15] spawn A3PL_Lib_LoadAction;
-		_success = true;
+		["Pat down in progress...",8] spawn A3PL_Lib_LoadAction;
+		private _success = true;
 		waitUntil{Player_ActionDoing};
 		while {Player_ActionDoing} do {
 			if ((player distance2D _target) > 5) exitWith {_success = false;};
-			if (animationState player != "AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];}
+			if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
 		};
 		player switchMove "";
 		if(Player_ActionInterrupted || !_success) exitWith {
 			["Patdown cancelled","red"] call A3PL_Player_Notification;
 			["The patdown was cancelled", "green"] remoteExec ["A3PL_Player_Notification",_target];
-			if (vehicle player == player) then {player switchMove "";};
 			_target setVariable ["patdown",nil,true];
 		};
 		_target setVariable ["patdown",nil,true];
 
-			_items = assignedItems _target;
-			_vitems = [_target] call A3PL_Inventory_Get;
-			_weps = weapons _target;
-			_mags = magazines _target;
-			if (currentMagazine _target != "") then
-			{
-				_mags pushback (currentMagazine _target);
-			};
+		_items = assignedItems _target + items _target;
+		_vitems = [_target] call A3PL_Inventory_Get;
+		_weps = weapons _target;
+		_mags = magazines _target;
+		if (currentMagazine _target != "") then {_mags pushback (currentMagazine _target);};
 
-			createDialog "Dialog_PatDown";
-			_display = findDisplay 93;
+		createDialog "Dialog_PatDown";
+		_display = findDisplay 93;
 
-			_control = _display displayCtrl 1500;
-			{
-				_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _x >> "displayName")];
-				_control lbSetData [_index,_x];
-			} foreach _items;
-			_control lbSetCurSel 0;
+		_control = _display displayCtrl 1500;
+		{
+			_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _x >> "displayName")];
+			_control lbSetData [_index,_x];
+			_control lbSetValue [_index,0];
+		} foreach _items;
+
+		_uniform = uniform _target;
+		if(!(_uniform isEqualTo "")) then {
+			_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _uniform >> "displayName")];
+			_control lbSetData [_index,_uniform];
+			_control lbSetValue [_index,1];
+		};
+
+		_vest = vest _target;
+		if(!(_vest isEqualTo "")) then {
+			_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _vest >> "displayName")];
+			_control lbSetData [_index,_vest];
+			_control lbSetValue [_index,2];
+		};
+
+		_backpack = backpack _target;
+		if(!(_backpack isEqualTo "")) then {
+			_index = _control lbAdd format ["%1",getText (configFile >> "CfgVehicles" >> _backpack >> "displayName")];
+			_control lbSetData [_index,_backpack];
+			_control lbSetValue [_index,3];
+		};
+
+		_control lbSetCurSel 0;
 
 
-			_control = _display displayCtrl 1501;
-			{
-				_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _x >> "displayName")];
-				_control lbSetData [_index,_x];
-				_control lbSetValue [_index,0];
-			} foreach _weps;
-			{
-				_index = _control lbAdd format ["%1",getText (configFile >> "CfgMagazines" >> _x >> "displayName")];
-				_control lbSetData [_index,_x];
-				_control lbSetValue [_index,1];
-			} foreach _mags;
-			_control lbSetCurSel 0;
+		_control = _display displayCtrl 1501;
+		{
+			_index = _control lbAdd format ["%1",getText (configFile >> "CfgWeapons" >> _x >> "displayName")];
+			_control lbSetData [_index,_x];
+			_control lbSetValue [_index,0];
+		} foreach _weps;
+		{
+			_index = _control lbAdd format ["%1",getText (configFile >> "CfgMagazines" >> _x >> "displayName")];
+			_control lbSetData [_index,_x];
+			_control lbSetValue [_index,1];
+		} foreach _mags;
+		_control lbSetCurSel 0;
 
-			_control = _display displayCtrl 1502;
-			{
-				_index = _control lbAdd format ["(%2x) %1",[_x select 0, "name"] call A3PL_Config_GetItem, _x select 1];
-				_control lbSetData [_index,_x select 0];
-				_control lbSetValue [_index,_x select 1];
-			} foreach _vitems;
-			_control lbSetCurSel 0;
+		_control = _display displayCtrl 1502;
+		{
+			_index = _control lbAdd format ["(%2x) %1",[_x select 0, "name"] call A3PL_Config_GetItem, _x select 1];
+			_control lbSetData [_index,_x select 0];
+			_control lbSetValue [_index,_x select 1];
+		} foreach _vitems;
 
-			_control = _display displayCtrl 1600;
-			_control ctrlAddEventHandler ["buttonDown",{["item"] call A3PL_Police_PatDownTake}];
-			_control = _display displayCtrl 1601;
-			_control ctrlAddEventHandler ["buttonDown",{["wep"] call A3PL_Police_PatDownTake}];
-			_control = _display displayCtrl 1602;
-			_control ctrlAddEventHandler ["buttonDown",{["vitems"] call A3PL_Police_PatDownTake}];
+		_index = _control lbAdd format["$%1", [_target getVariable ["Player_Cash",0]] call A3PL_Lib_MoneyFormat];
+		_control lbSetData [_index,"cash"];
+		_control lbSetValue [_index,_target getVariable ["Player_Cash",0]];
+		_control lbSetCurSel 0;
 
-			A3PL_Police_Target = _target;
-			_display displayAddEventHandler ["unload",{A3PL_Police_Target setVariable ["patdown",nil,true]; A3PL_Police_Target = nil; A3PL_Police_WeaponHolder = nil;}];
+		_control = _display displayCtrl 1600;
+		_control ctrlAddEventHandler ["buttonDown",{["item"] call A3PL_Police_PatDownTake}];
+		_control = _display displayCtrl 1601;
+		_control ctrlAddEventHandler ["buttonDown",{["wep"] call A3PL_Police_PatDownTake}];
+		_control = _display displayCtrl 1602;
+		_control ctrlAddEventHandler ["buttonDown",{["vitems"] call A3PL_Police_PatDownTake}];
+
+		A3PL_Police_Target = _target;
+		_display displayAddEventHandler ["unload",{A3PL_Police_Target setVariable ["patdown",nil,true]; A3PL_Police_Target = nil; A3PL_Police_WeaponHolder = nil;}];
 	};
 }] call Server_Setup_Compile;
 
@@ -274,13 +289,38 @@
 		{
 			_control = _display displayCtrl 1500;
 			_class = _control lbData (lbCurSel _control);
-			_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
-			if (_class IN (assignedItems _target)) then
+			_itemtype = _control lbValue (lbCurSel _control);
+			switch (_itemtype) do
 			{
-				_target unAssignItem _class;
+				case 0:
+				{
+					_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
+					if (_class IN (assignedItems _target)) then
+					{
+						_target unAssignItem _class;
+					};
+					_target removeItem _class;
+					_weaponHolder addItemCargoGlobal [_class,1];
+				};
+				case 1:
+				{
+					_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
+					removeUniform _target;
+					_weaponHolder addItemCargoGlobal [_class,1];
+				};
+				case 2:
+				{
+					_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
+					removeVest _target;
+					_weaponHolder addItemCargoGlobal [_class,1];
+				};
+				case 3:
+				{
+					_itemName = getText (configFile >> "CfgVehicles" >> _class >> "displayName");
+					removeBackpackGlobal _target;
+					_weaponHolder addBackpackCargoGlobal [_class,1];
+				};
 			};
-			_target removeItem _class;
-			_weaponHolder addItemCargoGlobal [_class,1];
 		};
 		case ("wep"):
 		{
@@ -288,7 +328,26 @@
 			_class = _control lbData (lbCurSel _control);
 			if(isClass (configFile >> "CfgWeapons" >> _class)) then {
 				_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
-				_target removeWeaponGlobal _class;
+				{
+					if (_x isEqualTo _class) exitWith {
+						_target removeWeaponGlobal _x;
+					};
+				} forEach weapons _target;
+				{
+					if (_x isEqualTo _class) exitWith {
+						_target removeItemFromUniform _x;
+					};
+				} forEach uniformItems _target;
+				{
+					if (_x isEqualTo _class) exitWith {
+						_target removeItemFromVest _x;
+					};
+				} forEach vestItems _target;
+				{
+					if (_x isEqualTo _class) exitWith {
+						_target removeItemFromBackpack _x;
+					};
+				} forEach backpackItems _target;
 				_weaponHolder addWeaponCargoGlobal [_class,1];
 			} else {
 				_itemName = getText (configFile >> "CfgMagazines" >> _class >> "displayName");
@@ -306,130 +365,110 @@
 			[_class,_amount] call A3PL_Inventory_Add;
 		};
 	};
-
 	_control lbDelete (lbCurSel _control);
+	[player, 5] call A3PL_Level_AddXP;
 
 	[format [localize"STR_NewPolice_6",_itemName,_amount],"green"] call A3PL_Player_Notification;
 	[format [localize"STR_NewPolice_7",_itemName,_amount]] remoteExec ["A3PL_Player_Notification",_target];
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Cuff', {
-	private ['_obj'];
-	_obj = _this select 0;
-	if (animationState _obj IN ["amovpercmstpsnonwnondnon","amovpercmstpsraswrfldnon","amovpercmstpsraswpstdnon","amovpercmstpsraswlnrdnon"]) exitwith
+	private _obj = _this select 0;
+	if ((animationState _obj) IN ["amovpercmstpsnonwnondnon","amovpercmstpsraswrfldnon","amovpercmstpsraswpstdnon","amovpercmstpsraswlnrdnon"]) exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,1] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
-	if (animationState _obj == "a3pl_idletohandsup") exitwith
+	if ((animationState _obj) isEqualTo "a3pl_idletohandsup") exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,2] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
-	if (animationState _obj == "a3pl_handsuptokneel") exitwith
+	if ((animationState _obj) isEqualTo "a3pl_handsuptokneel") exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,3] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
 	if (animationState _obj IN ["amovpknlmstpsnonwnondnon","amovpknlmstpsraswpstdnon","amovpknlmstpsraswrfldnon","amovpknlmstpsraswlnrdnon"]) exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,4] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
 	if (animationState _obj IN ["amovppnemstpsnonwnondnon","amovppnemstpsraswrfldnon","amovppnemstpsraswpstdnon"]) exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
-	if (animationState _obj == "unconscious") exitwith
+	if ((animationState _obj) isEqualTo "unconscious") exitwith
 	{
+		_obj setVariable ["Cuffed",true,true];
 		[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",0];
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
-		_obj setVariable ["Cuffed",true,true];
 	};
+	[player, 5] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Uncuff', {
-	private ['_obj'];
-	_obj = _this select 0;
-
-	_Cuffed = _obj getVariable ["Cuffed",true];
-	if ((animationState _obj IN ["a3pl_handsuptokneel"]) && (_Cuffed)) exitwith
-	{
+	private _obj = _this select 0;
+	private _Cuffed = _obj getVariable ["Cuffed",true];
+	if (_Cuffed) then {
 		["handcuffs",1] call A3PL_Inventory_Add;
 		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",0];
 		_obj setVariable ["Cuffed",false,true];
-	};
-	if ((animationState _obj == "a3pl_handsupkneelkicked") && (_Cuffed)) exitwith
-	{
-		["handcuffs",1] call A3PL_Inventory_Add;
-		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",0];
-		_obj setVariable ["Cuffed",false,true];
-	};
-	if ((animationState _obj == "a3pl_handsupkneelcuffed") && (_Cuffed)) exitwith
-	{
-		["handcuffs",1] call A3PL_Inventory_Add;
-		[player,_obj,7] remoteExec ["A3PL_Police_HandleAnim",0];
-		_obj setVariable ["Cuffed",false,true];
+		_obj setVariable ["dragged",nil,true];
+		if((vehicle _obj) isEqualTo _obj) then {
+			["gesture_stop",_obj] call A3PL_Lib_Gesture;
+			[_obj,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
+		};
 	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_CuffKick', {
-	private ['_obj'];
-	_obj = _this select 0;
-	if (animationState _obj IN ["a3pl_handsupkneelcuffed"]) exitwith {
+	private _obj = _this select 0;
+	if ((animationState _obj) isEqualTo "a3pl_handsupkneelcuffed") then {
 		[player,_obj,6] remoteExec ["A3PL_Police_HandleAnim", -2];
 	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_HandleAnim', {
-	private ['_cop','_civ','_number'];
-	_cop = _this select 0;
-	_civ = _this select 1;
-	_number = _this select 2;
-
+	private _cop = _this select 0;
+	private _civ = _this select 1;
+	private _number = _this select 2;
 	switch (_number) do
 	{
 		case 1:
 		{
-			//setDir of civ
 			if (local _civ) then
 			{
-				if (!isPlayer _civ) exitwith
-				{
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) + 50);
 				};
 				player setdir ((getDir player) + 50);
 			};
-
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_civ switchmove "A3PL_HandsupToKneel";
 				sleep 5;
 				_civ switchmove "A3PL_HandsupKneelGetCuffed";
 				_cop switchmove "A3PL_Cuff";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 4;
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
 				_civ switchmove "A3PL_HandsupKneelCuffed";
@@ -440,21 +479,17 @@
 		{
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_civ switchmove "A3PL_HandsupToKneel";
 				sleep 5;
 				_civ switchmove "A3PL_HandsupKneelGetCuffed";
 				_cop switchmove "A3PL_Cuff";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 4;
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
 				_civ switchmove "A3PL_HandsupKneelCuffed";
@@ -465,19 +500,15 @@
 		{
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_civ switchmove "A3PL_HandsupKneelGetCuffed";
 				_cop switchmove "A3PL_Cuff";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 4;
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
 				_civ switchmove "A3PL_HandsupKneelCuffed";
@@ -486,31 +517,23 @@
 		};
 		case 4:
 		{
-			//setDir of civ
-			if (local _civ) then
-			{
-				if (!isPlayer _civ) exitwith
-				{
+			if (local _civ) then {
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) + 50);
 				};
 				player setdir ((getDir player) + 50);
 			};
-
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_civ switchmove "A3PL_HandsupKneelGetCuffed";
 				_cop switchmove "A3PL_Cuff";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 4;
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
 				_civ switchmove "A3PL_HandsupKneelCuffed";
@@ -519,7 +542,6 @@
 		};
 		case 5:
 		{
-			//setDir of civ
 			if (local _civ) then
 			{
 				if (!isPlayer _civ) exitwith
@@ -530,56 +552,40 @@
 			};
 			_civ switchmove "A3PL_HandsupKneelKicked";
 		};
-
 		case 6:
 		{
 			[_cop,_civ] spawn
 			{
-				private ["_cop","_civ"];
-				_cop = _this select 0;
-				_civ = _this select 1;
-
+				private _cop = _this select 0;
+				private _civ = _this select 1;
 				_cop switchmove "A3PL_CuffKickDown";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					_cop attachTo [_civ,[0,0,0]];
 				};
 				sleep 1;
 				_civ switchmove "A3PL_HandsupKneelKicked";
 				sleep 3;
 				_cop switchmove "";
-				if (local _cop) then
-				{
+				if (local _cop) then {
 					detach _cop;
 				};
-
-				if (local _civ) then
-				{
-					if (!isPlayer _civ) exitwith
-					{
+				if (local _civ) then {
+					if (!isPlayer _civ) exitwith {
 						_civ setdir ((getDir _civ) - 50);
 					};
 					player setdir ((getDir player) - 50);
 				};
-
 			};
 		};
-
 		case 7:
 		{
-			_civ spawn
-			{
-				private ["_cop","_civ"];
-				if (local _this) then
-				{
+			_civ spawn {
+				if (local _this) then {
 					_this setdir ((getDir _this) - 50);
 				};
-
-				if (animationState _this == "a3pl_handsupkneelcuffed") then
-				{
+				if ((animationState _this) isEqualTo "a3pl_handsupkneelcuffed") then {
 					_this switchmove "amovpknlmstpsnonwnondnon";
-				} else
-				{
+				} else {
 					_this switchmove "amovppnemstpsnonwnondnon";
 				};
 			};
@@ -589,9 +595,8 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Surrender', {
-	private ['_obj'];
-	_obj = _this select 0;
-	_upDown = _this select 1;
+	private _obj = _this select 0;
+	private _upDown = _this select 1;
 
 	//1 No hands up -> Hands up
 	//2 Hands up -> Normal
@@ -600,27 +605,27 @@
 	//5 Kneeled -> Kneeled hands up
 	//6 Prone -> Kneeled hands up
 
-	/*if (animationState _obj == "amovpercmstpsnonwnondnon") exitwith
+	/*if ((animationState _obj) isEqualTo "amovpercmstpsnonwnondnon") exitwith
 	{
 		[player,1] remoteExec ["A3PL_Police_SurrenderAnim",true];
 	};*/
-	if ((animationState _obj IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (_upDown)) exitwith
+	if (((animationState _obj) IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (_upDown)) exitwith
 	{
 		[player,2] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
-	if ((animationState _obj IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (!_upDown)) exitwith
+	if (((animationState _obj) IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (!_upDown)) exitwith
 	{
 		[player,3] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
-	if ((animationState _obj == "a3pl_handsuptokneel") && (_upDown)) exitwith
+	if (((animationState _obj) isEqualTo "a3pl_handsuptokneel") && (_upDown)) exitwith
 	{
 		[player,4] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
-	if (animationState _obj == "amovpknlmstpsnonwnondnon") exitwith
+	if ((animationState _obj) isEqualTo "amovpknlmstpsnonwnondnon") exitwith
 	{
 		[player,5] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
-	if (animationState _obj == "amovppnemstpsnonwnondnon") exitwith
+	if ((animationState _obj) isEqualTo "amovppnemstpsnonwnondnon") exitwith
 	{
 		[player,6] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
@@ -628,78 +633,59 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_SurrenderAnim', {
-	private ['_civ','_number'];
-	_civ = _this select 0;
-	_number = _this select 1;
-
+	private _civ = _this select 0;
+	private _number = _this select 1;
 	switch (_number) do
 	{
 		case 1:
 		{
-			//setDir of civ
-			if (local _civ) then
-			{
-				if (!isPlayer _civ) exitwith
-				{
+			if (local _civ) then {
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) + 50);
 				};
 				player setdir ((getDir player) + 50);
 			};
 			_civ switchmove "A3PL_IdleToHandsup";
 		};
-
 		case 2:
 		{
-			//setDir of civ
-			if (local _civ) then
-			{
-				if (!isPlayer _civ) exitwith
-				{
+			if (local _civ) then {
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) - 50);
 				};
 				player setdir ((getDir player) - 50);
 			};
 			_civ switchmove "";
 		};
-
 		case 3:
 		{
 			_civ switchmove "A3PL_HandsupToKneel";
 		};
-
 		case 4:
 		{
 			_civ switchmove "A3PL_KneelToHandsup";
 		};
-
 		case 5:
 		{
-			if (local _civ) then
-			{
-				if (!isPlayer _civ) exitwith
-				{
+			if (local _civ) then {
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) - 50);
 				};
 				player setdir ((getDir player) - 50);
 			};
 			_civ switchmove "A3PL_HandsupKneel";
 		};
-
 		case 6:
 		{
-			if (local _civ) then
-			{
-				if (!isPlayer _civ) exitwith
-				{
+			if (local _civ) then {
+				if (!isPlayer _civ) exitwith {
 					_civ setdir ((getDir _civ) - 50);
 				};
 				player setdir ((getDir player) - 50);
 			};
 			_civ switchmove "A3PL_HandsupKneel";
 		};
-
 	};
-
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DeploySpikes', {
@@ -754,18 +740,12 @@
 
 ['A3PL_Police_Drag',
 {
-	private ['_civ',"_dragged"];
-	_civ = _this select 0;
-
-	_dragged = _civ getVariable ["dragged",false];
-	//stop dragging here
-	if (_dragged) exitwith
-	{
-		_civ setVariable ["dragged",Nil,true];
+	private _civ = _this select 0;
+	private _dragged = _civ getVariable ["dragged",false];
+	if (_dragged) exitwith {
+		_civ setVariable ["dragged",nil,true];
 	};
-
-	if ((animationState _civ IN ["a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked"]) || (surfaceIsWater position player)) then
-	{
+	if (_civ getVariable["Cuffed",false]) then {
 		[player] remoteExec ["A3PL_Police_DragReceive", _civ];
 	} else {
 		[localize"STR_NewPolice_8", "red"] call A3PL_Player_Notification;
@@ -774,32 +754,32 @@
 
 ['A3PL_Police_DragReceive',
 {
-	private ["_dragState","_cop"];
-	_cop = param [0,objNull];
-
+	private _cop = param [0,objNull];
 	[localize"STR_NewPolice_9", "red"] call A3PL_Player_Notification;
 	player setVariable ["dragged",true,true];
-	[player,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
 	["gesture_restrain"] call A3PL_Lib_Gesture;
+	[player,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
 	player forceWalk true;
 	[_cop] spawn
 	{
-		private ["_var","_cop"];
-		_cop = param [0,objNull];
+		private _cop = param [0,objNull];
 		if (isNull _cop) exitwith {};
-		while {player getVariable ["dragged",false] && vehicle _cop isKindOf "Civilian_F"} do
+		while {player getVariable ["dragged",false] && ((vehicle _cop) isKindOf "Civilian_F")} do
 		{
-				uiSleep 2;
 				if (isNull _cop) exitwith {};
-				if ((player distance _cop) > 4 && vehicle _cop isKindOf "Civilian_F") then
-				{
+				if ((player distance _cop) > 5 && ((vehicle _cop) isKindOf "Civilian_F")) then {
 					player setposATL (getposATL _cop);
 				};
+				if(!(player getVariable["Cuffed",true])) then {player setVariable ["dragged",nil,true];};
+				["gesture_restrain"] call A3PL_Lib_Gesture;
 		};
-		[localize"STR_NewPolice_10", "red"] call A3PL_Player_Notification;
 		player forceWalk false;
-		["gesture_stop"] call A3PL_Lib_Gesture;
-		[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];
+		player setVariable ["dragged",nil,true];
+		[localize"STR_NewPolice_10", "red"] call A3PL_Player_Notification;
+		if((vehicle player) isEqualTo player) then {
+			["gesture_stop"] call A3PL_Lib_Gesture;
+			[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];
+		};
 	};
 }] call Server_Setup_Compile;
 
@@ -807,18 +787,12 @@
 {
 	private ["_car","_near"];
 	_car = param [0,objNull];
-
 	_near = nearestObjects [player,["C_man_1"],5];
 	_near = _near - [player];
 	if (count _near < 1) exitwith {[localize"STR_NewPolice_11", "red"] call A3PL_Player_Notification;};
 	_near = _near select 0;
-	if (_near getVariable ["dragged",false]) exitwith
-	{
-		[_near,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
-		[_car] remoteExec ["A3PL_Lib_MoveInPass",_near];
-	};
-	if (animationState _near IN ["a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","A3PL_HandsupKneelGetCuffed"]) exitwith
-	{
+	if((_near getVariable["Cuffed",false]) || _near getVariable["Zipped",false]) exitwith {
+		_near setVariable["dragged",nil,true];
 		[_near,""] remoteExec ["A3PL_Lib_SyncAnim", -2];
 		[_car] remoteExec ["A3PL_Lib_MoveInPass",_near];
 	};
@@ -827,14 +801,11 @@
 
 ["A3PL_Police_Impound",
 {
-	private ["_veh"];
-	_veh = player_objIntersect;
+	private _veh = player_objIntersect;
 	if (isnull _veh) then {_veh = cursorObject};
 	if (isNull _veh) exitwith {[localize"STR_NewPolice_13", "red"] call A3PL_Player_Notification;};
 	if(_veh distance player > 7) exitWith {[localize"STR_NewPolice_14", "red"] call A3PL_Player_Notification;};
-
 	if ((_veh isKindOf "Car") && (!((typeOf _veh) IN A3PL_Jobroadworker_MarkBypass))) exitwith {[_veh] call A3PL_JobRoadWorker_ToggleMark;};
-
 	[_veh] remoteExec ["Server_Police_Impound", 2];
 	[localize"STR_NewPolice_15", "red"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
@@ -846,10 +817,9 @@
 
 ["A3PL_Police_unDetain",
 {
-	private ['_car','_pass'];
-	_car = _this select 0;
-	_pass = crew _car;
-	if(speed _car >= 4) exitWith {};
+	private _car = _this select 0;
+	private _pass = crew _car;
+	if((speed _car) >= 4) exitWith {};
 	{
 		_x action ["getOut", _car];
 		[_x,_car]spawn {_pass = _this select 0;_car = _this select 1;if (_pass getVariable ["Cuffed",true]) then {sleep 1.5;_pass setVelocityModelSpace [0,3,1];[_pass,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];};};
@@ -1626,6 +1596,7 @@
 
 	_name = [_class, 'name'] call A3PL_Config_GetItem;
 	[format["You have seized %1 %2",_amount,_name],"red"] call A3PL_Player_Notification;
+	[player, 5] call A3PL_Level_AddXP;
 
 }] call Server_Setup_Compile;
 
@@ -1636,26 +1607,24 @@
 	_amount = _target getVariable["amount",1];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	_targetPos = getpos _target;
 	["Seizing item...",15] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
+	[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];
 	while {Player_ActionDoing} do {
 		if ((player distance2D _target) > 5) exitWith {_success = false;};
-		if (animationState player isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];}
+		if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
 	};
 	player switchMove "";
 	if(Player_ActionInterrupted || !_success) exitWith {
 		["Item seizure cancelled!","red"] call A3PL_Player_Notification;
-		["Item seizure cancelled!", "green"] remoteExec ["A3PL_Player_Notification",_target];
-		if (vehicle player == player) then {player switchMove "";};
+		if ((vehicle player) isEqualTo player) then {player switchMove "";};
 	};
 
 	deleteVehicle _target;
-
 	_name = [_class, 'name'] call A3PL_Config_GetItem;
+	[player, 5] call A3PL_Level_AddXP;
 	[format["You have seized %1 %2",_amount,_name],"red"] call A3PL_Player_Notification;
-
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_StartJailPlayer",
@@ -1828,12 +1797,10 @@
 
 ["A3PL_Police_MarkHouse",
 {
-	private ["_house","_name","_warehouse"];
-	_house = parseSimpleArray (param [0,""]);
-	_name = param [1,"unknown"];
-	_warehouse = param [2,false];
-
-	_marker = createMarkerLocal [format ["Marked_House_%1",random 4000], _house];
+	private _house = parseSimpleArray (param [0,""]);
+	private _name = param [1,"unknown"];
+	private _warehouse = param [2,false];
+	private _marker = createMarkerLocal [format ["Marked_House_%1",random 4000], _house];
 	_marker setMarkerShapeLocal "ICON";
 	_marker setMarkerTypeLocal "mil_warning";
 	if(_warehouse) then {
@@ -1842,9 +1809,7 @@
 		_marker setMarkerTextLocal format["%1 House", _name];
 	};
 	_marker setMarkerColorLocal "ColorRed";
-
 	uiSleep 120;
-
 	deleteMarkerLocal _marker;
 }] call Server_Setup_Compile;
 
@@ -1875,13 +1840,9 @@
 
 ["A3PL_Police_PanicMarker",
 {
-	private ["_player","_marker"];
-	_player = param [0,objNull];
-
-	//play sound & display notification
+	private _player = param [0,objNull];
 	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 2, 5];
 	[localize"STR_NewPolice_31","red"] call A3PL_Player_Notification;
-
 	[_player,"Panic Button","ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
 }] call Server_Setup_Compile;
 

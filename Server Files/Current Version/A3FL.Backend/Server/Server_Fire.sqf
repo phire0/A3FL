@@ -18,23 +18,31 @@
 	};
 },true] call Server_Setup_Compile;
 
+["Server_Fire_Destroy",
+{
+	private _fireobject = param [0,objNull];
+	{deleteVehicle _x;} foreach (nearestObjects [_fireobject, Config_Placeables, 4]);
+	{ _x hideObjectGlobal true; } foreach nearestTerrainObjects [_fireobject,["TREE", "SMALL TREE", "BUSH","FOREST"],4];
+	{
+		_x setDamage 1;
+		_x setVariable["burnt",true,true];
+	} foreach (nearestObjects [_fireobject, ["Land_Fence1_DED_Fence_01_F","Land_Fence2_DED_Fence_02_F","Land_A3FL_Fence_Wood4_1m","Land_A3FL_Fence_Wood4_4m","Land_A3FL_Fence_Wood2_1m","Land_A3FL_Fence_Wood2_4m","Land_A3FL_Fence_Wood_Doorway2_4m","Land_A3FL_Fence_Wood_Doorway4_2m"],2]);
+},true] call Server_Setup_Compile;
+
 ["Server_Fire_StartFire",
 {
 	private _position = param [0,[]];
 	private _dir = param [1,windDir];
 	if (count _position < 3) exitwith {};
 	private _onWater = !(_position isFlatEmpty [-1, -1, -1, -1, 2, false] isEqualTo []);
-	private _underground = ((_position select 3) < 0);
-	if(_onWater || _underground) exitWith {};
+	if(_onWater || ((_position select 3) < 0)) exitWith {};
 
 	private _fireobject = createVehicle ["A3PL_FireObject",_position, [], 0, "CAN_COLLIDE"];
 	_fireobject addEventhandler ["HandleDamage",{[param [0,objNull],param [4,""],param [6,objNull]] spawn Server_Fire_HandleDamage;}];
 	_fireObject setDir _dir;
 	[_fireObject] call Server_Fire_AddFireParticles;
 	Server_TerrainFires pushBack [_fireObject];
-
-	{deleteVehicle _x;} foreach (nearestObjects [_fireobject, Config_Placeables, 4]);
-	{ _x hideObjectGlobal true; } foreach nearestTerrainObjects [_fireobject,["TREE", "SMALL TREE", "BUSH","FOREST"],4];
+	[_fireobject] call Server_Fire_Destroy;
 },true] call Server_Setup_Compile;
 
 ["Server_Fire_AddFireParticles",
@@ -160,9 +168,7 @@
 
 				_fireArray pushback _fireObject;
 				Server_TerrainFires set [_loopIndex,_fireArray];
-
-				{deleteVehicle _x;} foreach (nearestObjects [_fireobject, Config_Placeables, 4]);
-				{ _x hideObjectGlobal true; } foreach nearestTerrainObjects [_fireobject,["TREE", "SMALL TREE", "BUSH","FOREST"],4];
+				[_fireobject] call Server_Fire_Destroy;
 			};
 		} foreach _spreadArray;
 	} foreach Server_TerrainFires;
@@ -170,36 +176,44 @@
 
 ["Server_Fire_VehicleExplode",
 {
-	private _fireObject = param [0,objNull];
-	private _var = _fireObject getVariable ["owner",[]];
+	private _veh = param [0,objNull];
+	private _var = _veh getVariable ["owner",[]];
+
+	diag_log format["Server_Fire_VehicleExplode: %1 / %2",_veh, _var];
+
+	[_veh] call A3PL_Vehicle_SoundSourceClear;
+	_sirenObj = _veh getVariable ["sirenObj",objNull];
+	if (!isNull _sirenObj) then {deleteVehicle _sirenObj;};
+
 	if((count _var) > 0) then {
 		private _id = _var select 1;
 		private _uid = _var select 0;
 		private _player = [_uid] call A3PL_Lib_UIDToObject;
-		[_fireobject,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
-		[_uid,"VehicleExplode",[typeOf _fireObject, _id]] remoteExec ["Server_Log_New",2];
+		[_veh,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
+		[_uid,"VehicleExplode",[typeOf _veh, _id]] remoteExec ["Server_Log_New",2];
 
-		private _isInsured = _fireObject getVariable ["insurance",false];
+		private _isInsured = _veh getVariable ["insurance",false];
+		if((typeOf _veh) IN ["A3PL_MiniExcavator","A3PL_Car_Trailer","A3PL_Lowloader","A3PL_Small_Boat_Trailer","A3PL_Drill_Trailer","A3PL_Tanker_Trailer","A3PL_Box_Trailer"]) then {_isInsured = true;};
 		if(_isInsured) then {
-			[_fireObject] call Server_Storage_VehicleVirtual;
-			private _query = format ["UPDATE objects SET insurance = '0', plystorage = '1' WHERE id = '%1'",_id];
+			[_veh] call Server_Storage_VehicleVirtual;
+			private _query = format ["UPDATE objects SET plystorage = '1' WHERE id = '%1'",_id];
 			[_query,1] spawn Server_Database_Async;
 		} else {
-			private _query = format ["UPDATE objects SET istorage = '[]', vstorage = '[]' WHERE id = '%1'",_id];
+			private _query = format ["UPDATE objects SET istorage = '[]', vstorage = '[]', impounded='1', plystorage = '1' WHERE id = '%1'",_id];
 			[_query,1] spawn Server_Database_Async;
 		};
 	};
 
 	private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
 	if ((count(_fifr)) >= 5) then {
-		private _marker = createMarker [format ["vehiclefire_%1",random 4000], position (_fireObject)];
+		private _marker = createMarker [format ["vehiclefire_%1",random 4000], position (_veh)];
 		_marker setMarkerShape "ICON";
 		_marker setMarkerType "A3PL_Markers_FIFD";
 		_marker setMarkerText "FIRE";
 		_marker setMarkerColor "ColorWhite";
 		[localize"STR_SERVER_FIRE_VEHICLEFIREREPORT","red","fifr",3] call A3PL_Lib_JobMessage;
 		["A3PL_Common\effects\firecall.ogg",150,2,10] spawn A3PL_FD_FireStationAlarm;
-		[getposATL (_fireObject)] spawn Server_Fire_StartFire;
+		[getposATL (_veh)] spawn Server_Fire_StartFire;
 		sleep 230;
 		deleteMarker _marker;
 	};

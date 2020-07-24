@@ -156,13 +156,14 @@
 	["You are now searching the trash!", "yellow"] call A3PL_Player_Notification;
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
+	[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];
 	["Searching Trash...",30] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
 		if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
+		if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
 	};
 	player switchMove "";
 	if(Player_ActionInterrupted || !_success) exitWith {

@@ -12,7 +12,6 @@
 	private ["_box","_display","_control"];
 	_box = param [0,player_objintersect];
 	if (isNull _box) exitwith {[localize"STR_NewHousing_1)"] call A3PL_Player_Notification;};
-
 	if (player distance _box > 5 ) exitwith {["You are too far away from this box to open it!","red"] call A3PL_Player_Notification;};
 	if (_box getVariable ["inuse",false]) exitwith {[localize"STR_NewHousing_2","red"] call A3PL_Player_Notification;};
 	_box setVariable ["inuse",true,true];
@@ -27,6 +26,8 @@
 	_control ctrlAddeventhandler ["ButtonDown",{[false] call A3PL_Housing_VirtualChange;}];
 
 	_display displayAddEventHandler ["unload",{A3PL_Housing_StorageBox setVariable ["inuse",nil,true]; A3PL_Housing_StorageBox = nil;}];
+
+	_capacity = _box getVariable ["capacity",0];
 
 	[_display,_box] call A3PL_Housing_VirtualFillLB;
 }] call Server_Setup_Compile;
@@ -52,6 +53,31 @@
 		_control lbAdd format ["%1 (x%2)",([_item,"name"] call A3PL_Config_GetItem),_x select 1];
 		_control lbSetData [_forEachIndex,_item];
 	} foreach (_box getVariable ["storage",[]]);
+
+	_totalWeight = [] call A3PL_Inventory_TotalWeight;
+	_capacity = round((_totalWeight/Player_MaxWeight)*100);
+	_capColor = switch(true) do {
+		case (_capacity < 20): {"#00FF00"};
+		case (_capacity >= 50): {"#FFFF00"};
+		case (_capacity >= 75): {"#FFA500"};
+		case (_capacity >= 100): {"#ff0000"};
+		default {"#ffffff"};
+	};
+	_control = _display displayCtrl 1100;
+	_control ctrlSetStructuredText parseText format["<t font='PuristaSemiBold' align='center' size='1.35' color='%3'>%1%2</t>", _capacity, "%", _capColor];
+
+	_boxTotalWeight = [_box] call A3PL_Vehicle_TotalWeight;
+	_vehCapacity = _box getVariable["capacity",0];
+	_capacity = round((_boxTotalWeight/_vehCapacity)*100);
+	_capColor = switch(true) do {
+		case (_capacity < 20): {"#00FF00"};
+		case (_capacity >= 50): {"#FFFF00"};
+		case (_capacity >= 75): {"#FFA500"};
+		case (_capacity >= 100): {"#ff0000"};
+		default {"#ffffff"};
+	};
+	_control = _display displayCtrl 1101;
+	_control ctrlSetStructuredText parseText format["<t font='PuristaSemiBold' align='center' size='1.35' color='%3'>%1%2</t>", _capacity, "%", _capColor];
 }] call Server_Setup_Compile;
 
 ["A3PL_Housing_VirtualChange",
@@ -66,7 +92,7 @@
 	_storage = A3PL_Housing_StorageBox getVariable ["storage",[]];
 	_inventory = player getVariable ["player_inventory",[]];
 	_index = lbCurSel _control;
-	if (_control lbText _index == "") exitwith {[localize"STR_NewHousing_4","red"] call A3PL_Player_Notification;};
+	if ((_control lbText _index) isEqualTo "") exitwith {[localize"STR_NewHousing_4","red"] call A3PL_Player_Notification;};
 
 	if (_add) then
 	{
@@ -75,6 +101,11 @@
 		_itemAmount = parseNumber (ctrlText 1400);
 		if (_itemAmount < 1) exitwith {[localize"STR_NewHousing_5","red"] call A3PL_Player_Notification;};
 		if (_itemAmount > ((_inventory select _index) select 1)) exitwith {[localize"STR_NewHousing_6","red"] call A3PL_Player_Notification;};
+
+		_boxCapacity = A3PL_Housing_StorageBox getVariable["capacity",0];
+		_itemTotalWeight = ([_itemClass, 'weight'] call A3PL_Config_GetItem) * _itemAmount;
+		_boxTotalWeight = [A3PL_Housing_StorageBox] call A3PL_Vehicle_TotalWeight;
+		if ((_itemTotalWeight + _boxTotalWeight) > _boxCapacity) exitwith {["There is not enough capacity to add this","red"] call A3PL_Player_Notification;};
 
 		A3PL_Housing_StorageBox setVariable ["storage",([_storage, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 		player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
@@ -185,25 +216,21 @@
 
 ["A3PL_Housing_Grabkey",
 {
-	private ["_keyID","_format"];
-	_keyID = lbdata [1900,(lbCurSel 1900)];
+	if((animationState player) isEqualTo "a3pl_takenhostage") exitwith {[localize"STR_NewInventory_5","red"] call A3PL_Player_Notification;};
+	if(animationState player IN ["a3pl_handsuptokneel","a3pl_handsupkneelgetcuffed","a3pl_cuff","a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","a3pl_cuffkickdown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","a3pl_handsupkneel"]) exitWith {[localize"STR_NewInventory_7", "red"] call A3PL_Player_Notification;};
 
-	if (!(isNull Player_Item)) then {
-		[false] call A3PL_Inventory_PutBack;
-	};
+	private _keyID = lbdata [1900,(lbCurSel 1900)];
+	if (!(isNull Player_Item)) then {[false] call A3PL_Inventory_PutBack;};
 
 	Player_Item = "A3PL_HouseKey" createVehicle (getPos player);
-
 	Player_Item attachTo [player, [0,0,1], 'RightHand'];
-
 	Player_ItemClass = "doorkey";
 	Player_Item setVariable ["keyID",_keyID,true];
-
 	[Player_Item] spawn A3PL_Placeable_AttachedLoop;
 
 	player setVariable ["inventory_opened", nil, true];
 	closeDialog 0;
-	_format = format[localize'STR_NewHousing_11',_keyID];
+	private _format = format[localize'STR_NewHousing_11',_keyID];
 	[_format, "yellow"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -233,7 +260,7 @@
 		if((_x select 0) == _class) exitWith {
 			_price = _x select _search;
 		};
-	} forEach Config_Houses_Prices;
+	} forEach Config_Houses;
 	_price;
 }] call Server_Setup_Compile;
 
@@ -258,7 +285,9 @@
 {
 	private ["_price"];
 	_price = [A3PL_Housing_Object,1] call A3PL_Housing_GetData;
+	_level = [A3PL_Housing_Object,4] call A3PL_Housing_GetData;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
+	if ((player getVariable ["player_level",0]) < _level) exitwith {[format["You need to be level %1 to purchase this house!",_level],"red"] call A3PL_Player_Notification;};
 	if (!isNil {A3PL_Housing_Object getVariable ["doorid",nil]}) exitwith {[localize"STR_NewHousing_14","red"] call A3PL_Player_Notification;};
 	if (!isNil {player getVariable ["house",nil]}) exitwith {[localize"STR_NewHousing_15","red"] call A3PL_Player_Notification;};
 
@@ -386,7 +415,7 @@
 
 	_percentage = _this select 1;
 	_house = (nearestObjects [player, Config_Houses_List, 10,true]) select 0;
-	_housePrice = [_house,1] call A3PL_Housing_GetData;
+	_housePrice = ([_house,1] call A3PL_Housing_GetData) * 0.7;
 	_value = round((_percentage / 100) * _housePrice);
 
 	_control = _display displayCtrl 1100;
@@ -401,7 +430,7 @@
 	_display = findDisplay 67;
 	_slider = _display displayCtrl 1900;
 
-	_housePrice = [_house,1] call A3PL_Housing_GetData;
+	_housePrice = ([_house,1] call A3PL_Housing_GetData) * 0.7;
 	_percentage = round(sliderPosition _slider);
 	_com = round(_percentage / 100 * (_housePrice));
 	_clientPart = _housePrice - _com;
@@ -463,7 +492,7 @@
 {
 	private["_position","_buidlingsArray","_building","_address"];
 	_position = param [0,[0,0,0]];
-	_buidlingsArray = ["Land_A3PL_Bank","Land_A3PL_Capital","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD","Land_Shop_DED_Shop_01_F","land_smallshop_ded_smallshop_01_f","land_market_ded_market_01_f","Land_Taco_DED_Taco_01_F","Land_A3PL_Gas_Station","Land_A3PL_Garage","Land_John_Hangar","Land_A3PL_CG_Station","land_a3pl_ch","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Warehouse","Land_A3FL_Airport_Hangar","Land_A3FL_Airport_Terminal","Land_A3FL_Barn","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2","Land_A3FL_Office_Building","Land_A3FL_Mansion"];
+	_buidlingsArray = ["Land_A3PL_Bank","Land_A3PL_Capital","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD","Land_Shop_DED_Shop_01_F","land_smallshop_ded_smallshop_01_f","land_market_ded_market_01_f","Land_Taco_DED_Taco_01_F","Land_A3PL_Gas_Station","Land_A3PL_Garage","Land_John_Hangar","Land_A3PL_CG_Station","land_a3pl_ch","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Warehouse","Land_A3FL_Airport_Hangar","Land_A3FL_Airport_Terminal","Land_A3FL_Barn","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2","Land_A3FL_Office_Building","Land_A3FL_Mansion","Land_A3FL_House1_Cream","Land_A3FL_House1_Green","Land_A3FL_House1_Blue","Land_A3FL_House1_Brown","Land_A3FL_House1_Yellow","Land_A3FL_House2_Cream","Land_A3FL_House2_Green","Land_A3FL_House2_Blue","Land_A3FL_House2_Brown","Land_A3FL_House2_Yellow","Land_A3FL_House3_Cream","Land_A3FL_House3_Green","Land_A3FL_House3_Blue","Land_A3FL_House3_Brown","Land_A3FL_House3_Yellow","Land_A3FL_House4_Cream","Land_A3FL_House4_Green","Land_A3FL_House4_Blue","Land_A3FL_House4_Brown","Land_A3FL_House4_Yellow","Land_A3FL_Anton_Modern_Bungalow"];
 	_building = (nearestObjects [_position, _buidlingsArray, 100]) select 0;
 	_address = _building getVariable["Building_Address","Unknown Address"];
 	_address;

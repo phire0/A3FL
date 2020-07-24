@@ -602,7 +602,7 @@
 	{
 		if(!(call A3PL_Player_AntiSpam)) exitWith {};
 		if (player_objintersect getVariable ["Cuffed",true]) exitWith {[player_objintersect] call A3PL_Police_Uncuff;};
-		if (Player_ItemClass == "handcuffs") then {
+		if (Player_ItemClass isEqualTo "handcuffs") then {
 			[player_objintersect] call A3PL_Police_Cuff;
 		} else {
 			["You need handcuffs to do this!", Color_Red] call A3PL_Player_Notification;

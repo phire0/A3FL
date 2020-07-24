@@ -7,11 +7,13 @@
 */
 
 ['Server_Locker_Load', {
-	private _lockers = ["SELECT locker, owner, items, objects FROM lockers", 2, true] call Server_Database_Async;
+	private _lockers = ["SELECT locker, owner, items, objects, vstorage FROM lockers", 2, true] call Server_Database_Async;
 	{
 		private _locker = call compile (_x select 0);
 		_locker setVariable ["owner",_x select 1,true];
 		private _items = call compile (_x select 2);
+		private _vStorage = [(_x select 4)] call Server_Database_ToArray;
+		_locker setVariable["storage",_vStorage,true];
 		{_locker addWeaponCargoGlobal [_x,1]} foreach (_items select 0);
 		{_locker addMagazineCargoGlobal [_x,1]} foreach (_items select 1);
 		{_locker addItemCargoGlobal [_x,1]} foreach (_items select 2);
@@ -32,7 +34,8 @@
 		private _locker = call compile (_x select 0);
 		private _objects = [];
 		private _items = [weaponCargo _locker, magazineCargo _locker, itemCargo _locker, backpackCargo _locker];
-		private _query = format["UPDATE lockers SET items='%1',objects='%2' WHERE locker ='%3'",_items,_objects,_locker];
+		private _storage = [_locker getVariable["storage",[]]] call Server_Database_Array;;
+		private _query = format["UPDATE lockers SET items='%1',objects='%2',vstorage='%3' WHERE locker ='%4'",_items,_objects,_storage,_locker];
 		[_query,1] spawn Server_Database_Async;
 	} foreach _lockers;
 },true] call Server_Setup_Compile;

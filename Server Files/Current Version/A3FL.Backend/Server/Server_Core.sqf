@@ -122,7 +122,7 @@
 ["Server_Core_RepairTerrain",
 {
 	{
-		if ((getDammage _x) isEqualTo 1) then {_x setDammage 0;};
+		if (((getDammage _x) isEqualTo 1) && !(_x getVariable["burnt",false])) then {_x setDammage 0;};
 	} foreach nearestTerrainObjects [[6690.16,7330.15,0], [], 10000];
 },true] call Server_Setup_Compile;
 
@@ -240,25 +240,15 @@
 
 ["Server_Core_CrimeBonus",
 {
-	if ((A3PL_Event_CrimePayout) == 1) then {
+	if((A3PL_Event_CrimePayout) == 1) then {
 		["The x1.5 Crime Payout event has began!", "yellow"] remoteExec["A3PL_Player_Notification",-2];
 		A3PL_Event_CrimePayout = 1.5;
-	}
- else {
-  ["The x1.5 Crime Payout event has ended!", "yellow"] remoteExec["A3PL_Player_Notification",-2];
-  A3PL_Event_CrimePayout = 1;
-};
-publicVariable "A3PL_Event_CrimePayout";
+	} else {
+		["The x1.5 Crime Payout event has ended!", "yellow"] remoteExec["A3PL_Player_Notification",-2];
+		A3PL_Event_CrimePayout = 1;
+	};
+	publicVariable "A3PL_Event_CrimePayout";
 }, true] call Server_Setup_Compile;
-
-/*["Server_Core_WhitelistServer",
-{
-	private _unit = param [0,objNull];
-	private _uid = getPlayerUID _unit;
-	private _query = format ["SELECT COUNT(*) FROM whitelist WHERE uid = '%1'",_uid];
-	private _count = ([_query, 2] call Server_Database_Async) select 0;
-	if(_count isEqualTo 0) then {"removed" serverCommand format["#kick '%1'", _uid];};
-},true] call Server_Setup_Compile;*/
 
 ["Server_Core_Locality",
 {
@@ -296,7 +286,6 @@ publicVariable "A3PL_Event_CrimePayout";
 	_utcTime = "extDB3" callExtension "9:UTC_TIME";
 	_justTime = (parseSimpleArray _utcTime) select 1;
 	_hourMin = [(_justTime select 3),(_justTime select 4)];
-
 	_restartTimes = [[11,00]];
 	{
 		if(_hourMin isEqualTo _x) then {
@@ -304,5 +293,27 @@ publicVariable "A3PL_Event_CrimePayout";
 			diag_log format ["Announced Restart At: %1",_hourMin];
 		};
 	} forEach _restartTimes;
+},true] call Server_Setup_Compile;
 
+["Server_Core_BudgetTransfer",{
+	private _budgets = [
+		["Sheriff Department",1.1],
+		["Fire Rescue",1],
+		["US Coast Guard",1],
+		["Marshals Service",1],
+		["Department of Justice",1]
+	];
+	private _fedReserve = ["Federal Reserve"] call A3PL_Government_FactionBalance;
+	{
+		private _budgetS = _x select 0;
+		private _part = _x select 1;
+		private _budgetM = [_budgetS] call A3PL_Government_FactionBalance;
+		private _add = _fedReserve * _part;
+		diag_log format["Server_Core_BudgetTransfer: %1 : %2 (%3) | Actual: %4",_budgetS, _add, _fedReserve, _budgetM];
+		if((_budgetM < 3000000) || (_fedReserve < _add)) then {
+			[_budgetS, _add] remoteExec ["Server_Government_AddBalance",2];
+			["Federal Reserve", -_add] remoteExec ["Server_Government_AddBalance",2];
+		};
+		if(_fedReserve isEqualTo 0) exitWith {};
+	} forEach _budgets;
 },true] call Server_Setup_Compile;

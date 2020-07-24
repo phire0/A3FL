@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Department Of Motor Vehicles","dmv","dmv"],["Fishers Island Cartel","cartel","cartel"],["Federal Bureau of Investigation","fbi","fbi"]]
+#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Fishers Island Cartel","cartel","cartel"],["Federal Bureau of Investigation","fbi","fbi"]]
 #define adminTagsList [["Civilian Tag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]],["Executive Tag",["#B5B5B5","#8410ff","\A3PL_Common\icons\executive.paa"]],["Executive Supervisor Tag",["#B5B5B5","#5ab2ff","\A3PL_Common\icons\exec_supervisor.paa"]],["Developer Tag",["#B5B5B5","#FFFFFF","\A3PL_Common\icons\creator.paa"]],["Lead Dev Tag",["#B5B5B5","#2c82c9","\A3PL_Common\icons\leaddev.paa"]],["Chief Tag",["#B5B5B5","#2f9baa","\A3PL_Common\icons\chief.paa"]],["Sub-Director Tag",["#B5B5B5","#ff6d29","\A3PL_Common\icons\subdirector.paa"]],["Director Tag",["#B5B5B5","#cece08","\A3PL_Common\icons\director.paa"]]]
 
 ["A3PL_Admin_Check",
@@ -17,6 +17,7 @@
 	player setVariable ["pVar_RedNameOn",false,true];
 	pVar_MapTeleportReady = false;
 	pVar_MapPlayerMarkersOn = false;
+	pVar_MapVehicleMarkersOn = false;
 	pVar_RessourcesMarkersOn = false;
 	pVar_FastAnimationOn = false;
 	pVar_FiresFrozen = false;
@@ -54,7 +55,7 @@
 	switch(_player getVariable["dbVar_AdminLevel",0]) do {
 		case(0): {_title = "";};
 		case(1): {_title = "Executive";};
-		case(2): {_title = "Executive Supervisor";};
+		case(2): {_title = "Exec. Supervisor";};
 		case(3): {_title = "Developer";};
 		case(4): {_title = "Lead Developer";};
 		case(5): {_title = "Chief";};
@@ -71,7 +72,7 @@
 	A3PL_Admin_PlayerList = [];
 	{
 		lbAdd [1500, format ["%1",_x getVariable["name",name _x]]];
-		if ((_x getVariable ["adminWatch",0]) == 1) then {lbSetColor [1500,_forEachIndex,[1,0,0,1]];};
+		if ((_x getVariable ["adminWatch",0]) isEqualTo 1) then {lbSetColor [1500,_forEachIndex,[1,0,0,1]];};
 		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 1) then {lbSetColor [1500,_forEachIndex,[0.612,0.153,0.69,1]];};
 		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 2) then {lbSetColor [1500,_forEachIndex,[0.38039215686,0.70980392156,1,1]];};
 		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 3) then {};
@@ -125,7 +126,7 @@
 	_playerInventories = _selectedPlayer getVariable "player_fstorage";
 	_index = 999;
 
-	if (_selectedInventory == localize"STR_ADMIN_PLAYER") then {
+	if (_selectedInventory isEqualTo localize"STR_ADMIN_PLAYER") then {
 		lbClear 1502;
 		{
 			lbAdd [1502,format ["%1 (%2)",_x select 0,str (_x select 1)]];
@@ -133,7 +134,7 @@
 	} else {
 		{
 			_checking = _x select 0;
-			if (_checking == _selectedInventory) exitWith {_index = _forEachIndex;};
+			if (_checking isEqualTo _selectedInventory) exitWith {_index = _forEachIndex;};
 		} forEach _playerInventories;
 		lbClear 1502;
 		if (_index == 999) exitWith {lbAdd [1502,localize"STR_ADMIN_NOINVENTORY"]};
@@ -145,9 +146,8 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminFactoryComboList", {
-	_display = findDisplay 98;
-	_control = _display displayCtrl 2100;
-
+	private _display = findDisplay 98;
+	private _control = _display displayCtrl 2100;
 	{lbAdd [2100,_x select 0];} foreach Config_Factories;
 	{lbAdd [2100,_x];} foreach ["Objects", "AdminVehicles"];
 	_control ctrlAddEventHandler ["lbSelChanged",{call A3PL_AdminFillFactoryList;}];
@@ -155,8 +155,8 @@
 
 ["A3PL_Admin_InventoryCombo", {
 	private _display = findDisplay 98;
-	_selectedInventory = _display displayCtrl 2101;
-	_inventories = ["Player","Chemical Plant","Steel Mill","Oil Refinery","Goods Factory","Food Processing Plant","Vehicles Faction","Faction Weapons","Legal Weapon Factory","Marine Factory","Aircraft Factory","Car Parts Factory","Vehicle Factory","Clothing Factory","Vest Factory","Headgear Factory","Goggle Factory","Cocaine treatment","Illegal Weapon Factory"];
+	private _selectedInventory = _display displayCtrl 2101;
+	private _inventories = ["Player","Chemical Plant","Steel Mill","Oil Refinery","Goods Factory","Food Processing Plant","Vehicles Faction","Faction Weapons","Legal Weapon Factory","Marine Factory","Aircraft Factory","Car Parts Factory","Vehicle Factory","Clothing Factory","Vest Factory","Headgear Factory","Goggle Factory","Cocaine treatment","Illegal Weapon Factory"];
 	{lbAdd [2101,_x];} foreach _inventories;
 	_selectedInventory ctrlAddEventHandler ["lbSelChanged","call A3PL_Admin_PlayerInventoryFill;"];
 }] call Server_Setup_Compile;
@@ -194,9 +194,9 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminToolsList", {
-	_display = findDisplay 98;
-	_control = _display displayCtrl 1504;
-	_fullList = [
+	private _display = findDisplay 98;
+	private _control = _display displayCtrl 1504;
+	private _fullList = [
 		["Teleport",pVar_MapTeleportReady,A3PL_AdminMapTeleport],
 		["Toggle Twitter",false,A3PL_AdminTwitterToggle],
 		["Fix Garage",false,A3PL_Admin_FixGarage],
@@ -208,6 +208,7 @@
 		["Self Heal",false,A3PL_AdminSelfHeal],
 		["Self Feed",false,A3PL_AdminSelfFeed],
 		["Freeze",false,A3PL_Admin_Freeze],
+		["Vehicle Markers",pVar_MapVehicleMarkersOn,A3PL_AdminVehicleMarkers],
 		["Player Markers",pVar_MapPlayerMarkersOn,A3PL_AdminMapMarkers],
 		["Double EXP",false,A3PL_AdminEXP],
 		["Double Harvest",false,A3PL_AdminHarvest],
@@ -253,6 +254,7 @@
 		case "Self Heal": {call A3PL_AdminSelfHeal};
 		case "Self Feed": {call A3PL_AdminSelfFeed};
 		case "Freeze": {call A3PL_Admin_Freeze};
+		case "Vehicle Markers": {call A3PL_AdminVehicleMarkers;};
 
 		case "Player Markers": {call A3PL_AdminMapMarkers;};
 		case "Double EXP": {[] remoteExec ["Server_Core_DblXP",2];};
@@ -273,62 +275,8 @@
 	["Open",true] spawn BIS_fnc_arsenal;
 }] call Server_Setup_Compile;
 
-/*["A3PL_AdminRestartServer", {
-	if ("Restart" IN (player getVariable ["dbVar_AdminPerms",[]])) then {
-		_playerText = format["%1 players",count allPlayers];
-		if((count allPlayers) < 2) then {
-			_playerText = format["%1 player",count allPlayers];
-		};
-		_action = [format["Are you sure you want <t color='#FF4000'>restart</t> the <t color='#FF4000'>official server</t> with <t color='#FF4000'>%1</t> connected ?<br/>",_playerText],
-			"Restart","Yes","No"
-		] call BIS_fnc_guiMessage;
-		if (!isNil "_action" && (_action)) then {
-			[] remoteExec ["Server_Core_Restart",2];
-			[player,"admin_restart",[format ["Restart"]]] remoteExec ["Server_AdminLoginsert", 2];
-		};
-	} else {
-		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
-	};
-}] call Server_Setup_Compile;
-
-["A3PL_AdminBanPlayer", {
-	if ("Ban" IN (player getVariable ["dbVar_AdminPerms",[]])) then {
-		_selectedIndex = lbCurSel 1500;
-		_selectedPlayer = (A3PL_Admin_PlayerList select _selectedIndex);
-		_uid = getPlayerUID _selectedPlayer;
-		_action = [format["Are you sure you want to ban <t color='#FF4000'>permanantly</t> <t color='#FF4000'>%1</t> from the server ?<br/>",name _selectedPlayer],
-			"Ban (Perm)","Yes","No"
-		] call BIS_fnc_guiMessage;
-		if (!isNil "_action" && (_action)) then {
-			[_uid] remoteExec ["Server_Core_BanPlayer",2];
-			[player,"admin_ban",[format ["Ban %1",name _selectedPlayer]]] remoteExec ["Server_AdminLoginsert", 2];
-		};
-	} else {
-		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
-	};
-}] call Server_Setup_Compile;
-
-["A3PL_AdminKickPlayer", {
-	if ("Kick" IN (player getVariable ["dbVar_AdminPerms",[]])) then {
-		_selectedIndex = lbCurSel 1500;
-		_selectedPlayer = (A3PL_Admin_PlayerList select _selectedIndex);
-		_uid = getPlayerUID _selectedPlayer;
-		closeDialog 0;
-		_action = [
-	        format["Are you sure you want to kick <t color='#FF4000'>%1</t> from the server ?<br/>",name _selectedPlayer],
-	        "Kick","Yes","No"
-	    ] call BIS_fnc_guiMessage;
-		if (!isNil "_action" && (_action)) then {
-			[_uid] remoteExec ["Server_Core_KickPlayer",2];
-			[player,"admin_kick",[format ["Kick %1",name _selectedPlayer]]] remoteExec ["Server_AdminLoginsert", 2];
-		};
-	} else {
-		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
-	};
-}] call Server_Setup_Compile;*/
-
 ["A3PL_Admin_FixGarage", {
-	if (player_objIntersect getVariable ["inUse",false]) then {player_objIntersect setVariable ["inUse",false,true];};
+	player_objIntersect setVariable ["inUse",false,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_Camera", {
@@ -399,7 +347,7 @@
 ["A3PL_AdminCursorTarget", {
 	("Dialog_HUD_AdminCursor" call BIS_fnc_rscLayer) cutRsc ["Dialog_HUD_AdminCursor", "PLAIN"];
 	pVar_CursorTargetEnabled = true;
-	((uiNamespace getVariable "Dialog_HUD_AdminCursor") displayCtrl 2414) ctrlSetStructuredText (parseText format["<t font='PuristaSemiBold' align='left' size='0.85'>Numpad 0: Driver<br/>Numpad 1: Attach<br/>Numpad 2: Detach<br/>Numpad 3: Impound<br/>Numpad 4: Delete<br/>Numpad 5: Move<br/>Numpad 6: Eject passangers<br/>Numpad 7: Heal<br/>Numpad 8: Repair</t><br/>Numpad 9: Refuel</t>"]);
+	((uiNamespace getVariable "Dialog_HUD_AdminCursor") displayCtrl 2414) ctrlSetStructuredText (parseText format["<t font='PuristaSemiBold' align='left' size='0.85'>Numpad 0: Driver<br/>Numpad 1: Attach<br/>Numpad 2: Detach<br/>Numpad 3: Impound<br/>Numpad 4: Delete<br/>Numpad 5: Passenger<br/>Numpad 6: Eject passangers<br/>Numpad 7: Heal<br/>Numpad 8: Repair<br/>Numpad 9: Refuel</t>"]);
 
 	while {pVar_CursorTargetEnabled} do {
 		((uiNamespace getVariable "Dialog_HUD_AdminCursor") displayCtrl 1000) ctrlSetStructuredText (parseText format["<t font='PuristaSemiBold' align='center' size='1'>Cursor: %1</t>",(name cursorObject)]);
@@ -645,7 +593,8 @@
 		_target setVariable ["A3PL_Medical_Alive",true,true];
 		_target setVariable ["A3PL_Wounds",[],true];
 		_target setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
-		[player,"admin_heal",[format ["Soins %1",name _target]]] remoteExec ["Server_AdminLoginsert", 2];
+		_target setDamage 0;
+		[player,"admin_heal",[format ["Healing %1",name _target]]] remoteExec ["Server_AdminLoginsert", 2];
 	} else {
 		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
 	};
@@ -666,6 +615,7 @@
 	if (player getVariable ["pVar_RedNameOn",false]) then {
 		player setVariable ["pVar_RedNameOn",false,true];
 	} else {
+		player setDamage 0;
 		player setVariable ["pVar_RedNameOn",true,true];
 		player setVariable ["A3PL_Wounds",[],true];
 		player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
@@ -691,6 +641,7 @@
 	player setVariable ["A3PL_Medical_Alive",true,true];
 	player setVariable ["A3PL_Wounds",[],true];
 	player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+	player setDamage 0;
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminSelfFeed", {
@@ -793,6 +744,62 @@
 	[player,"directmessage",[format ["DirectMessage: %1",_message]]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
 
+["A3PL_AdminVehicleMarkers", {
+	if(pVar_MapVehicleMarkersOn) then
+	{
+		pVar_MapVehicleMarkersOn = false;
+		A3PL_Admin_VehMarkersEnabled = false;
+		lbSetColor [1504, 11, [1,1,1,1]];
+	} else {
+		pVar_MapVehicleMarkersOn = true;
+		lbSetColor [1504, 11, [1,.8,0,1]];
+		A3PL_Admin_VehMarkersEnabled = true;
+		[] spawn
+		{
+			_vehMarkers = [];
+			_blacklist = ["A3PL_EMS_Locker","A3PL_WheelieBin","A3PL_DogCage","A3PL_Gas_Hose","A3PL_Gas_Box","Land_CampingTable_small_f","A3PL_MobileCrane","Box_NATO_Equip_F","B_supplyCrate_F","Land_ToolTrolley_02_F"];
+			while {A3PL_Admin_VehMarkersEnabled} do
+			{
+				sleep 0.5;
+				if(visibleMap) then
+				{
+					_vehicles = player nearEntities [["Car", "Ship", "Tank", "Air", "Plane", "Thing"], 50000];
+					{
+						if(!((typeOf _x) IN _blacklist)) then {
+							_marker = createMarkerLocal [format["%1_marker",_x],visiblePosition _x];
+							_marker setMarkerColorLocal "ColorBlue";
+							_marker setMarkerTypeLocal "Mil_dot";
+							_marker setMarkerSizeLocal [0.5, 0.5];
+							_marker setMarkerAlphaLocal 1;
+							_marker setMarkerTextLocal format[" %1", getText (configFile >> "CfgVehicles" >> typeOf _x >> "displayName")];
+							_vehMarkers pushBack [_marker,_x];
+						};
+					} foreach _vehicles;
+					while {visibleMap} do
+					{
+						{
+							private _marker = _x select 0;
+							private _veh = _x select 1;
+							if(!isNil "_veh") then
+							{
+								if(!isNull _veh) then
+								{
+								    _marker setMarkerPosLocal (visiblePosition _veh);
+								};
+							};
+						} foreach _vehMarkers;
+						if(!visibleMap) exitWith {};
+						sleep 0.02;
+					};
+					{deleteMarkerLocal (_x select 0);} foreach _vehMarkers;
+					_vehMarkers = [];
+				};
+			};
+		};
+	};
+	[player,"AdminVehicleMarkers",[A3PL_Admin_VehMarkersEnabled]] remoteExec ["Server_AdminLoginsert", 2];
+}] call Server_Setup_Compile;
+
 ["A3PL_AdminMapMarkers", {
 	if(pVar_MapPlayerMarkersOn) then
 	{
@@ -805,7 +812,6 @@
 		A3PL_Admin_MapMarkersEnabled = true;
 		[] spawn
 		{
-			_markers = [];
 			_playerMarkers = [];
 			while {A3PL_Admin_MapMarkersEnabled} do
 			{
@@ -934,9 +940,9 @@
 ["A3PL_Admin_PauseCheckReturn", {
 	params [["_looping", false]];
 	if (!_looping) then {
-		lbSetColor [1504, 8, [1,.8,0,1]];
+		lbSetColor [1504, 5, [1,.8,0,1]];
 	} else {
-		lbSetColor [1504, 8, [1,1,1,1]];
+		lbSetColor [1504, 5, [1,1,1,1]];
 	};
 	pVar_FiresFrozen = _looping;
 }] call Server_Setup_Compile;
@@ -948,28 +954,26 @@
 
 ["A3PL_Admin_PauseFire", {
 	if (pVar_FiresFrozen) then {
-		lbSetColor [1504, 8, [1,.8,0,1]];
+		lbSetColor [1504, 5, [1,.8,0,1]];
 		pVar_FiresFrozen = false;
 	} else {
-		lbSetColor [1504, 8, [1,1,1,1]];
+		lbSetColor [1504, 5, [1,1,1,1]];
 		pVar_FiresFrozen = true;
 	};
 	[] remoteExec ["Server_Fire_PauseFire", 2];
-	[player,"admin_fire",["Pause Fire"]] remoteExec ["Server_AdminLoginsert", 2];
+	[player,"admin_pausefire",["Pause Fire"]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_RemoveFire", {
 	[] remoteExec ["Server_Fire_RemoveFires", 2];
-	[player,"admin_fire",["Remove Fire"]] remoteExec ["Server_AdminLoginsert", 2];
+	[player,"admin_reemovefire",["Remove Fire"]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_Debug", {
 	disableSerialization;
-	private ["_display","_control"];
 	createDialog "Dialog_AdminDebug";
-	_display = findDisplay 82;
-	_control = _display displayCtrl 1600;
-
+	private _display = findDisplay 82;
+	private _control = _display displayCtrl 1600;
 	_control ctrlAddEventHandler ["buttonDown",
 	{
 		call compile (ctrlText 1400);
@@ -988,9 +992,8 @@
 
 ["A3PL_Admin_EjectAll",
 {
-	private ['_car','_pass'];
-	_car = _this select 0;
-	_pass = crew _car;
+	private _car = _this select 0;
+	private _pass = crew _car;
 	{_x action ["getOut", _car];} foreach _pass;
 }] call Server_Setup_Compile;
 
@@ -1006,26 +1009,22 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Debug_DropDownList", {
-	private ["_display","_dropDownList"];
-	_display = findDisplay 155;
-	_dropDownList = ["Server","Global","All Clients","Local"];
+	private _display = findDisplay 155;
+	private _dropDownList = ["Server","Global","All Clients","Local"];
 	{lbAdd [2100,_x];} forEach _dropDownList;
 }] call Server_Setup_Compile;
 
 ["A3PL_Debug_OnLoadVarCheck", {
-	private ["_display","_activeNamespaces","_control"];
-	_display = findDisplay 155;
-	_activeNamespaces = [[1400,"A3PL_Debug_Main"]];
-
+	private _display = findDisplay 155;
+	private _activeNamespaces = [[1400,"A3PL_Debug_Main"]];
 	{
 		ctrlSetText [_x select 0,profileNamespace getVariable [_x select 1,localize"STR_ADMIN_NOTHINGFORTHEMOMENT"]];
 	} forEach _activeNamespaces;
 }] call Server_Setup_Compile;
 
 ["A3PL_Debug_OnUnloadVarCheck", {
-	private ["_display","_activeNamespaces","_varCheck"];
-	_display = findDisplay 155;
-	_activeNamespaces = [[1400,"A3PL_Debug_Main"]];
+	private _display = findDisplay 155;
+	private _activeNamespaces = [[1400,"A3PL_Debug_Main"]];
 	{
 		_varCheck = ctrlText (_x select 0);
 		profileNamespace setVariable [_x select 1,_varCheck];
@@ -1035,13 +1034,12 @@
 //Compile BLOCK warning
 ["A3PL_Debug_Execute", {
 
-	private ["_display","_debugText","_chosenExecType","_remoteExecType","_compileRdy"];
-	_bannedText = ["profileNamespace","saveProfileNamespace","fuckedS","files"];
-	_display = findDisplay 155;
-	_debugText = ctrlText 1400;
-	_chosenExecType = lbText [2100,lbCurSel 2100];
-	_remoteExecType = clientOwner;
-	_forbidden = false;
+	private _bannedText = ["profileNamespace","saveProfileNamespace","fuckedS","files"];
+	private _display = findDisplay 155;
+	private _debugText = ctrlText 1400;
+	private _chosenExecType = lbText [2100,lbCurSel 2100];
+	private _remoteExecType = clientOwner;
+	private _forbidden = false;
 
 	switch (_chosenExecType) do {
 		case "Server": {_remoteExecType = 2};

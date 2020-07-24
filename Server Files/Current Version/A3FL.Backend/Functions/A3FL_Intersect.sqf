@@ -130,7 +130,7 @@
 			Player_ObjIntersect = player;
 			Player_NameIntersect = "";
 		};
-		if ((!(getModelInfo _parent select 2)) OR ((player distance _obj) > 20)) exitWith {
+		if ((!(getModelInfo _parent select 2)) && ((player distance _obj) < 5)) exitWith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _obj;
 			{
@@ -257,7 +257,7 @@
 		};
 		if (!_canUse) exitwith {[localize"STR_NewIntersect_1"] call A3PL_Player_Notification;};
 
-		if ((typeOf _obj) IN ["Land_A3PL_Motel","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_A3PL_Greenhouse","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_BostonHouse","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_John_Hangar","Land_A3FL_Mansion","Land_A3FL_Warehouse","Land_A3FL_Office_Building"]) exitwith
+		if (((typeOf _obj) IN ["Land_A3PL_Motel"]) || ((typeOf _obj) IN Config_Houses_List) || ((typeOf _obj) IN Config_Warehouses_List)) exitwith
 		{
 			switch (true) do
 			{
@@ -396,6 +396,24 @@
 						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
 					};
 				};
+
+				case ((typeOf _obj) IN ["Land_A3FL_House1_Cream","Land_A3FL_House1_Green","Land_A3FL_House1_Blue","Land_A3FL_House1_Brown","Land_A3FL_House1_Yellow","Land_A3FL_House3_Cream","Land_A3FL_House3_Green","Land_A3FL_House3_Blue","Land_A3FL_House3_Brown","Land_A3FL_House3_Yellow"]):
+				{
+					if (_name IN ["door_1","door_2","door_3","door_4","door_5"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
 			};
 		};
 		[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;

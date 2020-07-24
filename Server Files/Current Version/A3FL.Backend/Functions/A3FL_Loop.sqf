@@ -82,7 +82,8 @@
 					disableSerialization;
 					_road = A3PL_Last_Road;
 
-					_display = uiNamespace getVariable "A3PL_HUDDisplay";
+					_display = uiNamespace getVariable ["A3PL_HUDDisplay",nil];
+					if(isNil "_display") exitWith {};
 					_ctrl = _display displayCtrl 9520;
 					_ctrlBack = _display displayCtrl 9521;
 
@@ -126,7 +127,7 @@
 	private _bank = player getVariable["Player_Bank",0];
 	player setVariable["Player_Bank",_bank-_taxPrice,true];
 	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];
-	[format [localize"STR_NewLoop_1",_taxPrice],"yellow"] call A3PL_Player_Notification;
+	[format [localize"STR_NewLoop_1_2",_taxPrice],"yellow"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Loop_Paycheck",

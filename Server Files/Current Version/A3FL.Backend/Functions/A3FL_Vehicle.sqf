@@ -1697,7 +1697,14 @@
 
 		_vehClass = _control lbData (lbCurSel _control);
 		_veh = nearestObject [player,_vehClass];
-		_price = [_veh] call A3PL_Config_GetInsurancePrice;
+		_vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
+		_price = 0;
+		if (_VehPrice < 150000) then{
+			_price = _vehPrice * 0.10;
+		}
+		else {
+			_price = _vehPrice * 0.15;
+		};
 
 		_control = _display displayCtrl 1100;
 		_control ctrlSetStructuredText parseText format ["$%1",_price];
@@ -1711,11 +1718,20 @@
 
 	_vehClass = _control lbData (lbCurSel _control);
 	_veh = nearestObject [player,_vehClass];
-	_price = [_veh] call A3PL_Config_GetInsurancePrice;
+	_vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
+	_price = 0;
+	if (_VehPrice < 150000) then{
+		_price = _vehPrice * 0.10;
+	}
+	else {
+		_price = _vehPrice * 0.15;
+	};
 
-	//Pay
+	//Take cash from Player
 	if (_price > (player getVariable ["Player_Bank",0])) exitwith {[format [localize"STR_NewVehicle_56"]] call A3PL_Player_notification;};
 	player setVariable ["Player_Bank",(player getVariable ["Player_Bank",0]) - _price,true];
+	//Put cash in Federal Bank
+	["Federal Reserve", _price] remoteExec["Server_Government_AddBalance", 2];
 
 	[format [localize"STR_NewVehicle_57", getText (configFile >> "CfgVehicles" >> typeOf _veh >> "displayName"), _price], "green"] call A3PL_Player_Notification;
 	//Insure

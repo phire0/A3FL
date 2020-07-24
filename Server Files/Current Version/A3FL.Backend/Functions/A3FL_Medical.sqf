@@ -8,7 +8,7 @@
 
 #define LOGLIMIT 12
 #define MAXBLOODLVL 5000
-#define RESPAWNTIME 30
+#define RESPAWNTIME 600
 #define BLOODPERBAG 2000
 
 ["A3PL_Medical_Init",
@@ -36,7 +36,6 @@
 		} foreach (player getVariable ["A3PL_Wounds",[]]);
 		if (_bloodChange != 0) then {[player,[_bloodChange]] call A3PL_Medical_ApplyVar;};
 	};
-	if((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) then {player setDamage 0;};
 	{
 		switch (_forEachIndex) do {
 			case (0): {
@@ -103,6 +102,7 @@
 	if (_sBullet IN ["B_408_Ball","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball"]) exitwith {};
 	if (_sBullet isEqualTo "A3PL_Paintball_Bullet") exitwith {
 		if ((missionNameSpace getVariable ["A3PL_Medical_PaintballHit",false]) OR (_sSource == player)) exitwith {};
+		if((player distance (getMarkerPos "paintball_larry")) > 300) exitWith {};
 		A3PL_Medical_PaintBallHit = true;
 		player playaction "gestureFreeze";
 		uiSleep 0.6;
@@ -166,7 +166,7 @@
 			};
 		};
 	};
-	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver_Bullet"]) exitWith {
+	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet"]) exitWith {
 		[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
 	};
 	if(_sBullet IN ["A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) exitWith {
@@ -190,10 +190,10 @@
 		{
 			if(((driver (vehicle player)) isEqualTo player) && (_sDamage > 0.009)) then {
 				_fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
-				if((count(_fifr) >= 5)) then {
+				if((count(_fifr) >= 5) && ((vehicle player) isKindOf "Car")) then {
 					_chance = random 100;
 					if(_chance > 85) then {
-						vehicle player setVariable["trapped",true,true];
+						(vehicle player) setVariable["trapped",true,true];
 						["You have crashed and are trapped inside your vehicle, FIFR has been called!","red"] call A3PL_Player_Notification;
 						["911: Someone is trapped in their vehicle, check your map for the location!","red","fifr",3] call A3PL_Lib_JobMessage;
 						[position player, "Trapped in Vehicle","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_fifr];
@@ -520,8 +520,10 @@
 {
 	private _effect = ["DynamicBlur",[5]] call A3PL_Lib_PPEffect;
 	private _timer = A3PL_Respawn_Time;
-
-	closeDialog 0;
+	player setVariable ["A3PL_Medical_Alive",false,true];
+	if (dialog) then {
+   		closeDialog 0;
+	};
 	moveOut player;
 	[false] call A3PL_Lib_Ragdoll;
 	waitUntil{!userInputDisabled};
@@ -529,7 +531,6 @@
 	[player,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 	player setVariable ["TimeRemaining",_timer,true];
 	player setVariable ["tf_voiceVolume", 0, true];
-	player setVariable ["A3PL_Medical_Alive",false,true];
 	player setVariable ["Zipped",false,true];
 	player setVariable ["Cuffed",false,true];
 
@@ -617,7 +618,7 @@
 	_woundsCheck = param [2,"",["",[]]];
 	_hasWound = false;
 
-	if (typeName _woundsCheck == "STRING") then {_woundsCheck = [_woundsCheck];};
+	if ((typeName _woundsCheck) isEqualTo "STRING") then {_woundsCheck = [_woundsCheck];};
 	{
 		_wound = _x;
 		{
@@ -657,7 +658,7 @@
 	if (lbCurSel _control == -1) exitwith {["Please select a treatment"] call A3PL_Player_Notification;};
 	_item = _control lbData (lbCurSel _control);
 
-	_isEMS = (player getVariable ["job","unemployed"]) == "fifr";
+	_isEMS = (player getVariable ["job","unemployed"]) isEqualTo "fifr";
 
 	_exit = false;
 	switch (_item) do
@@ -701,7 +702,7 @@
 		[_player,_part,_wound,_item,lbCurSel 1501] call A3PL_Medical_Treat;
 		if (_item != "") then
 		{
-			if (player_itemClass == _item) then {[] call A3PL_Inventory_Clear}; //if we have it in our hand we should probably delete it to prevent duplication
+			if (player_itemClass isEqualTo _item) then {[] call A3PL_Inventory_Clear};
 			[_item,-1] call A3PL_Inventory_Add;
 		};
 	} else {
@@ -814,16 +815,16 @@
 	[(findDisplay 73),_player] call A3PL_Medical_LoadParts;
 	[] call A3PL_Medical_SelectPart;
 	_player setVariable ["A3PL_Wounds",_wounds,true];
+	if((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) then {player setDamage 0;};
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_AddLog",
 {
-	private ["_text","_color","_log","_player"];
-	_player = param [0,player];
-	_text = param [1,""];
-	_color = param [2,""];
-	_log = _player getVariable ["A3PL_MedicalLog",[]];
-	if (count _log >= LOGLIMIT) then {_log deleteAt 0;};
+	private _player = param [0,player];
+	private _text = param [1,""];
+	private _color = param [2,""];
+	private _log = _player getVariable ["A3PL_MedicalLog",[]];
+	if ((count _log) >= LOGLIMIT) then {_log deleteAt 0;};
 	_log pushback [format ["%2:%3 - %1",_text,(date select 3),(date select 4)],_color];
 	_player setVariable ["A3PL_MedicalLog",_log,true];
 }] call Server_Setup_Compile;
@@ -1124,7 +1125,7 @@
 {
 	if (!A3PL_FD_Clinic) exitwith {["You can not be healed here when the FIFR is available!","red"] call A3PL_Player_Notification;};
 
-	private _healPrice = 600;
+	private _healPrice = 750;
 	private _pCash = player getVariable ["player_cash",0];
 	private _npc = player_objintersect;
 	if (_healPrice > _pCash) exitwith {[format [localize"STR_NPC_FIFRHEALERROR",_healPrice-_pCash]] call A3PL_Player_notification;};
@@ -1138,12 +1139,10 @@
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
-		if (!(vehicle player == player)) exitwith {_success = false;};
+		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
 		if (player distance2D _npc > 10) then {_success = false;}
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {["Treatment cancelled!", "red"] call A3PL_Player_Notification;};
-
-	["You are completely treated","green"] call A3PL_Player_Notification;
 
 	player setDamage 0;
 	player setVariable ["A3PL_Wounds",[],true];
@@ -1154,14 +1153,27 @@
 
 ["A3PL_Medical_Heal_Ill",
 {
-	private ["_healPrice","_pCash"];
-	_healPrice = 4500;
-	_pCash = player getVariable ["player_cash",0];
+	private _healPrice = 4500;
+	private _pCash = player getVariable ["player_cash",0];
+	private _npc = player_objintersect;
 	if (_healPrice > _pCash) exitwith {[format [localize"STR_NPC_FIFRHEALERROR",_healPrice-_pCash]] call A3PL_Player_notification;};
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - _healPrice,true];
 
+	["You must wait 2 minutes before being fully treated, stay nearby!","orange"] call A3PL_Player_Notification;
+	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
+	["Patching you up...",120] spawn A3PL_Lib_LoadAction;
+	_success = true;
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
+		if (player distance2D _npc > 10) then {_success = false;}
+	};
+	if(Player_ActionInterrupted || !_success) exitWith {["Treatment cancelled!", "red"] call A3PL_Player_Notification;};
+
+	player setDamage 0;
 	player setVariable ["A3PL_Wounds",[],true];
 	player setVariable ["A3PL_MedicalVars",[MAXBLOODLVL,"120/80",37],true];
+	player setVariable ["A3PL_Medical_Alive",true,true];
 	['fifr_healdoneill'] call A3PL_NPC_Start;
 }] call Server_Setup_Compile;
 
@@ -1171,13 +1183,12 @@
 	private _success = true;
 
 	if(_isBeingRevived) exitWith {["Someone is already performing CPR on this person","red"] call A3PL_Player_Notification;};
-	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
+	if(Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
 
     player playmove "AinvPknlMstpSnonWnonDr_medic0";
 	[_target] spawn
 	{
-		private ["_target"];
-		_target = param [0,objNull];
+		private _target = param [0,objNull];
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 		["CPR in progress...",30] spawn A3PL_Lib_LoadAction;
 		_success = true;
@@ -1186,7 +1197,6 @@
 			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 			if (!(vehicle player == player)) exitwith {_success = false;};
 			if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-			diag_log str (animationState player);
 			if (animationState player != "AinvPknlMstpSnonWnonDr_medic0") then {player playmove "AinvPknlMstpSnonWnonDr_medic0";}
 		};
 		player switchMove "";
@@ -1196,11 +1206,11 @@
 			if ((vehicle player) isEqualTo player) then {player switchMove "";};
 		};
 
-		_target getVariable["reviving",false];
+		_target setVariable["reviving",true,true];
 
 		private _chance = random 100;
 		if(["cpr",player] call A3PL_DMV_Check) then {_chance = random 50;};
-		if((player getVariable ["job", "unemployed"]) IN ["fifr"]) then {_chance = 0;};
+		if((player getVariable ["job", "unemployed"]) isEqualTo "fifr") then {_chance = 0;};
 		if(_chance <= 25) then {
 			[_target,[1500]] call A3PL_Medical_ApplyVar;
 			_target setVariable ["A3PL_Medical_Alive",true,true];

@@ -73,7 +73,7 @@
 	} foreach (_player getVariable ["licenses",[]]);
 }] call Server_Setup_Compile;
 
-//[player,'fml',true] remoteExec ["Server_DMV_Add",2];
+//[player,'driver',true] remoteExec ["Server_DMV_Add",2];
 ["A3PL_DMV_Add",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
@@ -92,8 +92,8 @@
 	_control = _display displayCtrl 2100;
 	_isCompany = (_control lbValue (lbCurSel _control)) IsEqualTo 1;
 	_inCompany = [getPlayerUID _target] call A3PL_Config_InCompany;
-	if(_isCompany && (!_inCompany)) exitWith {[localize"STR_DMV_LICNOTCOMP","red"] call A3PL_Player_Notification;};	
-	
+	if(_isCompany && (!_inCompany)) exitWith {[localize"STR_DMV_LICNOTCOMP","red"] call A3PL_Player_Notification;};
+
 	if (lbCurSel _control < 0) exitwith {[localize"STR_DMV_SELECTIONLICENSE","red"] call A3PL_Player_Notification;};
 	_license = _control lbData (lbCurSel _control);
 
@@ -141,4 +141,13 @@
 ["A3PL_DMV_Truck", {
 	[localize"A3PL_P362_TowTruck",[2757.38,5465.27,0],"DMV",1800] spawn A3PL_Lib_JobVehicle_Assign;
 	["STR_DMV_TRUCKSPAWN","green"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
+
+["A3PL_DMV_StartTest",{
+	if(player getVariable['player_cash',0] < 500) exitWith {['You do not have enough money for the driving test!','red'] call A3PL_Player_Notification;};
+	if(['driver'] call A3PL_DMV_Check) exitWith {['You already have a driving license!','red'] call A3PL_Player_Notification;};
+	['dmv_drivingtest1'] call A3PL_NPC_Start;
+	_cash = player getVariable ['player_cash',0];
+	player setVariable ['player_cash',(_cash - 500),true];
+	["Federal Reserve",500] remoteExec ["Server_Government_AddBalance",2];
 }] call Server_Setup_Compile;

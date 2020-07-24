@@ -44,7 +44,9 @@
 	if (count _warehouses < 1) exitwith {[localize"STR_NewHousing_12","red"] call A3PL_Player_Notification;};
 	A3PL_Warehouses_Object = _warehouses select 0;
 	_price = [A3PL_Warehouses_Object,1] call A3PL_Warehouses_GetData;
+	_level = [A3PL_Warehouses_Object,4] call A3PL_Warehouses_GetData;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
+	if ((player getVariable ["player_level",0]) < _level) exitwith {[format["You need to be level %1 to purchase this warehouse!",_level],"red"] call A3PL_Player_Notification;};
 	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {["This warehouse is already owned!","red"] call A3PL_Player_Notification;};
 	if (!isNil {player getVariable ["warehouse",nil]}) exitwith {["You already own a warehouse!","red"] call A3PL_Player_Notification;};
 

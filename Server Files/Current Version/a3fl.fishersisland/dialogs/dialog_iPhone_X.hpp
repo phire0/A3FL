@@ -2588,7 +2588,7 @@ class A3PL_iPhone_appGeneral
 		};
 		class iPhone_X_text_silent: RscText
 		{
-			idc = -1;
+			idc = 99717;
 			x = safeZoneX + safeZoneW * 0.719;
 			y = safeZoneY + safeZoneH * 0.5066;
 			w = safeZoneW * 0.118;
@@ -2633,6 +2633,19 @@ class A3PL_iPhone_appGeneral
 			w = safeZoneW * 0.118;
 			h = safeZoneH * 0.03;
 			text = $STR_IPHONEX_GUIHELP7;
+			sizeEx = 0.0175 * safezoneW;
+			colorText[] = {0,0,0,1};
+			colorBackground[] = {0,0,0,0};
+			shadow = 0;
+		};
+		class iPhone_X_text_GPS: RscText
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.719;
+			y = safeZoneY + safeZoneH * 0.6466;
+			w = safeZoneW * 0.118;
+			h = safeZoneH * 0.03;
+			text = $STR_IPHONEX_GUIHELP8;
 			sizeEx = 0.0175 * safezoneW;
 			colorText[] = {0,0,0,1};
 			colorBackground[] = {0,0,0,0};
@@ -2763,6 +2776,24 @@ class A3PL_iPhone_appGeneral
 			w = safeZoneW * 0.118;
 			h = safeZoneH * 0.03;
 			action = "[99725,'A3PL_ShowGrass'] call A3PL_iPhoneX_SetParam;";
+		};
+		class iPhone_IconShowGPS: RscPicture
+		{
+			idc = 99726;
+			x = safeZoneX + safeZoneW * 0.80948282;
+			y = safeZoneY + safeZoneH * 0.6466;
+			w = safeZoneW * 0.0175;
+			h = safeZoneH * 0.025;
+			text = "";
+		};
+		class iPhone_ButtonShowGPS: RscButtonEmpty
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.719;
+			y = safeZoneY + safeZoneH * 0.6466;
+			w = safeZoneW * 0.118;
+			h = safeZoneH * 0.03;
+			action = "[99726,'A3PL_ShowGPS'] call A3PL_iPhoneX_SetParam;";
 		};
 		class iPhone_IconHome: RscPicture
 		{
@@ -3499,15 +3530,15 @@ class A3PL_iPhone_appGangManagement
 			h = 0.022 * safezoneH;
 			action = "call A3PL_Gang_Leave;";
 		};
-		/*class btn_upgrade: RscButtonEmpty
+		class btn_gangbank: RscButtonEmpty
 		{
 			idc = -1;
-			x = 0.778437 * safezoneW + safezoneX;
-			y = 0.775 * safezoneH + safezoneY;
-			w = 0.0567187 * safezoneW;
-			h = 0.022 * safezoneH;
-			action = "[] spawn A3PL_Gang_Upgrade;";
-		};*/
+			x = 0.742344 * safezoneW + safezoneX;
+			y = 0.764 * safezoneH + safezoneY;
+			w = 0.0515625 * safezoneW;
+			h = 0.033 * safezoneH;
+			action = "call A3PL_iPhoneX_appGangBank;";
+		};
 		class btn_deletegang: RscButtonEmpty
 		{
 			idc = -1;

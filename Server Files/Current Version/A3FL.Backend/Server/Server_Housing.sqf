@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-#define HOUSESLIST ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion","Land_A3FL_Office_Building"]
+#define HOUSESLIST ["Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Mansion","Land_A3FL_Office_Building","Land_A3FL_House1_Cream","Land_A3FL_House1_Green","Land_A3FL_House1_Blue","Land_A3FL_House1_Brown","Land_A3FL_House1_Yellow","Land_A3FL_House2_Cream","Land_A3FL_House2_Green","Land_A3FL_House2_Blue","Land_A3FL_House2_Brown","Land_A3FL_House2_Yellow","Land_A3FL_House3_Cream","Land_A3FL_House3_Green","Land_A3FL_House3_Blue","Land_A3FL_House3_Brown","Land_A3FL_House3_Yellow","Land_A3FL_House4_Cream","Land_A3FL_House4_Green","Land_A3FL_House4_Blue","Land_A3FL_House4_Brown","Land_A3FL_House4_Yellow","Land_A3FL_Anton_Modern_Bungalow"]
 
 ["Server_Housing_SaveItems",
 {
@@ -49,7 +49,7 @@
 	if (_house getVariable ["furn_loaded",false]) exitwith {};
 	_house setVariable ["furn_loaded",true,false];
 	private _pitems = [format ["SELECT pitems FROM houses WHERE location = '%1'",(getpos _house)], 2] call Server_Database_Async;
-	private _pitems = call compile (_pitems select 0);
+	_pitems = call compile (_pitems select 0);
 	[_house,_pitems] remoteExec ["A3PL_Housing_Loaditems", (owner _player)];
 },true] call Server_Setup_Compile;
 
@@ -85,12 +85,15 @@
 	_actualitems = _cargoItems select 2;
 	_backpacks = _cargoItems select 3;
 
-	//add items [["srifle_EBR_F"],[],[]]
 	{_box addWeaponCargoGlobal [_x,1]} foreach _weapons;
 	{_box addMagazineCargoGlobal [_x,1]} foreach _magazines;
 	{_box addItemCargoGlobal [_x,1]} foreach _actualitems;
 	{_box addBackpackCargoGlobal [_x,1]} foreach _backpacks;
 	_box setVariable ["storage",_vitems,true];
+
+	//Capacity
+	private _sCapacity = [_house,3] call A3PL_Housing_GetData;
+	_box setVariable ["capacity",_sCapacity,true];
 },true] call Server_Setup_Compile;
 
 ["Server_Housing_SaveBox",
@@ -116,9 +119,7 @@
 //COMPILE BLOCK WARNING
 ["Server_Housing_Initialize",
 {
-
 	private ["_houses","_query","_return","_uids","_pos","_doorID","_near","_signs"];
-	//also make sure to update _obj location if it's changed (just incase we move anything slightly with terrain builder), delete it if it cannot be found nearby
 	_houses = ["SELECT uids, location, doorid FROM houses", 2, true] call Server_Database_Async;
 	{
 		private ["_pos","_uids","_doorid"];
@@ -135,12 +136,10 @@
 		_near = _near select 0;
 		if (!([_pos,(getpos _near)] call BIS_fnc_areEqual)) then
 		{
-			//Update position in DB
 			_query = format ["UPDATE houses SET location='%1', classname = '%3' WHERE location ='%2'",(getpos _near),_pos, (typeOf _near)];
 			[_query,1] spawn Server_Database_Async;
 		};
 
-		//look for nearest for sale sign and set the texture to sold
 		_signs = nearestObjects [_pos, ["Land_A3PL_EstateSign"], 25,true];
 		if (count _signs > 0) then
 		{

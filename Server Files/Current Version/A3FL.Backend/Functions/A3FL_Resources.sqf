@@ -22,7 +22,7 @@
 	player setVariable ["Digging",true,true];
 	[player,"A3PL_Shovel_Dig"] remoteExec ["A3PL_Lib_SyncAnim", 0];
 
-	["Filling bucket...",10] spawn A3PL_Lib_LoadAction;
+	["Filling bucket...",(10 / A3PL_Event_DblHarvest)] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
 	while {Player_ActionDoing} do {

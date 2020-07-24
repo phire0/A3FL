@@ -53,7 +53,7 @@
 	private _gang = _group getVariable ["gang_data",nil];
 
 	if(isNil '_gang') exitWith {};
- private _members =  parseSimpleArray (_gang select 3);
+	private _members =  _gang select 3;
 	private _maxMembers = _gang select 5;
 
 	if((count _members) > _maxMembers) exitWith {[format [localize"STR_NewGang_4",_maxMembers],"red"] call A3PL_Player_Notification;};
@@ -101,7 +101,7 @@
 	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
 	private _members = _gang select 3;
-	_members pushBack(_addUID);
+	_members pushBackUnique _addUID;
 	_gang set[3,_members];
 	_group setVariable ["gang_data",_gang,true];
 	[_group] remoteExec ["Server_Gang_SaveMembers",2];
@@ -156,6 +156,7 @@
 	if(isNil '_gang') exitWith {};
 	if(((getPlayerUID player) != (_gang select 1))) exitWith {[format [localize"STR_NewGang_8"],"red"] call A3PL_Player_Notification;};
 	[_group,player] remoteExec ["Server_Gang_DeleteGang",2];
+	closeDialog 0;
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_SetLead",
@@ -172,7 +173,7 @@
 	_group setVariable["gang_data",_gang,true];
 
 	[_group] remoteExec ["Server_Gang_SetLead",2];
-	[format [localize"STR_NewGang_15"],"red"] call A3PL_Player_Notification;
+	[format [localize"STR_NewGang_15"],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_AddBank",
@@ -214,18 +215,13 @@
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
-	["Capture...",120] spawn A3PL_Lib_LoadAction;
+	["Capturing...",120] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
-	_animTime = diag_tickTime;
 	while {Player_ActionDoing} do {
-		if(_animTime >= diag_tickTime-5) then {
-			player playMoveNow 'AinvPknlMstpSnonWnonDnon_medic_1';
-			_animTime = diag_tickTime;
-		};
 		if (Player_ActionInterrupted) exitWith {_success = false;};
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (!(vehicle player == player)) exitwith {_success = false;};
+		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification; _obj setVariable ["CaptureInProgress",false,true];};
@@ -236,11 +232,11 @@
 	_obj setVariable ["CaptureInProgress",false,true];
 
 	[format[localize "STR_GANG_CAPTURED",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
-
 	[getPos _obj,format["Gang Hideout Captured - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
 
 	[localize"STR_NewGang_22","green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
+	[player, 20] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_CapturedPaycheck",
@@ -262,7 +258,6 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_GangTax",{
-
 	private _shop = param [0,objNull];
 	private _gangHideout = objNull;
 
@@ -281,10 +276,9 @@
 	if(_shop IN [npc_fuel_10,Low_End_Car_Shop,npc_shopguns]) then {
 		_gangHideout = hideout_obj_5;
 	};
-	if(_shop IN [npc_perkfurniture_5,npc_perkfurniture_4,npc_perkfurniture_3,Robbable_Shop_5,NPC_general_4,npc_big_dicks_sports,npc_fuel_11,chemical_dealer,npc_fuel_12,NPC_Buckeye]) then {
+	if(_shop IN [npc_perkfurniture_5,npc_perkfurniture_4,npc_perkfurniture_3,Robbable_Shop_5,NPC_general_4,npc_big_dicks_sports,npc_fuel_11,npc_chemicaldealer,npc_fuel_12,NPC_Buckeye]) then {
 		_gangHideout = hideout_obj_6;
 	};
-
 
 	if(_gangHideout isEqualTo objNull) exitWith {};
 	_gangID = _gangHideout getVariable ["captured",0];
@@ -293,26 +287,19 @@
 
 	_gangName = _gangHideout getVariable ["capturedName",""];
 	_gangData = [_gangID,_gangName];
-
-
 	_gangData
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_Secure",
 {
 	private _obj = param [0,objNull];
-
-	if((currentWeapon player) isEqualTo "") exitwith {["You do not brandish any weapon","red"] call A3PL_Player_Notification;};
-	if((currentWeapon player) IN ["A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
-	_nilCheck = _obj getVariable ["captured",nil];
+	private _nilCheck = _obj getVariable ["captured",nil];
 	if(isNil "_nilCheck") exitWith{["This gang hideout is currently not captured!","red"] call A3PL_Player_Notification;};
 	if(_obj getVariable ["CaptureInProgress",false]) then {["Someone is already capturing this gang hideout!","red"] call A3PL_Player_Notification;};
-
-
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 
-	_gangName = _obj getVariable["capturedName",""];
-	_faction = player getVariable["faction",""];
+	private _gangName = _obj getVariable["capturedName",""];
+	private _faction = player getVariable["faction","citizen"];
 	[getPos _obj,format["%1 Gang Hideout - %1",(toUpper _faction),_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
 	[format["%1 has started capturing a gang hideout from %2!",(toUpper _faction),_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 	Player_ActionCompleted = false;
@@ -337,5 +324,5 @@
 
 	[format["%1 has secured a gang hideout from %2",(toUpper _faction),_gangName], "blue"] remoteExec ["A3PL_Player_Notification",-2];
 	[_faction] remoteExec ["Server_Gang_RewardFactions",2];
-
+	[player, 20] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;

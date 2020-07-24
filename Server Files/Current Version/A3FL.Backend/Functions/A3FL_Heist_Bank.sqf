@@ -301,6 +301,7 @@
 		_bank animate [format ["deposit_%1",_i],0];
 	};
 	{deleteVehicle _x;} foreach (nearestObjects [_bank, ["A3PL_PileCash"], 20]);
+	[player, 50] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
 //spawn

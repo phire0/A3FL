@@ -167,7 +167,7 @@
 		if (simulationEnabled _x) then
 		{
 			_uid = getPlayerUID _x;
-			_saved = profileNamespace getVariable ["A3PL_NameTags",[]];
+			_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 			_savedName = "";
 
 			{
@@ -181,7 +181,7 @@
 
 			_hasMaskCheck = false;
 			if (goggles _x IN ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","A3PL_Horse_Mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"]) then {_hasMaskCheck = true;};
-			if (headgear _x IN["A3PL_Wulf_Racing_Helm_07","A3PL_Wulf_Racing_Helm_24","H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs"]) then {_hasMaskCheck = true;};
+			if (headgear _x IN["H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs"]) then {_hasMaskCheck = true;};
 			_cansee = (profilenamespace getVariable ["Player_EnableID",true]) && (([objNull, "VIEW"] checkVisibility [eyePos player, eyePos _x]) > 0) && (!isObjectHidden _x);
 			if (_cansee) then
 			{
@@ -508,7 +508,7 @@
 	_player = param [0,objNull];
 	_uid = getPlayerUID _player;
 
-	_saved = profileNamespace getVariable ["A3PL_NameTags",[]];
+	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 	_name = "Unknown";
 
 	{
@@ -529,7 +529,7 @@
 	_uid = getPlayerUID _player;
 
 	A3PL_Nametag_Uid = _uid;
-	_saved = profileNamespace getVariable ["A3PL_NameTags",[]];
+	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 	_name = "";
 
 	{
@@ -545,7 +545,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Player_SaveNametag", {
-	_saved = profileNamespace getVariable ["A3PL_NameTags",[]];
+	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 	_name = ctrlText 1400;
 
 	_id = -1;
@@ -561,76 +561,81 @@
 	} else {
 		_saved pushBack [A3PL_Nametag_Uid,_name];
 	};
-	profileNamespace setVariable ["A3PL_NameTags",_saved];
+	profileNamespace setVariable ["A3FL_NameTags",_saved];
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
 //hostage, spawn this
 ["A3PL_Player_TakeHostage",
 {
-	private ["_target","_ehFired","_ehReload"];
-	_target = param [0,objNull];
+	private _target = param [0,objNull];
 
-	if (!(_target IN allPlayers)) exitwith {[localize "STR_PLAYER_NOTLOOKINGVALPL","red"] call A3PL_Player_Notification;}; //System: You are not looking at a valid player
-	if ((handgunWeapon player == "") OR ((handgunWeapon player) IN ["A3PL_Jaws","A3PL_Taser2","A3PL_Pickaxe","A3PL_Shovel","A3PL_High_Pressure","A3PL_FireExtinguisher","A3PL_Predator"])) exitwith {["You need a handgun","red"] call A3PL_Player_Notification;};
-	if (!isNil "A3PL_EnableHostage") exitwith {[localize "STR_PLAYER_TAKESOMEONEHOST","red"] call A3PL_Player_Notification;}; //System: You are already taking someone hostage!
+	if (!(_target IN allPlayers)) exitwith {[localize "STR_PLAYER_NOTLOOKINGVALPL","red"] call A3PL_Player_Notification;};
+	if ((handgunWeapon player isEqualTo "") OR ((handgunWeapon player) IN ["A3PL_Jaws","A3PL_Taser2","A3PL_Pickaxe","A3PL_Shovel","A3PL_High_Pressure","A3PL_FireExtinguisher","A3PL_Predator"])) exitwith {["You need a handgun","red"] call A3PL_Player_Notification;};
+	if (!isNil "A3PL_EnableHostage") exitwith {[localize "STR_PLAYER_TAKESOMEONEHOST","red"] call A3PL_Player_Notification;};
+
+	if ((_target distance2D player) > 3) exitwith {["Too far away to take this person hostage!","red"] call A3PL_Player_Notification;};
+
+	player selectWeapon handgunWeapon player;
 
 	A3PL_EnableHostage = true;
 	A3PL_HostageMode = "hostage";
 	A3PL_HostageTarget = _target;
 	A3PL_HostageReloading = false;
+	player setVariable["takingHostage",true,true];
+	player forceWalk true;
 
 	_ehFired = player addEventHandler ["Fired",
 	{
-		if (A3PL_HostageMode == "hostage") exitwith
-		{
-			if ((!isNull A3PL_HostageTarget) && ((handgunWeapon player) != "A3PL_Taser")) then {[] remoteExec ["A3PL_Medical_Die",A3PL_HostageTarget];};
+		if ((A3PL_HostageMode isEqualTo "hostage")) exitwith {
+			if ((!isNull A3PL_HostageTarget) && ((handgunWeapon player) != "A3PL_Taser")) then {detach A3PL_HostageTarget; [] remoteExec ["A3PL_Medical_Die",A3PL_HostageTarget];};
 			A3PL_EnableHostage = false;
 		};
 	}];
-
 	_ehReload = (findDisplay 46) displayAddEventHandler ["KeyDown",
 	{
-		if ((_this select 1) in actionKeys "ReloadMagazine") then
-		{
-			[] spawn
-			{
+		if ((_this select 1) in actionKeys "ReloadMagazine") then {
+			[] spawn {
 				A3PL_HostageReloading = true;
-				uiSleep 3.5;
+				sleep 3.5;
 				if (!isNil "A3PL_HostageReloading") then {A3PL_HostageReloading = false};
 			};
 			false;
 		};
 	}];
 
-	//set animation
 	player playAction "gesture_takehostage";
-	[_target,"A3PL_TakenHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2]; //change to -2
-	_target attachto [player,[-0.05,0.2,-0.02]];//_target attachTo [player,[-0.14,-0.15,-1.45],"LeftHand"];
-	uiSleep 2;
+	[_target,"A3PL_TakenHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2];
+	_target attachto [player,[-0.05,0.2,-0.02]];
 
+	_target setVariable ["tf_unable_to_use_radio", true];
 	while {A3PL_EnableHostage} do
 	{
-		if (A3PL_HostageMode == "hostage" && !A3PL_HostageReloading) then { player playAction "gesture_takehostageloop"; };
-		if (A3PL_HostageMode == "shoot" && !A3PL_HostageReloading) then { player playAction "gesture_takehostageshootloop"; };
-		uiSleep 2;
-		if ((isNull A3PL_HostageTarget) OR (([_target,"blood"] call A3PL_Medical_GetVar) <= 0)) exitwith {}; //change (false) to player alive check
+		if ((A3PL_HostageMode isEqualTo "hostage") && !A3PL_HostageReloading) then { player playAction "gesture_takehostageloop"; };
+		if ((A3PL_HostageMode isEqualTo "shoot") && !A3PL_HostageReloading) then { player playAction "gesture_takehostageshootloop"; };
+		if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
+		if(!(A3PL_HostageTarget getVariable["A3PL_Medical_Alive",true])) exitWith {};
+		if(isNull A3PL_HostageTarget) exitWith {};
+		sleep 0.5;
 	};
-
-	player playaction "gesture_stop";
+	_target setVariable ["tf_unable_to_use_radio", false];
+	player forceWalk false;
+	player playAction "gesture_stop";
 	player removeEventHandler ["Fired",_ehFired];
 	(findDisplay 46) displayRemoveEventHandler ["KeyDown",_ehReload];
 	A3PL_EnableHostage = nil; A3PL_HostageMode = nil; A3PL_HostageTarget = nil; A3PL_HostageReloading = nil;
 
-	if (([_target,"blood"] call A3PL_Medical_GetVar) > 0) then //if alive target
+	if((_target getVariable["A3PL_Medical_Alive",true]) && (player getVariable["A3PL_Medical_Alive",true])) then
 	{
-		[_target,"A3PL_ReleasedHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2]; //change to -2
-		if (([player,"blood"] call A3PL_Medical_GetVar) > 0) then {[player,"A3PL_ReleaseHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2];}; //if alive player
+		[_target,"A3PL_ReleasedHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2];
+		[player,"A3PL_ReleaseHostage"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 		sleep 3;
 		detach _target;
-		if (([_target,"blood"] call A3PL_Medical_GetVar) > 0) then {[_target,""] remoteExec ["A3PL_Lib_SyncAnim",-2];}; //if alive target
-		if (([player,"blood"] call A3PL_Medical_GetVar) > 0) then {[player,""] remoteExec ["A3PL_Lib_SyncAnim",-2];}; //if alive player
+		[_target,""] remoteExec ["A3PL_Lib_SyncAnim",-2];
+		[player,""] remoteExec ["A3PL_Lib_SyncAnim",-2];
 	} else {
+		if(player getVariable["A3PL_Medical_Alive",true]) then {[player,""] remoteExec ["A3PL_Lib_SyncAnim",-2];};
+		if(_target getVariable["A3PL_Medical_Alive",true]) then {[_target,""] remoteExec ["A3PL_Lib_SyncAnim",-2];};
 		detach _target;
 	};
 }] call Server_Setup_Compile;
@@ -664,9 +669,10 @@
 
 ["A3PL_Player_EscapeControls",
 {
-	if ((getPlayerUID player) IN ["_SP_PLAYER_","76561198070895974","76561198343727655","76561198111737316","76561198096687678"]) exitWith {}; //Jason, Winston, David
 	for "_i" from 0 to 1 step 0 do {
 		waitUntil {!isNull (findDisplay 49)};
+		private _admin = player getVariable ["dbVar_AdminLevel",0];
+		if(_admin >= 4) exitWith {};
 		private["_abortButton", "_respawnButton", "_manuelButton", "_display"];
 		disableSerialization;
 		_display = (findDisplay 49);
@@ -678,8 +684,9 @@
 		_respawnButton = _display displayCtrl 1010;
 		_respawnButton ctrlEnable false;
 		_respawnButton ctrlShow false;
-
-		if (alive player && !(animationState player IN ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then	{
+		if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) then {
+			_abortButton ctrlSetText "YOU CANNOT DISCONNECT";
+		} else {
 			[_abortButton, _display] spawn {
 				_timeStamp = time + 10;
 				waitUntil {
@@ -688,7 +695,7 @@
 					round(_timeStamp - time) <= 0 || isNull (_this select 1)
 				};
 				if (!(isNull (_this select 1))) then {
-					if (alive player && !(animationState player IN ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then	{
+					if (alive player) then	{
 						(_this select 0) ctrlSetText "YOU CAN NOW DISCONNECT";
 						(_this select 0) ctrlCommit 0;
 						(_this select 0) ctrlEnable true;

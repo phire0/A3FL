@@ -1,10 +1,3 @@
-/*
-	ArmA 3 Fishers Life
-	Code written by ArmA 3 Fishers Life Development Team
-	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
-	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
-	More informations : https://www.bistudio.com/community/game-content-usage-rules
-*/
 
 Config_NPC_Text =
 [
@@ -80,14 +73,22 @@ Config_NPC_Text =
 	["oil_accepted",  localize"STR_NPC_OILRECACC",[localize"STR_NPC_OILRECACC1",localize"STR_NPC_OILRECACC2"],["['oil_howto'] call A3PL_NPC_Start;",""]],
 	["oil_howto",  localize"STR_NPC_OILRECHOWTO",[localize"STR_NPC_ALRIGHTTNX"],[""]],
 
-	["dmv_initial",localize"STR_NPC_DMV1",[localize"STR_NPC_DMV2",localize"STR_NPC_DMV3"],["['dmv_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'dmv') exitwith {['dmv_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'dmv') then { ['dmv_work'] call A3PL_NPC_Start; } else {['dmv_workdenied'] call A3PL_NPC_Start;}"]],
-	["dmv_howto",localize"STR_NPC_DMV4",[localize"STR_NPC_DMV5"],[""]],
-	["dmv_already", localize"STR_NPC_DMV6",[localize"STR_NPC_DMV7",localize"STR_NPC_DMV8"],["call A3PL_NPC_LeaveJob;",""]],
-	["dmv_work",localize"STR_NPC_DMV9",[localize"STR_NPC_DMV10",localize"STR_NPC_DMV11"],["['dmv'] call A3PL_NPC_TakeJob;",""]],
-	["dmv_workdenied",localize"STR_NPC_DMV12",[localize"STR_NPC_DMV13"],[""]],
+	["dmv_initial",localize"STR_NPC_DMV1",["I need a driving license","Nothing, have a good day"],["['dmv_drivingteststart'] call A3PL_NPC_Start;",""]],
+	["dmv_drivingteststart","Okay, the test costs $500 and covers some basic road and safety laws. Let me know when you are ready to begin.",["I'm ready!","I'm not ready, I'll be back later"],["[] call A3PL_DMV_StartTest;",""]],
+
+	["dmv_drivingtest1","When approaching a unmarked T-Intersection, what must you do?",["A) Yield","B) Keep Going","C) Off-road around the junction","D) Come to a complete stop"],["['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtest2'] call A3PL_NPC_Start;"]],
+	["dmv_drivingtest2","What is the speed limit on a street with unmarked roads?",["A) 30","B) 40","C) 50","D) 35"],["['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtest3'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;"]],
+	["dmv_drivingtest3","What speed must you slow down to when passing an emergency vehicle?",["A) 20","B) 30","C) 35","D) 15"],["['dmv_drivingtest4'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;"]],
+	["dmv_drivingtest4","What is the speed limit on the MSR?",["A) 30","B) 50","C) 70","D) 80"],["['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtest5'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;"]],
+	["dmv_drivingtest5","If someone is driving aggressively behind you, what should you do?",["A) Try to get out of the aggressive drivers way","B) Stare at the driver as they are passing you","C) Speed up as they are passing you","D) Block the passing lane, preventing them from overtaking"],["['dmv_drivingtest6'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;"]],
+	["dmv_drivingtest6","If an oncoming driver is heading toward you in your lane, what should you do?",["A) Steer right, blow your horn, and accelerate","B) Steer left, blow your horn, and brake","C) Steer right, blow your horn, and brake","D) Stay in the center of your lane, blow your horn, and brake"],["['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtest7'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;"]],
+	["dmv_drivingtest7","After you have overtaken a vehicle, when should return to the right lane?",["A) When you see the front bumper of the other car in your mirror","B) When you have put your turn signal on","C) When you have turned your headlights on","D) When you see the other car's headlights come on"],["['dmv_drivingtestpass'] call A3PL_NPC_Start; [player,'driver',true] remoteExec ['Server_DMV_Add',2];","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;","['dmv_drivingtestfail'] call A3PL_NPC_Start;"]],
+
+	["dmv_drivingtestpass","Congratulations, you have passed your driving test! Your license has been issued.",["Thank you, see you later!"],[""]],
+	["dmv_drivingtestfail","Unfortunatly you have failed your driving test, you can retake the test at any time for $500",["I'm ready for a second chance","I'll come back later"],["['dmv_drivingtest1'] call A3PL_NPC_Start;",""]],
 
 	["verizon_initial",localize"STR_NPC_HELLOHOWICANHELPYOU",[localize"STR_NPC_CHOOSESUB"],["['verizon_howto'] call A3PL_NPC_Start;"]],
-	["verizon_howto",localize"STR_NPC_VERIZONCHOOSESUBSCRIPTION",[localize"STR_NPC_PRIMARYPHONE",localize"STR_NPC_SECONDARYPHONE"],["['1'] spawn A3PL_iPhoneX_AddPhoneNumber;","['2'] spawn A3PL_iPhoneX_AddPhoneNumber;"]],
+	["verizon_howto",localize"STR_NPC_VERIZONCHOOSESUBSCRIPTION",[localize"STR_NPC_SECONDARYPHONE"],["['2'] spawn A3PL_iPhoneX_AddPhoneNumber;"]],
 
 	["fifrb_initial", localize"STR_NPC_FIFRINIT",[localize"STR_NPC_FIFRINIT2",localize"STR_NPC_FIFRINIT3"],["['fifrb_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'fifr') exitwith {['fifrb_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'fifr') then { ['fifrb_work'] call A3PL_NPC_Start; } else {['fifrb_workdenied'] call A3PL_NPC_Start;};"]],
 	["fifrb_howto", localize"STR_NPC_FIFRHOWTO",[localize"STR_NPC_ALRIGHTTNX"],[""]],

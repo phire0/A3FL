@@ -103,7 +103,7 @@
             <Original>Actually, I like this job, nevermind.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Accepted">
-            <Original>You are now a Roadside Service workerbr&lt;/&gt;Do I need to explain the job?</Original>
+            <Original>You are now a Roadside Service worker&lt;br/&gt;Do I need to explain the job?</Original>
         </Key>
         <Key ID="STR_NPC_Road_Accepted1">
             <Original>Nah, I'm good.</Original>
@@ -1448,6 +1448,15 @@
    </Key>
    <Key ID="STR_ConfigItems_Coffee">
       <Original>Coffee Cup</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_CoffeeLarge">
+      <Original>Large Coffee</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_CoffeeMedium">
+      <Original>Medium Coffee</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_CoffeeSmall">
+      <Original>Small Coffee</Original>
    </Key>
    <Key ID="STR_ConfigItems_Donut">
       <Original>Donut</Original>
@@ -5492,7 +5501,7 @@
       <Original>1. Main Number ($800)</Original>
    </Key>
    <Key ID="STR_NPC_SECONDARYPHONE">
-      <Original>2. Secondary Number ($12500)</Original>
+      <Original>1. Secondary Number ($50000)</Original>
    </Key>
    <Key ID="STR_NPC_COMPANYPHONE">
       <Original>3. Business Number ($30000)</Original>
@@ -5896,7 +5905,7 @@
       <Original>Close/ Open Door</Original>
    </Key>
    <Key ID="STR_INTSECT_OPENGASMENU">
-      <Original>Open Menu Station-Service</Original>
+      <Original>Fuel Station Pumps</Original>
    </Key>
    <Key ID="STR_INTSECT_OPENSHOWDOOR">
       <Original>Open Showroom Doors</Original>
@@ -6614,7 +6623,7 @@
             <Original>Ringtone 3</Original>
         </Key>
         <Key ID="STR_IPHONEX_GUIHELP1">
-            <Original>Interface</Original>
+            <Original>Player Stats</Original>
         </Key>
         <Key ID="STR_IPHONEX_GUIHELP2">
             <Original>Twitter</Original>
@@ -6633,6 +6642,9 @@
         </Key>
         <Key ID="STR_IPHONEX_GUIHELP7">
             <Original>Show Grass</Original>
+        </Key>
+        <Key ID="STR_IPHONEX_GUIHELP8">
+            <Original>Show GPS</Original>
         </Key>
         <Key ID="STR_IPHONEX_GUISIM1">
             <Original>PRIMARY : No SIM</Original>
@@ -8626,7 +8638,7 @@
         <Original>You can not be a leader yourself!</Original>
       </Key>
       <Key ID="STR_NewGang_15">
-        <Original>You have to appoint a new leader for your gang</Original>
+        <Original>You have appointed a new leader for your gang</Original>
       </Key>
       <Key ID="STR_NewGang_16">
         <Original>You are not in a gang</Original>

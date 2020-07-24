@@ -45,7 +45,7 @@
 	[_store] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Robbing the store...",50,false] spawn A3PL_Lib_LoadAction;
+	["Robbing the store...",120,false] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	_timeElapsed = 0;
 	waitUntil{Player_ActionDoing};

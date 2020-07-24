@@ -339,7 +339,7 @@
 			_addXP = 25;
 		};
 		case("2"): {
-			_price = 20000;
+			_price = 50000;
 			_var = "A3PL_phoneNumberSecondary";
 			_addXP = 50;
 		};
@@ -1540,7 +1540,6 @@
 	private _control = _display displayCtrl 2100;
 	private _uid = (_control lbData (lbCurSel _control));
 	if(_uid isEqualTo "") exitWith {["Please select a target.","red"] call A3PL_Player_Notification;};
-	diag_log format["A3PL_iPhoneX_GangInvite| _uid : %1",_uid];
 	[_uid] call A3PL_Gang_Invite;
 }] call Server_Setup_Compile;
 
@@ -1557,6 +1556,7 @@
 	if(isNil '_gang') exitWith {};
 	if((_target isEqualTo (_gang select 1)) || _target isEqualTo (getPlayerUID player)) exitWith {[format ["You cannot fire yourself"],"red"] call A3PL_Player_Notification;};
 
+	["You have removed someone from your gang","green"] call A3PL_Player_Notification;
 	[_target, true] call A3PL_Gang_RemoveMember;
 	closeDialog 0;
 }] call Server_Setup_Compile;
@@ -1722,7 +1722,7 @@
 	private _currentLevel = player getvariable ['Player_Level',0];
 	private _currentXP = player getVariable ['Player_XP',0];
 	private _nextLevel = (_currentLevel + 1);
-	private _nextLevelXP = [_currentLevel, 'next'] call A3PL_Config_GetLevel;
+	private _nextLevelXP = [_currentLevel] call A3PL_Config_GetLevel;
 	private _barEnd = (_currentXP / _nextLevelXP);
 
 	createDialog "A3PL_iPhone_appLevel";
@@ -1909,6 +1909,12 @@
 	} else {
 		_control ctrlSetText "A3PL_Common\GUI\phone\iPhone_X_icon_silentOFF.paa";
 	};
+	_control = _display displayCtrl 99726;
+	if (profilenamespace getVariable ["A3PL_ShowGPS",true]) then {
+		_control ctrlSetText "A3PL_Common\GUI\phone\iPhone_X_icon_silentON.paa";
+	} else {
+		_control ctrlSetText "A3PL_Common\GUI\phone\iPhone_X_icon_silentOFF.paa";
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_AppWallpaper",
@@ -2041,9 +2047,9 @@
 	};
 	if(_var isEqualTo "A3PL_ShowGrass") then {
 		if (profilenamespace getVariable ["A3PL_ShowGrass",true]) then {
-			setTerrainGrid 50;
-		} else {
 			setTerrainGrid 25;
+		} else {
+			setTerrainGrid 50;
 		};
 	};
 }] call Server_Setup_Compile;

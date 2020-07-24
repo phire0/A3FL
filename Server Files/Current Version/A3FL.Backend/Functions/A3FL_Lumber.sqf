@@ -8,7 +8,7 @@
 
 ["A3PL_Lumber_FireAxe",
 {
-	private _tree = player_objintersect;
+	private _tree = cursorObject;
 	if (typeOf _tree != "Land_A3PL_Tree3") exitwith {};
 	if ((player distance2D _tree) > 6) exitwith {[localize"STR_NewLumber_TooFar"] call A3PL_Player_Notification;};
 	private _hp = _tree getVariable ["hp",50];

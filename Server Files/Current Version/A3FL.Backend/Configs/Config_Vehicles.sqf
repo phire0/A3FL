@@ -24,6 +24,8 @@ Config_Vehicles_Admin = [
 publicVariable "Config_Vehicles_Admin";
 
 Config_Vehicles_Capacity = [
+	["A3PL_EMS_Locker",800],
+
 	["A3PL_Fatboy",20],
 
 	["K_Scooter_DarkBlue",25],
@@ -61,7 +63,7 @@ Config_Vehicles_Capacity = [
 	["A3PL_Taurus_PD_ST",180],
 	["A3PL_Taurus_FD",180],
 
-	["A3PL_P362",200],
+	["A3PL_P362",500],
 	["A3PL_P362_TowTruck",500],
 
 	["A3PL_Wrangler",240],
@@ -123,109 +125,6 @@ Config_Vehicles_Capacity = [
 ];
 publicVariable "Config_Vehicles_Capacity";
 
-Config_Vehicles_Insurance = [
-	["A3PL_Fatboy",4000],
-
-	["K_Scooter_DarkBlue",2000],
-	["C_Quadbike_01_F",2000],
-
-	["A3PL_VetteZR1",25000],
-	["A3PL_911GT2",25000],
-	["A3PL_Gallardo",30000],
-
-	["A3PL_Camaro",22000],
-	["A3PL_Charger69",24000],
-	["A3PL_Mustang",21000],
-	["A3PL_Mustang_PD",16000],
-	["A3PL_Mustang_PD_Slicktop",16000],
-	["A3PL_BMW_M3",18000],
-	["A3PL_Challenger_Hellcat",20000],
-	["A3PL_CLS63",17000],
-
-	["A3PL_CRX",8000],
-	["A3PL_CVPI_Rusty",2000],
-	["A3PL_CVPI",3000],
-	["A3PL_CVPI_Taxi",3000],
-	["A3PL_CVPI_PD",3000],
-	["A3PL_CVPI_PD_Slicktop",3000],
-	["A3PL_Taurus",4500],
-	["A3PL_Taurus_PD",4500],
-	["A3PL_Taurus_PD_ST",4500],
-	["A3PL_Taurus_FD",4500],
-	["A3PL_Charger",19000],
-	["A3PL_Charger_PD",6500],
-	["A3PL_Charger_PD_Slicktop",6500],
-	["A3PL_Charger15",21000],
-	["A3PL_Monster",38000],
-
-	["A3PL_Fuel_Van",10000],
-	["A3PL_Car_Trailer",5000],
-	["A3PL_Small_Boat_Trailer",5000],
-	["A3PL_Lowloader",8000],
-	["A3PL_Drill_Trailer",10000],
-	["A3PL_Tanker_Trailer",10000],
-	["A3PL_MiniExcavator",6500],
-	["A3PL_P362_TowTruck",32000],
-	["A3PL_P362",26000],
-	["A3PL_1100R",6500],
-	["A3PL_Knucklehead",6000],
-	["A3PL_Kx",6000],
-
-	["A3PL_Wrangler",16000],
-	["A3PL_BMW_X5",20000],
-	["A3PL_Urus",34000],
-	["A3PL_MailTruck",7000],
-
-	["A3PL_Ram",14000],
-	["A3PL_Rover",14000],
-
-	["A3PL_Tahoe",15500],
-	["A3PL_Tahoe_FD",5000],
-	["A3PL_Tahoe_PD",5000],
-	["A3PL_Tahoe_PD_Slicktop",5000],
-	["A3PL_F150",13500],
-	["A3PL_F150_Marker",14000],
-	["A3PL_Raptor",15000],
-	["A3PL_Raptor_PD",14000],
-	["A3PL_Raptor_PD_ST",14000],
-
-	["A3PL_Suburban",14500],
-	["C_Van_02_transport_F",18000],
-	["A3PL_Silverado",15000],
-	["A3PL_Silverado_PD",15000],
-	["A3PL_E350",12000],
-	["jonzie_ambulance",12000],
-	["A3PL_GMCVandura",12000],
-
-	["A3PL_Pierce_Ladder",12000],
-	["A3PL_Pierce_Heavy_Ladder",12000],
-	["A3PL_Pierce_Pumper",12000],
-	["A3PL_Pierce_Rescue",12000],
-
-	["A3PL_Box_Trailer",12000],
-
-	["C_Scooter_Transport_01_F",6000],
-	["A3PL_RHIB",8000],
-	["A3PL_Motorboat",16000],
-	["A3PL_Motorboat_Rescue",5000],
-	["A3PL_RBM",5000],
-	["A3PL_Patrol",5000],
-	["A3FL_LCM",5000],
-	["A3PL_Yacht",100000],
-
-	["Heli_Medium01_H",40000],
-	["Heli_Medium01_Military_H",40000],
-	["Heli_Medium01_Veteran_H",40000],
-	["Heli_Medium01_Luxury_H",40000],
-	["Heli_Medium01_Medic_H",15000],
-	["Heli_Medium01_Coastguard_H",15000],
-	["A3PL_Jayhawk",15000],
-	["A3PL_Cessna172",60000],
-	["A3PL_Goose_Base",80000],
-	["A3PL_Goose_USCG",15000]
-];
-publicVariable "Config_Vehicles_Insurance";
-
 Config_Police_Vehs = [
 	"A3PL_Police_Mustang_SE",
 	"A3PL_Police_Mustang_Default",
@@ -283,3 +182,107 @@ Config_Arma_Vehs = [
 	"C_Offroad_02_unarmed_black_F"
 ];
 publicVariable "Config_Arma_Vehs";
+
+Config_Vehicles_MSRP = [
+	["A3PL_Fatboy",300000],
+	["K_Scooter_DarkBlue",12000],
+	["C_Quadbike_01_F",12000],
+
+	["A3PL_VetteZR1",1150000],
+	["A3PL_911GT2",1250000],
+	["A3PL_Gallardo",1350000],
+
+	["A3PL_Camaro",64000],
+	["A3PL_Charger69",68000],
+	["A3PL_Mustang",371000],
+	["A3PL_Mustang_PD",20000],
+	["A3PL_Mustang_PD_Slicktop",23500],
+	["A3PL_BMW_M3",98000],
+	["A3PL_Challenger_Hellcat",400000],
+	["A3PL_CLS63",173000],
+
+	["A3PL_CRX",45000],
+	["A3PL_CVPI_Rusty",12000],
+	["A3PL_CVPI",45000],
+	["A3PL_CVPI_Taxi",35000],
+	["A3PL_CVPI_PD",8000],
+	["A3PL_CVPI_PD_Slicktop",11500],
+	["A3PL_Taurus",66000],
+	["A3PL_Taurus_PD",16000],
+	["A3PL_Taurus_PD_ST",19500],
+	["A3PL_Taurus_FD",16000],
+	["A3PL_Charger",270000],
+	["A3PL_Charger_PD",15000],
+	["A3PL_Charger_PD_Slicktop",18500],
+	["A3PL_Charger15",323000],
+	["A3PL_Charger15_PD",18000],
+	["A3PL_Charger15_PD_ST",21500],
+	["A3PL_Monster",637000],
+
+	["A3PL_Fuel_Van",70000],
+	["A3PL_Car_Trailer",27000],
+	["A3PL_Small_Boat_Trailer",12000],
+	["A3PL_Lowloader",35000],
+	["A3PL_Drill_Trailer",21000],
+	["A3PL_Tanker_Trailer",35000],
+	["A3PL_MiniExcavator",120000],
+	["A3PL_P362_TowTruck",105000],
+	["A3PL_P362",165000],
+	["A3PL_1100R",325000],
+	["A3PL_Knucklehead",300000],
+	["A3PL_Kx",102000],
+
+	["A3PL_Wrangler",50000],
+	["A3PL_BMW_X5",257000],
+	["A3PL_Urus",870000],
+	["A3PL_MailTruck",48000],
+
+	["A3PL_Ram",50000],
+	["A3PL_Rover",310000],
+
+	["A3PL_Tahoe",98000],
+	["A3PL_Tahoe_FD",12000],
+	["A3PL_Tahoe_PD",10000],
+	["A3PL_Tahoe_PD_Slicktop",13500],
+	["A3PL_F150",130000],
+	["A3PL_F150_Marker",130000],
+	["A3PL_Raptor",130000],
+	["A3PL_Raptor_PD",18000],
+	["A3PL_Raptor_PD_ST",21500],
+
+	["A3PL_Suburban",98000],
+	["C_Van_02_transport_F",105000],
+	["A3PL_Silverado",170000],
+	["A3PL_Silverado_PD",175000],
+	["A3PL_E350",5000],
+	["jonzie_ambulance",10000],
+	["A3PL_GMCVandura",0],
+
+	["A3PL_Pierce_Ladder",10000],
+	["A3PL_Pierce_Heavy_Ladder",15000],
+	["A3PL_Pierce_Pumper",15000],
+	["A3PL_Pierce_Rescue",15000],
+
+	["A3PL_Box_Trailer",35000],
+
+	["C_Scooter_Transport_01_F",6000],
+	["A3PL_RHIB",37000],
+	["A3PL_Motorboat",5000],
+	["A3PL_Motorboat_Rescue",10000],
+	["A3PL_RBM",35000],
+	["A3PL_Patrol",50000],
+	["A3FL_LCM",95000],
+	["A3PL_Yacht",1000000],
+
+	["Heli_Medium01_H",1400000],
+	["Heli_Medium01_Military_H",1800000],
+	["Heli_Medium01_Veteran_H",1800000],
+	["Heli_Medium01_Luxury_H",1800000],
+	["Heli_Medium01_Medic_H",1800000],
+	["Heli_Medium01_Coastguard_H",185000],
+	["A3PL_Jayhawk",50000],
+	["A3PL_Cessna172",380000],
+	["A3PL_Goose_Base",660000],
+	["A3PL_Goose_USCG",665000]
+];
+publicVariable "Config_Vehicles_MSRP";

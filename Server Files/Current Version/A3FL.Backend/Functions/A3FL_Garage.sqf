@@ -283,13 +283,19 @@
 	//check if we have motorhead perk
 	if (!(["motorhead"] call A3PL_Lib_hasPerk)) exitwith {["You don't have the motorhead perk, for more information -> www.arma3fisherslife.net","red"] call A3PL_Player_Notification;};
 
+	// check if we have enough cash
+	_pCash = player getVariable["player_cash", 0];
+	_price = 2000;
+	if (_price > _pCash) exitwith{[format["You are missing $%1 to change the vehicle material!",_price-_pCash]] call A3PL_Player_notification;};
+
 	//check if we own the vehicle
 	if (!(((_veh getVariable ["owner",["",""]]) select 0) == (getPlayerUID player))) exitwith {["This is not your vehicle!","red"] call A3PL_Player_Notification;};
 
 	if ((lbCurSel _control) < 0) exitwith {["Please select a material","red"] call A3PL_Player_Notification;};
 	A3PL_Garage_NewMaterial = (Config_Garage_Materials select _selectedIndex) select 0;
 
-	["You changed the material of your vehicle!","green"] call A3PL_Player_Notification;
+	player setVariable["Player_Cash", _pCash - _price, true];
+	["You changed the material of your vehicle for $2,000!","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 //when we click a component in the repair list
@@ -358,6 +364,11 @@
 	};
 	_display = findDisplay 62;
 
+	// check if we have enough cash
+	_pCash = player getVariable["player_cash", 0];
+	_price = 2000;
+	if (_price > _pCash) exitwith{ [format["You are missing $%1 to change the vehicle color!",_price - _pCash]] call A3PL_Player_notification; };
+
 	if (_texture != "") exitwith
 	{
 		private ["_id","_file"];
@@ -388,7 +399,8 @@
 	A3PL_Garage_NewColor = _text;
 
 	[_veh,_text] remoteExec ["Server_Vehicle_SetPaint",2];
-	["You have repainted your vehicle.","green"] call A3PL_Player_Notification;	
+	player setVariable["Player_Cash", _pCash - _price, true];
+	["You have repainted your vehicle for $2,000.","green"] call A3PL_Player_Notification;	
 }] call Server_Setup_Compile;
 
 ["A3PL_Garage_SetSliderColour",

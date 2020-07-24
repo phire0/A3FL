@@ -76,6 +76,7 @@
 	//give them a rusted CVPI
 	_query = format ["INSERT INTO objects (id,type,class,uid,plystorage) VALUES ('%1','vehicle','A3PL_CVPI_Rusty','%2','1')",([7] call Server_Housing_GenerateID),_uid];
 	[_query,1] spawn Server_Database_Async;
+	[_unit] call Server_iPhoneX_GrantNumber;
 },true] call Server_Setup_Compile;
 
 //COMPILE BLOCK WARNING
@@ -311,6 +312,12 @@
 
 	//Markers
 	[] remoteExec ["A3PL_Player_SetMarkers",_unit];
+
+	_query = format ["SELECT phone_number FROM iphone_phone_numbers WHERE player_id='%1'", getPlayerUID _unit];
+	_result = [_query,2] call Server_Database_Async;
+	if(count(_result) isEqualTo 0) then {
+		[_unit] call Server_iPhoneX_GrantNumber;
+	};
 }, true,true] call Server_Setup_Compile;
 
 // Save the physical A3 inventory including clothing
@@ -435,3 +442,16 @@
 		};
 	}, _timeSave]] call BIS_fnc_loop;
 }, true] call Server_Setup_Compile;
+
+
+["Server_Gear_WipeRusty",{
+	diag_log "running";
+	_query = format ["SELECT uid FROM players;"];
+	_return = [_query, 2,true] call Server_Database_Async;
+	diag_log _return;
+	{
+		_query = format ["INSERT INTO objects (id,type,class,uid,plystorage) VALUES ('%1','vehicle','A3PL_CVPI_Rusty','%2','1')",([7] call Server_Housing_GenerateID),(_x select 0)];
+		[_query,1] spawn Server_Database_Async;
+	} forEach _return;
+
+},true] call Server_Setup_Compile;

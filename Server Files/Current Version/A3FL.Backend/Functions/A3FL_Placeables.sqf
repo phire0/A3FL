@@ -165,8 +165,8 @@
 					};
 					case ("dildo"):
 					{
-						Player_Item attachTo [player, [0,0,0.1], 'RightHand'];
-						Player_Item setVectorUp [0,1,0];
+						Player_Item attachTo [player, [0,0,0.05], 'RightHand']; 
+      					Player_Item setVectorUp [1,0,0];
 					};
 					case ("beer_gold"):
 					{

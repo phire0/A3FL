@@ -13,11 +13,6 @@
 ],
 [
 	"",
-	"Get Weapons",
-	{["Open",[true]] call BIS_fnc_arsenal;}
-],
-[
-	"",
 	"Low End Car Dealer",
 	{["Shop_Low_End_Car_Dealer"] call A3PL_Shop_Open;}
 ],
@@ -151,11 +146,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_CartelManagment",
-	{["cartel"] call A3PL_Government_FactionSetup;}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_RentATowTruck",
 	{[player_objintersect] call A3PL_JobRoadWorker_RentVehicle;}
 ],
@@ -278,33 +268,6 @@
 	"",
 	localize"STR_QuickActionsNPC_RemoveElectronicBracelet",
 	{call A3PL_Criminal_RemoveTime;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_StartCartelWork",
-	{call A3PL_Criminal_CartelStart;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_Shop_DrugsDealerCartel",
-	{["Shop_DrugsDealerCartel"] call A3PL_Shop_Open;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_Shop_IllegalWeaponsCartel",
-	{["Shop_IllegalWeaponsCartel"] call A3PL_Shop_Open;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_Shop_BlackMarketCartel",
-	{
-		_rank = ["cartel","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;
-		if(_rank IN ["Boss","UnderBoss","Consigliere","Caporegime","Reserves"]) then {
-			["Shop_BlackMarketCartel"] call A3PL_Shop_Open;
-		} else {
-			["You current doesn't allow you to access this.","red"] call A3PL_Player_notification;
-		};
-	}
 ],
 [
 	"",
@@ -655,7 +618,7 @@
 	localize"STR_QuickActionsNPC_TalkToSheriff",
 	{
 		["police_initial"] call A3PL_NPC_Start;
-		if(((["fisd","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData) IN ["Detective","Reserve","Lieutenant","Captain","Undersheriff","Sheriff"])) then {
+		if(((["fisd","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData) IN ["Detective Sergeant","Detective","Reserve","Lieutenant","Captain","Undersheriff","Sheriff"])) then {
 			player setVariable["FakeIDAccess",true,false];
 		};
 	}
@@ -743,17 +706,6 @@
 	{
 		//if (((count(["uscg"] call A3PL_Lib_FactionPlayers))) < 2) exitwith {[localize"STR_QuickActionsNPC_MinimumUSCGToSpeak","red"] call A3PL_Player_Notification;};
 		["Shop_BlackMarket"] call A3PL_Shop_Open;
-	}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_TalkToTheGunsFMLVendor",
-	{
-		if (["fml",player] call A3PL_DMV_Check) then {
-			["Shop_GunsFML_Vendor"] call A3PL_Shop_Open;
-		} else {
-			[localize"STR_QuickActionsNPC_NoCCP2","red"] call A3PL_Player_Notification;
-		};
 	}
 ],
 [

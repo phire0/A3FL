@@ -56,7 +56,6 @@
 		[[5894.06,7251.83,0],[6830.36,7606.05,0],"Electric Avenue"],
 		[[8800.9,6321.12,0],[8857.23,6325.6,0],"Jason Road"],
 		[[3834.72,7083.22,0],[4145.77,6394.88,0],"DeLaware Avenue"],
-		[[3982.32,6414.85,0],[3904.88,6327.14,0],"Woody Avenue"],
 		[[6918.88,7013.3,0],[7228.06,7170.01,0],"Crimson Avenue"],
 		[[6909.51,7785.59,0],[6772.37,7943.47,0],"Fullman Terrace"],
 		[[4142.62,5951.45,0],[4153.49,6387.6,0],"Fitzcharles Valley"],
@@ -111,10 +110,11 @@
 		[[6055.92,7272.77,0],[5902.71,7283.09,0],"Parker Way"],
 		[[4825.18,5297.39,0],[4572.95,5463.59,0],"Porpoise Drive"],
 		[[4742.87,5697.59,0],[4574.61,5475.42,0],"Porpoise Drive"],
-		[[6938.25,6616.88,0],[6544.73,6602.27,0],"Skidmark Lane"],
 		[[6077.59,7416.95,0],[6155.48,7365.84,0],"That Road"],
 		[[6074.87,7341.08,0],[6047.23,7292.27,0],"This Road"],
-		[[6133.67,7320.36,0],[6202.46,7425.33,0],"The Other Road"]
+		[[6133.67,7320.36,0],[6202.46,7425.33,0],"The Other Road"],
+		[[5693.54,6507.94,0],[5377.16,6660.18,0],"Spike Avenue"],
+		[[5187.94,5771.07,0],[5671.62,6455.01,0],"Dayhart Lane"]
 	];
 
 	Server_Addresses_Roads = [];
@@ -130,7 +130,7 @@
 	} forEach _Server_Roads_Data;
 	publicVariable "Server_Addresses_Roads";
 
-	_buidlingsArray = ["Land_A3PL_Bank","Land_A3PL_Capital","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD","Land_Shop_DED_Shop_01_F","land_smallshop_ded_smallshop_01_f","land_market_ded_market_01_f","Land_Taco_DED_Taco_01_F","Land_A3PL_Gas_Station","Land_A3PL_Garage","Land_John_Hangar","Land_A3PL_CG_Station","land_a3pl_ch","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Warehouse","Land_A3FL_Airport_Hangar","Land_A3FL_Airport_Terminal","Land_A3FL_Barn","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2","Land_A3FL_Office_Building","Land_A3FL_Mansion"];
+	_buidlingsArray = ["Land_A3PL_Bank","Land_A3PL_Capital","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD","Land_Shop_DED_Shop_01_F","land_smallshop_ded_smallshop_01_f","land_market_ded_market_01_f","Land_Taco_DED_Taco_01_F","Land_A3PL_Gas_Station","Land_A3PL_Garage","Land_John_Hangar","Land_A3PL_CG_Station","land_a3pl_ch","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Warehouse","Land_A3FL_Airport_Hangar","Land_A3FL_Airport_Terminal","Land_A3FL_Barn","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2","Land_A3FL_Office_Building","Land_A3FL_Mansion","Land_A3FL_House1_Cream","Land_A3FL_House1_Green","Land_A3FL_House1_Blue","Land_A3FL_House1_Brown","Land_A3FL_House1_Yellow","Land_A3FL_House2_Cream","Land_A3FL_House2_Green","Land_A3FL_House2_Blue","Land_A3FL_House2_Brown","Land_A3FL_House2_Yellow","Land_A3FL_House3_Cream","Land_A3FL_House3_Green","Land_A3FL_House3_Blue","Land_A3FL_House3_Brown","Land_A3FL_House3_Yellow","Land_A3FL_House4_Cream","Land_A3FL_House4_Green","Land_A3FL_House4_Blue","Land_A3FL_House4_Brown","Land_A3FL_House4_Yellow","Land_A3FL_Anton_Modern_Bungalow"];
 	_buildings = nearestObjects [[worldSize/2, worldsize/2, 0], _buidlingsArray, 5000000];
 	{
 		private["_x","_address","_number","_road","_city"];
@@ -154,9 +154,12 @@
 {
 	private _building = param [0,objNull];
 	private _road = "Unknown Street";
-	private _nearestRoad = (_building nearRoads 200) select 0;
+	private _nearestRoad = _building nearRoads 200;
+	if(count(_nearestRoad) isEqualTo 0) exitWith {_road;};
+	_nearestRoad = _nearestRoad select 0;
 	private _roadObject = str(_nearestRoad);
 	private _roadID = parseNumber((_roadObject splitString ":") select 0);
+	if(isNil "_roadID") exitWith {_road;};
 	{
 		private ["_a","_b"];
 		_a = _x select 0;

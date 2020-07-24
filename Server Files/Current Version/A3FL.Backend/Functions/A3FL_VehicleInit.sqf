@@ -109,11 +109,6 @@
 		_container = param [0,objNull];
 		[_container] remoteExec ["Server_Storage_Vehicle", 2];
 	}];
-	_veh addEventHandler ["Killed",{
-		_self = param [0,objNull];
-		[_self] remoteExec ["Server_Fire_VehicleExplode", 2];
-	}];
-
 	_initfunction = !isNil ('A3PL_Vehicle_Init_' + _class);
 
 	if (_initfunction) then
@@ -710,8 +705,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Init_A3FL_LCM", {
-	private ["_veh"];
-	_veh = _this;
+	private _veh = _this;
 	_veh addEventHandler ["GetIn",
 	{
 		_veh = param [0,objNull];
@@ -723,6 +717,14 @@
 		if (_position == "driver") then
 		{
 			[_veh] spawn A3PL_Vehicle_LCMRamp;
+		};
+	}];
+	_veh addEventHandler ["HandleDamage",
+	{
+		private _veh = _this select 0;
+		private _projectile = _this select 4;
+		if (_projectile IN ["B_408_Ball","Sh_105mm_HEAT_MP_T_Red"]) then {
+			_veh setFuel 0;
 		};
 	}];
 }] call Server_Setup_Compile;

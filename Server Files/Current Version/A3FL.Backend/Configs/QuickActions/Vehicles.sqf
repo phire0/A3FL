@@ -1746,6 +1746,12 @@
 		[player_objintersect] call A3PL_JobOil_PumpStart;
 	}
 ],
+
+[
+	"",
+	"Refuel Jerrycan",
+	{[player_objintersect] spawn A3PL_Hydrogen_Connect;}
+],
 [
 	"",
 	localize"STR_INTSECT_CONGASHOSE",

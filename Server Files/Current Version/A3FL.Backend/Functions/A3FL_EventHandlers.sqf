@@ -91,30 +91,43 @@
 				};
 		}, "", [DIK_INSERT, [false, false, false]]] call CBA_fnc_addKeybind;
 
-		// ["ArmA 3 Fishers Life","lockunlock_key", "Lock/Unlock Vehicle",
-		// {
-		// 	if((vehicle player isEqualTo player) && (simulationEnabled cursorObject) && ((player distance cursorObject) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])) then {
-		// 		cursorObject setVariable ["locked",false,true];
-		// 		[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
-		// 		playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
-		// 	};
-		// }, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
+		["ArmA 3 Fishers Life","lockunlock_key", "Lock/Unlock Vehicle",
+		{
+			_veh = objNull;
+			if((vehicle player) isEqualTo player) then {
+				_veh = player_objintersect;
+			} else {
+				_veh = vehicle player;
+			};
+			if(isNull _veh) exitWith {};
+			if(!(_veh IN A3PL_Player_Vehicles)) exitWith {};
+			if((player distance _veh) > 10) exitWith {};
+			if(_veh getVariable ["locked",true]) then {
+				_veh setVariable ["locked",false,true];
+				[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
+				playSound3D ["A3PL_Common\effects\carunlock.ogg", _veh, true, _veh, 3, 1, 30];
+			} else {
+				_veh setVariable ["locked",true,true];
+				[localize "STR_INTER_LOCKVD", "red"] call A3PL_Player_Notification;
+				playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", _veh, true, _veh, 3, 1, 30];
+			};
+		}, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","trunk_key", "Open/Close Vehicle Trunk",
 		{
 			private["_veh"];
-			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
-
-			if(vehicle player == player) then {
+			if (animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
+			if((vehicle player) isEqualTo player) then {
 				_veh = player_objintersect;
 			} else {
 				_veh = vehicle player;
 			};
 
-			if(!(_veh isKindOf "Car")) exitWith {};
+			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {};
 			if ((player distance _veh > 5)) exitWith {};
-			if ((_veh getVariable["locked",true])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
+			if ((_veh getVariable["locked",false])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
 			if(isNull _veh || {isNil '_veh'}) exitWith {};
+			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && ((_veh getVariable["owner",""]) != (getPlayerUID player))) exitWith {};
 			if([typeOf (_veh)] call A3PL_Config_HasStorage) then {
 				[_veh] call A3PL_Vehicle_OpenStorage;
 			};
@@ -125,7 +138,7 @@
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			player setVariable ["inventory_opened", nil, true];
 			if (!([] call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
-			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
+			if (animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			call A3PL_iPhoneX_Locked;
 		}, "", [DIK_G, [false, false, false]]] call CBA_fnc_addKeybind;
 
@@ -134,10 +147,11 @@
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			if(!dialog) then {[] spawn A3PL_iPhoneX_appTwitterPost;};
-		}, "", [DIK_U, [false, false, false]]] call CBA_fnc_addKeybind;
+		}, "", [DIK_U, [false, true, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","holster_gun", "Holster/Unholster",
 		{
+			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			if (currentWeapon player != "") exitWith {
 				A3PL_Holster = currentWeapon player;
 				player action ["SwitchWeapon", player, player, 100];
@@ -167,6 +181,7 @@
 
 		["ArmA 3 Fishers Life","e_inventory", "Virtual Inventory",
 		{
+			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			if(vehicle player == player) then {
 				if (!isNull (findDisplay 1001)) exitWith
 				{
@@ -221,7 +236,7 @@
 
 		["ArmA 3 Fishers Life","animation_1", "(Animation) Hello",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "Gesture_wave";
 				true;
@@ -230,7 +245,7 @@
 
 		["ArmA 3 Fishers Life","animation_2", "(Animation) Finger",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "Gesture_finger";
 				true;
@@ -239,7 +254,7 @@
 
 		["ArmA 3 Fishers Life","animation_3", "(Animation) Watching",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "Gesture_watching";
 				true;
@@ -248,7 +263,7 @@
 
 		["ArmA 3 Fishers Life","animation_4", "(Animation) Dance 1",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				if ((animationState player) != "A3PL_Dance_House1") then
 				{
@@ -264,7 +279,7 @@
 
 		["ArmA 3 Fishers Life","animation_5", "(Animation) Dance 2",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				if ((animationState player) != "A3PL_Dance_Samba") then
 				{
@@ -280,7 +295,7 @@
 
 		["ArmA 3 Fishers Life","animation_6", "(Animation) Dab",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "gesture_dab";
 				true;
@@ -289,7 +304,7 @@
 
 		["ArmA 3 Fishers Life","animation_7", "(Animation) Naruto Run",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "Foski_StopNarutoRun";
 				true;
@@ -298,7 +313,7 @@
 
 		["ArmA 3 Fishers Life","animation_8", "(Animation) Dance 3",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				if ((animationState player) != "Acts_Dance_01") then
 				{
@@ -314,7 +329,7 @@
 
 		["ArmA 3 Fishers Life","animation_9", "(Animation) Dance 4",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				if ((animationState player) != "Acts_Dance_02") then
 				{
@@ -364,8 +379,7 @@
 	{
 		private _weapon = param [1,""];
 		private _ammo = param [4,""];
-
-		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Scythe","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver"]) then
+		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
 		{
 			player playAction "GestureSwing";
 			if (player inArea "LumberJack_Rectangle") then {

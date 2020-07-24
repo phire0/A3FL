@@ -70,8 +70,15 @@
 		{
       		[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 		};
-		if(_type == "impound") then {
-			_price = 2000;
+		if (_type == "impound") then{
+			_vehPrice = [_class] call A3PL_Config_GetVehicleMSRP;
+			_price = 0;
+			if (_VehPrice < 150000) then{
+				_price = _vehPrice * 0.05;
+			}
+			else {
+				_price = _vehPrice * 0.02;
+			};
 			_cash = player getVariable ["player_cash",0];
 			_bank = player getVariable ["player_bank",0];
 			if (_price > _cash) then {
@@ -84,10 +91,18 @@
 				[format[localize"STR_NewStorage_5",_price],"red"] call A3PL_Player_Notification;
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
-			["Federal Reserve",_lockerPrice] remoteExec ["Server_Government_AddBalance",2];
+			//Put money into Federal Reserve
+			["Federal Reserve",_Price] remoteExec ["Server_Government_AddBalance",2];
 		};
 		if(_type == "airimpound") then {
-			_price = 8000;
+			_vehPrice = [_class] call A3PL_Config_GetVehicleMSRP;
+			_price = 0;
+			if (_VehPrice < 150000) then{
+				_price = _vehPrice * 0.05;
+			}
+			else {
+				_price = _vehPrice * 0.02;
+			};
 			_cash = player getVariable ["player_cash",0];
 			_bank = player getVariable ["player_bank",0];
 			if (_price > _cash) then {
@@ -100,10 +115,18 @@
 				[format[localize"STR_NewStorage_5",_price],"red"] call A3PL_Player_Notification;
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
-			["Federal Reserve",_lockerPrice] remoteExec ["Server_Government_AddBalance",2];
+			//Put money into Federal Reserve
+			["Federal Reserve",_Price] remoteExec ["Server_Government_AddBalance",2];
 		};
 		if(_type == "chopshop") then {
-			_price = 8000;
+			_vehPrice = [_class] call A3PL_Config_GetVehicleMSRP;
+			_price = 0;
+			if (_VehPrice < 150000) then{
+				_price = _vehPrice * 0.07;
+			}
+			else {
+				_price = _vehPrice * 0.04;
+			};
 			_cash = player getVariable ["player_cash",0];
 			_bank = player getVariable ["player_bank",0];
 			if (_price > _cash) then {
@@ -117,6 +140,8 @@
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
 		};
+		//Put money into Federal Reserve
+		["Federal Reserve", _Price] remoteExec["Server_Government_AddBalance", 2];
 		if(_type == "vehicle") then {
 			[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 		};

@@ -186,7 +186,7 @@
 	_maxlength = 0;
 	_setdir = 270;
 
-	if (typeOf _hose == "A3PL_Gas_Hose") then
+	if ((typeOf _hose) isEqualTo "A3PL_Gas_Hose") then
 	{
 		switch (true) do
 		{
@@ -197,6 +197,7 @@
 			case (_classname IN ["A3PL_RBM"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.1,0,0];};
 			case (_classname IN ["A3PL_CLS63"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0,0,0];};
 			case (_classname IN ["A3PL_Urus"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
+			case (_classname isEqualTo "A3PL_JerryCan"): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.3,0,0.2];};
 			case (_classname IN ["A3PL_Taurus","A3PL_Taurus_PD","A3PL_Taurus_PD_ST"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
 			default {_vector = [[0.320857,-0.0197785,-0.946921],[0.946907,0.0282805,0.320261]];_attachTo = [-0.1,0,0];_maxlength = 7;};
 		};
@@ -312,6 +313,7 @@
 		};
 
 		_car = attachedTo _intersect;
+		if((typeOf _car) isEqualTo "A3PL_JerryCan") exitWith {[_intersect] call A3PL_Hydrogen_FuelJerry;};
 		if ((isNull _car) or (!(_car isKindOf "Car"))) exitwith {[localize"STR_NewHydrogen_22", "red"] call A3PL_Player_Notification;};
 
 		if (!local _car) exitwith {[localize"STR_NewHydrogen_23", "red"] call A3PL_Player_Notification;};
@@ -451,6 +453,97 @@
 			};
 		} foreach nearestObjects [_tank,[],5];
 	};
+}] call Server_Setup_Compile;
+
+["A3PL_Hydrogen_FuelJerry",
+{
+	private _intersect = param [0,objNull];
+	if (isNil "CBA_fnc_formatNumber") exitwith {["localizeCSTR_NewHydrogen_19", "red"] call A3PL_Player_Notification;};
+	if (!((typeOf _intersect) isEqualTo "A3PL_Gas_Hose")) exitwith {[localize"STR_NewHydrogen_20", "red"] call A3PL_Player_Notification;};
+
+	private _tank = nearestObjects [player, ["A3PL_Gas_Box"], 30];
+	if (count _tank == 0) exitwith {[localize"STR_NewHydrogen_21", "red"] call A3PL_Player_Notification;};
+	_tank = _tank select 0;
+
+	if (_intersect animationPhase "gasTurn" > 0) exitwith
+	{
+		_intersect animate ["gasTurn",0];
+		{
+			_type = format["%1",typeOf _x];
+			if(_type isEqualTo "#dynamicsound") then {
+				deleteVehicle _x;
+			};
+		} foreach nearestObjects [_tank,[],5];
+	};
+
+	private _jerry = attachedTo _intersect;
+	if((_jerry getVariable["class",""]) isEqualTo "jerrycan") exitwith {["This jerrycan is already full", "red"] call A3PL_Player_Notification;};
+	private _station = nearestObjects [_tank,["Land_A3PL_Gas_Station"],10];
+	if ((count _station) < 1) exitwith {[localize"STR_NewHydrogen_24", "red"] call A3PL_Player_Notification;};
+	_station = _station select 0;
+	if (!(_station getVariable ["pumpEnabled",true])) exitwith {
+		[localize"STR_NewHydrogen_25","red"] call A3PL_Player_Notification;
+	};
+	if ((_station getVariable ["petrol",0]) <= 0) exitwith {[localize"STR_NewHydrogen_26","red"] call A3PL_Player_Notification;};
+	createSoundSource ["A3PL_GasPump",getpos _tank, [], 0];
+
+	_intersect animate ["gasTurn",1];
+	private _i = 0;
+	waitUntil {sleep 0.1; _i = _i + 0.1; if (_i > 5) exitwith {true}; (_intersect animationPhase "gasTurn" > 0)};
+
+	private _gallonPrice = _station getVariable ["gallonprice",DEFGALLONPRICE];
+	private _myPrice = 0;
+	private _totalGallons = 0;
+	private _full = false;
+	while {(_intersect animationPhase "gasTurn" > 0) && ((attachedTo _intersect) isEqualTo _jerry) && ((_station getVariable ["petrol",0]) > 0)} do
+	{
+		_gallons = 0.25 + random 0.15;
+		_totalGallons = _totalGallons + _gallons;
+		_myPrice = round(_gallonPrice * _totalGallons);
+
+		[_station,1,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myPrice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
+		[_station,2,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myPrice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
+		[_station,3,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myPrice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
+		if (_totalGallons >= 5) exitwith {_full = true;};
+		_newgas = (_station getVariable ["petrol",0]) - _gallons;
+		if (_newGas < 0) then {_newGas = 0;};
+		_station setVariable ["petrol",_newGas,true];
+		sleep 1;
+	};
+	if(_full) then {_jerry setVariable["class","jerrycan",true];};
+
+	if ((_station getVariable ["petrol",0]) <= 0) then {[localize"STR_NewHydrogen_27","red"] call A3PL_Player_Notification;};
+	[format [localize"STR_NewHydrogen_28",_myPrice], "green"] call A3PL_Player_Notification;
+	_station setVariable [format ["pump%1",1],[[_totalGallons,1,2] call CBA_fnc_formatNumber,[_myPrice,1,2] call CBA_fnc_formatNumber],true];
+	
+
+	_sOUID = _station getVariable ["bOwner","0"];
+	_sOwner = nil;
+	_sValidOwner = false;
+
+	if(_sOUID != "0") then {
+		{
+			if((getPlayerUID _x) isEqualTo _sOUID) exitwith {_sOwner = _x; _sValidOwner = true;};
+		} forEach allPlayers;
+	};
+
+	if(_sOUID != (getPlayerUID player)) then {
+		if(_sValidOwner) then {
+			[player,_sOwner,_myPrice,_station,true] remoteExec ["Server_Fuel_Pay", 2];
+		} else {
+			[player,objNull,_myPrice,_station,false] remoteExec ["Server_Fuel_Pay", 2];
+		};
+	} else {
+		[localize"STR_NewHydrogen_29", "yellow"] call A3PL_Player_Notification;
+	};
+
+	_intersect animate ["gasTurn",0];
+	{
+		_type = format["%1",typeOf _x];
+		if(_type isEqualTo "#dynamicsound") then {
+			deleteVehicle _x;
+		};
+	} foreach nearestObjects [_tank,[],5];
 }] call Server_Setup_Compile;
 
 ["A3PL_Hydrogen_StorageSwitch",

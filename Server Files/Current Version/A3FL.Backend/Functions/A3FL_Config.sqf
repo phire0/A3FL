@@ -7,33 +7,26 @@
 */
 
 ["A3PL_Config_GetItem", {
-	private ["_class", "_Search", "_config", "_return"];
-
-	_class = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";
-
-	if (_class == "") exitWith {false};
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
+	if (_class isEqualTo "") exitWith {false};
 
 	{
 		if((_x select 0) == _class) exitWith {_config = _x;};
 	} forEach Config_Items;
-	
-	if (count _config == 0) exitwith {false;};
+	if ((count _config) isEqualTo 0) exitwith {false;};
 
 	switch (_search) do {
-		default { _return = _config; };
-		case "name": {			
-			_return = _config select 1; 
-			if (_return == "inh") then 
-			{
+		default {_return = _config;};
+		case "name": {
+			_return = _config select 1;
+			if (_return isEqualTo "inh") then {
 				_return = getText (configFile >> "CfgVehicles" >> (_config select 3) >> "displayName");
 			};
 		};
-		case "icon": {
-			_return = getText (configFile >> "CfgVehicles" >> (_config select 3) >> "picture");
-		};
+		case "icon": {_return = getText (configFile >> "CfgVehicles" >> (_config select 3) >> "picture");};
 		case "weight": { _return = _config select 2; };
 		case "class": { _return = _config select 3; };
 		case "dir": { _return = _config select 4; };
@@ -51,15 +44,13 @@
 
 ["A3PL_Config_GetLicense",
 {
-	private ["_class", "_search","_config"];
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
 
-	_class = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";	
-	
 	{
-		if((_x select 0) == _class) exitWith {_config = _x;};
+		if((_x select 0) isEqualTo _class) exitWith {_config = _x;};
 	} forEach Config_Licenses;
 
 	switch (_search) do {
@@ -68,16 +59,14 @@
 		case "type": { _return = _config select 2; };
 		case "issuer": { _return = _config select 3; };
 	};
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetPaycheckInfo", {
-	private ["_class", "_search", "_config", "_return"];
-
-	_class = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
 
 	{
 		if((_x select 0) isEqualTo _class) exitWith {_config = _x;};
@@ -91,11 +80,10 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetFood", {
-	private ["_class", "_Search", "_config", "_return"];
-	_class = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
 
 	{
 		if((_x select 0) isEqualTo _class) then {_config = _x;};
@@ -106,17 +94,15 @@
 		case "quality": { _return = _config select 1; };
 		case "drug": { _return = _config select 2; };
 	};
-
 	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetThirst",
 {
-	private ["_class", "_Search", "_config", "_return"];
-	_class = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
 
 	{
 		if((_x select 0) isEqualTo _class) exitWith {_config = _x;};
@@ -131,11 +117,10 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_HasStorage", {
-	private ["_class", "_return"];
-	_class = param [0,""];
-	_return = false;
+	private _class = param [0,""];
+	private _return = false;
 	{
-		if((_x select 0) == _class) then {
+		if((_x select 0) == _class) exitWith {
 			_return = true;
 		};
 	} forEach Config_Vehicles_Capacity;
@@ -143,88 +128,79 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetVehicleCapacity", {
-	private ["_class", "_return"];
-	_class = param [0,""];
-	_return = 0;
+	private _class = param [0,""];
+	private _return = 0;
 	{
-		if((_x select 0) == _class) then {
+		if((_x select 0) == _class) exitWith {
 			_return = _x select 1;
 		};
 	} forEach Config_Vehicles_Capacity;
 	_return;
 }] call Server_Setup_Compile;
 
+["A3PL_Config_GetVehicleMSRP", {
+	private _class = param[0,""];
+	private _return = 0;
+	{
+		if ((_x select 0) == _class) exitWith {
+			_return = _x select 1;
+		};
+	} forEach Config_Vehicles_MSRP;
+	_return;
+}] call Server_Setup_Compile;
+
 ["A3PL_Config_GetShop", {
-	private ["_class", "_Search","_itemClass", "_config", "_return"];
-	_class = param [0,""];
-	_itemClass = param [1,""];
-	_search = param [2,""];
-	_config = [];
-	_return = "";
+	private _class = param [0,""];
+	private _itemClass = param [1,""];
+	private _search = param [2,""];
+	private _config = [];
+	private _return = "";
 
 	{
-		if(_x select 0 == _class) exitwith {
-			if (_itemClass == "pos") then {
+		if((_x select 0) == _class) exitwith {
+			if (_itemClass isEqualTo "pos") then {
 				_config = _x select 2;
 			} else {
 				_config = _x select 1;
 			};
 		};
 	} forEach Config_Shops_Items;
-	
-	if (_search == "") exitwith {
-		_return = _config;
-		_return;
-	};
+	_config;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetLevel", {
-	private ["_levels","_class", "_search", "_config", "_return"];
-	_levels = [[0,20],[1,65],[2,100],[3,140],[4,200],[5,240],[6,320],[7,400],[8,480],[9,530],[10,680],[11,720],[12,810],[13,950],[14,1000],[15,1150],[16,1220],[17,1300],[18,1390],[19,1420],[20,1535],[21,1655],[22,1790],[23,1929],[24,2000],[25,2120],[26,2250],[27,2380],[28,2520],[29,2630],[30,2750],[31,2820],[32,2960],[33,3050],[34,3100],[35,3170],[36,3205],[37,3240],[38,3265],[39,3298],[40,3350],[41,3400],[42,3490],[43,3550],[44,3590],[45,3620],[46,3690],[47,3750],[48,3790],[49,3820],[50,3850],[51,3910],[52,3950],[53,3980],[54,4020],[55,4090],[56,4150],[57,4195],[58,4230],[59,4280],[60,4300],[61,4330],[62,4360],[63,4390],[64,4400],[65,4420],[66,4445],[67,4465],[68,4470],[69,4490],[70,4500],[71,4550],[72,4590],[73,4620],[74,4650],[75,4680],[76,4700],[77,4720],[78,4735],[79,4753],[80,4780],[81,4810],[82,4850],[83,4890],[84,4910],[85,4935],[86,4950],[87,4980],[88,5000],[89,5060],[90,5180],[91,5250],[92,5290],[93,5350],[94,5390],[95,5420],[96,5465],[97,5485],[98,5506],[99,5580],[100,5900]];
-	_class = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";
+	private _levels = [[0,20],[1,65],[2,100],[3,140],[4,200],[5,240],[6,320],[7,400],[8,480],[9,530],[10,680],[11,720],[12,810],[13,950],[14,1000],[15,1150],[16,1220],[17,1300],[18,1390],[19,1420],[20,1535],[21,1655],[22,1790],[23,1929],[24,2000],[25,2120],[26,2250],[27,2380],[28,2520],[29,2630],[30,2750],[31,2820],[32,2960],[33,3050],[34,3100],[35,3170],[36,3205],[37,3240],[38,3265],[39,3298],[40,3350],[41,3400],[42,3490],[43,3550],[44,3590],[45,3620],[46,3690],[47,3750],[48,3790],[49,3820],[50,3850],[51,3910],[52,3950],[53,3980],[54,4020],[55,4090],[56,4150],[57,4195],[58,4230],[59,4280],[60,4300],[61,4330],[62,4360],[63,4390],[64,4400],[65,4420],[66,4445],[67,4465],[68,4470],[69,4490],[70,4500],[71,4550],[72,4590],[73,4620],[74,4650],[75,4680],[76,4700],[77,4720],[78,4735],[79,4753],[80,4780],[81,4810],[82,4850],[83,4890],[84,4910],[85,4935],[86,4950],[87,4980],[88,5000],[89,5060],[90,5180],[91,5250],[92,5290],[93,5350],[94,5390],[95,5420],[96,5465],[97,5485],[98,5506],[99,5580],[100,5900]];
+	private _class = param [0,0];
+	private _return = 0;
 
 	{
-		if((_x select 0) == _class) exitWith {_config = _x;};
+		if((_x select 0) isEqualTo _class) exitWith {_return = _x select 1;};
 	} forEach _levels;
-	switch (_search) do {
-		default {_return = false;};
-		case "next": {_return = _config select 1;};
-	};
 	_return;
 }] call Server_Setup_Compile;
 
-//Select from Config_Factories
 ["A3PL_Config_GetFactory",
 {
-	private ["_class","_factory","_search", "_config", "_return"];
+	private _class = param [0,""];
+	private _factory = param [1,""];
+	private _search = param [2,""];
+	private _config = [];
+	private _return = false;
 
-	_class = param [0,""];
-	_factory = param [1,""];
-	_search = param [2,""];
-	_config = [];
-	_return = "";
-	
 	{
-		if(_x select 0 == _factory) then 
-		{
-			_config = [] + _x; //save a copy to prevent deleteAt delete the title from main factory config
+		if((_x select 0) isEqualTo _factory) exitWith {
+			_config append _x;
 		};
 	} forEach Config_Factories;
-	
-	if (_class == "all") exitwith { _return = _config; _return deleteAt 0; _return deleteAt 0; _return;};
-	if (_class == "pos") exitwith { _return = _config select 1; _return;};
-	
-	//we are looking for individual recipe info
-	
-	_config deleteAt 0; //dont need title, array shifting
-	_config deleteAt 0; //dont need pos
+
+	if (_class isEqualTo "all") exitwith { _return = _config; _return deleteAt 0; _return deleteAt 0; _return;};
+	if (_class isEqualTo "pos") exitwith { _return = _config select 1; _return;};
+
+	_config deleteRange [0, 1];
 	{
-		if (_x select 0 == _class) then {_config = _x};
-	} foreach _config; //we get the item here
-	switch (_search) do { //look for
+		if ((_x select 0) isEqualTo _class) exitWith {_config = _x};
+	} foreach _config;
+	switch (_search) do {
 		case "id": { _return = _config select 0; };
 		case "parent": { _return = _config select 1; };
 		case "name": { _return = _config select 2; };
@@ -237,22 +213,18 @@
 		case "output": { _return = _config select 9; };
 		case "faction": { _return = _config select 10; };
 		case "xp": { _return = _config select 11; };
-		default { _return = false; };
-	};		
-
-	_return;	
+		case "level": { _return = _config select 12; };
+	};
+	_return;
 }] call Server_Setup_Compile;
 
-//Select from player_factory variable
 ["A3PL_Config_GetPlayerFactory",
 {
-	private ["_class", "_Search", "_config", "_return"];
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
 
-	_class = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";
-	
 	{
 		if ((_x select 0) == _class) exitWith {
 			_config = _x;
@@ -271,62 +243,52 @@
 		case "finish": { _return = _config select 7; };
 		case "count": { _return = _config select 8; };
 	};
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
-//Select from player_fstorage var
 ["A3PL_Config_GetPlayerFStorage",
 {
-	private ["_class", "_Search", "_config", "_return","_player"];
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _player = param [2,player];
+	private _config = [];
+	private _return = "";
 
-	_class = param [0,""];
-	_search = param [1,""];
-	_player = param [2,player];
-	_config = [];
-	_return = "";
-	
 	{
 		if ((_x select 0) == _class) then {
 			_config = _x;
 		};
 	} forEach (_player getVariable ["player_fStorage",[]]);
-	
-	if (count _config == 0) exitwith {_return = false; _return;};
+	if ((count _config) isEqualTo 0) exitwith {false;};
 
 	switch (_search) do {
 		default { _return = false; };
-		case "type": { _return = _config select 0; }; //fac type
-		case "items": { _return = _config select 1; }; //the array with items in this storage
+		case "type": { _return = _config select 0; };
+		case "items": { _return = _config select 1; };
 	};
-
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
-//Select from Config_Garage_Upgrade
 ["A3PL_Config_GetGarageUpgrade",
 {
-	private ["_class","_typeOf","_search", "_config", "_return"];
+	private _class = param [0,""];
+	private _typeOf = param [1,""];
+	private _search = param [2,""];
+	private _config = [];
+	private _return = "";
 
-	_class = param [0,""]; //id to search
-	_typeOf = param [1,""]; //classname of veh
-	_search = param [2,""]; //info to search
-	_config = [];
-	_return = "";
-	
 	{
-		if(_x select 0 == _typeOf) then 
-		{
+		if((_x select 0) isEqualTo _typeOf) exitWith {
 			_config = [] + _x; //save a copy to prevent deleteAt delete the title from main factory config
 		};
 	} forEach Config_Garage_Upgrade;
-	
-	if (_class == "all") exitwith { _return = _config; _return deleteAt 0; _return;};
-	
+	if (_class isEqualTo "all") exitwith {_config deleteAt 0;_config;};
+
 	_config deleteAt 0; //dont need typeof, array shifting
 	{
-		if (_x select 0 == _class) then {_config = _x};
-	} foreach _config; //we get the item here
-	switch (_search) do { //look for
+		if ((_x select 0) == _class) then {_config = _x};
+	} foreach _config;
+	switch (_search) do {
 		case "id": { _return = _config select 0; }; //id
 		case "type": { _return = _config select 1; }; //upgrade type
 		case "class": { _return = _config select 2; }; //upgrade class
@@ -339,113 +301,101 @@
 		case "level": { _return = _config select 9; }; //required level
 		default { _return = false; };
 	};
-
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
-//Select from config the textures
 ["A3PL_Config_GetGaragePaint",
 {
-	private ["_class","_typeOf","_search", "_config", "_return"];
-
-	_class = param [0,""]; //id to search
-	_typeOf = format ["%1_Textures",(param [1,""])]; //classname of veh
-	_search = param [2,""]; //info to search
-	_faction = param [3,""];
-	_config = [];
-	_return = "";
+	private _class = param [0,""];
+	private _typeOf = format ["%1_Textures",(param [1,""])];
+	private _search = param [2,""];
+	private _faction = param [3,""];
+	private _config = [];
+	private _return = "";
 	{
 		_name = (getText (configFile >> "CfgVehicles" >> _typeOf >> "Skins" >> (configName _x) >> "Name"));
 		_requiredJob = getText (configFile >> "CfgVehicles" >> _typeOf >> "Skins" >> (configName _x) >> "faction");
 		if((_faction isEqualTo _requiredJob) || (_requiredJob isEqualTo "citizen")) then {
-				_config = _config + [[(configName _x),(getArray (configFile >> "CfgVehicles" >> _typeOf >> "Skins" >> (configName _x) >> "Texture_Path")),_name]];
+			_config = _config + [[(configName _x),(getArray (configFile >> "CfgVehicles" >> _typeOf >> "Skins" >> (configName _x) >> "Texture_Path")),_name]];
 		};
 	} forEach ("true" configClasses (configFile >> "CfgVehicles" >> _typeOf >> "Skins"));
 
-	if (_class == "all") exitwith { _return = _config; _return;};
-	
-	{if ((_x select 0) == _class) exitWith {_config = _x};} foreach _config;
+	if (_class isEqualTo "all") exitwith {_config;};
+	{
+		if ((_x select 0) isEqualTo _class) exitWith {
+			_config = _x
+		};
+	} foreach _config;
 
 	switch (_search) do {
-		case "id": { _return = _config select 0; }; //id
-		case "file": { _return = _config select 1; }; //texture file
-		case "title": { _return = _config select 2; }; //name of skin
-		default { _return = false; };
-	};
-	_return;	
-}] call Server_Setup_Compile;
-
-["A3PL_Config_GetGarageRepair",
-{
-	private ["_class","_search", "_config", "_return"];
-
-	_class = param [0,""]; //id to search
-	_search = param [1,""]; //info to search
-	_config = [];
-	_return = "";
-	
-	{
-		if(_x select 0 == _class) then 
-		{
-			_config = [] + _x;
-		};
-	} forEach Config_Garage_Repair;
-	
-	if (count _config == 0) exitwith {_return = false; _return};
-
-	switch (_search) do { //look for
-		case "id": { _return = _config select 0; }; //id
-		case "title": { _return = _config select 1; }; //name of repair
+		case "id": { _return = _config select 0; };
+		case "file": { _return = _config select 1; };
+		case "title": { _return = _config select 2; };
 		default { _return = false; };
 	};
 	_return;
 }] call Server_Setup_Compile;
 
-//get faction ranks
+["A3PL_Config_GetGarageRepair",
+{
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
+
+	{
+		if((_x select 0) isEqualTo _class) then  {
+			_config append _x;
+		};
+	} forEach Config_Garage_Repair;
+
+	if ((count _config) isEqualTo 0) exitwith {false;};
+	switch (_search) do {
+		case "id": { _return = _config select 0; };
+		case "title": { _return = _config select 1; };
+		default { _return = false; };
+	};
+	_return;
+}] call Server_Setup_Compile;
+
 ["A3PL_Config_GetRanks",
 {
-	private ["_class","_search", "_config", "_return", "_index"];
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
+	private _index = -1;
 
-	_class = param [0,""]; //id to search
-	_search = param [1,""]; //info to search
-	_config = [];
-	_return = "";
-	_index = -1;
-	
 	{
-		if(_x select 0 == _class) then 
-		{
-			_config = [] + _x; //save a copy to prevent deleteAt delete the title from main config
+		if((_x select 0) == _class) exitWith {
+			_config append _x;
 			_index = _forEachIndex;
 		};
 	} forEach Server_Government_FactionRanks;
-	
-	if (count _config == 0) exitwith {_return = [[],_index]; _return};
-	switch (_search) do { //look for
+
+	if ((count _config) isEqualTo 0) exitwith {[[],_index];};
+	switch (_search) do {
 		case "faction": { _return = _config select 0; };
 		case "ranks": { _return = _config select 1; };
 		default { _return = false; };
-	};		
-	_return = [_return,_index]; //this function also returns the index
-	_return;	
+	};
+	_return = [_return,_index];
+	_return;
 }] call Server_Setup_Compile;
 
-//get stuff from Config_Medical_Wounds
 ["A3PL_Config_GetWound",
 {
-	private ["_class", "_Search", "_config", "_return"];
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
 
-	_class = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";
-
-	if (_class == '') exitWith {false};
+	if (_class isEqualTo "") exitWith {false};
 
 	{
 		if((_x select 0) isEqualTo _class) exitWith {_config = _x;};
 	} forEach Config_Medical_Wounds;
-	if (count _config == 0) exitwith {false;};
+	if ((count _config) isEqualTo 0) exitwith {false;};
 
 	switch (_search) do {
 		default { _return = _config; };
@@ -464,30 +414,27 @@
 
 ["A3PL_Config_GetTaxes",
 {
-	private ["_class","_return"];
-	_class = param [0,""];
-	_return = "";
+	private _class = param [0,""];
+	private _return = "";
 	{
 		if((_x select 0) == _class) exitWith  {_return = _x select 1;};
 	} forEach Config_Government_Taxes;
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetFactionRankData",
 {
-	private ["_faction", "_config","_rankData","_search","_UID"];
+	private _faction = param [0,""];
+	private _search = param [1,""];
+	private _UID = param [2,""];
+	private _config = [];
+	private _rankData = [];
+	private _return = "";
 
-	_faction = param [0,""];
-	_search = param [1,""];
-	_UID = param [2,""];
-	_config = [];
-	_rankData = [];
-	_return = "";
-
-	if (_faction == "") exitWith {false;};
+	if (_faction isEqualTo "") exitWith {false;};
 
 	{
-		if((_x select 0) == _faction) exitWith {
+		if((_x select 0) isEqualTo _faction) exitWith {
 			_config = _x select 1;
 		};
 	} forEach Server_Government_FactionRanks;
@@ -498,7 +445,7 @@
 		};
 	} forEach _config;
 
-	if ((count _rankData) == 0) then {_rankData = ["Reserve",[getPlayerUID player],0];};
+	if ((count _rankData) isEqualTo 0) then {_rankData = ["Reserve",[getPlayerUID player],0];};
 	switch (_search) do {
 		default { _return = _rankData; };
 		case "rank": { _return = _rankData select 0; };
@@ -509,9 +456,8 @@
 
 ["A3PL_Config_GetBalance",
 {
-	private ["_job", "_balance"];
-	_job = param [0,""];
-	_balance = "";
+	private _job = param [0,""];
+	private _balance = "";
 	switch (_job) do {
 		case ("fisd"): {_balance = "Sheriff Department"};
 		case ("uscg"): {_balance = "US Coast Guard"};
@@ -526,71 +472,64 @@
 
 ["A3PL_Config_InCompany",
 {
-	private ["_uid","_return"];
-	_uid = param [0,""];
-	_return = false;
+	private _uid = param [0,""];
+	private _return = false;
 	{
 		for "_i" from 0 to count(_x select 3) do {
 			if(_uid == ((_x select 3) select _i) select 0) exitWith  {_return = true;};
-		}; 
+		};
 	} forEach Server_Companies;
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_IsCompanyBoss",
 {
-	private ["_uid","_return"];
-	_uid = param [0,""];
-	_return = false;
+	private _uid = param [0,""];
+	private _return = false;
 	{
-		if(_uid == (_x select 2)) exitwith {_return = true;};
+		if(_uid isEqualTo (_x select 2)) exitwith {_return = true;};
 	} forEach Server_Companies;
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetCompanyPay",
 {
-	private ["_uid", "_return"];
-
-	_uid = param [0,""];
-	_return = 0;
-
+	private _uid = param [0,""];
+	private _return = 0;
 	{
 		for "_i" from 0 to count(_x select 3) do {
-			if(_uid == ((_x select 3) select _i) select 0) exitWith  {
+			if(_uid isEqualTo ((_x select 3) select _i) select 0) exitWith  {
 				_return = ((_x select 3) select _i) select 1;
 			};
 		};
 	} forEach Server_Companies;
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetCompanyID",
 {
-	private ["_uid", "_return"];
-
-	_uid = param [0,""];
-	_return = 0;
-
+	private _uid = param [0,""];
+	private _return = 0;
 	{
 		for "_i" from 0 to count(_x select 3) do {
-			if(_uid == ((_x select 3) select _i) select 0) exitWith  {
+			if(_uid isEqualTo ((_x select 3) select _i) select 0) exitWith  {
 				_return = _x select 0;
 			};
 		};
 	} forEach Server_Companies;
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetCompanyData",
 {
-	private ["_id", "_return"];
-	_id = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";
+	private _id = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
 
-	{if(_id == (_x select 0)) exitWith  {_config = _x;};} forEach Server_Companies;
+	{
+		if(_id isEqualTo (_x select 0)) exitWith {_config = _x;};
+	} forEach Server_Companies;
 	switch (_search) do {
 		default {_return = _config;};
 		case "id": { _return = _config select 0; };
@@ -603,42 +542,25 @@
 	_return;
 }] call Server_Setup_Compile;
 
-["A3PL_Config_GetInsurancePrice",
-{
-	private ["_veh", "_class", "_return"];
-	_veh = param [0,objNull];
-	_class = typeOf _veh;
-	_return = 150000;
-	{
-		if((_x select 0) == _class) exitWith {
-			_return = (_x select 1);
-		};
-	} forEach Config_Vehicles_Insurance;
-	_return;
-}] call Server_Setup_Compile;
-
 ["A3PL_Config_isTaxed",
 {
-	private ["_class", "_return"];
-	_class = param [0,""];
-	_return = false;	
-	
+	private _class = param [0,""];
+	private _return = false;
 	{
-		if(_x select 0 == _class) exitWith {_return = true;};
+		if((_x select 0) == _class) exitWith {_return = true;};
 	} forEach Config_Shops_TaxSystem;
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetTaxSeting",
 {
-	private ["_class", "_search","_config"];
-	_class = param [0,""];
-	_search = param [1,""];
-	_config = [];
-	_return = "";	
-	
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _config = [];
+	private _return = "";
+
 	{
-		if(_x select 0 == _class) exitWith {
+		if((_x select 0) == _class) exitWith {
 			_config = _x;
 		};
 	} forEach Config_Shops_TaxSystem;
@@ -647,14 +569,13 @@
 		case "budget": {_return = _config select 1;};
 		case "tax": {_return = _config select 2;};
 	};
-	_return;	
+	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_CanUseBargate", {
-	private ["_class","_return","_pFaction"];
-	_pos = param [0,[0,0,0]];
-	_return = true;
-	_pFaction = player getVariable["faction","unemployed"];
+	private _pos = param [0,[0,0,0]];
+	private _return = true;
+	private _pFaction = player getVariable["faction","unemployed"];
 	{
 		if(((_x select 0) distance _pos) < 10) then {
 			if(!(_pFaction IN (_x select 1))) exitWith {

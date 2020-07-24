@@ -22,6 +22,7 @@
 	missionNameSpace setVariable ["A3PL_JobRoadworker_Timer",(diag_ticktime + (60 + random 3))];
 
 	["You succesfully repaired a terrain object and earned $10", "green"] call A3PL_Player_Notification;
+	[player, 1] call A3PL_Level_AddXP;
 	[player, 'Player_Cash', ((player getVariable 'Player_Cash')  + 10)] remoteExec ["Server_Core_ChangeVar",2];
 }] call Server_Setup_Compile;
 
