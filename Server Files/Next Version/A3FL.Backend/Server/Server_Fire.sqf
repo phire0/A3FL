@@ -18,23 +18,31 @@
 	};
 },true] call Server_Setup_Compile;
 
+["Server_Fire_Destroy",
+{
+	private _fireobject = param [0,objNull];
+	{deleteVehicle _x;} foreach (nearestObjects [_fireobject, Config_Placeables, 4]);
+	{ _x hideObjectGlobal true; } foreach nearestTerrainObjects [_fireobject,["TREE", "SMALL TREE", "BUSH","FOREST"],4];
+	{
+		_x setDamage 1;
+		_x setVariable["burnt",true,true];
+	} foreach (nearestObjects [_fireobject, ["Land_Fence1_DED_Fence_01_F","Land_Fence2_DED_Fence_02_F","Land_A3FL_Fence_Wood4_1m","Land_A3FL_Fence_Wood4_4m","Land_A3FL_Fence_Wood2_1m","Land_A3FL_Fence_Wood2_4m","Land_A3FL_Fence_Wood_Doorway2_4m","Land_A3FL_Fence_Wood_Doorway4_2m"],2]);
+},true] call Server_Setup_Compile;
+
 ["Server_Fire_StartFire",
 {
 	private _position = param [0,[]];
 	private _dir = param [1,windDir];
 	if (count _position < 3) exitwith {};
 	private _onWater = !(_position isFlatEmpty [-1, -1, -1, -1, 2, false] isEqualTo []);
-	private _underground = ((_position select 3) < 0);
-	if(_onWater || _underground) exitWith {};
+	if(_onWater || ((_position select 3) < 0)) exitWith {};
 
 	private _fireobject = createVehicle ["A3PL_FireObject",_position, [], 0, "CAN_COLLIDE"];
 	_fireobject addEventhandler ["HandleDamage",{[param [0,objNull],param [4,""],param [6,objNull]] spawn Server_Fire_HandleDamage;}];
 	_fireObject setDir _dir;
 	[_fireObject] call Server_Fire_AddFireParticles;
 	Server_TerrainFires pushBack [_fireObject];
-
-	{deleteVehicle _x;} foreach (nearestObjects [_fireobject, Config_Placeables, 4]);
-	{ _x hideObjectGlobal true; } foreach nearestTerrainObjects [_fireobject,["TREE", "SMALL TREE", "BUSH","FOREST"],4];
+	[_fireobject] call Server_Fire_Destroy;
 },true] call Server_Setup_Compile;
 
 ["Server_Fire_AddFireParticles",
@@ -160,9 +168,7 @@
 
 				_fireArray pushback _fireObject;
 				Server_TerrainFires set [_loopIndex,_fireArray];
-
-				{deleteVehicle _x;} foreach (nearestObjects [_fireobject, Config_Placeables, 4]);
-				{ _x hideObjectGlobal true; } foreach nearestTerrainObjects [_fireobject,["TREE", "SMALL TREE", "BUSH","FOREST"],4];
+				[_fireobject] call Server_Fire_Destroy;
 			};
 		} foreach _spreadArray;
 	} foreach Server_TerrainFires;

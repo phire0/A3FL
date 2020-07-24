@@ -29,20 +29,19 @@
 			_seed = _seeds select (floor (random (count _seeds)));
 			[format ["You found a seed! (%1)",([_seed,"name"] call A3PL_Config_GetItem)],"green"] call A3PL_Player_Notification;
 			[_seed,1] call A3PL_Inventory_Add;
+			[player, 2] call A3PL_Level_AddXP;
 		};
 	};
 }] call Server_Setup_Compile;
 
 ["A3PL_JobFarming_Plant",
 {
-	private ["_class","_posATL"];
-	_class = player_itemClass;
+	private _class = player_itemClass;
 
 	if (!(_class IN  ["seed_wheat","seed_marijuana","seed_corn","seed_lettuce","seed_coca","seed_sugar"])) exitwith {["You do not have a seed inside your hand to plant", "red"] call a3pl_player_notification;};
-
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
-	_posATL = getPosATL player;
+	private _posATL = getPosATL player;
 	if ((surfaceType _posATL) != "#cype_plowedfield") exitwith {["You are not standing on a farm field", "red"] call a3pl_player_notification;};
 
 	_nearPlants = nearestObjects [player, ["A3PL_Wheat", "A3PL_Corn","A3PL_Cannabis", "A3PL_Lettuce","A3PL_Coco_Plant", "A3PL_Sugarcane_Plant"], 0.85];
@@ -52,16 +51,15 @@
 	if(count(_nearByPlants) > 50) exitWith {["There is too many plants in this area, please harvest some before planting more!", "red"] call a3pl_player_notification;};
 
 	player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
-
+	[player, 2] call A3PL_Level_AddXP;
 	[player,_class,_posATL] remoteExec ["Server_JobFarming_Plant",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_JobFarming_Harvest",
 {
-	private ["_plant","_growState"];
-	_plant = param [0,objNull];
-
+	private _plant = param [0,objNull];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
 	[player,_plant] remoteExec ["Server_JobFarming_Harvest",2];
 }] call Server_Setup_Compile;
 

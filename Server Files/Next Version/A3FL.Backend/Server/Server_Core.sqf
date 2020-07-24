@@ -122,7 +122,7 @@
 ["Server_Core_RepairTerrain",
 {
 	{
-		if ((getDammage _x) isEqualTo 1) then {_x setDammage 0;};
+		if (((getDammage _x) isEqualTo 1) && !(_x getVariable["burnt",false])) then {_x setDammage 0;};
 	} foreach nearestTerrainObjects [[6690.16,7330.15,0], [], 10000];
 },true] call Server_Setup_Compile;
 
