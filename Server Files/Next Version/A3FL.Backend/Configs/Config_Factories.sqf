@@ -262,7 +262,7 @@ Config_Factories =
 		["f_CVPI_Taxi","","inh","inh","A3PL_CVPI_Taxi","car",true,10,[["Steel_Pellet",6],["Aluminium_Pellet",2],["Windows",2],["Tyres",4]],1,"",1],
 		["f_Ram","","inh","inh","A3PL_Ram","car",true,10,[["Steel_Pellet",7],["Aluminium_Pellet",2],["Windows",2],["Tyres",4]],1,"",1],
 		["f_150","","inh","inh","A3PL_F150","car",true,10,[["Steel_Pellet",7],["Aluminium_Pellet",11],["Windows",2],["Tyres",4]],1,"",1],
-		["f_Raptor","","inh","inh","A3PL_Raptor","car",true,10,[["Steel_Pellet",7],["Aluminium_Pellet",11],["Windows",2],["Tyres",4]],1,"",1],
+		//["f_Raptor","","inh","inh","A3PL_Raptor","car",true,10,[["Steel_Pellet",7],["Aluminium_Pellet",11],["Windows",2],["Tyres",4]],1,"",1],
 		["f_Silverado","","inh","inh","A3PL_Silverado","car",true,10,[["Aluminium_Pellet",13],["Steel_Pellet",11],["Windows",4],["Tyres",4]],1,"",1],
 		["f_Taurus","","inh","inh","A3PL_Taurus","car",true,300,[["Steel_Pellet",10],["Aluminium_Pellet",4],["Windows",4],["Tyres",4]],1,"",10],
 		["f_Tahoe","","inh","inh","A3PL_Tahoe","car",true,10,[["Steel_Pellet",11],["Aluminium_Pellet",7],["Windows",4],["Tyres",4]],1,"",1],
