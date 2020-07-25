@@ -274,7 +274,7 @@
 	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_CloseVault;}
 ],
 [
-	"Land_Land_A3FL_Fishers_Jewelry",
+	"Land_A3FL_Fishers_Jewelry",
 	"Open/Close Safe",
 	{
 		_building = player_objIntersect;
@@ -285,6 +285,12 @@
 			_building animate ["jewl_vault",1];
 			_building animate ["Vualt_Handle",1];
 		};
+	}
+],
+[
+	"Land_A3FL_Fishers_Jewelry",
+	"Break Glass",{
+		[player_objintersect,player_nameintersect] call A3PL_Jewelry_BreakGlass	
 	}
 ],
 [
