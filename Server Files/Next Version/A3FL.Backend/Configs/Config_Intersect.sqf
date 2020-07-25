@@ -407,8 +407,18 @@ Config_IntersectArray =
 	["deposit_20",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
 
 
-	["Vualt_Handle",localize"STR_INTSECT_SECVAULTD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable "job") IN ["uscg","fisd","usms"]) && ((player_objIntersect getVariable ["CanOpenSafe",false]) isEqualTo true)}], //Secure Vault Door
-	["Vualt_Handle","Open/Close Safe",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objIntersect getVariable ["CanOpenSafe",false]) isEqualTo true)}],
+	["vault_door",localize"STR_INTSECT_SECVAULTD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable "job") IN ["uscg","fisd","usms"]) && ((player_objIntersect getVariable ["CanOpenSafe",false]) isEqualTo true)}], //Secure Vault Door
+	["vault_door","Open/Close Safe",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect getVariable ["CanOpenSafe",false])}],
+	["Vault_Lock",localize"STR_INTSECT_CONVAULTDRI",_dir+"IGUI\Cfg\Actions\take_ca.paa",{backpack player == "A3PL_Backpack_Drill"}], //Connect Vault Drill
+
+	["jewelry_3_button",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]) || {(["keycard",1] call A3PL_Inventory_Has)}}], //Use Door Button
+	["jewelry_3_button2",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]) || {(["keycard",1] call A3PL_Inventory_Has)}], //Use Door Button
+	["jewelry_4_button",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]) || {(["keycard",1] call A3PL_Inventory_Has)}}], //Use Door Button
+	["jewelry_4_button2",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]) || {(["keycard",1] call A3PL_Inventory_Has)}], //Use Door Button
+	["jewelry_5_button",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]) || {(["keycard",1] call A3PL_Inventory_Has)}}], //Use Door Button
+	["jewelry_5_button2",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]) || {(["keycard",1] call A3PL_Inventory_Has)}], //Use Door Button
+
+	["case_break_1","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{}], //Connect Vault Drill
 
 	//ATM
 	["ATM",localize"STR_INTSECT_USEATM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Use ATM
@@ -1456,6 +1466,11 @@ Config_IntersectArray =
 	["door_4",localize"STR_QuickActionsBuildings_ReEnableFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && (player_objintersect getVariable ["FireAlarm",false]) && {!(player_objintersect getVariable ["FireAlarmBroke",false])}}],
 	["door_4",localize"STR_QuickActionsBuildings_RepairFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && (player_objintersect getVariable ["FireAlarm",false]) && {(player_objintersect getVariable ["FireAlarmBroke",false])}}],
 
+	["firealarm",localize"STR_QuickActionsBuildings_CheckFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objintersect getVariable ["FireAlarm",false]) && {!(player_objintersect getVariable ["FireAlarmBroke",false])} && {(player_objintersect getVariable ["FireAlarmCanBroke",true])} && {((player getVariable ["job","unemployed"]) == "fifr")}}],
+	["firealarm",localize"STR_QuickActionsBuildings_TriggerFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objintersect getVariable ["FireAlarm",false])  && !(player_objintersect getVariable ["FireAlarmBroke",false])}],
+	["firealarm",localize"STR_QuickActionsBuildings_ReEnableFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && (player_objintersect getVariable ["FireAlarm",false]) && {!(player_objintersect getVariable ["FireAlarmBroke",false])}}],
+	["firealarm",localize"STR_QuickActionsBuildings_RepairFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && (player_objintersect getVariable ["FireAlarm",false]) && {(player_objintersect getVariable ["FireAlarmBroke",false])}}],
+
 	// Ambo
 	["Ambo_Switch_7",localize"STR_INTSECT_REARFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}], //Rear Floodlights
 	["Ambo_Switch_8",localize"STR_INTSECT_DSFLOODL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicle player != player) && {(cameraView isEqualTo "INTERNAL")}}],//DS Floodlights
@@ -1997,6 +2012,8 @@ publicVariable "Config_IntersectArray";
 //If a specific intersection name is in this array it will execute and not check for a specific typeOf aka it ignores that parameter
 Config_GenArray =
 [
+	"Break Glass",
+	"Open/Close Safe",
 	"Secure Gang Hideout",
 	"Enter into Evidince",
 	"Talk to the Ship Captain",

@@ -274,11 +274,17 @@
 	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_CloseVault;}
 ],
 [
-	"Land_A3FL_Fishers_Jewelry",
+	"Land_Land_A3FL_Fishers_Jewelry",
 	"Open/Close Safe",
 	{
-		[player_objIntersect,"jewl_vault",false] call A3PL_Lib_ToggleAnimation;
-		[player_objIntersect,"Vualt_Handle",false] call A3PL_Lib_ToggleAnimation;
+		_building = player_objIntersect;
+		if(_building animationPhase "jewl_vault" > 0.95) then {
+			_building animate ["jewl_vault",0];
+			_building animate ["Vualt_Handle",0];
+		} else {
+			_building animate ["jewl_vault",1];
+			_building animate ["Vualt_Handle",1];
+		};
 	}
 ],
 [
