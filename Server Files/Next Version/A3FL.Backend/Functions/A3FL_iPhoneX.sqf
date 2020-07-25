@@ -1349,33 +1349,8 @@
 
 ["A3PL_iPhoneX_AppCalculator",
 {
-	private["_display"];
 	disableSerialization;
 	createDialog "A3PL_iPhone_appCalculator";
-}] call Server_Setup_Compile;
-
-["A3PL_iPhoneX_AppTax",
-{
-	private["_display","_ctrlGrp"];
-	disableSerialization;
-	createDialog "A3PL_iPhone_appTax";
-	_display = findDisplay 97900;
-	_ctrlGrp = (_display displayCtrl 97901);
-
-	_taxesArray = [
-		["Cartel Tax",["Cartel Tax"] call A3PL_Config_GetTaxes]
-	];
-
-	{
-		private _displayText = _x select 0;
-		private _displayValue = _x select 1;
-		private _tmp = _display ctrlCreate ["iPhone_X_switchboard", -1, _ctrlGrp];
-		private _pos = ctrlPosition _tmp;
-		_pos set [1, (_pos select 1) + (_pos select 3) * _forEachIndex];
-		(_tmp controlsGroupCtrl 98056) ctrlSetText format["%1 : %2%3",_displayText, _displayValue, "%"];
-		_tmp ctrlSetPosition _pos;
-		_tmp ctrlCommit 0;
-	} forEach _taxesArray;
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_appBank",
@@ -1699,7 +1674,7 @@
 	createDialog "A3PL_iPhone_appFactory";
 	private _display = findDisplay 99800;
 	private _control = _display displayCtrl 99801;
-	private _whitelist = ["Chemical Plant","Steel Mill","Oil Refinery","Goods Factory","Food Processing Plant","Vehicles Faction","Faction Weapons","Legal Weapon Factory","Marine Factory","Aircraft Factory","Car Parts Factory","Vehicle Factory","Clothing Factory","Vest Factory","Headgear Factory","Goggle Factory"];
+	private _whitelist = ["Chemical Plant","Steel Mill","Oil Refinery","Goods Factory","Food Processing Plant","Marine Factory","Aircraft Factory","Car Parts Factory","Vehicle Factory"];
 	{
 		private["_time","_tmp","_pos","_tmp","_name"];
 		_time = [_x] call A3PL_Factory_GetRemaining;
@@ -1850,9 +1825,9 @@
 	private _iPhone_X_sound_3 = _display displayCtrl 97716;
 	private _iPhone_Settings = profileNamespace getVariable ["A3PL_iPhoneX_Settings",[2,1,0]];
 	private _soundActive = _iPhone_Settings select 1;
-	if (_soundActive == 1) then {_iPhone_X_sound_1 ctrlSetTextColor [0.027,0.576,0.047,1];} else {_iPhone_X_sound_1 ctrlSetTextColor [0,0,0,1];};
-	if (_soundActive == 2) then {_iPhone_X_sound_2 ctrlSetTextColor [0.027,0.576,0.047,1];} else {_iPhone_X_sound_2 ctrlSetTextColor [0,0,0,1];};
-	if (_soundActive == 3) then {_iPhone_X_sound_3 ctrlSetTextColor [0.027,0.576,0.047,1];} else {_iPhone_X_sound_3 ctrlSetTextColor [0,0,0,1];};
+	if (_soundActive isEqualTo 1) then {_iPhone_X_sound_1 ctrlSetTextColor [0.027,0.576,0.047,1];} else {_iPhone_X_sound_1 ctrlSetTextColor [0,0,0,1];};
+	if (_soundActive isEqualTo 2) then {_iPhone_X_sound_2 ctrlSetTextColor [0.027,0.576,0.047,1];} else {_iPhone_X_sound_2 ctrlSetTextColor [0,0,0,1];};
+	if (_soundActive isEqualTo 3) then {_iPhone_X_sound_3 ctrlSetTextColor [0.027,0.576,0.047,1];} else {_iPhone_X_sound_3 ctrlSetTextColor [0,0,0,1];};
 
 	private _control = _display displayCtrl 97717;
 	if ((_iPhone_Settings select 2) isEqualTo 0) then {
@@ -1915,18 +1890,6 @@
 	} else {
 		_control ctrlSetText "A3PL_Common\GUI\phone\iPhone_X_icon_silentOFF.paa";
 	};
-}] call Server_Setup_Compile;
-
-["A3PL_iPhoneX_AppWallpaper",
-{
-	disableSerialization;
-	createDialog "A3PL_iPhone_appWallpaper";
-}] call Server_Setup_Compile;
-
-["A3PL_iPhoneX_AppSettings",
-{
-	disableSerialization;
-	createDialog "A3PL_iPhone_appSettings";
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_AppSIM",
@@ -2008,6 +1971,30 @@
 	_iPhone_Settings set[0, _id];
 	profileNamespace setVariable ["A3PL_iPhoneX_Settings",_iPhone_Settings];
 	["You changed your wallpaper","green"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
+
+["A3PL_iPhoneX_appHelp",
+{
+	disableSerialization;
+	createDialog "A3PL_iPhone_appHelp";
+	private _tutorials = "true" configClasses (missionConfigFile >> "CfgFishersHelp");
+	private _display = findDisplay 97900;
+	private _control = _display displayCtrl 1500;
+	{
+		private _title = getText (_x >> 'title');
+		_index = _control lbAdd _title;
+		_control lbSetValue [_index, _forEachIndex];
+	} forEach _tutorials;
+}] call Server_Setup_Compile;
+
+["A3PL_iPhoneX_helpPage",
+{
+	private _tutorials = "true" configClasses (configFile >> "CfgFishersHelp");
+	private _display = findDisplay 97900;
+	private _control = _display displayCtrl 1500;
+	private _index = _control lbValue (lbCurSel _control);
+	private _content = getText((("true" configClasses (missionConfigFile >> "CfgFishersHelp")) select _index) >> "text");
+	[_content,"orange"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_isPhoneOpen",
