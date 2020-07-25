@@ -6594,7 +6594,7 @@
       <Original>You sold %4 %1 for $%2 (Dirty Money), now you have $%3 (Dirty Money)</Original>
    </Key>
    <Key ID="STR_SHOP_SOLDITEM">
-      <Original>You sold %4 %1 for $%2, you still have $%3</Original>
+      <Original>You sold %4 %1 for $%2, you now have $%3</Original>
    </Key>
    <Key ID="STR_SHOP_SOLDITEMTAXES">
       <Original>You sold %3 %1 for $%2. This includes %4 %6 of taxes ie $%5</Original>
