@@ -1,12 +1,6 @@
 
 Config_NPC_Text =
 [
-	["estate_initial", localize"STR_NPC_WELCOMEESTATE",[localize"STR_NPC_WELCOMEESTATE1",localize"str_NPC_WELCOMEESTATE2"],["if (player getVariable 'job' == 'RealEstate') exitwith {['estate_already'] call A3PL_NPC_Start;}; ['estate_work'] call A3PL_NPC_Start;",""]],
-	["estate_work", localize"STR_NPC_ESTATEWORK",[localize"STR_NPC_ESTATEWORK1", localize"STR_NPC_ESTATEWORK2"],["['RealEstate'] call A3PL_NPC_TakeJob;",""]],
-	["estate_already", localize"STR_NPC_ALREADYWORKING",[localize"STR_NPC_ALREADYWORKING1",localize"STR_NPC_ALREADYWORKING2"],["","call A3PL_NPC_LeaveJob;"]],
-	["estate_accepted", localize"STR_NPC_ESTATEACCEPTED",[localize"STR_NPC_ESTATEACCEPTED1", localize"STR_NPC_ESTATEACCEPTED2"],["['estate_tutorial'] call A3PL_NPC_Start;",""]],
-	["estate_tutorial", localize"STR_NPC_ESTATETUTORIAL",[localize"STR_NPC_ESTATETUTORIAL1"],[""]],
-
 	["mcfishers_initial", localize"STR_NPC_WELCOMEMCF",[localize"str_NPC_WELCOMEMCF1",localize"str_NPC_WELCOMEMCF2"],["if (player getVariable 'job' == 'mcfisher') exitwith {['mcfishers_already'] call A3PL_NPC_Start;}; ['mcfishers_work'] call A3PL_NPC_Start;",""]],
 	["mcfishers_work", localize"STR_NPC_MCFWORK",[localize"STR_NPC_MCFWORK1", localize"STR_NPC_MCFWORK2"],["['mcfisher'] call A3PL_NPC_TakeJob;",""]],
 	["mcfishers_already", localize"STR_NPC_ALREADYWORKING",[localize"STR_NPC_ALREADYWORKING1",localize"STR_NPC_ALREADYWORKING2"],["","call A3PL_NPC_LeaveJob;"]],

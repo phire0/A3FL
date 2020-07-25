@@ -264,7 +264,6 @@
 	_unit setVariable ["warehouse",_warehouseObj,true];
 	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
 	if(_firstOwnerWarehouse isEqualTo _uid) then {
-			diag_log "calling Server_Warehouses_LoadItems";
 			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};
@@ -411,7 +410,7 @@
 		/* Clean Up Any Buoys owned by the player */
 		_deleteAt = [];
 		{
-			if(_x getVariable ["owner",""] == _uid) then {
+			if((_x getVariable ["owner",""]) isEqualTo _uid) then {
 				ropeDestroy (_x getVariable ["rope",objNull]);
 				deleteVehicle (_x getVariable ["net",objNull]);
 				deleteVehicle _x;

@@ -5776,7 +5776,7 @@
       <Original>Buy House</Original>
    </Key>
    <Key ID="STR_INTSECT_SELLHOUSE">
-      <Original>Stop Selling</Original>
+      <Original>Sell House</Original>
    </Key>
    <Key ID="STR_INTSECT_SELLESTATE">
       <Original>Conclude Sale</Original>
