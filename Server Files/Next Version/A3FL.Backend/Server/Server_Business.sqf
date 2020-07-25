@@ -8,7 +8,6 @@
 
 ["Server_Business_Buy",
 {
-	diag_log "calling";
 	private _player = param [0,objNull];
 	private _playerUID = getPlayerUID _player;
 	private _business = param [1,objNull];

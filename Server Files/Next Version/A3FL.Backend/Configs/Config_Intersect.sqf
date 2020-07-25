@@ -287,8 +287,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_BusinessManagement",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && {([getPlayerUID player] call A3PL_Config_IsCompanyBoss)}}],
 	["spine3",localize"STR_QuickActionsNPC_ResignCompany",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_government) && {!([getPlayerUID player] call A3PL_Config_IsCompanyBoss)} && {([getPlayerUID player] call A3PL_Config_InCompany)}}],
 	["spine3",localize"STR_QuickActionsNPC_EnterpriseAccountManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_bank,npc_bank_1,npc_bank_2,npc_bank_3,npc_bank_4]) && {([getPlayerUID player] call A3PL_Config_IsCompanyBoss)}}],
-	//["spine3",localize"STR_QuickActionsNPC_FactionAccount",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && ([(player getVariable['faction','citizen'])] call A3PL_Government_isFactionLeader)}],
-	["spine3",localize"STR_QuickActionsNPC_SpeakToTheRealEstateAgent",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_RealEstateAgent}],
+	["spine3",localize"STR_QuickActionsNPC_FactionAccount",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government) && ([(player getVariable['faction','citizen'])] call A3PL_Government_isFactionLeader)}],
 	["spine3",localize"STR_QuickActionsNPC_FISecurityService",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_sfp_sign}],
 	["spine3",localize"STR_QuickActionsNPC_SFPShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_sfp_sign}],
 	["spine3",localize"STR_QuickActionsNPC_AccessVetements",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_clothing_factory)}],
@@ -436,11 +435,9 @@ Config_IntersectArray =
 	["lettuce",localize"STR_INTSECT_HARPLANT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect getVariable ["growState",-1] != -1}], //Harvest Plant
 
 	//Buying tickets for lottery system
-	["EstateSign",localize"STR_INTSECT_BUYHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_sale_co.paa")}], //Buy House
-	["EstateSign",localize"STR_INTSECT_ESTATESHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}}],
-	["EstateSign",localize"STR_INTSECT_SELLHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}}],
-	["EstateSign",localize"STR_INTSECT_SELLESTATE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")} && {(player getVariable["job","unemployed"] isEqualTo "RealEstate")}}],
-	["EstateSign",localize"STR_INTSECT_LEAVHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(player_objintersect getVariable["houseSelling",false]) && {(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")} && {(getPlayerUID player) IN (player_objintersect getVariable['roommates',[]])}}],
+	["EstateSign",localize"STR_INTSECT_BUYHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_sale_co.paa")}],
+	["EstateSign",localize"STR_INTSECT_SELLHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}],
+	["EstateSign",localize"STR_INTSECT_LEAVHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{((((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")) && {(getPlayerUID player) IN (player_objintersect getVariable['roommates',[]])}}],
 
 	//signs
 	["greenhousesign",localize"STR_INTSECT_RENTGH",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{true}], //Rent Greenhouse
@@ -2557,7 +2554,6 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_ExterminatorShop",
 	localize"STR_QuickActionsNPC_MailManShop",
 	localize"STR_QuickActionsNPC_FISecurityService",
-	localize"STR_QuickActionsNPC_SpeakToTheRealEstateAgent",
 	localize"STR_QuickActionsNPC_SFPShop",
 	localize"STR_QuickActionsNPC_VehiclesFactionFactory",
 	localize"STR_QuickActionsNPC_AccessAcierie",

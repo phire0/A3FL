@@ -19,7 +19,6 @@ Config_Paychecks = [
 	["business",150,1],
 	["Roadside",150,1],
 	["security",150,1],
-	["RealEstate",150,1],
 	["mailman",150,1],
 	["exterminator",150,1],
 	["freight pilot",350,1],

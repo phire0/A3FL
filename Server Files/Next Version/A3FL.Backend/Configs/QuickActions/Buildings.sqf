@@ -509,17 +509,7 @@
 ],
 [
 	"Land_A3PL_EstateSign",
-	localize"STR_INTSECT_ESTATESHOUSE",
-	{[true,player_objIntersect] call A3PL_RealEstates_SetSell;}
-],
-[
-	"Land_A3PL_EstateSign",
 	localize"STR_INTSECT_SELLHOUSE",
-	{[false,player_objIntersect] call A3PL_RealEstates_SetSell;}
-],
-[
-	"Land_A3PL_EstateSign",
-	localize"STR_INTSECT_SELLESTATE",
 	{[player_objintersect] call A3PL_RealEstates_Open;}
 ],
 [

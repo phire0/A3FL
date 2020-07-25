@@ -120,7 +120,6 @@
 		case "tacohell": {["tacohell_accepted"] call A3PL_NPC_Start;};
 		case "oil": {["oil_accepted"] call A3PL_NPC_Start;};
 		case "mailman": {["mailman_accepted"] call A3PL_NPC_Start;};
-		case "RealEstate": {["estate_accepted"] call A3PL_NPC_Start;};
 		case "unemployed": {[player] remoteExec ["Server_iPhoneX_getPhoneNumber",2];};
 		default {};
 	};

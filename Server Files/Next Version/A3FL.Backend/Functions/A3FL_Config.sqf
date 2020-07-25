@@ -498,7 +498,7 @@
 	private _return = 0;
 	{
 		for "_i" from 0 to count(_x select 3) do {
-			if(_uid isEqualTo ((_x select 3) select _i) select 0) exitWith  {
+			if(_uid isEqualTo (((_x select 3) select _i) select 0)) exitWith  {
 				_return = ((_x select 3) select _i) select 1;
 			};
 		};
@@ -512,7 +512,7 @@
 	private _return = 0;
 	{
 		for "_i" from 0 to count(_x select 3) do {
-			if(_uid isEqualTo ((_x select 3) select _i) select 0) exitWith  {
+			if(_uid isEqualTo (((_x select 3) select _i) select 0)) exitWith  {
 				_return = _x select 0;
 			};
 		};
