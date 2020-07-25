@@ -254,6 +254,11 @@
 	{[player_objintersect] call A3PL_BHeist_SetDrill;}
 ],
 [
+	"Land_A3FL_Fishers_Jewelry",
+	localize"STR_INTSECT_CONVAULTDRI",
+	{[player_objintersect] call A3PL_Jewelry_SetDrill;}
+],
+[
 	"Land_A3PL_Bank",
 	localize"STR_INTSECT_OPDEPBOX",
 	{[player_objintersect,player_nameintersect] spawn A3PL_BHeist_OpenDeposit;}
@@ -262,6 +267,19 @@
 	"Land_A3PL_Bank",
 	localize"STR_INTSECT_SECVAULTD",
 	{[player_objintersect,player_nameintersect] call A3PL_BHeist_CloseVault;}
+],
+[
+	"Land_A3FL_Fishers_Jewelry",
+	localize"STR_INTSECT_SECVAULTD",
+	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_CloseVault;}
+],
+[
+	"Land_A3FL_Fishers_Jewelry",
+	"Open/Close Safe",
+	{
+		[player_objIntersect,"jewl_vault",false] call A3PL_Lib_ToggleAnimation;
+		[player_objIntersect,"Vualt_Handle",false] call A3PL_Lib_ToggleAnimation;
+	}
 ],
 [
 	"Land_A3PL_Garage",

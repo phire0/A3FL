@@ -407,6 +407,10 @@ Config_IntersectArray =
 	["deposit_19",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
 	["deposit_20",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
 
+
+	["Vualt_Handle",localize"STR_INTSECT_SECVAULTD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable "job") IN ["uscg","fisd","usms"]) && ((player_objIntersect getVariable ["CanOpenSafe",false]) isEqualTo true)}], //Secure Vault Door
+	["Vualt_Handle","Open/Close Safe",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objIntersect getVariable ["CanOpenSafe",false]) isEqualTo true)}],
+
 	//ATM
 	["ATM",localize"STR_INTSECT_USEATM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Use ATM
 	["dogcage",localize"STR_INTSECT_OPK9MEN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]}],
