@@ -8949,7 +8949,7 @@
           <Original>You do not have this amount of money on you</Original>
         </Key>
         <Key ID="STR_NewInventory_9">
-          <Original>You have taken %1 of your inventory.</Original>
+          <Original>You have taken %1x %2 of your inventory.</Original>
         </Key>
         <Key ID="STR_NewInventory_10">
           <Original>You have put %1 in your inventory.</Original>

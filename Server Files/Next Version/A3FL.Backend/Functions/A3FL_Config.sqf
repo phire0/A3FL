@@ -38,6 +38,7 @@
 		case "fnc": { _return = _config select 10; };
 		case "attach": { _return = _config select 11; };
 		case "desc": { _return = _config select 12; };
+		case "maxTake": { _return = _config select 13; };
 	};
 	_return;
 }] call Server_Setup_Compile;

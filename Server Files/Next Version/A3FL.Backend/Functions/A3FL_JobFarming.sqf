@@ -80,9 +80,11 @@
 		case 6: {_msg = ["Unable to add items to your inventory, please make sure you have enough space to fit the harvested item(s)","red"];};
 	};
 
-	//additional code for succefully planting a seed
-	if (_r isEqualTo 0) then {[] call A3PL_Inventory_Clear;};
-	_msg call a3pl_player_notification;
+	if(!isNil 'Player_ItemAmount') then {
+		Player_ItemAmount = Player_ItemAmount - 1;
+		if((Player_ItemAmount isEqualTo 0) && (_r isEqualTo 0)) then{[] call A3PL_Inventory_Clear;};
+	};
+	_msg call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_JobFarming_BuyGreenhouse",

@@ -1692,10 +1692,71 @@ class A3PL_iPhone_appHelp
 			x = 0.701094 * safezoneW + safezoneX;
 			y = 0.379 * safezoneH + safezoneY;
 			w = 0.134062 * safezoneW;
-			h = 0.530 * safezoneH;
-			sizeEx = 0.1 * safezoneW;
-			colorBackground[] = {0,0,0,0.05};
+			h = 0.5 * safezoneH;
+			sizeEx = 0.015 * safezoneW;
+			colorBackground[] = {1,0,0,0.1};
 			onLBDblClick = "[] call A3PL_iPhoneX_helpPage;";
+		};
+	};
+};
+
+class A3PL_iPhone_appHelpPage
+{
+	idd = 97910;
+	movingEnable = true;
+	enableSimulation = true;
+	name = "A3PL_iPhone_appHelpPage";
+	class ControlsBackground
+	{
+		class iPhone_X_background: RscPicture
+		{
+			idc = 97002;
+			x = safeZoneX + safeZoneW * 0.5625;
+			y = safeZoneY + safeZoneH * 0.21701389;
+			w = safeZoneW * 0.41210938;
+			h = safeZoneH * 0.72743056;
+			text = "A3PL_Common\GUI\phone\iPhone_X_appHelp.paa";
+		};
+		class iPhone_Base: RscPicture
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.5625;
+			y = safeZoneY + safeZoneH * 0.21701389;
+			w = safeZoneW * 0.41210938;
+			h = safeZoneH * 0.72743056;
+			text = "A3PL_Common\GUI\phone\iPhone_X_base.paa";
+		};
+	};
+	class Controls
+	{
+		class iPhone_IconHome: RscPicture
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.80948282;
+			y = safeZoneY + safeZoneH * 0.31525;
+			w = safeZoneW * 0.0175;
+			h = safeZoneH * 0.0175;
+			text = "A3PL_Common\GUI\phone\iPhone_X_icon_home.paa";
+		};
+		class iPhone_ButtonHome: RscButtonEmpty
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.80948282;
+			y = safeZoneY + safeZoneH * 0.31525;
+			w = safeZoneW * 0.0175;
+			h = safeZoneH * 0.0175;
+			action = "closeDialog 0; [] spawn A3PL_iPhoneX_Home;";
+			class Attributes {align = "center";};
+		};
+		class TutorialText: RscStructuredText
+		{
+			idc = 1100;
+			x = 0.701094 * safezoneW + safezoneX;
+			y = 0.379 * safezoneH + safezoneY;
+			w = 0.134062 * safezoneW;
+			h = 0.5 * safezoneH;
+			sizeEx = 0.015 * safezoneW;
+			colorBackground[] = {1,0,0,0.1};
 		};
 	};
 };

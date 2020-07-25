@@ -553,7 +553,7 @@
 		if (_isFactory && (_itemType == "item")) then {_selectedAsset = [_selectedAsset,_selectedFactory,"class"] call A3PL_Config_GetFactory;};
 
 		[_selectedPlayer,_selectedFactory,[_selectedAsset,_amount],false] remoteExec ["Server_Factory_Add", 2];
-		_itemName = [_selectedAsset,"name"] call A3PL_Config_GetItem;
+		_itemName = lbText [1501,(lbCurSel 1501)];
 		[format[localize"STR_ADMIN_ADDEDTOFACTORY",_amount,_itemName,_selectedFactory,_selectedPlayer getVariable ["name","inconnu"]],"green"] call A3PL_Player_Notification;
 
 		[player,"factories",[format ["AddFactory: %5 %1(s) ADDED TO %2(%3) (%4)",_selectedAsset,_selectedPlayer getVariable ["name","Undefined"],(getPlayerUID _selectedPlayer),_selectedFactory,_amount]]] remoteExec ["Server_AdminLoginsert", 2];
@@ -579,7 +579,7 @@
 		if (_amount < 1) exitwith {[localize"STR_Various_INVALIDAMOUNT","red"] call A3PL_Player_Notification;};
 
 		[_selectedPlayer,[_selectedAsset,_amount],_selectedFactory] remoteExec ["Server_Factory_Create", 2];
-		_itemName = [_selectedAsset,"name"] call A3PL_Config_GetItem;
+		_itemName = lbText [1501,(lbCurSel 1501)];
 		[format[localize"STR_ADMIN_CREATEONPLAYER",_amount,_itemName,_selectedFactory,_selectedPlayer getVariable ["name","inconnu"]],"green"] call A3PL_Player_Notification;
 		[player,"factories",[format ["RecipeCreated: %1 CREATED FOR %2(%3) (%4)",_selectedAsset,_selectedPlayer getVariable ["name","Undefined"],(getPlayerUID _selectedPlayer),_selectedFactory]]] remoteExec ["Server_AdminLoginsert", 2];
 	} else {

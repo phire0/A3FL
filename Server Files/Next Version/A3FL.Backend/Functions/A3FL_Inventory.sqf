@@ -248,66 +248,35 @@
 	_itemDir = [_classname, 'dir'] call A3PL_Config_GetItem;
 	_canUse = [_classname, 'canUse'] call A3PL_Config_GetItem;
 	_attach = [_classname, 'attach'] call A3PL_Config_GetItem;
+	_maxTake = [_classname, 'maxTake'] call A3PL_Config_GetItem;
 
 	if ((_selection isEqualTo -1) && (!isNil "_display")) exitWith {};
-
-	if (_canUse isEqualTo false) exitWith {
-		[localize"STR_NewInventory_4", "red"] call A3PL_Player_Notification;
-	};
-
+	if (_canUse isEqualTo false) exitWith {[localize"STR_NewInventory_4", "red"] call A3PL_Player_Notification;};
 	if ((animationState player) isEqualTo "A3PL_TakenHostage") exitwith {[localize"STR_NewInventory_5","red"] call A3PL_Player_Notification;};
+	if (!(player isEqualTo (vehicle player))) exitwith {[localize"STR_NewInventory_6", "red"] call A3PL_Player_Notification;};
+	if (animationState player IN ["a3pl_handsuptokneel","a3pl_handsupkneelgetcuffed","a3pl_cuff","a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","a3pl_cuffkickdown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","a3pl_handsupkneel"]) exitWith {[localize"STR_NewInventory_7", "red"] call A3PL_Player_Notification;};
+	if (!(isNull Player_Item)) then {[false] call A3PL_Inventory_PutBack;};
 
-	if (!(isNull Player_Item)) then {
-		[false] call A3PL_Inventory_PutBack;
-	};
-
-	if (!(player isEqualTo (vehicle player))) exitwith
-	{
-		[localize"STR_NewInventory_6", "red"] call A3PL_Player_Notification;
-	};
-
-	if (animationState player IN ["a3pl_handsuptokneel","a3pl_handsupkneelgetcuffed","a3pl_cuff","a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","a3pl_cuffkickdown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","a3pl_handsupkneel"]) exitWith
-	{
-		[localize"STR_NewInventory_7", "red"] call A3PL_Player_Notification;
-	};
-
-	if (_classname isEqualTo "cash") then
-	{
-		Player_ItemAmount = parseNumber (ctrlText (_display displayCtrl 14471));
-		if (Player_ItemAmount < 1) then {
-			Player_ItemAmount = Nil;
-		};
-		if (Player_ItemAmount > (player getVariable "player_cash")) then {
-			Player_ItemAmount = Nil;
-			[localize"STR_NewInventory_8", "red"] call A3PL_Player_Notification;
-		};
-	} else {
-		Player_ItemAmount = Nil;
-	};
-
-	if ((_classname isEqualTo "cash") && (isNil "Player_ItemAmount")) exitwith {};
-
+	_amount = floor(parseNumber (ctrlText (_display displayCtrl 14471)));
+	if(_amount < 1) exitWith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
+	if (!([_classname,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
+	if (_amount > _maxTake) exitwith {[format["You can only take %1 of this item at once",_maxTake],"red"] call A3PL_Player_Notification;};
+	Player_ItemAmount = _amount;
 	Player_Item = _itemClass createVehicle (getPos player);
-
-	if (_classname isEqualTo "popcornbucket") then
-	{
+	if (_classname isEqualTo "popcornbucket") then {
 		Player_Item attachTo [player, _attach, 'LeftHand'];
-	} else
-	{
+	} else {
 		Player_Item attachTo [player, _attach, 'RightHand'];
 	};
 
-	if (((vehicle player) isEqualTo player) && (!(animationState player IN ["crew"]))) then
-	{
-		player playMove 'AmovPercMstpSnonWnonDnon_AmovPercMstpSrasWpstDnon';
-	};
+	if (((vehicle player) isEqualTo player) && (!(animationState player IN ["crew"]))) then {player playMove 'AmovPercMstpSnonWnonDnon_AmovPercMstpSrasWpstDnon';};
 
 	Player_Item setDir _itemDir;
 	Player_ItemClass = _classname;
 	if (!isNil "_display") then {[0] call A3PL_Lib_CloseDialog;};
 
 	[Player_Item,_attach] spawn A3PL_Placeable_AttachedLoop;
-	_format = format[localize'STR_NewInventory_9', [Player_ItemClass, 'name'] call A3PL_Config_GetItem];
+	_format = format[localize'STR_NewInventory_9', Player_ItemAmount, [Player_ItemClass, 'name'] call A3PL_Config_GetItem];
 	[_format, "yellow"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -323,6 +292,7 @@
 
 	Player_Item = objNull;
 	Player_ItemClass = '';
+	Player_ItemAmount = nil;
 	if (_displayNotification isEqualTo true) then {
 		if (!(animationState player IN ["crew"])) then {
 			player playMove 'AmovPercMstpSnonWnonDnon_AmovPercMstpSrasWpstDnon';
@@ -333,12 +303,12 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Drop", {
-	private ["_itemClass", "_obj", "_format","_setpos","_amount"];
-	_setPos = param [0,true];
-	_amount = param [1,1];
-	_itemClass = Player_ItemClass;
-	_obj = Player_Item;
-	_droppedItems = server getVariable 'droppedObjects';
+	private _setPos = param [0,true];
+	private _amount = param [1,1];
+	private _itemClass = Player_ItemClass;
+	private _obj = Player_Item;
+	private _droppedItems = server getVariable 'droppedObjects';
+	if(!isNil 'Player_ItemAmount') then {_amount = Player_ItemAmount;};
 
 	if(_amount < 1) exitWith {["Please enter a valid amount","red"] call A3PL_Player_Notification;};
 	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
@@ -532,17 +502,4 @@
 		_can = true;
 	};
 	_can;
-}] call Server_Setup_Compile;
-
-["A3PL_Inventory_EmergFix",
-{
-	{
-		_inv = (_x getVariable ["Player_Inventory",[]]);
-		{
-			if(_x select 0 isEqualTo "") then {
-				_inv deleteAt _forEachIndex;
-			};
-		} foreach _inv;
-		_x setVariable["Player_Inventory",_inv,true];
-	} forEach AllPlayers;
 }] call Server_Setup_Compile;
