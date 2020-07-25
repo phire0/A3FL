@@ -1989,12 +1989,17 @@
 
 ["A3PL_iPhoneX_helpPage",
 {
+	disableSerialization;
 	private _tutorials = "true" configClasses (configFile >> "CfgFishersHelp");
 	private _display = findDisplay 97900;
 	private _control = _display displayCtrl 1500;
 	private _index = _control lbValue (lbCurSel _control);
 	private _content = getText((("true" configClasses (missionConfigFile >> "CfgFishersHelp")) select _index) >> "text");
-	[_content,"orange"] call A3PL_Player_Notification;
+	closeDialog 0;
+	createDialog "A3PL_iPhone_appHelpPage";
+	private _display = findDisplay 97910;
+	private _control = _display displayCtrl 1100;
+	_control ctrlSetStructuredText parseText _content;
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_isPhoneOpen",
