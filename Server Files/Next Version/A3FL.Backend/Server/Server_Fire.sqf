@@ -179,7 +179,9 @@
 	private _veh = param [0,objNull];
 	private _var = _veh getVariable ["owner",[]];
 
-	diag_log format["Server_Fire_VehicleExplode: %1 / %2",_veh, _var];
+	_exploded = _veh getVariable["exploded",false];
+	if(_exploded) exitWith {};
+	_veh setVariable["exploded",true,true];
 
 	[_veh] call A3PL_Vehicle_SoundSourceClear;
 	_sirenObj = _veh getVariable ["sirenObj",objNull];

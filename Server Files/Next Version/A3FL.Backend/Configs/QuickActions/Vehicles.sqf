@@ -1008,7 +1008,7 @@
 	{
 		private _veh = player_objintersect;
 		private _animName = player_nameintersect;
-		if ((!(_veh isKindOf "Car")) OR (_animName == "")) exitwith {};
+		if (_animName isEqualTo "") exitwith {};
 		if (_animName == "ft_lever_8" && (_veh animationPhase "ft_lever_8" < 0.5)) then {
 			[_veh] spawn A3PL_FD_EngineLoop;
 		};
@@ -1021,7 +1021,7 @@
 	{
 		private _veh = player_objintersect;
 		private _animName = player_nameintersect;
-		if ((!(_veh isKindOf "Car")) OR (_animName == "")) exitwith {};
+		if (_animName isEqualTo "") exitwith {};
 		if (((_animName == "bt_lever_2") && (_veh animationPhase "bt_lever_2" < 0.5)) || ((_animName == "bt_lever_3") && (_veh animationPhase "bt_lever_3" < 0.5)) ) then {
 			[_veh] spawn A3PL_FD_BrushLoop;
 		};
@@ -1034,11 +1034,18 @@
 	{
 		private _veh = player_objintersect;
 		private _animName = player_nameintersect;
-		if ((!(_veh isKindOf "Car")) OR (_animName == "")) exitwith {};
-		if (_animName == "ft_lever_8" && (_veh animationPhase "ft_lever_8" < 0.5)) then {
-			[_veh] spawn A3PL_FD_EngineLoop;
-		} else {
-			[_veh] spawn A3PL_FD_BrushLoop;
+
+		if(_animName isEqualTo "") exitWith {};
+
+		if((typeOf _veh) isEqualTo "A3PL_Pierce_Pumper") then {
+			if (_animName == "ft_lever_8" && (_veh animationPhase "ft_lever_8" < 0.5)) then {
+				[_veh] spawn A3PL_FD_EngineLoop;
+			};
+		};
+		if((typeOf _veh) isEqualTo "A3PL_Silverado_FD_Brush") then {
+			if (((_animName == "bt_lever_2") && (_veh animationPhase "bt_lever_2" < 0.5)) || ((_animName == "bt_lever_3") && (_veh animationPhase "bt_lever_3" < 0.5)) ) then {
+				[_veh] spawn A3PL_FD_BrushLoop;
+			};
 		};
 		[_veh,_animName,false] call A3PL_Lib_ToggleAnimation;
 	}
