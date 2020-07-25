@@ -397,8 +397,8 @@
 		createDialog "Dialog_EstateSell";
 		_display = findDisplay 67;
 		_price = ([_house] call A3PL_Housing_GetData) * 0.75;
-		_control = _display displayCtrl 1400;
-		_control ctrlSetStructuredText parseText format ["<t align='left'>Market price: $%1</t>",_price];
+		_control = _display displayCtrl 1100;
+		_control ctrlSetStructuredText parseText format ["<t align='left'>$ %1</t>",[_price, 1, 0, true] call CBA_fnc_formatNumber];
 	} else {
 		[localize"STR_NewHousing_23", "red"] call A3PL_Player_Notification;
 	};
@@ -417,10 +417,8 @@
 
 ["A3PL_Housing_SetMarker",
 {
-	private["_house","_pos"];
-	_house = param [0,objNull];
-	uiSleep 3;
-	_marker = createMarkerLocal [format["house_%1",round (random 1000)],visiblePosition _house];
+	private _house = param [0,objNull];
+	private _marker = createMarkerLocal [format["house_%1",round (random 1000)],visiblePosition _house];
 	_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
 	_marker setMarkerAlphaLocal 1;
 	_marker setMarkerColorLocal "ColorGreen";

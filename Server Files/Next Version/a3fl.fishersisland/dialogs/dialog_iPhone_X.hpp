@@ -625,7 +625,7 @@ class A3PL_iPhone_Home
 			y = 0.401 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			text = "A3PL_Common\GUI\phone\iPhone_X_icon_tax.paa";
+			text = "A3PL_Common\GUI\phone\iPhone_X_icon_help.paa";
 		};
 		class iPhone_Button_appHelp: RscButtonEmpty
 		{
@@ -1653,7 +1653,7 @@ class A3PL_iPhone_appHelp
 			y = safeZoneY + safeZoneH * 0.21701389;
 			w = safeZoneW * 0.41210938;
 			h = safeZoneH * 0.72743056;
-			text = "A3PL_Common\GUI\phone\iPhone_X_appTax.paa";
+			text = "A3PL_Common\GUI\phone\iPhone_X_appHelp.paa";
 		};
 		class iPhone_Base: RscPicture
 		{
@@ -1692,8 +1692,8 @@ class A3PL_iPhone_appHelp
 			x = 0.701094 * safezoneW + safezoneX;
 			y = 0.379 * safezoneH + safezoneY;
 			w = 0.134062 * safezoneW;
-			h = 0.176 * safezoneH;
-			sizeEx = 0.01 * safezoneW;
+			h = 0.530 * safezoneH;
+			sizeEx = 0.1 * safezoneW;
 			colorBackground[] = {0,0,0,0.05};
 			onLBDblClick = "[] call A3PL_iPhoneX_helpPage;";
 		};

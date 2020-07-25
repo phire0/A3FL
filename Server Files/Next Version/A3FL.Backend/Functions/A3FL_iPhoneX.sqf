@@ -1975,12 +1975,15 @@
 
 ["A3PL_iPhoneX_appHelp",
 {
-	private _tutorials = "true" configClasses (configFile >> "CfgFishersHelp");
+	disableSerialization;
+	createDialog "A3PL_iPhone_appHelp";
+	private _tutorials = "true" configClasses (missionConfigFile >> "CfgFishersHelp");
 	private _display = findDisplay 97900;
 	private _control = _display displayCtrl 1500;
 	{
 		private _title = getText (_x >> 'title');
-
+		_index = _control lbAdd _title;
+		_control lbSetValue [_index, _forEachIndex];
 	} forEach _tutorials;
 }] call Server_Setup_Compile;
 
@@ -1989,6 +1992,9 @@
 	private _tutorials = "true" configClasses (configFile >> "CfgFishersHelp");
 	private _display = findDisplay 97900;
 	private _control = _display displayCtrl 1500;
+	private _index = _control lbValue (lbCurSel _control);
+	private _content = getText((("true" configClasses (missionConfigFile >> "CfgFishersHelp")) select _index) >> "text");
+	[_content,"orange"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_isPhoneOpen",
