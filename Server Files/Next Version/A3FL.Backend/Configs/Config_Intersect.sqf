@@ -407,8 +407,8 @@ Config_IntersectArray =
 	["deposit_20",localize"STR_INTSECT_OPDEPBOX",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect animationSourcePhase "door_bankvault") > 0.95)}], //Open Deposit Box
 
 
-	["vault_door",localize"STR_INTSECT_SECVAULTD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable "job") IN ["uscg","fisd","usms"]) && ((player_objIntersect getVariable ["CanOpenSafe",false]) isEqualTo true)}], //Secure Vault Door
-	["vault_door","Open/Close Safe",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect getVariable ["CanOpenSafe",false])}],
+	["Vault_Handle_point",localize"STR_INTSECT_SECVAULTD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable "job") IN ["uscg","fisd","usms"]) && ((player_objIntersect getVariable ["CanOpenSafe",false]) isEqualTo true)}], //Secure Vault Door
+	["Vault_Handle_point","Open/Close Safe",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect getVariable ["CanOpenSafe",false])}],
 	["Vault_Lock",localize"STR_INTSECT_CONVAULTDRI",_dir+"IGUI\Cfg\Actions\take_ca.paa",{backpack player == "A3PL_Backpack_Drill"}], //Connect Vault Drill
 
 	["jewelry_3_button",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]) || (["keycard",1] call A3PL_Inventory_Has)}], //Use Door Button

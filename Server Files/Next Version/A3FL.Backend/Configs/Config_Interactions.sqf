@@ -650,7 +650,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_EJECTALLP",
 		{[player_objintersect] call A3PL_Police_unDetain;},
-		{(((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && ((player_objintersect) isKindOf "Car") && (((player distance player_objintersect) < 6)))}
+		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && ((player_objintersect) isKindOf "Car") && (((player distance player_objintersect) < 6)) && ((vehicle player) isEqualTo player)}
 	],
 	[
 		localize "STR_INTER_EATITEM",

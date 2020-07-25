@@ -359,7 +359,7 @@ class iPhone_Details_Factory: RscControlsGroup
 			h = safeZoneH * 0.018;
 			text = "";
 			sizeEx = 0.014 * safezoneW;
-			colorText[] = {0.9,0.9,0.9,1};
+			colorText[] = {0.4,0.4,0.4,1};
 			shadow = 0;
 		};
 	};
@@ -1692,9 +1692,9 @@ class A3PL_iPhone_appHelp
 			x = 0.701094 * safezoneW + safezoneX;
 			y = 0.379 * safezoneH + safezoneY;
 			w = 0.134062 * safezoneW;
-			h = 0.5 * safezoneH;
+			h = 0.48 * safezoneH;
 			sizeEx = 0.015 * safezoneW;
-			colorBackground[] = {1,0,0,0.1};
+			colorBackground[] = {0,0,0,0.3};
 			onLBDblClick = "[] call A3PL_iPhoneX_helpPage;";
 		};
 	};
@@ -1754,9 +1754,9 @@ class A3PL_iPhone_appHelpPage
 			x = 0.701094 * safezoneW + safezoneX;
 			y = 0.379 * safezoneH + safezoneY;
 			w = 0.134062 * safezoneW;
-			h = 0.5 * safezoneH;
+			h = 0.48 * safezoneH;
 			sizeEx = 0.015 * safezoneW;
-			colorBackground[] = {1,0,0,0.1};
+			colorBackground[] = {0,0,0,0};
 		};
 	};
 };
@@ -3328,14 +3328,14 @@ class A3PL_iPhone_appSMS
 			h = safeZoneH * 0.0235;
 			action = "_message = ctrlText 97621; [_message] spawn A3PL_iPhoneX_sendSMS; _sms = ((findDisplay 99100) displayCtrl 97621); _sms ctrlSetText ""Message...""";
 		};
-		class iPhone_X_button_smiley: RscButtonEmpty
+		class iPhone_X_Button_Delete: RscButtonEmpty
 		{
 			idc = 97623;
 			x = safeZoneX + safeZoneW * 0.708;
 			y = safeZoneY + safeZoneH * 0.8145;
 			w = safeZoneW * 0.018;
 			h = safeZoneH * 0.027;
-			action = "";
+			action = "[] call A3PL_iPhoneX_deleteSMS;";
 		};
 		class iPhone_X_button_appSMSListAppSMS: RscButtonEmpty
 		{

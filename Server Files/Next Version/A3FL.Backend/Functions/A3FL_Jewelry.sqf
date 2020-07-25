@@ -113,3 +113,16 @@
 	deleteVehicle _drill;
 	["Drilling completed. The drill and the drill bit both unfortunatly broke during drilling.","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
+
+["A3PL_Jewelry_BreakGlass",
+{
+	_object = param [0,player_objIntersect];
+	_name = param [1,player_nameIntersect];
+
+	diag_log _name;
+	diag_log _object;
+
+	_object animate [_name,1];
+	playSound3D ["A3\Sounds_F\arsenal\sfx\bullet_hits\glass_07.wss", player, true, getPosASL player, 4, 50];
+
+}] call Server_Setup_Compile;
