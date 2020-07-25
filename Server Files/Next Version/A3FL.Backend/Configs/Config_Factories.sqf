@@ -7,7 +7,8 @@
 */
 
 //id (f_ as in factory),parent,name to display ("inh" to take from configFile),picture to display ("inh" to take from configFile),craftable?,time to craft (sec),components required,output amount,faction("","uscg","FIFR","FIFR","police")
-//["factory_ID","parent","inh","inh","classname","type",craftable,time,[["required",3],["components",200]],output,faction]
+//["factory_ID","parent","inh","inh","classname","type",craftable,time,[["required",3],["components",200]],output,faction,xpGain]
+
 
 Config_Factories =
 [
@@ -80,27 +81,24 @@ Config_Factories =
 	],
 
 	["Food Processing Plant",[3852.065,9212.537,0.168],
-		["f_cola","","inh","inh","coke","item",true,5,[["coca",1],["sugarcane",1],["Aluminium_Ingot",1]],6,"",1],
-		["f_Coffee_Cup_Large","","inh","inh","coffee_cup_large","item",true,5,[["coca",6],["plastic",6]],6,"",1],
-		["f_Coffee_Cup_Medium","","inh","inh","coffee_cup_medium","item",true,5,[["coca",4],["plastic",4]],6,"",1],
-		["f_Coffee_Cup_Small","","inh","inh","coffee_cup_small","item",true,5,[["coca",2],["plastic",2]],6,"",1],
+		["f_cola","","inh","inh","coke","item",true,5,[["coca",2],["sugarcane",2],["Aluminium_Ingot",1]],6,"",1],
+		["f_Coffee_Cup_Large","","inh","inh","coffee_cup_large","item",true,5,[["coca",6],["plastic",6]],4,"",1],
+		["f_Coffee_Cup_Medium","","inh","inh","coffee_cup_medium","item",true,5,[["coca",4],["plastic",4]],4,"",1],
+		["f_Coffee_Cup_Small","","inh","inh","coffee_cup_small","item",true,5,[["coca",2],["plastic",2]],4,"",1],
 		["f_popcornbucket","","inh","inh","popcornbucket","item",true,5,[["Corn",1]],10,"",1],
 		["f_burgerbun","Burger bun","inh","inh","burger_bun","item",true,5,[["wheat",1]],10,"",1],
 		["f_burger_raw","","inh","inh","burger_raw","item",true,5,[["bucket_full",1]],10,"",1],
 		["f_tacoshell","","inh","inh","tacoshell","item",true,5,[["Corn",1]],20,"",1],
 		["f_salad","","inh","inh","salad","item",true,5,[["Lettuce",1]],5,"",1],
 		["f_fish","","inh","inh","fish_raw","item",true,5,[["bucket_full",1]],10,"",1],
-		["f_pizzabites","","inh","inh","pizzabites","item",true,5,[["meat_boar_tag",2],["meat_goat_tag",2],["wheat",20]],2,"",1],
-		["f_soupcoup","","inh","inh","soupcup","item",true,5,[["Corn",4],["wheat",10]],2,"",1],
-		["f_cookies","","inh","inh","cookies","item",true,5,[["coca",1],["sugarcane",3],["wheat",15]],2,"",1],
-		["f_cereal","","inh","inh","cereal","item",true,5,[["corn",5],["wheat",20]],1,"",1],
+		["f_pizzabites","","inh","inh","pizzabites","item",true,5,[["meat_boar_tag",3],["bread",1]],2,"",1],
+		["f_soupcoup","","inh","inh","soupcup","item",true,5,[["meat_sheep_tag",1],["corn",5]],2,"",1],
+		["f_cookies","","inh","inh","cookies","item",true,5,[["coca",2],["sugarcane",2],["wheat",15]],2,"",1],
+		["f_cereal","","inh","inh","cereal","item",true,5,[["corn",10],["wheat",20]],1,"",1],
 		["f_bread","","inh","inh","bread","item",true,5,[["wheat",30]],2,"",1],
-		["f_lamington","","inh","inh","lamington","item",true,5,[["meat_sheep",1],["lettuce",1]],2,"",1],
-		["f_sausages","","inh","inh","sausages","item",true,5,[["meat_boar",1],["lettuce",1]],2,"",1],
-		["f_meatpie","","inh","inh","meatpie","item",true,5,[["meat_sheep",1],["meat_boar",1],["meat_goat",1],["fish_raw",1],["lettuce",1]],2,"",1],
-		["f_lamington_tag","","inh","inh","lamington","item",true,5,[["meat_sheep_tag",1],["lettuce",1]],2,"",1],
-		["f_sausages_tag","","inh","inh","sausages","item",true,5,[["meat_boar_tag",1],["lettuce",1]],2,"",1],
-		["f_meatpie_tag","","inh","inh","meatpie","item",true,5,[["meat_sheep_tag",1],["meat_boar_tag",1],["meat_goat_tag",1],["fish_raw",1],["lettuce",1]],2,"",1]
+		["f_lamington","","inh","inh","lamington","item",true,5,[["sugarcane",3],["bread",1]],2,"",1],
+		["f_sausages","","inh","inh","sausages","item",true,5,[["meat_boar",2]],2,"",1],
+		["f_meatpie","","inh","inh","meatpie","item",true,5,[["meat_sheep_tag",1],["meat_boar_tag",1],["meat_goat_tag",1],["bread",1]],2,"",1]
 	],
 
 	["Faction Vehicles",[3873.923,9242.35,0],
