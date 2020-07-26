@@ -8,8 +8,6 @@ $[
 ]
 */
 
-
-
 class Dialog_Nametag
 {
 	idd = 05;
@@ -41,6 +39,46 @@ class Dialog_Nametag
 		{
 			idc = 1600;
 			text = $STR_IPHONEX_GUISAVENAME; //--- ToDo: Localize;
+			x = 0.469062 * safezoneW + safezoneX;
+			y = 0.5 * safezoneH + safezoneY;
+			w = 0.0773437 * safezoneW;
+			h = 0.033 * safezoneH;
+			action = "call A3PL_Player_SaveNametag;";
+		};
+	};
+};
+
+class Dialog_SquadNb
+{
+	idd = 05;
+	movingEnable = 0;
+	enableSimulation = 1;
+	onLoad = "";
+	onUnload = "";
+
+	class controls
+	{
+		class RscText_1000: RscText
+		{
+			idc = 1000;
+			x = 0.438125 * safezoneW + safezoneX;
+			y = 0.434 * safezoneH + safezoneY;
+			w = 0.139219 * safezoneW;
+			h = 0.11 * safezoneH;
+			colorBackground[] = {0,0,0,0.8};
+		};
+		class RscEdit_1400: RscEdit
+		{
+			idc = 1400;
+			x = 0.443281 * safezoneW + safezoneX;
+			y = 0.445 * safezoneH + safezoneY;
+			w = 0.128906 * safezoneW;
+			h = 0.044 * safezoneH;
+		};
+		class RscButton_1600: RscButton
+		{
+			idc = 1600;
+			text = $STR_IPHONEX_GUISAVENAME;
 			x = 0.469062 * safezoneW + safezoneX;
 			y = 0.5 * safezoneH + safezoneY;
 			w = 0.0773437 * safezoneW;

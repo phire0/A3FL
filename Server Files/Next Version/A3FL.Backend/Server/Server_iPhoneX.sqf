@@ -272,8 +272,6 @@
 	_playerUID = getPlayerUID _unit;
 	if (_playerUID == "") exitWith {};
 
-	["DELETE FROM iphone_messages WHERE to_num = '911' AND date < DATE_SUB(NOW(),INTERVAL 15 MINUTE)",1] call Server_Database_Async;
-
 	_query = format ["SELECT from_num, to_num, message FROM iphone_messages WHERE (from_num='%1' AND to_num='%2') OR (from_num='%2' AND to_num='%1') ORDER BY date", _phoneNumberActive, _phoneNumberContact];
 	_result = [_query,2,true] call Server_Database_Async;
 	reverse _result;
@@ -292,6 +290,9 @@
 	if (_playerUID == "") exitWith {};
 
 	_query = format ["SELECT from_num, message, position FROM iphone_messages WHERE to_num='%1' ORDER BY date", _phoneNumberContact];
+	if(_phoneNumberContact isEqualTo "911") then {
+		_query = format ["SELECT from_num, message, position FROM iphone_messages WHERE to_num='%1' ORDER BY date LIMIT 10", _phoneNumberContact];
+	};
 	_result = [_query,2,true] call Server_Database_Async;
 
 	[_result] remoteExec ["A3PL_iPhoneX_SMSEnterprise", _ownerID];

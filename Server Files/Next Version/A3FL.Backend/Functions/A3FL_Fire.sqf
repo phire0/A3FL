@@ -16,7 +16,6 @@
 ["A3PL_Fire_Matches",
 {
 	if (player_itemClass != "matches") exitwith {[localize"STR_NewFire_NoMatches","red"] call A3PL_Player_Notification;};
-
 	private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
 	if ((count(_fifr)) < 5) exitwith {[localize"STR_NewFire_5FIFRMatches","red"] call A3PL_Player_Notification;};
 	
