@@ -97,7 +97,7 @@
 {
 	private _markerArea = "A3PL_Marker_Fish5";
 	private _markerLabel = "Fishing5";
-	private _locations = [[6878,12890],[1406,2095],[7326,3808],[4300,6945],[1421,13334]];
+	private _locations = [[6878,12890],[1406,2095],[7326,3808],[1421,13334]];
 	private _currentLocation = missionNamespace getVariable ["TurtleAreaLocation",0];
 	private _nextLocation = selectRandom _locations;
 	if((_nextLocation find _locations) isEqualTo _currentLocation) exitWith {[] spawn Server_Criminal_TurtlesMove;};

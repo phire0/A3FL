@@ -289,9 +289,13 @@
 ],
 [
 	"Land_A3FL_Fishers_Jewelry",
-	"Break Glass",{
-		[player_objintersect,player_nameintersect] call A3PL_Jewelry_BreakGlass	
-	}
+	"Break Glass",
+	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_BreakGlass;}
+],
+[
+	"Land_A3FL_Fishers_Jewelry",
+	"Steal Jewlery",
+	{hint "Should work";}
 ],
 [
 	"Land_A3PL_Garage",

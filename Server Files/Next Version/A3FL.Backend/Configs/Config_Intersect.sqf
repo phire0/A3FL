@@ -419,6 +419,7 @@ Config_IntersectArray =
 	["jewelry_5_button2",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]) || (["keycard",1] call A3PL_Inventory_Has)}], //Use Door Button
 
 	["case_break_1","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["jewlery_case_1","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 
 	//ATM
 	["ATM",localize"STR_INTSECT_USEATM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Use ATM
@@ -2013,6 +2014,7 @@ publicVariable "Config_IntersectArray";
 Config_GenArray =
 [
 	"Break Glass",
+	"Steal Jewlery",
 	"Open/Close Safe",
 	"Secure Gang Hideout",
 	"Enter into Evidince",
