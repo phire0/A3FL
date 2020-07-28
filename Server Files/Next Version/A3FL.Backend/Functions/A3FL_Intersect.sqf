@@ -207,7 +207,6 @@
 	private _name = Player_NameIntersect;
 
 	if ((typeOf _obj) isEqualTo "Land_A3PL_Prison") exitwith {[_obj,_name] call A3PL_Prison_HandleDoor;};
-	if ((typeOf _obj) isEqualTo "Land_A3FL_Fishers_Jewelry") exitwith {[_obj,_name] call A3PL_Jewelry_HandleDoor;};
 
 	private _split = _name splitstring "_";
 	if ((((_split select 0) find "garagedoor") != -1) || (((_split select 0) find "hangardoor") != -1)) exitwith
