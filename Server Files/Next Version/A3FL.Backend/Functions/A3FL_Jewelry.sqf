@@ -1,23 +1,23 @@
 ["A3PL_Jewelry_SetDrill",
 {
-	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	_store = param [0,objNull];
-	if (typeOf _store != "Land_A3FL_Fishers_Jewelry") exitwith {["You are not looking at the vault","red"] call A3PL_Player_Notification;};
+    if(!(call A3PL_Player_AntiSpam)) exitWith {};
+    _store = param [0,objNull];
+    if (typeOf _store != "Land_A3FL_Fishers_Jewelry") exitwith {["You are not looking at the vault","red"] call A3PL_Player_Notification;};
 
-	_timer = false;
-	if (!isNil {_store getVariable ["timer",nil]}) then
-	{
-		if (((serverTime - (_store getVariable ["timer",0]))) < JEWLRYTIMER) then {_timer = true};
-	};
-	if (_timer) exitwith {[format ["The store has recently been robbed, try again in %1 seconds",JEWLRYTIMER - ((_store getVariable ["timer",0]) - serverTime)],"red"] call A3PL_Player_Notification;};
-	if (_store animationSourcePhase "jewl_vault" > 0) exitwith {["The bank vault is already open","red"] call A3PL_Player_Notification;};
-	if (backpack player != "A3PL_Backpack_Drill") exitwith {["You are not carrying a drill in your backpack","red"] call A3PL_Player_Notification;};
+    _timer = false;
+    if (!isNil {_store getVariable ["timer",nil]}) then
+    {
+        if (((serverTime - (_store getVariable ["timer",0]))) < JEWLRYTIMER) then {_timer = true};
+    };
+    if (_timer) exitwith {[format ["The store has recently been robbed, try again in %1 seconds",JEWLRYTIMER - ((_store getVariable ["timer",0]) - serverTime)],"red"] call A3PL_Player_Notification;};
+    if (_store animationSourcePhase "jewl_vault" > 0) exitwith {["The bank vault is already open","red"] call A3PL_Player_Notification;};
+    if (backpack player != "A3PL_Backpack_Drill") exitwith {["You are not carrying a drill in your backpack","red"] call A3PL_Player_Notification;};
 
-	_drill = "A3PL_Drill_Bank" createvehicle (getpos player);
-	_drill setdir (getdir _store)+90;
-	_drill attachto [_store,[0,0,0],"Vault_Lock"];
+    _drill = "A3PL_Drill_Bank" createvehicle (getpos player);
+    _drill attachto [player_objintersect,[-0.35,0,-0.19],"Vault_Lock"];
+    _drill setdir (getdir player_objintersect) - 90;
 
-	removeBackpack player;
+    removeBackpack player;
 }] call Server_Setup_Compile;
 
 
@@ -121,9 +121,9 @@
 	_object animate [_name,1];
 	playSound3D ["A3\Sounds_F\arsenal\sfx\bullet_hits\glass_07.wss", player, true, getPosASL player, 4, 50];
 	sleep 3;
-	_alarm = _object getVairable["triggered",false];
-	if(_alarm) then {
-		_object setVairable["triggered",true,true];
+	_alarm = _object getVariable["triggered",false];
+	if(!_alarm) then {
+		_object setVariable["triggered",true,true];
 		playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _object, false, getPosASL _object, 1, 1, 300];
 		_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
 		[_object] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
