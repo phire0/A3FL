@@ -278,12 +278,10 @@
 	"Open/Close Safe",
 	{
 		_building = player_objIntersect;
-		if(_building animationPhase "jewl_vault" > 0.95) then {
-			_building animate ["jewl_vault",0];
-			_building animate ["Vualt_Handle",0];
+		if(_building animationPhase "Vault_Door" > 0.95) then {
+			_building animateSource ["Vault_Door",0];
 		} else {
-			_building animate ["jewl_vault",1];
-			_building animate ["Vualt_Handle",1];
+			_building animateSource ["Vault_Door",1];
 		};
 	}
 ],
