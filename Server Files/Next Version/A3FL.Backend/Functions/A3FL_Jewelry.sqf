@@ -2,7 +2,7 @@
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_store = param [0,objNull];
-	if (typeOf _store != "Land_Land_A3FL_Fishers_Jewelry") exitwith {["You are not looking at the vault","red"] call A3PL_Player_Notification;};
+	if (typeOf _store != "Land_A3FL_Fishers_Jewelry") exitwith {["You are not looking at the vault","red"] call A3PL_Player_Notification;};
 
 	_timer = false;
 	if (!isNil {_store getVariable ["timer",nil]}) then
@@ -14,8 +14,8 @@
 	if (backpack player != "A3PL_Backpack_Drill") exitwith {["You are not carrying a drill in your backpack","red"] call A3PL_Player_Notification;};
 
 	_drill = "A3PL_Drill_Bank" createvehicle (getpos player);
-	_drill setdir (getdir _store)-90;
-	_drill attachto [_store,[],"Vault_Lock"];
+	_drill setdir (getdir _store)+90;
+	_drill attachto [_store,[0,0,0],"Vault_Lock"];
 
 	removeBackpack player;
 }] call Server_Setup_Compile;
