@@ -419,7 +419,23 @@ Config_IntersectArray =
 	["jewelry_5_button2",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]) || (["keycard",1] call A3PL_Inventory_Has)}], //Use Door Button
 
 	["case_break_1","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["case_break_2","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["case_break_3","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["case_break_4","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["case_break_5","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["case_break_6","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["case_break_7","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["case_break_8","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["case_break_9","Break Glass",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 	["jewlery_case_1","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["jewlery_case_2","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["jewlery_case_3","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["jewlery_case_4","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["jewlery_case_5","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["jewlery_case_6","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["jewlery_case_7","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["jewlery_case_8","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["jewlery_case_9","Steal Jewlery",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 
 	//ATM
 	["ATM",localize"STR_INTSECT_USEATM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Use ATM

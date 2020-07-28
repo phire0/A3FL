@@ -104,7 +104,7 @@
 		if (isNull _drill) exitwith {};
 		_drillValue = _newDrillValue;
 	};
-	if (((_drill animationSourcePhase "drill_handle") < 1) OR (isNull _drill)) exitwith {["Drilling cancelled",code_red] call A3PL_Player_Notification;}; //for some reason drilling failed
+	if (((_drill animationSourcePhase "drill_handle") < 1) OR (isNull _drill)) exitwith {["Drilling cancelled",code_red] call A3PL_Player_Notification;};
 
 	_store setVariable ["CanOpenSafe",true,true];
 
@@ -116,13 +116,101 @@
 
 ["A3PL_Jewelry_BreakGlass",
 {
-	_object = param [0,player_objIntersect];
-	_name = param [1,player_nameIntersect];
-
-	diag_log _name;
-	diag_log _object;
-
+	private _object = param [0,player_objIntersect];
+	private _name = param [1,player_nameIntersect];
 	_object animate [_name,1];
 	playSound3D ["A3\Sounds_F\arsenal\sfx\bullet_hits\glass_07.wss", player, true, getPosASL player, 4, 50];
+	sleep 3;
+	_alarm = _object getVairable["triggered",false];
+	if(_alarm) then {
+		_object setVairable["triggered",true,true];
+		playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _object, false, getPosASL _object, 1, 1, 300];
+		_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
+		[_object] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
+	};
+}] call Server_Setup_Compile;
 
+["A3PL_Jewelry_PickJewlery",
+{
+	private _object = param [0,player_objIntersect];
+	private _name = param [1,player_nameIntersect];
+	private _time = 10;
+	private _items = [];
+	switch(_name) do {
+		case("jewlery_case_1"): {
+			_time = 30;
+			_items = [
+				["diamond",1]
+			];
+		};
+		case("jewlery_case_2"): {
+			_time = 30;
+			_items = [
+				["diamond",1]
+			];
+		};
+		case("jewlery_case_3"): {
+			_time = 30;
+			_items = [
+				["diamond",1]
+			];
+		};
+		case("jewlery_case_4"): {
+			_time = 15;
+			_items = [
+				["diamond",1]
+			];
+		};
+		case("jewlery_case_5"): {
+			_time = 15;
+			_items = [
+				["diamond",1]
+			];
+		};
+		case("jewlery_case_6"): {
+			_time = 15;
+			_items = [
+				["diamond",1]
+			];
+		};
+		case("jewlery_case_7"): {
+			_time = 45;
+			_items = [
+				["diamond",1]
+			];
+		};
+		case("jewlery_case_8"): {
+			_time = 45;
+			_items = [
+				["diamond",1]
+			];
+		};
+		case("jewlery_case_9"): {
+			_time = 45;
+			_items = [
+				["diamond",1]
+			];
+		};
+	};
+
+	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
+	["Stealing Jewlery...",_time] spawn A3PL_Lib_LoadAction;
+	_success = true;
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if ((player distance2D (_object modelToWorldVisual (_object selectionPosition [_name,"Memory"]))) > 3) exitwith {_success = false};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
+	};
+	player playMoveNow "";
+	if(Player_ActionInterrupted || !_success) exitWith {["Action cancelled","red"] call A3PL_Player_Notification;};
+
+	{
+		private _class = _x select 0;
+		private _amount = _x select 1;
+		[_class,_amount] call A3PL_Inventory_Add;
+	} foreach _items;
+	_object animate [_name,1];
+	["You stole the jewlery!","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

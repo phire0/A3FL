@@ -186,7 +186,7 @@ Config_Items =
 	["zipties",localize"STR_ConfigItems_zipties",1,"A3PL_Ziptie",0,true, true,true,true,true,"",[0,0,0],"",1],	
 	["handcuffs",localize"STR_ConfigItems_handcuffs",1,"A3PL_Handcuffs",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Lifebuoy",localize"STR_ConfigItems_Lifebuoy",1,"A3PL_Lifebuoy",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["doorkey",localize"STR_ConfigItems_doorkey" 0.1,"A3PL_HouseKey",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["doorkey",localize"STR_ConfigItems_doorkey",0.1,"A3PL_HouseKey",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["rocket_blue",localize"STR_ConfigItems_rocket_blue",2,"A3PL_Rocket",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["rocket_red",localize"STR_ConfigItems_rocket_red",2,"A3PL_Rocket",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["rocket_green",localize"STR_ConfigItems_rocket_green",2,"A3PL_Rocket",0,true,true,true,true,true,"",[0,0,0],"",1],
@@ -492,6 +492,6 @@ Config_Items =
 	["bucket_full",localize"STR_ConfigItems_bucket_full",1,"A3PL_BucketFull",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["repairwrench",localize"STR_ConfigItems_repairwrench",1,"A3PL_Wrench",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["ticket",localize"STR_ConfigItems_ticket",0.1,"A3PL_Ticket",0,false,false,true,true,true,"",[0,0,0],"",1],
-	["Ladder",localize"STR_ConfigItems_Ladder",5,"A3PL_Ladder",0,true,true,true,false,false,"",[0,0,0],"",1] 
+	["Ladder",localize"STR_ConfigItems_Ladder",5,"A3PL_Ladder",0,true,true,true,false,false,"",[0,0,0],"",1]
 ];
 publicVariable "Config_Items";

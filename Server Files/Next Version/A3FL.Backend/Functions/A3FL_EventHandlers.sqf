@@ -123,11 +123,11 @@
 				_veh = vehicle player;
 			};
 
-			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {};
-			if ((player distance _veh > 5)) exitWith {};
+			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {diag_log "exit 1";};
+			if ((player distance _veh > 5)) exitWith {diag_log "exit 2";};
 			if ((_veh getVariable["locked",false])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
-			if(isNull _veh || {isNil '_veh'}) exitWith {};
-			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && ((_veh getVariable["owner",""]) != (getPlayerUID player))) exitWith {};
+			if(isNull _veh || {isNil '_veh'}) exitWith {diag_log "exit 3";};
+			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && ((_veh getVariable["owner",""]) != (getPlayerUID player))) exitWith {diag_log "exit 4";};
 			if([typeOf (_veh)] call A3PL_Config_HasStorage) then {
 				[_veh] call A3PL_Vehicle_OpenStorage;
 			};

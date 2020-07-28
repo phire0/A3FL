@@ -295,7 +295,7 @@
 [
 	"Land_A3FL_Fishers_Jewelry",
 	"Steal Jewlery",
-	{hint "Should work";}
+	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_PickJewlery;}
 ],
 [
 	"Land_A3PL_Garage",
