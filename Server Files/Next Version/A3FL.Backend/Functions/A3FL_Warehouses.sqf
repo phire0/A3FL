@@ -6,20 +6,6 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-["A3PL_Warehouses_GetPrice",
-{
-	private ["_price","_house","_class"];
-	_warehouse = param [0,objNull];
-	_class = typeOf _warehouse;
-	_price = 0;
-	{
-		if((_x select 0) == _class) exitWith {
-			_price = _x select 1;
-		};
-	} forEach Config_Warehouses_Prices;
-	_price;
-}] call Server_Setup_Compile;
-
 ["A3PL_Warehouses_OpenBuyMenu",
 {
 	disableSerialization;
@@ -44,7 +30,7 @@
 	if (count _warehouses < 1) exitwith {[localize"STR_NewHousing_12","red"] call A3PL_Player_Notification;};
 	A3PL_Warehouses_Object = _warehouses select 0;
 	_price = [A3PL_Warehouses_Object,1] call A3PL_Warehouses_GetData;
-	_level = [A3PL_Warehouses_Object,4] call A3PL_Warehouses_GetData;
+	_level = [A3PL_Warehouses_Object,3] call A3PL_Warehouses_GetData;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
 	if ((player getVariable ["player_level",0]) < _level) exitwith {[format["You need to be level %1 to purchase this warehouse!",_level],"red"] call A3PL_Player_Notification;};
 	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {["This warehouse is already owned!","red"] call A3PL_Player_Notification;};
@@ -56,8 +42,7 @@
 	[format ["You purchased this warehouse for $%1 located at %2",_price,_namePos],"green"] call A3PL_Player_Notification;
 	[A3PL_Warehouses_Object] spawn
 	{
-		private ["_house"];
-		_warehouse = param [0,objNull];
+		private _warehouse = param [0,objNull];
 		uiSleep 3;
 		_marker = createMarkerLocal [format["warehouse_%1",round (random 1000)],visiblePosition _warehouse];
 		_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
@@ -147,11 +132,11 @@
 	private _warehouse = param [0,objNull];
 	private _search = param [1,1];
 	private _class = typeOf _warehouse;
-	private _price = 0;
+	private _data = "";
 	{
 		if((_x select 0) == _class) exitWith {
-			_price = _x select _search;
+			_data = _x select _search;
 		};
 	} forEach Config_Warehouses_Prices;
-	_price;
+	_data;
 }] call Server_Setup_Compile;

@@ -618,7 +618,7 @@
 	localize"STR_QuickActionsNPC_TalkToSheriff",
 	{
 		["police_initial"] call A3PL_NPC_Start;
-		if(((["fisd","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData) IN ["Detective Sergeant","Detective","Reserve","Lieutenant","Captain","Undersheriff","Sheriff"])) then {
+		if((["fisd","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData) IN ["Reserve","Detective","Detective Sergeant","Lieutenant","Captain","Undersheriff","Sheriff"]) then {
 			player setVariable["FakeIDAccess",true,false];
 		};
 	}

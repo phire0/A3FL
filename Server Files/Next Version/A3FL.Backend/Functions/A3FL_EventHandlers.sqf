@@ -608,7 +608,7 @@
 			player removeMagazines "A3FL_BaseballBatMag";
 			player addMagazine "A3FL_BaseballBatMag";
 		};
-		if (_itemClass == "A3FL_PoliceBaton") then{
+		if (_itemClass == "A3FL_PoliceBaton") then {
 			player removeMagazines "A3FL_PoliceBatonMag";
 			player addMagazine "A3FL_PoliceBatonMag";
 		};
@@ -673,15 +673,11 @@
 {
 	player addEventHandler ["FiredNear",
 	{
-		private ["_distance","_weaponClass","_except"];
-
 		if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
-		_distance = param [2,100];
-		_weaponClass = param [3,""];
-		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
-
-		if(_distance <= 30 && (!(_weaponClass IN _except))) then
-		{
+		private _distance = param [2,100];
+		private _weaponClass = param [3,""];
+		private _except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
+		if(_distance <= 30 && (!(_weaponClass IN _except))) then {
 			Player_LockView = true;
 			Player_LockView_Time = time + (2 * 60);
 		};
@@ -693,34 +689,39 @@
 	player removeAllEventHandlers "InventoryOpened";
 	player addEventHandler ["InventoryOpened",
 	{
-		params ["_unit", "_container"];
-
-		if(_container isEqualTo A3FL_Seize_Storage) then {
-			_isLead = ["usms"] call A3PL_Government_isFactionLeader;
-			_isLocked = _container getVariable["locked",true];
-			if(!_isLead && _isLocked) exitWith {
-				["The storage is locked","red"] call A3PL_Player_Notification;
-				true;
+		params [
+			["_unit", objNull, [objNull]],
+			["_container", objNull, [objNull]],
+			["_secContainer", objNull, [objNull]]
+		];
+		private _handle = false;
+		{
+			if((_x isEqualTo A3FL_Seize_Storage)) exitWith  {
+				_isLead = false;
+				_isLocked = _x getVariable["locked",true];
+				if(!_isLead && _isLocked) exitWith  {
+					["The storage is locked","red"] call A3PL_Player_Notification;
+					_handle = true;
+				};
 			};
-		};
-		if((player distance2D A3FL_Seize_Storage) < 5) then {
-			_isLead = ["usms"] call A3PL_Government_isFactionLeader;
-			_isLocked = _container getVariable["locked",true];
-			if(!_isLead && _isLocked) exitWith {
-				["The storage is locked","red"] call A3PL_Player_Notification;
-				true;
+			if(((typeOf _x) isEqualTo "A3PL_EMS_Locker")) exitWith  {
+				_owner = _x getVariable["owner",""];
+				if(!((getPlayerUID player) isEqualTo _owner)) exitWith  {
+					["The locker is closed","red"] call A3PL_Player_Notification;
+					_handle = true;
+				};
 			};
-		};
+		} count [_container, _secContainer];
+		_handle;
 	}];
 }] call Server_Setup_Compile;
 
 ["A3PL_EventHandlers_RadioAnim",
 {
 	["player", "OnBeforeTangent", {
-		private ["_transmit","_vest","_vestList"];
-		_transmit = _this select 4;
-		_vest = vest player;
-		_vestList = [
+		private _transmit = _this select 4;
+		private _vest = vest player;
+		private _vestList = [
 			"","A3PL_DutyBelt","A3PL_Rangemaster_belt_blk","A3PL_Ghostbusters_Belt","A3PL_Holster_1","V_LegStrapBag_black_F","V_LegStrapBag_coyote_F","V_LegStrapBag_olive_F","A3PL_Sheriff_Belt_Test","A3PL_Rangemaster_belt",
 			"A3PL_Clean_Safety_Vest","A3PL_Clean_Safety_Vest_Orange","A3PL_DMV_Safety_Vest","A3PL_FakeNews_Safety","A3PL_VFD_IC_Vest","A3PL_VFD_Vest","A3PL_FIFR_RideAlong_Safety","A3PL_FIFR_Safety","A3PL_FIFR_Safety_Command","A3PL_FIFR_Safety_EMT","A3PL_FIFR_Safety_Fire","A3PL_FIFR_Safety_Lieutenant","A3PL_FIFR_Safety_Paramedic","A3PL_FISD_Safety_Traffic","A3PL_USCG_Ground_Safety_Vest","A3PL_USCG_Safety_Vest_Yellow","A3PL_Waste_Manage_Vest"
 		];
