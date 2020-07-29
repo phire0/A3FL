@@ -492,6 +492,13 @@ Config_Items =
 	["bucket_full",localize"STR_ConfigItems_bucket_full",1,"A3PL_BucketFull",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["repairwrench",localize"STR_ConfigItems_repairwrench",1,"A3PL_Wrench",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["ticket",localize"STR_ConfigItems_ticket",0.1,"A3PL_Ticket",0,false,false,true,true,true,"",[0,0,0],"",1],
-	["Ladder",localize"STR_ConfigItems_Ladder",5,"A3PL_Ladder",0,true,true,true,false,false,"",[0,0,0],"",1]
+	["Ladder",localize"STR_ConfigItems_Ladder",5,"A3PL_Ladder",0,true,true,true,false,false,"",[0,0,0],"",1],
+
+	["ring",localize"STR_ConfigItems_ring",0.5,"A3FL_Jewelry_Ring",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["ringset",localize"STR_ConfigItems_ringset",1,"A3FL_Jewelry_RingSet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["bracelet",localize"STR_ConfigItems_bracelet",1,"A3FL_Jewelry_Bracelet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["crown",localize"STR_ConfigItems_crown",5,"A3FL_Jewelry_Crown",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["necklace",localize"STR_ConfigItems_neckless",0.5,"A3FL_Jewelry_Necklace",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["golden_dildo",localize"STR_ConfigItems_golden_dildo",5,"A3FL_Jewelry_GoldenDildo",0,true,true,true,false,false,"",[0,0,0],"",1],
 ];
 publicVariable "Config_Items";

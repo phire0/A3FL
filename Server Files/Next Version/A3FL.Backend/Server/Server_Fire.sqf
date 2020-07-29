@@ -207,7 +207,8 @@
 	};
 
 	private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
-	if ((count(_fifr)) >= 5) then {
+	private _fires = count(_veh nearEntities [["A3PL_Fireobject"], 10]);
+	if (((count(_fifr)) >= 5) && {_fires isEqualTo 0}) then {
 		private _marker = createMarker [format ["vehiclefire_%1",random 4000], position (_veh)];
 		_marker setMarkerShape "ICON";
 		_marker setMarkerType "A3PL_Markers_FIFD";

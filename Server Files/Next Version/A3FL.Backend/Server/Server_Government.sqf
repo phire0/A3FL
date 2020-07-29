@@ -48,7 +48,7 @@
 	publicVariable "Config_Government_Balances";
 	["Config_Government_Balances",true] call Server_Core_SavePersistentVar;
 
-	if((_addBalance IN ["Fire Department","United States Coast Guard","Sheriff Department","Department of Motor Vehicles","Department of Justice","United States Marshals Service"]) && (_description != "")) then {
+	if((_addBalance IN ["Fire Department","United States Coast Guard","Sheriff Department","Department of Justice","Marshals Service"]) && (_description != "")) then {
 		private _query = format ["INSERT INTO factions_budget_logs(faction, amount, description, date_log) VALUES('%1','%2','%3', NOW())",_addBalance, _amount, _description];
 		[_query,1] spawn Server_Database_Async;
 	};

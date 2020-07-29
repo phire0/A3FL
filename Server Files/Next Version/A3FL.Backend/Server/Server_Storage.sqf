@@ -275,7 +275,7 @@
 	_class = param [0,""];
 	_player = param [1,objNull];
 	_id = param [2,-1];
-	_storage = param [3,cursorObject,[cursorObject,[]]];
+	_storage = param [3,[]];
 
 	_whitelistTrailer = ["A3PL_Ski_Base"];
 	if (typeName _storage == "ARRAY") exitwith {

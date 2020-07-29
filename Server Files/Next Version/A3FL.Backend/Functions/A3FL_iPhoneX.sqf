@@ -1226,6 +1226,7 @@
 	private["_display","_control"];
 	disableSerialization;
 
+	if(underwater (vehicle player)) exitWith {["You cannot use your phone while underwater","red"] call A3PL_Player_Notification;};
 	if(!isNull (findDisplay 97000)) exitWith {};
 	if (A3PL_phoneCallOn) exitWith {[] spawn A3PL_iPhoneX_AppCall;};
 
@@ -1273,7 +1274,7 @@
 		ctrlShow [97101,true];
 		ctrlShow [97102,true];
 	};
-	if (((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","usms"]) || (["vfd",player] call A3PL_DMV_Check)) then {
+	if ((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","usms","doj"]) then {
 		ctrlShow [97103,true];
 		ctrlShow [97104,true];
 	};

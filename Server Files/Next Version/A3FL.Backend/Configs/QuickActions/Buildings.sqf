@@ -288,12 +288,12 @@
 [
 	"Land_A3FL_Fishers_Jewelry",
 	"Break Glass",
-	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_BreakGlass;}
+	{["Hit the glass with a melee weapon"],"orange"] call A3PL_Player_Notification;}
 ],
 [
 	"Land_A3FL_Fishers_Jewelry",
-	"Steal Jewlery",
-	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_PickJewlery;}
+	"Steal Jewelry",
+	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_PickJewelry;}
 ],
 [
 	"Land_A3PL_Garage",

@@ -899,7 +899,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_DEPLOYPAR",
 		{player action ["openParachute"];},
-		{((backpack player) isKindOf "B_Parachute")}
+		{((backpack player) isKindOf "B_Parachute") && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}
 	],
 	[
 		localize "STR_INTER_SWITCHCON",

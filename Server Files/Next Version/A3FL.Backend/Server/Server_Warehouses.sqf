@@ -48,16 +48,11 @@
 	_warehouse = param [1,objNull];
 	_uid = param [2,""];
 
-	diag_log "in loaditems";
-
-	//set furn loaded to true
 	if (_warehouse getVariable ["furn_loaded",false]) exitwith {};
 	_warehouse setVariable ["furn_loaded",true,false];
 
 	_pitems = [format ["SELECT pitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2] call Server_Database_Async;
 	_pitems = call compile (_pitems select 0);
-
-	diag_log format ["_pitems = %1",_pitems];
 
 	[_warehouse,_pitems] remoteExec ["A3PL_Warehouses_Loaditems", (owner _player)];
 },true] call Server_Setup_Compile;
@@ -216,10 +211,8 @@
 	_new = param [1,objNull];
 	_warehouse = param [2,objNull];
 
-	diag_log "running";
 
 	_actuals = _warehouse getVariable "owner";
-
 	if((_actuals find (getPlayerUID _new)) != -1) exitWith {};
 
 	_actuals pushback(getPlayerUID _new);

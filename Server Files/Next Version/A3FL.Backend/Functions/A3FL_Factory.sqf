@@ -136,7 +136,7 @@
 	private ["_display","_control","_type","_id","_required","_failed","_sec","_classType","_craftID","_classname","_alreadyCrafting"];
 	_display = findDisplay 45;
 	_type = ctrlText (_display displayCtrl 1100); //factory id from dialog text
-	_toCraft = parseNumber(ctrlText (_display displayCtrl 1400));
+	_toCraft = parseNumber(ctrlText (_display displayCtrl 1406));
 	_hasLevel = true;
 	_levelRequired = 0;
 

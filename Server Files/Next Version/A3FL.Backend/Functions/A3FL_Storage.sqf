@@ -146,7 +146,8 @@
 			[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 		};
 	} else {
-		[_class,player,_id,_intersect] remoteExec ["Server_Storage_RetrieveVehicle", 2];
+		_nearFreePos = [(getpos player), 5, 50, 0, 0] call BIS_fnc_findSafePos;
+		[_class,player,_id,_nearFreePos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 	};
 	closeDialog 0;
 }] call Server_Setup_Compile;

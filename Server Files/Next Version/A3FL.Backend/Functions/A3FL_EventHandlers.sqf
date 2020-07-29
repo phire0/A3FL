@@ -117,17 +117,14 @@
 		{
 			private["_veh"];
 			if (animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
-			if((vehicle player) isEqualTo player) then {
-				_veh = player_objintersect;
-			} else {
-				_veh = vehicle player;
-			};
+			_veh = player_objintersect;
+			if(!((vehicle player) isEqualTo player)) then {_veh = vehicle player;};
 
 			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {diag_log "exit 1";};
 			if ((player distance _veh > 5)) exitWith {diag_log "exit 2";};
 			if ((_veh getVariable["locked",false])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
 			if(isNull _veh || {isNil '_veh'}) exitWith {diag_log "exit 3";};
-			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && ((_veh getVariable["owner",""]) != (getPlayerUID player))) exitWith {diag_log "exit 4";};
+			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && {(_veh getVariable["owner",""]) != (getPlayerUID player)}) exitWith {diag_log "exit 4";};
 			if([typeOf (_veh)] call A3PL_Config_HasStorage) then {
 				[_veh] call A3PL_Vehicle_OpenStorage;
 			};
@@ -144,6 +141,7 @@
 
 		["ArmA 3 Fishers Life","twitter_key", "Open Twitter Post",
 		{
+			if(underwater (vehicle player)) exitWith {["You cannot use your phone while underwater","red"] call A3PL_Player_Notification;};
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			if(!dialog) then {[] spawn A3PL_iPhoneX_appTwitterPost;};
@@ -382,8 +380,12 @@
 		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
 		{
 			player playAction "GestureSwing";
+			if(((typeOf player_objintersect) isEqualTo "Land_A3FL_Fishers_Jewelry") && {player_nameintersect IN ["case_break_1","case_break_2","case_break_3","case_break_4","case_break_5","case_break_6","case_break_7","case_break_8","case_break_9"]}) exitWith {
+				hint "yay";
+				call A3PL_Jewelry_GlassDamage;
+			};
 			if (player inArea "LumberJack_Rectangle") then {
-				if (_weapon == "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
+				if (_weapon isEqualTo "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
 			} else {
 				call A3PL_FD_HandleFireAxe;
 			};

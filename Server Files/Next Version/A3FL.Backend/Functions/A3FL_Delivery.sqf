@@ -11,7 +11,7 @@
 	_npc = param [0,objNull];
 	if(isNull(_npc)) exitWith {};
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"]; call A3PL_NPC_LeaveJob};
+	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"] call A3PL_NPC_LeaveJob};
 
 	player setVariable ["job","mailman"];
 	call A3PL_Player_SetMarkers;

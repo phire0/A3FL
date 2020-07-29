@@ -397,7 +397,7 @@
 		if((count (nearestObjects [player, ["Land_A3PL_Bank"], 15])) > 0) then {
 			[player_objintersect] spawn A3PL_BHeist_StartDrill;
 		} else {
-			[player_objintersect] spawn A3PL_Jewlery_StartDrill;
+			[player_objintersect] spawn A3PL_Jewelry_StartDrill;
 		};
 	}
 ],

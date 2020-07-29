@@ -1872,6 +1872,24 @@
    <Key ID="STR_ConfigItems_Ladder">
       <Original>Ladder</Original>
    </Key>
+   <Key ID="STR_ConfigItems_ring">
+      <Original>Ring</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_ringset">
+      <Original>Set of rings</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_bracelet">
+      <Original>Set of bracelet</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_crown">
+      <Original>King George's Crown</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_neckless">
+      <Original>Neckless</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_golden_dildo">
+      <Original>Golden Dildo</Original>
+   </Key>
    <Key ID="STR_ConfigItems_drill_bit">
       <Original>Drill Bit</Original>
    </Key>

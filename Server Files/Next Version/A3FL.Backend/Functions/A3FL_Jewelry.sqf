@@ -1,44 +1,34 @@
 ["A3PL_Jewelry_SetDrill",
 {
     if(!(call A3PL_Player_AntiSpam)) exitWith {};
-    _store = param [0,objNull];
-    if (typeOf _store != "Land_A3FL_Fishers_Jewelry") exitwith {["You are not looking at the vault","red"] call A3PL_Player_Notification;};
-
-    _timer = false;
-    if (!isNil {_store getVariable ["timer",nil]}) then
-    {
+    private _store = param [0,objNull];
+    private _timer = false;
+    if (!isNil {_store getVariable ["timer",nil]}) then {
         if (((serverTime - (_store getVariable ["timer",0]))) < JEWLRYTIMER) then {_timer = true};
     };
     if (_timer) exitwith {[format ["The store has recently been robbed, try again in %1 seconds",JEWLRYTIMER - ((_store getVariable ["timer",0]) - serverTime)],"red"] call A3PL_Player_Notification;};
     if (_store animationSourcePhase "jewl_vault" > 0) exitwith {["The bank vault is already open","red"] call A3PL_Player_Notification;};
     if (backpack player != "A3PL_Backpack_Drill") exitwith {["You are not carrying a drill in your backpack","red"] call A3PL_Player_Notification;};
 
-    _drill = "A3PL_Drill_Bank" createvehicle (getpos player);
+    private _drill = "A3PL_Drill_Bank" createvehicle (getpos player);
     _drill attachto [player_objintersect,[-0.35,0,-0.19],"Vault_Lock"];
     _drill setdir (getdir player_objintersect) - 90;
 
     removeBackpack player;
 }] call Server_Setup_Compile;
 
-
 ["A3PL_Jewelry_PickCash",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_cashPile","_container"];
-	_cashPile = param [0,objNull];
-
+	private _cashPile = param [0,objNull];
 	if (Player_ActionDoing) exitwith {["You are already performing an action","red"] call A3PL_Player_Notification;};
 	["Picking up money...",10] spawn A3PL_Lib_LoadAction;
 	waitUntil {sleep 0.1; Player_ActionCompleted};
 	Player_ActionCompleted = false;
-
 	if (isNull _cashPile) exitwith {};
-
 	deleteVehicle _cashPile;
-
 	["dirty_cash",3000 + round(10000)] call A3PL_Inventory_Add;
 }] call Server_Setup_Compile;
-
 
 ["A3PL_Jewelry_CloseVault",
 {
@@ -54,12 +44,12 @@
 	[player, 50] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
-["A3PL_Jewlery_StartDrill",
+["A3PL_Jewelry_StartDrill",
 {
-	_drill = param [0,objNull];
+	_drill = param [0,player_objintersect];
 	_fail = false;
 	_faction = "FISD";
-	_copsRequired = 7;
+	_copsRequired = 0;
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
 
@@ -82,13 +72,11 @@
 	[getPlayerUID player,"jewelryRobbery",[getPos _bank]] remoteExec ["Server_Log_New",2];
 
 	[format["!!! ALERT !!! A jewelry store is being robbed at %1 !", _nearCity],"green","fisd",3] call A3PL_Lib_JobMessage;
-
 	if(_nearCity isEqualTo "Lubbock") then {
-	[format["!!! ALERT !!! A jewelry store is being robbed at %1 !", _nearCity],"green","uscg",3] call A3PL_Lib_JobMessage;
+		[format["!!! ALERT !!! A jewelry store is being robbed at %1 !", _nearCity],"green","uscg",3] call A3PL_Lib_JobMessage;
 	};
 
-	missionNamespace setVariable ["JewleryCooldown",diag_Ticktime,true];
-
+	missionNamespace setVariable ["JewelryCooldown",diag_Ticktime,true];
 	playSound3D ["A3PL_Common\effects\bankalarm.ogg", _bank, true, _bank, 3, 1, 250];
 
 	_drill animateSource ["drill_handle",1];
@@ -107,11 +95,41 @@
 	if (((_drill animationSourcePhase "drill_handle") < 1) OR (isNull _drill)) exitwith {["Drilling cancelled",code_red] call A3PL_Player_Notification;};
 
 	_store setVariable ["CanOpenSafe",true,true];
-
 	_store setVariable ["timer",serverTime,true];
 	uiSleep 1;
 	deleteVehicle _drill;
 	["Drilling completed. The drill and the drill bit both unfortunatly broke during drilling.","green"] call A3PL_Player_Notification;
+
+	[_store] call A3PL_Jewelry_LoadSafe;
+}] call Server_Setup_Compile;
+
+["A3PL_Jewelry_LoadSafe",
+{
+	private _store = param [0,objNull];
+	private _itemList = ["A3PL_Money","A3FL_Jewelry_Ring","A3FL_Jewelry_RingSet","A3FL_Jewelry_Bracelet","A3FL_Jewelry_Crown","A3FL_Jewelry_Necklace","A3FL_Jewelry_GoldenDildo"];
+	for "_i" from 1 to 16 do {
+		_point = format["safe_item_%1",_i];
+		_class = selectRandom _itemList;
+		_item = createVehicle [_class, position player, [], 0, "CAN_COLLIDE"];
+		_item setpos (_store modelToWorld (_store selectionPosition _point));
+	};
+}] call Server_Setup_Compile;
+
+["A3PL_Jewelry_GlassDamage",
+{
+	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];
+	private _nameIntersect = missionNameSpace getVariable ["player_nameintersect",""];
+	private _cops = ["fisd"] call A3PL_Lib_FactionPlayers;
+	if(count(_cops) < 0) exitWith {["There is not enough Sheriffs on duty at this time to break the glass","red"] call A3PL_Player_Notification;};
+	if (player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 2) then
+	{
+		private _var = format ["damage_%1",_nameintersect];
+		private _damage = (_intersect getVariable [_var,0]);
+		_intersect setVariable [_var,_damage + 0.35,false];
+		if (_damage >= 1) exitwith {
+			[_intersect,_nameIntersect] spawn A3PL_Jewelry_BreakGlass;
+		};
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Jewelry_BreakGlass",
@@ -125,12 +143,11 @@
 	if(!_alarm) then {
 		_object setVariable["triggered",true,true];
 		playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _object, false, getPosASL _object, 1, 1, 300];
-		_cops = ["fisd"] call A3PL_Lib_FactionPlayers;
 		[_object] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
 	};
 }] call Server_Setup_Compile;
 
-["A3PL_Jewelry_PickJewlery",
+["A3PL_Jewelry_PickJewelry",
 {
 	private _object = param [0,player_objIntersect];
 	private _name = param [1,player_nameIntersect];
@@ -140,61 +157,80 @@
 		case("jewlery_case_1"): {
 			_time = 30;
 			_items = [
-				["diamond",1]
+				["ringset",4],
+				["ring",2],
+				["bracelet",2]
 			];
 		};
 		case("jewlery_case_2"): {
 			_time = 30;
 			_items = [
-				["diamond",1]
+				["ringset",4],
+				["ring",2],
+				["bracelet",2]
 			];
 		};
 		case("jewlery_case_3"): {
 			_time = 30;
 			_items = [
-				["diamond",1]
+				["ringset",4],
+				["ring",2],
+				["bracelet",2]
 			];
 		};
 		case("jewlery_case_4"): {
 			_time = 15;
 			_items = [
-				["diamond",1]
+				["crown",1]
 			];
 		};
 		case("jewlery_case_5"): {
 			_time = 15;
 			_items = [
-				["diamond",1]
+				["necklace",1]
 			];
 		};
 		case("jewlery_case_6"): {
 			_time = 15;
 			_items = [
-				["diamond",1]
+				["golden_dildo",1]
 			];
 		};
 		case("jewlery_case_7"): {
 			_time = 45;
 			_items = [
-				["diamond",1]
+				["ringset",9],
+				["ring",6],
+				["bracelet",4]
 			];
 		};
 		case("jewlery_case_8"): {
 			_time = 45;
 			_items = [
-				["diamond",1]
+				["ringset",9],
+				["ring",6],
+				["bracelet",4]
 			];
 		};
 		case("jewlery_case_9"): {
 			_time = 45;
 			_items = [
-				["diamond",1]
+				["ringset",9],
+				["ring",6],
+				["bracelet",4]
 			];
 		};
 	};
 
 	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
-	["Stealing Jewlery...",_time] spawn A3PL_Lib_LoadAction;
+
+	if (currentWeapon player != "") then {
+		A3PL_Holster = currentWeapon player;
+		player action ["SwitchWeapon", player, player, 100];
+		player switchCamera cameraView;
+	};
+
+	["Stealing Jewelry...",_time] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
@@ -212,5 +248,5 @@
 		[_class,_amount] call A3PL_Inventory_Add;
 	} foreach _items;
 	_object animate [_name,1];
-	["You stole the jewlery!","green"] call A3PL_Player_Notification;
+	["You stole the jewelry!","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

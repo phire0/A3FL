@@ -52,6 +52,7 @@ class Dialog_Factory
 		class progress_crafting: RscProgress
 		{
 			idc = 1105;
+			style = "16 + 512";
 			x = 0.594531 * safezoneW + safezoneX;
 			y = 0.727185 * safezoneH + safezoneY;
 			w = 0.13099 * safezoneW;
@@ -156,6 +157,16 @@ class Dialog_Factory
 			x = 0.283437 * safezoneW + safezoneX;
 			y = 0.55 * safezoneH + safezoneY;
 			w = 0.170156 * safezoneW;
+			h = 0.022 * safezoneH;
+		};
+		class craft_amount: RscEdit
+		{
+			idc = 1406;
+			text = "1";
+			style = "16 + 512";
+			x = 0.644375 * safezoneW + safezoneX;
+			y = 0.77 * safezoneH + safezoneY;
+			w = 0.0360937 * safezoneW;
 			h = 0.022 * safezoneH;
 		};
 		class button_search: RscButtonEmpty
