@@ -37,21 +37,21 @@ Config_Factories =
 	],
 
 	["Steel Mill",[3852.065,9212.537,0.168],
-		["f_Iron_Ingot","","inh","inh","Iron_Ingot","item",true,10,[["Iron_Ore",4]],1,"",1],
-		["f_Coal_Ingot","","inh","inh","Coal_Ingot","item",true,10,[["Coal_Ore",4]],1,"",1],
+		["f_Iron_Ingot","","inh","inh","Iron_Ingot","item",true,5,[["Iron_Ore",4]],1,"",1],
+		["f_Coal_Ingot","","inh","inh","Coal_Ingot","item",true,5,[["Coal_Ore",4]],1,"",1],
 		["f_Steel","","inh","inh","Steel","item",true,10,[["Iron_Ingot",4],["Coal_Ingot",2]],30,"",1],
 		["f_Aluminium","","inh","inh","Aluminium","item",true,10,[["Aluminium_Ingot",4],["Iron_Ingot",2],["Coal_Ingot",6]],30,"",1],
-		["f_Titanium_Ingot","","inh","inh","Titanium_Ingot","item",true,10,[["Titanium_Ore",6]],1,"",1],
+		["f_Titanium_Ingot","","inh","inh","Titanium_Ingot","item",true,5,[["Titanium_Ore",6]],1,"",1],
 		["f_Titanium","","inh","inh","Titanium","item",true,10,[["Titanium_Ingot",4],["Coal_Ingot",2]],15,"",1],
-		["f_Titanium_Ingot_Pellet","","inh","inh","Titanium_Ingot_Pellet","item",true,120,[["Titanium_Ingot",826]],1,"",50],
-		["f_Iron_Ingot_Pellet","","inh","inh","Iron_Ingot_Pellet","item",true,120,[["Iron_Ingot",826]],1,"",50],
-		["f_Coal_Ingot_Pellet","","inh","inh","Coal_Ingot_Pellet","item",true,120,[["Coal_Ingot",826]],1,"",50],
+		["f_Titanium_Ingot_Pellet","","inh","inh","Titanium_Ingot_Pellet","item",true,90,[["Titanium_Ingot",826]],1,"",50],
+		["f_Iron_Ingot_Pellet","","inh","inh","Iron_Ingot_Pellet","item",true,90,[["Iron_Ingot",826]],1,"",50],
+		["f_Coal_Ingot_Pellet","","inh","inh","Coal_Ingot_Pellet","item",true,90,[["Coal_Ingot",826]],1,"",50],
 		["f_Steel_Pellet","","inh","inh","Steel_Pellet","item",true,30,[["Steel",60]],1,"",50],
 		["f_Aluminium_Pellet","","inh","inh","Aluminium_Pellet","item",true,30,[["Aluminium",60]],1,"",50],
 		["f_Titanium_Pellet","","inh","inh","Titanium_Pellet","item",true,30,[["Titanium",60]],1,"",50],
 		["f_ME_Bucket","","inh","inh","ME_Bucket","item",true,15,[["Steel",15]],1,"",1],
 		["f_ME_Jackhammer","","inh","inh","ME_Jackhammer","item",true,15,[["Steel",15]],1,"",1],
-		["f_Aluminium_Ingot","","inh","inh","Aluminium_Ingot","item",true,10,[["Aluminium_Ingot_Pellet",1]],826,"",50]
+		["f_Aluminium_Ingot","","inh","inh","Aluminium_Ingot","item",true,90,[["Aluminium_Ingot_Pellet",1]],826,"",50]
 	],
 
 	["Oil Refinery",[3852.065,9212.537,0.168],
