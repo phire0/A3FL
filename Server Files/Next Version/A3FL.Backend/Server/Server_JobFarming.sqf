@@ -35,9 +35,6 @@
 
 	if((typeOf _plant) isEqualTo "A3PL_Cannabis") then {
 		_plant setVariable ["inField",true,true];
-		if ((random 100) <= 10) then {
-			_plant setVariable ["female",true,true];
-		};
 	};
 	[0] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];
 },true] call Server_Setup_Compile;
@@ -67,29 +64,20 @@
 		case "A3PL_Sugarcane_Plant": {_amount = 2; _itemClass = "sugarcane"; _seedItem = "seed_sugar";};
 		case "A3PL_Cannabis":
 		{
-			private ["_lightValue","_plants"];
-			_itemClass = "cannabis_bud";
-			_lightValue = _plant getVariable ["lightValue",0];
+			private _itemClass = "cannabis_bud";
+			private _lightValue = _plant getVariable ["lightValue",0];
 			switch (true) do
 			{
-				case ((_plant getVariable ["female",false])): {_amount = 0;};
 				case (_plant getVariable ["inField",false]): {_amount = 40;};
 				case (_lightValue > 80): {_amount = 30;};
 				case (_lightValue > 50): {_amount = 20;};
 				case (_lightValue > 20): {_amount = 10;};
 				case default {_amount = 2;};
 			};
-			if (_plant getVariable ["female",false]) then
-			{
-				_plants = nearestObjects [_plant, ["A3PL_Cannabis"], 5];
-				{
-					if (!(_x getVariable ["female",false])) exitwith {_amount = _amount + 5;};
-				} foreach _plants;
-			};
 		};
 	};
 
-	if (_itemClass == "") exitwith {};
+	if (_itemClass isEqualTo "") exitwith {};
 	if (([[[_itemClass,_amount]],_player] call Server_Inventory_TotalWeight) > 600) exitWith {[6] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];_plant setVariable ["inuse",false,false];};
 
 	deleteVehicle _plant;

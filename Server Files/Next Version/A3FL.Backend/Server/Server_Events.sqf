@@ -5,7 +5,7 @@
 	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
-
+//deleteMarker "Server_Events_ShipWreck"; Server_Events_Current = nil; call Server_Events_Random
 ["Server_Events_Random",
 {
 	private _allEvents = [
@@ -47,7 +47,7 @@
 	_wreck setDir (random 359);
 
 	private _boxPos = [(_posArray select 0) - random 15,(_posArray select 1) + random 10,_posArray select 2];
-	private _itemBox = "B_CargoNet_01_ammo_F" createVehicle _boxPos;
+	private _itemBox = "B_supplyCrate_F" createVehicle _boxPos;
 	_itemBox allowDamage false;
     _itemBox setDir (90);
 
