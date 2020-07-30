@@ -5174,7 +5174,7 @@
       <Original>1. Yes I would like to stop working here</Original>
    </Key>
    <Key ID="STR_NPC_DMV8">
-      <FrOriginalench>2. Actually, I like this job, nevermind.</Original>
+      <Original>2. Actually, I like this job, nevermind.</Original>
    </Key>
    <Key ID="STR_NPC_DMV9">
       <Original>Welcome back DMV member&lt;br/&gt;Are you sure you are ready to start your shift?</Original>
@@ -5465,10 +5465,10 @@
       <Original>1. Yes I would like to stop working here</Original>
    </Key>
    <Key ID="STR_NPC_DOC8">
-      <Original>2. Actually, I like this job, nevermind.</French>
+      <Original>2. Actually, I like this job, nevermind.</Original>
    </Key>
    <Key ID="STR_NPC_DOC9">
-      <Original>Welcome back FIMS member&lt;br/&gt;Are you sure you are ready to start your shift?</French>
+      <Original>Welcome back FIMS member&lt;br/&gt;Are you sure you are ready to start your shift?</Original>
    </Key>
    <Key ID="STR_NPC_DOC10">
       <Original>1. I'm ready.</Original>
