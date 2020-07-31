@@ -136,7 +136,7 @@
 	if (Player_PayCheckTime >= 20) then
 	{
 		private _job = player getVariable ["job","unemployed"];
-		private _factionJobs = ["uscg","fifr","fisd","doj","usms","dmv","cartel"];
+		private _factionJobs = ["uscg","fifr","fisd","doj","usms"];
 		private _payAmount = [_job,"pay"] call A3PL_Config_GetPaycheckInfo;
 		private _jobXP = [_job,"xp"] call A3PL_Config_GetPaycheckInfo;
 		private _done = false;

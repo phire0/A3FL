@@ -131,11 +131,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_DMVManagment",
-	{["dmv"] call A3PL_Government_FactionSetup;}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_DOJManagment",
 	{["doj"] call A3PL_Government_FactionSetup;}
 ],
@@ -519,14 +514,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_AccessDMVCarVendor",
-	{
-		if ((player getVariable ["faction","citizen"]) != "dmv") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","dmv"],"red"] call A3PL_Player_Notification;};
-		["Shop_DMV_Car_Vendor"] call A3PL_Shop_Open;
-	}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_AccessFISDCarVendor",
 	{
 		if ((player getVariable ["faction","citizen"]) != "fisd") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","fisd"],"red"] call A3PL_Player_Notification;};
@@ -539,14 +526,6 @@
 	{
 		if ((player getVariable ["faction","citizen"]) != "fisd") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","fisd"],"red"] call A3PL_Player_Notification;};
 		["Shop_SD_Supplies_Vendor"] call A3PL_Shop_Open;
-	}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_AccessDMVSuppliesVendor",
-	{
-		if ((player getVariable ["faction","citizen"]) != "dmv") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","dmv"],"red"] call A3PL_Player_Notification;};
-		["Shop_DMV_Supplies_Vendor"] call A3PL_Shop_Open;
 	}
 ],
 [
@@ -806,56 +785,12 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_GamerPerkShop",
+	localize"STR_QuickActionsNPC_FurniturePerkShop",
 	{
-		if (["gamer"] call A3PL_Lib_hasPerk) then {
-			["Shop_Perk_Gamer"] call A3PL_Shop_Open;
+		if (["furniture"] call A3PL_Lib_hasPerk) then {
+			["Shop_Perk_Furniture"] call A3PL_Shop_Open;
 		} else {
-			[localize"STR_QuickActions_Notif_NPC_Gamer","red"] call A3PL_Player_Notification
-		};
-	}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_GardenPerkShop",
-	{
-		if (["garden"] call A3PL_Lib_hasPerk) then {
-			["Shop_Perk_Garden"] call A3PL_Shop_Open;
-		} else {
-			[localize"STR_QuickActions_Notif_NPC_Garden","red"] call A3PL_Player_Notification
-		};
-	}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_MancavePerkShop",
-	{
-		if (["mancave"] call A3PL_Lib_hasPerk) then {
-			["Shop_Perk_Mancave"] call A3PL_Shop_Open;
-		} else {
-			[localize"STR_QuickActions_Notif_NPC_Mancave","red"] call A3PL_Player_Notification
-		};
-	}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_WalldecorPerkShop",
-	{
-		if (["walldecor"] call A3PL_Lib_hasPerk) then {
-			["Shop_Perk_WallDecor"] call A3PL_Shop_Open;
-		} else {
-			[localize"STR_QuickActions_Notif_NPC_Walldecor","red"] call A3PL_Player_Notification
-		};
-	}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_WinchesterPerkShop",
-	{
-		if (["winchester"] call A3PL_Lib_hasPerk) then {
-			["Shop_Perk_Winchester"] call A3PL_Shop_Open;
-		} else {
-			[localize"STR_QuickActions_Notif_NPC_Winchester","red"] call A3PL_Player_Notification
+			[localize"STR_QuickActions_Notif_NPC_Furniture","red"] call A3PL_Player_Notification
 		};
 	}
 ],

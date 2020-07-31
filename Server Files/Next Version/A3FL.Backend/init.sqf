@@ -134,6 +134,7 @@ Server_Setup_Files = [
 	['Server', 'Server_Gang'],
 	['Server', 'Server_Shrooms'],
 	['Server', 'Server_Warehouses'],
+	['Server', 'Server_Events'],
 
 	//Configs Files
 	['Configs', 'Config_Shops'],

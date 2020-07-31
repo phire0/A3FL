@@ -288,7 +288,7 @@
 [
 	"Land_A3FL_Fishers_Jewelry",
 	"Break Glass",
-	{["Hit the glass with a melee weapon"],"orange"] call A3PL_Player_Notification;}
+	{["Hit the glass with a melee weapon","orange"] call A3PL_Player_Notification;}
 ],
 [
 	"Land_A3FL_Fishers_Jewelry",

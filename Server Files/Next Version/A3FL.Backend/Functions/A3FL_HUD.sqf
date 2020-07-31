@@ -133,18 +133,6 @@
 			(_display displayCtrl 1003) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", "DOJ"];
 			(_display displayCtrl 1004) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", _rank];
 		};
-		case ("dmv"): {
-			_display = uiNamespace getVariable "A3PL_HUD_FactionCard";
-			_maxIDC = 1004;
-			_card = "\A3PL_Common\GUI\Cards\Card_DMV.paa";
-			_rank = ["uscg","rank", getPlayerUID _target] call A3PL_Config_GetFactionRankData;
-			(_display displayCtrl 999) ctrlSetText _card;
-			(_display displayCtrl 1000) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", (str(_target getVariable ["db_id","Error"]))];
-			(_display displayCtrl 1001) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", _fname];
-			(_display displayCtrl 1002) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", _lname];
-			(_display displayCtrl 1003) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", "DMV"];
-			(_display displayCtrl 1004) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", _rank];
-		};
 		case ("usms"): {
 			_display = uiNamespace getVariable "A3PL_HUD_FactionCard";
 			_maxIDC = 1004;
@@ -282,7 +270,7 @@
 	_control = _display displayCtrl 1600;
 	_control ctrlSetStructuredText parseText format ["<t font='PuristaBold' align='right'>%1</t>",toUpper (player getVariable ["name",(name player)])];
 
-	_factionJobs = ["uscg","fifr","fisd","doj","usms","dmv","cartel"];
+	_factionJobs = ["uscg","fifr","fisd","doj","usms"];
 	_job = player getVariable ["job","unemployed"];
 	if(_job IN _factionJobs) then {
 		_rankName = [_job,"rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;

@@ -42,7 +42,7 @@
 	if (!isNil "_action" && {!_action}) exitWith {_exit = true;};
 	if(_exit) exitWith{[format[localize"STR_Inter_Notifications_Comphire_Refused",player getVariable["name",""]], "red"] remoteExec ["A3PL_Player_Notification",_sender];};
 	[_cid, getPlayerUID player] remoteExec ["Server_Company_Recruit",2];
-	[format["STR_Inter_Notifications_Comphire",player getVariable["name",""]], "red"] remoteExec ["A3PL_Player_Notification",_sender];
+	[format[localize"STR_Inter_Notifications_Comphire",player getVariable["name",""]], "red"] remoteExec ["A3PL_Player_Notification",_sender];
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_HasLicense', {

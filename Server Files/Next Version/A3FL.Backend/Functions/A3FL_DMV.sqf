@@ -131,13 +131,6 @@
 	if (_license IN _plicenses) then {true;} else {false;};
 }] call Server_Setup_Compile;
 
-["A3PL_DMV_Speed", {
-	private _vehicle = vehicle player;
-	private _actualSpeed = [(speed _vehicle)*0.621371, 0] call BIS_fnc_cutDecimals;
-	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	[format [localize"STR_DMV_CURRENTSPEED",_actualSpeed],"green"] call A3PL_Player_Notification;
-}] call Server_Setup_Compile;
-
 ["A3PL_DMV_Truck", {
 	[localize"A3PL_P362_TowTruck",[2757.38,5465.27,0],"DMV",1800] spawn A3PL_Lib_JobVehicle_Assign;
 	["STR_DMV_TRUCKSPAWN","green"] call A3PL_Player_Notification;

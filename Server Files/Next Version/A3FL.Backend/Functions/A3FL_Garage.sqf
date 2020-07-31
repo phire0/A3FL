@@ -238,7 +238,7 @@
 	_car = _cars select 0;
 	_id = _car getVariable "owner" select 1;
 
-	if (_id IN ["WASTE","DELIVER","EXTERMINATOR","KARTING","DMV","ADMIN","ROADSIDE"]) exitWith {["You cannot change the plate of this vehicle", "red"] call A3PL_Player_Notification;};
+	if (_id IN ["WASTE","DELIVER","EXTERMINATOR","KARTING","ADMIN","ROADSIDE"]) exitWith {["You cannot change the plate of this vehicle", "red"] call A3PL_Player_Notification;};
 
 	//Tell the server that heeey we want our license plate to be changed
 	[player,_veh,_newLP] remoteExec ["Server_Vehicle_InitLPChange", 2, false];

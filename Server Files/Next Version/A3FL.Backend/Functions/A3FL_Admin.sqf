@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Fishers Island Cartel","cartel","cartel"],["Federal Bureau of Investigation","fbi","fbi"]]
+#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Federal Bureau of Investigation","fbi","fbi"]]
 #define adminTagsList [["Civilian Tag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]],["Executive Tag",["#B5B5B5","#8410ff","\A3PL_Common\icons\executive.paa"]],["Executive Supervisor Tag",["#B5B5B5","#5ab2ff","\A3PL_Common\icons\exec_supervisor.paa"]],["Developer Tag",["#B5B5B5","#FFFFFF","\A3PL_Common\icons\creator.paa"]],["Lead Dev Tag",["#B5B5B5","#2c82c9","\A3PL_Common\icons\leaddev.paa"]],["Chief Tag",["#B5B5B5","#2f9baa","\A3PL_Common\icons\chief.paa"]],["Sub-Director Tag",["#B5B5B5","#ff6d29","\A3PL_Common\icons\subdirector.paa"]],["Director Tag",["#B5B5B5","#cece08","\A3PL_Common\icons\director.paa"]]]
 
 ["A3PL_Admin_Check",
@@ -932,8 +932,6 @@
 	_message = _message + format["<br/>%1 %2", count(["uscg"] call A3PL_Lib_FactionPlayers), "USCG"];
 	_message = _message + format["<br/>%1 %2", count(["usms"] call A3PL_Lib_FactionPlayers), "FIMS"];
 	_message = _message + format["<br/>%1 %2", count(["doj"] call A3PL_Lib_FactionPlayers), "DOJ"];
-	_message = _message + format["<br/>%1 %2", count(["dmv"] call A3PL_Lib_FactionPlayers), "DMV"];
-	_message = _message + format["<br/>%1 %2", count(["cartel"] call A3PL_Lib_FactionPlayers), "CARTEL"];
 	[_message,"pink"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 

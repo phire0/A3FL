@@ -49,15 +49,23 @@
 
 		["ArmA 3 Fishers Life","bargates_key", "Open/Close Bargates",
 		{
-			private["_bargate","_canUse"];
 			if(!(player getVariable["job","unemployed"] IN ["fisd","uscg","fifr","usms"])) exitWith {};
-			_bargate = (nearestObjects [player, ["Land_A3PL_BarGate","Land_A3PL_BarGate_Left","Land_A3PL_BarGate_Right"], 10]) select 0;
-			_canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
+			private _bargate = (nearestObjects [player, ["Land_A3PL_BarGate","Land_A3PL_BarGate_Left","Land_A3PL_BarGate_Right"], 10]) select 0;
+			private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
 			if(_canUse) then {
-				_anim = switch(typeOf _bargate) do {
+				private _anim = switch(typeOf _bargate) do {
 					case "Land_A3PL_Bargate_Right": {"bargate2"};
 					case "Land_A3PL_Bargate_Left": {"bargate1"};
-					default {"bargate1"};
+					default {
+						private _distanceOne = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate1","Memory"]));
+						private _distanceTwo = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate2","Memory"]));
+						hint format["%1 - %2 = %3",_distanceOne,_distanceTwo,(_distanceTwo>_distanceOne)];
+						if(_distanceTwo>_distanceOne) then {
+							"bargate1"
+						} else {
+							"bargate2"
+						};
+					};
 				};
 				if ((_bargate animationSourcePhase _anim) < 0.5) then {
 					_bargate animateSource [_anim,1];

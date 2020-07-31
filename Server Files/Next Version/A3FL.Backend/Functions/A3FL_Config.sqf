@@ -464,9 +464,7 @@
 		case ("uscg"): {_balance = "US Coast Guard"};
 		case ("fifr"): {_balance = "Fire Rescue"};
 		case ("usms"): {_balance = "Marshals Service"};
-		case ("dmv"): {_balance = "Department of Motor Vehicles"};
 		case ("doj"): {_balance = "Department of Justice"};
-		case ("cartel"): {_balance = "Cartel"};
 	};
 	_balance;
 }] call Server_Setup_Compile;

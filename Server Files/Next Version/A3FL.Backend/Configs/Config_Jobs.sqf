@@ -24,8 +24,6 @@ Config_Paychecks = [
 	["freight pilot",350,1],
 	["captain",500,1],
 	["dispatch",150,1],
-	["cartel",150,1],
-	["dmv",-1,8],
 	["doj",-1,8],
 	["fifr",-1,10],
 	["uscg",-1,10],

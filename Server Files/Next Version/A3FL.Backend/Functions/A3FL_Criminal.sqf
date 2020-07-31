@@ -258,14 +258,3 @@
 		};
 	};
 }] call Server_Setup_Compile;
-
-["A3PL_Criminal_CartelStart",
-{
-	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private _faction = player getVariable ["faction","citizen"];
-	private _job = player getVariable ["job","unemployed"];
-	if(_faction != "cartel") exitWith {[localize "STR_A3PL_CRIMINAL_NOTCARTEL","Red"];};
- 	if (_job == "cartel") exitwith {[localize "STR_A3PL_CRIMINAL_CARTELSTOP","Red"]; call A3PL_NPC_LeaveJob};
-	player setVariable ["job","cartel"];
-	[localize "STR_A3PL_CRIMINAL_CARTELSTART","Green"] call A3PL_Player_Notification;
-}] call Server_Setup_Compile;

@@ -1662,7 +1662,6 @@
 	private _display = findDisplay 99700;
 	private _control = _display displayCtrl 99701;
 	private _radios = [
-		["all","DMV",30],
 		["all","FIFR",40],
 		["all","FIMS",50],
 		["all","FISD",60],

@@ -819,26 +819,8 @@
    <Key ID="STR_QuickActionsNPC_SecureShop">
       <Original>Secure Store</Original>
    </Key>
-   <Key ID="STR_QuickActionsNPC_GamerPerkShop">
-      <Original>Gamer Perk Shop</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_GardenPerkShop">
-      <Original>Garden Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_MancavePerkShop">
-      <Original>Mancave Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_WalldecorPerkShop">
-      <Original>Walldecor Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_WinchesterPerkShop">
-      <Original>Winchester Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_CommpanyPerkShop">
-      <Original>Company Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_ArcheologyPerkShop">
-      <Original>Archeology Perk Store</Original>
+   <Key ID="STR_QuickActionsNPC_FurniturePerkShop">
+      <Original>Furniture Perk Store</Original>
    </Key>
    <Key ID="STR_QuickActionsNPC_VehiclePartsFactory">
       <Original>Vehicle Parts Factory</Original>
@@ -4522,26 +4504,8 @@
    <Key ID="STR_QuickActions_Notif_NPC_Things">
       <Original>You do not have Things Perk. You can buy it on www.arma3fisherslife.net</Original>
    </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Gamer">
-      <Original>You do not have Gamer Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Garden">
-      <Original>You do not have Garden Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Mancave">
-      <Original>You do not have Mancave Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Walldecor">
-      <Original>You do not have Walldecor Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Winchester">
-      <Original>You do not have Winchester Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Criminal">
-      <Original>You do not have Criminal Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Company">
-      <Original>You do not have Company Perk. You can buy it on www.arma3fisherslife.net</Original>
+   <Key ID="STR_QuickActions_Notif_NPC_Furniture">
+      <Original>You do not have Furniture Perk. You can buy it on www.arma3fisherslife.net</Original>
    </Key>
    <Key ID="STR_QuickActions_Notif_NPC_Christmas">
       <Original>This shop is closed, try back near Christmas</Original>

@@ -206,25 +206,14 @@ Config_IntersectArray =
 	["ski",localize"STR_INTSECT_PUSKI",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeOf player_objintersect == "A3PL_Ski_Base"}], //pickup ski
 
 	//police things
-	["spine3",localize"STR_INTSECT_HANDTICKET","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{(player_ItemClass == "ticket") && {(isPlayer player_objintersect)}}], //Hand Ticket
+	["spine3",localize"STR_INTSECT_HANDTICKET","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{(player_ItemClass isEqualTo "ticket") && {(isPlayer player_objintersect)}}], //Hand Ticket
 
 	//ATM
 	["Start",localize"STR_INTSECT_UseDistributor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) isEqualTo 'A3PL_John_ATM'}],
 
-	//Casino
-	["playpoker",localize"STR_INTSECT_CasinoPlayPoker",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
-	["sit01",localize"STR_INTSECT_CasinoSit01",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
-	["sit02",localize"STR_INTSECT_CasinoSit02",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
-	["sit03",localize"STR_INTSECT_CasinoSit03",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
-	["sit04",localize"STR_INTSECT_CasinoSit04",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
-	["sit05",localize"STR_INTSECT_CasinoSit05",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
-	["sit06",localize"STR_INTSECT_CasinoSit06",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
-	["sit07",localize"STR_INTSECT_CasinoSit07",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
-	["sit08",localize"STR_INTSECT_CasinoSit08",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'Land_A3FL_Poker_P'}],
-
 	//Generator
-	["generator_start",localize"STR_INTSECT_GENERATORONOFF",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'A3PL_Generator'}],
-	["generator_fuel",localize"STR_INTSECT_GENERATORFUEL",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'A3PL_Generator'}],
+	["generator_start",localize"STR_INTSECT_GENERATORONOFF",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) isEqualTo 'A3PL_Generator'}],
+	["generator_fuel",localize"STR_INTSECT_GENERATORFUEL",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) isEqualTo 'A3PL_Generator'}],
 
 	//BodyDead
 	["takebody",localize"STR_INTSECT_TAKEBODY",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(typeOf player_objintersect) == 'A3PL_BodyDead'}],
@@ -268,13 +257,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_SpeaktoAdherent",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkshop]}],
 	["spine3",localize"STR_QuickActionsNPC_SpeaktoThingsPerk",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkthingshop]}],
 	["spine3","Big Dicks Sports Store",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_big_dicks_sports]}],
-	//["spine3",localize"STR_QuickActionsNPC_ReadDecrees",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_government)}],
-
-	["spine3",localize"STR_QuickActionsNPC_GamerPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3,npc_perkfurniture_6]}],
-	["spine3",localize"STR_QuickActionsNPC_GardenPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3,npc_perkfurniture_6]}],
-	["spine3",localize"STR_QuickActionsNPC_MancavePerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3,npc_perkfurniture_6]}],
-	["spine3",localize"STR_QuickActionsNPC_WalldecorPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3,npc_perkfurniture_6]}],
-	["spine3",localize"STR_QuickActionsNPC_WinchesterPerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3,npc_perkfurniture_6]}],
+	["spine3",localize"STR_QuickActionsNPC_FurniturePerkShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_perkfurniture,npc_furniture_7,npc_perkfurniture_3,npc_perkfurniture_6]}],
 
 	["spine3",localize"STR_QuickActionsNPC_AccessMinerShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
 	["spine3",localize"STR_QuickActionsNPC_BuyMapIron",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
@@ -298,16 +281,15 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessFoodFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_usinealimentaire,npc_foodfact_N]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFoodFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_doc) && (player getVariable ["jailed",false])}],
 	["spine3",localize"STR_QuickActionsNPC_OilRefinery",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_oilraffinerie)}],
-	//["spine3",localize"STR_QuickActionsNPC_VehiclesFactionFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_vehiclefactionfactory)}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheHunter",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_hunting}],
-	["spine3",localize"STR_INTSECT_OPIMEXMENU",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_import}], //Open Import/Export Menu
-	["spine3",localize"STR_INTSECT_CONVSTOLMONEY",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_moneylaunderer}], //Convert stolen money
-	["spine3",localize"STR_QuickActionsNPC_CCTVSilverton",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_Cameras_1}],
-	["spine3",localize"STR_QuickActionsNPC_CCTVElk",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_Cameras_2}],
-	["spine3",localize"STR_QuickActionsNPC_CCTVCentral",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_Cameras_3}],
-	["spine3",localize"STR_QuickActionsNPC_CCTVNorthdale",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_Cameras_4}],
-	["spine3",localize"STR_QuickActionsNPC_ResellNearVehicle",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_chopshop}], //Chop Vehicle
-	["spine3",localize"STR_QuickActionsNPC_RemoveElectronicBracelet",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_Big_Weapon_Dealer}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheHunter",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_hunting}],
+	["spine3",localize"STR_INTSECT_OPIMEXMENU",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_import}],
+	["spine3",localize"STR_INTSECT_CONVSTOLMONEY",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_moneylaunderer}],
+	["spine3",localize"STR_QuickActionsNPC_CCTVSilverton",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_Cameras_1}],
+	["spine3",localize"STR_QuickActionsNPC_CCTVElk",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_Cameras_2}],
+	["spine3",localize"STR_QuickActionsNPC_CCTVCentral",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_Cameras_3}],
+	["spine3",localize"STR_QuickActionsNPC_CCTVNorthdale",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_Cameras_4}],
+	["spine3",localize"STR_QuickActionsNPC_ResellNearVehicle",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_chopshop}],
+	["spine3",localize"STR_QuickActionsNPC_RemoveElectronicBracelet",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_Big_Weapon_Dealer}],
 
 	//shops
 	["spine3",localize"STR_INTSECT_CAPTSHIP",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_captureship}],
@@ -332,51 +314,48 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_RobShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4,Robbable_Shop_5])}],
 	["spine3",localize"STR_QuickActionsNPC_SecureShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4,Robbable_Shop_5]) && {((player getVariable ["job","unemployed"]) IN ["security"])}}],
 
-	["spine3",localize"STR_QuickActionsNPC_AccessHardwareShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_hardware_1]}],
+	["spine3",localize"STR_QuickActionsNPC_AccessHardwareShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_hardware_1}],
 	["spine3",localize"STR_QuickActionsNPC_AccessSeedShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_Seed_Store,NPC_Seed_Store_N]}],
-	["spine3",localize"STR_QuickActionsNPC_AccessShopGems",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_gemshop]}],
-	["spine3",localize"STR_QuickActionsNPC_BuySellHalloweenItems",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_candy]}],
-	["spine3",localize"STR_QuickActionsNPC_BuySellChristmasItems",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_christmas]}],
+	["spine3",localize"STR_QuickActionsNPC_AccessShopGems",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_gemshop}],
+	["spine3",localize"STR_QuickActionsNPC_BuySellHalloweenItems",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_candy}],
+	["spine3",localize"STR_QuickActionsNPC_BuySellChristmasItems",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_christmas}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopFIMS",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_fifr_supplier, NPC_fifr_supplier_1, NPC_fifr_supplier_2, NPC_fifr_supplier_3, NPC_fifr_supplier_air, NPC_fifr_supplier_4]}],
-	["spine3",localize"STR_QuickActionsNPC_AccessShopFIFR",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
-	["spine3",localize"STR_QuickActionsNPC_AccessShopVFD",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
+	["spine3",localize"STR_QuickActionsNPC_AccessShopFIFR",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
+	["spine3",localize"STR_QuickActionsNPC_AccessShopVFD",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo NPC_fifr_supplier2) || (player_objintersect == NPC_fifr_supplier3) || (player_objintersect == NPC_fifr_supplier2_1) || (player_objintersect == NPC_fifr_supplier2_2)}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFIFRVEHShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fifr_vehicles,npc_fifr_vehicles_elk]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGVehShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_vehicles,NPC_uscg_vehicles_1]}],
-	["spine3",localize"STR_QuickActionsNPC_AccessUSCGBoatShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_uscg_boats}],
+	["spine3",localize"STR_QuickActionsNPC_AccessUSCGBoatShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_uscg_boats}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGAirShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_aircraft,NPC_uscg_aircraft_1]}],
-	["spine3",localize"STR_QuickActionsNPC_AccessFIFRAirShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_faa_vehicles}],
+	["spine3",localize"STR_QuickActionsNPC_AccessFIFRAirShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_faa_vehicles}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_supplier,NPC_uscg_supplier_1]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGArmory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_supplier_2, NPC_uscg_supplier_4]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSCGPilotShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_uscg_supplier_3,NPC_uscg_supplier_5]}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheDMVNPC",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_dmv}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheDMVNPC",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_dmv}],
 
-	["spine3",localize"STR_QuickActionsNPC_PriseServiceUSMS",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usmsshop_1}],
+	["spine3",localize"STR_QuickActionsNPC_PriseServiceUSMS",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_usmsshop_1}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToSheriff",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton_1,npc_sd_elk,npc_sd_elk1,npc_sd_nd,npc_sd_lubbock]}],
-	["spine3",localize"STR_QuickActionsNPC_PriseServiceDOJ",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_doj}],
+	["spine3",localize"STR_QuickActionsNPC_PriseServiceDOJ",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_doj}],
 
-	["spine3",localize"STR_QuickActionsNPC_ATCManager",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_faastart}],
-	["spine3",localize"STR_QuickActionsNPC_ATCExit",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_faastop}],
-	["spine3",localize"STR_QuickActionsNPC_OpenRadar",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_faa_supplier}],
-	["spine3",localize"STR_QuickActionsNPC_TakeRadio",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == NPC_faa_supplier}],
+	["spine3",localize"STR_QuickActionsNPC_ATCManager",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_faastart}],
+	["spine3",localize"STR_QuickActionsNPC_ATCExit",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_faastop}],
+	["spine3",localize"STR_QuickActionsNPC_OpenRadar",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_faa_supplier}],
+	["spine3",localize"STR_QuickActionsNPC_TakeRadio",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo NPC_faa_supplier}],
 
-	["spine3",localize"STR_QuickActionsNPC_AccessWeaponsDOC",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usmsshop}],
+	["spine3",localize"STR_QuickActionsNPC_AccessWeaponsDOC",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_usmsshop) && {(player getVariable["faction","citizen"]) isEqualTo "usms"}}],
 	["spine3",localize"STR_QuickActionsNPC_AccessSDWeaponsFISD",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton, npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]}],
-	["spine3",localize"STR_QuickActionsNPC_AccessUSMSCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usms_vehicles}],
+	["spine3",localize"STR_QuickActionsNPC_AccessUSMSCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_usms_vehicles}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFISDCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_vehicles,npc_sd_vehicles_1,npc_sd_vehicles_2]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessFISDSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]}],
 	["spine3",localize"STR_QuickActionsNPC_FakeID",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_sd_silverton,npc_sd_northdale,npc_sd_elk_shop,npc_sd_lubbock_shop]) && {(player getVariable["FakeIDAccess",false])} && {(player getVariable["faction","civlian"] == "fisd")}}],
-	["spine3",localize"STR_QuickActionsNPC_AccessDOJSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_doj}],
-	["spine3",localize"STR_QuickActionsNPC_AccessDMVSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_dmv}],
-	["spine3",localize"STR_QuickActionsNPC_AccessUSMSSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_usmsshop}],
-	["spine3",localize"STR_QuickActionsNPC_AccessDMVCarVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_dmv_vehicles}],
+	["spine3",localize"STR_QuickActionsNPC_AccessDOJSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_doj) && {(player getVariable["faction","citizen"]) isEqualTo "doj"}}],
+	["spine3",localize"STR_QuickActionsNPC_AccessUSMSSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_usmsshop) && {(player getVariable["faction","citizen"]) isEqualTo "usms"}}],
 
-	["spine3",localize"STR_QuickActionsNPC_FIFDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_fifr_supplier2_1) && {(["fifr"] call A3PL_Government_isFactionLeader)}}],
-	["spine3",localize"STR_QuickActionsNPC_USCGManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == NPC_uscg_supplier) && {(["uscg"] call A3PL_Government_isFactionLeader)}}],
-	["spine3",localize"STR_QuickActionsNPC_FISDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [npc_sd_silverton_1,npc_sd_elk_shop]) && {(["fisd"] call A3PL_Government_isFactionLeader)}}],
-	["spine3",localize"STR_QuickActionsNPC_DMVManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_dmv) && {(["dmv"] call A3PL_Government_isFactionLeader)}}],
-	["spine3",localize"STR_QuickActionsNPC_DOJManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_doj) && {(["doj"] call A3PL_Government_isFactionLeader)}}],
-	["spine3",localize"STR_QuickActionsNPC_USMSManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect == npc_usmsshop_1) && {(["usms"] call A3PL_Government_isFactionLeader)}}],
-	["spine3","Low End Car Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [Low_End_Car_Shop]}],
+	["spine3",localize"STR_QuickActionsNPC_FIFDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo NPC_fifr_supplier2_1) && {(["fifr"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_USCGManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo NPC_uscg_supplier) && {(["uscg"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_FISDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_sd_elk_shop) && {(["fisd"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_DOJManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_doj) && {(["doj"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_USMSManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_usmsshop_1) && {(["usms"] call A3PL_Government_isFactionLeader)}}],
+	["spine3","Low End Car Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo Low_End_Car_Shop}],
 
 	//bank drill
 	["pilecash",localize"STR_INTSECT_STVAULTMON",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Steal Vault Money --- pilecash
@@ -1672,7 +1651,7 @@ Config_IntersectArray =
 	["clothing",localize"STR_INTSECT_CHECKITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Check Item
 	["clothing",localize"STR_INTSECT_COLLECTITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Collect Item
 	["clothing",localize"STR_INTSECT_BUYITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objintersect getVariable ["bitem",nil]})}], //Buy Item
-	["clothing",localize"STR_INTSECT_SELLITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect getVariable ["owner","0"]) == (getPlayerUID player)}], //Sell Item
+	["clothing",localize"STR_INTSECT_SELLITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect getVariable ["owner","0"]) isEqualTo (getPlayerUID player)}], //Sell Item
 
 	["Item_Pickup","Refuel Jerrycan",_dir+"IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa",{(typeOf player_objintersect isEqualTo 'A3PL_JerryCan') && (typeOf Player_Item) IN ["A3PL_Gas_Hose","A3PL_GasHose"]}],
 	["Item_Pickup",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]})}], //Pickup Item
@@ -2535,15 +2514,6 @@ Config_GenArray =
 	format [localize"STR_INTSECT_TAKEHOSE",4],
 	format [localize"STR_INTSECT_TAKEHOSE",5],
 	localize"STR_INTSECT_UseDistributor",
-	localize"STR_INTSECT_CasinoPlayPoker",
-	localize"STR_INTSECT_CasinoSit01",
-	localize"STR_INTSECT_CasinoSit02",
-	localize"STR_INTSECT_CasinoSit03",
-	localize"STR_INTSECT_CasinoSit04",
-	localize"STR_INTSECT_CasinoSit05",
-	localize"STR_INTSECT_CasinoSit06",
-	localize"STR_INTSECT_CasinoSit07",
-	localize"STR_INTSECT_CasinoSit08",
 	localize"STR_INTSECT_BUYLOCKER",
 	localize"STR_INTSECT_OPCLDOOR",
 	localize"STR_INTSECT_OCLOCKERDOOR",
@@ -2566,26 +2536,19 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_FIFDManagment",
 	localize"STR_QuickActionsNPC_USCGManagment",
 	localize"STR_QuickActionsNPC_FISDManagment",
-	localize"STR_QuickActionsNPC_DMVManagment",
 	localize"STR_QuickActionsNPC_DOJManagment",
 	localize"STR_QuickActionsNPC_USMSManagment",
 	localize "STR_QuickActionsNPC_AccessWeaponsDOC",
 	localize "STR_QuickActionsNPC_AccessSDWeaponsFISD",
 	localize "STR_QuickActionsNPC_AccessUSMSCarVendor",
 	localize "STR_QuickActionsNPC_AccessFISDCarVendor",
-	localize "STR_QuickActionsNPC_AccessDMVCarVendor",
 	localize "STR_QuickActionsNPC_AccessFISDSuppliesVendor",
 	localize "STR_QuickActionsNPC_AccessDOJSuppliesVendor",
-	localize "STR_QuickActionsNPC_AccessDMVSuppliesVendor",
 	localize "STR_QuickActionsNPC_AccessUSMSSuppliesVendor",
 	localize"STR_INTSECT_OPTREASINF",
 	localize"STR_QuickActionsNPC_TalkToThePhoneOperator",
 	localize"STR_QuickActionsNPC_WeaponIllegalShop",
-	localize"STR_QuickActionsNPC_GamerPerkShop",
-	localize"STR_QuickActionsNPC_GardenPerkShop",
-	localize"STR_QuickActionsNPC_MancavePerkShop",
-	localize"STR_QuickActionsNPC_WalldecorPerkShop",
-	localize"STR_QuickActionsNPC_WinchesterPerkShop",
+	localize"STR_QuickActionsNPC_FurniturePerkShop",
 	localize"STR_INTSECT_OPENMEDICALMEN",
 	localize"STR_INTSECT_USEJERRYC",
 	localize"STR_INTSECT_USEJERRYC",
@@ -2594,7 +2557,6 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_MailManShop",
 	localize"STR_QuickActionsNPC_FISecurityService",
 	localize"STR_QuickActionsNPC_SFPShop",
-	localize"STR_QuickActionsNPC_VehiclesFactionFactory",
 	localize"STR_QuickActionsNPC_AccessAcierie",
 	localize"STR_QuickActionsNPC_AccessFoodFactory",
 	localize"STR_QuickActionsNPC_OilRefinery",
@@ -2625,7 +2587,7 @@ Config_QuickActions =
 [
 	["",localize"STR_INTSECT_DOOR",{call A3PL_Intersect_HandleDoors;}],
 	["",localize"STR_INTSECT_GARAGEDOOR",{call A3PL_Intersect_HandleDoors;}],
-	["","Trunk",{private ["_obj"]; _obj = (call A3PL_Intersect_Cursortarget); if (_obj animationPhase "trunk" < 0.5) then {_obj animate ["trunk",1];} else {_obj animate ["trunk",0]};}],
+	["","Trunk",{private _obj = (call A3PL_Intersect_Cursortarget); if (_obj animationPhase "trunk" < 0.5) then {_obj animate ["trunk",1];} else {_obj animate ["trunk",0]};}],
 	#include "QuickActions\Objects.sqf",
 	#include "QuickActions\Vehicles.sqf",
 	#include "QuickActions\Buildings.sqf",
