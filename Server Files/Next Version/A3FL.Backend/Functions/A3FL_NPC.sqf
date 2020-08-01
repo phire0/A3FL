@@ -111,10 +111,8 @@
 	{
 		case "mcfisher": {["mcfishers_accepted"] call A3PL_NPC_Start;};
 		case "fisher": {["fisherman_accepted"] call A3PL_NPC_Start;};
-		case "fifr": {["fifr_accepted"] call A3PL_NPC_Start; A3PL_phoneNumberEnterprise = "911";};
-		case "uscg": {["uscg_accepted"] call A3PL_NPC_Start; A3PL_phoneNumberEnterprise = "911";};
-		case "fisd": {A3PL_phoneNumberEnterprise = "911";};
-		case "usms": {A3PL_phoneNumberEnterprise = "911";};
+		case "fifr": {["fifr_accepted"] call A3PL_NPC_Start;};
+		case "uscg": {["uscg_accepted"] call A3PL_NPC_Start;};
 		case "farmer": {["farmer_accepted"] call A3PL_NPC_Start;};
 		case "tacohell": {["tacohell_accepted"] call A3PL_NPC_Start;};
 		case "oil": {["oil_accepted"] call A3PL_NPC_Start;};

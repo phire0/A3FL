@@ -9,12 +9,7 @@
 //variables that can be changed from client
 ['A3PL_Player_VariablesSetup',
 {
-	private ["_uid","_num"];
-	Player_PaycheckTime = profileNamespace getVariable ["player_payCheckTime",0];
-	if (!(typeName Player_PayCheckTime == "SCALAR")) then {
-		Player_payCheckTime = 0;
-		Player_payCheckTime = profileNamespace setVariable ["player_payCheckTime",0];
-	};
+	Player_payCheckTime = 0;
 	Player_MaxWeight = 250;
 	Player_Hunger = profileNamespace getVariable ["player_hunger",100];
 	if (!(typeName Player_Hunger == "SCALAR")) then {
@@ -90,12 +85,7 @@
 	A3PL_Jobroadworker_Impounds = [Shop_ImpoundRetrieve,Shop_ImpoundRetrieve_1,Shop_ImpoundRetrieve_2,Shop_ImpoundRetrieve_3,Shop_ImpoundRetrieve_5];
 	A3PL_Chopshop_Retrivals = [Shop_Chopshop_Retrieve_1];
 	A3PL_Air_Impounds = [Shop_ImpoundRetrieve_4];
-	A3PL_Jobroadworker_MarkBypass =
-	[
-		"K_F450_normal","A3PL_BoatTrailer_Normal","A3PL_Lowloader_Default","A3PL_DrillTrailer_Default",
-		"A3PL_Pierce_Ladder","A3PL_Tanker_Normal","A3PL_Boxtrailer_Normal",
-		"K_Scooter_Black","K_Scooter_DarkBlue","K_Scooter_Green","K_Scooter_Grey","K_Scooter_LightBlue","K_Scooter_Orange","K_Scooter_Pink","K_Scooter_Red","K_Scooter_White","K_Scooter_Stickers"
-	];
+	A3PL_Jobroadworker_MarkBypass =	["A3PL_EMS_Locker","A3PL_P362_TowTruck","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Pierce_Rescue","A3PL_Box_Trailer"];
 
 	//Check A3PL_Intersect for more info
 	//A3PL_ObjIntersect replaces cursortarget and is more reliable (is Nil when there is no intersection or object distance > 20m)
@@ -112,16 +102,6 @@
 	A3PL_Respawn_Time = 60 * 10;
 	//a copy of this variable also exist on the server
 	A3PL_HitchingVehicles = ["A3PL_Car_Base","A3PL_Truck_Base"];
-
-	_uid = getPlayerUID player;
-	_num = _uid select [(count _uid)-7,count _uid];
-	player setVariable ["phone_number",_num,true];
-
-	[] spawn {
-		uiSleep 20;
-		//increase long range freq range, just to be sure this is set afterwards
-		TF_MAX_ASIP_FREQ = 130;
-	};
 
 	//change to imperial system
 	setSystemOfUnits 2;

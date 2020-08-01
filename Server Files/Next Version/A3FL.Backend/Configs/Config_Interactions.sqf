@@ -37,6 +37,11 @@ A3PL_Interaction_Options =
 		{((vehicle player) isEqualTo player) && {(isPlayer cursorObject)} && {(player distance cursorObject < 5)} && {(profilenamespace getVariable ["Player_EnableID",true])}}
 	],
 	[
+		"Set Squad Number",
+		{[player_objintersect] call A3PL_Police_OpenSquadNb;},
+		{{(typeOf player_objintersect) IN ["A3PL_Police_Mustang_SE","Jonzie_Ambulance","A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Pierce_Pumper","A3PL_P362_TowTruck","A3PL_RBM","A3PL_F150_Marker","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_E350","A3PL_Pierce_Rescue","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Silverado_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Charger15_FD","A3PL_Jayhawk"]} && {(player distance cursorObject < 5)} && {((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","usms"])}}
+	],
+	[
 		localize"STR_INTER_COMPHIRE",
 		{
 			private _target = cursorobject;
@@ -816,10 +821,10 @@ A3PL_Interaction_Options =
 		{
 			if (((speed vehicle player) < 1) && (vehicle player getVariable ["EngineOn",0] isEqualTo 0)) then {
 				player action ["GetOut", (vehicle player)];
-				[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
+				[] spawn {if ((player getVariable ["Cuffed",true]) || {player getVariable ["Zipped",true]}) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
 			} else {
 				player action ["eject", (vehicle player)];
-				[]spawn {if (player getVariable ["Cuffed",true]) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
+				[] spawn {if ((player getVariable ["Cuffed",true]) || {player getVariable ["Zipped",true]}) then {sleep 1.5;player setVelocityModelSpace [0,3,1];[player,"a3pl_handsupkneelcuffed"] remoteExec ["A3PL_Lib_SyncAnim",-2];};};
 			};
 		},
 		{((vehicle player) != player) && (!(vehicle player getVariable ["locked",true])) && (!(vehicle player getVariable ["trapped",false])) && {!(player getVariable ["Cuffed",false])}}

@@ -24,7 +24,7 @@
 	private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number3];
 	_veh setObjectTextureGlobal [8, _TruckNumber2 ];
 	_veh setObjectTextureGlobal [9, _TruckNumber3 ];
-	_veh setVariable["ladder_id", str(_Number2) + str(_Number3),true];
+	_veh setVariable["squadnb", str(_Number2) + str(_Number3),true];
 }] call Server_Setup_Compile;
 
 ['A3PL_FD_SetPumperNumber',
@@ -44,7 +44,7 @@
 	private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number3];
 	_veh setObjectTextureGlobal [8, _TruckNumber2];
 	_veh setObjectTextureGlobal [9, _TruckNumber3];
-	_veh setVariable["engine_id", str(_Number2) + str(_Number3),true];
+	_veh setVariable["squadnb", str(_Number2) + str(_Number3),true];
 }] call Server_Setup_Compile;
 
 ['A3PL_FD_SetRescueNumber',
@@ -64,7 +64,7 @@
 	private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number3];
 	_veh setObjectTextureGlobal [8, _TruckNumber2];
 	_veh setObjectTextureGlobal [9, _TruckNumber3];
-	_veh setVariable["rescue_id", str(_Number2) + str(_Number3),true];
+	_veh setVariable["squadnb", str(_Number2) + str(_Number3),true];
 }] call Server_Setup_Compile;
 
 ['A3PL_FD_SetBrushNumber',
@@ -74,7 +74,7 @@
 	private _TruckNumber = {(typeOf _x isEqualTo _type_1)} count vehicles;
 	private _TruckNumber1 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _TruckNumber + 6];
 	_veh setObjectTextureGlobal [8, _TruckNumber1 ];
-	_veh setVariable["brush_id", str(_Number1),true];
+	_veh setVariable["squadnb", str(_Number1),true];
 }] call Server_Setup_Compile;
 
 ["A3PL_FD_HandleJaws",
@@ -967,7 +967,6 @@
 			_marker = createMarker [format ["firealarm_%1",random 4000], position _building];
 			_marker setMarkerShape "ICON";
 			_marker setMarkerType "A3PL_Markers_FIFD";
-
 			_marker setMarkerText " Fire Alarm!";
 			_marker setMarkerColor "ColorWhite";
 

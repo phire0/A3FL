@@ -645,21 +645,17 @@
 	private ["_part","_wound","_control","_display","_player","_isEMS","_exit"];
 	_display = findDisplay 73;
 
-	//get player
 	_player = missionNameSpace getVariable ["A3PL_MedicalVar_Target",objNull];
 	if (isNull _player) exitwith {["Error: Unknown target"] call A3PL_Player_Notification;};
 
-	//get part we have selected
 	_part = missionNameSpace getVariable ["A3PL_MedicalVar_CurrentPart",nil];
 	if (isNil "_part") exitwith {["Unable to determine the selected body part"] call A3PL_Player_Notification;};
 
-	//get treatment we have selected
 	_control = _display displayCtrl 1502;
 	if (lbCurSel _control == -1) exitwith {["Please select a treatment"] call A3PL_Player_Notification;};
 	_item = _control lbData (lbCurSel _control);
 
 	_isEMS = (player getVariable ["job","unemployed"]) isEqualTo "fifr";
-
 	_exit = false;
 	switch (_item) do
 	{
@@ -692,19 +688,12 @@
 	};
 	if (_exit) exitwith {};
 
-	//get wound we have selected
 	_control = _display displayCtrl 1501;
-	if (lbCurSel _control == -1) exitwith {["You have no wound selected"] call A3PL_Player_Notification;};
+	if (lbCurSel _control isEqualTo -1) exitwith {["You have no wound selected"] call A3PL_Player_Notification;};
 	_wound = _control lbData (lbCurSel _control);
 
-	//check if correct item is being applied
-	if ((_item == ([_wound,"itemTreat"] call A3PL_Config_GetWound)) OR ((_item == ([_wound,"itemHeal"] call A3PL_Config_GetWound)) && _isEMS)) then {
+	if ((_item isEqualTo ([_wound,"itemTreat"] call A3PL_Config_GetWound)) OR ((_item isEqualTo ([_wound,"itemHeal"] call A3PL_Config_GetWound)) && _isEMS)) then {
 		[_player,_part,_wound,_item,lbCurSel 1501] call A3PL_Medical_Treat;
-		if (_item != "") then
-		{
-			if (player_itemClass isEqualTo _item) then {[] call A3PL_Inventory_Clear};
-			[_item,-1] call A3PL_Inventory_Add;
-		};
 	} else {
 		["This item can't be used to treat this wound"] call A3PL_Player_Notification;
 	};
@@ -712,103 +701,44 @@
 
 ["A3PL_Medical_Treat",
 {
-	private ["_part","_wound","_woundName","_player","_isEMS","_item"];
-	_player = param [0,objNull];
-	_part = param [1,""];
-	_wound = param [2,""];
-	_woundName = [_wound,"name"] call A3PL_Config_GetWound;
-	_item = param [3,""];
-	_woundIndex = param [4,0];
-	_isEMS = (player getVariable ["job","unemployed"]) == "fifr";
-	_wounds = _player getVariable ["A3PL_Wounds",[]];
+	private _player = param [0,objNull];
+	private _part = param [1,""];
+	private _wound = param [2,""];
+	private _woundName = [_wound,"name"] call A3PL_Config_GetWound;
+	private _item = param [3,""];
+	private _woundIndex = param [4,0];
+	private _isEMS = (player getVariable ["job","unemployed"]) isEqualTo "fifr";
+	private _wounds = _player getVariable ["A3PL_Wounds",[]];
 
 	{
 		if ((_x select 0) == _part) exitwith
 		{
 			_i = _woundIndex + 1;
 			_woundArr = _x select _i;
-			if ((_woundArr select 0) == _wound) exitwith
+			if ((_woundArr select 0) isEqualTo _wound) exitwith
 			{
-				if ((_item == ([_wound,"itemHeal"] call A3PL_Config_GetWound)) && _isEMS) exitwith {
+				if ((_item isEqualTo ([_wound,"itemHeal"] call A3PL_Config_GetWound)) && _isEMS) exitwith {
 					["You succesfully healed a wound","green"] call A3PL_Player_Notification;
 					[format ["You succesfully healed a %1 wound",_woundName],"green"] call A3PL_Player_Notification;
 					[_player,format ["EMS %1 healed a %2 wound",(player getVariable ["name",name player]),_woundName],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
 					_x deleteAt _i;
-
-					switch(true) do
-					{
-						case (_part IN ["right upper leg","right lower leg","left lower leg","left upper leg"]): {
-							_player setHit ["legs", 0];
-						};
-						case (_part IN ["arms","hands"]): {
-							_player setHit ["arms", 0];
-							_player setHit ["hands", 0];
-						};
-						case (_part IN ["face_hub","head"]): {
-							_player setHit ["head", 0];
-						};
-						case (_part IN ["chest"]): {
-							_player setHit ["body", 0];
-						};
-					};
+					[_item,-1] call A3PL_Inventory_Add;
 				};
-
 				if ([_wound,"doesTreatHeal"] call A3PL_Config_GetWound) then
 				{
 					[format ["You succesfully treated a %1 wound",_woundName],"green"] call A3PL_Player_Notification;
-					if ((player getVariable ["job","unemployed"]) == "fifr") then {
-						[_player,format ["EMS %1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
-					} else {
-						[_player,format ["%1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
-					};
+					[_player,format ["%1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
 					_x deleteAt _i;
-					switch(true) do
-					{
-						case (_part IN ["right upper leg","right lower leg","left lower leg","left upper leg"]):
-						{
-							_player setHit ["legs", 0];
-						};
-						case (_part IN ["arms","hands"]):
-						{
-							_player setHit ["arms", 0];
-							_player setHit ["hands", 0];
-						};
-						case (_part IN ["face_hub","head"]): {
-							_player setHit ["head", 0];
-						};
-						case (_part IN ["chest"]): {
-							_player setHit ["body", 0];
-						};
-					};
+					[_item,-1] call A3PL_Inventory_Add;
 				} else {
-					if ((player getVariable ["job","unemployed"]) == "fifr") then {
-						[_player,format ["EMS %1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
-						switch(true) do {
-							case (_part IN ["right upper leg","right lower leg","left lower leg","left upper leg"]):
-							{
-								_player setHit ["legs", 0];
-							};
-							case (_part IN ["arms","hands"]):
-							{
-								_player setHit ["arms", 0];
-								_player setHit ["hands", 0];
-							};
-							case (_part IN ["face_hub","head"]): {
-								_player setHit ["head", 0];
-							};
-							case (_part IN ["chest"]): {
-								_player setHit ["body", 0];
-							};
-						};
-					} else {
-						[_player,format ["%1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName,_part],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
-					};
-					["You succesfully treated a wound, you may still require medical attention","green"] call A3PL_Player_Notification;
+					if(_woundArr select 1) exitWith {["This wound is already treated","red"] call A3PL_Player_Notification;};
+					[_player,format ["%1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName,_part],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
 					[format ["You treated a %1 wound, you may still require medical attention",_woundName]] call A3PL_Player_Notification;
 					_woundArr set [1,true];
+					[_item,-1] call A3PL_Inventory_Add;
 				};
 			};
-			if (count _x < 2) then { (_player getVariable ["A3PL_Wounds",[]]) deleteAt _forEachIndex; };
+			if (count _x < 2) then {(_player getVariable ["A3PL_Wounds",[]]) deleteAt _forEachIndex;};
 		};
 	} foreach _wounds;
 

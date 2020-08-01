@@ -619,8 +619,6 @@
 		player setVariable ["pVar_RedNameOn",true,true];
 		player setVariable ["A3PL_Wounds",[],true];
 		player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
-		Player_Hunger = 100;
-		Player_Thirst = 100;
 	};
 	[player,"admin_mode",[player getVariable ["pVar_RedNameOn",false]]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;

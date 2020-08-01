@@ -144,9 +144,8 @@
 
 ["Server_Addresses_GetAddressNb",
 {
-	private["_building","_number"];
-	_building = param [0,objNull];
-	_number = [_building] call Server_Addresses_GetObjectID;
+	private _building = param [0,objNull];
+	private _number = [_building] call Server_Addresses_GetObjectID;
 	parseNumber(_number);
 },true] call Server_Setup_Compile;
 

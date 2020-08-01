@@ -63,7 +63,6 @@
 
 	if !(isNil "A3PL_phoneNumberPrimary") then {if (A3PL_phoneNumberPrimary isEqualTo _phoneNumberContact) then {_error = true};};
 	if !(isNil "A3PL_phoneNumberSecondary") then {if (A3PL_phoneNumberSecondary isEqualTo _phoneNumberContact) then {_error = true};};
-	if !(isNil "A3PL_phoneNumberEnterprise") then {if (A3PL_phoneNumberEnterprise isEqualTo _phoneNumberContact) then {_error = true};};
 	if (_error) exitWith {["You cannot call this number","red"] call A3PL_Player_Notification; _error = false;};
 
 	player setVariable ["A3PL_iPhoneX_PhoneNumberSendCall", []];
@@ -347,7 +346,6 @@
 	switch(_type) do {
 		case("Primary"): {A3PL_phoneNumberPrimary = _numberSet;};
 		case("Secondary"): {A3PL_phoneNumberSecondary = _numberSet;};
-		case("Enterprise"): {A3PL_phoneNumberEnterprise = _numberSet;};
 		case("Active"): {A3PL_phoneNumberActive = _numberSet;};
 	};
 }] call Server_Setup_Compile;
@@ -460,38 +458,19 @@
 		ctrlEnable [97622,false];
 		ctrlEnable [97623,false];
 	};
-	private _control = _display displayCtrl 97002;
-	_control ctrlSetText "A3PL_Common\GUI\phone\iPhone_X_appSMS.paa";
-	if !(isNil "A3PL_phoneNumberEnterprise") then
-	{
-		if (A3PL_phoneNumberEnterprise isEqualTo _phoneNumberContact) then
-		{
-			ctrlEnable [97621,false];
-			ctrlShow [97621,false];
-			ctrlEnable [97622,false];
-			ctrlEnable [97623,false];
-			_control ctrlSetText "A3PL_Common\GUI\phone\iPhone_X_appSMSEnterprise.paa";
-		};
-	};
+
+	if (_phoneNumberContact isEqualTo "911") then {ctrlEnable [97623,false];};
+
 
 	{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
 
 	player setVariable ["iPhoneX_CurrentConversation", []];
 
-	_control = _display displayCtrl 97620;
+	private _control = _display displayCtrl 97620;
 	_control ctrlSetText _nameContact;
 	if (isNil "A3PL_phoneNumberActive") exitWith {};
-	if !(isNil "A3PL_phoneNumberEnterprise") then {
-		if (A3PL_phoneNumberEnterprise isEqualTo _phoneNumberContact) then {
-			[player, _phoneNumberContact] remoteExec ["Server_iPhoneX_Get911Text",2];
-		};
-	};
-	if !(isNil "A3PL_phoneNumberEnterprise") then
-	{
-		if !(A3PL_phoneNumberEnterprise isEqualTo _phoneNumberContact) then
-		{
-			[player, A3PL_phoneNumberActive, _phoneNumberContact] remoteExec ["Server_iPhoneX_GetSMS",2];
-		};
+	if ((_phoneNumberContact isEqualTo "911") && {(player getVariable["job","unemployed"]) IN ["fisd","fifr","uscg","usms"]}) then {
+		[player, _phoneNumberContact] remoteExec ["Server_iPhoneX_Get911Text",2];
 	} else {
 		[player, A3PL_phoneNumberActive, _phoneNumberContact] remoteExec ["Server_iPhoneX_GetSMS",2];
 	};
@@ -716,13 +695,6 @@
 	ctrlSetFocus _ctrlGrp;
 }] call Server_Setup_Compile;
 
-["A3PL_iPhoneX_SetJobNumber",
-{
-	private _job = [_this,0,"unemployed",["unemployed"]] call BIS_fnc_param;
-	private _number = "911";
-	A3PL_phoneNumberEnterprise = _number;
-}] call Server_Setup_Compile;
-
 ["A3PL_iPhoneX_ReceiveSMS",
 {
 	disableSerialization;
@@ -830,22 +802,21 @@
 
 ["A3PL_iPhoneX_SendSMS",
 {
-	private ["_message","_SMS","_phoneNumberContact","_display","_ctrlDisplay","_ctrlGrp"];
 	disableSerialization;
-
-	_message = _this select 0;
+	private _message = _this select 0;
 	if (_message isEqualTo "Message...") exitWith {["Message incorrect","red"] call A3PL_Player_Notification;};
 	_message = _message splitString "'%" joinString " ";
 	_message = _message splitString '"' joinString " ";
 
 	_SMS = A3PL_SMS;
 	_phoneNumberContact = player getVariable ["iPhoneX_CurrentConversation", ""];
-
 	playSound3D ["A3PL_Common\GUI\phone\sounds\smssend.ogg", player, false, getPosASL player, 5, 1, 5];
-	uiSleep random 0.2;
+	sleep 0.2;
 
-	_SMS pushBack [A3PL_phoneNumberActive, _phoneNumbercontact, _message];
+	_SMS pushBack [A3PL_phoneNumberActive, _phoneNumberContact, _message];
 	[player, A3PL_phoneNumberActive, _phoneNumberContact, _message] remoteExec ["Server_iPhoneX_SendSMS", 2];
+
+	if(_phoneNumberContact isEqualTo "911") exitWith {closeDialog 0;};
 
 	{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
 	call A3PL_iPhoneX_NewSMS;
@@ -969,7 +940,6 @@
 			private _tmp = _display ctrlCreate ["iPhone_X_SMSEnterprise", -1, _ctrlGrp];
 			private _backgroundCtrl = (_tmp controlsGroupCtrl 98058);
 			private _textCtrl = (_tmp controlsGroupCtrl 98059);
-			_tmp ctrlAddEventHandler ["MouseButtonDown",format ["[%1, '%2', '%3'] spawn A3PL_iPhoneX_AppSMS;", _forEachIndex, _fromNum, _fromNum]];
 			_textCtrl ctrlSetStructuredText parseText _message;
 			_posGrp = ctrlPosition _tmp;
 			_posBG = ctrlPosition _backgroundCtrl;
@@ -998,7 +968,7 @@
 		} forEach A3PL_SMS;
 	};
 
-	player setVariable ["iPhoneX_CurrentConversation", A3PL_phoneNumberEnterprise];
+	player setVariable ["iPhoneX_CurrentConversation", "911"];
 	player setVariable ["iPhoneX_ConversationsMS", _ctrlList];
 
 	_ctrlGrp ctrlSetAutoScrollSpeed 0.000001;

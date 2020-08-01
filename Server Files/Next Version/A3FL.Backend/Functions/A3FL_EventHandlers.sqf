@@ -681,7 +681,7 @@
 		if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 		private _distance = param [2,100];
 		private _weaponClass = param [3,""];
-		private _except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
+		private _except = ["A3PL_FireExtinguisher","CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
 		if(_distance <= 30 && (!(_weaponClass IN _except))) then {
 			Player_LockView = true;
 			Player_LockView_Time = time + (2 * 60);

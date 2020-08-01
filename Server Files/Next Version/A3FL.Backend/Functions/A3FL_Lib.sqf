@@ -45,7 +45,7 @@
 
 ["A3PL_Lib_AllFactionPlayers",
 {
-	private _faction = param [0,["fisd","fifr","uscg","usms"]];
+	private _factions = param [0,["fisd","fifr","uscg","usms"]];
 	private _returnID = param [1,false];
 	private _factionPeople = [];
 	{

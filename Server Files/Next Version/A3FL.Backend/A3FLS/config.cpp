@@ -382,7 +382,6 @@ class CfgRemoteExec
 		class A3PL_Robberies_SeizureAlert{allowedTargets=0;};
 
 		//iPhoneX
-		class A3PL_iPhoneX_SetJobNumber{allowedTargets=0;};
 		class A3PL_iPhoneX_Contacts{allowedTargets=0;};
 		class A3PL_iPhoneX_Conversations{allowedTargets=0;};
 		class A3PL_iPhoneX_setPhoneNumber{allowedTargets=0;};

@@ -11,13 +11,13 @@
 	["itemAdd", ["Loop_RoadSigns", {[] spawn A3PL_Loop_RoadSigns;}, 3, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Paycheck", {[] spawn A3PL_Loop_Paycheck;}, 60, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_HUD", {[] spawn A3PL_HUD_Loop;}, 2, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_Hunger", {[] spawn A3PL_Loop_Hunger;}, 370, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_Thirst", {[] spawn A3PL_Loop_Thirst;}, 350, 'seconds']] call BIS_fnc_loop;
+	["itemAdd", ["Loop_Hunger", {[] spawn A3PL_Loop_Hunger;}, 310, 'seconds']] call BIS_fnc_loop;
+	["itemAdd", ["Loop_Thirst", {[] spawn A3PL_Loop_Thirst;}, 290, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_NameTags", {[] spawn A3PL_Player_NameTags;}, 1, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_BusinessTags", {[] spawn A3PL_Player_BusinessTags;}, 5, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_RoadworkerMarkers", {[] spawn A3PL_JobRoadWorker_MarkerLoop;}, 15, 'seconds'],{ player getVariable ["job","unemployed"] == "Roadside" }, { player getVariable ["job","unemployed"] != "Roadside" }] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Medical", {[] spawn A3PL_Medical_Loop;}, 1, 'seconds',{ !((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) || (player getVariable ["bloodOverlay",false]) },{ ((player getVariable ["A3PL_Wounds",[]]) isEqualTo []) && !(player getVariable ["bloodOverlay",false]) }]] call BIS_fnc_loop;
-	["itemAdd", ["Loop_GPS", {[] spawn A3PL_Police_GPS;}, 10, 'seconds',{ player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg","fims"] }, { !(player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg","fims"]) && isNil "A3PL_Police_GPSmarkers" }]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_GPS", {[] spawn A3PL_Police_GPS;}, 5, 'seconds',{ player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg"] }, { !(player getVariable ["job","unemployed"] IN ["fisd","fifr","usms","uscg"]) && isNil "A3PL_Police_GPSmarkers" }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Drugs", {[] spawn A3PL_Drugs_Loop;}, 30, 'seconds',{ player getVariable ["drugs",false] },{ !(player getVariable["drugs",false]) }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Alcohol", {[] spawn A3PL_Alcohol_Loop;}, 30, 'seconds',{ player getVariable ["alcohol",false] },{ !(player getVariable["alcohol",false]) }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_JailMarkers", {[] spawn A3PL_Prison_Markers;}, 30, 'seconds',{ player getVariable ["job","unemployed"] IN ["usms"] },{ !(player getVariable ["job","unemployed"] IN ["usms"]) }]] call BIS_fnc_loop;
@@ -132,6 +132,7 @@
 
 ["A3PL_Loop_Paycheck",
 {
+	if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
 	Player_PayCheckTime = Player_PayCheckTime + 1;
 	if (Player_PayCheckTime >= 20) then
 	{
@@ -160,7 +161,6 @@
 		[player,_jobXP] call A3PL_Level_AddXP;
 		[player, Player_Paycheck] remoteExec ["Server_Player_UpdatePaycheck",2];
 		Player_PayCheckTime = 0;
-		profileNameSpace setVariable ["Player_PayCheckTime",Player_PayCheckTime];
 	};
 }] call Server_Setup_Compile;
 
@@ -169,16 +169,6 @@
 	private _amount = round(random(3));
 	if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 	if(player getVariable ["jailed",false]) exitWith {};
-
-	if (player_ItemClass == "popcornbucket") exitwith {
-		A3PL_EatingPopcorn = true;
-		Player_Item attachTo [player,[0,0,0],"RightHand"];
-		player playActionNow "gesture_eat";
-		[] spawn {
-			uisleep 4;
-			A3PL_EatingPopcorn = Nil;
-		};
-	};
 
 	Player_Hunger = Player_Hunger - _amount;
 	if ((Player_Hunger >= 45) && (Player_Hunger <= 50) && (isNil "A3PL_HungerWarning1") && (!(player getVariable ["Incapacitated",false]))) then {
