@@ -96,11 +96,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_ReadDecrees",
-	{call A3PL_Government_ReadLaws;}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_OpenBusiness",
 	{call A3PL_Company_CreateOpen;}
 ],

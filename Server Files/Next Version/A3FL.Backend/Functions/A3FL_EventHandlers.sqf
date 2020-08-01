@@ -204,11 +204,6 @@
 			};
 		}, "", [DIK_I, [true, false, false]]] call CBA_fnc_addKeybind;
 
-		["ArmA 3 Fishers Life","sync_data", "Sync Data",
-		{
-			call A3PL_iPhoneX_SyncData;
-		}, "", [DIK_8, [true, false, false]]] call CBA_fnc_addKeybind;
-
 		["ArmA 3 Fishers Life","ear_plug", "Ear Plug",
 		{
 			if (soundVolume < 0.1) then {

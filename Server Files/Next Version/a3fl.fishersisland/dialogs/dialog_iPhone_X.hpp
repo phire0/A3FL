@@ -2267,19 +2267,6 @@ class A3PL_iPhone_appSIM
 			colorBackground[] = {0,0,0,0};
 			shadow = 0;
 		};
-		class iPhone_X_text_SIM_3: RscText
-		{
-			idc = 97618;
-			x = safeZoneX + safeZoneW * 0.702;
-			y = safeZoneY + safeZoneH * 0.44263889;
-			w = safeZoneW * 0.135;
-			h = safeZoneH * 0.03;
-			text = $STR_IPHONEX_GUISIM3;
-			sizeEx = 0.0175 * safezoneW;
-			colorText[] = {0,0,0,1};
-			colorBackground[] = {0,0,0,0};
-			shadow = 0;
-		};
 		class iPhone_X_button_SIM_1: RscButtonEmpty
 		{
 			idc = 97719;
@@ -2300,18 +2287,6 @@ class A3PL_iPhone_appSIM
 			w = safeZoneW * 0.135;
 			h = safeZoneH * 0.03;
 			action = "[player, A3PL_phoneNumberSecondary] remoteExec [""Server_iPhoneX_UpdatePhoneNumberActive"",2];";
-			colorBackground[] = {0,0,0,0};
-			colorBackground2[] = {0,0,0,0};
-			colorBackgroundFocused[] = {0,0,0,0};
-		};
-		class iPhone_X_button_SIM_3: RscButtonEmpty
-		{
-			idc = 97721;
-			x = safeZoneX + safeZoneW * 0.702;
-			y = safeZoneY + safeZoneH * 0.44263889;
-			w = safeZoneW * 0.135;
-			h = safeZoneH * 0.03;
-			action = "[player, A3PL_phoneNumberEnterprise] remoteExec [""Server_iPhoneX_UpdatePhoneNumberActive"",2];";
 			colorBackground[] = {0,0,0,0};
 			colorBackground2[] = {0,0,0,0};
 			colorBackgroundFocused[] = {0,0,0,0};

@@ -257,7 +257,7 @@
 		};
 		if (!_canUse) exitwith {[localize"STR_NewIntersect_1"] call A3PL_Player_Notification;};
 
-		if (((typeOf _obj) IN ["Land_A3PL_Motel"]) || ((typeOf _obj) IN Config_Houses_List) || ((typeOf _obj) IN Config_Warehouses_List)) exitwith
+		if (((typeOf _obj) IN ["Land_A3PL_Motel","Land_A3PL_Greenhouse"]) || ((typeOf _obj) IN Config_Houses_List) || ((typeOf _obj) IN Config_Warehouses_List)) exitwith
 		{
 			switch (true) do
 			{
@@ -356,14 +356,13 @@
 							_format = format[localize'STR_NewIntersect_2'];
 							[_format, "red"] call A3PL_Player_Notification;
 						};
-
 						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
 					} else
 					{
 						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
 					};
 				};
-				case ((typeOf _obj) IN ["Land_John_Hangar"]):
+				case ((typeOf _obj) isEqualTo "Land_John_Hangar"):
 				{
 					if (_name IN ["door_1","door_2"]) then
 					{
@@ -380,9 +379,25 @@
 					};
 				};
 
-				case ((typeOf _obj) IN ["Land_A3FL_Warehouse"]):
+				case ((typeOf _obj) isEqualTo "Land_"):
 				{
-					if (_name IN ["door_1","door_2","door_3","door_5","door_6","door_7"]) then
+					if (_name IN ["door_1","door_2"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
+				case ((typeOf _obj) isEqualTo "Land_A3FL_Warehouse"):
+				{
+					if (_name IN ["door_1","door_2","door_3","door_5","door_6","door_7","door_8"]) then
 					{
 						if (isNil {_obj getVariable "unlocked"}) exitwith
 						{

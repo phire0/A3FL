@@ -715,9 +715,8 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Player_Whitelist", {
-	_uid = param [0,""];
-	_faction = param [1,""];
-
+	private _uid = param [0,""];
+	private _faction = param [1,""];
 	if(_faction != "citizen") then {
 		_fname = "";
 		switch(_faction) do {

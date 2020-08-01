@@ -21,7 +21,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_DELIVERY",
 		{call A3PL_Delivery_Deliver;},
-		{private ["_found"]; _found = false; {if ((typeOf _x) == "A3PL_DeliveryBox") exitwith {_found = true; true;}} foreach ([player] call A3PL_Lib_AttachedAll); _found;}
+		{private _found = false; {if ((typeOf _x) isEqualTo "A3PL_DeliveryBox") exitwith {_found = true; true;}} foreach ([player] call A3PL_Lib_AttachedAll); _found;}
 	],
 	[
 		localize "STR_INTER_FACTIONHIRE",
@@ -32,17 +32,9 @@ A3PL_Interaction_Options =
 		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo "citizen")} && {((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","usms","doj"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
 	],
 	[
-		localize "STR_INTER_FACTIONFIRE",
-		{
-			[(getPlayerUID cursorObject), "citizen"] remoteExec ["A3PL_Player_Whitelist",cursorObject];
-			[format[localize"STR_Inter_Notifications_Fire", name cursorObject],"green"] call A3PL_Player_Notification;
-		},
-		{(isPlayer cursorObject) && {(cursorObject getVariable["faction","citizen"] isEqualTo (player getVariable["faction","citizen"]))} && {((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","usms","doj"])} && {([(player getVariable["faction","citizen"])] call A3PL_Government_isFactionLeader)}}
-	],
-	[
 		localize "STR_INTER_SETNAMET",
 		{[cursorObject] call A3PL_Player_OpenNametag;},
-		{(vehicle player == player) && {(isPlayer cursorObject)} && {(player distance cursorObject < 5)} && {(profilenamespace getVariable ["Player_EnableID",true])}}
+		{((vehicle player) isEqualTo player) && {(isPlayer cursorObject)} && {(player distance cursorObject < 5)} && {(profilenamespace getVariable ["Player_EnableID",true])}}
 	],
 	[
 		localize"STR_INTER_COMPHIRE",
@@ -68,7 +60,7 @@ A3PL_Interaction_Options =
 				deleteVehicle(_lightObj);
 			};
 		},
-		{(typeOf (vehicle player) == "A3PL_RHIB") && {((["Camper_Light",1] call A3PL_Inventory_Has) || {!isNull((vehicle player) getVariable["rhib_light",objNull])})}}
+		{(typeOf (vehicle player) isEqualTo "A3PL_RHIB") && {((["Camper_Light",1] call A3PL_Inventory_Has) || {!isNull((vehicle player) getVariable["rhib_light",objNull])})}}
 	],
 	[
 		localize"STR_INTER_SETCOLLOC",
@@ -303,7 +295,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_SEARCHSEED",
 		{call A3PL_JobFarming_SearchSeeds;},
-		{((surfaceType getpos player) == "#cype_plowedfield") && (Player_ItemClass isEqualTo "") && (!(player getVariable ["Cuffed",false])) && (!(player getVariable ["Zipped",false]))}
+		{((surfaceType getpos player) == "#cype_plowedfield") && (Player_ItemClass isEqualTo "") && (!(player getVariable ["Cuffed",false])) && (!(player getVariable ["Zipped",false])) && ((vehicle player) isEqualTo player)}
 	],
 	[
 		localize "STR_INTER_PROSPECTG",

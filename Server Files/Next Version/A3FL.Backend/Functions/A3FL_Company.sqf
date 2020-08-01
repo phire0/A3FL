@@ -357,15 +357,10 @@
 	_control = _display displayCtrl 1601;
 	_control buttonSetAction "closeDialog 0;";
 
-	if(([(player getVariable['faction','citizen'])] call A3PL_Government_isFactionLeader)) then {
-		_control = _display displayCtrl 1602;
-		_control buttonSetAction "call A3PL_Company_BillPayFaction;";
-	} else {
-		_control = _display displayCtrl 1201;
-		_control ctrlShow false;
-		_control = _display displayCtrl 1602;
-		_control ctrlShow false;
-	};
+	_control = _display displayCtrl 1201;
+	_control ctrlShow false;
+	_control = _display displayCtrl 1602;
+	_control ctrlShow false;
 
 	if(([getPlayerUID player] call A3PL_Config_IsCompanyBoss)) then {
 		_control = _display displayCtrl 1603;

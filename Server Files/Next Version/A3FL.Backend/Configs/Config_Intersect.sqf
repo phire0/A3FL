@@ -2527,7 +2527,6 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_ATCExit",
 	localize"STR_QuickActionsNPC_OpenRadar",
 	localize"STR_QuickActionsNPC_TakeRadio",
-	localize"STR_QuickActionsNPC_ReadDecrees",
 	localize"STR_QuickActionsNPC_OpenBusiness",
 	localize"STR_QuickActionsNPC_BusinessManagement",
 	localize"STR_QuickActionsNPC_ResignCompany",

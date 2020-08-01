@@ -43,6 +43,23 @@
 	_factionPeople;
 }] call Server_Setup_Compile;
 
+["A3PL_Lib_AllFactionPlayers",
+{
+	private _faction = param [0,["fisd","fifr","uscg","usms"]];
+	private _returnID = param [1,false];
+	private _factionPeople = [];
+	{
+		if ((_x getVariable ["job","unemployed"] IN _factions)) then {
+			if (_returnID) then {
+				_factionPeople pushback (owner _x);
+			} else {
+				_factionPeople pushback _x;
+			};
+		};
+	} foreach allPlayers;
+	_factionPeople;
+}] call Server_Setup_Compile;
+
 ["A3PL_Lib_UIDToObject",
 {
 	private _uid = param [0,""];

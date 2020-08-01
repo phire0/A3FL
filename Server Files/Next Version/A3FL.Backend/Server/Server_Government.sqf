@@ -6,6 +6,29 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
+["Server_Government_BudgetTransfer",{
+	private _budgets = [
+		["Sheriff Department",10],
+		["Fire Rescue",10],
+		["US Coast Guard",8],
+		["Marshals Service",8],
+		["Department of Justice",5]
+	];
+	{
+		private _budgetS = _x select 0;
+		private _part = _x select 1;
+		private _budgetM = [_budgetS] call A3PL_Government_FactionBalance;
+		private _fedReserve = ["Federal Reserve"] call A3PL_Government_FactionBalance;
+		private _add = _fedReserve * _part;
+		diag_log format["Server_Core_BudgetTransfer: %1 : %2 (%3) | Actual: %4",_budgetS, _add, _fedReserve, _budgetM];
+		if((_budgetM < 3000000) || (_fedReserve < _add)) then {
+			[_budgetS, _add] remoteExec ["Server_Government_AddBalance",2];
+			["Federal Reserve", -_add] remoteExec ["Server_Government_AddBalance",2];
+		};
+		if(_fedReserve isEqualTo 0) exitWith {};
+	} forEach _budgets;
+},true] call Server_Setup_Compile;
+
 ["Server_Government_SetTax",
 {
 	private _taxChanged = param [0,""];
@@ -98,6 +121,25 @@
 			_ranks set [_forEachIndex,[(_x select 0),_persons,(_x select 2)]];
 		};
 		if (_rankx isEqualTo _rank) then {_persons pushback _person;};
+	} foreach _ranks;
+	Server_Government_FactionRanks set [_index,[_faction,_ranks]];
+	publicVariable "Server_Government_FactionRanks";
+	["Server_Government_FactionRanks",true] call Server_Core_SavePersistentVar;
+},true] call Server_Setup_Compile;
+
+["Server_Government_UnsetRank",
+{
+	private _faction = param [0,""];
+	private _person = param [1,""];
+	private _ranks = [_faction,"ranks"] call A3PL_Config_GetRanks;
+	private _index = _ranks select 1;
+	private _ranks = _ranks select 0;
+	{
+		private _persons = _x select 1;
+		if (_person IN _persons) then {
+			_persons = _persons - [_person];
+			_ranks set [_forEachIndex,[(_x select 0),_persons,(_x select 2)]];
+		};
 	} foreach _ranks;
 	Server_Government_FactionRanks set [_index,[_faction,_ranks]];
 	publicVariable "Server_Government_FactionRanks";

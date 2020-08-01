@@ -115,7 +115,6 @@
 		case "uscg": {["uscg_accepted"] call A3PL_NPC_Start; A3PL_phoneNumberEnterprise = "911";};
 		case "fisd": {A3PL_phoneNumberEnterprise = "911";};
 		case "usms": {A3PL_phoneNumberEnterprise = "911";};
-		case "doj": {A3PL_phoneNumberEnterprise = "912";};
 		case "farmer": {["farmer_accepted"] call A3PL_NPC_Start;};
 		case "tacohell": {["tacohell_accepted"] call A3PL_NPC_Start;};
 		case "oil": {["oil_accepted"] call A3PL_NPC_Start;};

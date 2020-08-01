@@ -647,6 +647,9 @@ Config_Shops_Items = [
 			["vest","A3PL_DOJ_Judy_Vest",0,-1,0],
 			["headgear","A3PL_DOJ_Blk_Hat",0,-1,0],
 			["headgear","A3PL_DOJ_Blu_Hat",0,-1,0],
+			["headgear","A3PL_DOJ_Hat",0,-1,0],
+			
+			/*Commented for now, until John pulls the plug.
 			["uniform","A3PL_DA_PoloNvyTan_Uniform",0,-1,0],
             ["uniform","A3PL_DA_PoloNvyBlk_Uniform",0,-1,0],
             ["uniform","A3PL_DA_PnkBlk_Uniform",0,-1,0],
@@ -668,10 +671,10 @@ Config_Shops_Items = [
 			["vest","A3PL_DAO_DA_Vest",0,-1,0],
 			["vest","A3PL_DAO_ADA_Vest",0,-1,0],
 			["vest","A3PL_DAO_SP_Vest",0,-1,0],
-			["headgear","A3PL_DOJ_Hat",0,-1,0],
 			["headgear","A3PL_DAO_Hat",0,-1,0],
 			["headgear","A3PL_DAO_Blk_Hat",0,-1,0],
-			["headgear","A3PL_DAO_Blu_Hat",0,-1,0],
+			["headgear","A3PL_DAO_Blu_Hat",0,-1,0],*/
+
 			["backpack","A3PL_LR",0,-1,0]
 		],{doj_table modelToWorld [0,0,-0.5]}
 	],

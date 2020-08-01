@@ -32,125 +32,46 @@ Config_Paychecks = [
 ];
 publicVariable "Config_Paychecks";
 
-Config_Blueprints = [
-	/*["fifr",
-		["Ambulances",
-			["Blueprint_f450",20000],
-			["Blueprint_e350",15000]
-		],
-		["Vehicles",
-			["Blueprint_cvpi_PD",10000],
-			["Blueprint_tahoe_PD",10000],
-			["Blueprint_tahoe_FD",10000],
-			["Blueprint_silverado_PD",10000],
-			["Blueprint_charger_PD",10000]
-		],
-		["Engines",
-			["Blueprint_ladder",30000],
-			["Blueprint_hladder",40000],
-			["Blueprint_pumper",26000],
-			["Blueprint_rescue",24000]
-		],
-		["Aircrafts",
-			["Blueprint_Medium01_Medic",80000]
+Config_FactionItems = [
+	["fifr",
+		["Misc",
+			[
+				["item","dildo",100000],
+				["item","golden_dildo",10000000]
+			]
 		]
 	],
 	["fisd",
-		["Vehicles",
-			["Blueprint_cvpi_PD",10000],
-			["Blueprint_cvpi_PDST",10000],
-			["Blueprint_charger_PD",10000],
-			["Blueprint_charger_PDST",10000],
-			["Blueprint_tahoe_PD",10000],
-			["Blueprint_tahoe_PDST",10000],
-			["Blueprint_silverado_PD",10000],
-			["Blueprint_mustang_PD",10000],
-			["Blueprint_mustang_PDST",10000],
-			["Blueprint_vettrz1_PD",10000]
-		],
-		["Weapons",
-			["Blueprint_A3PL_Taser",2000],
-			["Blueprint_A3PL_Red_Glock",12500],
-			["Blueprint_Rook40",12500]
-		],
-		["Magazines",
-			["Blueprint_A3PL_TaserMag",50],
-			["Blueprint_A3PL_Red_Glock_Mag",100]
-		],
-		["Accessories",
-			["Blueprint_flashlight",100]
+		["Misc",
+			[
+				["item","dildo",100000],
+				["item","golden_dildo",10000000]
+			]
 		]
 	],
-
 	["doj",
-		["Vehicles",
-			["Blueprint_cvpi_PDST",10000],
-			["Blueprint_charger_PDST",10000],
-			["Blueprint_tahoe_PDST",10000]
+		["Misc",
+			[
+				["item","dildo",100000],
+				["item","golden_dildo",10000000]
+			]
 		]
 	],
-
 	["usms",
-		["Vehicles",
-			["Blueprint_cvpi_PD",10000],
-			["Blueprint_cvpi_PDST",10000],
-			["Blueprint_charger_PD",10000],
-			["Blueprint_charger_PDST",10000],
-			["Blueprint_tahoe_PD",10000],
-			["Blueprint_tahoe_PDST",10000],
-			["Blueprint_vettrz1_PD",10000]
-		],
-		["Weapons",
-			["Blueprint_A3PL_Taser",2000],
-			["Blueprint_A3PL_Red_Glock",12500],
-			["Blueprint_Rook40",12500],
-			["Blueprint_Pistol_heavy_01",17500]
-		],
-		["Magazines",
-			["Blueprint_A3PL_TaserMag",50],
-			["Blueprint_A3PL_Red_Glock_Mag",100]
-		],
-		["Accessories",
-			["Blueprint_flashlight",100]
+		["Misc",
+			[
+				["item","dildo",100000],
+				["item","golden_dildo",10000000]
+			]
 		]
 	],
 	["uscg",
-		["Vehicles",
-			["Blueprint_cvpi_PD",10000],
-			["Blueprint_cvpi_PDST",10000],
-			["Blueprint_charger_PD",10000],
-			["Blueprint_charger_PDST",10000],
-			["Blueprint_tahoe_PD",10000],
-			["Blueprint_tahoe_PDST",10000],
-			["Blueprint_silverado_PD",10000],
-			["Blueprint_mustang_PD",10000]
-		],
-		["Boats",
-			["Blueprint_RBM",12000],
-			["Blueprint_PatrolUSCG",12000]
-		],
-		["Aircrafts",
-			["Blueprint_MediumUSCG",80000],
-			["Blueprint_Jayhawk",85000],
-			["Blueprint_CessnaUSCG",90000]
-		],
-		["Weapons",
-			["Blueprint_hgun_Pistol_Signal_F",1500],
-			["Blueprint_A3PL_Taser",2000],
-			["Blueprint_A3PL_Red_Glock",12500],
-			["Blueprint_Rook40",12500],
-			["Blueprint_Pistol_heavy_01",17500],
-			["Blueprint_srifle_LRR_SOS_F",85000]
-		],
-		["Magazines",
-			["Blueprint_6Rnd_GreenSignal_F",50],
-			["Blueprint_A3PL_TaserMag",50],
-			["Blueprint_A3PL_Red_Glock_Mag",100],
-			["Blueprint_7Rnd_408_Mag",350]
-		],
-		["Accessories",
-			["Blueprint_flashlight",100]
+		["Misc",
+			[
+				["item","dildo",100000],
+				["item","golden_dildo",10000000]
+			]
 		]
-	]*/
+	]
 ];
-publicVariable "Config_Blueprints";
+publicVariable "Config_FactionItems";
