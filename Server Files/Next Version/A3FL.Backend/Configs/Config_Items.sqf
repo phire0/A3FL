@@ -148,7 +148,7 @@ Config_Items =
 	["generator",localize"STR_ConfigItems_generator",15,"A3PL_Generator",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["flag1",localize"STR_ConfigItems_flag1",15,"A3PL_Flag1",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["flag2",localize"STR_ConfigItems_flag2",15,"A3PL_Flag2",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["wheat",localize"STR_ConfigItems_wheat",0.1,"A3PL_Sack",0,true,true,true, true, true,"",[0,0,0],"",1],	
+	["wheat",localize"STR_ConfigItems_wheat",0.1,"A3PL_Sack",0,true,true,true, true, true,"",[0,0,0],"",1],
 	["planter",localize"STR_ConfigItems_planter",10,"A3PL_Planter2",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["pavilion",localize"STR_ConfigItems_pavilion",0.1,"A3PL_Pavilion",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["furn_fridge",localize"STR_ConfigItems_Fridge",15,"A3PL_Fridge",0,true,true,true,false,false,"",[0,0,0],"",1],
@@ -156,11 +156,11 @@ Config_Items =
 
 
 	//Placeable Items
-	["wood_barrier",localize"STR_ConfigItems_wood_barrier",3,"A3PL_RoadBarrier",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["plastic_barrier_small",localize"STR_ConfigItems_plastic_barrier_small",3,"A3PL_PlasticBarrier_01",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["plastic_barrier_large",localize"STR_ConfigItems_plastic_barrier_large",3,"A3PL_PlasticBarrier_02",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["roadcones",localize"STR_ConfigItems_roadcones",10,"A3PL_RoadCone_x10",0,true,true,true,false,true,"",[0,0,0],"",1],
-	["roadcone",localize"STR_ConfigItems_roadcone",1,"A3PL_RoadCone",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["wood_barrier",localize"STR_ConfigItems_wood_barrier",3,"A3PL_RoadBarrier",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["plastic_barrier_small",localize"STR_ConfigItems_plastic_barrier_small",3,"A3PL_PlasticBarrier_01",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["plastic_barrier_large",localize"STR_ConfigItems_plastic_barrier_large",3,"A3PL_PlasticBarrier_02",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["roadcones",localize"STR_ConfigItems_roadcones",10,"A3PL_RoadCone_x10",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["roadcone",localize"STR_ConfigItems_roadcone",1,"A3PL_RoadCone",0,true,true,true,false,true"",[0,0,0],"",1],
 	["stinger",localize"STR_ConfigItems_stinger",3,"A3PL_Stinger",0,true,true,true,true,true,"",[2,0.5,0],"",1],
 
 	//Useable Items
@@ -183,7 +183,7 @@ Config_Items =
 	["jerrycan",localize"STR_ConfigItems_jerrycan",10,"A3PL_Jerrycan",-90,true,true,true,true,true,"",[0,0,0],"",1],
 	["jerrycan_empty",localize"STR_ConfigItems_jerrycan_empty",1,"A3PL_Jerrycan",-90,true,true,true,true,true,"",[0,0,0],"",1],
 	["matches",localize"STR_ConfigItems_matches",0.5,"A3PL_Seed_Corn",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["zipties",localize"STR_ConfigItems_zipties",1,"A3PL_Ziptie",0,true, true,true,true,true,"",[0,0,0],"",1],	
+	["zipties",localize"STR_ConfigItems_zipties",1,"A3PL_Ziptie",0,true, true,true,true,true,"",[0,0,0],"",1],
 	["handcuffs",localize"STR_ConfigItems_handcuffs",1,"A3PL_Handcuffs",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Lifebuoy",localize"STR_ConfigItems_Lifebuoy",1,"A3PL_Lifebuoy",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["doorkey",localize"STR_ConfigItems_doorkey",0.1,"A3PL_HouseKey",0,true,true,true,true,true,"",[0,0,0],"",1],
@@ -203,7 +203,7 @@ Config_Items =
 	["Camper_Light",localize"STR_ConfigItems_Camper_Light",5,"A3PL_Camping_Light",0,true,true,true,true,true,"",[0,0,0],"",1],
 
 	//Illegal Items & Processing Stuff
-	["workbench",localize"STR_ConfigItems_workbench",10,"A3PL_WorkBench",0,true,true,true,false,true,"",[0,0,0],"",1],	
+	["workbench",localize"STR_ConfigItems_workbench",10,"A3PL_WorkBench",0,true,true,true,false,true,"",[0,0,0],"",1],
 	["lamp_200w",localize"STR_ConfigItems_lamp_200w",5,"A3PL_Cannabis_Lamp_200W",0,true,true,true,false,true,"",[0,0,0],"",1],
 	["lamp_500w",localize"STR_ConfigItems_lamp_500w",5,"A3PL_Cannabis_Lamp_500W",0,true,true,true,false,true,"",[0,0,0],"",1],
 	["lamp_1000w",localize"STR_ConfigItems_lamp_1000w",5,"A3PL_Cannabis_Lamp_1000W",0,true,true,true,false,true,"",[0,0,0],"",1],
@@ -265,7 +265,7 @@ Config_Items =
 	["diamond_emerald_ill",localize"STR_ConfigItems_diamond_emerald_ill",0.5,"A3PL_Diamond_Emerald",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["diamond_ruby_ill",localize"STR_ConfigItems_diamond_ruby_ill",0.5,"A3PL_Diamond_Ruby",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["diamond_sapphire_ill",localize"STR_ConfigItems_diamond_sapphire_ill",0.5,"A3PL_Diamond_Sapphire",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["diamond_tourmaline_ill",localize"STR_ConfigItems_diamond_tourmaline_ill",0.5,"A3PL_Diamond_Tourmaline",0,true,true,true,true,true,"",[0,0,0],"",1],	
+	["diamond_tourmaline_ill",localize"STR_ConfigItems_diamond_tourmaline_ill",0.5,"A3PL_Diamond_Tourmaline",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["turtle",localize"STR_ConfigItems_turtle",2,"A3PL_Ornate",90,true,true,true,true,true,"",[0,0,0],"",1],
 	["drill_bit",localize"STR_ConfigItems_drill_bit", 3, "A3PL_Drill_Bit",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["dirty_cash",localize"STR_ConfigItems_dirty_cash",0.0005,"A3PL_Money",0,true,true,true,true,true,"",[0,0,0],"",1],
@@ -447,7 +447,7 @@ Config_Items =
 	["cocaine",localize"STR_ConfigItems_cocaine",1,"A3PL_PowderedMilk",15,true,true,true,true,true,"A3PL_Items_Food",[0,0,0],"",1],
 	["shrooms",localize"STR_ConfigItems_shrooms",0.5,"A3FL_Mushroom",15,true,true,true,true,true,"A3PL_Items_Food",[0,0,0],"",1],
 	["Meat_Scraps",localize"STR_ConfigItems_Meat_Scraps",0.5,"A3PL_Burger_Raw",90,true,true,true,true,true,"",[0,0,0],"",1],
-	["popcornbucket",localize"STR_ConfigItems_popcornbucket",0.5,"A3PL_PopcornBucket",0,false,true,true,true,true,"",[0,0,0],"Prevents Hunger Loss when held in hand",1],	
+	["popcornbucket",localize"STR_ConfigItems_popcornbucket",0.5,"A3PL_PopcornBucket",0,false,true,true,true,true,"",[0,0,0],"Prevents Hunger Loss when held in hand",1],
 	["Salad",localize"STR_ConfigItems_Salad",0.5,"A3PL_Salad",0,true,true,true,true,true,"A3PL_Items_Food",[0,0,0],"Replenishes 5% Hunger",1],
 	["tacoshell",localize"STR_ConfigItems_tacoshell",0.5,"A3PL_TacoShell",0,true,true,true,true,true,"A3PL_Items_Food",[0,0,0],"Replenishes 2% Hunger",1],
 	["taco_raw",localize"STR_ConfigItems_taco_raw",1,"A3PL_Taco",0,true,true,true,true,true,"A3PL_Items_Food",[0,0,0],"",1],
