@@ -138,8 +138,7 @@
 
 ["Server_Gang_RewardFactions",{
 	private _faction = param [0,"fisd"];
-	private _amount = 2000;
-
+	private _amount = 800;
 	{
 		[_x, 'Player_Bank', ((_x getVariable 'Player_Bash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
 		[format["Your faction has captured a gang hideout, you have been rewarded $%1 for good performance!",_amount],"green"] remoteExec ["A3PL_Player_Notification",_x];
