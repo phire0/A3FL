@@ -773,14 +773,12 @@
 
 ["A3PL_Vehicle_Repair",
 {
-	private ["_car","_success"];
-	_car = param [0,objNull];
+	private _car = param [0,objNull];
+	private _success = true;
 	if (isNull _car) exitwith {};
-	if (animationstate player == "Acts_carFixingWheel") exitwith {[localize"STR_NewVehicle_13", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player isEqualTo player)) exitwith {[localize"STR_NewVehicle_14", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_NewVehicle_15","red"] call A3PL_Player_Notification;};
 	["Repairing...",30] spawn A3PL_Lib_LoadAction;
-	_success = true;
 	waitUntil{Player_ActionDoing};
 	player playMoveNow 'Acts_carFixingWheel';
 	while {Player_ActionDoing} do {
@@ -804,7 +802,7 @@
 {
 	private _trailer = _this select 0;
 	private _TruckArray = nearestObjects [(_trailer modelToWorld [0,3,0]), A3PL_HitchingVehicles, 6.5];
-	if (count _TruckArray == 0) exitwith {[localize"STR_NewVehicle_18", "red"] call A3PL_Player_Notification;};
+	if ((count _TruckArray) isEqualTo 0) exitwith {[localize"STR_NewVehicle_18", "red"] call A3PL_Player_Notification;};
 	private _truck = _TruckArray select 0;
 	[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	[_truck] remoteExec ["Server_Vehicle_EnableSimulation", 2];
@@ -817,20 +815,18 @@
 
 ["A3PL_Vehicle_Trailer_Hitch",
 {
-	private ["_truck","_TruckArray","_FrontTrailer","_trailer","_offset","_ramp"];
-	_trailer = param [0,objNull];
-	_offset = 3;
-	_ramp = false;
-	if (typeOf _trailer IN ["A3PL_Lowloader"]) then
-	{
+	private _trailer = param [0,objNull];
+	private _offset = 3;
+	private _ramp = false;
+	if (typeOf _trailer IN ["A3PL_Lowloader"]) then {
 		_offset = 5;
 		if (_trailer animationPhase "ramp" > 0) then {_ramp = true;};
 	};
 	if (_ramp) exitwith {[localize"STR_NewVehicle_19", "red"] call A3PL_Player_Notification;};
 
-	_TruckArray = nearestObjects [(_trailer modelToWorld [0,_offset,0]), A3PL_HitchingVehicles, 16.5];
+	private _TruckArray = nearestObjects [(_trailer modelToWorld [0,_offset,0]), A3PL_HitchingVehicles, 16.5];
 	if (count _TruckArray == 0) exitwith {[localize"STR_NewVehicle_20", "red"] call A3PL_Player_Notification;};
-	_truck = _truckArray select 0;
+	private _truck = _truckArray select 0;
 	_truck allowDamage false;
 	switch(true) do {
 		case (typeOf _trailer isEqualTo "A3PL_Lowloader"): {
@@ -937,12 +933,10 @@
 			_trailer attachTo [_truck, [0, -5.36, -0.22]];
 			detach _trailer;
 		};
-
 		default {};
 	};
 
-	if ((!(local _truck)) OR (!(local _trailer))) then
-	{
+	if ((!(local _truck)) OR (!(local _trailer))) then {
 		[_truck,_trailer] remoteExec ["Server_Vehicle_Trailer_Hitch",2];
 	};
 
@@ -955,25 +949,17 @@
 	[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	[_truck] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 
-	[] spawn {uiSleep 60;_truck allowDamage true;};
+	[] spawn {sleep 60;_truck allowDamage true;};
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_TrailerAttach",
 {
-	private ["_trailer","_boats","_boat"];
-
-	_trailer = param [0,objNull];
+	private _trailer = param [0,objNull];
 	if (typeOf _trailer != "A3PL_Small_Boat_Trailer") exitwith {["System: Incorrect type (try again)", "red"] call A3PL_Player_Notification;};
-	_boats = nearestObjects [_trailer, ["Ship"], 6];
-	if (count _boats < 1) exitwith
-	{
-		[localize"STR_NewVehicle_21", "red"] call A3PL_Player_Notification;
-	};
-
+	private _boats = nearestObjects [_trailer, ["Ship"], 6];
+	if (count _boats < 1) exitwith {[localize"STR_NewVehicle_21", "red"] call A3PL_Player_Notification;};
 	_boat = _boats select 0;
-
-	switch (typeOf _boat) do
-	{
+	switch (typeOf _boat) do {
 		case ("A3PL_RHIB"): {_boat attachTo [_trailer,[0,-0.57,0.9]];};
 		case default {_boat attachTo [_trailer,[0,-0.25,0.9]]; };
 	};
@@ -982,18 +968,13 @@
 
 ["A3PL_Vehicle_BigTrailerAttach",
 {
-	private ["_trailer","_boats","_boat"];
-
-	_trailer = param [0,objNull];
-	//if (typeOf _trailer != "A3PL_Boat_Trailer") exitwith {["System: Incorrect type (try again)", "red"] call A3PL_Player_Notification;};
-	_boats = nearestObjects [_trailer, ["Ship"], 12];
+	private _trailer = param [0,objNull];
+	private _boats = nearestObjects [_trailer, ["Ship"], 12];
 	if (count _boats < 1) exitwith
 	{
 		[localize"STR_NewVehicle_22", "red"] call A3PL_Player_Notification;
 	};
-
 	_boat = _boats select 0;
-
 	switch (typeOf _boat) do
 	{
 		case ("A3PL_RHIB"): {_boat attachTo [_trailer,[0,-0.57,0.9]];};
@@ -1011,26 +992,18 @@
 	if (!(_trailer isKindOf "Car")) exitwith {[localize"STR_NewVehicle_24", "red"] call A3PL_Player_Notification;};
 	if (!(local _trailer)) exitwith {[localize"STR_NewVehicle_25", "red"] call A3PL_Player_Notification;};
 	_truck = getPos _trailer nearestObject "A3PL_P362";
-	//first check if ramp is up
 	if ((_trailer animationPhase "ramp") < 0.5) then
 	{
-		//lower the ramp
 		_trailer animate ["ramp",1];
-
 		[_trailer] spawn
 		{
-			private ["_trailer","_t"];
-			_trailer = param [0,objNull];
+			private _trailer = param [0,objNull];
+			private _t = 0;
 			if (isNull _trailer) exitwith {};
-			_t = 0;
-			waitUntil {sleep 0.1; _t = _t + 0.1; (_t >= 6) OR ((_trailer animationPhase "ramp" >= 1))}; //wait until the the ramp is fully lowered
+			waitUntil {sleep 0.1; _t = _t + 0.1; (_t >= 6) OR ((_trailer animationPhase "ramp" >= 1))};
 			if (_trailer animationPhase "ramp" < 0.9) exitwith {_trailer animate ["ramp",0,true]};
 			if (!(local _trailer)) exitwith {_trailer animate ["ramp",0,true]};
-
-			//disable simulation on trailer so vehicles can be moved up
 			[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
-
-			//detach the vehicles on the trailer
 			{
 				detach _x;
 			} foreach (attachedObjects _trailer);
@@ -1039,29 +1012,20 @@
 	else
 	{
 		private ["_vehicles","_vehiclesTrailer"];
-
-		//attach all vehicles on the trailer
 		_vehicles = nearestObjects [_trailer, ["Air","Thing","LandVehicle","Ship"], 10]; //nearest vehicles
 		_vehicles = _vehicles - [_trailer];
 		_vehicles = _vehicles - [_truck];
-		_vehiclesTrailer = []; //vehicles actually on the trailer
+		_vehiclesTrailer = [];
 		{
 			if ((getpos _x) inArea [_trailer modelToWorld [0,0,0], 6.1, 1,(getDir _trailer+90), true]) then
 			{
 				_vehiclesTrailer pushback _x;
 			};
 		} foreach _vehicles;
-
-		//attach only the vehicles on the actual trailer
 		{
-			//_x attachTo [_trailer];
 			[_x,_trailer] call BIS_Fnc_AttachToRelative;
 		} foreach _vehiclesTrailer;
-
-		//enablesimulation on the trailer again
 		[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
-
-		//raise the ramp
 		_trailer animate ["ramp",0,true];
 	};
 }] call Server_Setup_Compile;

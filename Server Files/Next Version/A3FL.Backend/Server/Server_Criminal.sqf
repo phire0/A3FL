@@ -106,3 +106,11 @@
 	missionNamespace setVariable ["TurtleAreaLocation",(_locations find _nextLocation)];
 	[] remoteExec["A3PL_Player_SetMarkers",-2];
 },true] call Server_Setup_Compile;
+
+["Server_Criminal_MoveNPCs",
+{
+	private _npcs = [];
+	private _locations = [];
+
+	//diag_log str(getPos player);
+},true] call Server_Setup_Compile;
