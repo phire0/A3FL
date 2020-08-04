@@ -307,7 +307,11 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_MailManShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mailman,npc_mailman_stoney,npc_mailman_northdale,npc_mailman_beachV,npc_mailman_lubbock]}],
 	["spine3",localize"STR_QuickActionsNPC_KartRent",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_Karts]}],
 	["spine3","Chemical Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_chemicaldealer}],
-
+	["spine3","Talk to Illegal Trader",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_ill_trader}],
+	["spine3","Talk to Moonshine Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_ill_moonshine}],
+	["spine3","Talk to Cocaine Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_ill_cocaine}],
+	["spine3","Talk to Mushrooms Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_ill_shrooms}],
+	["spine3","Talk to Marijuana Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_ill_weed}],
 	["spine3","Talk to the Ship Captain",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_ship_captain,npc_ship_captain_1,npc_ship_captain_2]}],
 
 	//Rob Stores
@@ -2014,6 +2018,11 @@ Config_GenArray =
 	"Secure Gang Hideout",
 	"Enter into Evidince",
 	"Talk to the Ship Captain",
+	"Talk to Illegal Trader",
+	"Talk to Moonshine Dealer"
+	"Talk to Cocaine Dealer",
+	"Talk to Mushrooms Dealer",
+	"Talk to Marijuana Dealer",
 	"Big Dicks Sports Store",
 	localize"STR_INTSECT_IMPNEARVEH",
 	"Ship Ramp",

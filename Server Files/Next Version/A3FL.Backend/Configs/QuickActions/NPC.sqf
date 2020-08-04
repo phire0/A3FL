@@ -13,6 +13,31 @@
 ],
 [
 	"",
+	"Talk to Illegal Trader",
+	{["Shop_Ill_Trader"] call A3PL_Shop_Open;}
+],
+[
+	"",
+	"Talk to Moonshine Dealer",
+	{["Shop_Ill_Moonshine"] call A3PL_Shop_Open;}
+],
+[
+	"",
+	"Talk to Cocaine Dealer",
+	{["Shop_Ill_Cocaine"] call A3PL_Shop_Open;}
+],
+[
+	"",
+	"Talk to Mushrooms Dealer",
+	{["Shop_Ill_Shrooms"] call A3PL_Shop_Open;}
+],
+[
+	"",
+	"Talk to Marijuana Dealer",
+	{["Shop_Ill_Weed"] call A3PL_Shop_Open;}
+],
+[
+	"",
 	"Low End Car Dealer",
 	{["Shop_Low_End_Car_Dealer"] call A3PL_Shop_Open;}
 ],

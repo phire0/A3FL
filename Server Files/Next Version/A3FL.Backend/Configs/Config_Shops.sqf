@@ -254,37 +254,37 @@ Config_Shops_Items = [
 		["item","seed_marijuana",300,180,8],
 		["item","beer",50,30,0],
 		["item","beer_gold",280,150,0],
-		["item","weed_5g",-1,405,4],
-		["item","weed_10g",-1,686,4],
-		["item","weed_15g",-1,776,4],
-		["item","weed_20g",-1,1327,4],
-		["item","weed_25g",-1,1659,4],
-		["item","weed_30g",-1,1991,4],
-		["item","weed_35g",-1,2322,4],
-		["item","weed_40g",-1,2655,4],
-		["item","weed_45g",-1,2986,4],
-		["item","weed_50g",-1,3318,4],
-		["item","weed_55g",-1,3650,4],
-		["item","weed_60g",-1,3982,4],
-		["item","weed_65g",-1,4314,4],
-		["item","weed_70g",-1,4646,4],
-		["item","weed_75g",-1,4977,4],
-		["item","weed_80g",-1,5310,4],
-		["item","weed_85g",-1,5641,4],
-		["item","weed_90g",-1,5973,4],
-		["item","weed_95g",-1,6305,4],
-		["item","weed_100g",-1,6637,4],
-		["item","turtle",-1,11250,6],
-		["item","shrooms",-1,393,7],
-		["item","cocaine",-1,750,8],
-		["item","diamond_tourmaline_ill",-1,1050,8],
-		["item","diamond_aqua_ill",-1,1425,8],
-		["item","diamond_alex_ill",-1,1725,8],
-		["item","diamond_sapphire_ill",-1,2055,8],
-		["item","diamond_ruby_ill",-1,2400,8],
-		["item","diamond_emerald_ill",-1,3000,8],
-		["item","diamond_ill",-1,4500,8],
-		["item","cocaine_brick",-1,7500,8]
+		["item","weed_5g",-1,202,4],
+		["item","weed_10g",-1,343,4],
+		["item","weed_15g",-1,388,4],
+		["item","weed_20g",-1,663,4],
+		["item","weed_25g",-1,829,4],
+		["item","weed_30g",-1,995,4],
+		["item","weed_35g",-1,1161,4],
+		["item","weed_40g",-1,1327,4],
+		["item","weed_45g",-1,1493,4],
+		["item","weed_50g",-1,1659,4],
+		["item","weed_55g",-1,1825,4],
+		["item","weed_60g",-1,1991,4],
+		["item","weed_65g",-1,2157,4],
+		["item","weed_70g",-1,2323,4],
+		["item","weed_75g",-1,2488,4],
+		["item","weed_80g",-1,2655,4],
+		["item","weed_85g",-1,2820,4],
+		["item","weed_90g",-1,2986,4],
+		["item","weed_95g",-1,3152,4],
+		["item","weed_100g",-1,3318,4],
+		["item","turtle",-1,5625,6],
+		["item","shrooms",-1,196,7],
+		["item","cocaine",-1,375,12],
+		["item","diamond_tourmaline_ill",-1,525,8],
+		["item","diamond_aqua_ill",-1,712,8],
+		["item","diamond_alex_ill",-1,862,8],
+		["item","diamond_sapphire_ill",-1,1027,8],
+		["item","diamond_ruby_ill",-1,1200,8],
+		["item","diamond_emerald_ill",-1,1500,8],
+		["item","diamond_ill",-1,2250,8],
+		["item","cocaine_brick",-1,3750,12]
 	],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
 	["Shop_Gang",[
@@ -1244,7 +1244,66 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Ram",55050,0,0],
 			["vehicle","A3PL_Car_Trailer",15000,0,0]
 		],{[2942.43,5891.42,-0.75]}
-	]
+	],
+
+	//New NPCS
+	["Shop_Ill_Trader",[
+			["item","diamond_tourmaline_ill",-1,1400,8],
+			["item","diamond_aqua_ill",-1,1900,8],
+			["item","diamond_alex_ill",-1,2300,8],
+			["item","diamond_sapphire_ill",-1,2740,8],
+			["item","diamond_ruby_ill",-1,3200,8],
+			["item","diamond_emerald_ill",-1,4000,8],
+			["item","diamond_ill",-1,6000,8]
+		],{[3456.32,7513.2,1]}
+	],
+	["Shop_Ill_Moonshine",[
+			["item","distillery",30000,-1,4],
+			["item","distillery_hose",750,-1,4],
+			["item","jug",350,-1,4],
+			["item","jug_green",400,-1,4],
+			["item","jug_moonshine",-1,4125,4]
+		],{[3456.32,7513.2,1]}
+	],
+	["Shop_Ill_Cocaine",[
+			["item","sulphuric_acid",75,-1,12],
+			["item","calcium_carbonate",75,-1,12],
+			["item","potassium_permangate",75,-1,12],
+			["item","ammonium_hydroxide",75,-1,12],
+			["item","acetone",75,-1,12],
+			["item","hydrocloric_acid",75,-1,12],
+			["item","cocaine",-1,1000,12],
+			["item","cocaine_brick",-1,10000,12]
+		],{[3456.32,7513.2,1]}
+	],
+	["Shop_Ill_Shrooms",[
+			["item","shrooms",-1,525,7]
+		],{[3456.32,7513.2,1]}
+	],
+	["Shop_Ill_Weed",[
+			["item","seed_marijuana",300,180,8],
+			["item","weed_5g",-1,540,4],
+			["item","weed_10g",-1,915,4],
+			["item","weed_15g",-1,1035,4],
+			["item","weed_20g",-1,1770,4],
+			["item","weed_25g",-1,2212,4],
+			["item","weed_30g",-1,2655,4],
+			["item","weed_35g",-1,3097,4],
+			["item","weed_40g",-1,3540,4],
+			["item","weed_45g",-1,3982,4],
+			["item","weed_50g",-1,4425,4],
+			["item","weed_55g",-1,4867,4],
+			["item","weed_60g",-1,5310,4],
+			["item","weed_65g",-1,5752,4],
+			["item","weed_70g",-1,6195,4],
+			["item","weed_75g",-1,6637,4],
+			["item","weed_80g",-1,7080,4],
+			["item","weed_85g",-1,7522,4],
+			["item","weed_90g",-1,7965,4],
+			["item","weed_95g",-1,8407,4],
+			["item","weed_100g",-1,8850,4]
+		],{[3456.32,7513.2,1]}
+	],
 ];
 publicVariable "Config_Shops_Items";
 
