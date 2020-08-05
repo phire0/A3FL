@@ -172,6 +172,18 @@
 					{
 						Player_Item attachTo [player, [0,0,0], 'LeftHand'];
 					};
+					case ("coffee_cup_large"):
+					{
+						Player_Item attachTo [player, [0,0,0], 'LeftHand'];
+					};
+					case ("coffee_cup_medium"):
+					{
+						Player_Item attachTo [player, [0,0,0], 'LeftHand'];
+					};
+					case ("coffee_cup_small"):
+					{
+						Player_Item attachTo [player, [0,0,0], 'LeftHand'];
+					};
 					case default {Player_Item attachTo [player, _attach, 'RightHand'];};
 				};
 			};
