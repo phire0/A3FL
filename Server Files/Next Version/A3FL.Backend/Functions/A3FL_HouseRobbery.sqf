@@ -123,6 +123,8 @@
 
 	_weaponHolder setVariable["storage",_virtualItems,true];
 	{_weaponHolder addItemCargoGlobal _x;} forEach _physicalItems;
+
+	missionNamespace setVariable ["HouseCooldown",serverTime,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_HouseRobbery_NotifySD",
@@ -135,8 +137,6 @@
 	_namePos = [getPos _house] call A3PL_Housing_PosAddress;
 	[format["911: Robbery in progress at %1!",_namePos],"blue",_faction,1] call A3PL_Lib_JobMessage;
 	[_house,"House Alarm","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
-
-	missionNamespace setVariable ["HouseCooldown",serverTime,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_HouseRobbery_Alarm", {

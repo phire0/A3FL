@@ -313,6 +313,8 @@ Server_Setup_Compile = {
 		call Server_Core_GetDefVehicles;				//create the defaulte vehicles array (for use in cleanup script)
 		call Server_JobPicking_Init;					//get the marker locations for picking locations
 		[] spawn Server_Lumber_TreeRespawn;				//spawn trees for lumberyacking
+		[] spawn Server_Criminal_MoveNPCs;
+
 
 		//load stock values
 		// [] spawn Server_ShopStock_Load;
@@ -370,6 +372,8 @@ Server_Setup_Compile = {
 
 	["itemAdd", ["Server_Loop_OilRandomization", {[] spawn Server_JobWildcat_RandomizeOil;}, 3600]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_ResRandomization", {[] spawn Server_JobWildcat_RandomizeRes;}, 3600]] call BIS_fnc_loop;
+
+	["itemAdd", ["Server_Loop_Criminal_MoveNPCs", {[] spawn Server_Criminal_MoveNPCs;}, 7200]] call BIS_fnc_loop;
 
 	//cleanup
 	["itemAdd", ["Server_Loop_Cleanup", {[] spawn Server_Core_Clean;}, 900]] call BIS_fnc_loop;
