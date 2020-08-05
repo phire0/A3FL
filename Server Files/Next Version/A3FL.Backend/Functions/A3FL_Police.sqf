@@ -1943,10 +1943,16 @@
 
 ["A3PL_Police_SaveSquadNb", {
 	private _number = ctrlText 1400;
-	A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
-
-	if((typeOf A3PL_SquadNb_Veh) IN []) then {
-			
+	if((typeOf A3PL_SquadNb_Veh) IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]) then {
+		private _numberArray = _number splitString "";
+		if(count(_numberArray) < 2) exitWith {};
+		private _TruckNumber2 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _numberArray select 0];
+		private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _numberArray select 1];
+		A3PL_SquadNb_Veh setObjectTextureGlobal [8, _TruckNumber2];
+		A3PL_SquadNb_Veh setObjectTextureGlobal [9, _TruckNumber3];
+		A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
+	} else {
+		A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
 	};
 	A3PL_SquadNb_Veh = nil;
 	closeDialog 0;

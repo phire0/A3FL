@@ -325,22 +325,21 @@
 	_control ctrlSetStructuredText parseText format ["<t align='center' size ='1.4'> %1%2 </t>",round(_dmgValue*100),"%"];
 }] call Server_Setup_Compile;
 
-//when we click the repair button
 ["A3PL_Garage_Repair",
 {
-	private ["_veh","_selHit"];
-	_veh = param [0,objNull];
-	if (typeName _veh == "STRING") then
-	{
-		_veh = [_veh] call A3PL_Lib_vehStringToObj;
-	};
+	private _veh = param [0,objNull];
+	if ((typeName _veh) isEqualTo "STRING") then {_veh = [_veh] call A3PL_Lib_vehStringToObj;};
 
-	_display = findDisplay 62;
-	_control = _display displayCtrl 1502;
-	_selHit = _control lbData (lbCurSel _control);
-
-	_title = "your vehicle";
-	if(_selHit == "all") then {
+	private _display = findDisplay 62;
+	private _control = _display displayCtrl 1502;
+	private _selHit = _control lbData (lbCurSel _control);
+	private _title = "your vehicle";
+	private _price = 20;
+	if(_selHit isEqualTo "all") then {_price = 300;};
+	private _pCash = player getVariable["Player_Cash",0];
+	if(_pCash < _price) exitWith {[format["You are missing $%1 to repair your vehicle!",_price - _pCash]] call A3PL_Player_notification;};
+	player setVariable["Player_Cash",_pCash-_price,true];
+	if(_selHit isEqualTo "all") then {
 		_veh setDamage 0;
 	} else {
 		_veh setHit [_selHit,0];
@@ -348,7 +347,7 @@
 	};
 	[format ["You repaired %1",_title],"green"] call A3PL_Player_Notification;
 
-	_control = _display displayCtrl 1100;
+	private _control = _display displayCtrl 1100;
 	_control ctrlSetStructuredText parseText format ["<t align='center' size ='1.4'> %1%2 </t>",0,"%"];
 }] call Server_Setup_Compile;
 
@@ -358,35 +357,32 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_texture = param [0,""];
 	_veh = param [1,objNull];
-	if (typeName _veh == "STRING") then //edited bypass used in ATC so we can send object from setButtonAction
-	{
-		_veh = [_veh] call A3PL_Lib_vehStringToObj;
-	};
+	if ((typeName _veh) isEqualTo "STRING") then {_veh = [_veh] call A3PL_Lib_vehStringToObj;};
 	_display = findDisplay 62;
 
-	// check if we have enough cash
-	_pCash = player getVariable["player_cash", 0];
+	_pCash = player getVariable["Player_Cash", 0];
 	_price = 2000;
 	if (_price > _pCash) exitwith{ [format["You are missing $%1 to change the vehicle color!",_price - _pCash]] call A3PL_Player_notification; };
 
 	if (_texture != "") exitwith
 	{
-		private ["_id","_file"];
-		_control = _display displayCtrl 1504;
-		_id = _control lbData (lbCurSel _control);
-		_job = player getVariable["job","unemployed"];
-		_file = [_id,typeOf _veh,"file",_job] call A3PL_Config_GetGaragePaint;
-
-		if (typeName _file == "ARRAY") then
-		{
+		private _control = _display displayCtrl 1504;
+		private _id = _control lbData (lbCurSel _control);
+		private _job = player getVariable["job","unemployed"];
+		private _file = [_id,typeOf _veh,"file",_job] call A3PL_Config_GetGaragePaint;
+		if ((typeName _file) isEqualTo "ARRAY") then {
 			_cnt = count _file;
-			if (_cnt == 1) then {_file1 = _file select 0;_veh setObjectTextureGlobal [0,_file1]};
-			if (_cnt == 2) then {_file1 = _file select 0;_file2 = _file select 1;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2]};
-			if (_cnt == 3) then {_file1 = _file select 0;_file2 = _file select 1;_file3 = _file select 2;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2];_veh setObjectTextureGlobal [2,_file3]};
-			if (_cnt == 4) then {_file1 = _file select 0;_file2 = _file select 1;_file3 = _file select 2;_file4 = _file select 3;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2];_veh setObjectTextureGlobal [2,_file3];_veh setObjectTextureGlobal [3,_file4]};
+			if (_cnt isEqualTo 1) then {_file1 = _file select 0;_veh setObjectTextureGlobal [0,_file1]};
+			if (_cnt isEqualTo 2) then {_file1 = _file select 0;_file2 = _file select 1;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2]};
+			if (_cnt isEqualTo 3) then {_file1 = _file select 0;_file2 = _file select 1;_file3 = _file select 2;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2];_veh setObjectTextureGlobal [2,_file3]};
+			if (_cnt isEqualTo 4) then {_file1 = _file select 0;_file2 = _file select 1;_file3 = _file select 2;_file4 = _file select 3;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2];_veh setObjectTextureGlobal [2,_file3];_veh setObjectTextureGlobal [3,_file4]};
 		};
 		A3PL_Garage_NewColor = _file select 0;
 		A3PL_Garage_NewColorArry = _file;
+
+		[_veh,_file] remoteExec ["Server_Vehicle_SetPaint",2];
+		player setVariable["Player_Cash", _pCash - _price, true];
+		["You have repainted your vehicle for $2,000.","green"] call A3PL_Player_Notification;
 	};
 
 	_control = _display displayCtrl 1900;
@@ -400,7 +396,7 @@
 
 	[_veh,_text] remoteExec ["Server_Vehicle_SetPaint",2];
 	player setVariable["Player_Cash", _pCash - _price, true];
-	["You have repainted your vehicle for $2,000.","green"] call A3PL_Player_Notification;	
+	["You have repainted your vehicle for $2,000.","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Garage_SetSliderColour",

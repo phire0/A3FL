@@ -582,7 +582,7 @@
 	private _factionBalance = [player] call A3PL_Government_MyFactionBalance;
 	if(_factionBalance < _price) exitwith {["The budget of your department does not allow this purchase!","red"] call A3PL_Player_Notification;};
 	private _balance = [_faction] call A3PL_Config_GetBalance;
-	[_balance,-_price,"",format["Blueprint %1",_class]] remoteExec ["Server_Government_AddBalance",2];
+	[_balance,-_price,"",format["Buy Item %1",_class]] remoteExec ["Server_Government_AddBalance",2];
 	[_class,1] call A3PL_Inventory_add;
 	[format["You bought a %1 your department budget (-$%2)", [_class,"name"] call A3PL_Config_GetItem, ([_price, 1, 0, true] call CBA_fnc_formatNumber)],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

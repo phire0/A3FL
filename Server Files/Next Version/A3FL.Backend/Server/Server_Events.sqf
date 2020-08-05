@@ -77,6 +77,11 @@
 	_object5 setDir (random 359);
 	_eventObjects pushBack _object5;
 
+	clearItemCargoGlobal _itemBox;
+	clearMagazineCargo _itemBox;
+	clearWeaponCargoGlobal _itemBox;
+	clearBackpackCargoGlobal _itemBox;
+
     sleep _eventDuration;
 
 	{deleteVehicle _x;} forEach _eventObjects;
@@ -137,6 +142,11 @@
 		["A3PL_Common\effects\firecall.ogg",150,2,10] spawn A3PL_FD_FireStationAlarm;
 		[getposATL (_planeWreck)] spawn Server_Fire_StartFire;
     };
+
+    clearItemCargoGlobal _itemBox;
+	clearMagazineCargo _itemBox;
+	clearWeaponCargoGlobal _itemBox;
+	clearBackpackCargoGlobal _itemBox;
    
     sleep _eventDuration;
     deleteVehicle _planeWreck;

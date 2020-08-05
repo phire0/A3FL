@@ -1401,7 +1401,6 @@
 
 	[_key] remoteExec ["A3PL_Vehicle_AddKey",_target];
 	[format["You gave the key of your %1.",getText(configFile >> "CfgVehicles" >> (typeOf _key) >> "displayName")],"green"] call A3PL_Player_Notification;
-	[format["You received the key of a %1.",getText(configFile >> "CfgVehicles" >> (typeOf _key) >> "displayName")],"green"] remoteExec ["A3PL_Player_Notification",_target];
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_appNews",

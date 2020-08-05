@@ -133,76 +133,29 @@
 	[_toQuery,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-//custom function for spawning at certain position
 ["Server_Storage_RetrieveVehiclePos",
 {
-	private ["_class","_player","_id","_storage","_dir","_veh","_db","_damage"];
-	_class = param [0,""];
-	_player = param [1,objNull];
-	_id = param [2,-1];
-	_storage = param [3,[]];
+	private _class = param [0,""];
+	private _player = param [1,objNull];
+	private _id = param [2,-1];
+	private _storage = param [3,[]];
 
-	if (count _storage > 3) then
-	{
+	if (count _storage > 3) then {
 		_dir = _storage select 3;
 		_storage = [_storage select 0,_storage select 1,_storage select 2];
 	};
-
-	_query = format ["UPDATE objects SET plystorage = '0',impounded='0' WHERE id = '%1'",_id];
-	[_query,1] spawn Server_Database_Async;
-
-	_query = format ["SELECT fuel,color,numpchange,iscustomplate,material,istorage,tuning,damage,insurance,vstorage FROM objects WHERE id = '%1'",_id];
-	_db = [_query, 2, false] call Server_Database_Async;
-
-	_veh = [_class,_storage,_id,_player] call Server_Vehicle_Spawn;
+	[format ["UPDATE objects SET plystorage = '0',impounded='0' WHERE id = '%1'",_id],1] spawn Server_Database_Async;
+	private _db = [format ["SELECT fuel,color,numpchange,iscustomplate,material,istorage,tuning,damage,insurance,vstorage FROM objects WHERE id = '%1'",_id], 2, false] call Server_Database_Async;
+	private _veh = [_class,_storage,_id,_player] call Server_Vehicle_Spawn;
 	if (_veh isKindOf "Ship") then {
 		_veh setpos _storage;
 	} else {
 		_veh setPosATL _storage;
 	};
-
-	if (!isNil "_dir") then
-	{
-		_veh setDir _dir;
-	};
-
-	if (_veh isKindOf "helicopter") then
-	{
+	if (!isNil "_dir") then {_veh setDir _dir;};
+	if (_veh isKindOf "helicopter") then {
 		_veh setOwner (owner _player);
 	};
-	_storageclass = nearestObject [_storage, "Land_A3PL_Sheriffpd"];
-	if (typeOf _storageclass == "Land_A3PL_Sheriffpd") then {
-		[_player,_storageclass,_veh,_id] spawn {
-			private ["_player","_storage","_t","_veh","_id"];
-			_player = param [0,ObjNull];
-			_storage = param [1,ObjNull];
-			_veh = param [2,ObjNull];
-			_id = param [3,""];
-
-			_t = 0;
-			while {(_veh distance _storage) < 8} do
-			{
-				uiSleep 1;
-				_t = _t + 1;
-				if (isNull _veh) exitwith
-				{
-				};
-				if (_t > 119) exitwith
-				{
-					[3] remoteExec ["A3PL_Storage_CarRetrieveResponse",_player];
-					_query = format ["UPDATE objects SET plystorage = '1' WHERE id = '%1'",_id];
-					[_query,1] spawn Server_Database_Async;
-					Server_Storage_ListVehicles - [_veh];
-					[_veh,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
-					[_veh] call Server_Vehicle_Despawn;
-				};
-			};
-			if (_storage animationSourcePhase "StorageDoor" > 0.5) then {_storage animateSource ["storagedoor",0];};
-			if (_storage animationSourcePhase "StorageDoor2" > 0.5) then {_storage animateSource ["StorageDoor2",0];};
-
-		};
-	};
-
 	if ((count _db) != 0) then {
 		_veh setFuel (_db select 0);
 		if((_db select 1) != "<null>") then {
@@ -219,8 +172,7 @@
 			_veh setVariable["insurance",false,true];
 		};
 
-		//Load inventory
-		_iInventory = [(_db select 5)] call Server_Database_ToArray;
+		private _iInventory = [(_db select 5)] call Server_Database_ToArray;
 		if ((count _iInventory) > 0) then {
 			_items = _iInventory select 0;
 			_mags = _iInventory select 1;
@@ -244,11 +196,10 @@
 				_veh addWeaponCargoGlobal [((_weapons select 0) select _i), ((_weapons select 1) select _i)];
     		};
 		};
-		//Load virtual inventory
-		_virtualInventory = [(_db select 9)] call Server_Database_ToArray;
+		private _virtualInventory = [(_db select 9)] call Server_Database_ToArray;
 		_veh setVariable["storage",_virtualInventory,true];
 
-		_addons = [(_db select 6)] call Server_Database_ToArray;
+		private _addons = [(_db select 6)] call Server_Database_ToArray;
 		if ((count _addons) > 0) then {
 			{
 				_animName = _x select 0;
@@ -256,10 +207,12 @@
 				_veh animatesource [_animName, _animPhase, true];
 			} foreach _addons;
 		};
-		_damage = [(_db select 7)] call Server_Database_ToArray;
-		if(count _damage isEqualTo 0) then {
+		private _damage = [(_db select 7)] call Server_Database_ToArray;
+		diag_log format["Server_Storage_RetrieveVehiclePos: %1",_damage];
+		if((count _damage) > 0) then {
 			_parts = getAllHitPointsDamage _veh;
 			for "_i" from 0 to ((count _damage) - 1) do {
+				diag_log format["%1 - %2",((_parts select 0) select _i),_damage select _i];
 				_veh setHitPointDamage [format ["%1",((_parts select 0) select _i)],_damage select _i];
 			};
 		};
@@ -276,7 +229,7 @@
 	private _id = param [2,-1];
 	private _storage = param [3,[]];
 	private _whitelistTrailer = ["A3PL_Ski_Base"];
-	if (typeName _storage == "ARRAY") exitwith {
+	if ((typeName _storage) isEqualTo "ARRAY") exitwith {
 		[_class,_player,_id,_storage] call Server_Storage_RetrieveVehiclePos;
 	};
 
@@ -347,7 +300,7 @@
 			} foreach _addons;
 		};
 		_damage = [(_db select 7)] call Server_Database_ToArray;
-		if(count _damage isEqualTo 0) then {
+		if((count _damage) > 0) then {
 			_parts = getAllHitPointsDamage _veh;
 			for "_i" from 0 to ((count _damage) - 1) do {
 				_veh setHitPointDamage [format ["%1",((_parts select 0) select _i)],_damage select _i];

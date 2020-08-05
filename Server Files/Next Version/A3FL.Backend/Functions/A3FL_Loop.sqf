@@ -32,7 +32,7 @@
 ["A3PL_Loop_LockView",
 {
 	if(Player_LockView) then {
-		if((cameraView == "EXTERNAL") && (vehicle player == player)) then {player switchCamera "INTERNAL";};
+		if((cameraView isEqualTo "EXTERNAL") && ((vehicle player) isEqualTo player)) then {player switchCamera "INTERNAL";};
 		if(Player_LockView_Time <= time) then {Player_LockView = false;};
 	};
 }] call Server_Setup_Compile;
@@ -112,7 +112,10 @@
 {
 	if(isNil {player getVariable ["house",nil]}) exitWith {};
 	private _house = player getVariable ["house",nil];
+	private _uid = getPlayerUID player;
+	private _roommates = (_house getVariable ["owner",[]]) deleteAt 0;
 	private _taxPrice = [_house,2] call A3PL_Housing_GetData;
+	if(_uid IN _roommates) then {_taxPrice = round(_taxPrice/(count(_roommates)));};
 	private _bank = player getVariable["Player_Bank",0];
 	player setVariable["Player_Bank",_bank-_taxPrice,true];
 	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];
@@ -123,7 +126,10 @@
 {
 	if(isNil {player getVariable ["warehouse",nil]}) exitWith {};
 	private _warehouse = player getVariable ["warehouse",nil];
+	private _uid = getPlayerUID player;
+	private _roommates = (_warehouse getVariable ["owner",[]]) deleteAt 0;
 	private _taxPrice = [_warehouse,2] call A3PL_Warehouses_GetData;
+	if(_uid IN _roommates) then {_taxPrice = round(_taxPrice/(count(_roommates)));};
 	private _bank = player getVariable["Player_Bank",0];
 	player setVariable["Player_Bank",_bank-_taxPrice,true];
 	["Federal Reserve",_taxPrice] remoteExec ["Server_Government_AddBalance",2];

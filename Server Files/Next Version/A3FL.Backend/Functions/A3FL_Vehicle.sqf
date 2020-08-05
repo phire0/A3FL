@@ -211,6 +211,7 @@
 	if(_add) then {
 		if(_veh IN A3PL_Player_Vehicles) exitWith {};
 		A3PL_Player_Vehicles pushback _veh;
+		[format["You received the key of a %1.",getText(configFile >> "CfgVehicles" >> (typeOf _veh) >> "displayName")],"green"] remoteExec ["A3PL_Player_Notification",_target];
 	} else {
 		A3PL_Player_Vehicles = A3PL_Player_Vehicles - [_veh];
 	};
