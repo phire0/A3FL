@@ -61,7 +61,7 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Hemlock",[
-			["item","log",-1,90,3],
+			["item","log",-1,350,3],
 			["weapon","A3PL_FireAxe",480,-1,3],
 			["uniform","A3PL_Lumberjack_Uniform",260,-1,3],
 			["uniform","A3PL_Lumberjack_Blue_Uniform",260,-1,3],
