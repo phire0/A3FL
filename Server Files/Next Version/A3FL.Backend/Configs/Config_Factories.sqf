@@ -62,7 +62,7 @@ Config_Factories =
 		["f_jerrycan_kero","","inh","inh","kerosene_jerrycan","item",true,5,[["Kerosene",1],["Steel",2]],2,"",1],
 		["f_jerrycan_kero2","","inh","inh","kerosene_jerrycan","item",true,5,[["Kerosene",1],["jerrycan_empty",2]],2,"",1],
 		["f_LPG","","inh","inh","LPG","item",true,5,[["Crude_Oil",1]],4,"",1],
-		["f_Kerosene", "", "inh", "inh", "Kerosene", "item", true, 10, [["Crude_Oil", 4]], 3, "",1],
+		["f_Kerosene","","inh","inh","Kerosene","item",true,10,[["Crude_Oil",1]],1,"",1],
 		["f_CanisterOil","","inh","inh","CanisterOil","item",true,5,[["Crude_Oil",1]],20,"",1]
 	],
 
