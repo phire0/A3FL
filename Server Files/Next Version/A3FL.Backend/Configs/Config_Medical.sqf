@@ -6,9 +6,6 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-A3PL_Respawn_Time = 60 * 10;
-PublicVariable "A3PL_Respawn_Time";
-
 //ID, WOUND NAME,CAUSES UNCONSCIOUSNESS,SEVERITY (orange/red),INSTANT BLOOD LOSS, BLOOD LOSS UNTIL TREATED,PAIN LEVEL INCREASE,ITEM TO TREAT, FULLY HEALS, ITEM TO FULLY HEAL
 //ID, NAME, COLOR, INSTANT BLOOD LOSS, BLOOD LOSS, 
 Config_Medical_Wounds =

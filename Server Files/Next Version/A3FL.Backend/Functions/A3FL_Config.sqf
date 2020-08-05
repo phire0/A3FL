@@ -212,9 +212,8 @@
 		case "time": { _return = _config select 7; };
 		case "required": { _return = _config select 8; };
 		case "output": { _return = _config select 9; };
-		case "faction": { _return = _config select 10; };
-		case "xp": { _return = _config select 11; };
-		case "level": { _return = _config select 12; };
+		case "xp": { _return = _config select 10; };
+		case "level": { _return = _config select 11; };
 	};
 	_return;
 }] call Server_Setup_Compile;
@@ -343,12 +342,29 @@
 	private _search = param [1,""];
 	private _config = [];
 	private _return = "";
+	private _Config_Garage_Repair = [
+		["engine","Engine"],
+		["body","Body damage"],
+		["wheel_1_1_steering","Front-Left Wheel"],
+		["wheel_1_2_steering","Back-Left Wheel"],
+		["wheel_2_1_steering","Front-Right Wheel"],
+		["wheel_2_2_steering","Back-Right Wheel"],
+		["glass1","Front window"],
+		["glass2","Front-Left window"],
+		["glass3","Back-Left window"],
+		["glass4","Front-right window"],
+		["glass5","Back-right window"],
+		["glass6","Rear window"],
+		["l svetlo","Left headlight"],
+		["p svetlo","Right headlight"],
+		["spotlight_hit","Spotlight"]
+	];
 
 	{
 		if((_x select 0) isEqualTo _class) then  {
 			_config append _x;
 		};
-	} forEach Config_Garage_Repair;
+	} forEach _Config_Garage_Repair;
 
 	if ((count _config) isEqualTo 0) exitwith {false;};
 	switch (_search) do {

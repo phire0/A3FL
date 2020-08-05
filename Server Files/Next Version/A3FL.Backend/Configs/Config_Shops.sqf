@@ -12,14 +12,6 @@ publicVariable "Config_Shops_TaxSystem";
 Config_Shops_StockSystem = [];
 publicVariable "Config_Shops_StockSystem";
 
-Config_Shops_Factions = [
-	[["Shop_USCG_Supplies_Vendor","Shop_USCG_Pilot_Vendor","Shop_USCG_Weapons_Vendor","Shop_USCG_Car_Vendor","Shop_USCG_Boat_Vendor","Shop_USCG_Plane_Vendor"],"uscg"],
-	[["Shop_SD_Supplies_Vendor","Shop_SD_Weapons_Vendor","Shop_SD_Car_Vendor"],"fisd"],
-	[["Shop_DOC","Shop_DOC_Weapons_Vendor","Shop_DOC_Car_Vendor"],"usms"],
-	[["Shop_FIFR_Supplies_Vendor","Shop_FIFR_Supplies_Vendor2","Shop_VFD_Supplies_Vendor","Shop_FIFR_Vehicle_Vendor","Shop_FIFR_Plane_Vendor"],"fifr"]
-];
-publicVariable "Config_Shops_Factions";
-
 Config_Shops_Items = [
 	["Shop_SFP",[
 			["weapon","A3PL_Taser2",2500,-1,0],
@@ -648,33 +640,6 @@ Config_Shops_Items = [
 			["headgear","A3PL_DOJ_Blk_Hat",0,-1,0],
 			["headgear","A3PL_DOJ_Blu_Hat",0,-1,0],
 			["headgear","A3PL_DOJ_Hat",0,-1,0],
-			
-			/*Commented for now, until John pulls the plug.
-			["uniform","A3PL_DA_PoloNvyTan_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_PoloNvyBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_PnkBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_BlkBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_LmBlk_Uniform",0,0,-1],
-            ["uniform","A3PL_DA_DBluBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_LBluBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_LBluTan_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_PnkTan_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_WhtTan_Uniform",0,-1,0],
-			["uniform","A3PL_DA_Polo_Uniform",0,-1,0],
-			["uniform","A3PL_ADA_Polo_Uniform",0,-1,0],
-			["uniform","A3PL_SP_Polo_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Blk_Suit_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Red_Suit_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Blk_Combat_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Blu_Combat_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Gry_Combat_Uniform",0,-1,0],
-			["vest","A3PL_DAO_DA_Vest",0,-1,0],
-			["vest","A3PL_DAO_ADA_Vest",0,-1,0],
-			["vest","A3PL_DAO_SP_Vest",0,-1,0],
-			["headgear","A3PL_DAO_Hat",0,-1,0],
-			["headgear","A3PL_DAO_Blk_Hat",0,-1,0],
-			["headgear","A3PL_DAO_Blu_Hat",0,-1,0],*/
-
 			["backpack","A3PL_LR",0,-1,0]
 		],{doj_table modelToWorld [0,0,-0.5]}
 	],

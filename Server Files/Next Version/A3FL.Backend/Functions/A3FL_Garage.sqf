@@ -88,10 +88,9 @@
 	//add materials to list
 	_control = _display displayCtrl 1505;
 	{
-		private ["_i"];
-		_i = _control lbAdd (_x select 1);
+		private _i = _control lbAdd (_x select 1);
 		_control lbSetData [_i,(_x select 0)];
-	} foreach Config_Garage_Materials;
+	} foreach [["A3PL_Cars\common\rvmats\car_paint.rvmat","Default"],["A3PL_Cars\Common\rvmats\Metallic.rvmat","Metallic"],["A3PL_Cars\Common\rvmats\Black_Plastic.rvmat","Plastic"],["A3PL_Cars\Common\rvmats\CarbonFiber.rvmat","Carbon Fiber"],["A3PL_Cars\Common\rvmats\CarbonFiber_Mat.rvmat","Carbon Fiber Mat"],["A3PL_Cars\Common\rvmats\Chrome_new.rvmat","Chrome"]];
 
 	//what happends when we press an item in the upgrade listbox
 	_control = _display displayCtrl 1500;
@@ -262,37 +261,30 @@
 //when we click a component in the material list
 ["A3PL_Garage_ClickMaterial",
 {
-	private ["_veh","_selectedIndex","_newMaterial"];
-	_veh = A3PL_Garage_Veh;
-	_selectedIndex = (param [1,[]]) select 1;
-	_newMaterial = (Config_Garage_Materials select _selectedIndex) select 0;
-
+	private _veh = A3PL_Garage_Veh;
+	private _display = findDisplay 62;
+	private _control = _display displayCtrl 1505;
+	private _newMaterial = _control lbData (lbCurSel _control);
 	_veh setObjectMaterial [0,_newMaterial];
-
 }] call Server_Setup_Compile;
 
 //when we click the set material button
 ["A3PL_Garage_SetMaterial",
 {
-	private ["_display","_control","_veh","_selectedIndex"];
-	_display = findDisplay 62;
-	_control = _display displayCtrl 1505;
-	_veh = A3PL_Garage_Veh;
-	_selectedIndex = lbCurSel _control;
+	private _display = findDisplay 62;
+	private _control = _display displayCtrl 1505;
+	private _veh = A3PL_Garage_Veh;
+	private _selectedIndex = lbCurSel _control;
 
-	//check if we have motorhead perk
 	if (!(["motorhead"] call A3PL_Lib_hasPerk)) exitwith {["You don't have the motorhead perk, for more information -> www.arma3fisherslife.net","red"] call A3PL_Player_Notification;};
 
-	// check if we have enough cash
-	_pCash = player getVariable["player_cash", 0];
-	_price = 2000;
+	private _pCash = player getVariable["player_cash", 0];
+	private _price = 2000;
 	if (_price > _pCash) exitwith{[format["You are missing $%1 to change the vehicle material!",_price-_pCash]] call A3PL_Player_notification;};
-
-	//check if we own the vehicle
-	if (!(((_veh getVariable ["owner",["",""]]) select 0) == (getPlayerUID player))) exitwith {["This is not your vehicle!","red"] call A3PL_Player_Notification;};
+	if (!(((_veh getVariable ["owner",["",""]]) select 0) isEqualTo (getPlayerUID player))) exitwith {["This is not your vehicle!","red"] call A3PL_Player_Notification;};
 
 	if ((lbCurSel _control) < 0) exitwith {["Please select a material","red"] call A3PL_Player_Notification;};
-	A3PL_Garage_NewMaterial = (Config_Garage_Materials select _selectedIndex) select 0;
+	A3PL_Garage_NewMaterial = _control lbData (lbCurSel _control);
 
 	player setVariable["Player_Cash", _pCash - _price, true];
 	["You changed the material of your vehicle for $2,000!","green"] call A3PL_Player_Notification;

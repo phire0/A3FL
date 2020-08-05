@@ -640,20 +640,10 @@
 	if ((isNil "_aInv") && (isNil "_finv")) exitwith {
 		["System: Missing inv variables on this object in _CrateCheck -> report this bug","red"] call A3PL_Player_Notification;
 	};
-
-	if (isNil "_fInv") then {
-		_classtype = _aInv select 0;
-		_id = _aInv select 1;
-		_amount = _aInv select 2;
-		_forFaction = "";
-	} else {
-		_classtype = _fInv select 0;
-		_id = _fInv select 1;
-		_amount = _fInv select 2;
-		_forFaction = _fInv select 3;
-	};
-	if (_forFaction isEqualTo "") then {_forFaction = "All"};
-	_return = [_classType,_id,_amount,_forFaction];
+	_classtype = _aInv select 0;
+	_id = _aInv select 1;
+	_amount = _aInv select 2;
+	_return = [_classType,_id,_amount];
 	_return;
 }] call Server_Setup_Compile;
 
@@ -690,29 +680,17 @@
 ["A3PL_Factory_CrateCollect",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_crate","_info","_classType","_id","_amount","_forFaction","_name","_mainClass","_fail"];
+	private ["_crate","_info","_classType","_id","_amount","_name","_mainClass","_fail"];
 	_crate = param [0,objNull];
 	_info = [_crate] call A3PL_Factory_CrateInfo;
 	_classtype = _info select 0;
 	_id = _info select 1;
 	_amount = _info select 2;
-	_forFaction = _info select 3;
 
-	_exit = false;
-	if(_forFaction isEqualTo "All") then {
-		_owner = _crate getVariable ["owner",""];
-		if (_owner != (getPlayerUID player)) exitwith {
-			[localize"STR_FACTORY_OWNERSELL","red"] call A3PL_Player_Notification;
-			_exit = true;
-		};
-	} else {
-		if (((player getVariable ["faction","citizen"]) != _forFaction)) exitwith {
-			_forFaction = [_forFaction] call A3PL_Lib_ParseFaction;
-			[format [localize"STR_FACTORY_FACTIONCOLLECT",_forFaction],"red"] call A3PL_Player_Notification;
-			_exit = true;
-		};
+	_owner = _crate getVariable ["owner",""];
+	if (_owner != (getPlayerUID player)) exitwith {
+		[localize"STR_FACTORY_OWNERSELL","red"] call A3PL_Player_Notification;
 	};
-	if(_exit) exitWith {};
 
 	_fail = false;
 	_exit = false;

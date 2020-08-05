@@ -111,11 +111,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_AccessFactoryLegalArms",
-	{["Legal Weapon Factory"] call A3PL_Factory_Open;}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_WeaponIllegalFactory",
 	{["Illegal Weapon Factory"] call A3PL_Factory_Open;}
 ],

@@ -98,10 +98,10 @@
 	} foreach _getHit;
 
 	if (isNil "_sHit") exitwith {};
-	if ((_sHit IN ["spine1","spine2","spine3"]) && (_sBullet == "") && (isBurning player)) then {_sBullet = "FireDamage";};
+	if ((_sHit IN ["spine1","spine2","spine3"]) && (_sBullet isEqualTo "") && (isBurning player)) then {_sBullet = "FireDamage";};
 	if (_sBullet IN ["B_408_Ball","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball"]) exitwith {};
 	if (_sBullet isEqualTo "A3PL_Paintball_Bullet") exitwith {
-		if ((missionNameSpace getVariable ["A3PL_Medical_PaintballHit",false]) OR (_sSource == player)) exitwith {};
+		if ((missionNameSpace getVariable ["A3PL_Medical_PaintballHit",false]) OR (_sSource isEqualTo player)) exitwith {};
 		if((player distance (getMarkerPos "paintball_larry")) > 300) exitWith {};
 		A3PL_Medical_PaintBallHit = true;
 		player playaction "gestureFreeze";
@@ -519,7 +519,7 @@
 ["A3PL_Medical_Die",
 {
 	private _effect = ["DynamicBlur",[5]] call A3PL_Lib_PPEffect;
-	private _timer = A3PL_Respawn_Time;
+	private _timer = 60 * 10;
 	player setVariable ["A3PL_Medical_Alive",false,true];
 	if (dialog) then {
    		closeDialog 0;
