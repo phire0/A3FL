@@ -2019,7 +2019,7 @@ Config_GenArray =
 	"Enter into Evidince",
 	"Talk to the Ship Captain",
 	"Talk to Illegal Trader",
-	"Talk to Moonshine Dealer"
+	"Talk to Moonshine Dealer",
 	"Talk to Cocaine Dealer",
 	"Talk to Mushrooms Dealer",
 	"Talk to Marijuana Dealer",

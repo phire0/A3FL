@@ -78,7 +78,7 @@ class Dialog_SquadNb
 		class RscButton_1600: RscButton
 		{
 			idc = 1600;
-			text = $STR_IPHONEX_GUISAVENAME;
+			text = "Set Number";
 			x = 0.469062 * safezoneW + safezoneX;
 			y = 0.5 * safezoneH + safezoneY;
 			w = 0.0773437 * safezoneW;

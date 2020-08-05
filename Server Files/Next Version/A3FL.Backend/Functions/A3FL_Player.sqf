@@ -259,7 +259,7 @@
 
 
 	//do a version check first
-	if ((getNumber (configFile >> "CfgPatches" >> "A3PL_Common" >> "requiredVersion")) != (missionNameSpace getVariable ["Server_ModVersion",0])) exitwith
+	if ((getNumber (configFile >> "CfgPatches" >> "A3PL_Common" >> "requiredVersion")) < (missionNameSpace getVariable ["Server_ModVersion",0])) exitwith
 	{
 		[] spawn {
 			titleText ["Please download the latest addon update.", "BLACK"];

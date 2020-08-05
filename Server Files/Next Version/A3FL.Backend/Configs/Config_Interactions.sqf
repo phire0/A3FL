@@ -39,7 +39,7 @@ A3PL_Interaction_Options =
 	[
 		"Set Squad Number",
 		{[player_objintersect] call A3PL_Police_OpenSquadNb;},
-		{{(typeOf player_objintersect) IN ["A3PL_Police_Mustang_SE","Jonzie_Ambulance","A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Pierce_Pumper","A3PL_P362_TowTruck","A3PL_RBM","A3PL_F150_Marker","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_E350","A3PL_Pierce_Rescue","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Silverado_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Charger15_FD","A3PL_Jayhawk"]} && {(player distance cursorObject < 5)} && {((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","usms"])}}
+		{((typeOf player_objintersect) IN ["Jonzie_Ambulance","A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Pierce_Pumper","A3PL_P362_TowTruck","A3PL_RBM","A3PL_F150_Marker","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_E350","A3PL_Pierce_Rescue","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Silverado_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Charger15_FD","A3PL_Jayhawk"]) && (player distance cursorObject < 5) && ((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","usms"])}
 	],
 	[
 		localize"STR_INTER_COMPHIRE",
@@ -185,7 +185,7 @@ A3PL_Interaction_Options =
 	[
 		localize"STR_INTER_FLIPVEH",
 		{[cursorObject] spawn A3PL_Vehicle_Unflip;},
-		{((cursorObject isKindOf "Car") || (cursorObject isKindOf "Tank")) && {((vehicle player) isEqualTo player)} && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}
+		{(player distance cursorObject < 5) && ((cursorObject isKindOf "Car") || (cursorObject isKindOf "Tank")) && {((vehicle player) isEqualTo player)} && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}
 	],
 	[
 		localize "STR_INTER_CHECKVIN",
@@ -198,7 +198,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_PANIC",
 		{[] spawn A3PL_Police_Panic;},
-		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && {!(player getVariable ["panicActive",false])} && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}
+		{(!isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && {!(player getVariable ["panicActive",false])} && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}
 	],
 	[
 		localize "STR_INTER_CROCHETER",
@@ -255,12 +255,12 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_OPENMED",
 		{[player] spawn A3PL_Medical_Open;},
-		{!(isPlayer cursorObject) && {Player_ItemClass isEqualTo ""}}
+		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "")}
 	],
 	[
 		localize "STR_INTER_FABRICACTIONINTER",
 		{[] call A3PL_Combine_Open;},
-		{!(isPlayer cursorObject) && !(surfaceIsWater position player) && ((vehicle player) isEqualTo player) && (Player_ItemClass isEqualTo "") && (animationState player) != "a3pl_takenhostage"}
+		{(!isPlayer cursorObject) && !(surfaceIsWater position player) && ((vehicle player) isEqualTo player) && (Player_ItemClass isEqualTo "") && (animationState player) != "a3pl_takenhostage"}
 	],
 	[
 		localize "STR_INTER_TAKEPHOST",
@@ -404,24 +404,19 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_MARKIMPPOL",
 		{call A3PL_Police_Impound;},
-		{(vehicle player == player) && ((player_nameintersect IN ["doorL","doorR","Door_LF","Door_LF2","Door_LF3","Door_LF4","Door_LF5","Door_LF6","Door_LB","Door_LB2","Door_LB3","Door_LB4","Door_LB5","Door_LB6","Door_RF","Door_RF2","Door_RF3","Door_RF4","Door_RF5","Door_RF6","Door_RB","Door_RB2","Door_RB3","Door_RB4","Door_RB5","Door_RB6"]) OR (player_objintersect isKindOf "Car") OR (player_objintersect isKindOf "Ship")) && ((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","usms"])}
+		{(vehicle player isEqualTo player) && (player_objintersect isKindOf "Car") && ((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","usms"])}
 	],
 	[
 		localize "STR_INTER_IMPUSC",
 		{call A3PL_Police_Impound;},
-		{(vehicle player isEqualTo player) && ((cursorObject isKindOf "Ship") || (cursorObject isKindOf "Plane") || (cursorObject isKindOf "Air")) && ((player getvariable ["job","unemployed"]) == "uscg") && !(typeOf cursorObject isEqualTo "A3PL_Yacht_Pirate")}
-	],
-	[
-		localize "STR_INTER_MARKFORIMP",
-		{call A3PL_JobRoadWorker_ToggleMark;},
-		{((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd"]) && ((vehicle player) isEqualTo player) && (player_objintersect isKindOf "Car") && (player_objintersect IN A3PL_Player_Vehicles) && (!((typeOf player_objintersect) IN A3PL_Jobroadworker_MarkBypass))}
+		{(vehicle player isEqualTo player) && ((cursorObject isKindOf "Ship") || (cursorObject isKindOf "Plane") || (cursorObject isKindOf "Air")) && ((player getvariable ["job","unemployed"]) isEqualTo "uscg") && !(typeOf cursorObject isEqualTo "A3PL_Yacht_Pirate")}
 	],
 	[
 		localize "STR_INTER_LOCKV",
 		{
-			vehicle player setVariable ["locked",true,true];
+			(vehicle player) setVariable ["locked",true,true];
 			[localize "STR_INTER_LOCKVD", "red"] call A3PL_Player_Notification;
-			playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
+			playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", (vehicle player), true, (vehicle player), 3, 1, 30];
 		},
 		{(vehicle player != player) && {(vehicle player) IN A3PL_Player_Vehicles} && {!(vehicle player getVariable ["locked",true])}}
 	],
@@ -430,27 +425,27 @@ A3PL_Interaction_Options =
 		{
 			player_objintersect setVariable ["locked",true,true];
 			[localize "STR_INTER_LOCKVD", "red"] call A3PL_Player_Notification;
-			playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
+			playSound3D ["A3PL_Cars\Common\Sounds\A3PL_Car_Lock.ogg", player_objintersect, true, player_objintersect, 3, 1, 30];
 		},
-		{(vehicle player isEqualTo player) && (player distance cursorObject < 15) && {(simulationEnabled player_objintersect)} && {!isNil "player_objintersect"} && {player_objintersect IN A3PL_Player_Vehicles} && {!(player_objintersect getVariable ["locked",true])}}
+		{(vehicle player isEqualTo player) && (player distance player_objintersect < 15) && {(simulationEnabled player_objintersect)} && {!isNil "player_objintersect"} && {player_objintersect IN A3PL_Player_Vehicles} && {!(player_objintersect getVariable ["locked",true])}}
 	],
 	[
 		localize "STR_INTER_UNLOCKV",
 		{
 			(vehicle player) setVariable ["locked",false,true];
 			[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
-			playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
+			playSound3D ["A3PL_Common\effects\carunlock.ogg", (vehicle player), true, (vehicle player), 3, 1, 30];
 		},
 		{(vehicle player != player) && {(vehicle player getVariable ["locked",true])}  && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true]))}
 	],
 	[
 		localize "STR_INTER_UNLOCKV",
 		{
-			cursorObject setVariable ["locked",false,true];
+			player_objintersect setVariable ["locked",false,true];
 			[localize "STR_INTER_UNLOCKVD", "green"] call A3PL_Player_Notification;
-			playSound3D ["A3PL_Common\effects\carunlock.ogg", cursorObject, true, cursorObject, 3, 1, 30];
+			playSound3D ["A3PL_Common\effects\carunlock.ogg", player_objintersect, true, player_objintersect, 3, 1, 30];
 		},
-		{(vehicle player isEqualTo player) && (simulationEnabled cursorObject) && ((player distance cursorObject) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])}
+		{(vehicle player isEqualTo player) && (simulationEnabled player_objintersect) && ((player distance player_objintersect) < 15) && (player_objintersect IN A3PL_Player_Vehicles) && (player_objintersect getVariable ["locked",true])}
 	],
 	[
 		localize "STR_INTER_ATTACHNB",
@@ -541,7 +536,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_INVENTORY",
 		{call A3PL_Inventory_Open;},
-		{!(isPlayer cursorObject) && (Player_ItemClass isEqualTo "") && ((vehicle player) isEqualTo player) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && (animationState player) != "a3pl_takenhostage"}
+		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "") && ((vehicle player) isEqualTo player) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && (animationState player) != "a3pl_takenhostage"}
 	],
 	[
 		localize "STR_INTER_INVENTORY",
@@ -581,12 +576,12 @@ A3PL_Interaction_Options =
 				[_obj] call A3PL_Police_Uncuff;
 			};
 		},
-		{((isPlayer cursorObject) && ((animationState (call A3PL_Intersect_cursorObject)) IN ["a3pl_handsupkneelcuffed","a3pl_handsupkickeddown"]) && ((player getVariable "job") IN ["uscg","fisd","usms"]))}
+		{((typeOf (call A3PL_Intersect_cursorObject) == "C_man_1") && ((animationState (call A3PL_Intersect_cursorObject)) IN ["a3pl_handsupkneelcuffed","a3pl_handsupkickeddown"]) && ((player getVariable "job") IN ["uscg","fisd","usms"]))}
 	],
 	[
 		localize "STR_INTER_SURRENDER",
 		{[player,true] call A3PL_Police_Surrender;},
-		{!(isPlayer cursorObject) && (((animationState player) IN ["amovpercmstpsnonwnondnon","amovpercmrunsnonwnondf","amovpercmrunsnonwnondb"]) && ((vehicle player) isEqualTo player)) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true]))}
+		{(!isPlayer cursorObject) && (((animationState player) IN ["amovpercmstpsnonwnondnon","amovpercmrunsnonwnondf","amovpercmrunsnonwnondb"]) && ((vehicle player) isEqualTo player)) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true]))}
 	],
 	[
 		localize "STR_INTER_ENDSURRENDER",
@@ -614,7 +609,7 @@ A3PL_Interaction_Options =
 			if (!(player_objintersect isKindOf "Car")) exitwith {};
 			[player_objintersect] call A3PL_Police_Detain;
 		},
-		{(((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && (player_objintersect isKindOf "Car") && (((player distance player_objintersect) < 6)))}
+		{((vehicle player) isEqualTo player) && (((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"]) && (player_objintersect isKindOf "Car") && (((player distance player_objintersect) < 6)))}
 	],
 	[
 		localize "STR_INTER_EJECTALLP",
@@ -1028,13 +1023,13 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize"STR_INTER_WRIST_ADD",
-		{cursorObject setVariable ["jail_mark",true,true];[getPlayerUID player,"wristAdded",[cursorObject getVariable["name","undefined"]]] remoteExec ["Server_Log_New",2];},
-		{(vehicle player isEqualTo player) && (player getVariable["job","unemployed"] isEqualTo "usms") && (isPlayer cursorObject) && !(cursorObject getVariable ["jail_mark",false])}
+		{cursorObject setVariable ["jail_mark",true,true];},
+		{((vehicle player) isEqualTo player) && (player getVariable["job","unemployed"] isEqualTo "usms") && (isPlayer cursorObject) && !(cursorObject getVariable ["jail_mark",false])}
 	],
 	[
 		localize"STR_INTER_WRIST_REMOVE",
 		{cursorObject setVariable ["jail_mark",false,true];},
-		{(vehicle player == player) && (player getVariable["job","unemployed"] isEqualTo "usms") && (isPlayer cursorObject) && (cursorObject getVariable ["jail_mark",false])}
+		{((vehicle player) isEqualTo player) && (player getVariable["job","unemployed"] isEqualTo "usms") && (isPlayer cursorObject) && (cursorObject getVariable ["jail_mark",false])}
 	],
 	[
 		localize "STR_INTER_OPCOMPUTER",

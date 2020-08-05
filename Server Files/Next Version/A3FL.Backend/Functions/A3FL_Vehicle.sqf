@@ -1608,11 +1608,9 @@
 	if (!(vehicle player == player)) exitwith {[localize"STR_NewVehicle_51", "red"] call A3PL_Player_Notification;};
 	if (player getVariable ["repairing",false]) exitwith {[localize"STR_NewVehicle_52", "red"] call A3PL_Player_Notification;};
 
-	[localize"STR_NewVehicle_58", "yellow"] call A3PL_Player_Notification;
-
 	Player_ActionCompleted = false;
 	_success = true;
-	["Unflip vehicle...",20] spawn A3PL_Lib_LoadAction;
+	["Unfliping vehicle...",20] spawn A3PL_Lib_LoadAction;
 	while {sleep 0.5; !Player_ActionCompleted } do
 	{
 		if ((player distance2D _car) > 10) exitWith {[localize"STR_NewVehicle_53", "red"] call A3PL_Player_Notification; _success = false;};
@@ -1626,7 +1624,7 @@
 	[_car] spawn
 	{
 		private _car = param [0,objNull];
-		_normalVec = surfaceNormal getPos _car;
+		private _normalVec = surfaceNormal getPos _car;
 		_car setVectorUp _normalVec;
 		_car setPosATL [getPosATL _car select 0, getPosATL _car select 1, 0];
 	};
@@ -1652,7 +1650,7 @@
 		};
 	} forEach (_nearVeh);
 
-	if(count _cars == 0) exitWith {[format [localize"STR_NewVehicle_55"]] call A3PL_Player_notification; closeDialog 0;};
+	if((count _cars) isEqualTo 0) exitWith {[format [localize"STR_NewVehicle_55"]] call A3PL_Player_notification; closeDialog 0;};
 
 	_control = _display displayCtrl 1500;
 	_control ctrlAddEventhandler ["LBSelChanged",
@@ -1664,10 +1662,9 @@
 		_veh = nearestObject [player,_vehClass];
 		_vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
 		_price = 0;
-		if (_VehPrice < 150000) then{
+		if (_VehPrice < 150000) then {
 			_price = _vehPrice * 0.10;
-		}
-		else {
+		} else {
 			_price = _vehPrice * 0.15;
 		};
 

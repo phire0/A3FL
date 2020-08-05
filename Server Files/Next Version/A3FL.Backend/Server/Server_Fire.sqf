@@ -183,6 +183,8 @@
 	if(_exploded) exitWith {};
 	_veh setVariable["exploded",true,true];
 
+	diag_log format["Server_Fire_VehicleExplode: %1",typeOf _veh];
+
 	[_veh] call A3PL_Vehicle_SoundSourceClear;
 	_sirenObj = _veh getVariable ["sirenObj",objNull];
 	if (!isNull _sirenObj) then {deleteVehicle _sirenObj;};

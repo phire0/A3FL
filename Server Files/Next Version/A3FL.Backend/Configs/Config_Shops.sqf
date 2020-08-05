@@ -1303,7 +1303,7 @@ Config_Shops_Items = [
 			["item","weed_95g",-1,8407,4],
 			["item","weed_100g",-1,8850,4]
 		],{[3456.32,7513.2,1]}
-	],
+	]
 ];
 publicVariable "Config_Shops_Items";
 

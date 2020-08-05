@@ -244,6 +244,7 @@
 	{
 		if ((_x getVariable ["jail_mark",false])) then {
 			_marker = createMarkerLocal [format["Prisoner_%1",round (random 1000)],visiblePosition _x];
+			_marker setMarkerShapeLocal "ELLIPSE";
 			_marker setMarkerColorLocal "ColorYellow";
 			_marker setMarkerTypeLocal "mil_dot";
 			_marker setMarkerAlphaLocal 0.8;

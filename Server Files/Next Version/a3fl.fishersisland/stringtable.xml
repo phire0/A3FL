@@ -4066,7 +4066,7 @@
       <Original>Detain</Original>
    </Key>
    <Key ID="STR_INTER_EJECTALLP">
-      <Original>Eject all Passengers</Original>
+      <Original>Eject Passengers</Original>
    </Key>
    <Key ID="STR_INTER_EATITEM">
       <Original>Use</Original>
@@ -4537,7 +4537,7 @@
       <Original>This house is not rented!</Original>
    </Key>
    <Key ID="STR_Inter_Notifications_NewColloc">
-      <Original>You have to name a new roommate at %1</Original>
+      <Original>You added a new roommate at %1</Original>
    </Key>
    <Key ID="STR_Inter_Notifications_FirstOwner">
       <Original>Only the primary owner of the house can name a new roommate!</Original>
@@ -8641,7 +8641,7 @@
         <Original>Action canceled</Original>
       </Key>
       <Key ID="STR_NewGang_22">
-        <Original>The capture of this hideout has given $10,000 to your gang</Original>
+        <Original>The capture of this hideout has given $5,000 to your gang</Original>
       </Key>
       <Key ID="STR_NewGang_23">
         <Original>You can not capture this hideout with this item</Original>
