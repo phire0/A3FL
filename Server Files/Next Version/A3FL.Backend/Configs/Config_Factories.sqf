@@ -92,6 +92,8 @@ Config_Factories =
 		["f_bread","","inh","inh","bread","item",true,15,[["wheat",30]],2,1,0,"Makes 2 Bread; Replenishes 10% Hunger"],
 		["f_lamington","","inh","inh","lamington","item",true,15,[["sugarcane",3],["bread",1]],2,1,0,"Makes 2 Lamington; Replenishes 15% Hunger"],
 		["f_sausages","","inh","inh","sausages","item",true,15,[["meat_boar",2]],2,1,0,"Makes 2 Sausages; Replenishes 30% Hunger"],
+		["f_burger_full_cooked","","inh","inh","burger_full_cooked","item",true,15,[["salad",1],["burgerbun",1],["burger_cooked",1]],2,1,0,"Makes 2 Cooked Fish Burgers; Replenishes 50% Hunger"],
+		["f_taco_cooked","","inh","inh","taco_cooked","item",true,15,[["salad",1],["tacoshell",1],["fish_cooked",1]],2,1,0,"Makes 2 Cooked Fish Tacos; Replenishes 50% Hunger"],
 		["f_meatpie","","inh","inh","meatpie","item",true,15,[["meat_sheep_tag",1],["meat_boar_tag",1],["meat_goat_tag",1],["bread",1]],2,1,0,"Makes 2 Meat Pies; Replenishes 100% Hunger"]
 	],
 
