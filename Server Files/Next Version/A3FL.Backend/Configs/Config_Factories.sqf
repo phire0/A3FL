@@ -404,6 +404,14 @@ Config_Factories =
 		["f_McVady_Dress_Shirt_Uniform","","inh","inh","A3PL_McVady_Dress_Shirt_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
 		["f_McVady_Security_Uniform","","inh","inh","A3PL_McVady_Security_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
 		["f_McVady_Con_Uniform","","inh","inh","A3PL_McVady_Con_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
+		["f_Boyd_Suit_Uniform","","inh","inh","A3PL_Boyd_Suit_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
+		["f_Veloucci_Suit_Uniform","","inh","inh","A3PL_Veloucci_Suit_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
+		["f_Veloucci_Suit_Legal_Uniform","","inh","inh","A3PL_Veloucci_Suit_Legal_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
+		["f_Boyd_Combat_Uniform","","inh","inh","A3PL_Boyd_Combat_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
+		["f_Veloucci_Combat_Uniform","","inh","inh","A3PL_Veloucci_Combat_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
+		["f_MG_Watercraft_Uniform","","inh","inh","A3PL_MG_Watercraft_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
+		["f_Infowars_Uniform","","inh","inh","A3PL_Infowars_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
+		["f_DHLSwimmer_Uniform","","inh","inh","A3PL_DHLSwimmer_Uniform","uniform",true,5,[["Polyester",1]],1,1,0],
 		["f_Sorrento_Shirt_Uniform","","inh","inh","A3PL_Sorrento_Shirt_Uniform","uniform",true,5,[["Polyester",1]],1,1,0]
 	],
 

@@ -487,6 +487,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_Air_Ambulance_Pilot_Uniform",0,-1,0],
 			["uniform","A3PL_Air_Ambulance_Paramedic_Uniform",0,-1,0],
 			["uniform","A3PL_FIFR_PR_Uniform",0,-1,0],
+			["uniform","A3PL_FIFR_Swimmer_Uniform",0,-1,0],
 			["vest","A3PL_FIFR_RideAlong_Safety",0,-1,0],
 			["vest","A3PL_FIFR_Safety",0,-1,0],
 			["vest","A3PL_FIFR_Student_Safety",0,-1,0],
@@ -499,6 +500,7 @@ Config_Shops_Items = [
 			["vest","A3PL_Air_Ambulance_Paramedic_Vest",0,-1,0],
 			["vest","A3PL_Air_Ambulance_Pilot_Vest",0,-1,0],
 			["vest","A3PL_FIFR_Public_Relations_vest",0,-1,0],
+			["vest","V_RebreatherB",0,-1,0],
 			["headgear","A3PL_FIFR_Cap_VibrantBlue_Hat",0,-1,0],
 			["headgear","A3PL_FIFR_Cap_White_Hat",0,-1,0],
 			["headgear","A3PL_FIFR_Cap_Red_Hat",0,-1,0],
@@ -520,8 +522,10 @@ Config_Shops_Items = [
 			["headgear","A3PL_FireHelmet_Chief_New",0,-1,0],
 			["headgear","A3PL_FIFR_Flight_Para_Helm",0,-1,0],
 			["headgear","A3PL_FIFR_Pilot_Helm",0,-1,0],
+			["headgear","A3PL_FIFR_Rescue_Helmet",0,-1,0],
 			["aitem","A3PL_Sthetoscope",0,-1,0],
 			["aitem","NVGoggles_OPFOR",150,-1,0],
+			["goggles","G_Diving",0,-1,0],
 			["backpack","A3PL_LR",0,-1,0]
 		],{fifr_table modelToWorld [0,0,-0.5]}
 	],
