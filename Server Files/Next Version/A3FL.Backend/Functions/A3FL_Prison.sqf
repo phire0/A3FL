@@ -171,8 +171,9 @@
 		if ((vehicle player) isEqualTo player) then {player switchMove "";};
 	};
 
-	_rareItems = ["v_lockpick","keycard","ziptie"];
-	_pItems = ["A3PL_Pickaxe","A3PL_Shovel","A3PL_Cellphone"];
+	_rareItems = ["v_lockpick","keycard","zipties"];
+	_pItems = ["A3PL_Pickaxe","A3PL_Shovel","A3PL_Cellphone","A3PL_TaserMag"];
+	_rarerItems = ["A3FL_BaseballBat","A3PL_Taser"];
 
 	_foundRare = false;
 	_chance = random 100;
@@ -186,12 +187,20 @@
 	_chance = random 100;
 	if(_chance >= 75) then {
 		player addItem (selectRandom _pItems);
-		["You found a rare item!", "green"] call A3PL_Player_Notification;
+		["You found an item!", "green"] call A3PL_Player_Notification;
 		_foundItem = true;
 	};
 
-	if(!_foundRare && !_foundItem) then {
-		["You didn't found anything!", "red"] call A3PL_Player_Notification;
+	_foundRarer = false;
+	_chance = random 100;
+	if (_chance > 90) then{
+		[(selectRandom _rarerItems),1] call A3PL_Inventory_Add;
+		["You found a very rare item!", "green"] call A3PL_Player_Notification;
+		_foundRarer = true;
+	};
+
+	if(!_foundRare && !_foundItem && !_foundRarer) then {
+		["You didn't find anything!", "red"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
 
