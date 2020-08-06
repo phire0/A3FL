@@ -64,7 +64,6 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Garage'],
 	['Functions', 'A3FL_Heist_Bank'],
 	['Functions', 'A3FL_HouseRobbery'],
-	['Functions', 'A3FL_WarehouseRobbery'],
 	['Functions', 'A3FL_IE'],
 	['Functions', 'A3FL_DMV'],
 	['Functions', 'A3FL_Waste'],

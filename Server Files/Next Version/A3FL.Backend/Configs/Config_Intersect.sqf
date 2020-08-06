@@ -1823,7 +1823,7 @@ Config_IntersectArray =
 	["door2",localize"STR_INTSECT_PSGDOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!(player_objIntersect getVariable ["locked",true])&&(typeOf player_objintersect IN ["C_Van_02_transport_F"])}],
 	["door3",localize"STR_INTSECT_LATDOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{!(player_objIntersect getVariable ["locked",true])&&(typeOf player_objintersect IN ["C_Van_02_transport_F"])}],
 
-	["Door_1","Lockpick Door",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_Itemclass isEqualTo "v_lockpick") && {((typeOf (call A3PL_Intersect_cursortarget)) IN Config_Houses_List)}}],
+	["Door_1","Lockpick Door",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_Itemclass isEqualTo "v_lockpick") && {((typeOf (call A3PL_Intersect_cursortarget)) IN Config_Houses_List) || ((typeOf (call A3PL_Intersect_cursortarget)) IN Config_Warehouses_List)}}],
 	["Door_1","Secure House",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect getVariable "robbed") && {(player getVariable "job" isEqualTo "fisd")}}],
 
 	["cell_door_1","Lockpick Cell Door",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_Itemclass isEqualTo "v_lockpick") && {((typeOf player_objIntersect) != "Land_A3PL_Sheriffpd")}}],
