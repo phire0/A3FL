@@ -72,7 +72,6 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Hunting'],
 	['Functions', 'A3FL_Moonshine'],
 	['Functions', 'A3FL_Lumber'],
-	['Functions', 'A3FL_Combine'],
 	['Functions', 'A3FL_Karts'],
 	['Functions', 'A3FL_ShopStock'],
 	['Functions', 'A3FL_Chopshop'],
