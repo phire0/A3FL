@@ -84,13 +84,6 @@ Config_NPC_Text =
 	["verizon_initial",localize"STR_NPC_HELLOHOWICANHELPYOU",[localize"STR_NPC_CHOOSESUB"],["['verizon_howto'] call A3PL_NPC_Start;"]],
 	["verizon_howto",localize"STR_NPC_VERIZONCHOOSESUBSCRIPTION",[localize"STR_NPC_SECONDARYPHONE"],["['2'] spawn A3PL_iPhoneX_AddPhoneNumber;"]],
 
-	["fifrb_initial", localize"STR_NPC_FIFRINIT",[localize"STR_NPC_FIFRINIT2",localize"STR_NPC_FIFRINIT3"],["['fifrb_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'fifr') exitwith {['fifrb_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'fifr') then { ['fifrb_work'] call A3PL_NPC_Start; } else {['fifrb_workdenied'] call A3PL_NPC_Start;};"]],
-	["fifrb_howto", localize"STR_NPC_FIFRHOWTO",[localize"STR_NPC_ALRIGHTTNX"],[""]],
-	["fifrb_workdenied", localize"STR_NPC_FIFRDEN",[localize"STR_NPC_FIFRDEN1"],[""]],
-	["fifrb_work", localize"STR_NPC_FIFRWORK",[localize"STR_NPC_FIFRWORK1",localize"STR_NPC_FIFRWORK2"],["['fifr'] call A3PL_NPC_TakeJob;",""]],
-	["fifrb_already", localize"STR_NPC_FIFRALREADY",[localize"STR_NPC_FIFRALREADY1",localize"STR_NPC_FIFRALREADY2"],["call A3PL_NPC_LeaveJob;",""]],
-	["fifrb_accepted", localize"STR_NPC_FIFRACC",[localize"STR_NPC_FIFRACC1"],[""]],
-
 	["police_initial", localize"STR_NPC_POLICEINIT",[localize"STR_NPC_POLICEINIT1",localize"STR_NPC_POLICEINIT2",localize"STR_NPC_POLICEINIT3"],["['police_howto'] call A3PL_NPC_Start;","['police_reportcrime'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'fisd') exitwith {['police_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'fisd') then { ['police_work'] call A3PL_NPC_Start; } else {['police_workdenied'] call A3PL_NPC_Start;};"]],
 	["police_howto", localize"STR_NPC_WEBSITEMOREINFO",[localize"STR_NPC_ALRIGHTTNX"],[""]],
 	["police_reportcrime", localize"STR_NPC_POLICEREPCRIME",[localize"STR_NPC_ALRIGHTTNX"],[""]],

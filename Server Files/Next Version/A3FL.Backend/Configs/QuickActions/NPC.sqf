@@ -221,11 +221,7 @@
 [
 	"",
 	localize"STR_INTSECT_CONVSTOLMONEY",
-	{
-		_cops = (count(["fisd"] call A3PL_Lib_FactionPlayers));
-		if (_cops < 3) exitwith {[localize"STR_QuickActionsNPC_MinimumUSCGToSpeak","red"] call A3PL_Player_Notification;};
-		call A3PL_BHeist_ConvertCash;
-	}
+	{[player_objintersect] call A3PL_BHeist_ConvertCash;}
 ],
 [
 	"",

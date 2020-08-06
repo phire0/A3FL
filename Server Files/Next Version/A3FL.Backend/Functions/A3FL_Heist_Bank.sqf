@@ -270,11 +270,24 @@
 
 ["A3PL_BHeist_ConvertCash",
 {
+	private _NPC = param [0,objNull];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if (backpack player != "A3PL_Backpack_Money") exitwith {["You are not carrying a backpack to carry money in!","red"] call A3PL_Player_Notification;};
 	private _container = backpackContainer player;
 	private _cash = _container getVariable ["bankCash",0];
 	if (_cash < 1) exitwith {["There is no dirty money in this backpack to convert to real cash","red"] call A3PL_Player_Notification;};
+
+	["Laundering money...",180] spawn A3PL_Lib_LoadAction;
+	waitUntil{Player_ActionDoing};
+	_success = true;
+	while {Player_ActionDoing} do {
+		if (Player_ActionInterrupted) exitWith {_success = false;};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
+		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+	};
+	if(Player_ActionInterrupted || !_success) exitWith {["Action interupted","red"] call A3PL_Player_Notification;};
+
 	player setVariable ["player_cash",(player getVariable ["player_cash",0])+_cash * A3PL_Event_CrimePayout,true];
 	_container setVariable ["bankCash",nil,true];
 	[getPlayerUID player,"moneyLaundering",[str(_cash)]] remoteExec ["Server_Log_New",2];

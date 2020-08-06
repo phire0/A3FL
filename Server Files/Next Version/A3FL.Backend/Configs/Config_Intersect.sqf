@@ -1124,11 +1124,11 @@ Config_IntersectArray =
 	//rockets
 	["fireworkIgnite",localize"STR_INTSECT_IGNROCKET",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player_objintersect getVariable ["stock",-1]) == -1) && {(simulationEnabled player_objIntersect)}}], //Ignite Rocket
 	["fireworkrocket",localize"STR_INTSECT_BUSEITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objintersect getVariable ["stock",-1] == -1)}], //Buy/Sell Item
-	["atego_tow",localize"STR_INTSECT_LoadVehicle",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& {((player getVariable ["job","unemployed"]) IN ["Roadside","uscg","fifr","fisd"])}}],
-	["atego_tow",localize"STR_INTSECT_UnloadVehicle",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])&& {((player getVariable ["job","unemployed"]) IN ["Roadside","uscg","fifr","fisd"])}}],
+	["atego_tow",localize"STR_INTSECT_LoadVehicle",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])}],
+	["atego_tow",localize"STR_INTSECT_UnloadVehicle",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])}],
 	["Ramp_Switch",localize"STR_INTSECT_TOGGRAMP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
-	["Spotlight_Switch",localize"STR_INTSECT_TOGREARSPOTL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Toggle Rear Spotlight
-	["carinfo",localize"STR_INTSECT_IMPNEARVEH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{vehicleVarName player_objintersect IN ["Shop_Impound","Shop_Impound_1","Shop_Impound_2","Shop_Impound_3","Shop_Impound_4","Shop_Impound_5"]}], //Impound Nearest Vehicle
+	["Spotlight_Switch",localize"STR_INTSECT_TOGREARSPOTL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["carinfo",localize"STR_INTSECT_IMPNEARVEH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicleVarName player_objintersect IN ["Shop_Impound","Shop_Impound_1","Shop_Impound_2","Shop_Impound_3","Shop_Impound_4","Shop_Impound_5"]) && {((player getVariable ["job","unemployed"]) isEqualTo "Roadside")}}],
 
 	//impound lot
 	["impound_Door_button",localize"STR_INTSECT_OPCLIMPGATE",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Open/Close Impound Gate
