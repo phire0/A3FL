@@ -228,10 +228,11 @@
 	};
 	while {attachedTo _hose == _intersect} do
 	{
-		uiSleep 0.1;
+		sleep 0.1;
 		if ((_hose distance _tank) > _maxlength) exitwith
 		{
 			detach _hose;
+			_intersect setDamage 0.9;
 		};
 	};
 }] call Server_Setup_Compile;
