@@ -258,11 +258,6 @@ A3PL_Interaction_Options =
 		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "")}
 	],
 	[
-		localize "STR_INTER_FABRICACTIONINTER",
-		{[] call A3PL_Combine_Open;},
-		{(!isPlayer cursorObject) && !(surfaceIsWater position player) && ((vehicle player) isEqualTo player) && (Player_ItemClass isEqualTo "") && (animationState player) != "a3pl_takenhostage"}
-	],
-	[
 		localize "STR_INTER_TAKEPHOST",
 		{[cursorobject] spawn A3PL_Player_TakeHostage;},
 		{(cursorobject getVariable ["A3PL_Medical_Alive",true]) && (!(player getVariable ["Cuffed",false])) && (!(player getVariable ["Zipped",false])) && (isNil "A3PL_EnableHostage") && (isPlayer cursorObject) && (player distance cursorobject < 2) && (([cursorobject, player] call BIS_fnc_relativeDirTo) < 220) && (([cursorobject, player] call BIS_fnc_relativeDirTo) > 130) && !(cursorObject getVariable["takingHostage",false])}

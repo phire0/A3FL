@@ -106,12 +106,14 @@
 ["A3PL_Jewelry_LoadSafe",
 {
 	private _store = param [0,objNull];
-	private _itemList = ["A3PL_Money","A3FL_Jewelry_Ring","A3FL_Jewelry_RingSet","A3FL_Jewelry_Bracelet","A3FL_Jewelry_Crown","A3FL_Jewelry_Necklace","A3FL_Jewelry_GoldenDildo"];
+	private _itemList = ["diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill"];
 	for "_i" from 1 to 16 do {
 		_point = format["safe_item_%1",_i];
 		_class = selectRandom _itemList;
-		_item = createVehicle [_class, position player, [], 0, "CAN_COLLIDE"];
+		_item = createVehicle [(([_class,"class"]) call A3PL_Config_GetItem), position player, [], 0, "CAN_COLLIDE"];
 		_item setpos (_store modelToWorld (_store selectionPosition _point));
+		_item enableSimulation false;
+		_item setVariable ["class",_class,true];
 	};
 }] call Server_Setup_Compile;
 
