@@ -214,6 +214,7 @@
 		case "output": { _return = _config select 9; };
 		case "xp": { _return = _config select 10; };
 		case "level": { _return = _config select 11; };
+		case "desc": { _return = _config select 12; };
 	};
 	_return;
 }] call Server_Setup_Compile;

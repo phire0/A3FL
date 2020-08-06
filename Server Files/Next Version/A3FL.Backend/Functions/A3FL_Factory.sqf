@@ -147,11 +147,9 @@
 		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _type) exitwith {_alreadyCrafting = true;};
 	} foreach _var;
 
-	// if(_type IN ["Vehicle Factory","Aircraft Factory",]) then {
-	// 	_levelRequired = ([_id,_type,"level"] call A3PL_Config_GetFactory);
-	// 	if(player getVariable["player_level",0] < _levelRequired) exitWith {_hasLevel = false};
-	// };
-	// if (!_hasLevel) exitwith {[format["You need to be level %1 to craft this item!",_level],"red"]"Vehicle Factory","Aircraft Factory", call A3PL_Player_Notification;};
+	_levelRequired = ([_id,_type,"level"] call A3PL_Config_GetFactory);
+	//if(player getVariable["player_level",0] < _levelRequired) exitWith {_hasLevel = false};
+	//if (!_hasLevel) exitwith {[format["You need to be level %1 to craft this item!",_level],"red"]"Vehicle Factory","Aircraft Factory", call A3PL_Player_Notification;};
 
 	if (!isNil "_alreadyCrafting") exitwith {[localize"STR_FACTORY_ACTIONINPROGRESS","red"] call A3PL_Player_Notification;};
 	if(!(call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
@@ -202,15 +200,15 @@
 		_name = [_id,_type,"name"] call A3PL_Config_GetFactory;
 		if (_name isEqualTo "inh") then {_name = [_classname,_classType,"name"] call A3PL_Factory_Inheritance;};
 
-		uiSleep _sec;
-		[format [localize"STR_FACTORY_CRAFTEND",_name,_type,_toCraft],"green"] call A3PL_Player_Notification;
+		sleep _sec;
+		[format [localize"STR_FACTORY_CRAFTEND",_name,_type,([_id,_type,"output"] call A3PL_Config_GetFactory)*_toCraft],"green"] call A3PL_Player_Notification;
 		_xpToAdd = ([_id,_type,"xp"] call A3PL_Config_GetFactory) * _toCraft;
 		[player,_xpToAdd] call A3PL_Level_AddXp;
 
 		//have server remove items from player_inventory permanently
 		[player,_type,_id, _required, _toCraft] remoteExec ["Server_Factory_Finalise", 2];
 
-		uiSleep 1.5; //account for server lag to prevent duping, during this sleep it 'can make it look' like more items are taken due to the temp factories var, it will be fixed after 1.5 seconds
+		sleep 1; //account for server lag to prevent duping, during this sleep it 'can make it look' like more items are taken due to the temp factories var, it will be fixed after 1.5 seconds
 
 		//delete from player_factories
 		_var = player getVariable ["player_factories",[]];
@@ -228,29 +226,26 @@
 	_display = findDisplay 45;
 	_ctrlID = param [0,1500];
 	_preview = param [1,true];
-	_type = ctrlText (_display displayCtrl 1100); //factory id from dialog text
-	_control = _display displayCtrl _ctrlID; //get id
+	_type = ctrlText (_display displayCtrl 1100);
+	_control = _display displayCtrl _ctrlID;
 	if ((lbCurSel _control) < 0) exitwith {};
 	_id = _control lbData (lbCurSel _control);
 	_required = [_id,_type,"required"] call A3PL_Config_GetFactory;
 	_classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
-	if (_preview) then
-	{
-		[_type,_id] spawn A3PL_Factory_ObjectPreviewSpawn; //spawn object in preview
+	if (_preview) then {
+		[_type,_id] spawn A3PL_Factory_ObjectPreviewSpawn;
 	};
 	_control = _display displayCtrl 1501;
 
-	_lbArray = []; //quick refresh
+	_lbArray = [];
 	{
 		private ["_i","_name","_amount","_id"];
 		_id = _x select 0;
 		_amount = _x select 1;
 		_name = format ["%1x %2",_amount,([_id,"name"] call A3PL_Config_GetItem)];
-		if ([_id,_amount,_type] call A3PL_Factory_Has) then //if we have the required item
-		{
+		if ([_id,_amount,_type] call A3PL_Factory_Has) then {
 			_lbArray pushback [_name,_id,true];
-		} else
-		{
+		} else {
 			_lbArray pushback [_name,_id,false];
 		};
 
@@ -259,24 +254,12 @@
 	//quick refresh lb
 	lbClear _control;
 	{
-		_i = _control lbAdd (_x select 0); //prepare new lb entry
+		_i = _control lbAdd (_x select 0);
 		_control lbSetData [_i,(_x select 1)];
 		if (_x select 2) then {_control lbSetColor [_i,[0, 1, 0, 1]];} else {_control lbSetColor [_i,[1, 0, 0, 1]];};
 	} foreach _lbArray;
 
-	//set item information
-	_desc = [_id,"desc"] call A3PL_Config_GetItem;
-	if (typeName _desc isEqualTo "BOOL") then
-	{
-		switch (_classType) do
-		{
-			case ("car"): {_desc = "Vehicle"};
-			case ("weapon"): {_desc = "Weapon"};
-			case ("mag"): {_desc = "Magazine"};
-			case ("magazine"): {_desc = "Magazine"};
-			case default {_desc = "Undefined"};
-		};
-	};
+	_desc = [_id,_type,"desc"] call A3PL_Config_GetFactory;
 	_control = _display displayCtrl 1103;
 	_control ctrlSetStructuredText parseText format ["Description : %1",_desc];
 }] call Server_Setup_Compile;
