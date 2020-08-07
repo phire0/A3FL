@@ -146,11 +146,13 @@
 {
 	if (Player_Hunger > 100) exitWith {Player_Hunger = 100;};
 	if (Player_Hunger < 0) exitWith {Player_Hunger = 0;};
+	profileNamespace setVariable ["player_hunger",Player_Hunger];
 }] call Server_Setup_Compile;
 
 ['A3PL_Lib_VerifyThirst', {
 	if (Player_Thirst > 100) exitWith {Player_Thirst = 100;};
 	if (Player_Thirst < 0) exitWith {Player_Thirst = 0;};
+	profileNamespace setVariable ["player_thirst",Player_Thirst];
 }] call Server_Setup_Compile;
 
 ["A3PL_Lib_SyncAnim",

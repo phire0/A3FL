@@ -709,10 +709,14 @@
 				};
 			};
 			if(((typeOf _x) isEqualTo "A3PL_EMS_Locker")) exitWith  {
-				_owner = _x getVariable["owner",""];
-				if(!((getPlayerUID player) isEqualTo _owner)) exitWith  {
-					["The locker is closed","red"] call A3PL_Player_Notification;
-					_handle = true;
+				if (_x animationPhase "door_1" != 1) then{
+					_owner = _x getVariable["owner",""];
+					if(!((getPlayerUID player) isEqualTo _owner)) exitWith  {
+						["The locker is closed","red"] call A3PL_Player_Notification;
+						_handle = true;
+					};
+				} else {
+					["This locker is closed",Color_Red] call A3PL_Player_Notification;
 				};
 			};
 		} count [_container, _secContainer];

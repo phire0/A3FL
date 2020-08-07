@@ -388,6 +388,9 @@
 		if (isNil "_var") exitwith {};
 		_jobVeh = _unit getVariable ["jobVehicle",nil];
 
+		[] remoteExecCall ["A3PL_Lib_VerifyHunger",_unit];
+		[] remoteExecCall ["A3PL_Lib_VerifyThirst",_unit];
+
 		[_unit,_uid] call Server_Housing_SaveKeys;
 
 		//save furniture

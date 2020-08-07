@@ -31,6 +31,7 @@
 	_class = _array select 1;
 
 	_spawnPos = _intersect getVariable ["positionSpawn",nil];
+	_exit = false;
 	if ((_intersect isKindOf "Land_Home1g_DED_Home1g_01_F") OR (typeOf _intersect IN ["Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_Sheriffpd","Land_A3PL_Firestation","Land_A3PL_Showroom","Land_A3PL_Garage"])) then
 	{
 		_dir = getDir _intersect;
@@ -45,7 +46,24 @@
 			case ("Land_A3PL_Ranch1"): {_spawnPos = _intersect modelToWorld [1,6.5,-2]; _dir = _dir - 90;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Ranch2"): {_spawnPos = _intersect modelToWorld [1,6.5,-2]; _dir = _dir - 90;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Ranch3"): {_spawnPos = _intersect modelToWorld [1,6.5,-2]; _dir = _dir - 90;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
-			case ("Land_A3PL_Firestation"): {_spawnPos = _intersect modelToWorld [-11.2,3,-6]; _dir = _dir - 180;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
+			case ("Land_A3PL_Firestation"): {
+
+				_pJob = player getVariable["job","unemployed"];
+				if(_pJob isEqualTo "fifr") then {
+					if (player_NameIntersect isEqualTo "garagedoor1_button") then {
+						_spawnPos = _intersect modelToWorld [-11,-12,-7.5];
+						_dir = _dir - 180;
+						_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];
+					};
+					if (player_NameIntersect isEqualTo "garagedoor2_button") then {
+						_spawnPos = _intersect modelToWorld [-4.8,-12,-7.5];
+						_dir = _dir - 180;
+						_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];
+					};
+				} else {
+					_exit = true;
+				};
+			};
 			case ("Land_A3PL_Showroom"): {_spawnPos = _intersect modelToWorld [-6,-1,-3]; _dir = _dir - 180;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Garage"): {_spawnPos = _intersect modelToWorld [0.85,0,-3]; _spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Sheriffpd"):
@@ -64,6 +82,9 @@
 			_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];
 		};
 	};
+
+	if(_exit) exitWith {["You are not allowed to use this garage","red"] call A3PL_Player_Notification;};
+
 	if (!isNil "_spawnPos") then
 	{
 		_type = _intersect getVariable ["type","vehicle"];

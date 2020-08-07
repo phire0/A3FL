@@ -367,6 +367,8 @@ class CfgRemoteExec
 		class A3PL_Lib_ChangeLocality {allowedTargets = 2;};
 		class A3PL_Lib_HideObject {allowedTargets = 0;};
 		class A3PL_Lib_CreateMarker {allowedTargets=0;};
+		class A3PL_Lib_VerifyHunger{allowedTargets=0;};
+		class A3PL_Lib_VerifyThirst{allowedTargets=0;};
 
 		//HUD
 		class A3PL_Hud_IDCard {allowedTargets = 0;};
