@@ -25,7 +25,8 @@
 	if (_intersect animationPhase "StorageDoor1" > 0.1) exitwith {closeDialog 0; [localize"STR_NewStorage_2", "red"] call A3PL_Player_Notification;};
 
 	if((lbCurSel _control) < 0) exitWith {};
-	_array = (A3PL_Storage_ReturnArray select (lbCurSel _control));
+	if(A3PL_Storage_ReturnArray isEqualTo []) exitWith {["Error while loading your vehicle, please try again", "red"] call A3PL_Player_Notification;closeDialog 0;};
+	_array = A3PL_Storage_ReturnArray select (lbCurSel _control);
 	_id = _array select 0;
 	_class = _array select 1;
 
@@ -91,7 +92,6 @@
 				[format[localize"STR_NewStorage_5",_price],"red"] call A3PL_Player_Notification;
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
-			//Put money into Federal Reserve
 			["Federal Reserve",_Price] remoteExec ["Server_Government_AddBalance",2];
 		};
 		if(_type == "airimpound") then {
@@ -115,7 +115,6 @@
 				[format[localize"STR_NewStorage_5",_price],"red"] call A3PL_Player_Notification;
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
-			//Put money into Federal Reserve
 			["Federal Reserve",_Price] remoteExec ["Server_Government_AddBalance",2];
 		};
 		if(_type == "chopshop") then {
@@ -140,7 +139,6 @@
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
 		};
-		//Put money into Federal Reserve
 		["Federal Reserve", _Price] remoteExec["Server_Government_AddBalance", 2];
 		if(_type == "vehicle") then {
 			[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];

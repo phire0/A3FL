@@ -1018,12 +1018,20 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize"STR_INTER_WRIST_ADD",
-		{cursorObject setVariable ["jail_mark",true,true];},
+		{
+			cursorObject setVariable ["jail_mark",true,true];
+			["Someone put a bracelet on you", "red"] remoteExec ["A3PL_Player_Notification",cursorObject];
+			[format["You put a bracelet on %1",cursorObject getVariable["name","unknown"]], "green"] call A3PL_Player_Notification;
+		},
 		{((vehicle player) isEqualTo player) && (player getVariable["job","unemployed"] isEqualTo "usms") && (isPlayer cursorObject) && !(cursorObject getVariable ["jail_mark",false])}
 	],
 	[
 		localize"STR_INTER_WRIST_REMOVE",
-		{cursorObject setVariable ["jail_mark",false,true];},
+		{
+			cursorObject setVariable ["jail_mark",false,true];
+			["Someone removed your bracelet on you", "red"] remoteExec ["A3PL_Player_Notification",cursorObject];
+			[format["You removed the bracelet from %1",cursorObject getVariable["name","unknown"]], "green"] call A3PL_Player_Notification;
+		},
 		{((vehicle player) isEqualTo player) && (player getVariable["job","unemployed"] isEqualTo "usms") && (isPlayer cursorObject) && (cursorObject getVariable ["jail_mark",false])}
 	],
 	[

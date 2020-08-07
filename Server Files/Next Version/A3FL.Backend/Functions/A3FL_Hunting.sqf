@@ -8,28 +8,29 @@
 
 ["A3PL_Hunting_Skin",
 {
-	private ["_animal","_type","_meatItem","_animalType"];
-	_animal = param [0,objNull];
+	private _animal = param [0,objNull];
+	private _success = false;
 	if (isNull _animal) exitwith {};
-	_type = typeOf _animal;
-
+	private _type = typeOf _animal;
+	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 	if (_animal getVariable ["skinning",false]) exitwith {[localize"STR_NewHunting_AlreadySkinned"] call A3PL_Player_Notification;};
 	_animal setVariable ["skinning",true,true];
 
-	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 	["Skinning the animal...",20] spawn A3PL_Lib_LoadAction;
-	_success = true;
-	while {uiSleep 1.5; Player_ActionDoing } do {
-		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
-		if(Player_ActionInterrupted) exitWith {_success = false;};
-		if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (!(vehicle player == player)) exitwith {_success = false;};
+	waitUntil{Player_ActionDoing};
+	player playMoveNow 'ainvpknlmstpsnonwnondnon_medic_1';
+	while {Player_ActionDoing} do {
+		if ((player distance2D _animal) > 5) exitwith {_success = false};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+		if ((vehicle player) != player) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((animationstate player) != "ainvpknlmstpsnonwnondnon_medic_1") then {player playMoveNow 'ainvpknlmstpsnonwnondnon_medic_1';};
 	};
-	if(!_success) exitWith {[localize"STR_NewHunting_Cancelled","red"] call A3PL_Player_Notification;_animal setVariable ["skinning",false,true];};
+	player playMoveNow "";
+	if(Player_ActionInterrupted || !_success) exitWith {["Action cancelled","red"] call A3PL_Player_Notification;_animal setVariable ["skinning",nil,true];};
 
-	_meatItem = "meat_sheep";
-	_animalType = "Unknown";
+	private _meatItem = "meat_sheep";
+	private _animalType = "Unknown";
 	switch (true) do
 	{
 		case (_type IN ["Goat","Goat02","Goat03"]): { _meatItem = "meat_goat"; _animalType = "goat"; };

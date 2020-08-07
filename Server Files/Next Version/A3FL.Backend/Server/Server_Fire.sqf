@@ -176,6 +176,7 @@
 
 ["Server_Fire_VehicleExplode",
 {
+	if (!isDedicated) exitWith {};
 	private _veh = param [0,objNull];
 	private _var = _veh getVariable ["owner",[]];
 

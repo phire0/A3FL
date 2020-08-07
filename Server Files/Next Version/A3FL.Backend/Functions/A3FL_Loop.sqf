@@ -39,7 +39,7 @@
 
 ['A3PL_Loop_Drowning',{
     private _oxygen = getOxygenRemaining player;
-    private _safeLimit = 0.2;
+    private _safeLimit = 0.3;
     if(_oxygen < _safeLimit) then {
         player setOxygenRemaining _safeLimit;
         if(player getVariable ["A3PL_Medical_Alive",true]) then {

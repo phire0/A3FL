@@ -59,7 +59,6 @@
 					default {
 						private _distanceOne = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate1","Memory"]));
 						private _distanceTwo = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate2","Memory"]));
-						hint format["%1 - %2 = %3",_distanceOne,_distanceTwo,(_distanceTwo>_distanceOne)];
 						if(_distanceTwo>_distanceOne) then {
 							"bargate1"
 						} else {

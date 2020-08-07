@@ -8937,7 +8937,7 @@
           <Original>You have put %1 in your inventory.</Original>
         </Key>
         <Key ID="STR_NewInventory_11">
-          <Original>You do not have this amount to deposit</Original>
+          <Original>You do not have this amount to drop</Original>
         </Key>
         <Key ID="STR_NewInventory_12">
           <Original>You have nothing in your hand to throw</Original>

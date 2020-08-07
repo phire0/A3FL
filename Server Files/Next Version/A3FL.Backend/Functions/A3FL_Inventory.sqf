@@ -158,10 +158,10 @@
 	buttonSetAction [14671, "[] call A3PL_Inventory_Use"];
 	buttonSetAction [14672,
 	"
-		private ['_display','_amount','_selection','_classname'];
+		private ['_display','_amount'];
 		_amount = parseNumber (ctrlText 14471);
 		if (_amount <= 0) exitwith {[localize'STR_NewInventory_3','red'] call A3PL_Player_Notification;};
-		[] call A3PL_Inventory_Use;
+		['',true] call A3PL_Inventory_Use;
 		[true,_amount] call A3PL_Inventory_Drop;
 	"];
 	buttonSetAction [14674, "[0] call A3PL_Lib_CloseDialog"];
@@ -230,13 +230,12 @@
 	lbSetData [14571, _index, "cash"];
 }] call Server_Setup_Compile;
 
-/*----------------------------------------------------------------------------*/
-
 ["A3PL_Inventory_Use",
 {
 	disableSerialization;
 	private ['_selection', '_classname', '_itemClass', '_itemDir', '_canUse', '_format',"_display","_attach"];
 	_className = param [0,""];
+	_forDrop = param [1,false];
 	if (_className isEqualTo "") then
 	{
 		_display = findDisplay 1001;
@@ -260,7 +259,16 @@
 	_amount = floor(parseNumber (ctrlText (_display displayCtrl 14471)));
 	if(_amount < 1) exitWith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 	if (!([_classname,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
-	if (_amount > _maxTake) exitwith {[format["You can only take %1 of this item at once",_maxTake],"red"] call A3PL_Player_Notification;};
+
+	_maxTakeErr = false;
+	if(!_forDrop) then {
+		if (_amount > _maxTake) exitwith {
+			[format["You can only take %1 of this item at once",_maxTake],"red"] call A3PL_Player_Notification;
+			_maxTakeErr = true;
+		};
+	};
+	if(_maxTakeErr) exitWith {};
+
 	Player_ItemAmount = _amount;
 	Player_Item = _itemClass createVehicle (getPos player);
 	if (_classname isEqualTo "popcornbucket") then {
@@ -305,12 +313,13 @@
 ["A3PL_Inventory_Drop", {
 	private _setPos = param [0,true];
 	private _amount = param [1,1];
-	private _itemClass = Player_ItemClass;
+	private _itemClass = param [2,Player_ItemClass];;
 	private _obj = Player_Item;
 	private _droppedItems = server getVariable 'droppedObjects';
 	if(!isNil 'Player_ItemAmount') then {_amount = Player_ItemAmount;};
 
 	if(_amount < 1) exitWith {["Please enter a valid amount","red"] call A3PL_Player_Notification;};
+	hint str(_itemClass);
 	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 
 	if (isNull _obj) exitwith

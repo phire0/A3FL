@@ -211,7 +211,7 @@
 	_obj setVariable ["CaptureInProgress",true,true];
 
 	_marker = [_obj] call A3PL_Lib_NearestMarker;
-	_marker setMarkerColorLocal "ColorOrange";
+	_marker setMarkerColor "ColorOrange";
 	[format["%1 has started capturing a gang hideout!",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
@@ -238,7 +238,7 @@
 
 	_marker setMarkerColor "ColorOPFOR";
 	_marker setMarkerText format[" Gang Hideout - %1",_gangName];
-	_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
+	_marker setMarkerType "A3PL_Markers_TownHall";
 
 	[localize"STR_NewGang_22","green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
@@ -310,7 +310,7 @@
 	private _gangName = _obj getVariable["capturedName",""];
 	private _faction = player getVariable["faction","citizen"];
 	_marker = [_obj] call A3PL_Lib_NearestMarker;
-	_marker setMarkerColorLocal "ColorOrange";
+	_marker setMarkerColor "ColorOrange";
 	[format["%1 has started capturing a gang hideout from %2!",(toUpper _faction),_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 	Player_ActionCompleted = false;
 	_obj setVariable ["CaptureInProgress",true,true];
@@ -331,7 +331,7 @@
 
 	_marker setMarkerColor "colorBLUFOR";
 	_marker setMarkerText format[" Gang Hideout"];
-	_marker setMarkerTypeLocal _factionMark;
+	_marker setMarkerType _factionMark;
 
 	_obj setVariable["captured",nil,true];
 	_obj setVariable["capturedName",nil,true];

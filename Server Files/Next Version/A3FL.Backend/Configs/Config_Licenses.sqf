@@ -9,6 +9,10 @@
 //class,display name, isCompany, canIssue (job)
 Config_Licenses =
 [
+	["driver",localize"STR_ConfigLicenses_DriversLicense",false,[]],
+	["cdl",localize"STR_ConfigLicenses_CommercialDriversLicense",false,[]],
+	["motorcycle",localize"STR_ConfigLicenses_Motorcycle",false,[]],
+
 	["cpr",localize"STR_ConfigLicenses_CPR",false,["fifr"]],
 	["vfd",localize"STR_ConfigLicenses_FireVolunteer",false,["fifr"]],
 	["atc",localize"STR_ConfigLicenses_ATCVolunteer",false,["uscg"]],

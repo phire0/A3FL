@@ -1248,8 +1248,12 @@
 	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
 	private _gBank = _gang select 4;
+	private _gOwner = _gang select 1;
+	if((getPlayerUID player) != _gOwner) exitWith {["Only the gang leader can transfer the gang money!","red"] call A3PL_Player_Notification;};
+
 	private _cooldown = player getVariable["transferCooldown",nil];
 	if(!isNil '_cooldown') exitWith {["You can only transfer money every 10 minutes!", "red"] call A3PL_Player_Notification;};
+
 
 	_control = _display displayCtrl 99401;
 	_amount = round(parseNumber(ctrlText _control));

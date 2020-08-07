@@ -614,11 +614,13 @@
 ["A3PL_AdminRedName", {
 	if (player getVariable ["pVar_RedNameOn",false]) then {
 		player setVariable ["pVar_RedNameOn",false,true];
+		player enableStamina true;
 	} else {
 		player setDamage 0;
 		player setVariable ["pVar_RedNameOn",true,true];
 		player setVariable ["A3PL_Wounds",[],true];
 		player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+		player enableStamina false;
 	};
 	[player,"admin_mode",[player getVariable ["pVar_RedNameOn",false]]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
