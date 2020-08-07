@@ -371,7 +371,13 @@ Config_Shops_Items = [
 			["item","diamond_emerald_ill",-1,4000,8],
 			["item","diamond_ill",-1,6000,8],
 			["item","keycard",10000,-1,5],
-			["item","cocaine_brick",-1,10000,8]
+			["item","cocaine_brick",-1,10000,8],
+			["item","ringset",-1,3600,8],
+			["item","ring",-1,4800,8],
+			["item","bracelet",-1,6400,8],
+			["item","crown",-1,52000,8],
+			["item","necklace",-1,72000,8],
+			["item","golden_dildo",-1,96000,8]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
 
@@ -1223,7 +1229,13 @@ Config_Shops_Items = [
 			["item","diamond_sapphire_ill",-1,2740,8],
 			["item","diamond_ruby_ill",-1,3200,8],
 			["item","diamond_emerald_ill",-1,4000,8],
-			["item","diamond_ill",-1,6000,8]
+			["item","diamond_ill",-1,6000,8],
+			["item","ringset",-1,4500,8],
+			["item","ring",-1,6000,8],
+			["item","bracelet",-1,8000,8],
+			["item","crown",-1,65000,8],
+			["item","necklace",-1,90000,8],
+			["item","golden_dildo",-1,120000,8]
 		],{[3456.32,7513.2,1]}
 	],
 	["Shop_Ill_Moonshine",[
