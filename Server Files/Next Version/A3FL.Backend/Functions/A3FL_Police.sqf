@@ -1925,6 +1925,9 @@
 
 ["A3PL_Police_SaveSquadNb", {
 	private _number = ctrlText 1400;
+
+	if((count _number) > 8) exitWith {["You cannot enter more than 8 characters","red"] call A3PL_Player_Notification;};
+
 	if((typeOf A3PL_SquadNb_Veh) IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]) then {
 		private _numberArray = _number splitString "";
 		if(count(_numberArray) < 2) exitWith {};
