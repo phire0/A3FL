@@ -279,11 +279,11 @@ class CfgDisabledCommands
 
 class CfgFishersHelp {
 	class Tutorial_1 {
-		title = "Tutorial 1";
-		text = "This is the <b>text</b> for <br/> the first tutorial";
+		title = "soonTM";
+		text = "soonTM";
 	};
 	class Tutorial_2 {
-		title = "Tutorial 2";
-		text = "This is the <b>text</b> for <br/> the second tutorial";
+		title = "soonTM";
+		text = "soonTM";
 	};
 };
