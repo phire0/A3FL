@@ -9,7 +9,7 @@
 ["A3PL_Storage_CarRetrieveButton",
 {
 	disableSerialization;
-	private ["_display","_control","_intersect","_spawnPos","_dir"];
+	private ["_display","_control","_intersect","_spawnPos","_dir","_exit"];
 	_display = findDisplay 145;
 	_control = _display displayCtrl 1500;
 	_intersect = player_objintersect;
@@ -26,7 +26,7 @@
 
 	if((lbCurSel _control) < 0) exitWith {};
 	if(A3PL_Storage_ReturnArray isEqualTo []) exitWith {["Error while loading your vehicle, please try again", "red"] call A3PL_Player_Notification;closeDialog 0;};
-	_array = A3PL_Storage_ReturnArray select (lbCurSel _control);
+	_array = (A3PL_Storage_ReturnArray select (lbCurSel _control));
 	_id = _array select 0;
 	_class = _array select 1;
 
@@ -47,18 +47,15 @@
 			case ("Land_A3PL_Ranch2"): {_spawnPos = _intersect modelToWorld [1,6.5,-2]; _dir = _dir - 90;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Ranch3"): {_spawnPos = _intersect modelToWorld [1,6.5,-2]; _dir = _dir - 90;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Firestation"): {
-
 				_pJob = player getVariable["job","unemployed"];
 				if(_pJob isEqualTo "fifr") then {
 					if (player_NameIntersect isEqualTo "garagedoor1_button") then {
 						_spawnPos = _intersect modelToWorld [-11,-12,-7.5];
 						_dir = _dir - 180;
-						_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];
 					};
 					if (player_NameIntersect isEqualTo "garagedoor2_button") then {
 						_spawnPos = _intersect modelToWorld [-4.8,-12,-7.5];
 						_dir = _dir - 180;
-						_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];
 					};
 				} else {
 					_exit = true;
@@ -82,9 +79,7 @@
 			_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];
 		};
 	};
-
 	if(_exit) exitWith {["You are not allowed to use this garage","red"] call A3PL_Player_Notification;};
-
 	if (!isNil "_spawnPos") then
 	{
 		_type = _intersect getVariable ["type","vehicle"];
@@ -161,12 +156,17 @@
 			};
 		};
 		["Federal Reserve", _Price] remoteExec["Server_Government_AddBalance", 2];
-		if(_type == "vehicle") then {
+		if(_type isEqualTo "vehicle") then {
 			[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 		};
 	} else {
-		_nearFreePos = [(getpos player), 5, 50, 0, 0] call BIS_fnc_findSafePos;
-		[_class,player,_id,_nearFreePos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
+		diag_log format["A3PL_Storage_CarRetrieveButton; %1",typeOf _intersect];
+		if((typeOf _intersect) isEqualTo "") then {
+			_nearFreePos = [(getpos player), 5, 50, 0, 0] call BIS_fnc_findSafePos;
+			[_class,player,_id,_nearFreePos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
+		} else {
+			[_class,player,_id,_intersect] remoteExec ["Server_Storage_RetrieveVehicle", 2];
+		};
 	};
 	closeDialog 0;
 }] call Server_Setup_Compile;

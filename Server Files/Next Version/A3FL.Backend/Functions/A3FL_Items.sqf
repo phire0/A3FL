@@ -246,14 +246,10 @@
 
 ["A3PL_Items_FillBottle",
 {
-	_classname = Player_ItemClass;
-	if(_classname != "waterbottlempty") exitwith {
-		[localize"STR_NewItems_1","red"] call A3PL_Player_Notification;
-	};
-	if (!([_classname,1] call A3PL_Inventory_Has)) exitwith {
-		[localize"STR_NewItems_1","red"] call A3PL_Player_Notification;
-	};
-	//remove the item from inventory
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	private _classname = Player_ItemClass;
+	if(_classname != "waterbottlempty") exitwith {[localize"STR_NewItems_1","red"] call A3PL_Player_Notification;};
+	if (!([_classname,1] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewItems_1","red"] call A3PL_Player_Notification;};
 	[_classname, -1] call A3PL_Inventory_Add;
 	["waterbottle", 1] call A3PL_Inventory_Add;
 	[false] call A3PL_Inventory_PutBack;

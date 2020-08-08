@@ -208,7 +208,6 @@
 			} foreach _addons;
 		};
 		private _damage = [(_db select 7)] call Server_Database_ToArray;
-		diag_log format["Server_Storage_RetrieveVehiclePos: %1",_damage];
 		if((count _damage) > 0) then {
 			_parts = getAllHitPointsDamage _veh;
 			for "_i" from 0 to ((count _damage) - 1) do {
