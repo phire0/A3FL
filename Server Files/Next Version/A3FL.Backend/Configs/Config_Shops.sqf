@@ -1223,19 +1223,19 @@ Config_Shops_Items = [
 
 	//New NPCS
 	["Shop_Ill_Trader",[
-			["item","diamond_tourmaline_ill",-1,1400,8],
-			["item","diamond_aqua_ill",-1,1900,8],
-			["item","diamond_alex_ill",-1,2300,8],
-			["item","diamond_sapphire_ill",-1,2740,8],
-			["item","diamond_ruby_ill",-1,3200,8],
-			["item","diamond_emerald_ill",-1,4000,8],
-			["item","diamond_ill",-1,6000,8],
-			["item","ringset",-1,4500,8],
-			["item","ring",-1,6000,8],
-			["item","bracelet",-1,8000,8],
-			["item","crown",-1,65000,8],
-			["item","necklace",-1,90000,8],
-			["item","golden_dildo",-1,120000,8]
+			["item","diamond_tourmaline_ill",-1,22000,8],
+			["item","diamond_aqua_ill",-1,27000,8],
+			["item","diamond_alex_ill",-1,32000,8],
+			["item","diamond_sapphire_ill",-1,37000,8],
+			["item","diamond_ruby_ill",-1,42000,8],
+			["item","diamond_emerald_ill",-1,47000,8],
+			["item","diamond_ill",-1,52000,8],
+			["item","ringset",-1,900,8],
+			["item","ring",-1,900,8],
+			["item","bracelet",-1,900,8],
+			["item","crown",-1,8000,8],
+			["item","necklace",-1,5000,8],
+			["item","golden_dildo",-1,15000,8]
 		],{[3456.32,7513.2,1]}
 	],
 	["Shop_Ill_Moonshine",[
