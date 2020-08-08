@@ -594,8 +594,10 @@ Config_Factories =
 		["f_H_HeadSet_red_F","","inh","inh","H_HeadSet_red_F","headgear",true,5,[["Plastic",1]],1,1,0],
 		["f_H_HeadSet_white_F","","inh","inh","H_HeadSet_white_F","headgear",true,5,[["Plastic",1]],1,1,0],
 		["f_H_HeadSet_yellow_F","","inh","inh","H_HeadSet_yellow_F","headgear",true,5,[["Plastic",1]],1,1,0],
-		["f_H_Evergreen_Cap","","inh","inh","H_Evergreen_Cap","headgear",true,5,[["Polyester",1]],1,1,0],
-		["f_H_FRIGGUS_Cap","","inh","inh","H_FRIGGUS_Cap","headgear",true,5,[["Polyester",1]],1,1,0]
+		["f_H_Evergreen_Cap","","inh","inh","A3PL_Evergreen_Cap","headgear",true,5,[["Polyester",1]],1,1,0],
+		["f_H_FRIGGUS_Cap","","inh","inh","A3PL_FRIGGUS_Cap","headgear",true,5,[["Polyester",1]],1,1,0],
+		["f_Veloucci_Cap","","inh","inh","A3PL_Veloucci_Cap","headgear",true,5,[["Polyester",1]],1,1,0],
+		["f_Veloucci_Cap_Camo","","inh","inh","A3PL_Veloucci_Cap_Camo","headgear",true,5,[["Polyester",1]],1,1,0]
 	],
 
 	["Goggle Factory",[3852.065,9212.537,1.2],
