@@ -300,15 +300,18 @@
 {
 	private _obj = param [0,objNull];
 	private _nilCheck = _obj getVariable ["captured",nil];
+	private _faction = player getVariable["faction","citizen"];
 	if(isNil "_nilCheck") exitWith{["This gang hideout is currently not captured!","red"] call A3PL_Player_Notification;};
 	if(_obj getVariable ["CaptureInProgress",false]) then {["Someone is already capturing this gang hideout!","red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
+
+	if((_obj IN [hideout_obj_1,hideout_obj_2,hideout_obj_3,hideout_obj_5]) && (_faction != "fisd")) exitWith {["This gang hideout has to be secured by the FISD","red"] call A3PL_Player_Notification;};
+	if((_obj IN [hideout_obj_4,hideout_obj_6]) && (_faction != "uscg")) exitWith {["This gang hideout has to be secured by the USCG","red"] call A3PL_Player_Notification;};
 
 	_capturedTime = _obj getVariable["CapturedTime",serverTime-1800];
 	if(_capturedTime > (serverTime-1800)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
 
 	private _gangName = _obj getVariable["capturedName",""];
-	private _faction = player getVariable["faction","citizen"];
 	_marker = [_obj] call A3PL_Lib_NearestMarker;
 	_marker setMarkerColor "ColorOrange";
 	[format["%1 has started capturing a gang hideout from %2!",(toUpper _faction),_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];

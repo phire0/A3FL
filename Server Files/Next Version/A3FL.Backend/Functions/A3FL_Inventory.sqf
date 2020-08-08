@@ -319,7 +319,6 @@
 	if(!isNil 'Player_ItemAmount') then {_amount = Player_ItemAmount;};
 
 	if(_amount < 1) exitWith {["Please enter a valid amount","red"] call A3PL_Player_Notification;};
-	hint str(_itemClass);
 	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 
 	if (isNull _obj) exitwith

@@ -1,20 +1,23 @@
+#define JEWLRYTIMER 7200
+
 ["A3PL_Jewelry_SetDrill",
 {
-    if(!(call A3PL_Player_AntiSpam)) exitWith {};
-    private _store = param [0,objNull];
-    private _timer = false;
-    if (!isNil {_store getVariable ["timer",nil]}) then {
-        if (((serverTime - (_store getVariable ["timer",0]))) < JEWLRYTIMER) then {_timer = true};
-    };
-    if (_timer) exitwith {[format ["The store has recently been robbed, try again in %1 seconds",JEWLRYTIMER - ((_store getVariable ["timer",0]) - serverTime)],"red"] call A3PL_Player_Notification;};
-    if (_store animationSourcePhase "jewl_vault" > 0) exitwith {["The bank vault is already open","red"] call A3PL_Player_Notification;};
-    if (backpack player != "A3PL_Backpack_Drill") exitwith {["You are not carrying a drill in your backpack","red"] call A3PL_Player_Notification;};
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	private _store = param [0,objNull];
+	private _timer = false;
+	if (!isNil {_store getVariable ["timer",nil]}) then {
+		if (((serverTime - (_store getVariable ["timer",0]))) < JEWLRYTIMER) then {_timer = true};
+	};
+	if (_timer) exitwith {[format ["The store has recently been robbed, try again in %1 seconds",JEWLRYTIMER - ((_store getVariable ["timer",0]) - serverTime)],"red"] call A3PL_Player_Notification;};
+	if (_store animationSourcePhase "Vault_Door" > 0) exitwith {["The bank vault is already open","red"] call A3PL_Player_Notification;};
+	if (backpack player != "A3PL_Backpack_Drill") exitwith {["You are not carrying a drill in your backpack","red"] call A3PL_Player_Notification;};
 
-    private _drill = "A3PL_Drill_Bank" createvehicle (getpos player);
-    _drill attachto [player_objintersect,[-0.35,0,-0.19],"Vault_Lock"];
-    _drill setdir (getdir player_objintersect) - 90;
+	private _lockPos = (_store modelToWorldVisual (_store selectionPosition ["Vault_Lock","Memory"]));
+	private _drill = "A3PL_Drill_Bank" createvehicle (getpos player);
+	_drill setpos [(_lockPos select 0) - 0.35,(_lockPos select 1),(_lockPos select 2) - 0.19];
+	_drill setdir (getdir _store) - 90;
 
-    removeBackpack player;
+	removeBackpack player;
 }] call Server_Setup_Compile;
 
 ["A3PL_Jewelry_PickCash",
@@ -34,8 +37,8 @@
 {
 	private _store = param [0,objNull];
 	private _factions = ["fisd","uscg"];
-	if (!((player getVariable ["job","unemployed"]) IN _factions)) exitwith {["Only an on-duty sheriff can secure the vault","red"] call A3PL_Player_Notification;};
-	if ((_store animationSourcePhase "jewl_vault") < 0.95) exitwith {["Close the vault before securing it!"] call A3PL_Player_Notification;};
+	if (!((player getVariable ["job","unemployed"]) IN _factions)) exitwith {["Only an on-duty LEO can secure the vault","red"] call A3PL_Player_Notification;};
+	if ((_store animationSourcePhase "Vault_Door") < 0.95) exitwith {["Close the vault before securing it!"] call A3PL_Player_Notification;};
 
 	[_store,"Vualt_Handle",false] call A3PL_Lib_ToggleAnimation;
 	_store setVariable ["CanOpenSafe",false,true];
@@ -122,7 +125,7 @@
 	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];
 	private _nameIntersect = missionNameSpace getVariable ["player_nameintersect",""];
 	private _cops = ["fisd"] call A3PL_Lib_FactionPlayers;
-	if(count(_cops) < 0) exitWith {["There is not enough Sheriffs on duty at this time to break the glass","red"] call A3PL_Player_Notification;};
+	if(count(_cops) < 4) exitWith {["There is not enough Sheriffs on duty at this time to break the glass","red"] call A3PL_Player_Notification;};
 	if (player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 2) then
 	{
 		private _var = format ["damage_%1",_nameintersect];
