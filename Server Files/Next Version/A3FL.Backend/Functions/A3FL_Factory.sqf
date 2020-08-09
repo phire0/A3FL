@@ -797,10 +797,10 @@
 		_minLeft = ceil (_time/60);
 		_return = format ["%1 minute(s)",round(_minLeft)];
 		if(_minLeft > 60) then {
-			_return = format ["%1 heure(s)",round(_minLeft/60)];
+			_return = format ["%1 hours(s)",round(_minLeft/60)];
 		};
 	} else {
-		_return = format ["%1 seconde(s)",ceil _time];
+		_return = format ["%1 second(s)",ceil _time];
 	};
 	_return;
 }] call Server_Setup_Compile;

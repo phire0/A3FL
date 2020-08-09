@@ -21,6 +21,10 @@
 			_markerColor = "ColorRed";
 			{
 				_found = false;
+				if((typeOf _x) isEqualTo "A3PL_Silverado_FD_Brush") then {
+					_vehicles pushback [_x,"BRUSH #"];
+					_found = true;
+				};
 				if((typeOf _x) isEqualTo "A3PL_Pierce_Pumper") then {
 					_vehicles pushback [_x,"ENGINE #"];
 					_found = true;
@@ -1925,20 +1929,28 @@
 
 ["A3PL_Police_SaveSquadNb", {
 	private _number = ctrlText 1400;
+	private _faction = player getVariable["job","unemployed"];
 
 	if((count _number) > 8) exitWith {["You cannot enter more than 8 characters","red"] call A3PL_Player_Notification;};
 
 	if((typeOf A3PL_SquadNb_Veh) IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]) then {
 		private _numberArray = _number splitString "";
-		if(count(_numberArray) < 2) exitWith {};
 		private _TruckNumber2 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _numberArray select 0];
 		private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _numberArray select 1];
 		A3PL_SquadNb_Veh setObjectTextureGlobal [8, _TruckNumber2];
 		A3PL_SquadNb_Veh setObjectTextureGlobal [9, _TruckNumber3];
 		A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
 	} else {
-		A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
+		if((typeOf A3PL_SquadNb_Veh) isEqualTo "A3PL_Silverado_FD_Brush") then {
+			private _numberArray = _number splitString "";
+			private _TruckNumber = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _numberArray select 0];
+			A3PL_SquadNb_Veh setObjectTextureGlobal [8, _TruckNumber];
+			A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
+		} else {
+			A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
+		};
 	};
+	A3PL_SquadNb_Veh setVariable["vehFaction",_faction,true];
 	A3PL_SquadNb_Veh = nil;
 	closeDialog 0;
 }] call Server_Setup_Compile;

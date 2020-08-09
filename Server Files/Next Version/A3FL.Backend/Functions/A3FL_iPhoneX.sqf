@@ -1480,7 +1480,7 @@
 	createDialog "A3PL_iPhone_appFactory";
 	private _display = findDisplay 99800;
 	private _control = _display displayCtrl 99801;
-	private _whitelist = ["Chemical Plant","Steel Mill","Oil Refinery","Goods Factory","Food Processing Plant","Marine Factory","Aircraft Factory","Car Parts Factory","Vehicle Factory"];
+	private _whitelist = ["Chemical Plant","Steel Mill","Oil Refinery","Goods Factory","Food Processing Plant","Marine Factory","Aircraft Factory","Vehicle Factory"];
 	{
 		private["_time","_tmp","_pos","_tmp","_name"];
 		_time = [_x] call A3PL_Factory_GetRemaining;

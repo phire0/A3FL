@@ -108,6 +108,7 @@
 		uiSleep 0.6;
 		A3PL_Medical_PaintBallHit = nil;
 	};
+	if(!(_sBullet isEqualTo "")) then {[getPlayerUID player,"hitReceived",["Shooter",_sSource getVariable["name","unknwon"],"Bullet",_sBullet]] remoteExec ["Server_Log_New",2];};
 	[_sHit,_sDamage,_sBullet] call A3PL_Medical_GenerateWounds;
 }] call Server_Setup_Compile;
 

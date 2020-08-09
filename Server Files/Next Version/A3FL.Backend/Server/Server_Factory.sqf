@@ -186,7 +186,6 @@
 	//HANDLE CREATION OF ITEM HERE
 	[_player,_item,_type] call Server_Factory_Create;
 	//END OF HANDLING CREATION OF ITEM
-	[getPlayerUID _player,"collectFactoryVirtual",[_type,_item,_amount]] call Server_Log_New;
 },true] call Server_Setup_Compile;
 
 //Takes care of spawning the item
@@ -262,5 +261,5 @@
 			_obj setVariable ["ainv",[_classtype,_id,_amount],true];		
 		};
 	};
-	[getPlayerUID _player,"collectFactoryPhysical",[_type,_item,_amount]] call Server_Log_New;
+	[getPlayerUID _player,"collectFactory",[_type,_item,_amount]] call Server_Log_New;
 },true] call Server_Setup_Compile;

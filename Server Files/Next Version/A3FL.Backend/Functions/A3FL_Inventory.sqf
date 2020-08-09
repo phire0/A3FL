@@ -236,11 +236,13 @@
 	private ['_selection', '_classname', '_itemClass', '_itemDir', '_canUse', '_format',"_display","_attach"];
 	_className = param [0,""];
 	_forDrop = param [1,false];
+	_amount = 1;
 	if (_className isEqualTo "") then
 	{
 		_display = findDisplay 1001;
 		_selection = lbCurSel 14571;
 		_classname = lbData [14571, _selection];
+		_amount = floor(parseNumber (ctrlText (_display displayCtrl 14471)));
 	};
 
 	_itemClass = [_classname, 'class'] call A3PL_Config_GetItem;
@@ -256,7 +258,7 @@
 	if (animationState player IN ["a3pl_handsuptokneel","a3pl_handsupkneelgetcuffed","a3pl_cuff","a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","a3pl_cuffkickdown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","a3pl_handsupkneel"]) exitWith {[localize"STR_NewInventory_7", "red"] call A3PL_Player_Notification;};
 	if (!(isNull Player_Item)) then {[false] call A3PL_Inventory_PutBack;};
 
-	_amount = floor(parseNumber (ctrlText (_display displayCtrl 14471)));
+	
 	if(_amount < 1) exitWith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 	if (!([_classname,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 

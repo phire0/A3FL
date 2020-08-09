@@ -93,7 +93,6 @@
 			[_seedItem, _seedAmount] remoteExec ["A3PL_Inventory_Add", (owner _player)];
 		};
 	};
-	[getPlayerUID _player,"PickupItem",["Harvested Crop",_plant,_itemClass,_amount]] call Server_Log_New;
 },true] call Server_Setup_Compile;
 
 ["Server_JobFarming_DrugDealerPos",

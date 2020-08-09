@@ -81,6 +81,8 @@
 	player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
 	[] call A3PL_Inventory_Verify;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
+
+	[getPlayerUID player,"addToTrunk",["Item",_itemClass,"Amount",_itemAmount]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_TakeFromVehicle",
@@ -110,6 +112,8 @@
 	[A3PL_Veh_Interact] call A3PL_Vehicle_StorageVerify;
 	[] call A3PL_Inventory_Verify;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
+
+	[getPlayerUID player,"takeFromTrunk",["Item",_itemClass,"Amount",_itemAmount]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_StorageVerify", {
@@ -211,7 +215,7 @@
 	if(_add) then {
 		if(_veh IN A3PL_Player_Vehicles) exitWith {};
 		A3PL_Player_Vehicles pushback _veh;
-		[format["You received the key of a %1.",getText(configFile >> "CfgVehicles" >> (typeOf _veh) >> "displayName")],"green"] remoteExec ["A3PL_Player_Notification",_target];
+		[format["You received the key of a %1.",getText(configFile >> "CfgVehicles" >> (typeOf _veh) >> "displayName")],"green"] call A3PL_Player_Notification;
 	} else {
 		A3PL_Player_Vehicles = A3PL_Player_Vehicles - [_veh];
 	};

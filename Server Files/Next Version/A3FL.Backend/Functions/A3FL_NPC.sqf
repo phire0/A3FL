@@ -90,9 +90,9 @@
 
 ["A3PL_NPC_TakeJobResponse",
 {
-	private ["_job","_text"];
-	_response = param [0,-1];
-	_job = param [1,""];
+	private _response = param [0,-1];
+	private _job = param [1,""];
+	private _oldJob = player getVariable["job","unemployed"];
 	if (_response == -1) exitwith {[localize"STR_NPC_4", "red"] call A3PL_Player_Notification;}; 
 
 	switch (_response) do
@@ -105,8 +105,6 @@
 
 	_text call A3PL_Player_Notification;
 
-	_job = param [1,""];
-	if (_job == "") exitwith {};
 	switch (_job) do
 	{
 		case "mcfisher": {["mcfishers_accepted"] call A3PL_NPC_Start;};
@@ -120,4 +118,5 @@
 		case "unemployed": {[player] remoteExec ["Server_iPhoneX_getPhoneNumber",2];};
 		default {};
 	};
+	[getPlayerUID player,"ChangeJob",["New Job",_job,"Old Job",_oldJob]] call Server_Log_New;
 }] call Server_Setup_Compile;

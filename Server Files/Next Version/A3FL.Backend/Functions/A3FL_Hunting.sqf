@@ -9,7 +9,7 @@
 ["A3PL_Hunting_Skin",
 {
 	private _animal = param [0,objNull];
-	private _success = false;
+	private _success = true;
 	if (isNull _animal) exitwith {};
 	private _type = typeOf _animal;
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};

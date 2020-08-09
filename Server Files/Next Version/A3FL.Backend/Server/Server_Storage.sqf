@@ -216,7 +216,7 @@
 			};
 		};
 	};
-	[getPlayerUID _player,"garageRetreive",_class] remoteExec ["Server_Log_New",2];
+	[getPlayerUID _player,"garageRetreive",["Class"_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
 	[_veh] remoteExec ["A3PL_Vehicle_AddKey",_player];
 	[4] remoteExec ["A3PL_Storage_CarRetrieveResponse",_player];
 }] call Server_Setup_Compile;
@@ -322,7 +322,7 @@
 			_veh setOwner (owner _player);
 		};
 	};
-	[getPlayerUID _player,"garageRetreive",_class] remoteExec ["Server_Log_New",2];
+	[getPlayerUID _player,"garageRetreive",["Class"_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
 	[_veh] remoteExec ["A3PL_Vehicle_AddKey",_player];
 	_storage animateSource ["storagedoor",1];
 	[_player,_storage,_veh,_id] spawn
@@ -374,6 +374,7 @@
 		private _player = param [2,objNull];
 		private _t = 0;
 		private _fail = false;
+		private _class = typeOf _playerCar;
 		while {(_playerCar distance _player > 5) OR (_player IN _playerCar)} do
 		{
 			_t = _t + 1;
@@ -409,6 +410,7 @@
 			Server_Storage_ListVehicles - [_playerCar];
 			[_playerCar,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
 			[_playerCar] call Server_Vehicle_Despawn;
+			[getPlayerUID _player,"garageStore",["Class"_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
 		};
 	};
 },true] call Server_Setup_Compile;
@@ -445,6 +447,7 @@
 		private _player = param [2,objNull];
 		private _t = 0;
 		private _fail = false;
+		private _class = typeOf _playerCar;
 		while {(_playerCar distance _storage > 3) OR ((_player IN _playerCar) OR ((_player distance _storage) < 4.8))} do
 		{
 			_t = _t + 1;
@@ -489,9 +492,9 @@
 			[_playercar] call Server_Storage_VehicleVirtual;
 			[_playerCar] call Server_Storage_Vehicle;
 			[_playercar] call Server_Vehicle_Despawn;
+			[getPlayerUID _player,"garageStore",["Class"_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
 		};
 	};
-
 },true] call Server_Setup_Compile;
 
 //This function can put a car back into storage

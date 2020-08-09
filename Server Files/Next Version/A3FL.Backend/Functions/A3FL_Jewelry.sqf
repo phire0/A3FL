@@ -140,6 +140,7 @@
 {
 	private _object = param [0,player_objIntersect];
 	private _name = param [1,player_nameIntersect];
+	private _cops = ["fisd"] call A3PL_Lib_FactionPlayers;
 	_object animate [_name,1];
 	playSound3D ["A3\Sounds_F\arsenal\sfx\bullet_hits\glass_07.wss", player, true, getPosASL player, 4, 50];
 	sleep 1;
