@@ -172,6 +172,7 @@
 	};
 
 	_rareItems = ["v_lockpick","keycard","zipties"];
+	_commonItems = ["beer","beer_gold","seed_marijuana","cocaine","weed_10g"];
 	_pItems = ["A3PL_Pickaxe","A3PL_Shovel","A3PL_Cellphone","A3PL_TaserMag"];
 	_rarerItems = ["A3FL_BaseballBat","A3PL_Taser"];
 
@@ -180,6 +181,14 @@
 	if(_chance > 85) then {
 		[(selectRandom _rareItems),1] call A3PL_Inventory_Add;
 		["You found a rare item!", "green"] call A3PL_Player_Notification;
+		_foundRare = true;
+	};
+
+	_foundCommon = false;
+	_chance = random 100;
+	if(_chance > 55) then {
+		[(selectRandom _commonItems),1] call A3PL_Inventory_Add;
+		["You found an illegal item!", "green"] call A3PL_Player_Notification;
 		_foundRare = true;
 	};
 

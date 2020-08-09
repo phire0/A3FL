@@ -101,15 +101,15 @@
 	[player,20] call A3PL_Level_AddXP;
 
 	if(typeOf _house IN Config_Warehouses_List) then {
-		_basicItems = [["dildo",1],["steel",90],["aluminum",90],["titanium",30],["sand",5]];
+		_basicItems = [["dildo",1],["steel",60],["aluminum",60],["titanium",30],["sand",5]];
 		_valuableItems = [["zipties",3],["jug_moonshine",6],["steel",180],["aluminum",180],["titanium",60]];
-		_rareItems = [["weed_100g",3],["v_lockpick",4],["cocaine_hydrochloride",3],["steel",360],["aluminum",360],["titanium",90]];
+		_rareItems = [["weed_100g",3],["v_lockpick",4],["cocaine_hydrochloride",3],["steel",360],["aluminum",360],["titanium",120]];
 
 		_valuableChance = random 100;
-		if(_valuableChance >= 75) then {_virtualItems pushBack selectRandom _valuableItems;};
+		if(_valuableChance >= 85) then {_virtualItems pushBack selectRandom _valuableItems;};
 
 		_rareChance = random 100;
-		if(_rareChance >= 50) then {_virtualItems pushBack selectRandom _rareItems;};
+		if(_rareChance >= 75) then {_virtualItems pushBack selectRandom _rareItems;};
 
 		_virtualItems pushback selectRandom _basicItems;
 		_weaponHolder = createVehicle ["Land_MetalCase_01_large_F", [(getpos _warehouse select 0),(getpos _warehouse select 1),1], [], 0, "CAN_COLLIDE"];
