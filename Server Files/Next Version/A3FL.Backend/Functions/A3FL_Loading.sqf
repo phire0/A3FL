@@ -29,19 +29,19 @@
 		//+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>TEXT_HERE.</t>"
 
 		_control = (_display displayCtrl 69);
-		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.1</t>"
+		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.2</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Emojis in Twitter </t> <img size='1' color='#FFFFFF' image='A3PL_Common\GUI\phone\smileys\pepePoggers.paa'/>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Major Crime (Jewelry Store) </t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Driving test at DMV NPC (RIP DMV)</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Warehouse robberies</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Some new houses/buildings</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Bank Heist gives only money</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Money sinks</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Multiple seeds in hand</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Springfield has been re-vamped</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Quality of Life changes</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Withdrawing money from gang funds</t>"
+		+ "<t size='1' align='left' color='#ff0000'> Removed: </t><t size='1' align='left'>Legal Weapon Factory</t>"
 		+ "<br/>"
 		+ "<t size='0.8' align='center'>For the full changelog visit the forum @ arma3fisherslife.net</t>";
 		_control ctrlSetStructuredText (parseText _format);

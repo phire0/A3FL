@@ -1157,7 +1157,7 @@
 	_truck = _this select 0;
 	_towing = _truck getVariable "Towed_Car";
 	if ((!local _truck) OR ((!isNull _towing) && (!local _towing))) exitWith {[player,_truck,_towing] remoteExec ["Server_Vehicle_AtegoHandle", 2];[localize"STR_NewVehicle_35"] call A3PL_Player_Notification;};
-	if (_truck == _towing) exitWith {};
+	if (_truck isEqualTo _towing) exitWith {};
 	_pushdown = true;
 	_roleoff = true;
 	_distance = 0;
@@ -1174,10 +1174,6 @@
 	_towingdir = _towingXYZ select 4;
 	_truckmass = _towingXYZ select 5;
 	_towingmass = getMass _towing;
-	//_totalmass = _truckmass - _towingmass;
-	//_truck setMass [_totalmass,17];
-	_Fuel_lvl = fuel _truck;
-	//_truck setFuel 0;
 	if ((_truck animationSourcePhase "truck_flatbed") < 0.5) then {[_truck,_angle] spawn A3PL_Vehicle_TowTruck_Ramp_down;}else {_angle = -0.230112;};
 	while {_pushdown} do
 	{
@@ -1199,11 +1195,9 @@
 		If (_angle >= 0) then {_roleoff = false;};
 		sleep 0.01;
 	};
-	//[_towing] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	detach _towing;
 	_towing setPos getPos _towing;
 	_towing setVelocity [0, 0, 1];
-	//_truck setFuel _Fuel_lvl;
 	_truck setVariable ["Towing",false,true];
 	_towing setVariable ["Towed", false, true];
 }] call Server_Setup_Compile;
@@ -1215,6 +1209,7 @@
 	_towpoint = "Land_HelipadEmpty_F" createVehicleLocal (getpos _truck);
 	_towpoint attachTo [_truck,[0,-6.41919,-2.1209]];
 	_towing = (getpos _towpoint) nearestObject "AllVehicles";
+	if(isPlayer _towing) exitWith{["You are not able to tow someone, this is not nice.", "red"] call A3PL_Player_Notification;};
 	_alignment = [_truck, _towing] call BIS_fnc_relativeDirTo;
 	if ((_towpoint distance _towing) >= 6) exitWith {deleteVehicle _towpoint;[localize"STR_NewVehicle_36", "yellow"] call A3PL_Player_Notification;};
 	deleteVehicle _towpoint;
@@ -1222,10 +1217,9 @@
 	if (_alignment < 178) exitWith  {[localize"STR_NewVehicle_37", "yellow"] call A3PL_Player_Notification;};
 	if ((_truck animationSourcePhase "truck_flatbed") < 0.5) exitWith {[localize"STR_NewVehicle_38", "yellow"] call A3PL_Player_Notification;};
 	if (_truck == _towing) exitWith {[localize"STR_NewVehicle_37", "yellow"] call A3PL_Player_Notification;};
-	if ((!local _truck) OR ((!isNull _towing) && (!local _towing))) exitWith {[player,_truck,_towing] remoteExec ["Server_Vehicle_AtegoHandle", 2];["Setting Local owner"] call A3PL_Player_Notification;};
+	if ((!local _truck) OR ((!isNull _towing) && (!local _towing))) exitWith {[player,_truck,_towing] remoteExec ["Server_Vehicle_AtegoHandle", 2];};
 	{unassignVehicle _x;_x action ["EJECT", vehicle _x];sleep 0.4;} foreach crew _towing;
 	_towing engineOn false;
-    //[_towing] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	sleep 0.5;
 	_distance = -5.7323;
 	_height = 0.373707;
@@ -1245,8 +1239,7 @@
 	_Edistance = 0;
 	_towingmass = getMass _towing;
 	_truckmass = getMass _truck;
-	_Fuel_lvl = fuel _truck;
-	//_truck setFuel 0;
+
 	_Supported_Vehicles = ["Jonzie_Datsun_Z432"];
 	_UnSupported_Vehicles = ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_P362_TowTruck","A3PL_Box_Trailer","A3PL_Tanker_Trailer","A3PL_Lowloader","A3PL_Boat_Trailer","A3PL_MobileCrane"];
 	if ((typeOf _towing) in _UnSupported_Vehicles) exitWith {[localize"STR_NewVehicle_39", "red"] call A3PL_Player_Notification;};
@@ -1271,7 +1264,7 @@
 	};
 	while {_roleon} do
 	{
-		waitUntil {_truck animationSourcePhase "truck_flatbed" == 1};
+		waitUntil {_truck animationSourcePhase "truck_flatbed" isEqualTo 1};
 		_towing attachTo [_truck,[_shift,_distance,_height],"flatbed_middle"];
 		_towing setDir _towingdir;
 		_towing setvectorUp [0,_angle,1];
@@ -1283,7 +1276,7 @@
 	};
 	while {_pullup} do
 	{
-		waitUntil {_truck animationSourcePhase "truck_flatbed" == 1};
+		waitUntil {_truck animationSourcePhase "truck_flatbed" isEqualTo 1};
 		_towing attachTo [_truck,[_shift,_distance,_Eheight],"flatbed_middle"];
 		_distance = _distance + 0.01;
 		_Eheight = _Eheight + 0.002346;
@@ -1311,9 +1304,7 @@
 		case "A3PL_P362": {_Endheight = _Eheight + 0.2;_towing attachTo [_truck,[_shift,_distance,_Endheight],"flatbed_middle"];};
 	};
 	_totalmass = _towingmass + _truckmass;
-	//_truck setMass [_totalmass,17];
 	_towing setPos getPos _towing;
-	//_truck setFuel _Fuel_lvl;
 	_towing setVariable ["XYZ", [_height,_Edistance,_distance,_Eheight,_towingdir,_truckmass,_angle], true];
 	_towing setVariable ["Towed", true, true];
 	_truck setVariable ["Towed_Car",_towing,true];

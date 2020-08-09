@@ -179,7 +179,6 @@
 	while {uiSleep 1; ((_drill animationSourcePhase "drill_handle") < 1)} do
 	{
 		_newDrillValue = _drill animationSourcePhase "drill_handle";
-		[format ["Vault drilling progress %2%1","%",round (((_newDrillValue*_timeOut)/_timeOut)*100)],"green"] call A3PL_Player_Notification;
 		if (_newDrillValue <= _drillValue) exitwith {};
 		if (isNull _drill) exitwith {};
 		_drillValue = _newDrillValue;
@@ -217,11 +216,10 @@
 
 	if (_bank animationPhase _name <= (0.01)) then {
 		_random = random 100;
-		if(_random > 75) then {
+		if(_random >= 50) then {
 			_cash = createVehicle ["A3PL_PileCash", position player, [], 0, "CAN_COLLIDE"];
 			_cashOffset = [[-0.6,5.17,-1.4],[-0.6,5.17,-1.73],[-0.6,5.17,-2.05],[-0.6,5.17,-2.4],[-0.6,5.17,-2.7],[-0.6,4.7,-1.4],[-0.6,4.7,-1.73],[-0.6,4.7,-2.05],[-0.6,4.7,-2.4],[-0.6,4.7,-2.7],[-0.6,4.2,-1.4],[-0.6,4.2,-1.73],[-0.6,4.2,-2.05],[-0.6,4.2,-2.4],[-0.6,4.2,-2.7],[-0.6,3.72,-1.4],[-0.6,3.72,-1.73],[-0.6,3.72,-2.05],[-0.6,3.72,-2.4],[-0.6,3.72,-2.7]] select (_depositNr-1);
 			_cash setpos (_bank modelToWorld _cashOffset);
-			_bank animate [_name,1];
 		};
 		_bank animate [_name,1];
 	} else {

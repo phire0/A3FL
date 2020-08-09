@@ -12,9 +12,9 @@
 	if (_store animationSourcePhase "Vault_Door" > 0) exitwith {["The bank vault is already open","red"] call A3PL_Player_Notification;};
 	if (backpack player != "A3PL_Backpack_Drill") exitwith {["You are not carrying a drill in your backpack","red"] call A3PL_Player_Notification;};
 
-	private _lockPos = (_store modelToWorldVisual (_store selectionPosition ["Vault_Lock","Memory"]));
+	private _lockPos = (_store modelToWorld (_store selectionPosition ["Vault_Lock","Memory"]));
 	private _drill = "A3PL_Drill_Bank" createvehicle (getpos player);
-	_drill setpos [(_lockPos select 0) - 0.35,(_lockPos select 1),(_lockPos select 2) - 0.19];
+	_drill setpos [(_lockPos select 0),(_lockPos select 1) - 0.2,(_lockPos select 2) - 0.23]; 
 	_drill setdir (getdir _store) - 90;
 
 	removeBackpack player;
@@ -52,7 +52,7 @@
 	_drill = param [0,player_objintersect];
 	_fail = false;
 	_faction = "FISD";
-	_copsRequired = 0;
+	_copsRequired = 7;
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
 
@@ -72,7 +72,7 @@
 
 
 	_store = (nearestObjects [player, ["Land_A3FL_Fishers_Jewelry"], 15]) select 0;
-	[getPlayerUID player,"jewelryRobbery",[getPos _bank]] remoteExec ["Server_Log_New",2];
+	[getPlayerUID player,"jewelryRobbery",[getPos _store]] remoteExec ["Server_Log_New",2];
 
 	[format["!!! ALERT !!! A jewelry store is being robbed at %1 !", _nearCity],"green","fisd",3] call A3PL_Lib_JobMessage;
 	if(_nearCity isEqualTo "Lubbock") then {
@@ -80,7 +80,7 @@
 	};
 
 	missionNamespace setVariable ["JewelryCooldown",diag_Ticktime,true];
-	playSound3D ["A3PL_Common\effects\bankalarm.ogg", _bank, true, _bank, 3, 1, 250];
+	playSound3D ["A3PL_Common\effects\bankalarm.ogg", _store, true, _store, 3, 1, 250];
 
 	_drill animateSource ["drill_handle",1];
 	playSound3D ["A3PL_Common\effects\bankdrill.ogg", _drill, true, _drill, 3, 1, 100];
@@ -90,7 +90,6 @@
 	while {uiSleep 1; ((_drill animationSourcePhase "drill_handle") < 1)} do
 	{
 		_newDrillValue = _drill animationSourcePhase "drill_handle";
-		[format ["Safe drilling progress %2%1","%",round (((_newDrillValue*_timeOut)/_timeOut)*100)],"green"] call A3PL_Player_Notification;
 		if (_newDrillValue <= _drillValue) exitwith {};
 		if (isNull _drill) exitwith {};
 		_drillValue = _newDrillValue;
@@ -143,13 +142,9 @@
 	private _name = param [1,player_nameIntersect];
 	_object animate [_name,1];
 	playSound3D ["A3\Sounds_F\arsenal\sfx\bullet_hits\glass_07.wss", player, true, getPosASL player, 4, 50];
-	sleep 3;
-	_alarm = _object getVariable["triggered",false];
-	if(!_alarm) then {
-		_object setVariable["triggered",true,true];
-		playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _object, false, getPosASL _object, 1, 1, 300];
-		[_object] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
-	};
+	sleep 1;
+	playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _object, false, _object modelToWorldVisual (_object selectionPosition [_name,"Memory"]), 1, 1, 300];
+	[_object] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
 }] call Server_Setup_Compile;
 
 ["A3PL_Jewelry_PickJewelry",

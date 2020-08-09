@@ -979,7 +979,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_RENTGH",
 		{[cursorObject] call A3PL_JobFarming_BuyGreenhouse;},
-		{(typeOf cursorObject isEqualTo "Land_A3PL_GreenHouse") && {(player distance cursorObject) < 4.3}}
+		{(typeOf cursorObject == "Land_A3PL_GreenHouse") && {(player distance cursorObject) < 4.3}}
 	],
 	[
 		localize"STR_INTER_ANCHOR",

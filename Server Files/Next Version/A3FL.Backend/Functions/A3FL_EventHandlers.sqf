@@ -661,6 +661,7 @@
 		private _source = _this select 3;
 		private _projectile = _this select 4;
 		private _dmg = 0;
+		if((_projectile isEqualTo "A3FL_PepperSpray_Ball") && (_unit isEqualTo _source)) exitWith {_dmg;};
 		if (_damage > 0) then {
 			private _hit = _unit getVariable ["getHit",[]];
 			_hit pushback [_selection,_damage,_projectile,_source];
