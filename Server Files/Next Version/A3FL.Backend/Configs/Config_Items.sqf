@@ -488,7 +488,7 @@ Config_Items =
 	["ME_Bucket",localize"STR_ConfigItems_ME_Bucket",0,"A3PL_MiniExcavator_Bucket",0,true,true,true,true,true,"",[0,0,0],localize"STR_ConfigItems_ExtractMineralsFromTheSoil",1],
 	["ME_Jackhammer",localize"STR_ConfigItems_ME_Jackhammer",0,"A3PL_MiniExcavator_Jackhammer",0,true,true,true,true,true,"",[0,0,0],localize"STR_ConfigItems_AllowsToSprayMinerals",1],
 	["net",localize"STR_ConfigItems_net",1,"A3PL_FishingBuoy",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["bucket_empty",localize"STR_ConfigItems_bucket_empty",1,"A3PL_Bucket",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["bucket_empty",localize"STR_ConfigItems_bucket_empty",1,"A3PL_Bucket",0,true,true,true,true,true,"",[0,0,0],"",10],
 	["bucket_full",localize"STR_ConfigItems_bucket_full",1,"A3PL_BucketFull",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["repairwrench",localize"STR_ConfigItems_repairwrench",1,"A3PL_Wrench",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["ticket",localize"STR_ConfigItems_ticket",0.1,"A3PL_Ticket",0,false,false,true,true,true,"",[0,0,0],"",1],
