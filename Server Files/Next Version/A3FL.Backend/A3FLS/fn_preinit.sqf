@@ -314,6 +314,7 @@ Server_Setup_Compile = {
 		call Server_JobPicking_Init;					//get the marker locations for picking locations
 		[] spawn Server_Lumber_TreeRespawn;				//spawn trees for lumberyacking
 		[] spawn Server_Criminal_MoveNPCs;
+		call Server_Government_BudgetTransfer;
 
 
 		//load stock values

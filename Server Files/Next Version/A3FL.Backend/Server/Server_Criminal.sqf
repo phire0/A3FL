@@ -132,7 +132,6 @@
 		};
 		_usedTown pushback (_selectedTown select 0);
 		_newPosition = (_selectedTown select 1) call BIS_fnc_selectRandom;
-		diag_log str(_newPosition);
 		_x setPos [_newPosition select 0,_newPosition select 1,_newPosition select 2];
 		_x setDir (_newPosition select 3);
 	} foreach _npcs;

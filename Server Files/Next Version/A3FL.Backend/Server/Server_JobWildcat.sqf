@@ -112,4 +112,12 @@
 		_obj setVariable [format ["%1_dmg",_sel],_newdmg,false];
 		_newDmg;
 	}];
+
+	private _pos = getPos _player;
+	private _dir = getDir _player;
+	_player setPos [
+		(_pos select 0) + (sin _dir * 1.5),
+		(_pos select 1) + (cos _dir * 1.5),
+		(_pos select 2)
+	];
 },true] call Server_Setup_Compile;

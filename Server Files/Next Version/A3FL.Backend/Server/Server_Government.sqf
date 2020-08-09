@@ -8,20 +8,22 @@
 
 ["Server_Government_BudgetTransfer",{
 	private _budgets = [
-		["Sheriff Department",10],
-		["Fire Rescue",10],
-		["US Coast Guard",8],
-		["Marshals Service",8],
-		["Department of Justice",5]
+		["Sheriff Department",0.03],
+		["Fire Rescue",0.03],
+		["US Coast Guard",0.02],
+		["Marshals Service",0.02],
+		["Department of Justice",0.01]
 	];
+	private _fedReserve = ["Federal Reserve"] call A3PL_Government_FactionBalance;
 	{
 		private _budgetS = _x select 0;
 		private _part = _x select 1;
 		private _budgetM = [_budgetS] call A3PL_Government_FactionBalance;
-		private _fedReserve = ["Federal Reserve"] call A3PL_Government_FactionBalance;
+		
 		private _add = _fedReserve * _part;
 		diag_log format["Server_Core_BudgetTransfer: %1 : %2 (%3) | Actual: %4",_budgetS, _add, _fedReserve, _budgetM];
 		if((_budgetM < 3000000) || (_fedReserve < _add)) then {
+			_fedReserve = _fedReserve - _add;
 			[_budgetS, _add] remoteExec ["Server_Government_AddBalance",2];
 			["Federal Reserve", -_add] remoteExec ["Server_Government_AddBalance",2];
 		};
