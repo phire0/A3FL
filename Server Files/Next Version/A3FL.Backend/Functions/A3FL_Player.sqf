@@ -32,9 +32,9 @@
 		Player_Drugs = profileNamespace setVariable ["player_drugs",[0,0,0]];
 	};
 	if (profilenamespace getVariable ["A3PL_ShowGrass",true]) then {
-		setTerrainGrid 50;
-	} else {
 		setTerrainGrid 25;
+	} else {
+		setTerrainGrid 50;
 	};
 
 	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride","net","jug","jug_green","jug_green_moonshine"];
