@@ -78,9 +78,43 @@
 	_eventObjects pushBack _object5;
 
 	clearItemCargoGlobal _itemBox;
-	clearMagazineCargo _itemBox;
+	clearMagazineCargoGlobal _itemBox;
 	clearWeaponCargoGlobal _itemBox;
 	clearBackpackCargoGlobal _itemBox;
+
+	private _physicalItems = [];
+   	private _virtualItems = [];
+
+	_commonItems = [];
+	_valuableItems = [];
+	_rareItems = [];
+	_magReward = [];
+	_weaponReward = [];
+	_rareMagReward = [];
+	_rareWeaponReward = [];
+
+	_valueableChance = random 100;
+	if(_valueableChance >= 50) then {_virtualItems pushBack selectRandom _valuableItems;};
+
+	_rareChance = random 100;
+	if(_rareChance >= 70) then {_virtualItems pushBack selectRandom _rareItems;};
+
+	_magChance = random 100;
+	if(_magChance >= 50) then {_physicalItems pushBack selectRandom _magReward;};
+
+	_weaponReward = random 100;
+	if(_weaponReward >= 75) then {_physicalItems pushBack selectRandom _weaponReward;};
+
+	_rareMagChance = random 100;
+	if(_rareMagChance >= 50) then {_physicalItems pushBack selectRandom _rareMagReward;};
+
+	_rareWeaponReward = random 100;
+	if(_rareWeaponReward >= 75) then {_physicalItems pushBack selectRandom _rareWeaponReward;};
+
+	_virtualItems pushBack selectRandom _commonItems;
+
+	_itemBox setVariable["storage",_virtualItems,true];
+	{_itemBox addItemCargoGlobal _x} foreach _physicalItems;
 
     sleep _eventDuration;
 
@@ -121,6 +155,7 @@
 	private _crashPos = getPosATL _plane;
 	deleteVehicle _pilot;
 	deleteVehicle _plane;
+	deleteVehicle _source2;
 
 	private _planeWreck = createVehicle ["Land_HistoricalPlaneWreck_01_F", _crashPos, [], 0, "CAN_COLLIDE"];
 	private _boxPos = [(_crashPos select 0) - random 15,(_crashPos select 1) + random 10,_crashPos select 2];
@@ -144,14 +179,47 @@
     };
 
     clearItemCargoGlobal _itemBox;
-	clearMagazineCargo _itemBox;
+	clearMagazineCargoGlobal _itemBox;
 	clearWeaponCargoGlobal _itemBox;
 	clearBackpackCargoGlobal _itemBox;
    
+	private _physicalItems = [];
+   	private _virtualItems = [];
+
+	_commonItems = [["weed_100g",3],["shrooms",10],["cocaine",3]];
+	_valuableItems = [["zipties",3],["v_lockpick",4],["keycard",1]];
+	_rareItems = [["golden_dildo",1]];
+	_magReward = [["10Rnd_9x21_Mag",3],["A3PL_Red_Glock_Mag",3],["A3PL_P226_Mag",3],["16Rnd_9x21_green_Mag",3],["16Rnd_9x21_yellow_Mag",3],["6Rnd_45ACP_Cylinder",3],["11Rnd_45ACP_Mag",3]];
+	_weaponReward = [["hgun_Pistol_01_F",1],["hgun_Pistol_heavy_02_F",1],["hgun_Pistol_01_F",1],["hgun_Rook40_F",1],["hgun_P07_F",1],["A3PL_Red_Glock",1],["A3PL_P226",1]];
+	_rareMagReward = [["A3PL_M16_Mag",2],["30Rnd_762x39_Mag_F",2],["30Rnd_9x21_Mag_SMG_02",2],["30Rnd_45ACP_Mag_SMG_01",2]];
+	_rareWeaponReward = [["SMG_05_F",1],["SMG_02_F",1],["SMG_01_F",1],["A3PL_M16",1],["arifle_AKM_F",1]];
+
+	_valueableChance = random 100;
+	if(_valueableChance >= 25) then {_virtualItems pushBack selectRandom _valuableItems;};
+
+	_rareChance = random 100;
+	if(_rareChance >= 70) then {_virtualItems pushBack selectRandom _rareItems;};
+
+	_magChance = random 100;
+	if(_magChance >= 25) then {_physicalItems pushBack selectRandom _magReward;};
+
+	_weaponReward = random 100;
+	if(_weaponReward >= 45) then {_physicalItems pushBack selectRandom _weaponReward;};
+
+	_rareMagChance = random 100;
+	if(_rareMagChance >= 50) then {_physicalItems pushBack selectRandom _rareMagReward;};
+
+	_rareWeaponReward = random 100;
+	if(_rareWeaponReward >= 75) then {_physicalItems pushBack selectRandom _rareWeaponReward;};
+
+	_virtualItems pushback selectRandom _commonItems;
+
+	_itemBox setVariable["storage",_virtualItems,true];
+	{_itemBox addItemCargoGlobal _x} foreach _physicalItems;
+
     sleep _eventDuration;
     deleteVehicle _planeWreck;
     deleteVehicle _itemBox;
-	deleteVehicle _source2;
 	deleteMarker _marker;
 	call Server_Events_End;
 	["The plane wreck has been recovered!","yellow"] remoteExec ["A3PL_Player_Notification", -2];
