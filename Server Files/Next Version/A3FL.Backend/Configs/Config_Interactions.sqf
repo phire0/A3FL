@@ -873,7 +873,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_DEPLOYFH",
 		{[35] call A3PL_FD_DeployHose;},
-		{player_ItemClass isEqualTo "FD_Hose"}
+		{player_ItemClass == "FD_Hose"}
 	],
 	[
 		localize "STR_INTER_DROPHOSEA",
