@@ -151,6 +151,8 @@
     sleep _eventDuration;
     deleteVehicle _planeWreck;
     deleteVehicle _itemBox;
+	deleteVehicle _source2;
+	deleteMarker _marker;
 	call Server_Events_End;
 	["The plane wreck has been recovered!","yellow"] remoteExec ["A3PL_Player_Notification", -2];
 },true] call Server_Setup_Compile;
