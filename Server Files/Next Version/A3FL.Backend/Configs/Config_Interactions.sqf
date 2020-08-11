@@ -888,7 +888,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_PUTMASKON",
 		{call A3PL_FD_MaskOn;},
-		{(player_itemClass) isEqualTo "fd_mask"}
+		{(player_itemClass) == "FD_Mask"}
 	],
 	[
 		localize "STR_INTER_PUTMASKOFF",

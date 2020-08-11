@@ -93,6 +93,7 @@
 	private _response = param [0,-1];
 	private _job = param [1,""];
 	private _oldJob = player getVariable["job","unemployed"];
+	private _text = "";
 	if (_response == -1) exitwith {[localize"STR_NPC_4", "red"] call A3PL_Player_Notification;}; 
 
 	switch (_response) do

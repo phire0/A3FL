@@ -42,14 +42,10 @@
 
 ["Server_JobFarming_Harvest",
 {
-	private ["_player","_plant","_growstate","_plants","_itemClass","_amount"];
-	_player = param [0,objNull];
-	_plant = param [1,objNull];
+	private _player = param [0,objNull];
+	private _plant = param [1,objNull];
 	if ((isNull _player) or (isNull _plant)) exitwith {};
-	_growstate = _plant getVariable ["growState",0];
-
 	if ((_plant animationSourcePhase "plant_growth") < 1) exitwith {[4] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];};
-
 	if (_plant getVariable ["inuse",false]) exitwith {};
 	_plant setVariable ["inuse",true,false];
 
@@ -65,7 +61,7 @@
 		case "A3PL_Sugarcane_Plant": {_amount = 2; _itemClass = "sugarcane"; _seedItem = "seed_sugar";};
 		case "A3PL_Cannabis":
 		{
-			private _itemClass = "cannabis_bud";
+			_itemClass = "cannabis_bud";
 			private _lightValue = _plant getVariable ["lightValue",0];
 			switch (true) do
 			{
