@@ -119,5 +119,5 @@
 		case "unemployed": {[player] remoteExec ["Server_iPhoneX_getPhoneNumber",2];};
 		default {};
 	};
-	[getPlayerUID player,"ChangeJob",["New Job",_job,"Old Job",_oldJob]] call Server_Log_New;
+	[getPlayerUID player,"ChangeJob",["New Job",_job,"Old Job",_oldJob]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;

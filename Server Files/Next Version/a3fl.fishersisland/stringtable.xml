@@ -6818,7 +6818,7 @@
             <Original>Add to Factory</Original>
         </Key>
         <Key ID="STR_EXECUTIVEMENU_GUICREATEONPLAYER">
-            <Original>Create on Player</Original>
+            <Original>Admin Create</Original>
         </Key>
         <Key ID="STR_EXECUTIVEMENU_GUIRESTARTSERVER">
             <Original>Restart</Original>

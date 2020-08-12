@@ -137,7 +137,7 @@ class Dialog_ExecutiveMenu
 		class Button_CreateOnPlayer: RscButton
 		{
 			idc = 1602;
-			text = $STR_EXECUTIVEMENU_GUICREATEONPLAYER; 
+			text = $STR_EXECUTIVEMENU_GUICREATEONPLAYER;
 			x = 0.536094 * safezoneW + safezoneX;
 			y = 0.302 * safezoneH + safezoneY;
 			w = 0.0515625 * safezoneW;
@@ -148,13 +148,13 @@ class Dialog_ExecutiveMenu
 		class RscButton_1603: RscButton
 		{
 			idc = 1603;
-			text = "";
+			text = "Remove";
 			x = 0.536094 * safezoneW + safezoneX;
 			y = 0.335 * safezoneH + safezoneY;
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "";
+			action = "call A3PL_AdminRemoveItem;";
 		};
 		class Button_PlayerBan: RscButton
 		{

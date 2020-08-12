@@ -120,7 +120,8 @@
 	if (typeName _newArr != "BOOL") then //item exists
 	{
 		_newArr = [_newArr, (_item select 0), (_item select 1), true] call BIS_fnc_addToPairs;
-		if (isNil "_i") exitwith {}; //somehow couldn't find the index
+		diag_log str(_newArr);
+		if (isNil "_i") exitwith {};
 		(_storage select _i) set [1,_newArr];
 	} else
 	{
