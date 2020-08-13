@@ -264,7 +264,6 @@
 	_unit setVariable ["warehouse",_warehouseObj,true];
 	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
 	if(_firstOwnerWarehouse isEqualTo _uid) then {
-			diag_log "calling Server_Warehouses_LoadItems";
 			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};
@@ -294,11 +293,6 @@
 	};
 
 	(owner _unit) publicVariableClient "A3PL_RetrievedInventory";
-
-	//Enterprise number for jobs
-	if((_return select 9) IN ["fifr","uscg","fisd"]) then {
-		[(_return select 9)] remoteExec["A3PL_iPhoneX_SetJobNumber",_unit];
-	};
 
 	//Load Bills
 	[_unit] remoteExec ["Server_Company_LoadBills",2];
@@ -394,6 +388,9 @@
 		if (isNil "_var") exitwith {};
 		_jobVeh = _unit getVariable ["jobVehicle",nil];
 
+		[] remoteExecCall ["A3PL_Lib_VerifyHunger",_unit];
+		[] remoteExecCall ["A3PL_Lib_VerifyThirst",_unit];
+
 		[_unit,_uid] call Server_Housing_SaveKeys;
 
 		//save furniture
@@ -411,7 +408,7 @@
 		/* Clean Up Any Buoys owned by the player */
 		_deleteAt = [];
 		{
-			if(_x getVariable ["owner",""] == _uid) then {
+			if((_x getVariable ["owner",""]) isEqualTo _uid) then {
 				ropeDestroy (_x getVariable ["rope",objNull]);
 				deleteVehicle (_x getVariable ["net",objNull]);
 				deleteVehicle _x;

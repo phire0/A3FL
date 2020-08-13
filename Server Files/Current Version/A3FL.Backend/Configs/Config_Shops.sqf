@@ -6,23 +6,11 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-Config_Shops_TaxSystem = [
-	["Shop_DrugsDealerCartel","Cartel","Cartel Tax"],
-	["Shop_IllegalWeaponsCartel","Cartel","Cartel Tax"],
-	["Shop_BlackMarketCartel","Cartel","Cartel Tax"]
-];
+Config_Shops_TaxSystem = [];
 publicVariable "Config_Shops_TaxSystem";
 
 Config_Shops_StockSystem = [];
 publicVariable "Config_Shops_StockSystem";
-
-Config_Shops_Factions = [
-	[["Shop_USCG_Supplies_Vendor","Shop_USCG_Pilot_Vendor","Shop_USCG_Weapons_Vendor","Shop_USCG_Car_Vendor","Shop_USCG_Boat_Vendor","Shop_USCG_Plane_Vendor"],"uscg"],
-	[["Shop_SD_Supplies_Vendor","Shop_SD_Weapons_Vendor","Shop_SD_Car_Vendor"],"fisd"],
-	[["Shop_DOC","Shop_DOC_Weapons_Vendor","Shop_DOC_Car_Vendor"],"usms"],
-	[["Shop_FIFR_Supplies_Vendor","Shop_FIFR_Supplies_Vendor2","Shop_VFD_Supplies_Vendor","Shop_FIFR_Vehicle_Vendor","Shop_FIFR_Plane_Vendor"],"fifr"]
-];
-publicVariable "Config_Shops_Factions";
 
 Config_Shops_Items = [
 	["Shop_SFP",[
@@ -65,7 +53,7 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Hemlock",[
-			["item","log",-1,90,3],
+			["item","log",-1,350,3],
 			["weapon","A3PL_FireAxe",480,-1,3],
 			["uniform","A3PL_Lumberjack_Uniform",260,-1,3],
 			["uniform","A3PL_Lumberjack_Blue_Uniform",260,-1,3],
@@ -258,40 +246,38 @@ Config_Shops_Items = [
 		["item","seed_marijuana",300,180,8],
 		["item","beer",50,30,0],
 		["item","beer_gold",280,150,0],
-		["item","weed_5g",-1,405,4],
-		["item","weed_10g",-1,686,4],
-		["item","weed_15g",-1,776,4],
-		["item","weed_20g",-1,1327,4],
-		["item","weed_25g",-1,1659,4],
-		["item","weed_30g",-1,1991,4],
-		["item","weed_35g",-1,2322,4],
-		["item","weed_40g",-1,2655,4],
-		["item","weed_45g",-1,2986,4],
-		["item","weed_50g",-1,3318,4],
-		["item","weed_55g",-1,3650,4],
-		["item","weed_60g",-1,3982,4],
-		["item","weed_65g",-1,4314,4],
-		["item","weed_70g",-1,4646,4],
-		["item","weed_75g",-1,4977,4],
-		["item","weed_80g",-1,5310,4],
-		["item","weed_85g",-1,5641,4],
-		["item","weed_90g",-1,5973,4],
-		["item","weed_95g",-1,6305,4],
-		["item","weed_100g",-1,6637,4],
-		["item","turtle",-1,11250,6],
-		["item","shrooms",-1,393,7],
-		["item","cocaine",-1,750,8],
-		["item","diamond_tourmaline_ill",-1,1050,8],
-		["item","diamond_aqua_ill",-1,1425,8],
-		["item","diamond_alex_ill",-1,1725,8],
-		["item","diamond_sapphire_ill",-1,2055,8],
-		["item","diamond_ruby_ill",-1,2400,8],
-		["item","diamond_emerald_ill",-1,3000,8],
-		["item","diamond_ill",-1,4500,8],
-		["item","cocaine_brick",-1,7500,8]
+		["item","weed_5g",-1,202,4],
+		["item","weed_10g",-1,343,4],
+		["item","weed_15g",-1,388,4],
+		["item","weed_20g",-1,663,4],
+		["item","weed_25g",-1,829,4],
+		["item","weed_30g",-1,995,4],
+		["item","weed_35g",-1,1161,4],
+		["item","weed_40g",-1,1327,4],
+		["item","weed_45g",-1,1493,4],
+		["item","weed_50g",-1,1659,4],
+		["item","weed_55g",-1,1825,4],
+		["item","weed_60g",-1,1991,4],
+		["item","weed_65g",-1,2157,4],
+		["item","weed_70g",-1,2323,4],
+		["item","weed_75g",-1,2488,4],
+		["item","weed_80g",-1,2655,4],
+		["item","weed_85g",-1,2820,4],
+		["item","weed_90g",-1,2986,4],
+		["item","weed_95g",-1,3152,4],
+		["item","weed_100g",-1,3318,4],
+		["item","turtle",-1,5625,6],
+		["item","shrooms",-1,196,7],
+		["item","cocaine",-1,375,12],
+		["item","diamond_tourmaline_ill",-1,525,8],
+		["item","diamond_aqua_ill",-1,712,8],
+		["item","diamond_alex_ill",-1,862,8],
+		["item","diamond_sapphire_ill",-1,1027,8],
+		["item","diamond_ruby_ill",-1,1200,8],
+		["item","diamond_emerald_ill",-1,1500,8],
+		["item","diamond_ill",-1,2250,8],
+		["item","cocaine_brick",-1,3750,12]
 	],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
-
-	["Shop_DrugsDealerCartel",[["item","seed_marijuana",-1,0,2]],{DrugDealerRelative1 modelToWorld [0,0,-0.4]}],
 
 	["Shop_Gang",[
 			["vest","A3PL_SuicideVest",700000,-1,10],
@@ -318,17 +304,6 @@ Config_Shops_Items = [
 			["item","drill_bit",6500,-1,8],
 			["backpack","A3PL_Backpack_Drill",20000,-1,8],
 			["backpack","A3PL_Backpack_Money",6000,-1,8]
-		],{[3852.065,9212.537,0.168]}
-	],
-
-	["Shop_IllegalWeaponsCartel",[
-			["item","Blueprint_Bandanna",300,-1,0,0],
-			["item","Blueprint_Rangemaster_belt",1200,-1,0,0],
-			["item","v_lockpick",750,-1,5],
-			["item","zipties",1200,-1,5],
-			["item","drill_bit",3000,-1,8],
-			["backpack","A3PL_Backpack_Drill",10000,-1,8],
-			["backpack","A3PL_Backpack_Money",3000,-1,8]
 		],{[3852.065,9212.537,0.168]}
 	],
 
@@ -388,51 +363,21 @@ Config_Shops_Items = [
 			["item","turtle",-1,15000,6],
 			["item","shrooms",-1,525,7],
 			["item","cocaine",-1,1000,8],
-			["item","diamond_tourmaline_ill",-1,1400,8],
-			["item","diamond_aqua_ill",-1,1900,8],
-			["item","diamond_alex_ill",-1,2300,8],
-			["item","diamond_sapphire_ill",-1,2740,8],
-			["item","diamond_ruby_ill",-1,3200,8],
-			["item","diamond_emerald_ill",-1,4000,8],
-			["item","diamond_ill",-1,6000,8],
 			["item","keycard",10000,-1,5],
-			["item","cocaine_brick",-1,10000,8]
-		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
-	],
-
-
-	["Shop_BlackMarketCartel",[
-			["item","weed_5g",-1,0,1],
-			["item","weed_10g",-1,0,1],
-			["item","weed_15g",-1,0,1],
-			["item","weed_20g",-1,0,1],
-			["item","weed_25g",-1,0,1],
-			["item","weed_30g",-1,0,1],
-			["item","weed_35g",-1,0,1],
-			["item","weed_40g",-1,0,1],
-			["item","weed_45g",-1,0,1],
-			["item","weed_50g",-1,0,1],
-			["item","weed_55g",-1,0,1],
-			["item","weed_60g",-1,0,1],
-			["item","weed_65g",-1,0,1],
-			["item","weed_70g",-1,0,1],
-			["item","weed_75g",-1,0,1],
-			["item","weed_80g",-1,0,1],
-			["item","weed_85g",-1,0,1],
-			["item","weed_90g",-1,0,1],
-			["item","weed_95g",-1,0,1],
-			["item","weed_100g",-1,0,1],
-			["item","turtle",-1,0,4],
-			["item","shrooms",-1,0,4],
-			["item","cocaine",-1,0,4],
-			["item","diamond_tourmaline_ill",-1,0,4],
-			["item","diamond_aqua_ill",-1,0,4],
-			["item","diamond_alex_ill",-1,0,4],
-			["item","diamond_sapphire_ill",-1,0,4],
-			["item","diamond_ruby_ill",-1,0,4],
-			["item","diamond_emerald_ill",-1,0,4],
-			["item","diamond_ill",-1,0,4],
-			["item","cocaine_brick",-1,0,4]
+			["item","cocaine_brick",-1,10000,8],
+			["item","diamond_tourmaline_ill",-1,22000,8],
+			["item","diamond_aqua_ill",-1,27000,8],
+			["item","diamond_alex_ill",-1,32000,8],
+			["item","diamond_sapphire_ill",-1,37000,8],
+			["item","diamond_ruby_ill",-1,42000,8],
+			["item","diamond_emerald_ill",-1,47000,8],
+			["item","diamond_ill",-1,52000,8],
+			["item","ringset",-1,900,8],
+			["item","ring",-1,900,8],
+			["item","bracelet",-1,900,8],
+			["item","crown",-1,8000,8],
+			["item","necklace",-1,5000,8],
+			["item","golden_dildo",-1,15000,8]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
 
@@ -548,6 +493,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_Air_Ambulance_Pilot_Uniform",0,-1,0],
 			["uniform","A3PL_Air_Ambulance_Paramedic_Uniform",0,-1,0],
 			["uniform","A3PL_FIFR_PR_Uniform",0,-1,0],
+			["uniform","A3PL_FIFR_Swimmer_Uniform",0,-1,0],
 			["vest","A3PL_FIFR_RideAlong_Safety",0,-1,0],
 			["vest","A3PL_FIFR_Safety",0,-1,0],
 			["vest","A3PL_FIFR_Student_Safety",0,-1,0],
@@ -560,6 +506,7 @@ Config_Shops_Items = [
 			["vest","A3PL_Air_Ambulance_Paramedic_Vest",0,-1,0],
 			["vest","A3PL_Air_Ambulance_Pilot_Vest",0,-1,0],
 			["vest","A3PL_FIFR_Public_Relations_vest",0,-1,0],
+			["vest","V_RebreatherB",0,-1,0],
 			["headgear","A3PL_FIFR_Cap_VibrantBlue_Hat",0,-1,0],
 			["headgear","A3PL_FIFR_Cap_White_Hat",0,-1,0],
 			["headgear","A3PL_FIFR_Cap_Red_Hat",0,-1,0],
@@ -581,8 +528,10 @@ Config_Shops_Items = [
 			["headgear","A3PL_FireHelmet_Chief_New",0,-1,0],
 			["headgear","A3PL_FIFR_Flight_Para_Helm",0,-1,0],
 			["headgear","A3PL_FIFR_Pilot_Helm",0,-1,0],
+			["headgear","A3PL_FIFR_Rescue_Helmet",0,-1,0],
 			["aitem","A3PL_Sthetoscope",0,-1,0],
 			["aitem","NVGoggles_OPFOR",150,-1,0],
+			["goggles","G_Diving",0,-1,0],
 			["backpack","A3PL_LR",0,-1,0]
 		],{fifr_table modelToWorld [0,0,-0.5]}
 	],
@@ -700,31 +649,7 @@ Config_Shops_Items = [
 			["vest","A3PL_DOJ_Judy_Vest",0,-1,0],
 			["headgear","A3PL_DOJ_Blk_Hat",0,-1,0],
 			["headgear","A3PL_DOJ_Blu_Hat",0,-1,0],
-			["uniform","A3PL_DA_PoloNvyTan_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_PoloNvyBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_PnkBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_BlkBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_LmBlk_Uniform",0,0,-1],
-            ["uniform","A3PL_DA_DBluBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_LBluBlk_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_LBluTan_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_PnkTan_Uniform",0,-1,0],
-            ["uniform","A3PL_DA_WhtTan_Uniform",0,-1,0],
-			["uniform","A3PL_DA_Polo_Uniform",0,-1,0],
-			["uniform","A3PL_ADA_Polo_Uniform",0,-1,0],
-			["uniform","A3PL_SP_Polo_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Blk_Suit_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Red_Suit_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Blk_Combat_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Blu_Combat_Uniform",0,-1,0],
-			["uniform","A3PL_DAO_Gry_Combat_Uniform",0,-1,0],
-			["vest","A3PL_DAO_DA_Vest",0,-1,0],
-			["vest","A3PL_DAO_ADA_Vest",0,-1,0],
-			["vest","A3PL_DAO_SP_Vest",0,-1,0],
 			["headgear","A3PL_DOJ_Hat",0,-1,0],
-			["headgear","A3PL_DAO_Hat",0,-1,0],
-			["headgear","A3PL_DAO_Blk_Hat",0,-1,0],
-			["headgear","A3PL_DAO_Blu_Hat",0,-1,0],
 			["backpack","A3PL_LR",0,-1,0]
 		],{doj_table modelToWorld [0,0,-0.5]}
 	],
@@ -924,6 +849,7 @@ Config_Shops_Items = [
 			["weapon","hgun_Rook40_F",650,0,0],
 			["weapon","A3PL_P226",650,-1,0],
 			["weapon","hgun_Pistol_heavy_01_F",650,0,0],
+			["weapon","hgun_Pistol_Signal_F",250,0,0],
 			["weaponPrimary","A3FL_Mossberg_590K",7500,-1,0],
 			["weaponPrimary","SMG_02_F",8000,-1,0],
 			["weaponPrimary","SMG_05_F",8000,-1,0],
@@ -943,6 +869,8 @@ Config_Shops_Items = [
 			["magazine","A3FL_Mossberg_590K_8rnd_buck",150,-1,0],
 			["magazine","A3FL_Mossberg_590K_8rnd_Breach",100,-1,0],
 			["magazine","7Rnd_408_Mag",150,-1,0],
+			["magazine","6Rnd_GreenSignal_F",50,0,0],
+			["magazine","6Rnd_RedSignal_F",50,0,0],
 			["aitem","acc_flashlight_pistol",100,0,0],
 			["aitem","acc_flashlight",150,-1,0],
 			["aitem","A3FL_Mossberg_590K_Flashlight",150,-1,0],
@@ -1016,6 +944,7 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",23500,0,0],
 			["vehicle","A3PL_Silverado_PD",12000,0,0],
+			["vehicle","A3PL_Silverado_PD_ST",15500,0,0],
 			["vehicle","A3PL_Raptor_PD",18000,0,0],
 			["vehicle","A3PL_Raptor_PD_ST",21500,0,0],
 			["vehicle","A3PL_Taurus_PD",16000,0,0],
@@ -1156,91 +1085,75 @@ Config_Shops_Items = [
 		],{[2628.91,5604.64,0.1]}
     ],
 
-	["Shop_Perk_Gamer",[
-            ["item","furn_gamer_billiard",0,-1,0],
-			["item","furn_gamer_dartb",0,-1,0],
-			["item","furn_gamer_galaga",0,-1,0],
-			["item","furn_gamer_lcd",0,-1,0],
-			["item","furn_gamer_unicorn",0,-1,0]
-        ],{[2466.18,5637.45,0]}
-	],
-
-    ["Shop_Perk_Garden",[
-			["item","furn_garden_statuegod",0,-1,0],
-			["item","furn_garden_statuegod2",0,-1,0],
-			["item","furn_garden_statuegod3",0,-1,0],
-			["item","furn_garden_statuegod4",0,-1,0],
-			["item","furn_garden_statuemonk",0,-1,0],
-			["item","furn_garden_statueviking",0,-1,0],
-			["item","furn_garden_statueviking2",0,-1,0],
-			["item","furn_garden_statuewoman",0,-1,0],
-			["item","furn_garden_statuewoman2",0,-1,0],
-			["item","furn_garden_statuewoman3",0,-1,0],
-            ["item","furn_garden_campfire",0,-1,0],
-			["item","furn_garden_treebench",0,-1,0],
-			["item","furn_garden_vineslarge",0,-1,0],
-			["item","furn_garden_vinesmedium",0,-1,0],
-			["item","furn_garden_vinessmall",0,-1,0]
-        ],{[2466.18,5637.45,0]}
-    ],
-
-    ["Shop_Perk_Mancave",[
-            ["item","furn_mancave_bear",0,-1,0],
-			["item","furn_mancave_moose",0,-1,0],
-			["item","furn_mancave_deer",0,-1,0],
-			["item","furn_mancave_fox",0,-1,0],
-			["item","furn_mancave_wolf",0,-1,0],
-			["item","furn_mancave_cocktail",0,-1,0],
-			["item","furn_mancave_money1",0,-1,0],
-			["item","furn_mancave_money2",0,-1,0],
-			["item","furn_mancave_ghost",0,-1,0],
-			["item","furn_mancave_globe",0,-1,0]
-        ],{[2466.18,5637.45,0]}
-    ],
-
-    ["Shop_Perk_WallDecor",[
-            ["item","furn_walldecor_1",0,-1,0],
-			["item","furn_walldecor_2",0,-1,0],
-			["item","furn_walldecor_3",0,-1,0],
-			["item","furn_walldecor_4",0,-1,0],
-			["item","furn_walldecor_5",0,-1,0],
-			["item","furn_walldecor_6",0,-1,0],
-			["item","furn_walldecor_7",0,-1,0],
-			["item","furn_walldecor_8",0,-1,0],
-			["item","furn_walldecor_9",0,-1,0],
-			["item","furn_walldecor_10",0,-1,0],
-			["item","furn_walldecor_11",0,-1,0],
-			["item","furn_walldecor_12",0,-1,0],
-			["item","furn_walldecor_13",0,-1,0],
-			["item","furn_walldecor_14",0,-1,0],
-			["item","furn_walldecor_15",0,-1,0]
-        ],{[2466.18,5637.45,0]}
-    ],
-
-    ["Shop_Perk_Winchester",[
-            ["item","furn_winchester_antchair",0,-1,0],
-			["item","furn_winchester_antdesk",0,-1,0],
-			["item","furn_winchester_armchair",0,-1,0],
-			["item","furn_winchester_bed1",0,-1,0],
-			["item","furn_winchester_bed2",0,-1,0],
-			["item","furn_winchester_bedside",0,-1,0],
-			["item","furn_winchester_chair1",0,-1,0],
-			["item","furn_winchester_chair2",0,-1,0],
-			["item","furn_winchester_chestdraw",0,-1,0],
-			["item","furn_winchester_chestdraw2",0,-1,0],
-			["item","furn_winchester_chestdraw3",0,-1,0],
-			["item","furn_winchester_chestdraw4",0,-1,0],
-			["item","furn_winchester_chestdraw5",0,-1,0],
-			["item","furn_winchester_chestdraw6",0,-1,0],
-			["item","furn_winchester_chestdraw7",0,-1,0],
-			["item","furn_winchester_chestdraw8",0,-1,0],
-			["item","furn_winchester_chestdraw9",0,-1,0],
-			["item","furn_winchester_floorlamp",0,-1,0],
-			["item","furn_winchester_floorlamp2",0,-1,0],
-			["item","furn_winchester_floorlamp3",0,-1,0],
-			["item","furn_winchester_wardrobe",0,-1,0],
-			["item","furn_winchester_drawers",0,-1,0],
-			["item","furn_winchester_wine",0,-1,0]
+    ["Shop_Perk_Furniture",[
+    		["item","furn_gamer_billiard",250,-1,0],
+			["item","furn_gamer_dartb",250,-1,0],
+			["item","furn_gamer_galaga",250,-1,0],
+			["item","furn_gamer_lcd",250,-1,0],
+			["item","furn_gamer_unicorn",250,-1,0],
+    		["item","furn_garden_statuegod",250,-1,0],
+			["item","furn_garden_statuegod2",250,-1,0],
+			["item","furn_garden_statuegod3",250,-1,0],
+			["item","furn_garden_statuegod4",250,-1,0],
+			["item","furn_garden_statuemonk",250,-1,0],
+			["item","furn_garden_statueviking",250,-1,0],
+			["item","furn_garden_statueviking2",250,-1,0],
+			["item","furn_garden_statuewoman",250,-1,0],
+			["item","furn_garden_statuewoman2",250,-1,0],
+			["item","furn_garden_statuewoman3",250,-1,0],
+            ["item","furn_garden_campfire",250,-1,0],
+			["item","furn_garden_treebench",250,-1,0],
+			["item","furn_garden_vineslarge",250,-1,0],
+			["item","furn_garden_vinesmedium",250,-1,0],
+			["item","furn_garden_vinessmall",250,-1,0],
+    		["item","furn_mancave_bear",250,-1,0],
+			["item","furn_mancave_moose",250,-1,0],
+			["item","furn_mancave_deer",250,-1,0],
+			["item","furn_mancave_fox",250,-1,0],
+			["item","furn_mancave_wolf",250,-1,0],
+			["item","furn_mancave_cocktail",250,-1,0],
+			["item","furn_mancave_money1",250,-1,0],
+			["item","furn_mancave_money2",250,-1,0],
+			["item","furn_mancave_ghost",250,-1,0],
+			["item","furn_mancave_globe",250,-1,0],
+    		["item","furn_walldecor_1",250,-1,0],
+			["item","furn_walldecor_2",250,-1,0],
+			["item","furn_walldecor_3",250,-1,0],
+			["item","furn_walldecor_4",250,-1,0],
+			["item","furn_walldecor_5",250,-1,0],
+			["item","furn_walldecor_6",250,-1,0],
+			["item","furn_walldecor_7",250,-1,0],
+			["item","furn_walldecor_8",250,-1,0],
+			["item","furn_walldecor_9",250,-1,0],
+			["item","furn_walldecor_10",250,-1,0],
+			["item","furn_walldecor_11",250,-1,0],
+			["item","furn_walldecor_12",250,-1,0],
+			["item","furn_walldecor_13",250,-1,0],
+			["item","furn_walldecor_14",250,-1,0],
+			["item","furn_walldecor_15",250,-1,0],
+            ["item","furn_winchester_antchair",250,-1,0],
+			["item","furn_winchester_antdesk",250,-1,0],
+			["item","furn_winchester_armchair",250,-1,0],
+			["item","furn_winchester_bed1",250,-1,0],
+			["item","furn_winchester_bed2",250,-1,0],
+			["item","furn_winchester_bedside",250,-1,0],
+			["item","furn_winchester_chair1",250,-1,0],
+			["item","furn_winchester_chair2",250,-1,0],
+			["item","furn_winchester_chestdraw",250,-1,0],
+			["item","furn_winchester_chestdraw2",250,-1,0],
+			["item","furn_winchester_chestdraw3",250,-1,0],
+			["item","furn_winchester_chestdraw4",250,-1,0],
+			["item","furn_winchester_chestdraw5",250,-1,0],
+			["item","furn_winchester_chestdraw6",250,-1,0],
+			["item","furn_winchester_chestdraw7",250,-1,0],
+			["item","furn_winchester_chestdraw8",250,-1,0],
+			["item","furn_winchester_chestdraw9",250,-1,0],
+			["item","furn_winchester_floorlamp",250,-1,0],
+			["item","furn_winchester_floorlamp2",250,-1,0],
+			["item","furn_winchester_floorlamp3",250,-1,0],
+			["item","furn_winchester_wardrobe",250,-1,0],
+			["item","furn_winchester_drawers",250,-1,0],
+			["item","furn_winchester_wine",250,-1,0]
         ],{[2466.18,5637.45,0]}
     ],
 
@@ -1304,8 +1217,73 @@ Config_Shops_Items = [
 			["vehicle","A3PL_MailTruck",53620,0,0],
 			["vehicle","A3PL_Wrangler",55050,0,0],
 			["vehicle","A3PL_Ram",55050,0,0],
-			["vehicle","A3PL_Car_Trailer",10000,0,0]
+			["vehicle","A3PL_Car_Trailer",15000,0,0]
 		],{[2942.43,5891.42,-0.75]}
+	],
+
+	//New NPCS
+	["Shop_Ill_Trader",[
+			["item","diamond_tourmaline_ill",-1,22000,8],
+			["item","diamond_aqua_ill",-1,27000,8],
+			["item","diamond_alex_ill",-1,32000,8],
+			["item","diamond_sapphire_ill",-1,37000,8],
+			["item","diamond_ruby_ill",-1,42000,8],
+			["item","diamond_emerald_ill",-1,47000,8],
+			["item","diamond_ill",-1,52000,8],
+			["item","ringset",-1,900,8],
+			["item","ring",-1,900,8],
+			["item","bracelet",-1,900,8],
+			["item","crown",-1,8000,8],
+			["item","necklace",-1,5000,8],
+			["item","golden_dildo",-1,15000,8]
+		],{[3456.32,7513.2,1]}
+	],
+	["Shop_Ill_Moonshine",[
+			["item","distillery",30000,-1,4],
+			["item","distillery_hose",750,-1,4],
+			["item","jug",350,-1,4],
+			["item","jug_green",400,-1,4],
+			["item","jug_moonshine",-1,4125,4]
+		],{[3456.32,7513.2,1]}
+	],
+	["Shop_Ill_Cocaine",[
+			["item","sulphuric_acid",75,-1,12],
+			["item","calcium_carbonate",75,-1,12],
+			["item","potassium_permangate",75,-1,12],
+			["item","ammonium_hydroxide",75,-1,12],
+			["item","acetone",75,-1,12],
+			["item","hydrocloric_acid",75,-1,12],
+			["item","cocaine",-1,1000,12],
+			["item","cocaine_brick",-1,10000,12]
+		],{[3456.32,7513.2,1]}
+	],
+	["Shop_Ill_Shrooms",[
+			["item","shrooms",-1,525,7]
+		],{[3456.32,7513.2,1]}
+	],
+	["Shop_Ill_Weed",[
+			["item","seed_marijuana",300,180,8],
+			["item","weed_5g",-1,540,4],
+			["item","weed_10g",-1,915,4],
+			["item","weed_15g",-1,1035,4],
+			["item","weed_20g",-1,1770,4],
+			["item","weed_25g",-1,2212,4],
+			["item","weed_30g",-1,2655,4],
+			["item","weed_35g",-1,3097,4],
+			["item","weed_40g",-1,3540,4],
+			["item","weed_45g",-1,3982,4],
+			["item","weed_50g",-1,4425,4],
+			["item","weed_55g",-1,4867,4],
+			["item","weed_60g",-1,5310,4],
+			["item","weed_65g",-1,5752,4],
+			["item","weed_70g",-1,6195,4],
+			["item","weed_75g",-1,6637,4],
+			["item","weed_80g",-1,7080,4],
+			["item","weed_85g",-1,7522,4],
+			["item","weed_90g",-1,7965,4],
+			["item","weed_95g",-1,8407,4],
+			["item","weed_100g",-1,8850,4]
+		],{[3456.32,7513.2,1]}
 	]
 ];
 publicVariable "Config_Shops_Items";

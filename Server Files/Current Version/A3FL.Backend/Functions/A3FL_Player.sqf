@@ -9,12 +9,7 @@
 //variables that can be changed from client
 ['A3PL_Player_VariablesSetup',
 {
-	private ["_uid","_num"];
-	Player_PaycheckTime = profileNamespace getVariable ["player_payCheckTime",0];
-	if (!(typeName Player_PayCheckTime == "SCALAR")) then {
-		Player_payCheckTime = 0;
-		Player_payCheckTime = profileNamespace setVariable ["player_payCheckTime",0];
-	};
+	Player_payCheckTime = 0;
 	Player_MaxWeight = 250;
 	Player_Hunger = profileNamespace getVariable ["player_hunger",100];
 	if (!(typeName Player_Hunger == "SCALAR")) then {
@@ -37,9 +32,9 @@
 		Player_Drugs = profileNamespace setVariable ["player_drugs",[0,0,0]];
 	};
 	if (profilenamespace getVariable ["A3PL_ShowGrass",true]) then {
-		setTerrainGrid 50;
-	} else {
 		setTerrainGrid 25;
+	} else {
+		setTerrainGrid 50;
 	};
 
 	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride","net","jug","jug_green","jug_green_moonshine"];
@@ -90,12 +85,7 @@
 	A3PL_Jobroadworker_Impounds = [Shop_ImpoundRetrieve,Shop_ImpoundRetrieve_1,Shop_ImpoundRetrieve_2,Shop_ImpoundRetrieve_3,Shop_ImpoundRetrieve_5];
 	A3PL_Chopshop_Retrivals = [Shop_Chopshop_Retrieve_1];
 	A3PL_Air_Impounds = [Shop_ImpoundRetrieve_4];
-	A3PL_Jobroadworker_MarkBypass =
-	[
-		"K_F450_normal","A3PL_BoatTrailer_Normal","A3PL_Lowloader_Default","A3PL_DrillTrailer_Default",
-		"A3PL_Pierce_Ladder","A3PL_Tanker_Normal","A3PL_Boxtrailer_Normal",
-		"K_Scooter_Black","K_Scooter_DarkBlue","K_Scooter_Green","K_Scooter_Grey","K_Scooter_LightBlue","K_Scooter_Orange","K_Scooter_Pink","K_Scooter_Red","K_Scooter_White","K_Scooter_Stickers"
-	];
+	A3PL_Jobroadworker_MarkBypass =	["A3PL_EMS_Locker","A3PL_P362_TowTruck","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Pierce_Rescue","A3PL_Box_Trailer"];
 
 	//Check A3PL_Intersect for more info
 	//A3PL_ObjIntersect replaces cursortarget and is more reliable (is Nil when there is no intersection or object distance > 20m)
@@ -112,16 +102,6 @@
 	A3PL_Respawn_Time = 60 * 10;
 	//a copy of this variable also exist on the server
 	A3PL_HitchingVehicles = ["A3PL_Car_Base","A3PL_Truck_Base"];
-
-	_uid = getPlayerUID player;
-	_num = _uid select [(count _uid)-7,count _uid];
-	player setVariable ["phone_number",_num,true];
-
-	[] spawn {
-		uiSleep 20;
-		//increase long range freq range, just to be sure this is set afterwards
-		TF_MAX_ASIP_FREQ = 130;
-	};
 
 	//change to imperial system
 	setSystemOfUnits 2;
@@ -279,7 +259,7 @@
 
 
 	//do a version check first
-	if ((getNumber (configFile >> "CfgPatches" >> "A3PL_Common" >> "requiredVersion")) != (missionNameSpace getVariable ["Server_ModVersion",0])) exitwith
+	if ((getNumber (configFile >> "CfgPatches" >> "A3PL_Common" >> "requiredVersion")) < (missionNameSpace getVariable ["Server_ModVersion",0])) exitwith
 	{
 		[] spawn {
 			titleText ["Please download the latest addon update.", "BLACK"];
@@ -649,7 +629,7 @@
 	} else {
 		{_x setMarkerAlphaLocal 1;} forEach ["trash_bin_1","trash_bin_2","trash_bin_3","trash_bin_4","trash_bin_5","trash_bin_6","trash_bin_7","trash_bin_8","trash_bin_9","trash_bin_10","trash_bin_11","trash_bin_12","trash_bin_13","trash_bin_14","trash_bin_15","trash_bin_16","trash_bin_17","trash_bin_18","trash_bin_19","trash_bin_20","trash_bin_21","trash_bin_22","trash_bin_23","trash_bin_24","trash_bin_25","trash_bin_26","trash_bin_27","trash_bin_28","trash_bin_29","trash_bin_30","trash_bin_31","trash_bin_32","trash_bin_33","trash_bin_34","trash_bin_35","trash_bin_36","trash_bin_37","trash_bin_38","trash_bin_39","trash_bin_40","trash_bin_41","trash_bin_42","trash_bin_43","trash_bin_44","trash_bin_45","trash_bin_46","trash_bin_47","trash_bin_48","trash_bin_49","trash_bin_50","trash_bin_51","trash_bin_52","trash_bin_53","trash_bin_54","trash_bin_55","trash_bin_56","trash_bin_57","trash_bin_58","trash_bin_59","trash_bin_60","trash_bin_61","trash_bin_62","trash_bin_63","trash_bin_64","trash_bin_65","trash_bin_66","trash_bin_67","trash_bin_68","trash_bin_69","trash_bin_70","trash_bin_71"];
 	};
-	if(_faction IN ["fifr","uscg","fisd","usms","doj","dmv"]) then {
+	if(_faction IN ["fifr","uscg","fisd","usms","doj"]) then {
 		{_x setMarkerAlphaLocal 0;} forEach ["chemical_dealer","Shroom_Picking","Crime_Base","Shrooms_Field","Moonshine_Shop","Moonshine_Shop_1"];
 	} else {
 		{_x setMarkerAlphaLocal 1;} forEach ["chemical_dealer","Shroom_Picking","Crime_Base","Shrooms_Field","Moonshine_Shop","Moonshine_Shop_1"];
@@ -715,9 +695,8 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Player_Whitelist", {
-	_uid = param [0,""];
-	_faction = param [1,""];
-
+	private _uid = param [0,""];
+	private _faction = param [1,""];
 	if(_faction != "citizen") then {
 		_fname = "";
 		switch(_faction) do {
@@ -726,7 +705,6 @@
 			case ("fisd"): {_fname = "Sheriff Department"};
 			case ("doj"): {_fname = "Department of Justice"};
 			case ("usms"): {_fname = "Fishers Island Marshals Service"};
-			case ("dmv"): {_fname = "Department of Motor Vehicles"};
 		};
 		[format["You've been hired by %1",_fname],"green"] spawn A3PL_Player_Notification;
 	} else {

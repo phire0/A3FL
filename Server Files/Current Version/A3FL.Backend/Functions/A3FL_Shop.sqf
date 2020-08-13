@@ -473,13 +473,15 @@
 				_basePrice = _totalPrice;
 				_totalPrice = round(_totalPrice - (_totalPrice*(_tAmount)));
 
+				player setVariable [_currency,((player getVariable [_currency,0]) + _totalPrice - _taxedAmount),true];
 				[format [localize "STR_SHOP_SOLDITEMTAXES",_itemName,[(_totalPrice - _taxedAmount), 1, 0, true] call CBA_fnc_formatNumber,_amount,_tAmount*100,[(floor(_basePrice-_totalPrice)), 1, 0, true] call CBA_fnc_formatNumber,"%"],"green"] call A3PL_Player_Notification;
 				[_taxBudget,floor(_basePrice-_totalPrice)] remoteExec ["Server_Government_AddBalance",2];
 			} else {
+				player setVariable [_currency,((player getVariable [_currency,0]) + _totalPrice - _taxedAmount),true];
 				[format [localize "STR_SHOP_SOLDITEM",_itemName,[(_totalPrice - _taxedAmount), 1, 0, true] call CBA_fnc_formatNumber,[(player getVariable [_currency,0]), 1, 0, true] call CBA_fnc_formatNumber,_amount],"green"] call A3PL_Player_Notification;
 			};
 
-			player setVariable [_currency,((player getVariable [_currency,0]) + _totalPrice - _taxedAmount),true];
+			
 		};
 	};
 

@@ -90,9 +90,10 @@
 
 ["A3PL_NPC_TakeJobResponse",
 {
-	private ["_job","_text"];
-	_response = param [0,-1];
-	_job = param [1,""];
+	private _response = param [0,-1];
+	private _job = param [1,""];
+	private _oldJob = player getVariable["job","unemployed"];
+	private _text = "";
 	if (_response == -1) exitwith {[localize"STR_NPC_4", "red"] call A3PL_Player_Notification;}; 
 
 	switch (_response) do
@@ -105,23 +106,18 @@
 
 	_text call A3PL_Player_Notification;
 
-	_job = param [1,""];
-	if (_job == "") exitwith {};
 	switch (_job) do
 	{
 		case "mcfisher": {["mcfishers_accepted"] call A3PL_NPC_Start;};
 		case "fisher": {["fisherman_accepted"] call A3PL_NPC_Start;};
-		case "fifr": {["fifr_accepted"] call A3PL_NPC_Start; A3PL_phoneNumberEnterprise = "911";};
-		case "uscg": {["uscg_accepted"] call A3PL_NPC_Start; A3PL_phoneNumberEnterprise = "911";};
-		case "fisd": {A3PL_phoneNumberEnterprise = "911";};
-		case "usms": {A3PL_phoneNumberEnterprise = "911";};
-		case "doj": {A3PL_phoneNumberEnterprise = "912";};
+		case "fifr": {["fifr_accepted"] call A3PL_NPC_Start;};
+		case "uscg": {["uscg_accepted"] call A3PL_NPC_Start;};
 		case "farmer": {["farmer_accepted"] call A3PL_NPC_Start;};
 		case "tacohell": {["tacohell_accepted"] call A3PL_NPC_Start;};
 		case "oil": {["oil_accepted"] call A3PL_NPC_Start;};
 		case "mailman": {["mailman_accepted"] call A3PL_NPC_Start;};
-		case "RealEstate": {["estate_accepted"] call A3PL_NPC_Start;};
 		case "unemployed": {[player] remoteExec ["Server_iPhoneX_getPhoneNumber",2];};
 		default {};
 	};
+	[getPlayerUID player,"ChangeJob",["New Job",_job,"Old Job",_oldJob]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;

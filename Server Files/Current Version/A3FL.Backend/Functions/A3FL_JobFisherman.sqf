@@ -9,35 +9,17 @@
 ["A3PL_JobFisherman_DeployNet",
 {
 	private ["_overwater","_a"];
-	/*_fishingArea = ["A3PL_Marker_Fish1","A3PL_Marker_Fish2","A3PL_Marker_Fish3","A3PL_Marker_Fish4","A3PL_Marker_Fish5","A3PL_Marker_Fish6","A3PL_Marker_Fish7","A3PL_Marker_Fish8"];
-	_canDeploy = false;
-	{
-		if((player inArea _x)) exitWith {
-			_canDeploy = true;
-		};
-	} forEach _fishingArea;
-	if (!_canDeploy) exitwith {
-		["You are not in the deploy zone","red"] call A3PL_Player_Notification;
-	};*/
-
-	if (!(vehicle player == player)) exitwith {
-		["You are inside a vehicle and cannot deploy a net","red"] call A3PL_Player_Notification;
-	};
+	if (!((vehicle player) isEqualTo player)) exitwith {["You are inside a vehicle and cannot deploy a net","red"] call A3PL_Player_Notification;};
 
 	_overwater = !(position player isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
-	if (!(_overwater)) exitwith {
-		["You are not in the water and cannot deploy a net","red"] call A3PL_Player_Notification;
-	};
+	if (!(_overwater)) exitwith {["You are not in the water and cannot deploy a net","red"] call A3PL_Player_Notification;};
 
-	/* Clean up any deleted buoys */
+	_newArray = [];
 	{
-		if(isNull _x) then {A3PL_FishingBuoy_Local deleteAt _forEachIndex;};
+		if(!isNull _x) then {_newArray pushBack _x;};
 	} forEach A3PL_FishingBuoy_Local;
-
-	if(count A3PL_FishingBuoy_Local >= 8) exitWith {
-		["You have already deployed 8 nets!","red"] call A3PL_Player_Notification;
-	};
-
+	A3PL_FishingBuoy_Local = _newArray;
+	if(count A3PL_FishingBuoy_Local >= 8) exitWith {["You have already deployed 8 nets!","red"] call A3PL_Player_Notification;};
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	A3PL_FishingBuoy_Local pushBack player_objIntersect;

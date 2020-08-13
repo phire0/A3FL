@@ -139,9 +139,9 @@
 		enableCamShake true;
 		addCamShake [((_totalDrugs)*0.6), 100, 2];
 
-		"colorCorrections" ppEffectEnable true;
-		"colorCorrections" ppEffectAdjust [0.5, 0.5, 0, [(random 10),(random 10),(random 10),0.2], [1,1,5,2], [(random 5),(random 5),(random 5),(random 5)]];
-		"colorCorrections" ppEffectCommit 40;
+		// "colorCorrections" ppEffectEnable true;
+		// "colorCorrections" ppEffectAdjust [0.5, 0.5, 0, [(random 10),(random 10),(random 10),0.2], [1,1,5,2], [(random 5),(random 5),(random 5),(random 5)]];
+		// "colorCorrections" ppEffectCommit 40;
 		player setstamina 100;
 
 		//Adjusting animations speed
@@ -149,14 +149,14 @@
 
 		//Visual Effects
 		if(_shrooms >= 15) then {
-			"ChromAberration" ppEffectEnable true;
-			"ChromAberration" ppEffectAdjust [(_totalDrugs/800), (_totalDrugs/800), true];
-			"ChromAberration" ppEffectCommit 30;
+			// "ChromAberration" ppEffectEnable true;
+			// "ChromAberration" ppEffectAdjust [(_totalDrugs/800), (_totalDrugs/800), true];
+			// "ChromAberration" ppEffectCommit 30;
 		};
 		if(_shrooms > 30) then {
-			"RadialBlur" ppEffectEnable true;
-			"RadialBlur" ppEffectAdjust [0.01, 0.01, 0.06, 0.06];	//Make it variate with alcohol level
-			"RadialBlur" ppEffectCommit 30;
+			// "RadialBlur" ppEffectEnable true;
+			// "RadialBlur" ppEffectAdjust [0.01, 0.01, 0.06, 0.06];	//Make it variate with alcohol level
+			// "RadialBlur" ppEffectCommit 30;
 			player enableStamina false;
 		};
 	};
@@ -169,9 +169,9 @@
 		enableCamShake true;
 		addCamShake [((_coke)*0.6), 100, 2];
 
-		"colorCorrections" ppEffectEnable true;
-		"colorCorrections" ppEffectAdjust [0.5, 0.5, 0, [(random 10),(random 10),(random 10),0.2], [1,1,5,2], [(random 5),(random 5),(random 5),(random 5)]];
-		"colorCorrections" ppEffectCommit 40;
+		// "colorCorrections" ppEffectEnable true;
+		// "colorCorrections" ppEffectAdjust [0.5, 0.5, 0, [(random 10),(random 10),(random 10),0.2], [1,1,5,2], [(random 5),(random 5),(random 5),(random 5)]];
+		// "colorCorrections" ppEffectCommit 40;
 		player setAnimSpeedCoef 1.3;
 
 		//Adjusting animations speed
@@ -179,15 +179,15 @@
 
 		//Visual Effects
 		if(_coke > 30) then {
-			"colorCorrections" ppEffectEnable true;
-			"colorCorrections" ppEffectAdjust [0.01, 0.01, 0.06, 0.06];	//Make it variate with alcohol level
-			"colorCorrections" ppEffectCommit 30;
+			// "colorCorrections" ppEffectEnable true;
+			// "colorCorrections" ppEffectAdjust [0.01, 0.01, 0.06, 0.06];	//Make it variate with alcohol level
+			// "colorCorrections" ppEffectCommit 30;
 			player setStamina 200;
 		};
 		if(_coke >= 15) then {
-			"colorCorrections" ppEffectEnable true;
-			"colorCorrections" ppEffectAdjust [(_coke/800), (_coke/800), true];
-			"colorCorrections" ppEffectCommit 30;
+			// "colorCorrections" ppEffectEnable true;
+			// "colorCorrections" ppEffectAdjust [(_coke/800), (_coke/800), true];
+			// "colorCorrections" ppEffectCommit 30;
 			player setStamina 150;
 		};
 	};
@@ -195,18 +195,18 @@
 	if((Player_Drugs select 2) > 0) then {
 		_weed = (Player_Drugs select 2);
 
-		"dynamicBlur" ppEffectEnable true;
-		"dynamicBlur" ppEffectAdjust [0.25];
-		"dynamicBlur" ppEffectCommit 1;
+		// "dynamicBlur" ppEffectEnable true;
+		// "dynamicBlur" ppEffectAdjust [0.25];
+		// "dynamicBlur" ppEffectCommit 1;
 
 		//Adjusting animations speed
 		player setAnimSpeedCoef 0.7;
 
 		//Visual Effects
 		if(_weed > 50) then {
-			"dynamicBlur" ppEffectEnable true;
-			"dynamicBlur" ppEffectAdjust [0.75];	//Make it variate with alcohol level
-			"dynamicBlur" ppEffectCommit 1;
+			// "dynamicBlur" ppEffectEnable true;
+			// "dynamicBlur" ppEffectAdjust [0.75];	//Make it variate with alcohol level
+			// "dynamicBlur" ppEffectCommit 1;
 			player setAnimSpeedCoef 0.5;
 			_bloodLevel = [player,"blood"] call A3PL_Medical_GetVar;
 			if(_bloodLevel < 5000) then {
@@ -218,7 +218,7 @@
 	//Decrease Drug level
 	{
 		if(_x > 0) then {
-			Player_Drugs set[_forEachIndex, (_x - 3)];
+			Player_Drugs set[_forEachIndex, (_x - 1)];
 		};
 	} foreach Player_Drugs;
 	profileNamespace setVariable ["player_drugs",Player_Drugs];

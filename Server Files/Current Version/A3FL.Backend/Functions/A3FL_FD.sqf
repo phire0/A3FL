@@ -24,7 +24,7 @@
 	private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number3];
 	_veh setObjectTextureGlobal [8, _TruckNumber2 ];
 	_veh setObjectTextureGlobal [9, _TruckNumber3 ];
-	_veh setVariable["ladder_id", str(_Number2) + str(_Number3),true];
+	_veh setVariable["squadnb", str(_Number2) + str(_Number3),true];
 }] call Server_Setup_Compile;
 
 ['A3PL_FD_SetPumperNumber',
@@ -44,7 +44,7 @@
 	private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number3];
 	_veh setObjectTextureGlobal [8, _TruckNumber2];
 	_veh setObjectTextureGlobal [9, _TruckNumber3];
-	_veh setVariable["engine_id", str(_Number2) + str(_Number3),true];
+	_veh setVariable["squadnb", str(_Number2) + str(_Number3),true];
 }] call Server_Setup_Compile;
 
 ['A3PL_FD_SetRescueNumber',
@@ -64,7 +64,7 @@
 	private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number3];
 	_veh setObjectTextureGlobal [8, _TruckNumber2];
 	_veh setObjectTextureGlobal [9, _TruckNumber3];
-	_veh setVariable["rescue_id", str(_Number2) + str(_Number3),true];
+	_veh setVariable["squadnb", str(_Number2) + str(_Number3),true];
 }] call Server_Setup_Compile;
 
 ['A3PL_FD_SetBrushNumber',
@@ -74,7 +74,7 @@
 	private _TruckNumber = {(typeOf _x isEqualTo _type_1)} count vehicles;
 	private _TruckNumber1 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _TruckNumber + 6];
 	_veh setObjectTextureGlobal [8, _TruckNumber1 ];
-	_veh setVariable["brush_id", str(_Number1),true];
+	_veh setVariable["squadnb", _TruckNumber,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_FD_HandleJaws",
@@ -153,6 +153,7 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _hydrant = param [0,objNull];
 	private _pos = [];
+	private _dir = -180;
 	if (!((typeOf _hydrant) IN ["Land_A3PL_FireHydrant","Land_A3PL_Gas_Station"])) exitwith {[localize"STR_NewFD_Hydrant","red"] call A3PL_Player_Notification;};
 	if (((count (attachedObjects _hydrant)) > 0) && (typeOf _hydrant == "Land_A3PL_FireHydrant")) exitwith {[localize"STR_NewFD_Adaptator","red"] call A3PL_Player_Notification;};
 	if (player_itemClass != "FD_adapter") exitwith {[localize"STR_NewFD_AdapterNo","red"] call A3PL_Player_Notification;};
@@ -806,8 +807,9 @@
 	private ["_veh","_end","_water","_source","_sourceAmount","_i"];
 	_veh = param [0,objNull];
 
-	if (missionNameSpace getVariable ["A3PL_FD_EngineLoopRunning",false]) exitwith {};
-	A3PL_FD_EngineLoopRunning = true;
+	_filling = _veh getVariable["A3PL_FD_EngineLoopRunning",false];
+	if (_filling) exitwith {};
+	_veh setVariable["A3PL_FD_EngineLoopRunning",true,true];
 
 	_i = 0;
 	waitUntil {sleep 0.1; _i = _i + 0.1; if (_i > 3) exitwith {_veh animate ["ft_lever_8",0,true]}; _veh animationPhase "ft_lever_8" > 0};
@@ -839,9 +841,9 @@
 				};
 			};
 		};
-		uiSleep 1;
+		sleep 1;
 	};
-	A3PL_FD_EngineLoopRunning = nil;
+	_veh setVariable["A3PL_FD_EngineLoopRunning",nil,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_FD_BrushLoop",
@@ -849,8 +851,9 @@
 	private ["_veh","_end","_water","_source","_sourceAmount","_i"];
 	_veh = param [0,objNull];
 
-	if (missionNameSpace getVariable ["A3PL_FD_BrushLoopRunning",false]) exitwith {};
-	A3PL_FD_BrushLoopRunning = true;
+	_filling = _veh getVariable["A3PL_FD_BrushLoopRunning",false];
+	if (_filling) exitwith {};
+	_veh setVariable["A3PL_FD_BrushLoopRunning",true,true];
 
 	_i = 0;
 	waitUntil {sleep 0.1; _i = _i + 0.1; if (_i > 3) exitwith {_veh animate ["bt_lever_1",0,true]}; _veh animationPhase "bt_lever_1" > 0;};
@@ -870,20 +873,20 @@
 						if (_water < 800) then
 						{
 							_veh setVariable ["water",_water + 10,true];
-							_veh animate ["Water_Gauge1",(_water + 10) / 1800];
+							_veh animate ["Water_Gauge1",(_water + 10) / 800];
 						};
 						if (typeOf _source == "A3PL_Silverado_FD_Brush") then
 						{
 							_source setVariable ["water",_water - 10,true];
-							_source animate ["Water_Gauge1",(_water - 10) / 1800];
+							_source animate ["Water_Gauge1",(_water - 10) / 800];
 						};
 					};
 				};
 			};
 		};
-		uiSleep 1;
+		sleep 1;
 	};
-	A3PL_FD_BrushLoopRunning = nil;
+	_veh setVariable["A3PL_FD_BrushLoopRunning",nil,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_FD_MaskOff",
@@ -964,7 +967,6 @@
 			_marker = createMarker [format ["firealarm_%1",random 4000], position _building];
 			_marker setMarkerShape "ICON";
 			_marker setMarkerType "A3PL_Markers_FIFD";
-
 			_marker setMarkerText " Fire Alarm!";
 			_marker setMarkerColor "ColorWhite";
 
@@ -1068,7 +1070,7 @@
 		_marker setMarkerShapeLocal "ICON";
 		_marker setMarkerTypeLocal "A3PL_Markers_FIFD";
 		_marker setMarkerTextLocal format["Hydrant #%1",_hydrantID];
-		_marker setMarkerColorLocal "ColorRed";
+		_marker setMarkerColorLocal "ColorWhite";
 		_marker setMarkerAlphaLocal 0.8;
 
 		_markersList pushBack (_marker);

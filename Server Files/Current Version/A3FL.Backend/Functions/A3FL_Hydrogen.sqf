@@ -198,7 +198,7 @@
 			case (_classname IN ["A3PL_CLS63"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0,0,0];};
 			case (_classname IN ["A3PL_Urus"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
 			case (_classname isEqualTo "A3PL_JerryCan"): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.3,0,0.2];};
-			case (_classname IN ["A3PL_Taurus","A3PL_Taurus_PD","A3PL_Taurus_PD_ST"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
+			case (_classname IN ["A3PL_Taurus","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Taurus_FD"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
 			default {_vector = [[0.320857,-0.0197785,-0.946921],[0.946907,0.0282805,0.320261]];_attachTo = [-0.1,0,0];_maxlength = 7;};
 		};
 
@@ -228,10 +228,11 @@
 	};
 	while {attachedTo _hose == _intersect} do
 	{
-		uiSleep 0.1;
+		sleep 0.1;
 		if ((_hose distance _tank) > _maxlength) exitwith
 		{
 			detach _hose;
+			_intersect setDamage 0.9;
 		};
 	};
 }] call Server_Setup_Compile;

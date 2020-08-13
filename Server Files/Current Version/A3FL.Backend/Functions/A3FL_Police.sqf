@@ -8,135 +8,111 @@
 
 ["A3PL_Police_GPS",
 {
-	private _job = player getVariable ["faction","unemployed"];
-	if (!(_job IN ["uscg","fifr","fisd","usms"])) exitwith {};
-	if (!isNil "A3PL_Police_GPSEnabled") exitwith {};
-	A3PL_Police_GPSEnabled = true;
-	[_job] spawn {
-		private ["_vehicles","_markercolor"];
-		_job = param [0,"unemployed"];
-		while {(player getVariable ["faction","unemployed"]) isEqualTo _job} do {
-			uiSleep 1;
-			if (visibleMap) then {
-				_vehicles = [];
-				switch (_job) do {
-					case ("fifr"): {
-						_markercolor = "ColorRed";
-						{
-							_found = false;
-							if((typeOf _x) IN ["A3PL_Pierce_Pumper"]) then {
-								_id = _x getVariable["engine_id","00"];
-								_vehicles pushback [_x,"ENGINE #","mil_dot",_id];
-								_found = true;
-							};
-							if((typeOf _x) IN ["A3PL_Pierce_Ladder"]) then {
-								_id = _x getVariable["ladder_id","00"];
-								_vehicles pushback [_x,"LADDER #","mil_dot",_id];
-								_found = true;
-							};
-							if((typeOf _x) IN ["A3PL_Pierce_Rescue"]) then {
-								_id = _x getVariable["rescue_id","00"];
-								_vehicles pushback [_x,"RESCUE #","mil_dot",_id];
-								_found = true;
-							};
-							if((typeOf _x) IN ["A3PL_Pierce_Heavy_Ladder"]) then {
-								_id = _x getVariable["ladder_id","00"];
-								_vehicles pushback [_x,"HEAVY LADDER #","mil_dot",_id];
-								_found = true;
-							};
-							if((typeOf _x) IN ["A3PL_E350","Jonzie_Ambulance"]) then {
-								_id = ((netId _x) splitString ":") select 1;
-								_vehicles pushback [_x,"EMS #","mil_dot",_id];
-								_found = true;
-							};
-							if((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Silverado_PD","A3PL_Charger_PD","A3PL_Raptor_PD","A3PL_Taurus_FD"]) then {
-								if((["FIFR",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || (["VFD",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || (["FIRE",((getObjectTextures _x) select 0)] call BIS_fnc_inString)) then {
-									_id = ((netId _x) splitString ":") select 1;
-									_vehicles pushback [_x,"VL #","mil_dot",_id];
-									_found = true;
-								};
-							};
-							if((typeOf _x) IN ["Heli_Medium01_Medic_H"]) then {
-								_id = ((netId _x) splitString ":") select 1;
-								_vehicles pushback [_x,"AIR UNIT #","mil_dot",_id];
-								_found = true;
-							};
-							if(!_found) then {
-								if (((typeOf _x) find "_FD") != -1) then {
-									_id = ((netId _x) splitString ":") select 1;
-									_vehicles pushback [_x,"FD #","mil_dot",_id];
-								};
-							};
-						} foreach vehicles;
-					};
-					case ("uscg"): {
-						_markercolor = "colorBLUFOR";
-						{
-							if (((typeOf _x) == "A3PL_Cutter")) then {
-								_vehicles pushback [_x,"USCG CUTTER","mil_dot",""];
-							};
-							if (((typeOf _x) == "A3PL_Goose_USCG")) then {
-								_vehicles pushback [_x,"WHALE UNIT","mil_dot",""];
-							};
-							if (((typeOf _x) find "_RBM") != -1 || ((typeOf _x) find "_Patrol") != -1) then	{
-								_id = ((netId _x) splitString ":") select 1;
-								_vehicles pushback [_x,"MARITIME UNIT #","mil_dot",_id];
-							};
-							if (((typeOf _x) find "_Jayhawk") != -1) then {
-								_id = ((netId _x) splitString ":") select 1;
-								_vehicles pushback [_x,"AIR UNIT #","mil_dot",_id];
-							};
-							if (((typeOf _x) find "_PD") != -1) then {
-								if(!(["FIFR",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || !(["VFD",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || !(["FIRE",((getObjectTextures _x) select 0)] call BIS_fnc_inString)) then {
-									_id = ((netId _x) splitString ":") select 1;
-									_vehicles pushback [_x,"PATROL UNIT #","mil_dot",_id];
-								};
-							};
-						} foreach vehicles;
-					};
-					case ("fisd"): {
-						_markercolor = "colorBLUFOR";
-						{
-							if (((typeOf _x) find "_PD") != -1) then {
-								if(!(["FIFR",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || !(["VFD",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || !(["FIRE",((getObjectTextures _x) select 0)] call BIS_fnc_inString)) then {
-									_id = ((netId _x) splitString ":") select 1;
-									_vehicles pushback [_x,"PATROL UNIT #","mil_dot",_id];
-								};
-							};
-						} foreach vehicles;
-					};
-					case ("usms"):
-					{
-						_markercolor = "colorBLUFOR";
-						{
-							if (((typeOf _x) find "_PD") != -1) then {
-								if(!(["FIFR",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || !(["VFD",((getObjectTextures _x) select 0)] call BIS_fnc_inString) || !(["FIRE",((getObjectTextures _x) select 0)] call BIS_fnc_inString)) then {
-									_id = ((netId _x) splitString ":") select 1;
-									_vehicles pushback [_x,"PATROL UNIT #","mil_dot",_id];
-								};
-							};
-						} foreach vehicles;
-					};
-				};
-
-				if (!isNil "A3PL_Police_GPSmarkers") then {
-					{deleteMarkerLocal _x;} foreach A3PL_Police_GPSmarkers;
-				};
-				A3PL_Police_GPSmarkers = [];
-				{
-					_marker = createMarkerLocal [format["unit_%1",round (random 1000)],visiblePosition (_x select 0)];
-					_marker setMarkerColorLocal _markerColor;
-					_marker setMarkerTypeLocal (_x select 2);
-					_marker setMarkerAlphaLocal 0.8;
-					_marker setMarkerTextLocal format["%1%2",(_x select 1),(_x select 3)];
-					A3PL_Police_GPSmarkers pushback _marker;
-				} foreach _vehicles;
-			};
-		};
-		A3PL_Police_GPSEnabled = nil;
+	private _job = player getVariable ["job","unemployed"];
+	private _vehicles = [];
+	private _markerColor = "colorBLUFOR";
+	if(!(_job IN ["fisd","fifr","usms","uscg"]) && !isNil "A3PL_Police_GPSmarkers") exitWith {
 		{deleteMarkerLocal _x} foreach A3PL_Police_GPSmarkers;
 		A3PL_Police_GPSmarkers = nil;
 	};
+
+	switch (_job) do {
+		case ("fifr"): {
+			_markerColor = "ColorRed";
+			{
+				_found = false;
+				if((typeOf _x) isEqualTo "A3PL_Silverado_FD_Brush") then {
+					_vehicles pushback [_x,"BRUSH #"];
+					_found = true;
+				};
+				if((typeOf _x) isEqualTo "A3PL_Pierce_Pumper") then {
+					_vehicles pushback [_x,"ENGINE #"];
+					_found = true;
+				};
+				if((typeOf _x) isEqualTo "A3PL_Pierce_Ladder") then {
+					_vehicles pushback [_x,"LADDER #"];
+					_found = true;
+				};
+				if((typeOf _x) isEqualTo "A3PL_Pierce_Rescue") then {
+					_vehicles pushback [_x,"RESCUE #"];
+					_found = true;
+				};
+				if((typeOf _x) isEqualTo "A3PL_Pierce_Heavy_Ladder") then {
+					_vehicles pushback [_x,"HEAVY LADDER #"];
+					_found = true;
+				};
+				if((typeOf _x) IN ["A3PL_E350","Jonzie_Ambulance"]) then {
+					_vehicles pushback [_x,"EMS #"];
+					_found = true;
+				};
+				if((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Raptor_PD","A3PL_Taurus_FD","A3PL_Charger15_FD"]) then {
+					_vehicles pushback [_x,"CAR #"];
+					_found = true;
+				};
+				if((typeOf _x) isEqualTo "Heli_Medium01_Medic_H") then {
+					_vehicles pushback [_x,"AIR UNIT #"];
+					_found = true;
+				};
+				if(!_found) then {
+					if (((typeOf _x) find "_FD") != -1) then {
+						_vehicles pushback [_x,"FD #"];
+					};
+				};
+			} foreach vehicles;
+		};
+		case ("uscg"): {
+			{
+				if (((typeOf _x) isEqualTo "A3PL_Cutter")) then {
+					_vehicles pushback [_x,"USCG CUTTER "];
+				};
+				if (((typeOf _x) isEqualTo "A3PL_Goose_USCG")) then {
+					_vehicles pushback [_x,"WHALE UNIT"];
+				};
+				if ((typeOf _x) isEqualTo "A3PL_RBM") then	{
+					_vehicles pushback [_x,"MARITIME UNIT #"];
+				};
+				if ((typeOf _x) isEqualTo "A3PL_Jayhawk") then {
+					_vehicles pushback [_x,"AIR UNIT #"];
+				};
+				if (((typeOf _x) find "_PD") != -1) then {
+					_vehicles pushback [_x,"SQUAD #"];
+				};
+			} foreach vehicles;
+		};
+		case ("fisd"): {
+			{
+				if (((typeOf _x) find "_PD") != -1) then {
+					_vehicles pushback [_x,"SQUAD #"];
+				};
+			} foreach vehicles;
+		};
+		case ("usms"): {
+			{
+				if (((typeOf _x) find "_PD") != -1) then {
+					_vehicles pushback [_x,"SQUAD #"];
+				};
+			} foreach vehicles;
+		};
+	};
+
+	if (!isNil "A3PL_Police_GPSmarkers") then {
+		{deleteMarkerLocal _x;} foreach A3PL_Police_GPSmarkers;
+	};
+
+	A3PL_Police_GPSmarkers = [];
+	{
+		private _veh = _x select 0;
+		private _title = _x select 1;
+		private _netId = ((netId _veh) splitString ":") select 1;
+		private _squadnb = _veh getVariable["squadnb",_netId];
+		_marker = createMarkerLocal [format["unit_%1",_netId],visiblePosition (_veh)];
+		_marker setMarkerTypeLocal "A3PL_GPS";
+		_marker setMarkerColorLocal _markerColor;
+		_marker setMarkerSizeLocal [0.7, 0.7];
+		_marker setMarkerDirLocal floor((getDir _veh) - 40);
+		_marker setMarkerTextLocal format["%1%2",_title,_squadnb];
+		A3PL_Police_GPSmarkers pushback _marker;
+	} foreach _vehicles;
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_HandleBreach",
@@ -361,8 +337,13 @@
 			_class = _control lbData (lbCurSel _control);
 			_amount = _control lbValue (lbCurSel _control);
 			_itemName = [_class, "name"] call A3PL_Config_GetItem;
-			[_class,-_amount] remoteExec ["A3PL_Inventory_Add",_target];
-			[_class,_amount] call A3PL_Inventory_Add;
+			if(_class isEqualTo "cash") then {
+				[_target, 'Player_Cash', ((_target getVariable 'Player_Cash') - _amount)] remoteExec ["Server_Core_ChangeVar",2];
+				[player, 'Player_Cash', ((player getVariable 'Player_Cash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
+			} else {
+				[_class,-_amount] remoteExec ["A3PL_Inventory_Add",_target];
+				[_class,_amount] call A3PL_Inventory_Add;
+			};
 		};
 	};
 	_control lbDelete (lbCurSel _control);
@@ -416,7 +397,11 @@
 		[false] call A3PL_Inventory_PutBack;
 		["handcuffs", 1] call A3PL_Inventory_Remove;
 	};
-	[player, 5] call A3PL_Level_AddXP;
+	_obj setVariable ["Cuffed",true,true];
+	[false] call A3PL_Inventory_PutBack;
+	["handcuffs", 1] call A3PL_Inventory_Remove;
+	waitUntil{(animationState _obj) isEqualTo "amovppnemstpsnonwnondnon"};
+	[player,_obj,5] remoteExec ["A3PL_Police_HandleAnim",0];
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Uncuff', {
@@ -1815,26 +1800,19 @@
 
 ["A3PL_Police_Panic",
 {
-	private ["_faction","_panicCooldown","_factionMembers"];
-	_faction = player getVariable ["faction",""];
-	_panicCooldown = player getVariable ["panicCooldown",false];
-	_factionMembers = [_faction] call A3PL_Lib_FactionPlayers;
-
-	//check if we are on cooldown
+	private _faction = player getVariable ["faction",""];
+	private _panicCooldown = player getVariable ["panicCooldown",false];
+	private _factionMembers = [_faction] call A3PL_Lib_FactionPlayers;
 	if (_panicCooldown) exitWith {[localize"STR_NewPolice_29", "red"] call A3PL_Player_Notification;};
 
-	//execute panic button
-	[localize"STR_NewPolice_30", "green"] call A3PL_Player_Notification;
 	[player] remoteExec ["A3PL_Police_PanicMarker", _factionMembers];
 	player setVariable ["panicCooldown",true,false];
 
-	//play gesture
 	player playActionNow "A3FL_RadioAnim_02";
-	uiSleep 0.8;
+	sleep 0.8;
 	player playActionNow "GestureNod";
 
-	// cooldown
-	uiSleep 180;
+	sleep 180;
 	player setVariable ["panicCooldown",false,false];
 }] call Server_Setup_Compile;
 
@@ -1940,4 +1918,39 @@
 	("Hud_MirandaCard" call BIS_fnc_rscLayer) cutRsc ["Dialog_Miranda", "PLAIN", 2];
 	sleep 10;
 	("Hud_MirandaCard" call BIS_fnc_rscLayer) cutFadeOut 1;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_OpenSquadNb", {
+	private _veh = param [0,objNull];
+	createDialog "Dialog_SquadNb";
+	ctrlSetText [1400, _veh getVariable["squadnb",((netId _veh) splitString ":") select 1]];
+	A3PL_SquadNb_Veh = _veh;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_SaveSquadNb", {
+	private _number = ctrlText 1400;
+	private _faction = player getVariable["job","unemployed"];
+
+	if((count _number) > 8) exitWith {["You cannot enter more than 8 characters","red"] call A3PL_Player_Notification;};
+
+	if((typeOf A3PL_SquadNb_Veh) IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]) then {
+		private _numberArray = _number splitString "";
+		private _TruckNumber2 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _numberArray select 0];
+		private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _numberArray select 1];
+		A3PL_SquadNb_Veh setObjectTextureGlobal [8, _TruckNumber2];
+		A3PL_SquadNb_Veh setObjectTextureGlobal [9, _TruckNumber3];
+		A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
+	} else {
+		if((typeOf A3PL_SquadNb_Veh) isEqualTo "A3PL_Silverado_FD_Brush") then {
+			private _numberArray = _number splitString "";
+			private _TruckNumber = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _numberArray select 0];
+			A3PL_SquadNb_Veh setObjectTextureGlobal [8, _TruckNumber];
+			A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
+		} else {
+			A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
+		};
+	};
+	A3PL_SquadNb_Veh setVariable["vehFaction",_faction,true];
+	A3PL_SquadNb_Veh = nil;
+	closeDialog 0;
 }] call Server_Setup_Compile;

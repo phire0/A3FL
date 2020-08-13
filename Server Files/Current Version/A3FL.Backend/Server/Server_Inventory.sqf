@@ -28,8 +28,7 @@
 	private _amount = param [2,0];
 
 	if (_class isEqualTo "cash") exitwith {
-		private ["_playerMoney"];
-		_playerMoney = _player getVariable "Player_Cash";
+		private _playerMoney = _player getVariable ["Player_Cash",0];
 		if (isNil "_playerMoney") exitwith {};
 		[_player,"Player_Cash",(_playerMoney + _amount)] call Server_Core_ChangeVar;
 	};

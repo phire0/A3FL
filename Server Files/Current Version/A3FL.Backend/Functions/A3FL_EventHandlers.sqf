@@ -49,15 +49,22 @@
 
 		["ArmA 3 Fishers Life","bargates_key", "Open/Close Bargates",
 		{
-			private["_bargate","_canUse"];
 			if(!(player getVariable["job","unemployed"] IN ["fisd","uscg","fifr","usms"])) exitWith {};
-			_bargate = (nearestObjects [player, ["Land_A3PL_BarGate","Land_A3PL_BarGate_Left","Land_A3PL_BarGate_Right"], 10]) select 0;
-			_canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
+			private _bargate = (nearestObjects [player, ["Land_A3PL_BarGate","Land_A3PL_BarGate_Left","Land_A3PL_BarGate_Right"], 10]) select 0;
+			private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
 			if(_canUse) then {
-				_anim = switch(typeOf _bargate) do {
+				private _anim = switch(typeOf _bargate) do {
 					case "Land_A3PL_Bargate_Right": {"bargate2"};
 					case "Land_A3PL_Bargate_Left": {"bargate1"};
-					default {"bargate1"};
+					default {
+						private _distanceOne = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate1","Memory"]));
+						private _distanceTwo = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate2","Memory"]));
+						if(_distanceTwo>_distanceOne) then {
+							"bargate1"
+						} else {
+							"bargate2"
+						};
+					};
 				};
 				if ((_bargate animationSourcePhase _anim) < 0.5) then {
 					_bargate animateSource [_anim,1];
@@ -117,17 +124,14 @@
 		{
 			private["_veh"];
 			if (animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
-			if((vehicle player) isEqualTo player) then {
-				_veh = player_objintersect;
-			} else {
-				_veh = vehicle player;
-			};
+			_veh = player_objintersect;
+			if(!((vehicle player) isEqualTo player)) then {_veh = vehicle player;};
 
-			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {};
-			if ((player distance _veh > 5)) exitWith {};
+			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {diag_log "exit 1";};
+			if ((player distance _veh > 5)) exitWith {diag_log "exit 2";};
 			if ((_veh getVariable["locked",false])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
-			if(isNull _veh || {isNil '_veh'}) exitWith {};
-			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && ((_veh getVariable["owner",""]) != (getPlayerUID player))) exitWith {};
+			if(isNull _veh || {isNil '_veh'}) exitWith {diag_log "exit 3";};
+			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && {(_veh getVariable["owner",""]) != (getPlayerUID player)}) exitWith {diag_log "exit 4";};
 			if([typeOf (_veh)] call A3PL_Config_HasStorage) then {
 				[_veh] call A3PL_Vehicle_OpenStorage;
 			};
@@ -144,6 +148,7 @@
 
 		["ArmA 3 Fishers Life","twitter_key", "Open Twitter Post",
 		{
+			if(underwater (vehicle player)) exitWith {["You cannot use your phone while underwater","red"] call A3PL_Player_Notification;};
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			if(!dialog) then {[] spawn A3PL_iPhoneX_appTwitterPost;};
@@ -197,11 +202,6 @@
 					};
 			};
 		}, "", [DIK_I, [true, false, false]]] call CBA_fnc_addKeybind;
-
-		["ArmA 3 Fishers Life","sync_data", "Sync Data",
-		{
-			call A3PL_iPhoneX_SyncData;
-		}, "", [DIK_8, [true, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","ear_plug", "Ear Plug",
 		{
@@ -382,8 +382,11 @@
 		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
 		{
 			player playAction "GestureSwing";
+			if(((typeOf player_objintersect) isEqualTo "Land_A3FL_Fishers_Jewelry") && {player_nameintersect IN ["case_break_1","case_break_2","case_break_3","case_break_4","case_break_5","case_break_6","case_break_7","case_break_8","case_break_9"]}) exitWith {
+				call A3PL_Jewelry_GlassDamage;
+			};
 			if (player inArea "LumberJack_Rectangle") then {
-				if (_weapon == "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
+				if (_weapon isEqualTo "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
 			} else {
 				call A3PL_FD_HandleFireAxe;
 			};
@@ -608,7 +611,7 @@
 			player removeMagazines "A3FL_BaseballBatMag";
 			player addMagazine "A3FL_BaseballBatMag";
 		};
-		if (_itemClass == "A3FL_PoliceBaton") then{
+		if (_itemClass == "A3FL_PoliceBaton") then {
 			player removeMagazines "A3FL_PoliceBatonMag";
 			player addMagazine "A3FL_PoliceBatonMag";
 		};
@@ -658,6 +661,7 @@
 		private _source = _this select 3;
 		private _projectile = _this select 4;
 		private _dmg = 0;
+		if((_projectile isEqualTo "A3FL_PepperSpray_Ball") && (_unit isEqualTo _source)) exitWith {_dmg;};
 		if (_damage > 0) then {
 			private _hit = _unit getVariable ["getHit",[]];
 			_hit pushback [_selection,_damage,_projectile,_source];
@@ -673,15 +677,11 @@
 {
 	player addEventHandler ["FiredNear",
 	{
-		private ["_distance","_weaponClass","_except"];
-
 		if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
-		_distance = param [2,100];
-		_weaponClass = param [3,""];
-		_except = ["CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
-
-		if(_distance <= 30 && (!(_weaponClass IN _except))) then
-		{
+		private _distance = param [2,100];
+		private _weaponClass = param [3,""];
+		private _except = ["A3PL_FireExtinguisher","CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
+		if(_distance <= 30 && (!(_weaponClass IN _except))) then {
 			Player_LockView = true;
 			Player_LockView_Time = time + (2 * 60);
 		};
@@ -693,34 +693,43 @@
 	player removeAllEventHandlers "InventoryOpened";
 	player addEventHandler ["InventoryOpened",
 	{
-		params ["_unit", "_container"];
-
-		if(_container isEqualTo A3FL_Seize_Storage) then {
-			_isLead = ["usms"] call A3PL_Government_isFactionLeader;
-			_isLocked = _container getVariable["locked",true];
-			if(!_isLead && _isLocked) exitWith {
-				["The storage is locked","red"] call A3PL_Player_Notification;
-				true;
+		params [
+			["_unit", objNull, [objNull]],
+			["_container", objNull, [objNull]],
+			["_secContainer", objNull, [objNull]]
+		];
+		private _handle = false;
+		{
+			if((_x isEqualTo A3FL_Seize_Storage)) exitWith  {
+				_isLead = ["usms"] call A3PL_Government_isFactionLeader;
+				_isLocked = _x getVariable["locked",true];
+				if(!_isLead && _isLocked) exitWith  {
+					["The storage is locked","red"] call A3PL_Player_Notification;
+					_handle = true;
+				};
 			};
-		};
-		if((player distance2D A3FL_Seize_Storage) < 5) then {
-			_isLead = ["usms"] call A3PL_Government_isFactionLeader;
-			_isLocked = _container getVariable["locked",true];
-			if(!_isLead && _isLocked) exitWith {
-				["The storage is locked","red"] call A3PL_Player_Notification;
-				true;
+			if(((typeOf _x) isEqualTo "A3PL_EMS_Locker")) exitWith  {
+				if (_x animationPhase "door_1" != 1) then{
+					_owner = _x getVariable["owner",""];
+					if(!((getPlayerUID player) isEqualTo _owner)) exitWith  {
+						["The locker is closed","red"] call A3PL_Player_Notification;
+						_handle = true;
+					};
+				} else {
+					["This locker is closed",Color_Red] call A3PL_Player_Notification;
+				};
 			};
-		};
+		} count [_container, _secContainer];
+		_handle;
 	}];
 }] call Server_Setup_Compile;
 
 ["A3PL_EventHandlers_RadioAnim",
 {
 	["player", "OnBeforeTangent", {
-		private ["_transmit","_vest","_vestList"];
-		_transmit = _this select 4;
-		_vest = vest player;
-		_vestList = [
+		private _transmit = _this select 4;
+		private _vest = vest player;
+		private _vestList = [
 			"","A3PL_DutyBelt","A3PL_Rangemaster_belt_blk","A3PL_Ghostbusters_Belt","A3PL_Holster_1","V_LegStrapBag_black_F","V_LegStrapBag_coyote_F","V_LegStrapBag_olive_F","A3PL_Sheriff_Belt_Test","A3PL_Rangemaster_belt",
 			"A3PL_Clean_Safety_Vest","A3PL_Clean_Safety_Vest_Orange","A3PL_DMV_Safety_Vest","A3PL_FakeNews_Safety","A3PL_VFD_IC_Vest","A3PL_VFD_Vest","A3PL_FIFR_RideAlong_Safety","A3PL_FIFR_Safety","A3PL_FIFR_Safety_Command","A3PL_FIFR_Safety_EMT","A3PL_FIFR_Safety_Fire","A3PL_FIFR_Safety_Lieutenant","A3PL_FIFR_Safety_Paramedic","A3PL_FISD_Safety_Traffic","A3PL_USCG_Ground_Safety_Vest","A3PL_USCG_Safety_Vest_Yellow","A3PL_Waste_Manage_Vest"
 		];

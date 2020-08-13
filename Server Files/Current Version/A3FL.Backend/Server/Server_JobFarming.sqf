@@ -32,26 +32,20 @@
 	if (_plantClass isEqualTo "") exitwith {};
 	_plant = createVehicle [_plantClass,[_pos select 0,_pos select 1, (_pos select 2) + _ATLChange], [], 0, "CAN_COLLIDE"];
 	_plant animateSource ["plant_growth",1];
+	_plant allowDamage false;
 
 	if((typeOf _plant) isEqualTo "A3PL_Cannabis") then {
 		_plant setVariable ["inField",true,true];
-		if ((random 100) <= 10) then {
-			_plant setVariable ["female",true,true];
-		};
 	};
 	[0] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];
 },true] call Server_Setup_Compile;
 
 ["Server_JobFarming_Harvest",
 {
-	private ["_player","_plant","_growstate","_plants","_itemClass","_amount"];
-	_player = param [0,objNull];
-	_plant = param [1,objNull];
+	private _player = param [0,objNull];
+	private _plant = param [1,objNull];
 	if ((isNull _player) or (isNull _plant)) exitwith {};
-	_growstate = _plant getVariable ["growState",0];
-
 	if ((_plant animationSourcePhase "plant_growth") < 1) exitwith {[4] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];};
-
 	if (_plant getVariable ["inuse",false]) exitwith {};
 	_plant setVariable ["inuse",true,false];
 
@@ -67,29 +61,20 @@
 		case "A3PL_Sugarcane_Plant": {_amount = 2; _itemClass = "sugarcane"; _seedItem = "seed_sugar";};
 		case "A3PL_Cannabis":
 		{
-			private ["_lightValue","_plants"];
 			_itemClass = "cannabis_bud";
-			_lightValue = _plant getVariable ["lightValue",0];
+			private _lightValue = _plant getVariable ["lightValue",0];
 			switch (true) do
 			{
-				case ((_plant getVariable ["female",false])): {_amount = 0;};
 				case (_plant getVariable ["inField",false]): {_amount = 40;};
 				case (_lightValue > 80): {_amount = 30;};
 				case (_lightValue > 50): {_amount = 20;};
 				case (_lightValue > 20): {_amount = 10;};
 				case default {_amount = 2;};
 			};
-			if (_plant getVariable ["female",false]) then
-			{
-				_plants = nearestObjects [_plant, ["A3PL_Cannabis"], 5];
-				{
-					if (!(_x getVariable ["female",false])) exitwith {_amount = _amount + 5;};
-				} foreach _plants;
-			};
 		};
 	};
 
-	if (_itemClass == "") exitwith {};
+	if (_itemClass isEqualTo "") exitwith {};
 	if (([[[_itemClass,_amount]],_player] call Server_Inventory_TotalWeight) > 600) exitWith {[6] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];_plant setVariable ["inuse",false,false];};
 
 	deleteVehicle _plant;
@@ -104,7 +89,6 @@
 			[_seedItem, _seedAmount] remoteExec ["A3PL_Inventory_Add", (owner _player)];
 		};
 	};
-	[getPlayerUID _player,"PickupItem",["Harvested Crop",_plant,_itemClass,_amount]] call Server_Log_New;
 },true] call Server_Setup_Compile;
 
 ["Server_JobFarming_DrugDealerPos",

@@ -7,34 +7,22 @@
 */
 
 #define MINCOPSREQUIRED 5
-#define MONEYCHANCE 50
-#define GEMCHANCE 30
 #define MONEYPERPILE 180000
-#define MAXMONEYPERBAG 540000
+#define MAXMONEYPERBAG 600000
 #define BANKTIMER 600
 
 ["A3PL_CCTV_Open",
 {
-	private ["_veh"];
-	_distance = param [0,10000];
-
-	disableSerialization;
-	private ["_display"];
-
-	createDialog "Dialog_CCTV";
-	_display = findDisplay 27;
-
-	//Check pip
 	if (!isPipEnabled) then {["CCTV does not work if PiP is disabled, change PiP to Ultra in video options to fix it"] call A3PL_Player_Notification;};
-
-	//Get all the cameras we can select
+	disableSerialization;
+	createDialog "Dialog_CCTV";
+	private _distance = param [0,10000];
+	private _display = findDisplay 27;
 	A3PL_CCTV_ALL = nearestObjects [player, ["A3PL_CCTV"], _distance];
 	{
-		private ["_control"];
-		_control = _display displayCtrl _x;
+		private _control = _display displayCtrl _x;
 		{
-			private ["_index"];
-			_index = _control lbAdd format ["CCTV Camera %1",_forEachIndex+1];
+			private _index = _control lbAdd format ["CCTV Camera %1",_forEachIndex+1];
 			_control lbSetData [_index,format ["%1",_x]];
 		} foreach A3PL_CCTV_ALL;
 		_control lbSetCurSel _forEachIndex;
@@ -45,14 +33,12 @@
 			case (2102): {_control ctrlAddEventHandler ["LBSelChanged",{[3,param [1,0]] call A3PL_CCTV_SetCamera}];};
 			case (2103): {_control ctrlAddEventHandler ["LBSelChanged",{[4,param [1,0]] call A3PL_CCTV_SetCamera}];};
 		};
-	} foreach [2100,2101,2102,2103]; //idd of combo boxes
+	} foreach [2100,2101,2102,2103];
 
-	//add eventhandler to check buttons
 	_control = _display displayCtrl 2500; _control ctrlAddEventHandler ["CheckBoxesSelChanged",{[4,param [0,ctrlNull],param [2,0]] call A3PL_CCTV_SetVision;}];
 	_control = _display displayCtrl 2501; _control ctrlAddEventHandler ["CheckBoxesSelChanged",{[1,param [0,ctrlNull],param [2,0]] call A3PL_CCTV_SetVision;}];
 	_control = _display displayCtrl 2502; _control ctrlAddEventHandler ["CheckBoxesSelChanged",{[2,param [0,ctrlNull],param [2,0]] call A3PL_CCTV_SetVision;}];
 
-	//create cameras
 	A3PL_CCTV_CAMOBJ_1 = "camera" camCreate (getpos player);
 	A3PL_CCTV_CAMOBJ_2 = "camera" camCreate (getpos player);
 	A3PL_CCTV_CAMOBJ_3 = "camera" camCreate (getpos player);
@@ -62,16 +48,13 @@
 	[3,2] call A3PL_CCTV_SetCamera;
 	[4,3] call A3PL_CCTV_SetCamera;
 
-	//set render surface references
 	{
-		private ["_rsRef"]; //render surface reference
-		_rsRef = format ["A3PL_CCTV_%1_RT",_forEachIndex+1];
+		private _rsRef = format ["A3PL_CCTV_%1_RT",_forEachIndex+1];
 		_x cameraEffect ["INTERNAL", "BACK", _rsRef];
 		_rsRef setPiPEffect [4];
 		_x camCommit 0;
 	} foreach [A3PL_CCTV_CAMOBJ_1,A3PL_CCTV_CAMOBJ_2,A3PL_CCTV_CAMOBJ_3,A3PL_CCTV_CAMOBJ_4];
 
-	//delete vars and cameras once dialog is closed
 	waitUntil {sleep 0.1; isNull _display};
 	{
 		_x cameraEffect ['TERMINATE', 'BACK'];
@@ -83,11 +66,9 @@
 //COMPILE BLOCK FUNCTION
 ["A3PL_CCTV_SetCamera",
 {
-	private ["_camNum","_mapCam","_camera"];
-	_camNum = param [0,1];
-	_mapCam = A3PL_CCTV_ALL select (param [1,0]); //the actual camera object placed on the map
-	_camera = call compile format ["A3PL_CCTV_CAMOBJ_%1",_camNum];
-
+	private _camNum = param [0,1];
+	private _mapCam = A3PL_CCTV_ALL select (param [1,0]);
+	private _camera = call compile format ["A3PL_CCTV_CAMOBJ_%1",_camNum];
 	_camera attachto [_mapCam,(_mapCam selectionPosition "cam_pos")];
 	_camera CamSetTarget (_mapCam modelToWorld (_mapCam selectionPosition "cam_dir"));
 	_camera camCommit 0;
@@ -96,19 +77,14 @@
 ["A3PL_CCTV_SetVision",
 {
 	disableSerialization;
-	private ["_rsRef","_display","_mode","_control","_checked"];
-	_mode = param [0,4];
-	_control = param [1,ctrlNull];
-	_checked = param [2,0];
-
-	if (_checked == 0) exitwith {};
-
+	private _mode = param [0,4];
+	private _control = param [1,ctrlNull];
+	private _checked = param [2,0];
+	if (_checked isEqualTo 0) exitwith {};
 	{
 		_rsRef = format ["A3PL_CCTV_%1_RT",_x];
 		_rsRef setPiPEffect [_mode];
 	} foreach [1,2,3,4];
-
-	//set uncheked on other buttons
 	_display = findDisplay 27;
 	{
 		_ctrl = _display displayCtrl _x;
@@ -119,32 +95,25 @@
 ["A3PL_BHeist_SetDrill",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_bank","_drill","_timer"];
-	_bank = param [0,objNull];
+	private _bank = param [0,objNull];
 	if (typeOf _bank != "Land_A3PL_Bank") exitwith {["You are not looking at the bank vault","red"] call A3PL_Player_Notification;};
-	//bank timer
-	_timer = false;
-	if (!isNil {_bank getVariable ["timer",nil]}) then
-	{
+	private _timer = false;
+	if (!isNil {_bank getVariable ["timer",nil]}) then {
 		if (((serverTime - (_bank getVariable ["timer",0]))) < BANKTIMER) then {_timer = true};
 	};
 	if (_timer) exitwith {[format ["The bank has recently been robbed, try again in %1 seconds",BANKTIMER - ((_bank getVariable ["timer",0]) - serverTime)],"red"] call A3PL_Player_Notification;};
-	//other checks
 	if (_bank animationSourcePhase "door_bankvault" > 0) exitwith {["The bank vault is already open","red"] call A3PL_Player_Notification;};
 	if (backpack player != "A3PL_Backpack_Drill") exitwith {["You are not carrying a drill in your backpack","red"] call A3PL_Player_Notification;};
-	//place drill
-	_drill = "A3PL_Drill_Bank" createvehicle (getpos player);
+	private _drill = "A3PL_Drill_Bank" createvehicle (getpos player);
 	_drill setdir (getdir _bank)-90;
 	_drill setpos (_bank modelToWorld [-5.05,4.38,-2.1]);
-	//set used
 	removeBackpack player;
 }] call Server_Setup_Compile;
 
 ["A3PL_BHeist_PickupDrill",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_drill"];
-	_drill = param [0,objNull];
+	private _drill = param [0,objNull];
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
 	if (backpack player != "") exitwith {["You are wearing a backpack already, you need to drop what you have on your back first!","red"] call A3PL_Player_Notification;};
 	deleteVehicle _drill;
@@ -191,18 +160,15 @@
 	_robTime = missionNamespace setVariable ["BankCooldown",0];
 	if(_robTime >= (diag_Ticktime-7200)) exitWith {["A bank has already been robbed less than 2 hours ago","red"] call A3PL_Player_Notification;};
 
-
 	_bank = (nearestObjects [player, ["Land_A3PL_Bank"], 15]) select 0;
 	[getPlayerUID player,"bankRobbery",[getPos _bank]] remoteExec ["Server_Log_New",2];
 
 	[format["!!! ALERT !!! A bank is being robbed at %1 !", _nearCity],"green","fisd",3] call A3PL_Lib_JobMessage;
-
 	if(_nearCity isEqualTo "Lubbock") then {
-	[format["!!! ALERT !!! A bank is being robbed at %1 !", _nearCity],"green","uscg",3] call A3PL_Lib_JobMessage;
+		[format["!!! ALERT !!! A bank is being robbed at %1 !", _nearCity],"green","uscg",3] call A3PL_Lib_JobMessage;
 	};
 
 	missionNamespace setVariable ["BankCooldown",diag_Ticktime,true];
-
 	playSound3D ["A3PL_Common\effects\bankalarm.ogg", _bank, true, _bank, 3, 1, 250];
 
 	_drill animateSource ["drill_handle",1];
@@ -213,7 +179,6 @@
 	while {uiSleep 1; ((_drill animationSourcePhase "drill_handle") < 1)} do
 	{
 		_newDrillValue = _drill animationSourcePhase "drill_handle";
-		[format ["Vault drilling progress %2%1","%",round (((_newDrillValue*_timeOut)/_timeOut)*100)],"green"] call A3PL_Player_Notification;
 		if (_newDrillValue <= _drillValue) exitwith {};
 		if (isNull _drill) exitwith {};
 		_drillValue = _newDrillValue;
@@ -228,64 +193,36 @@
 	["Drilling completed. The drill and the drill bit both unfortunatly broke during drilling.","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
-//spawn function
 ["A3PL_BHeist_OpenDeposit",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_bank","_depositNr","_name","_cashOffset","_random","_itemClass","_cash","_class","_dist"];
-	_bank = param [0,objNull];
-	_name = param [1,""];
-	_depositNr = parseNumber ((_name splitString "_") select 1);
-	_dist = player distance2D _bank;
+	private _bank = param [0,objNull];
+	private _name = param [1,""];
+	private _depositNr = parseNumber ((_name splitString "_") select 1);
 	if ((_bank animationSourcePhase "door_bankvault") < 0.95) exitwith {["The bank vault is closed, are you trying to open the deposit box through the walls...?"] call A3PL_Player_Notification;};
-	if (Player_ActionDoing) exitwith {["You are already performing an action","red"] call A3PL_Player_Notification;};
-	["Lockpicking deposit box...",45] spawn A3PL_Lib_LoadAction;
-	Player_ActionCompleted = false;
-	//waitUntil {sleep 0.1; Player_ActionCompleted};
-
+	if (Player_ActionDoing) exitwith {["You are already doing something","red"] call A3PL_Player_Notification;};
+	["Lockpicking...",45] spawn A3PL_Lib_LoadAction;
 	_success = true;
-	while {sleep 0.5; !Player_ActionCompleted } do
-	{
-		if (abs(_dist - (player distance2D _bank)) > 0.5) exitWith {["Action cancelled! - You are too far away from the deposit box!", "red"] call A3PL_Player_Notification; _success = false;};
-		if (!(vehicle player == player)) exitwith {_success = false;}; //inside a vehicle
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;}; //is incapacitated
-		if (!alive player) exitwith {_success = false;}; //is no longer alive
+	waitUntil{Player_ActionDoing};
+	player playMoveNow 'Acts_carFixingWheel';
+	while {Player_ActionDoing} do {
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+		if ((vehicle player) != player) exitwith {_success = false;};
+		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((animationstate player) != "Acts_carFixingWheel") then {player playMoveNow 'Acts_carFixingWheel';};
 	};
+	player playMoveNow "";
+	if(Player_ActionInterrupted || !_success) exitWith {["Lockpicking failed","red"] call A3PL_Player_Notification;};
 
-	Player_ActionCompleted = false;
-	if (!_success) exitWith {Player_ActionDoing = false;};
-
-	if (_bank animationPhase _name <= 0.01) then
-	{
-		//chance to get money
+	if (_bank animationPhase _name <= (0.01)) then {
 		_random = random 100;
-		if (_random < MONEYCHANCE) then
-		{
-			if (_random < GEMCHANCE) then
-			{
-				switch (true) do
-				{
-					case (_random < 1): {_class = "diamond_ill";};
-					case (_random < 4): {_class = "diamond_emerald_ill";};
-					case (_random < 9): {_class = "diamond_ruby_ill";};
-					case (_random < 19): {_class = "diamond_sapphire_ill";};
-					case (_random < 30): {_class = "diamond_alex_ill";};
-					case (_random < 50): {_class = "diamond_aqua_ill";};
-					case (_random <= 100): {_class = "diamond_tourmaline_ill";};
-				};
-				_cash = createVehicle [(([_class,"class"]) call A3PL_Config_GetItem), position player, [], 0, "CAN_COLLIDE"];
-				_cash enableSimulation false;
-				_cash setVariable ["class",_class,true];
-			} else
-			{
-				_cash = createVehicle ["A3PL_PileCash", position player, [], 0, "CAN_COLLIDE"];
-			};
+		if(_random >= 50) then {
+			_cash = createVehicle ["A3PL_PileCash", position player, [], 0, "CAN_COLLIDE"];
 			_cashOffset = [[-0.6,5.17,-1.4],[-0.6,5.17,-1.73],[-0.6,5.17,-2.05],[-0.6,5.17,-2.4],[-0.6,5.17,-2.7],[-0.6,4.7,-1.4],[-0.6,4.7,-1.73],[-0.6,4.7,-2.05],[-0.6,4.7,-2.4],[-0.6,4.7,-2.7],[-0.6,4.2,-1.4],[-0.6,4.2,-1.73],[-0.6,4.2,-2.05],[-0.6,4.2,-2.4],[-0.6,4.2,-2.7],[-0.6,3.72,-1.4],[-0.6,3.72,-1.73],[-0.6,3.72,-2.05],[-0.6,3.72,-2.4],[-0.6,3.72,-2.7]] select (_depositNr-1);
 			_cash setpos (_bank modelToWorld _cashOffset);
 		};
 		_bank animate [_name,1];
-	} else
-	{
+	} else {
 		["This deposit box has already been opened","red"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
@@ -304,7 +241,6 @@
 	[player, 50] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
-//spawn
 ["A3PL_BHeist_PickCash",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
@@ -313,9 +249,6 @@
 
 	if (backpack player != "A3PL_Backpack_Money") exitwith {["You are not carrying a backpack to carry money in!","red"] call A3PL_Player_Notification;};
 	_container = backpackContainer player;
-
-	// diag_log str(((_container getVariable ["bankCash",0])));
-	// diag_log str(((_container getVariable ["bankCash",0]) + MONEYPERPILE));
 
 	if (((_container getVariable ["bankCash",0]) + MONEYPERPILE) > MAXMONEYPERBAG) exitwith {["My bag is full of cash, I can't fit more money into the bag!","red"] call A3PL_Player_Notification;};
 
@@ -333,26 +266,35 @@
 	_container setVariable ["bankCash",(_container getVariable ["bankCash",0]) + MONEYPERPILE,true];
 }] call Server_Setup_Compile;
 
-//Convert stolen money into real cash
 ["A3PL_BHeist_ConvertCash",
 {
+	private _NPC = param [0,objNull];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_container"];
 	if (backpack player != "A3PL_Backpack_Money") exitwith {["You are not carrying a backpack to carry money in!","red"] call A3PL_Player_Notification;};
-	_container = backpackContainer player;
-	_cash = _container getVariable ["bankCash",0];
+	private _container = backpackContainer player;
+	private _cash = _container getVariable ["bankCash",0];
 	if (_cash < 1) exitwith {["There is no dirty money in this backpack to convert to real cash","red"] call A3PL_Player_Notification;};
+
+	["Laundering money...",180] spawn A3PL_Lib_LoadAction;
+	waitUntil{Player_ActionDoing};
+	_success = true;
+	while {Player_ActionDoing} do {
+		if (Player_ActionInterrupted) exitWith {_success = false;};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
+		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+	};
+	if(Player_ActionInterrupted || !_success) exitWith {["Action interupted","red"] call A3PL_Player_Notification;};
+
 	player setVariable ["player_cash",(player getVariable ["player_cash",0])+_cash * A3PL_Event_CrimePayout,true];
 	_container setVariable ["bankCash",nil,true];
 	[getPlayerUID player,"moneyLaundering",[str(_cash)]] remoteExec ["Server_Log_New",2];
 	[format ["You converted $%1 dirty money into laundered money, the cash is now in your inventory",_cash],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
-//check how much cash is in the backpack im carrying
 ["A3PL_BHeist_CheckCash",
 {
-	 private ["_container"];
-	 if (backpack player != "A3PL_Backpack_Money") exitwith {};
-	 _container = backpackContainer player;
-	 [format ["There is $%1 of dirty money inside this backpack",(_container getVariable ["bankCash",0])],"green"] call A3PL_Player_Notification;
+	if (backpack player != "A3PL_Backpack_Money") exitwith {};
+	private _container = backpackContainer player;
+	[format ["There is $%1 of dirty money inside this backpack",(_container getVariable ["bankCash",0])],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

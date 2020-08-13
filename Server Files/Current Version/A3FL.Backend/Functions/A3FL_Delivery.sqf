@@ -11,7 +11,7 @@
 	_npc = param [0,objNull];
 	if(isNull(_npc)) exitWith {};
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"]; call A3PL_NPC_LeaveJob};
+	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"] call A3PL_NPC_LeaveJob};
 
 	player setVariable ["job","mailman"];
 	call A3PL_Player_SetMarkers;
@@ -113,10 +113,6 @@
 		[[2537.9,5605.41,0],localize"Functions_DeliveryLocation_Pen",localize"Functions_DeliveryLocation_Bank"],
 		[[2537.9,5605.41,0],localize"Functions_DeliveryLocation_Fe",localize"Functions_DeliveryLocation_Bank"],
 		[[2537.9,5605.41,0],localize"Functions_DeliveryLocation_CB",localize"Functions_DeliveryLocation_Bank"],
-		[[10218.7,8727.76,0],localize"Functions_DeliveryLocation_Pancarte",localize"Functions_DeliveryLocation_RealEstateJob"],
-		[[10218.7,8727.76,0],localize"Functions_DeliveryLocation_ContratLocation",localize"Functions_DeliveryLocation_RealEstateJob"],
-		[[10218.7,8727.76,0],localize"Functions_DeliveryLocation_Printer",localize"Functions_DeliveryLocation_RealEstateJob"],
-		[[10218.7,8727.76,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_RealEstateJob"],
 		[[10183.6,8722.56,0],localize"Functions_DeliveryLocation_ContratVente",localize"Functions_DeliveryLocation_CarDealer"],
 		[[10183.6,8722.56,0],localize"Functions_DeliveryLocation_CarKey",localize"Functions_DeliveryLocation_CarDealer"],
 		[[10183.6,8722.56,0],localize"Functions_DeliveryLocation_Repair",localize"Functions_DeliveryLocation_CarDealer"],

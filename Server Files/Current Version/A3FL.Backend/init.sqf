@@ -72,7 +72,6 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Hunting'],
 	['Functions', 'A3FL_Moonshine'],
 	['Functions', 'A3FL_Lumber'],
-	['Functions', 'A3FL_Combine'],
 	['Functions', 'A3FL_Karts'],
 	['Functions', 'A3FL_ShopStock'],
 	['Functions', 'A3FL_Chopshop'],
@@ -86,6 +85,7 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Warehouses'],
 	['Functions', 'A3FL_JobShipCaptain'],
 	['Functions', 'A3FL_Prison'],
+	['Functions', 'A3FL_Jewelry'],
 
 	//Events Functions
 	//['Functions', 'A3FL_Halloween'],
@@ -132,6 +132,7 @@ Server_Setup_Files = [
 	['Server', 'Server_Gang'],
 	['Server', 'Server_Shrooms'],
 	['Server', 'Server_Warehouses'],
+	['Server', 'Server_Events'],
 
 	//Configs Files
 	['Configs', 'Config_Shops'],

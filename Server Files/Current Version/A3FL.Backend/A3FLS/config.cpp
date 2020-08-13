@@ -295,11 +295,10 @@ class CfgRemoteExec
 		class Server_Government_AddCandidate {allowedTargets = 2;};
 		class Server_Government_FactionSetupInfo {allowedTargets = 2;};
 		class Server_Government_SetRank {allowedTargets = 2;};
+		class Server_Government_UnsetRank {allowedTargets = 2;};
 		class Server_Government_AddRank {allowedTargets = 2;};
 		class Server_Government_RemoveRank {allowedTargets = 2;};
 		class Server_Government_SetPay {allowedTargets = 2;};
-		class Server_Government_StartVote {allowedTargets = 2;};
-		class Server_Government_Alarm{allowedTargets=2;};
 
 		//Log
 		class Server_Log_New {allowedTargets = 2;};
@@ -327,9 +326,6 @@ class CfgRemoteExec
 		class Server_Company_SendBill{allowedTargets=2;};
 		class Server_Company_LoadCBillPhone{allowedTargets=2;};
 		class Server_Company_PayBill{allowedTargets=2;};
-
-		class Server_Company_SaveStorage{allowedTargets=2;};
-		class Server_Company_GetStorageData{allowedTargets=2;};
 
 		//Twitter
 		class A3PL_Twitter_NewMsg {allowedTargets = 0;};
@@ -371,6 +367,8 @@ class CfgRemoteExec
 		class A3PL_Lib_ChangeLocality {allowedTargets = 2;};
 		class A3PL_Lib_HideObject {allowedTargets = 0;};
 		class A3PL_Lib_CreateMarker {allowedTargets=0;};
+		class A3PL_Lib_VerifyHunger{allowedTargets=0;};
+		class A3PL_Lib_VerifyThirst{allowedTargets=0;};
 
 		//HUD
 		class A3PL_Hud_IDCard {allowedTargets = 0;};
@@ -386,14 +384,12 @@ class CfgRemoteExec
 		class A3PL_Robberies_SeizureAlert{allowedTargets=0;};
 
 		//iPhoneX
-		class A3PL_iPhoneX_SetJobNumber{allowedTargets=0;};
 		class A3PL_iPhoneX_Contacts{allowedTargets=0;};
 		class A3PL_iPhoneX_Conversations{allowedTargets=0;};
 		class A3PL_iPhoneX_setPhoneNumber{allowedTargets=0;};
 		class A3PL_iPhoneX_SMS{allowedTargets=0;};
 		class A3PL_iPhoneX_ReceiveSMS{allowedTargets=0;};
 		class A3PL_iPhoneX_GetPhoneNumberSubscription{allowedTargets=0;};
-		class A3PL_iPhoneX_NumberIsUsed{allowedTargets=0;};
 		class A3PL_iPhoneX_EndCall{allowedTargets=0;};
 		class A3PL_iPhoneX_StartCall{allowedTargets=0;};
 		class A3PL_iPhoneX_ReceiveCall{allowedTargets=0;};
@@ -401,7 +397,7 @@ class CfgRemoteExec
 		class A3PL_iPhoneX_SwitchboardSend{allowedTargets=0;};
 		class A3PL_iPhoneX_SwitchboardReceive{allowedTargets=0;};
 		class A3PL_iPhoneX_EndCallSwitchboard{allowedTargets=0;};
-		class A3PL_iPhoneX_SMSEnterprise{allowedTargets=0;};
+		class A3PL_iPhoneX_911Text{allowedTargets=0;};
 		class A3PL_iPhoneX_SetSettings{allowedTargets=0;};
 		class A3PL_iPhoneX_SendSMS{allowedTargets=0;};
 		class A3PL_iPhoneX_appBills{allowedTargets=0;};
@@ -412,7 +408,6 @@ class CfgRemoteExec
 		class Server_iPhoneX_GetContacts{allowedTargets=2;};
 		class Server_iPhoneX_GetConversations{allowedTargets=2;};
 		class Server_iPhoneX_GetPhoneNumberActive{allowedTargets=2;};
-		class Server_iPhoneX_GetPhoneNumberEnterprise{allowedTargets=2;};
 		class Server_iPhoneX_GetSMS{allowedTargets=2;};
 		class Server_iPhoneX_GetSwitchboard{allowedTargets=2;};
 		class Server_iPhoneX_SetSwitchboard{allowedTargets=2;};
@@ -424,7 +419,7 @@ class CfgRemoteExec
 		class Server_iPhoneX_SendSMS{allowedTargets=2;};
 		class Server_iPhoneX_SaveLastSMS{allowedTargets=2;};
 		class Server_iPhoneX_GetListNumber{allowedTargets=2;};
-		class Server_iPhoneX_GetSMSEnterprise{allowedTargets=2;};
+		class Server_iPhoneX_Get911Text{allowedTargets=2;};
 		class Server_iPhoneX_CallSwitchboard{allowedTargets=2;};
 
 		class A3PL_USCG_DragReceive{allowedTargets=0;};

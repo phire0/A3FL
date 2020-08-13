@@ -43,36 +43,48 @@
 	_factionPeople;
 }] call Server_Setup_Compile;
 
+["A3PL_Lib_AllFactionPlayers",
+{
+	private _factions = param [0,["fisd","fifr","uscg","usms"]];
+	private _returnID = param [1,false];
+	private _factionPeople = [];
+	{
+		if ((_x getVariable ["job","unemployed"] IN _factions)) then {
+			if (_returnID) then {
+				_factionPeople pushback (owner _x);
+			} else {
+				_factionPeople pushback _x;
+			};
+		};
+	} foreach allPlayers;
+	_factionPeople;
+}] call Server_Setup_Compile;
+
 ["A3PL_Lib_UIDToObject",
 {
 	private _uid = param [0,""];
 	private _player = objNull;
 	{
-		if (getPlayerUID _x == _uid) exitwith {_player = _x;};
+		if ((getPlayerUID _x) isEqualTo _uid) exitwith {_player = _x;};
 	} foreach allPlayers;
 	_player
 }] call Server_Setup_Compile;
 
 ['A3PL_Lib_Ragdoll', {
 	private _shouldDropWeapon = param [0,true];
-	if (vehicle player != player) exitWith {};
-	private _can = "Land_Can_V3_F" createVehicleLocal [0,0,0];
+	if ((vehicle player) != player) exitWith {};
+
+	private _rag = "Land_Can_V3_F" createVehicleLocal [0,0,0];
+	_rag setMass 1e10;
+	_rag attachTo [player, [0,0,0], "Spine3"];
+	_rag setVelocity [0,0,6];
 	player allowDamage false;
-	_can setMass 1e10;
-	_can attachTo [player, [0,0,0], "Spine3"];
-	_can setVelocity [0,0,6];
-	detach _can;
-	disableUserInput true;
-	_can spawn {
-		sleep 0.1;
-		player setVelocity [0,0,20];
-		sleep 0.1;
+	detach _rag;
+	_rag spawn {
 		deleteVehicle _this;
-		sleep 1;
 		player allowDamage true;
-		sleep 5;
-		disableUserInput false;
 	};
+
 	if(_shouldDropWeapon) then {
 		private _weapon = currentWeapon player;
 		if(_weapon != "") then {
@@ -90,11 +102,10 @@
 
 ["A3PL_Lib_ChangeLocality",
 {
-	private ["_veh", "_player"];
-	_veh = param [0,objNull,[objNull,""]];
-	_player = param [1,objNull,[objNull,""]];
-	if (typeName _veh == "STRING") then {_veh = objectFromNetId _veh;};
-	if (typeName _player == "STRING") then { _player = objectFromNetId _player; };
+	private _veh = param [0,objNull,[objNull,""]];
+	private _player = param [1,objNull,[objNull,""]];
+	if (typeName _veh isEqualTo "STRING") then {_veh = objectFromNetId _veh;};
+	if (typeName _player isEqualTo "STRING") then { _player = objectFromNetId _player; };
 	_veh setOwner (owner _player);
 }] call Server_Setup_Compile;
 
@@ -114,11 +125,11 @@
 ['A3PL_Lib_CreateDialog', {
 	private _name = [_this, 0, '', ['']] call BIS_fnc_param;
 	createDialog _name;
-	if(_name == "Dialog_Inventory") then {
+	if(_name isEqualTo "Dialog_Inventory") then {
 		(findDisplay 1001) displayAddEventHandler ["KeyDown",
 		{
 			params["_ctrl", "_dikCode", "_shift", "_ctrlKey", "_alt"];
-			if(_dikCode == 1) then {
+			if(_dikCode isEqualTo 1) then {
 				player setVariable ["inventory_opened", nil, true];
 			};
 		}];
@@ -135,11 +146,13 @@
 {
 	if (Player_Hunger > 100) exitWith {Player_Hunger = 100;};
 	if (Player_Hunger < 0) exitWith {Player_Hunger = 0;};
+	profileNamespace setVariable ["player_hunger",Player_Hunger];
 }] call Server_Setup_Compile;
 
 ['A3PL_Lib_VerifyThirst', {
 	if (Player_Thirst > 100) exitWith {Player_Thirst = 100;};
 	if (Player_Thirst < 0) exitWith {Player_Thirst = 0;};
+	profileNamespace setVariable ["player_thirst",Player_Thirst];
 }] call Server_Setup_Compile;
 
 ["A3PL_Lib_SyncAnim",
@@ -181,9 +194,8 @@
 
 ["A3PL_Lib_RelDir",
 {
-	private ["_orig","_dest"];
-	_orig = param [0,[0,0,0]];
-	_dest = param [1,[0,0,0]];
+	private _orig = param [0,[0,0,0]];
+	private _dest = param [1,[0,0,0]];
 	_dir = ((((_dest select 0) - (_orig select 0)) atan2 ((_dest select 1) - (_orig select 1))) + 360) % 360;
 	_dir;
 }] call Server_Setup_Compile;
@@ -200,7 +212,7 @@
 		[_veh,_anim] spawn {
 			private _veh = param [0,objNull];
 			sleep 2;
-			waituntil {vehicle player == player};
+			waituntil {vehicle player isEqualTo player};
 			sleep 0.5;
 			player setVelocityModelSpace [0,3,1];
 			[player,"A3PL_HandsupKneelCuffed"] remoteExec ["A3PL_Lib_SyncAnim", -2];
@@ -323,10 +335,9 @@
 
 ["A3PL_Lib_NearestMarker",
 {
-	private ["_objPos","_d"];
-	_objPos = param [0,[0,0,0]];
-	_nearm = "";
-	_nearest = 100;
+	private _objPos = param [0,[0,0,0]];
+	private _nearm = "";
+	private _nearest = 100;
 	{
 		if(_x != "myGPS") then {
 			_d = _objPos distance (getMarkerPos _x);
@@ -341,31 +352,23 @@
 
 ["A3PL_Lib_ToggleAnimation",
 {
-	private ["_obj","_animationName","_animateSource"];
-	_obj = param [0,objNull];
-	_animationName = param [1,""];
-	_animateSource = param [2,true];
-	_forceOnOff = param [3,-1];
+	private _obj = param [0,objNull];
+	private _animationName = param [1,""];
+	private _animateSource = param [2,true];
+	private _forceOnOff = param [3,-1];
 
-	if (_animateSource) then
-	{
+	if (_animateSource) then {
 		if (_forceOnOff != -1) exitwith {_obj animateSource [_animationName,_forceOnOff];};
-
-		if (_obj animationSourcePhase _animationName < 0.5) then
-		{
+		if (_obj animationSourcePhase _animationName < 0.5) then {
 			_obj animateSource [_animationName,1];
-		} else
-		{
+		} else {
 			_obj animateSource [_animationName,0];
 		};
-	} else
-	{
+	} else {
 		if (_forceOnOff != -1) exitwith {_obj animate [_animationName,_forceOnOff];};
-		if (_obj animationPhase _animationName < 0.5) then
-		{
+		if (_obj animationPhase _animationName < 0.5) then {
 			_obj animate [_animationName,1];
-		} else
-		{
+		} else {
 			_obj animate [_animationName,0];
 		};
 	};
@@ -386,7 +389,6 @@
 	private ["_turret","_role","_arr"];
 	_turret = -1;
 	_role = assignedVehicleRole player;
-
 	if (count _role < 2) exitwith {_turret;};
 	_arr = _role select 1;
 	if (count _arr < 1) exitwith {_turret};
@@ -408,7 +410,7 @@
 	private _veh = param [0,""];
 	{
 		_check = format ["%1",_x];
-		if (_check == _veh) exitwith {_veh = _x;};
+		if (_check isEqualTo _veh) exitwith {_veh = _x;};
 	} foreach (nearestObjects [player, [], 20]);
 	_veh;
 }] call Server_Setup_Compile;
@@ -423,7 +425,6 @@
 		case ("uscg"): {_return = "US Coast Guard"};
 		case ("fifr"): {_return = "Fire Rescue"};
 		case ("usms"): {_return = "FI Marshals Service"};
-		case ("dmv"): {_return = "Department of Motor Vehicles"};
 		case ("doj"): {_return = "Department of Justice"};
 	};
 	_return;
@@ -587,12 +588,10 @@
 	player setVariable ["jobVehicle",nil,true];
 }] call Server_Setup_Compile;
 
-["A3PL_Lib_JobMsg",{[param [0,"No message, report this!"], "yellow"] call A3PL_Player_Notification;}] call Server_Setup_Compile;
-
 ["A3PL_Lib_hasPerk",
 {
 	private _perk = param [0,""];
-	if (_perk IN (player getVariable ["perks",[]])) then { true;} else {false;};
+	if (_perk IN (player getVariable ["perks",[]])) then {true;} else {false;};
 }] call Server_Setup_Compile;
 
 ["A3PL_Lib_GetType",
@@ -648,7 +647,7 @@
 	_marker setMarkerTypeLocal _type;
 	_marker setMarkerTextLocal format [_msg];
 
-	uiSleep _delTime;
+	sleep _delTime;
 	deleteMarkerLocal _marker;
 }] call Server_Setup_Compile;
 

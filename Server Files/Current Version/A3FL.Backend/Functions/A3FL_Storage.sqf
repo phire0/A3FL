@@ -9,7 +9,7 @@
 ["A3PL_Storage_CarRetrieveButton",
 {
 	disableSerialization;
-	private ["_display","_control","_intersect","_spawnPos","_dir"];
+	private ["_display","_control","_intersect","_spawnPos","_dir","_exit"];
 	_display = findDisplay 145;
 	_control = _display displayCtrl 1500;
 	_intersect = player_objintersect;
@@ -25,11 +25,13 @@
 	if (_intersect animationPhase "StorageDoor1" > 0.1) exitwith {closeDialog 0; [localize"STR_NewStorage_2", "red"] call A3PL_Player_Notification;};
 
 	if((lbCurSel _control) < 0) exitWith {};
+	if(A3PL_Storage_ReturnArray isEqualTo []) exitWith {["Error while loading your vehicle, please try again", "red"] call A3PL_Player_Notification;closeDialog 0;};
 	_array = (A3PL_Storage_ReturnArray select (lbCurSel _control));
 	_id = _array select 0;
 	_class = _array select 1;
 
 	_spawnPos = _intersect getVariable ["positionSpawn",nil];
+	_exit = false;
 	if ((_intersect isKindOf "Land_Home1g_DED_Home1g_01_F") OR (typeOf _intersect IN ["Land_A3PL_Ranch1","Land_A3PL_Ranch2","Land_A3PL_Ranch3","Land_A3PL_Sheriffpd","Land_A3PL_Firestation","Land_A3PL_Showroom","Land_A3PL_Garage"])) then
 	{
 		_dir = getDir _intersect;
@@ -44,7 +46,21 @@
 			case ("Land_A3PL_Ranch1"): {_spawnPos = _intersect modelToWorld [1,6.5,-2]; _dir = _dir - 90;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Ranch2"): {_spawnPos = _intersect modelToWorld [1,6.5,-2]; _dir = _dir - 90;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Ranch3"): {_spawnPos = _intersect modelToWorld [1,6.5,-2]; _dir = _dir - 90;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
-			case ("Land_A3PL_Firestation"): {_spawnPos = _intersect modelToWorld [-11.2,3,-6]; _dir = _dir - 180;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
+			case ("Land_A3PL_Firestation"): {
+				_pJob = player getVariable["job","unemployed"];
+				if(_pJob isEqualTo "fifr") then {
+					if (player_NameIntersect isEqualTo "garagedoor1_button") then {
+						_spawnPos = _intersect modelToWorld [-11,-12,-7.5];
+						_dir = _dir - 180;
+					};
+					if (player_NameIntersect isEqualTo "garagedoor2_button") then {
+						_spawnPos = _intersect modelToWorld [-4.8,-12,-7.5];
+						_dir = _dir - 180;
+					};
+				} else {
+					_exit = true;
+				};
+			};
 			case ("Land_A3PL_Showroom"): {_spawnPos = _intersect modelToWorld [-6,-1,-3]; _dir = _dir - 180;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Garage"): {_spawnPos = _intersect modelToWorld [0.85,0,-3]; _spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Sheriffpd"):
@@ -63,6 +79,7 @@
 			_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];
 		};
 	};
+	if(_exit) exitWith {["You are not allowed to use this garage","red"] call A3PL_Player_Notification;};
 	if (!isNil "_spawnPos") then
 	{
 		_type = _intersect getVariable ["type","vehicle"];
@@ -91,7 +108,6 @@
 				[format[localize"STR_NewStorage_5",_price],"red"] call A3PL_Player_Notification;
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
-			//Put money into Federal Reserve
 			["Federal Reserve",_Price] remoteExec ["Server_Government_AddBalance",2];
 		};
 		if(_type == "airimpound") then {
@@ -115,7 +131,6 @@
 				[format[localize"STR_NewStorage_5",_price],"red"] call A3PL_Player_Notification;
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
-			//Put money into Federal Reserve
 			["Federal Reserve",_Price] remoteExec ["Server_Government_AddBalance",2];
 		};
 		if(_type == "chopshop") then {
@@ -140,13 +155,18 @@
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
 		};
-		//Put money into Federal Reserve
 		["Federal Reserve", _Price] remoteExec["Server_Government_AddBalance", 2];
-		if(_type == "vehicle") then {
+		if(_type isEqualTo "vehicle") then {
 			[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 		};
 	} else {
-		[_class,player,_id,_intersect] remoteExec ["Server_Storage_RetrieveVehicle", 2];
+		diag_log format["A3PL_Storage_CarRetrieveButton; %1",typeOf _intersect];
+		if((typeOf _intersect) isEqualTo "") then {
+			_nearFreePos = [(getpos player), 5, 50, 0, 0] call BIS_fnc_findSafePos;
+			[_class,player,_id,_nearFreePos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
+		} else {
+			[_class,player,_id,_intersect] remoteExec ["Server_Storage_RetrieveVehicle", 2];
+		};
 	};
 	closeDialog 0;
 }] call Server_Setup_Compile;

@@ -50,7 +50,6 @@
 			case ("doj"): {_namepicture = "\A3PL_Common\icons\faction_doj.paa"; _namecolor = "#B18904";};
 			case ("usms"): {_namepicture = "\A3PL_Common\icons\usms.paa"; _namecolor = "#B18904";};
 			case ("uscg"): {_namepicture = "\A3PL_Common\icons\faction_cg.paa"; _namecolor = "#16a085";};
-			case ("dmv"): {_namepicture = "\A3PL_Common\icons\faction_dmv.paa"; _namecolor = "#13CFD0";};
 		 };
 	 };
 
@@ -210,17 +209,14 @@
 
 	_cancelaction = true;
 	if (typename _messageto == "ARRAY") then {
-
 		if (_messageto select 0 == "admin") then {
 			if(pVar_AdminTwitter) then {_cancelaction = false;};
 			A3PL_Twitter_ReplyArr = (missionNameSpace getVariable ["A3PL_Twitter_ReplyArr",[]]) + [(_messageto select 1)];
 		};
-
 		if (_messageto select 0 == "darknet") then {
-			if(player getVariable["faction","citizen"] IN ["citizen","cartel"]) then {_cancelaction = false;};
+			if(player getVariable["faction","citizen"] isEqualTo "citizen") then {_cancelaction = false;};
 			A3PL_Twitter_ReplyArr = (missionNameSpace getVariable ["A3PL_Twitter_ReplyArr",[]]) + [(_messageto select 1)];
 		};
-
 		if (_messageto select 0 == "reply") then {
 			if (player == (_messageto select 1) select 1) then {_cancelaction = false;};
 			if (((_messageto select 1) select 0 == "admin") && pVar_AdminTwitter) then {_cancelaction = false;};

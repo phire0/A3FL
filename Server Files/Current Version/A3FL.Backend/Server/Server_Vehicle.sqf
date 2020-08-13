@@ -104,15 +104,15 @@
 	_veh setFuelCargo 0;
 	_veh setVariable ["owner",[(getplayerUID _owner),_id],true];
 	Server_Storage_ListVehicles pushback _veh;
-	if (_id IN ["WASTE","MAILMAN","EXTERMINATOR","KARTING","DMV","ROADSIDE","LCMRENT"]) then {
+	if (_id IN ["WASTE","MAILMAN","EXTERMINATOR","KARTING","ROADSIDE","LCMRENT"]) then {
 		switch (_class) do {
 			case ("A3PL_P362_Garbage_Truck"): {_veh setObjectTextureGlobal [0,"\A3PL_Textures\Peterbilt_Garbage_Truck\Waste_Management_Garbage_Truck.paa"];};
 			case ("A3PL_Mailtruck"):
 			{
-				if (_id == "EXTERMINATOR") then {
+				if (_id isEqualTo "EXTERMINATOR") then {
 					_veh setObjectTextureGlobal [0,"\A3PL_Textures\MailTruck\Exterminator_Truck.paa"];
 				};
-				if (_id == "MAILMAN") then
+				if (_id isEqualTo "MAILMAN") then
 				{
 					_setDir = 30;
 					if(_pos isEqualTo [6056.77,7393.57,0]) then {_setDir = 33.8471;};

@@ -313,6 +313,9 @@ Server_Setup_Compile = {
 		call Server_Core_GetDefVehicles;				//create the defaulte vehicles array (for use in cleanup script)
 		call Server_JobPicking_Init;					//get the marker locations for picking locations
 		[] spawn Server_Lumber_TreeRespawn;				//spawn trees for lumberyacking
+		[] spawn Server_Criminal_MoveNPCs;
+		call Server_Government_BudgetTransfer;
+
 
 		//load stock values
 		// [] spawn Server_ShopStock_Load;
@@ -366,10 +369,12 @@ Server_Setup_Compile = {
 
 	["itemAdd", ["Server_Loop_DealerPos", {call Server_JobFarming_DrugDealerPos;}, 1200]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_RepairTerrain", {[] spawn Server_Core_RepairTerrain;}, 600]] call BIS_fnc_loop;
-	["itemAdd", ["Server_Loop_BusinessLoop", {[] spawn Server_Business_Loop;}, 60]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_BusinessLoop", {[] spawn Server_Business_Loop;}, 300]] call BIS_fnc_loop;
 
 	["itemAdd", ["Server_Loop_OilRandomization", {[] spawn Server_JobWildcat_RandomizeOil;}, 3600]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_ResRandomization", {[] spawn Server_JobWildcat_RandomizeRes;}, 3600]] call BIS_fnc_loop;
+
+	["itemAdd", ["Server_Loop_Criminal_MoveNPCs", {[] spawn Server_Criminal_MoveNPCs;}, 7200]] call BIS_fnc_loop;
 
 	//cleanup
 	["itemAdd", ["Server_Loop_Cleanup", {[] spawn Server_Core_Clean;}, 900]] call BIS_fnc_loop;
@@ -789,11 +794,6 @@ Server_Setup_Compile = {
 	};
 
 	(owner _unit) publicVariableClient "A3PL_RetrievedInventory";
-
-	//Enterprise number for jobs
-	if((_return select 9) IN ["fifr","uscg","fisd"]) then {
-		[(_return select 9)] remoteExec["A3PL_iPhoneX_SetJobNumber",_unit];
-	};
 
 	//Load Bills
 	[_unit] remoteExec ["Server_Company_LoadBills",2];

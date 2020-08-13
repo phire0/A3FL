@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Fishers Island Cartel","cartel","cartel"],["Federal Bureau of Investigation","fbi","fbi"]]
+#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Federal Bureau of Investigation","fbi","fbi"]]
 #define adminTagsList [["Civilian Tag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]],["Executive Tag",["#B5B5B5","#8410ff","\A3PL_Common\icons\executive.paa"]],["Executive Supervisor Tag",["#B5B5B5","#5ab2ff","\A3PL_Common\icons\exec_supervisor.paa"]],["Developer Tag",["#B5B5B5","#FFFFFF","\A3PL_Common\icons\creator.paa"]],["Lead Dev Tag",["#B5B5B5","#2c82c9","\A3PL_Common\icons\leaddev.paa"]],["Chief Tag",["#B5B5B5","#2f9baa","\A3PL_Common\icons\chief.paa"]],["Sub-Director Tag",["#B5B5B5","#ff6d29","\A3PL_Common\icons\subdirector.paa"]],["Director Tag",["#B5B5B5","#cece08","\A3PL_Common\icons\director.paa"]]]
 
 ["A3PL_Admin_Check",
@@ -44,6 +44,8 @@
 		call A3PL_AdminToolsList;
 		call A3PL_Admin_TwitterTagsCombo;
 		call A3PL_Admin_FactionCombo;
+
+		buttonSetAction [1603, "call A3PL_AdminRemoveItem;"];
 		ctrlSetText [1000, format ["Staff Menu | %2 %1",player getVariable "name",[player] call A3PL_AdminTitle]];
 	};
 	if (!IsNull (findDisplay 98)) exitWith {(findDisplay 98) closeDisplay 1;};
@@ -123,24 +125,21 @@
 	_selectedPlayerIndex = lbCurSel 1500;
 	_selectedInventory = lbText [2101,lbCurSel 2101];
 	_selectedPlayer = (A3PL_Admin_PlayerList select _selectedPlayerIndex);
-	_playerInventories = _selectedPlayer getVariable "player_fstorage";
 	_index = 999;
 
 	if (_selectedInventory isEqualTo localize"STR_ADMIN_PLAYER") then {
 		lbClear 1502;
 		{
-			lbAdd [1502,format ["%1 (%2)",_x select 0,str (_x select 1)]];
+			_i = lbAdd [1502,format ["%1 (%2)",[_x select 0,"name"] call A3PL_Config_GetItem,(_x select 1)]];
+			lbSetData [1502, _i, (_x select 0)];
+			lbSetValue [1502, _i, (_x select 1)];
 		} forEach (_selectedPlayer getVariable ["player_inventory",[]]);
 	} else {
+		_toLoadInventory = [_selectedInventory,_selectedPlayer] call A3PL_Factory_GetStorage;
 		{
-			_checking = _x select 0;
-			if (_checking isEqualTo _selectedInventory) exitWith {_index = _forEachIndex;};
-		} forEach _playerInventories;
-		lbClear 1502;
-		if (_index == 999) exitWith {lbAdd [1502,localize"STR_ADMIN_NOINVENTORY"]};
-		_toLoadInventory = (_playerInventories select _index) select 1;
-		{
-				lbAdd [1502,format ["%1 (%2)",_x select 0,_x select 1]];
+			_i = lbAdd [1502,format ["%1 (%2)",_x select 0,_x select 1]];
+			lbSetData [1502, _i, (_x select 0)];
+			lbSetValue [1502, _i, (_x select 1)];
 		} forEach _toLoadInventory;
 	};
 }] call Server_Setup_Compile;
@@ -156,7 +155,7 @@
 ["A3PL_Admin_InventoryCombo", {
 	private _display = findDisplay 98;
 	private _selectedInventory = _display displayCtrl 2101;
-	private _inventories = ["Player","Chemical Plant","Steel Mill","Oil Refinery","Goods Factory","Food Processing Plant","Vehicles Faction","Faction Weapons","Legal Weapon Factory","Marine Factory","Aircraft Factory","Car Parts Factory","Vehicle Factory","Clothing Factory","Vest Factory","Headgear Factory","Goggle Factory","Cocaine treatment","Illegal Weapon Factory"];
+	private _inventories = ["Player","Chemical Plant","Steel Mill","Oil Refinery","Goods Factory","Food Processing Plant","Vehicle Factory","Marine Factory","Aircraft Factory","Clothing Factory","Vest Factory","Headgear Factory","Goggle Factory","Illegal Weapon Factory"];
 	{lbAdd [2101,_x];} foreach _inventories;
 	_selectedInventory ctrlAddEventHandler ["lbSelChanged","call A3PL_Admin_PlayerInventoryFill;"];
 }] call Server_Setup_Compile;
@@ -553,7 +552,7 @@
 		if (_isFactory && (_itemType == "item")) then {_selectedAsset = [_selectedAsset,_selectedFactory,"class"] call A3PL_Config_GetFactory;};
 
 		[_selectedPlayer,_selectedFactory,[_selectedAsset,_amount],false] remoteExec ["Server_Factory_Add", 2];
-		_itemName = [_selectedAsset,"name"] call A3PL_Config_GetItem;
+		_itemName = lbText [1501,(lbCurSel 1501)];
 		[format[localize"STR_ADMIN_ADDEDTOFACTORY",_amount,_itemName,_selectedFactory,_selectedPlayer getVariable ["name","inconnu"]],"green"] call A3PL_Player_Notification;
 
 		[player,"factories",[format ["AddFactory: %5 %1(s) ADDED TO %2(%3) (%4)",_selectedAsset,_selectedPlayer getVariable ["name","Undefined"],(getPlayerUID _selectedPlayer),_selectedFactory,_amount]]] remoteExec ["Server_AdminLoginsert", 2];
@@ -579,9 +578,40 @@
 		if (_amount < 1) exitwith {[localize"STR_Various_INVALIDAMOUNT","red"] call A3PL_Player_Notification;};
 
 		[_selectedPlayer,[_selectedAsset,_amount],_selectedFactory] remoteExec ["Server_Factory_Create", 2];
-		_itemName = [_selectedAsset,"name"] call A3PL_Config_GetItem;
+		_itemName = lbText [1501,(lbCurSel 1501)];
 		[format[localize"STR_ADMIN_CREATEONPLAYER",_amount,_itemName,_selectedFactory,_selectedPlayer getVariable ["name","inconnu"]],"green"] call A3PL_Player_Notification;
 		[player,"factories",[format ["RecipeCreated: %1 CREATED FOR %2(%3) (%4)",_selectedAsset,_selectedPlayer getVariable ["name","Undefined"],(getPlayerUID _selectedPlayer),_selectedFactory]]] remoteExec ["Server_AdminLoginsert", 2];
+	} else {
+		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
+	};
+}] call Server_Setup_Compile;
+
+["A3PL_AdminRemoveItem", {
+	if ((player getVariable "dbVar_AdminLevel") >= 1) then {
+		_display = findDisplay 98;
+		_selectedPlayerIndex = lbCurSel 1500;
+		_selectedInventory = lbText [2101,lbCurSel 2101];
+		if(_selectedInventory isEqualTo "") exitWith {};
+		_selectedPlayer = (A3PL_Admin_PlayerList select _selectedPlayerIndex);
+		_playerInventories = _selectedPlayer getVariable ["player_fstorage",[]];
+
+		_selectedItem = lbData [1502,lbCurSel 1502];
+		if(_selectedItem isEqualTo "") exitWith {};
+		_selectedItemAmount = lbValue [1502,lbCurSel 1502];
+
+		_control = _display displayCtrl 1403;
+		_amount = parseNumber (ctrlText _control);
+		if (_amount < 1) exitwith {[localize"STR_Various_INVALIDAMOUNT","red"] call A3PL_Player_Notification;};
+		if (_amount > _selectedItemAmount) exitWith{["There is not that amount to remove","red"] call A3PL_Player_Notification;};
+
+		if (_selectedInventory isEqualTo localize"STR_ADMIN_PLAYER") then {
+			[_selectedItem,-(_amount)] remoteExec ["A3PL_Inventory_Add",_selectedPlayer];
+			[format["You removed %1x %2 from %3's inventory",_amount,[_selectedItem,"name"] call A3PL_Config_GetItem,_selectedPlayer getVariable["name","unknown"]]] call A3PL_Player_Notification;
+		} else {
+			[_selectedPlayer,_selectedInventory,[_selectedItem,-(_amount)],false] remoteExec ["Server_Factory_Add", 2];
+			[format["You removed %1x %2 from %3's %4",_amount,[_selectedItem,"name"] call A3PL_Config_GetItem,_selectedPlayer getVariable["name","unknown"],_selectedInventory]] call A3PL_Player_Notification;
+		};
+		closeDialog 0;
 	} else {
 		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
 	};
@@ -614,13 +644,13 @@
 ["A3PL_AdminRedName", {
 	if (player getVariable ["pVar_RedNameOn",false]) then {
 		player setVariable ["pVar_RedNameOn",false,true];
+		player enableStamina true;
 	} else {
 		player setDamage 0;
 		player setVariable ["pVar_RedNameOn",true,true];
 		player setVariable ["A3PL_Wounds",[],true];
 		player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
-		Player_Hunger = 100;
-		Player_Thirst = 100;
+		player enableStamina false;
 	};
 	[player,"admin_mode",[player getVariable ["pVar_RedNameOn",false]]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
@@ -932,8 +962,6 @@
 	_message = _message + format["<br/>%1 %2", count(["uscg"] call A3PL_Lib_FactionPlayers), "USCG"];
 	_message = _message + format["<br/>%1 %2", count(["usms"] call A3PL_Lib_FactionPlayers), "FIMS"];
 	_message = _message + format["<br/>%1 %2", count(["doj"] call A3PL_Lib_FactionPlayers), "DOJ"];
-	_message = _message + format["<br/>%1 %2", count(["dmv"] call A3PL_Lib_FactionPlayers), "DMV"];
-	_message = _message + format["<br/>%1 %2", count(["cartel"] call A3PL_Lib_FactionPlayers), "CARTEL"];
 	[_message,"pink"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 

@@ -254,6 +254,11 @@
 	{[player_objintersect] call A3PL_BHeist_SetDrill;}
 ],
 [
+	"Land_A3FL_Fishers_Jewelry",
+	localize"STR_INTSECT_CONVAULTDRI",
+	{[player_objintersect] call A3PL_Jewelry_SetDrill;}
+],
+[
 	"Land_A3PL_Bank",
 	localize"STR_INTSECT_OPDEPBOX",
 	{[player_objintersect,player_nameintersect] spawn A3PL_BHeist_OpenDeposit;}
@@ -262,6 +267,33 @@
 	"Land_A3PL_Bank",
 	localize"STR_INTSECT_SECVAULTD",
 	{[player_objintersect,player_nameintersect] call A3PL_BHeist_CloseVault;}
+],
+[
+	"Land_A3FL_Fishers_Jewelry",
+	localize"STR_INTSECT_SECVAULTD",
+	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_CloseVault;}
+],
+[
+	"Land_A3FL_Fishers_Jewelry",
+	"Open/Close Safe",
+	{
+		_building = player_objIntersect;
+		if(_building animationPhase "Vault_Door" > 0.95) then {
+			_building animateSource ["Vault_Door",0];
+		} else {
+			_building animateSource ["Vault_Door",1];
+		};
+	}
+],
+[
+	"Land_A3FL_Fishers_Jewelry",
+	"Break Glass",
+	{["Hit the glass with a melee weapon","orange"] call A3PL_Player_Notification;}
+],
+[
+	"Land_A3FL_Fishers_Jewelry",
+	"Steal Jewelry",
+	{[player_objintersect,player_nameintersect] call A3PL_Jewelry_PickJewelry;}
 ],
 [
 	"Land_A3PL_Garage",
@@ -509,17 +541,7 @@
 ],
 [
 	"Land_A3PL_EstateSign",
-	localize"STR_INTSECT_ESTATESHOUSE",
-	{[true,player_objIntersect] call A3PL_RealEstates_SetSell;}
-],
-[
-	"Land_A3PL_EstateSign",
 	localize"STR_INTSECT_SELLHOUSE",
-	{[false,player_objIntersect] call A3PL_RealEstates_SetSell;}
-],
-[
-	"Land_A3PL_EstateSign",
-	localize"STR_INTSECT_SELLESTATE",
 	{[player_objintersect] call A3PL_RealEstates_Open;}
 ],
 [

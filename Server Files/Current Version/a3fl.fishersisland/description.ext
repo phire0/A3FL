@@ -276,3 +276,14 @@ class CfgDisabledCommands
         };
     };
 };
+
+class CfgFishersHelp {
+	class Tutorial_1 {
+		title = "soonTM";
+		text = "soonTM";
+	};
+	class Tutorial_2 {
+		title = "soonTM";
+		text = "soonTM";
+	};
+};

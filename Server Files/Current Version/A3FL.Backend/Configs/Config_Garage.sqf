@@ -254,9 +254,6 @@ Config_Garage_Upgrade =
 		["Spoiler2","addon","Spoiler2",format [localize "STR_CGAR_WINGTYPE",2],format [localize "STR_CGAR_AFTERMEWING",2],"Towbar_Cam",[4,0,1.5],500,[],0],//"Wing Type 2","Aftermarket Rear Wing 2"
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[4,0,1.5],500,[],0] //Add towbar, Allows you to hitch trailers
 	],
-	["A3PL_ChevroletCamaro2018",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
-	],
 	["A3PL_Raptor_PD",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0]  //,"Front pushbar","Protect front from collisions",
@@ -267,34 +264,3 @@ Config_Garage_Upgrade =
 	]
 ];
 publicVariable "Config_Garage_Upgrade";
-
-Config_Garage_Materials =
-[
-	["A3PL_Cars\common\rvmats\car_paint.rvmat","Default"],
-	["A3PL_Cars\Common\rvmats\Metallic.rvmat","Metallic"],
-	["A3PL_Cars\Common\rvmats\Black_Plastic.rvmat","Plastic"],
-	["A3PL_Cars\Common\rvmats\CarbonFiber.rvmat","Carbon Fiber"],
-	["A3PL_Cars\Common\rvmats\CarbonFiber_Mat.rvmat","Carbon Fiber Mat"],
-	["A3PL_Cars\Common\rvmats\Chrome_new.rvmat","Chrome"]
-];
-publicVariable "Config_Garage_Materials";
-
-Config_Garage_Repair =
-[
-	["engine","Engine"],
-	["body","Body damage"],
-	["wheel_1_1_steering","Front-Left Wheel"],
-	["wheel_1_2_steering","Back-Left Wheel"],
-	["wheel_2_1_steering","Front-Right Wheel"],
-	["wheel_2_2_steering","Back-Right Wheel"],
-	["glass1","Front window"],
-	["glass2","Front-Left window"],
-	["glass3","Back-Left window"],
-	["glass4","Front-right window"],
-	["glass5","Back-right window"],
-	["glass6","Rear window"],
-	["l svetlo","Left headlight"],
-	["p svetlo","Right headlight"],
-	["spotlight_hit","Spotlight"]
-];
-publicVariable "Config_Garage_Repair";

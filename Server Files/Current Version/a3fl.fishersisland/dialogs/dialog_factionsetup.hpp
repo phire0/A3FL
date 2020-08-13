@@ -177,7 +177,16 @@ class Dialog_FactionSetup
 			y = 0.615222 * safezoneH + safezoneY;
 			w = 0.0605208 * safezoneW;
 			h = 0.0374074 * safezoneH;
-			action = "call A3PL_Government_BPCreate;";
+			action = "call A3PL_Government_ItemBuy;";
+		};
+		class button_fire: RscButtonEmpty
+		{
+			idc = -1;
+			x = 0.278281 * safezoneW + safezoneX;
+			y = 0.555 * safezoneH + safezoneY;
+			w = 0.061875 * safezoneW;
+			h = 0.044 * safezoneH;
+			action = "call A3PL_Government_Fire;";
 		};
 	};
 };

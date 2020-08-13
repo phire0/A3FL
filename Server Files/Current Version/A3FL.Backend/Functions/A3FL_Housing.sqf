@@ -384,104 +384,41 @@
 ["A3PL_RealEstates_Open",
 {
 	disableSerialization;
+	_sign = param[0,objNull];
+	if(isNull _sign) exitWith {};
 
-	_near = (nearestObjects [player, Config_Houses_List, 10,true]) select 0;
-	_owners = _near getVariable ["owner",[]];
-	if((getPlayerUID player) IN _owners) exitwith {
-		[localize"STR_NewHousing_18", "red"] call A3PL_Player_Notification;
-	};
-	_sign = _this select 0;
-	if(!(_sign getVariable["houseSelling",false])) exitwith {[localize"STR_NewHousing_19", "red"] call A3PL_Player_Notification;};
-
-	createDialog "Dialog_EstateSell";
-	_display = findDisplay 67;
-	_control = _display displayCtrl 1900;
-	_control sliderSetRange [1,40];
-	_control ctrlAddEventHandler ["SliderPosChanged",{_this call A3PL_RealEstates_MenuSlider}];
-	_control sliderSetPosition 1;
-
-	_houses = nearestObjects [player, Config_Houses_List, 10,true];
-	if(count(_houses) isEqualTo 0) exitWith {};
-	_price = [_houses select 0] call A3PL_Housing_GetData;
-	_control = _display displayCtrl 1400;
-	_control ctrlSetStructuredText parseText format ["<t align='left'>Market price: $%1</t>",_price];
-}] call Server_Setup_Compile;
-
-["A3PL_RealEstates_MenuSlider",
-{
-	disableSerialization;
-	private ["_display","_control","_sControl"];
-	_display = findDisplay 67;
-
-	_percentage = _this select 1;
-	_house = (nearestObjects [player, Config_Houses_List, 10,true]) select 0;
-	_housePrice = ([_house,1] call A3PL_Housing_GetData) * 0.7;
-	_value = round((_percentage / 100) * _housePrice);
-
-	_control = _display displayCtrl 1100;
-	_control ctrlSetStructuredText parseText format ["<t align='center'>Percentage: %1%3<br/>Value: $%2</t>",_percentage,_value,"%"];
-}] call Server_Setup_Compile;
-
-["A3PL_RealEstates_Sell",
-{
-	_sign = (nearestObjects [player, ["Land_A3PL_EstateSign"], 5,true]) select 0;
-	_house = (nearestObjects [player, Config_Houses_List, 10,true]) select 0;
-
-	_display = findDisplay 67;
-	_slider = _display displayCtrl 1900;
-
-	_housePrice = ([_house,1] call A3PL_Housing_GetData) * 0.7;
-	_percentage = round(sliderPosition _slider);
-	_com = round(_percentage / 100 * (_housePrice));
-	_clientPart = _housePrice - _com;
-
-	closeDialog 0;
-	[format[localize"STR_NewHousing_20",_com],"green"] call A3PL_Player_Notification;
-	player setVariable["Player_Bank", ((player getVariable["Player_Bank",0]) + _com),true];
-	[player,60] call A3PL_Level_AddXP;
-	[getPos player,_clientPart, _sign, _house] remoteExec ["Server_Housing_Sold",2];
-	[getPlayerUID player,"houseSold",[(_house getVariable ["doorid",["1","Unknown"]]) select 1]] remoteExec ["Server_Log_New",2];
-}] call Server_Setup_Compile;
-
-["A3PL_RealEstates_SetSell",
-{
-	disableSerialization;
-	_value = _this select 0;
-	_sign = _this select 1;
-	_near = nearestObjects [player, Config_Houses_List, 10,true];
+	_near = nearestObjects [player, Config_Houses_List, 20,true];
 	if(count(_near) isEqualTo 0) exitWith {["No house nearby", "red"] call A3PL_Player_Notification;};
-	_owners = (_near select 0) getVariable ["owner",[]];
+	_house = _near select 0;
+	_owners = _house getVariable ["owner",[]];
 	if(count _owners isEqualTo 0) exitwith {};
 	_owner = _owners select 0;
-	if((getPlayerUID player) == _owner) then {
-		_sign setVariable["houseSelling",_value,true];
-		if(_value) then {
-			[localize"STR_NewHousing_21", "green"] call A3PL_Player_Notification;
-		} else {
-			[localize"STR_NewHousing_22", "green"] call A3PL_Player_Notification;
-		};
+	if((getPlayerUID player) isEqualTo _owner) then {
+		createDialog "Dialog_EstateSell";
+		_display = findDisplay 67;
+		_price = ([_house] call A3PL_Housing_GetData) * 0.75;
+		_control = _display displayCtrl 1100;
+		_control ctrlSetStructuredText parseText format ["<t align='left'>$ %1</t>",[_price, 1, 0, true] call CBA_fnc_formatNumber];
 	} else {
 		[localize"STR_NewHousing_23", "red"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
 
-["A3PL_Housing_SetSell",
+["A3PL_RealEstates_Sell",
 {
-	private["_house","_pos"];
-	_house = param [0,objNull];
-
-	if((player distance _house) > 10) exitWith {};
-
-	_obj = createvehicle ["Land_A3PL_EstateSign",getPos player, [], 0, "CAN_COLLIDE"];
-	[localize"STR_NewHousing_24", "green"] call A3PL_Player_Notification;
+	closeDialog 0;
+	_sign = (nearestObjects [player, ["Land_A3PL_EstateSign"], 10,true]) select 0;
+	_house = (nearestObjects [player, Config_Houses_List, 20,true]) select 0;
+	_housePrice = ([_house,1] call A3PL_Housing_GetData) * 0.75;
+	[player,50] call A3PL_Level_AddXP;
+	[getPos player,_housePrice, _sign, _house] remoteExec ["Server_Housing_Sold",2];
+	[getPlayerUID player,"houseSold",[]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Housing_SetMarker",
 {
-	private["_house","_pos"];
-	_house = param [0,objNull];
-	uiSleep 3;
-	_marker = createMarkerLocal [format["house_%1",round (random 1000)],visiblePosition _house];
+	private _house = param [0,objNull];
+	private _marker = createMarkerLocal [format["house_%1",round (random 1000)],visiblePosition _house];
 	_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
 	_marker setMarkerAlphaLocal 1;
 	_marker setMarkerColorLocal "ColorGreen";

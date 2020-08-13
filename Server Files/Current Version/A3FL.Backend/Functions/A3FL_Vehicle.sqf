@@ -81,6 +81,8 @@
 	player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
 	[] call A3PL_Inventory_Verify;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
+
+	[getPlayerUID player,"addToTrunk",["Item",_itemClass,"Amount",_itemAmount]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_TakeFromVehicle",
@@ -110,6 +112,8 @@
 	[A3PL_Veh_Interact] call A3PL_Vehicle_StorageVerify;
 	[] call A3PL_Inventory_Verify;
 	[_display,A3PL_Veh_Interact] call A3PL_Vehicle_StorageFillLB;
+
+	[getPlayerUID player,"takeFromTrunk",["Item",_itemClass,"Amount",_itemAmount]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_StorageVerify", {
@@ -211,6 +215,7 @@
 	if(_add) then {
 		if(_veh IN A3PL_Player_Vehicles) exitWith {};
 		A3PL_Player_Vehicles pushback _veh;
+		[format["You received the key of a %1.",getText(configFile >> "CfgVehicles" >> (typeOf _veh) >> "displayName")],"green"] call A3PL_Player_Notification;
 	} else {
 		A3PL_Player_Vehicles = A3PL_Player_Vehicles - [_veh];
 	};
@@ -773,14 +778,12 @@
 
 ["A3PL_Vehicle_Repair",
 {
-	private ["_car","_success"];
-	_car = param [0,objNull];
+	private _car = param [0,objNull];
+	private _success = true;
 	if (isNull _car) exitwith {};
-	if (animationstate player == "Acts_carFixingWheel") exitwith {[localize"STR_NewVehicle_13", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player isEqualTo player)) exitwith {[localize"STR_NewVehicle_14", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_NewVehicle_15","red"] call A3PL_Player_Notification;};
 	["Repairing...",30] spawn A3PL_Lib_LoadAction;
-	_success = true;
 	waitUntil{Player_ActionDoing};
 	player playMoveNow 'Acts_carFixingWheel';
 	while {Player_ActionDoing} do {
@@ -804,7 +807,7 @@
 {
 	private _trailer = _this select 0;
 	private _TruckArray = nearestObjects [(_trailer modelToWorld [0,3,0]), A3PL_HitchingVehicles, 6.5];
-	if (count _TruckArray == 0) exitwith {[localize"STR_NewVehicle_18", "red"] call A3PL_Player_Notification;};
+	if ((count _TruckArray) isEqualTo 0) exitwith {[localize"STR_NewVehicle_18", "red"] call A3PL_Player_Notification;};
 	private _truck = _TruckArray select 0;
 	[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	[_truck] remoteExec ["Server_Vehicle_EnableSimulation", 2];
@@ -817,20 +820,18 @@
 
 ["A3PL_Vehicle_Trailer_Hitch",
 {
-	private ["_truck","_TruckArray","_FrontTrailer","_trailer","_offset","_ramp"];
-	_trailer = param [0,objNull];
-	_offset = 3;
-	_ramp = false;
-	if (typeOf _trailer IN ["A3PL_Lowloader"]) then
-	{
+	private _trailer = param [0,objNull];
+	private _offset = 3;
+	private _ramp = false;
+	if (typeOf _trailer IN ["A3PL_Lowloader"]) then {
 		_offset = 5;
 		if (_trailer animationPhase "ramp" > 0) then {_ramp = true;};
 	};
 	if (_ramp) exitwith {[localize"STR_NewVehicle_19", "red"] call A3PL_Player_Notification;};
 
-	_TruckArray = nearestObjects [(_trailer modelToWorld [0,_offset,0]), A3PL_HitchingVehicles, 16.5];
+	private _TruckArray = nearestObjects [(_trailer modelToWorld [0,_offset,0]), A3PL_HitchingVehicles, 16.5];
 	if (count _TruckArray == 0) exitwith {[localize"STR_NewVehicle_20", "red"] call A3PL_Player_Notification;};
-	_truck = _truckArray select 0;
+	private _truck = _truckArray select 0;
 	_truck allowDamage false;
 	switch(true) do {
 		case (typeOf _trailer isEqualTo "A3PL_Lowloader"): {
@@ -881,15 +882,15 @@
 			_trailer attachTo [_truck, [0, -6.03, 1.2]];
 			detach _trailer;
 		};
-		case ((typeOf _trailer isEqualTo "A3PL_Car_Trailer") && (typeOf _truck IN ["A3PL_Silverado","A3PL_Silverado_PD"])): {
+		case ((typeOf _trailer isEqualTo "A3PL_Car_Trailer") && (typeOf _truck IN ["A3PL_Silverado","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3PL_Silverado_FD"])): {
 			_trailer attachTo [_truck, [0, -7.87, -0.42]];
 			detach _trailer;
 		};
-		case ((typeOf _trailer isEqualTo "A3PL_Drill_Trailer") && (typeOf _truck IN ["A3PL_Silverado","A3PL_Silverado_PD"])): {
+		case ((typeOf _trailer isEqualTo "A3PL_Drill_Trailer") && (typeOf _truck IN ["A3PL_Silverado","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3PL_Silverado_FD"])): {
 			_trailer attachTo [_truck, [0, -4.84, -0.53]];
 			detach _trailer;
 		};
-		case ((typeOf _trailer isEqualTo "A3PL_Small_Boat_Trailer") && (typeOf _truck IN ["A3PL_Silverado","A3PL_Silverado_PD"])): {
+		case ((typeOf _trailer isEqualTo "A3PL_Small_Boat_Trailer") && (typeOf _truck IN ["A3PL_Silverado","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3PL_Silverado_FD"])): {
 			_trailer attachTo [_truck, [0, -5.84, -0.53]];
 			detach _trailer;
 		};
@@ -937,12 +938,10 @@
 			_trailer attachTo [_truck, [0, -5.36, -0.22]];
 			detach _trailer;
 		};
-
 		default {};
 	};
 
-	if ((!(local _truck)) OR (!(local _trailer))) then
-	{
+	if ((!(local _truck)) OR (!(local _trailer))) then {
 		[_truck,_trailer] remoteExec ["Server_Vehicle_Trailer_Hitch",2];
 	};
 
@@ -955,25 +954,17 @@
 	[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	[_truck] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 
-	[] spawn {uiSleep 60;_truck allowDamage true;};
+	[] spawn {sleep 60;_truck allowDamage true;};
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_TrailerAttach",
 {
-	private ["_trailer","_boats","_boat"];
-
-	_trailer = param [0,objNull];
+	private _trailer = param [0,objNull];
 	if (typeOf _trailer != "A3PL_Small_Boat_Trailer") exitwith {["System: Incorrect type (try again)", "red"] call A3PL_Player_Notification;};
-	_boats = nearestObjects [_trailer, ["Ship"], 6];
-	if (count _boats < 1) exitwith
-	{
-		[localize"STR_NewVehicle_21", "red"] call A3PL_Player_Notification;
-	};
-
+	private _boats = nearestObjects [_trailer, ["Ship"], 6];
+	if (count _boats < 1) exitwith {[localize"STR_NewVehicle_21", "red"] call A3PL_Player_Notification;};
 	_boat = _boats select 0;
-
-	switch (typeOf _boat) do
-	{
+	switch (typeOf _boat) do {
 		case ("A3PL_RHIB"): {_boat attachTo [_trailer,[0,-0.57,0.9]];};
 		case default {_boat attachTo [_trailer,[0,-0.25,0.9]]; };
 	};
@@ -982,18 +973,13 @@
 
 ["A3PL_Vehicle_BigTrailerAttach",
 {
-	private ["_trailer","_boats","_boat"];
-
-	_trailer = param [0,objNull];
-	//if (typeOf _trailer != "A3PL_Boat_Trailer") exitwith {["System: Incorrect type (try again)", "red"] call A3PL_Player_Notification;};
-	_boats = nearestObjects [_trailer, ["Ship"], 12];
+	private _trailer = param [0,objNull];
+	private _boats = nearestObjects [_trailer, ["Ship"], 12];
 	if (count _boats < 1) exitwith
 	{
 		[localize"STR_NewVehicle_22", "red"] call A3PL_Player_Notification;
 	};
-
 	_boat = _boats select 0;
-
 	switch (typeOf _boat) do
 	{
 		case ("A3PL_RHIB"): {_boat attachTo [_trailer,[0,-0.57,0.9]];};
@@ -1011,26 +997,18 @@
 	if (!(_trailer isKindOf "Car")) exitwith {[localize"STR_NewVehicle_24", "red"] call A3PL_Player_Notification;};
 	if (!(local _trailer)) exitwith {[localize"STR_NewVehicle_25", "red"] call A3PL_Player_Notification;};
 	_truck = getPos _trailer nearestObject "A3PL_P362";
-	//first check if ramp is up
 	if ((_trailer animationPhase "ramp") < 0.5) then
 	{
-		//lower the ramp
 		_trailer animate ["ramp",1];
-
 		[_trailer] spawn
 		{
-			private ["_trailer","_t"];
-			_trailer = param [0,objNull];
+			private _trailer = param [0,objNull];
+			private _t = 0;
 			if (isNull _trailer) exitwith {};
-			_t = 0;
-			waitUntil {sleep 0.1; _t = _t + 0.1; (_t >= 6) OR ((_trailer animationPhase "ramp" >= 1))}; //wait until the the ramp is fully lowered
+			waitUntil {sleep 0.1; _t = _t + 0.1; (_t >= 6) OR ((_trailer animationPhase "ramp" >= 1))};
 			if (_trailer animationPhase "ramp" < 0.9) exitwith {_trailer animate ["ramp",0,true]};
 			if (!(local _trailer)) exitwith {_trailer animate ["ramp",0,true]};
-
-			//disable simulation on trailer so vehicles can be moved up
 			[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
-
-			//detach the vehicles on the trailer
 			{
 				detach _x;
 			} foreach (attachedObjects _trailer);
@@ -1039,29 +1017,20 @@
 	else
 	{
 		private ["_vehicles","_vehiclesTrailer"];
-
-		//attach all vehicles on the trailer
 		_vehicles = nearestObjects [_trailer, ["Air","Thing","LandVehicle","Ship"], 10]; //nearest vehicles
 		_vehicles = _vehicles - [_trailer];
 		_vehicles = _vehicles - [_truck];
-		_vehiclesTrailer = []; //vehicles actually on the trailer
+		_vehiclesTrailer = [];
 		{
 			if ((getpos _x) inArea [_trailer modelToWorld [0,0,0], 6.1, 1,(getDir _trailer+90), true]) then
 			{
 				_vehiclesTrailer pushback _x;
 			};
 		} foreach _vehicles;
-
-		//attach only the vehicles on the actual trailer
 		{
-			//_x attachTo [_trailer];
 			[_x,_trailer] call BIS_Fnc_AttachToRelative;
 		} foreach _vehiclesTrailer;
-
-		//enablesimulation on the trailer again
 		[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
-
-		//raise the ramp
 		_trailer animate ["ramp",0,true];
 	};
 }] call Server_Setup_Compile;
@@ -1192,7 +1161,7 @@
 	_truck = _this select 0;
 	_towing = _truck getVariable "Towed_Car";
 	if ((!local _truck) OR ((!isNull _towing) && (!local _towing))) exitWith {[player,_truck,_towing] remoteExec ["Server_Vehicle_AtegoHandle", 2];[localize"STR_NewVehicle_35"] call A3PL_Player_Notification;};
-	if (_truck == _towing) exitWith {};
+	if (_truck isEqualTo _towing) exitWith {};
 	_pushdown = true;
 	_roleoff = true;
 	_distance = 0;
@@ -1209,10 +1178,6 @@
 	_towingdir = _towingXYZ select 4;
 	_truckmass = _towingXYZ select 5;
 	_towingmass = getMass _towing;
-	//_totalmass = _truckmass - _towingmass;
-	//_truck setMass [_totalmass,17];
-	_Fuel_lvl = fuel _truck;
-	//_truck setFuel 0;
 	if ((_truck animationSourcePhase "truck_flatbed") < 0.5) then {[_truck,_angle] spawn A3PL_Vehicle_TowTruck_Ramp_down;}else {_angle = -0.230112;};
 	while {_pushdown} do
 	{
@@ -1234,11 +1199,9 @@
 		If (_angle >= 0) then {_roleoff = false;};
 		sleep 0.01;
 	};
-	//[_towing] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	detach _towing;
 	_towing setPos getPos _towing;
 	_towing setVelocity [0, 0, 1];
-	//_truck setFuel _Fuel_lvl;
 	_truck setVariable ["Towing",false,true];
 	_towing setVariable ["Towed", false, true];
 }] call Server_Setup_Compile;
@@ -1250,6 +1213,7 @@
 	_towpoint = "Land_HelipadEmpty_F" createVehicleLocal (getpos _truck);
 	_towpoint attachTo [_truck,[0,-6.41919,-2.1209]];
 	_towing = (getpos _towpoint) nearestObject "AllVehicles";
+	if(isPlayer _towing) exitWith{["You are not able to tow someone, this is not nice.", "red"] call A3PL_Player_Notification;};
 	_alignment = [_truck, _towing] call BIS_fnc_relativeDirTo;
 	if ((_towpoint distance _towing) >= 6) exitWith {deleteVehicle _towpoint;[localize"STR_NewVehicle_36", "yellow"] call A3PL_Player_Notification;};
 	deleteVehicle _towpoint;
@@ -1257,10 +1221,9 @@
 	if (_alignment < 178) exitWith  {[localize"STR_NewVehicle_37", "yellow"] call A3PL_Player_Notification;};
 	if ((_truck animationSourcePhase "truck_flatbed") < 0.5) exitWith {[localize"STR_NewVehicle_38", "yellow"] call A3PL_Player_Notification;};
 	if (_truck == _towing) exitWith {[localize"STR_NewVehicle_37", "yellow"] call A3PL_Player_Notification;};
-	if ((!local _truck) OR ((!isNull _towing) && (!local _towing))) exitWith {[player,_truck,_towing] remoteExec ["Server_Vehicle_AtegoHandle", 2];["Setting Local owner"] call A3PL_Player_Notification;};
+	if ((!local _truck) OR ((!isNull _towing) && (!local _towing))) exitWith {[player,_truck,_towing] remoteExec ["Server_Vehicle_AtegoHandle", 2];};
 	{unassignVehicle _x;_x action ["EJECT", vehicle _x];sleep 0.4;} foreach crew _towing;
 	_towing engineOn false;
-    //[_towing] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	sleep 0.5;
 	_distance = -5.7323;
 	_height = 0.373707;
@@ -1280,8 +1243,7 @@
 	_Edistance = 0;
 	_towingmass = getMass _towing;
 	_truckmass = getMass _truck;
-	_Fuel_lvl = fuel _truck;
-	//_truck setFuel 0;
+
 	_Supported_Vehicles = ["Jonzie_Datsun_Z432"];
 	_UnSupported_Vehicles = ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_P362_TowTruck","A3PL_Box_Trailer","A3PL_Tanker_Trailer","A3PL_Lowloader","A3PL_Boat_Trailer","A3PL_MobileCrane"];
 	if ((typeOf _towing) in _UnSupported_Vehicles) exitWith {[localize"STR_NewVehicle_39", "red"] call A3PL_Player_Notification;};
@@ -1306,7 +1268,7 @@
 	};
 	while {_roleon} do
 	{
-		waitUntil {_truck animationSourcePhase "truck_flatbed" == 1};
+		waitUntil {_truck animationSourcePhase "truck_flatbed" isEqualTo 1};
 		_towing attachTo [_truck,[_shift,_distance,_height],"flatbed_middle"];
 		_towing setDir _towingdir;
 		_towing setvectorUp [0,_angle,1];
@@ -1318,7 +1280,7 @@
 	};
 	while {_pullup} do
 	{
-		waitUntil {_truck animationSourcePhase "truck_flatbed" == 1};
+		waitUntil {_truck animationSourcePhase "truck_flatbed" isEqualTo 1};
 		_towing attachTo [_truck,[_shift,_distance,_Eheight],"flatbed_middle"];
 		_distance = _distance + 0.01;
 		_Eheight = _Eheight + 0.002346;
@@ -1346,9 +1308,7 @@
 		case "A3PL_P362": {_Endheight = _Eheight + 0.2;_towing attachTo [_truck,[_shift,_distance,_Endheight],"flatbed_middle"];};
 	};
 	_totalmass = _towingmass + _truckmass;
-	//_truck setMass [_totalmass,17];
 	_towing setPos getPos _towing;
-	//_truck setFuel _Fuel_lvl;
 	_towing setVariable ["XYZ", [_height,_Edistance,_distance,_Eheight,_towingdir,_truckmass,_angle], true];
 	_towing setVariable ["Towed", true, true];
 	_truck setVariable ["Towed_Car",_towing,true];
@@ -1643,11 +1603,9 @@
 	if (!(vehicle player == player)) exitwith {[localize"STR_NewVehicle_51", "red"] call A3PL_Player_Notification;};
 	if (player getVariable ["repairing",false]) exitwith {[localize"STR_NewVehicle_52", "red"] call A3PL_Player_Notification;};
 
-	[localize"STR_NewVehicle_58", "yellow"] call A3PL_Player_Notification;
-
 	Player_ActionCompleted = false;
 	_success = true;
-	["Unflip vehicle...",20] spawn A3PL_Lib_LoadAction;
+	["Unfliping vehicle...",20] spawn A3PL_Lib_LoadAction;
 	while {sleep 0.5; !Player_ActionCompleted } do
 	{
 		if ((player distance2D _car) > 10) exitWith {[localize"STR_NewVehicle_53", "red"] call A3PL_Player_Notification; _success = false;};
@@ -1661,7 +1619,7 @@
 	[_car] spawn
 	{
 		private _car = param [0,objNull];
-		_normalVec = surfaceNormal getPos _car;
+		private _normalVec = surfaceNormal getPos _car;
 		_car setVectorUp _normalVec;
 		_car setPosATL [getPosATL _car select 0, getPosATL _car select 1, 0];
 	};
@@ -1687,7 +1645,7 @@
 		};
 	} forEach (_nearVeh);
 
-	if(count _cars == 0) exitWith {[format [localize"STR_NewVehicle_55"]] call A3PL_Player_notification; closeDialog 0;};
+	if((count _cars) isEqualTo 0) exitWith {[format [localize"STR_NewVehicle_55"]] call A3PL_Player_notification; closeDialog 0;};
 
 	_control = _display displayCtrl 1500;
 	_control ctrlAddEventhandler ["LBSelChanged",
@@ -1699,10 +1657,9 @@
 		_veh = nearestObject [player,_vehClass];
 		_vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
 		_price = 0;
-		if (_VehPrice < 150000) then{
+		if (_VehPrice < 150000) then {
 			_price = _vehPrice * 0.10;
-		}
-		else {
+		} else {
 			_price = _vehPrice * 0.15;
 		};
 

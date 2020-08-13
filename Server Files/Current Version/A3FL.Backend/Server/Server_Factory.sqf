@@ -120,7 +120,8 @@
 	if (typeName _newArr != "BOOL") then //item exists
 	{
 		_newArr = [_newArr, (_item select 0), (_item select 1), true] call BIS_fnc_addToPairs;
-		if (isNil "_i") exitwith {}; //somehow couldn't find the index
+		diag_log str(_newArr);
+		if (isNil "_i") exitwith {};
 		(_storage select _i) set [1,_newArr];
 	} else
 	{
@@ -186,29 +187,24 @@
 	//HANDLE CREATION OF ITEM HERE
 	[_player,_item,_type] call Server_Factory_Create;
 	//END OF HANDLING CREATION OF ITEM
-	[getPlayerUID _player,"collectFactoryVirtual",[_type,_item,_amount]] call Server_Log_New;
 },true] call Server_Setup_Compile;
 
 //Takes care of spawning the item
 ["Server_Factory_Create",
 {
-	private ["_player","_id","_item","_amount","_type","_classType","_class","_isFactory","_forFaction"];
+	private ["_player","_id","_item","_amount","_type","_classType","_class","_isFactory"];
 	_player = param [0,objNull];
 	_item = param [1,["",1]];
 	_id = _item select 0;
 	_amount = _item select 1;
 	_type = param [2,""];
 	_classType = param [3,nil];
-	_forFaction = "";
 
-	//is this an item that the factory has created?
 	_isFactory = _id splitString "_";
-	if ((_isFactory select 0) == "f") then {_isFactory = true;} else {_isFactory = false;};
-	//end of factory check
+	if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true;} else {_isFactory = false;};
 
 	if (_isFactory) then {
 		_classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
-		_forFaction = [_id,_type,"faction"] call A3PL_Config_GetFactory;
 		_id = [_id,_type,"class"] call A3PL_Config_GetFactory;
 	} else {
 		if (isNil "_classType") then {
@@ -217,74 +213,54 @@
 	};
 	switch (true) do
 	{
-		case (_classType == "car"):
+		case (_classType isEqualTo "car"):
 		{
 			private ["_lp","_pos"];
-			_lp = [_player,_id,"vehicle",false] call Server_Vehicle_Buy; //inserts into DB, returns id/license plate
+			_lp = [_player,_id,"vehicle",false] call Server_Vehicle_Buy;
 			if (_id isKindOf "Ship") then
 			{
 				_pos = [(getpos _player), 20, 100, 0, 2] call BIS_fnc_findSafePos;
 			} else {
 				_pos = (getpos _player) findEmptyPosition [3,65,_id];
 			};
-			if (count _pos == 0) then {_pos = getpos _player};
+			if ((count _pos) isEqualTo 0) then {_pos = getpos _player};
 			_veh = [_id,_pos,_lp,_player] call Server_Vehicle_Spawn;
 			_veh setDir 133.799;
 		};
-		case (_classType == "plane"):
+		case (_classType isEqualTo "plane"):
 		{
 			_lp = [_player,_id,"plane",true] call Server_Vehicle_Buy;
 		};
-		case (_classType == "item"):
+		case (_classType isEqualTo "item"):
 		{
-			if (_forFaction != "") exitwith
-			{
-				private ["_obj"];
-				_obj = createVehicle ["A3PL_Crate", (getpos _player), [], 0, "CAN_COLLIDE"];
-				//set variables
-				_obj setVariable ["owner",(getPlayerUID _player),true];
-				_obj setVariable ["class","finv",true]; //"FINV" -> Faction inventory item (can be both of type "item" and arma inventory items)
-				_obj setVariable ["finv",[_classtype,_id,_amount,_forFaction],true];
-			};
-
 			private ["_canPickup","_simulation"];
 			_canPickup = [_id,"canPickup"] call A3PL_Config_GetItem;
 			_simulation = [_id,"simulation"] call A3PL_Config_GetItem;
 			if (_canPickup) then
 			{
 				[_player,_id,_amount] call Server_Inventory_Add;
-			} else
-			{
+			} else {
 				private ["_obj","_objClass"];
 				if(_amount > 1) exitWith {[localize "STR_SERVER_FACTORY_ONLYRETRIEVEONETHISITEM","red"] call A3PL_Player_Notification; [_player,_type,[_id,_amount],false] call Server_Factory_Add;};
 				_objClass = [_id,"class"] call A3PL_Config_GetItem;
 				_obj = createVehicle [_objClass, (getpos _player), [], 0, "CAN_COLLIDE"];
-
-				//set variables
 				_obj setVariable ["owner",(getPlayerUID _player),true];
 				_obj setVariable ["class",_id,true];
 				[_obj,_player] remoteExec ["Server_Player_LocalityRequest",2];
-				if(_id in ["SMG_Part_Stock","SMG_Part_Body","SMG_Part_Grip","SMG_Part_Trigger","SMG_Part_Barrel"]) then {_obj setVariable ["ainv",[_classtype,_id,1],true];};
 			};
 		};
 		case (_classType IN ["vest","uniform","goggles","headgear","backpack","weapon","magazine","aitem","weaponitem","secweaponitem"]):
 		{
 			private ["_obj"];
-			if (_classType == "uniform") then {
+			if (_classType isEqualTo "uniform") then {
 				_obj = createVehicle ["A3PL_Clothing", (getpos _player), [], 0, "CAN_COLLIDE"];
 			} else {
 				_obj = createVehicle ["A3PL_Crate", (getpos _player), [], 0, "CAN_COLLIDE"];
 			};
-
 			_obj setVariable ["owner",(getPlayerUID _player),true];
-			if (_forFaction == "") then {
-				_obj setVariable ["class","ainv",true];
-				_obj setVariable ["ainv",[_classtype,_id,_amount],true];
-			} else {
-				_obj setVariable ["class","finv",true];
-				_obj setVariable ["finv",[_classtype,_id,_amount,_forFaction],true];
-			};
+			_obj setVariable ["class","ainv",true];
+			_obj setVariable ["ainv",[_classtype,_id,_amount],true];		
 		};
 	};
-	[getPlayerUID _player,"collectFactoryPhysical",[_type,_item,_amount]] call Server_Log_New;
+	[getPlayerUID _player,"collectFactory",[_type,_item,_amount]] call Server_Log_New;
 },true] call Server_Setup_Compile;

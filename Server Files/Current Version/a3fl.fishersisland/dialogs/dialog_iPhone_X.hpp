@@ -345,7 +345,7 @@ class iPhone_Details_Factory: RscControlsGroup
 			w = safeZoneW * 0.135;
 			h = safeZoneH * 0.02;
 			text = "";
-			sizeEx = 0.02 * safezoneW;
+			sizeEx = 0.016 * safezoneW;
 			colorText[] = {0,0,0,1};
 			shadow = 0;
 		};
@@ -358,19 +358,9 @@ class iPhone_Details_Factory: RscControlsGroup
 			w = safeZoneW * 0.135;
 			h = safeZoneH * 0.018;
 			text = "";
-			sizeEx = 0.018 * safezoneW;
-			colorText[] = {0.8,0.8,0.8,1};
+			sizeEx = 0.014 * safezoneW;
+			colorText[] = {0.4,0.4,0.4,1};
 			shadow = 0;
-		};
-		class Separator: RscText
-		{
-			idc = 98004;
-			style = ST_HUD_BACKGROUND;
-			x = 0;
-			y = (0.02 * safezoneW) + (0.018 * safezoneW);
-			w = safeZoneW * 0.132;
-			h = safeZoneH * 0.001;
-			colorBackground[] = {1,1,1,1};
 		};
 	};
 };
@@ -572,7 +562,7 @@ class A3PL_iPhone_Home
 			y = safeZoneY + safeZoneH * 0.79708056;
 			w = safeZoneW * 0.02246094;
 			h = safeZoneH * 0.03993056;
-			action = "closeDialog 0; call A3PL_iPhoneX_AppSettings;";
+			action = "closeDialog 0; createDialog 'A3PL_iPhone_appSettings';";
 		};
 		class iPhone_Icon_appCompaniesBills: RscPicture
 		{
@@ -628,23 +618,23 @@ class A3PL_iPhone_Home
 			h = safeZoneH * 0.03993056;
 			action = "closeDialog 0; call A3PL_iPhoneX_AppCalculator";
 		};
-		class iPhone_Icon_appTax: RscPicture
+		class iPhone_Icon_appHelp: RscPicture
 		{
 			idc = -1;
 			x = 0.708203 * safezoneW + safezoneX;
 			y = 0.401 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			text = "A3PL_Common\GUI\phone\iPhone_X_icon_tax.paa";
+			text = "A3PL_Common\GUI\phone\iPhone_X_icon_help.paa";
 		};
-		class iPhone_Button_appTax: RscButtonEmpty
+		class iPhone_Button_appHelp: RscButtonEmpty
 		{
 			idc = -1;
 			x = 0.708203 * safezoneW + safezoneX;
 			y = 0.401 * safezoneH + safezoneY;
 			w = 0.0224609 * safezoneW;
 			h = 0.0399306 * safezoneH;
-			action = "closeDialog 0; call A3PL_iPhoneX_AppTax;";
+			action = "closeDialog 0; call A3PL_iPhoneX_AppHelp;";
 		};
 		class iPhone_Icon_appBank: RscPicture
 		{
@@ -1648,12 +1638,12 @@ class A3PL_iPhone_appCalculator
 	};
 };
 
-class A3PL_iPhone_appTax
+class A3PL_iPhone_appHelp
 {
 	idd = 97900;
 	movingEnable = true;
 	enableSimulation = true;
-	name = "A3PL_iPhone_appTax";
+	name = "A3PL_iPhone_appHelp";
 	class ControlsBackground
 	{
 		class iPhone_X_background: RscPicture
@@ -1663,7 +1653,7 @@ class A3PL_iPhone_appTax
 			y = safeZoneY + safeZoneH * 0.21701389;
 			w = safeZoneW * 0.41210938;
 			h = safeZoneH * 0.72743056;
-			text = "A3PL_Common\GUI\phone\iPhone_X_appTax.paa";
+			text = "A3PL_Common\GUI\phone\iPhone_X_appHelp.paa";
 		};
 		class iPhone_Base: RscPicture
 		{
@@ -1696,32 +1686,77 @@ class A3PL_iPhone_appTax
 			action = "closeDialog 0; [] spawn A3PL_iPhoneX_Home;";
 			class Attributes {align = "center";};
 		};
-		class iPhone_TaxListGroup: RscControlsGroup
+		class TutorialsListBox: RscListbox
 		{
-			idc = 97901;
-			x = safeZoneX + safeZoneW * 0.702;
-			y = safeZoneY + safeZoneH * 0.37;
-			w = safeZoneW * 0.135;
-			h = safeZoneH * 0.4795;
-			class VScrollbar
-			{
-				width = 0.004 * safezoneW;
-				height = 0;
-				autoScrollSpeed = -1;
-				autoScrollDelay = 5;
-				autoScrollRewind = 0;
-				shadow = 0;
-				scrollSpeed = 0.1;
-				color[] = {0,0,0,0.6};
-				colorActive[] = {0,0,0,0};
-				colorDisabled[] = {0,0,0,0};
-				thumb = "#(argb,8,8,3)color(0,0,0,0.25)";
-				arrowEmpty = "#(argb,8,8,3)color(0,0,0,0.1)";
-				arrowFull = "#(argb,8,8,3)color(0,0,0,0.1)";
-				border = "#(argb,8,8,3)color(0,0,0,0.1)";
-			};
-    		class HScrollbar : HScrollbar {height = 0;};
-			class Controls {};
+			idc = 1500;
+			x = 0.701094 * safezoneW + safezoneX;
+			y = 0.379 * safezoneH + safezoneY;
+			w = 0.134062 * safezoneW;
+			h = 0.48 * safezoneH;
+			sizeEx = 0.015 * safezoneW;
+			colorBackground[] = {0,0,0,0.3};
+			onLBDblClick = "[] call A3PL_iPhoneX_helpPage;";
+		};
+	};
+};
+
+class A3PL_iPhone_appHelpPage
+{
+	idd = 97910;
+	movingEnable = true;
+	enableSimulation = true;
+	name = "A3PL_iPhone_appHelpPage";
+	class ControlsBackground
+	{
+		class iPhone_X_background: RscPicture
+		{
+			idc = 97002;
+			x = safeZoneX + safeZoneW * 0.5625;
+			y = safeZoneY + safeZoneH * 0.21701389;
+			w = safeZoneW * 0.41210938;
+			h = safeZoneH * 0.72743056;
+			text = "A3PL_Common\GUI\phone\iPhone_X_appHelp.paa";
+		};
+		class iPhone_Base: RscPicture
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.5625;
+			y = safeZoneY + safeZoneH * 0.21701389;
+			w = safeZoneW * 0.41210938;
+			h = safeZoneH * 0.72743056;
+			text = "A3PL_Common\GUI\phone\iPhone_X_base.paa";
+		};
+	};
+	class Controls
+	{
+		class iPhone_IconHome: RscPicture
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.80948282;
+			y = safeZoneY + safeZoneH * 0.31525;
+			w = safeZoneW * 0.0175;
+			h = safeZoneH * 0.0175;
+			text = "A3PL_Common\GUI\phone\iPhone_X_icon_home.paa";
+		};
+		class iPhone_ButtonHome: RscButtonEmpty
+		{
+			idc = -1;
+			x = safeZoneX + safeZoneW * 0.80948282;
+			y = safeZoneY + safeZoneH * 0.31525;
+			w = safeZoneW * 0.0175;
+			h = safeZoneH * 0.0175;
+			action = "closeDialog 0; [] spawn A3PL_iPhoneX_Home;";
+			class Attributes {align = "center";};
+		};
+		class TutorialText: RscStructuredText
+		{
+			idc = 1100;
+			x = 0.701094 * safezoneW + safezoneX;
+			y = 0.379 * safezoneH + safezoneY;
+			w = 0.134062 * safezoneW;
+			h = 0.48 * safezoneH;
+			sizeEx = 0.015 * safezoneW;
+			colorBackground[] = {0,0,0,0};
 		};
 	};
 };
@@ -2126,7 +2161,7 @@ class A3PL_iPhone_appSettings
 			y = safeZoneY + safeZoneH * 0.37263889;
 			w = safeZoneW * 0.135;
 			h = safeZoneH * 0.03;
-			action = "closeDialog 0; call A3PL_iPhoneX_AppWallpaper";
+			action = "closeDialog 0; createDialog 'A3PL_iPhone_appWallpaper';";
 		};
 		class iPhone_Button_Sounds: RscButtonEmpty
 		{
@@ -2232,19 +2267,6 @@ class A3PL_iPhone_appSIM
 			colorBackground[] = {0,0,0,0};
 			shadow = 0;
 		};
-		class iPhone_X_text_SIM_3: RscText
-		{
-			idc = 97618;
-			x = safeZoneX + safeZoneW * 0.702;
-			y = safeZoneY + safeZoneH * 0.44263889;
-			w = safeZoneW * 0.135;
-			h = safeZoneH * 0.03;
-			text = $STR_IPHONEX_GUISIM3;
-			sizeEx = 0.0175 * safezoneW;
-			colorText[] = {0,0,0,1};
-			colorBackground[] = {0,0,0,0};
-			shadow = 0;
-		};
 		class iPhone_X_button_SIM_1: RscButtonEmpty
 		{
 			idc = 97719;
@@ -2265,18 +2287,6 @@ class A3PL_iPhone_appSIM
 			w = safeZoneW * 0.135;
 			h = safeZoneH * 0.03;
 			action = "[player, A3PL_phoneNumberSecondary] remoteExec [""Server_iPhoneX_UpdatePhoneNumberActive"",2];";
-			colorBackground[] = {0,0,0,0};
-			colorBackground2[] = {0,0,0,0};
-			colorBackgroundFocused[] = {0,0,0,0};
-		};
-		class iPhone_X_button_SIM_3: RscButtonEmpty
-		{
-			idc = 97721;
-			x = safeZoneX + safeZoneW * 0.702;
-			y = safeZoneY + safeZoneH * 0.44263889;
-			w = safeZoneW * 0.135;
-			h = safeZoneH * 0.03;
-			action = "[player, A3PL_phoneNumberEnterprise] remoteExec [""Server_iPhoneX_UpdatePhoneNumberActive"",2];";
 			colorBackground[] = {0,0,0,0};
 			colorBackground2[] = {0,0,0,0};
 			colorBackgroundFocused[] = {0,0,0,0};
@@ -3293,14 +3303,14 @@ class A3PL_iPhone_appSMS
 			h = safeZoneH * 0.0235;
 			action = "_message = ctrlText 97621; [_message] spawn A3PL_iPhoneX_sendSMS; _sms = ((findDisplay 99100) displayCtrl 97621); _sms ctrlSetText ""Message...""";
 		};
-		class iPhone_X_button_smiley: RscButtonEmpty
+		class iPhone_X_Button_Delete: RscButtonEmpty
 		{
 			idc = 97623;
 			x = safeZoneX + safeZoneW * 0.708;
 			y = safeZoneY + safeZoneH * 0.8145;
 			w = safeZoneW * 0.018;
 			h = safeZoneH * 0.027;
-			action = "";
+			action = "[] call A3PL_iPhoneX_deleteSMS;";
 		};
 		class iPhone_X_button_appSMSListAppSMS: RscButtonEmpty
 		{

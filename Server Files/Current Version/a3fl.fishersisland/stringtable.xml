@@ -85,7 +85,7 @@
             <Original>No thanks, bye.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Work">
-            <Original>You get $250 each paycheck and $2.000 for each car you impound.</Original>
+            <Original>You get $150 each paycheck and $2.000 for each car you impound.</Original>
         </Key>
         <Key ID="STR_NPC_Road_Work1">
             <Original>Pay sounds good, when do I start?</Original>
@@ -819,26 +819,8 @@
    <Key ID="STR_QuickActionsNPC_SecureShop">
       <Original>Secure Store</Original>
    </Key>
-   <Key ID="STR_QuickActionsNPC_GamerPerkShop">
-      <Original>Gamer Perk Shop</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_GardenPerkShop">
-      <Original>Garden Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_MancavePerkShop">
-      <Original>Mancave Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_WalldecorPerkShop">
-      <Original>Walldecor Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_WinchesterPerkShop">
-      <Original>Winchester Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_CommpanyPerkShop">
-      <Original>Company Perk Store</Original>
-   </Key>
-   <Key ID="STR_QuickActionsNPC_ArcheologyPerkShop">
-      <Original>Archeology Perk Store</Original>
+   <Key ID="STR_QuickActionsNPC_FurniturePerkShop">
+      <Original>Furniture Perk Store</Original>
    </Key>
    <Key ID="STR_QuickActionsNPC_VehiclePartsFactory">
       <Original>Vehicle Parts Factory</Original>
@@ -1216,7 +1198,7 @@
       <Original>Pizzabites</Original>
    </Key>
    <Key ID="STR_ConfigItems_soupcup">
-      <Original>Bowl of Soup</Original>
+      <Original>Lamb Stew</Original>
    </Key>
    <Key ID="STR_ConfigItems_cookies">
       <Original>Cookies</Original>
@@ -1871,6 +1853,24 @@
    </Key>
    <Key ID="STR_ConfigItems_Ladder">
       <Original>Ladder</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_ring">
+      <Original>Ring</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_ringset">
+      <Original>Set of rings</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_bracelet">
+      <Original>Set of bracelet</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_crown">
+      <Original>King George's Crown</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_neckless">
+      <Original>Neckless</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_golden_dildo">
+      <Original>Golden Dildo</Original>
    </Key>
    <Key ID="STR_ConfigItems_drill_bit">
       <Original>Drill Bit</Original>
@@ -4066,7 +4066,7 @@
       <Original>Detain</Original>
    </Key>
    <Key ID="STR_INTER_EJECTALLP">
-      <Original>Eject all Passengers</Original>
+      <Original>Eject Passengers</Original>
    </Key>
    <Key ID="STR_INTER_EATITEM">
       <Original>Use</Original>
@@ -4504,26 +4504,8 @@
    <Key ID="STR_QuickActions_Notif_NPC_Things">
       <Original>You do not have Things Perk. You can buy it on www.arma3fisherslife.net</Original>
    </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Gamer">
-      <Original>You do not have Gamer Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Garden">
-      <Original>You do not have Garden Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Mancave">
-      <Original>You do not have Mancave Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Walldecor">
-      <Original>You do not have Walldecor Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Winchester">
-      <Original>You do not have Winchester Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Criminal">
-      <Original>You do not have Criminal Perk. You can buy it on www.arma3fisherslife.net</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_NPC_Company">
-      <Original>You do not have Company Perk. You can buy it on www.arma3fisherslife.net</Original>
+   <Key ID="STR_QuickActions_Notif_NPC_Furniture">
+      <Original>You do not have Furniture Perk. You can buy it on www.arma3fisherslife.net</Original>
    </Key>
    <Key ID="STR_QuickActions_Notif_NPC_Christmas">
       <Original>This shop is closed, try back near Christmas</Original>
@@ -4555,7 +4537,7 @@
       <Original>This house is not rented!</Original>
    </Key>
    <Key ID="STR_Inter_Notifications_NewColloc">
-      <Original>You have to name a new roommate at %1</Original>
+      <Original>You added a new roommate at %1</Original>
    </Key>
    <Key ID="STR_Inter_Notifications_FirstOwner">
       <Original>Only the primary owner of the house can name a new roommate!</Original>
@@ -5156,7 +5138,7 @@
       <Original>1. Yes I would like to stop working here</Original>
    </Key>
    <Key ID="STR_NPC_DMV8">
-      <FrOriginalench>2. Actually, I like this job, nevermind.</Original>
+      <Original>2. Actually, I like this job, nevermind.</Original>
    </Key>
    <Key ID="STR_NPC_DMV9">
       <Original>Welcome back DMV member&lt;br/&gt;Are you sure you are ready to start your shift?</Original>
@@ -5447,10 +5429,10 @@
       <Original>1. Yes I would like to stop working here</Original>
    </Key>
    <Key ID="STR_NPC_DOC8">
-      <Original>2. Actually, I like this job, nevermind.</French>
+      <Original>2. Actually, I like this job, nevermind.</Original>
    </Key>
    <Key ID="STR_NPC_DOC9">
-      <Original>Welcome back FIMS member&lt;br/&gt;Are you sure you are ready to start your shift?</French>
+      <Original>Welcome back FIMS member&lt;br/&gt;Are you sure you are ready to start your shift?</Original>
    </Key>
    <Key ID="STR_NPC_DOC10">
       <Original>1. I'm ready.</Original>
@@ -5713,7 +5695,7 @@
       <Original>Stole Vault Money</Original>
    </Key>
    <Key ID="STR_INTSECT_CONVAULTDRI">
-      <Original>Connect Drill Chest</Original>
+      <Original>Connect Drill</Original>
    </Key>
    <Key ID="STR_INTSECT_SECVAULTD">
       <Original>Secure Safe Door</Original>
@@ -5776,7 +5758,7 @@
       <Original>Buy House</Original>
    </Key>
    <Key ID="STR_INTSECT_SELLHOUSE">
-      <Original>Stop Selling</Original>
+      <Original>Sell House</Original>
    </Key>
    <Key ID="STR_INTSECT_SELLESTATE">
       <Original>Conclude Sale</Original>
@@ -6594,7 +6576,7 @@
       <Original>You sold %4 %1 for $%2 (Dirty Money), now you have $%3 (Dirty Money)</Original>
    </Key>
    <Key ID="STR_SHOP_SOLDITEM">
-      <Original>You sold %4 %1 for $%2, you still have $%3</Original>
+      <Original>You sold %4 %1 for $%2, you now have $%3</Original>
    </Key>
    <Key ID="STR_SHOP_SOLDITEMTAXES">
       <Original>You sold %3 %1 for $%2. This includes %4 %6 of taxes ie $%5</Original>
@@ -6836,7 +6818,7 @@
             <Original>Add to Factory</Original>
         </Key>
         <Key ID="STR_EXECUTIVEMENU_GUICREATEONPLAYER">
-            <Original>Create on Player</Original>
+            <Original>Admin Create</Original>
         </Key>
         <Key ID="STR_EXECUTIVEMENU_GUIRESTARTSERVER">
             <Original>Restart</Original>
@@ -8659,7 +8641,7 @@
         <Original>Action canceled</Original>
       </Key>
       <Key ID="STR_NewGang_22">
-        <Original>The capture of this hideout has given $10,000 to your gang</Original>
+        <Original>The capture of this hideout has given $5,000 to your gang</Original>
       </Key>
       <Key ID="STR_NewGang_23">
         <Original>You can not capture this hideout with this item</Original>
@@ -8671,7 +8653,7 @@
         <Original>Group invitation sent</Original>
       </Key>
       <Key ID="STR_NewGang_26">
-        <Original>This hideout has been capture less than 30 minutes ago</Original>
+        <Original>This hideout has been captured less than 30 minutes ago</Original>
       </Key>
       <Key ID="STR_NewGang_27">
         <Original>You won $%1 for holding gangs hideouts</Original>
@@ -8949,13 +8931,13 @@
           <Original>You do not have this amount of money on you</Original>
         </Key>
         <Key ID="STR_NewInventory_9">
-          <Original>You have taken %1 of your inventory.</Original>
+          <Original>You have taken %1x %2 of your inventory.</Original>
         </Key>
         <Key ID="STR_NewInventory_10">
           <Original>You have put %1 in your inventory.</Original>
         </Key>
         <Key ID="STR_NewInventory_11">
-          <Original>You do not have this amount to deposit</Original>
+          <Original>You do not have this amount to drop</Original>
         </Key>
         <Key ID="STR_NewInventory_12">
           <Original>You have nothing in your hand to throw</Original>

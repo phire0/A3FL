@@ -393,7 +393,13 @@
 [
 	"A3PL_Drill_Bank",
 	localize"STR_INTSECT_STARTVDRILL",
-	{[player_objintersect] spawn A3PL_BHeist_StartDrill;}
+	{
+		if((count (nearestObjects [player, ["Land_A3PL_Bank"], 15])) > 0) then {
+			[player_objintersect] spawn A3PL_BHeist_StartDrill;
+		} else {
+			[player_objintersect] spawn A3PL_Jewelry_StartDrill;
+		};
+	}
 ],
 [
 	"",

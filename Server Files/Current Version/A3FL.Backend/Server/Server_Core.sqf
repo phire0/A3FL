@@ -294,26 +294,3 @@
 		};
 	} forEach _restartTimes;
 },true] call Server_Setup_Compile;
-
-["Server_Core_BudgetTransfer",{
-	private _budgets = [
-		["Sheriff Department",1.1],
-		["Fire Rescue",1],
-		["US Coast Guard",1],
-		["Marshals Service",1],
-		["Department of Justice",1]
-	];
-	private _fedReserve = ["Federal Reserve"] call A3PL_Government_FactionBalance;
-	{
-		private _budgetS = _x select 0;
-		private _part = _x select 1;
-		private _budgetM = [_budgetS] call A3PL_Government_FactionBalance;
-		private _add = _fedReserve * _part;
-		diag_log format["Server_Core_BudgetTransfer: %1 : %2 (%3) | Actual: %4",_budgetS, _add, _fedReserve, _budgetM];
-		if((_budgetM < 3000000) || (_fedReserve < _add)) then {
-			[_budgetS, _add] remoteExec ["Server_Government_AddBalance",2];
-			["Federal Reserve", -_add] remoteExec ["Server_Government_AddBalance",2];
-		};
-		if(_fedReserve isEqualTo 0) exitWith {};
-	} forEach _budgets;
-},true] call Server_Setup_Compile;

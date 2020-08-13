@@ -28,7 +28,7 @@
 
 ["A3PL_JobRoadWorker_Loop",
 {
-	player setVariable ["TerrainRepaired",nil,false];//clear the list
+	player setVariable ["TerrainRepaired",nil,false];
 }] call Server_Setup_Compile;
 
 ["A3PL_JobRoadWorker_ToggleMark",

@@ -191,10 +191,10 @@
 ["A3PL_Gang_Capture",
 {
 	private _obj = param [0,objNull];
-	private _win = 10000;
+	private _win = 5000;
 	private _group = group player;
 
-	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","dmv","usms"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
+	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","usms"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
 	if((currentWeapon player) isEqualTo "") exitwith {["You do not brandish any weapon","red"] call A3PL_Player_Notification;};
 	if((currentWeapon player) IN ["A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
 	if(_obj getVariable ["CaptureInProgress",false]) then {["Someone is already capturing this gang hideout!","red"] call A3PL_Player_Notification;};
@@ -210,7 +210,8 @@
 
 	_obj setVariable ["CaptureInProgress",true,true];
 
-	[getPos _obj,format["Gang Activity - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
+	_marker = [_obj] call A3PL_Lib_NearestMarker;
+	_marker setMarkerColor "ColorOrange";
 	[format["%1 has started capturing a gang hideout!",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
@@ -222,8 +223,10 @@
 		if (Player_ActionInterrupted) exitWith {_success = false;};
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
+		if ((player distance _obj) > 30) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 	};
+	Player_ActionDoing = false;
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification; _obj setVariable ["CaptureInProgress",false,true];};
 
 	_obj setVariable["captured",_gangID,true];
@@ -232,7 +235,10 @@
 	_obj setVariable ["CaptureInProgress",false,true];
 
 	[format[localize "STR_GANG_CAPTURED",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
-	[getPos _obj,format["Gang Hideout Captured - %1",_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
+
+	_marker setMarkerColor "ColorOPFOR";
+	_marker setMarkerText format[" Gang Hideout - %1",_gangName];
+	_marker setMarkerType "A3PL_Markers_TownHall";
 
 	[localize"STR_NewGang_22","green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
@@ -249,7 +255,7 @@
 	private _gangID = _gang select 0;
 
 	{
-		if((_x getVariable["captured",-1]) isEqualTo _gangID) then {_win = _win + 1000;};
+		if((_x getVariable["captured",-1]) isEqualTo _gangID) then {_win = _win + 500;};
 	} forEach _objects;
 	if(_win isEqualTo 0) exitWith {};
 
@@ -294,13 +300,20 @@
 {
 	private _obj = param [0,objNull];
 	private _nilCheck = _obj getVariable ["captured",nil];
+	private _faction = player getVariable["faction","citizen"];
 	if(isNil "_nilCheck") exitWith{["This gang hideout is currently not captured!","red"] call A3PL_Player_Notification;};
 	if(_obj getVariable ["CaptureInProgress",false]) then {["Someone is already capturing this gang hideout!","red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 
+	if((_obj IN [hideout_obj_1,hideout_obj_2,hideout_obj_3,hideout_obj_5]) && (_faction != "fisd")) exitWith {["This gang hideout has to be secured by the FISD","red"] call A3PL_Player_Notification;};
+	if((_obj IN [hideout_obj_4,hideout_obj_6]) && (_faction != "uscg")) exitWith {["This gang hideout has to be secured by the USCG","red"] call A3PL_Player_Notification;};
+
+	_capturedTime = _obj getVariable["CapturedTime",serverTime-1800];
+	if(_capturedTime > (serverTime-1800)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
+
 	private _gangName = _obj getVariable["capturedName",""];
-	private _faction = player getVariable["faction","citizen"];
-	[getPos _obj,format["%1 Gang Hideout - %1",(toUpper _faction),_gangName],"ColorBlack","mil_dot",120] remoteExec ["A3PL_Lib_CreateMarker",-2];
+	_marker = [_obj] call A3PL_Lib_NearestMarker;
+	_marker setMarkerColor "ColorOrange";
 	[format["%1 has started capturing a gang hideout from %2!",(toUpper _faction),_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 	Player_ActionCompleted = false;
 	_obj setVariable ["CaptureInProgress",true,true];
@@ -316,10 +329,16 @@
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;_obj setVariable ["CaptureInProgress",false,true];};
 
+	private _factionMark = "A3PL_Markers_FISD";
+	if(_faction isEqualTo "uscg") then {_factionMark = "A3PL_Markers_USCG";};
+
+	_marker setMarkerColor "colorBLUFOR";
+	_marker setMarkerText format[" Gang Hideout"];
+	_marker setMarkerType _factionMark;
 
 	_obj setVariable["captured",nil,true];
 	_obj setVariable["capturedName",nil,true];
-	_obj setVariable["CapturedTime",nil,true];
+	_obj setVariable["CapturedTime",serverTime,true];
 	_obj setVariable ["CaptureInProgress",false,true];
 
 	[format["%1 has secured a gang hideout from %2",(toUpper _faction),_gangName], "blue"] remoteExec ["A3PL_Player_Notification",-2];

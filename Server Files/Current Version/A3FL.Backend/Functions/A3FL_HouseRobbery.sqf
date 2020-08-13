@@ -100,29 +100,47 @@
 	["You have successfully lockpicked this door!", "green"] call A3PL_Player_Notification;
 	[player,20] call A3PL_Level_AddXP;
 
-	_weaponRewards = [["A3PL_P226",1],["A3PL_Red_Glock",1],["hgun_P07_F",1],["hgun_Pistol_01_F",1]];
-	_magRewards = [["10Rnd_9x21_Mag",2],["A3PL_Red_Glock_Mag",2],["A3PL_P226_Mag",2]];
-	_houseHoldItems = [["coke",5],["apple",5],["beer",5],["jerrycan",2],["repairwrench",3],["bread",5]];
-	_valuables = [["diamond",2],["diamond_emerald",3],["shark_10lb_tag",1],["shark_4lb_tag",2],["dildo",1]];
-	_illegalItems = [["seed_marijuana",5],["v_lockpick",2],["cocaine",2],["zipties",2],["jug_moonshine",2],["weed_50g",2],["weed_100g",2],["turtle",2],["shrooms",4]];
+	if(typeOf _house IN Config_Warehouses_List) then {
+		_basicItems = [["dildo",1],["steel",60],["aluminium",60],["titanium",30],["sand",5]];
+		_valuableItems = [["zipties",3],["jug_moonshine",6],["steel",180],["aluminium",180],["titanium",60]];
+		_rareItems = [["weed_100g",3],["v_lockpick",4],["cocaine_hydrochloride",3],["steel",360],["aluminium",360],["titanium",120]];
 
-	_gunChance = random 100;
-	if(_gunChance >= 75) then {_physicalItems pushBack selectRandom _weaponRewards;};
+		_valuableChance = random 100;
+		if(_valuableChance >= 85) then {_virtualItems pushBack selectRandom _valuableItems;};
 
-	_magChance = random 100;
-	if(_gunChance >= 65) then {_physicalItems pushBack selectRandom _magRewards;};
+		_rareChance = random 100;
+		if(_rareChance >= 75) then {_virtualItems pushBack selectRandom _rareItems;};
 
-	_valuableChance = random 100;
-	if(_valuableChance >= 50) then {_virtualItems pushBack selectRandom _valuables;};
+		_virtualItems pushback selectRandom _basicItems;
+		_weaponHolder = createVehicle ["Land_MetalCase_01_large_F", [(getpos _house select 0),(getpos _house select 1),1], [], 0, "CAN_COLLIDE"];
 
-	_illegalChance = random 100;
-	if(_illegalChance >= 50) then {_virtualItems pushBack selectRandom _illegalItems;};
+		_weaponHolder setVariable["storage",_virtualItems,true];
+	} else {
+		_weaponRewards = [["A3PL_P226",1],["A3PL_Red_Glock",1],["hgun_P07_F",1],["hgun_Pistol_01_F",1]];
+		_magRewards = [["10Rnd_9x21_Mag",2],["A3PL_Red_Glock_Mag",2],["A3PL_P226_Mag",2]];
+		_houseHoldItems = [["coke",5],["apple",5],["beer",5],["jerrycan",2],["repairwrench",3],["bread",5]];
+		_valuables = [["diamond",2],["diamond_emerald",3],["shark_10lb_tag",1],["shark_4lb_tag",2],["dildo",1]];
+		_illegalItems = [["seed_marijuana",5],["v_lockpick",2],["cocaine",2],["zipties",2],["jug_moonshine",2],["weed_50g",2],["weed_100g",2],["turtle",2],["shrooms",4]];
 
-	_virtualItems pushback selectRandom _houseHoldItems;
-	_weaponHolder = createVehicle ["Land_MetalCase_01_large_F", [(getpos _house select 0),(getpos _house select 1),1], [], 0, "CAN_COLLIDE"];
+		_gunChance = random 100;
+		if(_gunChance >= 75) then {_physicalItems pushBack selectRandom _weaponRewards;};
 
-	_weaponHolder setVariable["storage",_virtualItems,true];
-	{_weaponHolder addItemCargoGlobal _x;} forEach _physicalItems;
+		_magChance = random 100;
+		if(_gunChance >= 65) then {_physicalItems pushBack selectRandom _magRewards;};
+
+		_valuableChance = random 100;
+		if(_valuableChance >= 50) then {_virtualItems pushBack selectRandom _valuables;};
+
+		_illegalChance = random 100;
+		if(_illegalChance >= 50) then {_virtualItems pushBack selectRandom _illegalItems;};
+
+		_virtualItems pushback selectRandom _houseHoldItems;
+		_weaponHolder = createVehicle ["Land_MetalCase_01_large_F", [(getpos _house select 0),(getpos _house select 1),1], [], 0, "CAN_COLLIDE"];
+
+		_weaponHolder setVariable["storage",_virtualItems,true];
+		{_weaponHolder addItemCargoGlobal _x;} forEach _physicalItems;
+	};
+	missionNamespace setVariable ["HouseCooldown",serverTime,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_HouseRobbery_NotifySD",
@@ -134,9 +152,7 @@
 
 	_namePos = [getPos _house] call A3PL_Housing_PosAddress;
 	[format["911: Robbery in progress at %1!",_namePos],"blue",_faction,1] call A3PL_Lib_JobMessage;
-	[_house,"House Alarm","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
-
-	missionNamespace setVariable ["HouseCooldown",serverTime,true];
+	[_house,"Property Alarm","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
 }] call Server_Setup_Compile;
 
 ["A3PL_HouseRobbery_Alarm", {
