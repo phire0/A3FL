@@ -345,8 +345,14 @@
 
 	if (_setPos) then
 	{
-		detach _obj;
-		_obj setPosASL (AGLtoASL (player modelToWorld [0,1,0]));
+		if(_itemClass == "FD_Mask") then {
+			deleteVehicle _obj;
+			_holder = createVehicle ["GroundWeaponHolder", getposATL player, [], 0, "CAN_COLLIDE"];
+			_holder addItemCargoGlobal ["A3PL_FD_Mask",1];
+		} else {
+			detach _obj;
+			_obj setPosASL (AGLtoASL (player modelToWorld [0,1,0]));
+		};
 	};
 
 	Player_Item = objNull;

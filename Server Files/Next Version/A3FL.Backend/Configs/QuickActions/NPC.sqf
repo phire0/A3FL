@@ -692,14 +692,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_TalkToTheBlackMarket",
-	{
-		//if (((count(["uscg"] call A3PL_Lib_FactionPlayers))) < 2) exitwith {[localize"STR_QuickActionsNPC_MinimumUSCGToSpeak","red"] call A3PL_Player_Notification;};
-		["Shop_BlackMarket"] call A3PL_Shop_Open;
-	}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_TalkToTheGunsVendor",
 	{
 		if (["ccp",player] call A3PL_DMV_Check) then {

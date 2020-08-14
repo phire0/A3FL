@@ -276,7 +276,7 @@
 	if(_shop IN [Robbable_Shop_3,npc_roadworker_1,npc_fuel_6,npc_hunting,npc_illegal_eq,NPC_Big_Weapon_Dealer,npc_weaponfactory_1]) then {
 		_gangHideout = hideout_obj_3;
 	};
-	if(_shop IN [npc_captureship,npc_blackmarket]) then {
+	if(_shop IN [npc_captureship]) then {
 		_gangHideout = hideout_obj_4;
 	};
 	if(_shop IN [npc_fuel_10,Low_End_Car_Shop,npc_shopguns]) then {

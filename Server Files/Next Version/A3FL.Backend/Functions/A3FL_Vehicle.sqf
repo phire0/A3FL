@@ -954,7 +954,7 @@
 	[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	[_truck] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 
-	[] spawn {sleep 60;_truck allowDamage true;};
+	_truck spawn {sleep 60;_this allowDamage true;};
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_TrailerAttach",

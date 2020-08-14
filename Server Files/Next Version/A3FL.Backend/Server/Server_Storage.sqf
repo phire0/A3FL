@@ -147,12 +147,12 @@
 	[format ["UPDATE objects SET plystorage = '0',impounded='0' WHERE id = '%1'",_id],1] spawn Server_Database_Async;
 	private _db = [format ["SELECT fuel,color,numpchange,iscustomplate,material,istorage,tuning,damage,insurance,vstorage FROM objects WHERE id = '%1'",_id], 2, false] call Server_Database_Async;
 	private _veh = [_class,_storage,_id,_player] call Server_Vehicle_Spawn;
+	if (!isNil "_dir") then {_veh setDir _dir;};
 	if (_veh isKindOf "Ship") then {
 		_veh setpos _storage;
 	} else {
 		_veh setPosATL _storage;
-	};
-	if (!isNil "_dir") then {_veh setDir _dir;};
+	};	
 	if (_veh isKindOf "helicopter") then {
 		_veh setOwner (owner _player);
 	};

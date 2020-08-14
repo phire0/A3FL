@@ -172,7 +172,8 @@
 		["ArmA 3 Fishers Life","surrender", "Surrender",
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-			if(vehicle player isEqualTo player) then {[player,true] call A3PL_Police_Surrender;};
+			if(((getPosATL player) select 2) > 1) exitWith {};
+			if((vehicle player) isEqualTo player) then {[player,true] call A3PL_Police_Surrender;};
 		}, "", [DIK_B, [true, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","medical_menu", "Medical Menu",

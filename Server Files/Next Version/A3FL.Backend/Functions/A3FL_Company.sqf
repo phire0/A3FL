@@ -509,3 +509,48 @@
 	["You resigned from your company.","green"] call A3PL_Player_Notification;
 	[_cid, _uid, false] remoteExec ["Server_Company_Fire",2];
 }] call Server_Setup_Compile;
+
+
+/*
+	PLACEHOLDERS BELLOW
+*/
+
+//Open the buy company shop UI Dialog_CompanyShop_Buy
+['A3PL_Company_OpenBuyShop', {
+}] call Server_Setup_Compile;
+
+//Buys the shop
+['A3PL_Company_BuyShop', {
+}] call Server_Setup_Compile;
+
+//Open the sell company shop UI Dialog_CompanyShop_Sell
+['A3PL_Company_OpenSellShop', {
+}] call Server_Setup_Compile;
+
+//Sells the shop
+['A3PL_Company_SellShop', {
+}] call Server_Setup_Compile;
+
+//Open the customer UI
+['A3PL_Company_OpenShop', {
+}] call Server_Setup_Compile;
+
+//Customer function, buy from the comp stock
+['A3PL_Company_ShopBuy', {
+}] call Server_Setup_Compile;
+
+//Open the stock management UI
+['A3PL_Company_OpenShopStock', {
+}] call Server_Setup_Compile;
+
+//Add a new item to stock to sell
+['A3PL_Company_AddNewShopStock', {
+}] call Server_Setup_Compile;
+
+//Add x to current stock
+['A3PL_Company_AddShopStock', {
+}] call Server_Setup_Compile;
+
+//Remove x items from stock
+['A3PL_Company_RemoveShopStock', {
+}] call Server_Setup_Compile;

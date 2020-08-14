@@ -94,7 +94,7 @@
 ["Server_JobFarming_DrugDealerPos",
 {
 	private _object = DrugDealerHouse;
-	private _areas = ["Area_DrugDealer","Area_DrugDealer1","Area_DrugDealer2","Area_DrugDealer3","Area_DrugDealer4","Area_DrugDealer5","Area_DrugDealer6","Area_DrugDealer7","Area_DrugDealer8","Area_DrugDealer9","Area_DrugDealer10","Area_DrugDealer11","Area_DrugDealer12","Area_DrugDealer13","Area_DrugDealer14"];
+	private _areas = ["Area_DrugDealer","Area_DrugDealer1","Area_DrugDealer2","Area_DrugDealer3","Area_DrugDealer4"];
 	private _area = _areas select (floor (random (count _areas)));
 	private _pos = [_area] call CBA_fnc_randPosArea;
 	private _pos = _pos findEmptyPosition [0, 25,(typeOf DrugDealerHouse)];
