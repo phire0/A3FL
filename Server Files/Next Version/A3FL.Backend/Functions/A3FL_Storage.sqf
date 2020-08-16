@@ -49,14 +49,11 @@
 			case ("Land_A3PL_Firestation"): {
 				_pJob = player getVariable["job","unemployed"];
 				if(_pJob isEqualTo "fifr") then {
-					if (player_NameIntersect isEqualTo "garagedoor1_button") then {
-						_spawnPos = _intersect modelToWorld [-11,-12,-7.5];
-						_dir = _dir - 180;
-					};
-					if (player_NameIntersect isEqualTo "garagedoor2_button") then {
-						_spawnPos = _intersect modelToWorld [-4.8,-12,-7.5];
-						_dir = _dir - 180;
-					};
+					_offset = [-11,-12,-7.5];
+					if (player_NameIntersect isEqualTo "garagedoor2_button") then {_offset = [-4.8,-12,-7.5];};
+					_spawnPos = _intersect modelToWorld _offset;
+					_dir = _dir - 180;
+					_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];
 				} else {
 					_exit = true;
 				};
@@ -83,11 +80,9 @@
 	if (!isNil "_spawnPos") then
 	{
 		_type = _intersect getVariable ["type","vehicle"];
-		if (_type == "plane") then
-		{
-      		[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
-		};
-		if (_type == "impound") then{
+		if(_type isEqualTo "vehicle") then {hint str _spawnPos;[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];};
+		if (_type isEqualTo "plane") then {[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];};
+		if (_type == "impound") then {
 			_vehPrice = [_class] call A3PL_Config_GetVehicleMSRP;
 			_price = 0;
 			if (_VehPrice < 150000) then{
@@ -155,12 +150,7 @@
 				[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
 			};
 		};
-		["Federal Reserve", _Price] remoteExec["Server_Government_AddBalance", 2];
-		if(_type isEqualTo "vehicle") then {
-			[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];
-		};
 	} else {
-		diag_log format["A3PL_Storage_CarRetrieveButton; %1",typeOf _intersect];
 		if((typeOf _intersect) isEqualTo "") then {
 			_nearFreePos = [(getpos player), 5, 50, 0, 0] call BIS_fnc_findSafePos;
 			[_class,player,_id,_nearFreePos] remoteExec ["Server_Storage_RetrieveVehicle", 2];

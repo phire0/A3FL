@@ -17,5 +17,5 @@
 	[_locker, player] remoteExec ["Server_Locker_Insert",2];
 	[format[localize "STR_INTSECT_LOCKERBOUGHT",_lockerPrice], "green"] call A3PL_Player_Notification;
 	["Federal Reserve",_lockerPrice] remoteExec ["Server_Government_AddBalance",2];
-	[getPlayerUID player,"BuyLocker",[]] call Server_Log_New;
+	[getPlayerUID player,"BuyLocker",[]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;

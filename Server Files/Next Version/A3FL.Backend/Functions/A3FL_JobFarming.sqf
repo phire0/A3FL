@@ -267,19 +267,21 @@
 ["A3PL_JobFarming_BagOpen",
 {
 	disableSerialization;
-	private _allGrinded = [];
 	private _scale = param [0,objNull];
 	private _near = nearestObjects [_scale, ["A3PL_Cannabis_Bud"],2,true];
-
+	private _allGrinded = 0;
 	{
-		if ((_x getVariable ["class",""]) isEqualTo "cannabis_grinded_5g") then {_allGrinded pushback _x;};
+		if ((_x getVariable ["class",""]) isEqualTo "cannabis_grinded_5g") exitWith {
+			_allGrinded = _x getVariable["amount",1];
+		};
 	} foreach _near;
-	if (count _allGrinded < 1) exitwith {["No grinded cannabis nearby, place grinded cannabis near the scale to bag weed!","red"] call A3PL_Player_Notification;};
+
+	if (_allGrinded < 1) exitwith {["No grinded cannabis nearby, place grinded cannabis near the scale to bag weed!","red"] call A3PL_Player_Notification;};
 
 	createDialog "Dialog_BagWeed";
 	private _display = findDisplay 74;
 	private _ctrl = _display displayCtrl 1000;
-	_ctrl ctrlSetText (format ["Enter a number between 5 and %1 grams and click bag to bag the marijuana!",(count _allGrinded) * 5]);
+	_ctrl ctrlSetText (format ["Enter a number between 5 and %1 grams and click bag to bag the marijuana!",_allGrinded]);
 
 	private _ctrl = _display displayCtrl 1600;
 	_ctrl buttonSetAction "call A3PL_JobFarming_Bag";
@@ -307,7 +309,9 @@
 			_grindedObject = _x;
 		};
 	} foreach _near;
-	if (_amount < (_grams / 5)) exitwith {["Not enough grinded cannabis nearby to bag that amount! Remember: Every grinded piece of marijuana is 5 grams!","red"] call A3PL_Player_Notification;};
+
+	hint format["_amount: %1 < %2",_amount,_grams];
+	if (_amount < _grams) exitwith {["Not enough grinded cannabis nearby to bag that amount! Remember: Every grinded piece of marijuana is 5 grams!","red"] call A3PL_Player_Notification;};
 
 	deleteVehicle _grindedObject;
 	[format ["You bagged %1 grams into a marijuana bag, it's now in your inventory!",_grams],"green"] call A3PL_Player_Notification;

@@ -48,6 +48,7 @@ class CfgRemoteExec
 		class BIS_fnc_objectVar {};
 		class bis_fnc_setidentity {allowedTargets=0;};
 		class BIS_fnc_earthquake {allowedTargets=0;};
+		class enableSimulationGlobal{allowedTargets=2;};
 
 		//Storage
 		class A3PL_Storage_ObjectsReceive {allowedTargets = 0;};

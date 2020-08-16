@@ -139,7 +139,7 @@
 	private _player = param [1,objNull];
 	private _id = param [2,-1];
 	private _storage = param [3,[]];
-
+	private _dir = nil;
 	if (count _storage > 3) then {
 		_dir = _storage select 3;
 		_storage = [_storage select 0,_storage select 1,_storage select 2];
@@ -147,7 +147,8 @@
 	[format ["UPDATE objects SET plystorage = '0',impounded='0' WHERE id = '%1'",_id],1] spawn Server_Database_Async;
 	private _db = [format ["SELECT fuel,color,numpchange,iscustomplate,material,istorage,tuning,damage,insurance,vstorage FROM objects WHERE id = '%1'",_id], 2, false] call Server_Database_Async;
 	private _veh = [_class,_storage,_id,_player] call Server_Vehicle_Spawn;
-	if (!isNil "_dir") then {_veh setDir _dir;};
+
+	if(!isNil "_dir") then {_veh setDir _dir;};
 	if (_veh isKindOf "Ship") then {
 		_veh setpos _storage;
 	} else {
@@ -211,12 +212,11 @@
 		if((count _damage) > 0) then {
 			_parts = getAllHitPointsDamage _veh;
 			for "_i" from 0 to ((count _damage) - 1) do {
-				diag_log format["%1 - %2",((_parts select 0) select _i),_damage select _i];
 				_veh setHitPointDamage [format ["%1",((_parts select 0) select _i)],_damage select _i];
 			};
 		};
 	};
-	[getPlayerUID _player,"garageRetreive",["Class",_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
+	[getPlayerUID _player,"garageRetrieve",["Class",_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
 	[_veh] remoteExec ["A3PL_Vehicle_AddKey",_player];
 	[4] remoteExec ["A3PL_Storage_CarRetrieveResponse",_player];
 }] call Server_Setup_Compile;
@@ -322,7 +322,7 @@
 			_veh setOwner (owner _player);
 		};
 	};
-	[getPlayerUID _player,"garageRetreive",["Class",_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
+	[getPlayerUID _player,"garageRetrieve",["Class",_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
 	[_veh] remoteExec ["A3PL_Vehicle_AddKey",_player];
 	_storage animateSource ["storagedoor",1];
 	[_player,_storage,_veh,_id] spawn
