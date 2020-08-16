@@ -214,18 +214,18 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Prison",[
-			["item","net",80,0,0],
-			["item","bucket_empty",150,0,0],
+			["item","net",150,0,0],
+			["item","bucket_empty",250,0,0],
 			["item","seed_corn",100,-1,0],
 			["item","seed_wheat",100,-1,0],
 			["item","seed_lettuce",100,-1,0],
 			["item","seed_coca",100,-1,0],
 			["item","seed_sugar",100,-1,0],
-			["item","lettuce",-1,80,0],
-			["item","corn",-1,80,0],
-			["item","wheat",-1,80,0],
-			["item","sugarcane",-1,80,0],
-			["item","coca",-1,80,0]
+			["item","lettuce",-1,10,0],
+			["item","corn",-1,10,0],
+			["item","wheat",-1,10,0],
+			["item","sugarcane",-1,10,0],
+			["item","coca",-1,10,0]
 		],{[2621.08,5610.15,0.08]}
 	],
 
