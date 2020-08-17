@@ -1,3 +1,10 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
 
 ["A3PL_Lib_CloseInventoryDialog",
 {
@@ -336,12 +343,14 @@
 ["A3PL_Lib_NearestMarker",
 {
 	private _objPos = param [0,[0,0,0]];
+	private _filter = param [1,""];
 	private _nearm = "";
 	private _nearest = 100;
 	{
 		if(_x != "myGPS") then {
 			_d = _objPos distance (getMarkerPos _x);
-			if ( _d < _nearest) then {
+			_fil = [_filter, str(_x)] call BIS_fnc_inString;
+			if ((_d < _nearest) && _fil) then {
 				_nearest = _d;
 				_nearm = _x;
 			};

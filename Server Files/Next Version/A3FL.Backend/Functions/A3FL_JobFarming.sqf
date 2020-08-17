@@ -281,7 +281,7 @@
 	createDialog "Dialog_BagWeed";
 	private _display = findDisplay 74;
 	private _ctrl = _display displayCtrl 1000;
-	_ctrl ctrlSetText (format ["Enter a number between 5 and %1 grams and click bag to bag the marijuana!",_allGrinded]);
+	_ctrl ctrlSetText (format ["Enter a number between 5 and %1 grams and click bag to bag the marijuana!",_allGrinded*5]);
 
 	private _ctrl = _display displayCtrl 1600;
 	_ctrl buttonSetAction "call A3PL_JobFarming_Bag";
@@ -305,12 +305,11 @@
 	private _grindedObject = objNull;
 	{
 		if ((_x getVariable ["class",""]) isEqualTo "cannabis_grinded_5g") exitWith {
-			_amount = _x getVariable["amount",1];
+			_amount = (_x getVariable["amount",1])*5;
 			_grindedObject = _x;
 		};
 	} foreach _near;
 
-	hint format["_amount: %1 < %2",_amount,_grams];
 	if (_amount < _grams) exitwith {["Not enough grinded cannabis nearby to bag that amount! Remember: Every grinded piece of marijuana is 5 grams!","red"] call A3PL_Player_Notification;};
 
 	deleteVehicle _grindedObject;

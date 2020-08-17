@@ -147,21 +147,19 @@
 		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _type) exitwith {_alreadyCrafting = true;};
 	} foreach _var;
 
-	_levelRequired = ([_id,_type,"level"] call A3PL_Config_GetFactory);
-	//if(player getVariable["player_level",0] < _levelRequired) exitWith {_hasLevel = false};
-	//if (!_hasLevel) exitwith {[format["You need to be level %1 to craft this item!",_level],"red"]"Vehicle Factory","Aircraft Factory", call A3PL_Player_Notification;};
-
 	if (!isNil "_alreadyCrafting") exitwith {[localize"STR_FACTORY_ACTIONINPROGRESS","red"] call A3PL_Player_Notification;};
 	if(!(call A3PL_Player_AntiSpam)) exitWith {}; //anti spam
 
 	_control = _display displayCtrl 1500; //get id
 	if (lbCurSel _control < 0) exitwith {[localize"STR_FACTORY_NOOBJECTSELECTION","red"] call A3PL_Player_Notification;};
 	_id = _control lbData (lbCurSel _control);
+	
+	_levelRequired = ([_id,_type,"level"] call A3PL_Config_GetFactory);
+	//if(player getVariable["player_level",0] < _levelRequired) exitWith {_hasLevel = false};
+	//if (!_hasLevel) exitwith {[format["You need to be level %1 to craft this item!",_level],"red"]"Vehicle Factory","Aircraft Factory", call A3PL_Player_Notification;};
+
 	_required = [_id,_type,"required"] call A3PL_Config_GetFactory;
 	if (isNil "_required" OR (count _required < 1)) exitwith {["System: Unexpected error occured trying to retrieve items for recipe in _Craft","red"] call A3PL_Player_Notification;};
-	//first check if we have all the items
-
-	if((_id isEqualTo "cash") && (_toCraft > 50000)) exitwith {[localize"STR_FACTORY_DIRTYCASH","red"] call A3PL_Player_Notification;};
 
 	_temp = [];
 	{

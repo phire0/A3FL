@@ -80,7 +80,7 @@
 	if (!isNil "_spawnPos") then
 	{
 		_type = _intersect getVariable ["type","vehicle"];
-		if(_type isEqualTo "vehicle") then {hint str _spawnPos;[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];};
+		if(_type isEqualTo "vehicle") then {[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];};
 		if (_type isEqualTo "plane") then {[_class,player,_id,_spawnPos] remoteExec ["Server_Storage_RetrieveVehicle", 2];};
 		if (_type == "impound") then {
 			_vehPrice = [_class] call A3PL_Config_GetVehicleMSRP;

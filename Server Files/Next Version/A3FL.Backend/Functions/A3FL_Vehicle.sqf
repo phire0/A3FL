@@ -1702,14 +1702,13 @@
     private _veh = param [0,objNull];
     while {local _veh} do {
         private _overWater = !(position _veh isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
-        private _canDamage = _veh getVariable ["canDamage",true];
-        if (_overWater && _canDamage) then {
+        private _canDamage = isDamageAllowed _veh;
+        private _speed = speed _veh;
+        if (_overWater && _canDamage && (_speed < 80)) then {
             _veh allowDamage false;
-            _veh setVariable ["canDamage",false,false];
         };
-        if (!_overWater && !_canDamage) then {
+        if (!_overWater && !_canDamage && (_speed >= 80)) then {
             _veh allowDamage true;
-            _veh setVariable ["canDamage",nil,false];
         };
     };
 }, false] call Server_Setup_Compile;

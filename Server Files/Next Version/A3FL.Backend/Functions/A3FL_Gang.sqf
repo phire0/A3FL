@@ -210,7 +210,7 @@
 
 	_obj setVariable ["CaptureInProgress",true,true];
 
-	_marker = [_obj] call A3PL_Lib_NearestMarker;
+	_marker = [_obj,"Crime"] call A3PL_Lib_NearestMarker;
 	_marker setMarkerColor "ColorOrange";
 	[format["%1 has started capturing a gang hideout!",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 
@@ -312,7 +312,7 @@
 	if(_capturedTime > (serverTime-1800)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
 
 	private _gangName = _obj getVariable["capturedName",""];
-	_marker = [_obj] call A3PL_Lib_NearestMarker;
+	_marker = [_obj,"Crime"] call A3PL_Lib_NearestMarker;
 	_marker setMarkerColor "ColorOrange";
 	[format["%1 has started capturing a gang hideout from %2!",(toUpper _faction),_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 	Player_ActionCompleted = false;
@@ -320,11 +320,10 @@
 	["Securing Gang Hideout...",120] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
-	_animTime = diag_tickTime;
 	while {Player_ActionDoing} do {
 		if (Player_ActionInterrupted) exitWith {_success = false;};
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (!(vehicle player == player)) exitwith {_success = false;};
+		if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;_obj setVariable ["CaptureInProgress",false,true];};
