@@ -10,7 +10,6 @@
 {
 	_house = param [0,objNull];
 	_robbedTime = missionNamespace getVariable ["HouseCooldown",serverTime-300];
-	_notify = 30;
 	_timeTaken = 45;
 	_fail = false;
 	_faction = "FISD";
@@ -31,15 +30,14 @@
 	_cops = [_faction] call A3PL_Lib_FactionPlayers;
 
 	if(count(_cops) < 5) then {
-		_notify = 10;
 		_timeTaken = 60;
 	};
 
 	_notifyChance = random 100;
-	if(_notifyChance >= _notify) then {[_house,_faction] spawn A3PL_HouseRobbery_NotifySD;};
-
-	_alarmChance = random 100;
-	if(_alarmChance >= 30) then {[_house] spawn A3PL_HouseRobbery_Alarm;};
+	if(_notifyChance >= 30) then {
+		[_house] spawn A3PL_HouseRobbery_Alarm;
+		[_house,_faction] spawn A3PL_HouseRobbery_NotifySD;
+	};
 
 	[getPlayerUID player,"houseRobbery",[getPos _house]] remoteExec ["Server_Log_New",2];
 	[_house, _timeTaken] spawn
@@ -53,9 +51,9 @@
 		waitUntil{Player_ActionDoing};
 		while {Player_ActionDoing} do {
 		if(player getVariable "cuffed") exitWith {};
-			if (!(vehicle player == player)) exitwith {_success = false;};
+			if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
 			if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-			if (!(player_itemClass == "v_lockpick")) exitwith {_success = false;};
+			if (!(player_itemClass isEqualTo "v_lockpick")) exitwith {_success = false;};
 			if (!(["v_lockpick",1] call A3PL_Inventory_Has)) exitwith {_success = false;};
 			if (animationState player != "Acts_carFixingWheel") then {player playmove "Acts_carFixingWheel";}
 		};
@@ -69,13 +67,10 @@
 		[player,"v_lockpick",-1] remoteExec ["Server_Inventory_Add",2];
 
 		_breakChance = random 100;
-		if(_breakChance >= 90) exitWith {[_house,"the lockpick broke"] call A3PL_HouseRobbery_Fail;};
-
-		_chance = random 100;
-		if(_chance >= 35) then {
-			[_house] call A3PL_HouseRobbery_Succeed;
+		if(_breakChance >= 65) then {
+			[_house,", the lockpick broke"] call A3PL_HouseRobbery_Fail;
 		} else {
-			[_house] call A3PL_HouseRobbery_Fail;
+			[_house] call A3PL_HouseRobbery_Succeed;
 		};
 	};
 }] call Server_Setup_Compile;
@@ -83,7 +78,7 @@
 ["A3PL_HouseRobbery_Fail",
 {
   _house = param [0,objNull];
-  _reason = param [1,objNull];
+  _reason = param [1,""];
   [format["You have failed to lockpick this door %1!",_reason], "red"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -145,12 +140,10 @@
 
 ["A3PL_HouseRobbery_NotifySD",
 {
-	private["_house","_cops","_namePos"];
-	_house = param [0,objNull];
-	_faction = param [1,"fisd"];
-	_cops = [_faction] call A3PL_Lib_FactionPlayers;
-
-	_namePos = [getPos _house] call A3PL_Housing_PosAddress;
+	private _house = param [0,objNull];
+	private _faction = param [1,"fisd"];
+	private _cops = [_faction] call A3PL_Lib_FactionPlayers;
+	private _namePos = [getPos _house] call A3PL_Housing_PosAddress;
 	[format["911: Robbery in progress at %1!",_namePos],"blue",_faction,1] call A3PL_Lib_JobMessage;
 	[_house,"Property Alarm","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
 }] call Server_Setup_Compile;

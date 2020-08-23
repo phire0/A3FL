@@ -54,42 +54,19 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_ManageOpen', {
-	private ["_display","_control","_isCorporate","_isBoss","_cid","_companyBudget"];
 	disableSerialization;
-
-	_isCorporate = [getPlayerUID player] call A3PL_Config_InCompany;
+	private _isCorporate = [getPlayerUID player] call A3PL_Config_InCompany;
 	if(!_isCorporate) exitWith {[localize"STR_COMPANY_YOUDONTHAVECOMPANY","red"] call A3PL_Player_Notification;};
-	_isBoss = [getPlayerUID player] call A3PL_Config_IsCompanyBoss;
+	private _isBoss = [getPlayerUID player] call A3PL_Config_IsCompanyBoss;
 	if(!_isBoss) exitWith {[localize"STR_COMPANY_YOUDONTLEADEROFCOMPANY","red"] call A3PL_Player_Notification;};
 
-	_cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
-	_companyBudget = [_cid, "bank"] call A3PL_Config_GetCompanyData;
+	private _cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
+	private _companyBudget = [_cid, "bank"] call A3PL_Config_GetCompanyData;
 
 	createDialog "Dialog_Company_Manage";
-	_display = findDisplay 137;
-
-	_control = _display displayCtrl 1100;
+	private _display = findDisplay 137;
+	private _control = _display displayCtrl 1100;
 	_control ctrlSetStructuredText parseText format["<t align='right' size='1.2'>$%1</t>",[_companyBudget] call A3PL_Lib_FormatNumber];
-
-	//Close
-	_control = _display displayCtrl 1703;
-	_control buttonSetAction "[0] call A3PL_Lib_CloseDialog;";
-
-	//Desc edit
-	_control = _display displayCtrl 1702;
-	_control buttonSetAction "call A3PL_Company_DescEdit;";
-
-	//Pay edit
-	_control = _display displayCtrl 1701;
-	_control buttonSetAction "call A3PL_Company_SetPay;";
-
-	//Fire
-	_control = _display displayCtrl 1700;
-	_control buttonSetAction "call A3PL_Company_Fire;";
-
-	//Bank transfer
-	_control = _display displayCtrl 1704;
-	_control buttonSetAction "call call A3PL_Company_Transfer;";
 
 	[_cid, player] remoteExec ["Server_Company_ManageSetup",2];
 }] call Server_Setup_Compile;

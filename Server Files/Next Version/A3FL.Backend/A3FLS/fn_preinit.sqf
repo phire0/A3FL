@@ -748,7 +748,7 @@ Server_Setup_Compile = {
 			switch (typeOf _houseObj) do
 			{
 				case ("Land_Mansion01"): { _unit setpos [(getpos _houseObj select 0),(getpos _houseObj select 1),1]; };
-				case default { _unit setpos (getpos _houseObj); };
+				case default { _unit setPosATL (getPosATL _houseObj); };
 			};
 		};
 		//set house var

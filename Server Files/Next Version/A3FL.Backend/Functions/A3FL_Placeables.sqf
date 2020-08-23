@@ -208,7 +208,6 @@
 		};
 		sleep _sleep;
 	};
-	player forceWalk false;
 }] call Server_Setup_Compile;
 
 ['A3PL_Placeable_ObjectZFix',

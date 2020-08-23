@@ -14,12 +14,11 @@
 	profileNamespace setVariable ["player_alcohol",Player_Alcohol];
 }] call Server_Setup_Compile;
 
-["A3PL_Alcohol_Verify",
+['A3PL_Alcohol_Verify',
 {
-	if(Player_Alcohol < 0) then {
-		Player_Alcohol = Player_Alcohol + (_add);
-		profileNamespace setVariable ["player_alcohol",Player_Alcohol];
-	};
+	if (Player_Alcohol > 100) exitWith {Player_Alcohol = 100;};
+	if (Player_Alcohol < 0) exitWith {Player_Alcohol = 0;};
+	profileNamespace setVariable ["player_alcohol",Player_Alcohol];
 }] call Server_Setup_Compile;
 
 ["A3PL_Alcohol_Loop",

@@ -214,7 +214,7 @@ Config_Items =
 	["cannabis_bud",localize"STR_ConfigItems_cannabis_bud",0.25,"A3PL_Cannabis_Bud",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["cannabis_bud_cured",localize"STR_ConfigItems_cannabis_bud_cured",0.25,"A3PL_Cannabis_Bud",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["marijuana",localize"STR_ConfigItems_marijuana",1,"A3PL_MarijuanaBag",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["cannabis_grinded_5g",localize"STR_ConfigItems_cannabis_grinded_5g",0.25,"A3PL_Cannabis_Bud",0,true,true,true,true,true,"",[0,0,0],"",20],
+	["cannabis_grinded_5g",localize"STR_ConfigItems_cannabis_grinded_5g",0.01,"A3PL_Cannabis_Bud",0,true,true,true,true,true,"",[0,0,0],"",20],
 	["weed_5g",localize"STR_ConfigItems_weed_5g",1,"A3PL_MarijuanaBag",5,true,true,true,true,true,"A3PL_Items_Food",[0,0,0],"",1],
 	["weed_10g",localize"STR_ConfigItems_weed_10g",1,"A3PL_MarijuanaBag",10,true,true,true,true,true,"A3PL_Items_Food",[0,0,0],"",1],
 	["weed_15g",localize"STR_ConfigItems_weed_15g",1,"A3PL_MarijuanaBag",15,true,true,true,true,true,"A3PL_Items_Food",[0,0,0],"",1],

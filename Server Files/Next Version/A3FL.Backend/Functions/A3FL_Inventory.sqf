@@ -43,8 +43,6 @@
 		};
 	};
 	if(_exit) exitwith {};
-
-	[] call A3PL_Inventory_SetCurrent;
 	[player, _class, _amount] remoteExec ["Server_Inventory_Add",2];
 }] call Server_Setup_Compile;
 

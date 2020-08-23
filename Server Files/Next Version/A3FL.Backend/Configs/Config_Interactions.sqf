@@ -300,7 +300,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_PROSPECTG",
 		{call A3PL_JobWildCat_ProspectOpen},
-		{!(isPlayer cursorObject) && ((surfaceType getpos player) != "#cype_plowedfield") && (Player_ItemClass isEqualTo "") && (vehicle player == player) && (!(animationState player IN ["a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","a3pl_handsuptokneel","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","A3PL_HandsupKneel"]))&& ((surfaceType getpos player) IN ["#cype_plowedfield","#cype_grass","#cype_forest","#cype_soil","#cype_beach","#GtdMud","#GtdDirt","#cype_beach"])&& (!(isOnRoad player))}
+		{!(isPlayer cursorObject) && (Player_ItemClass isEqualTo "") && ((vehicle player) isEqualTo player) && ((surfaceType getpos player) IN ["#cype_grass","#cype_forest","#cype_soil","#cype_beach","#GtdMud","#GtdDirt","#cype_beach"])&& (!(isOnRoad player)) && (!(player getVariable ["Cuffed",false])) && (!(player getVariable ["Zipped",false]))}
 	],
 	[
 		localize "STR_INTER_CHECKTANKC",

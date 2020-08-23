@@ -278,6 +278,7 @@ class Dialog_Company_Manage
 			y = 0.632 * safezoneH + safezoneY;
 			w = 0.159844 * safezoneW;
 			h = 0.033 * safezoneH;
+			action = "call A3PL_Company_Fire;";
 		};
 		class BTN_PayEdit: RscButtonEmpty
 		{
@@ -286,6 +287,7 @@ class Dialog_Company_Manage
 			y = 0.577 * safezoneH + safezoneY;
 			w = 0.0773437 * safezoneW;
 			h = 0.033 * safezoneH;
+			action = "call A3PL_Company_SetPay;";
 		};
 		class BTN_DescEdit: RscButtonEmpty
 		{
@@ -294,6 +296,7 @@ class Dialog_Company_Manage
 			y = 0.67 * safezoneH + safezoneY;
 			w = 0.0825 * safezoneW;
 			h = 0.033 * safezoneH;
+			action = "call A3PL_Company_DescEdit;";
 		};
 		class BTN_Close: RscButtonEmpty
 		{
@@ -302,6 +305,7 @@ class Dialog_Company_Manage
 			y = 0.753 * safezoneH + safezoneY;
 			w = 0.0670312 * safezoneW;
 			h = 0.033 * safezoneH;
+			action = "[0] call A3PL_Lib_CloseDialog;";
 		};
 		class BTN_Transfer: RscButtonEmpty
 		{
@@ -310,6 +314,7 @@ class Dialog_Company_Manage
 			y = 0.302 * safezoneH + safezoneY;
 			w = 0.0721875 * safezoneW;
 			h = 0.033 * safezoneH;
+			action = "call call A3PL_Company_Transfer;";
 		};
 	};
 };

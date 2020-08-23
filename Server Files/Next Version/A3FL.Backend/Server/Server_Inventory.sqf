@@ -72,7 +72,7 @@
 		[_obj,"owner",(getPlayerUID _player)] call Server_Core_ChangeVar;
 		if(_class IN ["doorkey","housekey"]) exitwith {};
 		if(_class isEqualTo "cash") then {[_obj,"cash",_amount] call Server_Core_ChangeVar;};
-	};	
+	};
 	[_player, _class, -(_amount)] call Server_Inventory_Add;
 	[getPlayerUID _player,"DropItem",[_class,_amount]] call Server_Log_New;
 }, true] call Server_Setup_Compile;

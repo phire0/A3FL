@@ -176,7 +176,6 @@
 {
 	private _amount = round(random(3));
 	if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
-	if(player getVariable ["jailed",false]) exitWith {};
 
 	Player_Hunger = Player_Hunger - _amount;
 	if ((Player_Hunger >= 45) && (Player_Hunger <= 50) && (isNil "A3PL_HungerWarning1") && (!(player getVariable ["Incapacitated",false]))) then {
@@ -223,7 +222,6 @@
 {
 	private _amount = round(random(4));
 	if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
-	if(player getVariable ["jailed",false]) exitWith {};
 
 	Player_Thirst = Player_Thirst - _amount;
 	call A3PL_Lib_VerifyThirst;

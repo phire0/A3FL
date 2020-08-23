@@ -13,6 +13,8 @@ Config_Licenses =
 	["cdl",localize"STR_ConfigLicenses_CommercialDriversLicense",false,[]],
 	["motorcycle",localize"STR_ConfigLicenses_Motorcycle",false,[]],
 
+	["hunt",localize"STR_ConfigLicenses_HuntingPermit",false,["doj"]],
+
 	["cpr",localize"STR_ConfigLicenses_CPR",false,["fifr"]],
 	["vfd",localize"STR_ConfigLicenses_FireVolunteer",false,["fifr"]],
 	["atc",localize"STR_ConfigLicenses_ATCVolunteer",false,["uscg"]],
