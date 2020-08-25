@@ -371,7 +371,7 @@
 		};
 		A3PL_Garage_NewColor = _file select 0;
 		A3PL_Garage_NewColorArry = _file;
-
+	
 		[_veh,_file] remoteExec ["Server_Vehicle_SetPaint",2];
 		player setVariable["Player_Cash", _pCash - _price, true];
 		["You have repainted your vehicle for $2,000.","green"] call A3PL_Player_Notification;

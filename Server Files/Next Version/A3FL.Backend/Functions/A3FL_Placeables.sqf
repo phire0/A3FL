@@ -402,6 +402,9 @@
 		_animPhase = 10 - (_nearCone animationSourcePhase "cone_hide");
 		deleteVehicle _nearCone;
 		_cone animateSource ["cone_hide",(_cone animationSourcePhase "cone_hide") - _animPhase];
+		if(((_cone animationSourcePhase "cone_hide") - _animPhase) isEqualTo 0) then {
+			_cone setVariable ["class","roadcones",true];
+		};
 	};
 
 	if ((typeOf _nearCone == "A3PL_RoadCone_x10") OR (typeOf _cone == "A3PL_RoadCone_x10")) exitwith
@@ -410,12 +413,18 @@
 		{
 			if (typeOf _cone == "A3PL_RoadCone") then {_animPhase = 1;} else {_animPhase = _cone animationSourcePhase "cone_hide";};
 			deleteVehicle _cone;
-			 _nearCone animateSource ["cone_hide",((_nearcone animationSourcePhase "cone_hide") - _animPhase)];
+			_nearCone animateSource ["cone_hide",((_nearcone animationSourcePhase "cone_hide") - _animPhase)];
+			if(((_cone animationSourcePhase "cone_hide") - _animPhase) isEqualTo 0) then {
+				_cone setVariable ["class","roadcones",true];
+			};
 		} else
 		{
 			if (typeOf _nearcone == "A3PL_RoadCone") then {_animPhase = 1;} else {_animPhase = _nearcone animationSourcePhase "cone_hide";};
 			deleteVehicle _nearcone;
-			 _cone animateSource ["cone_hide",((_cone animationSourcePhase "cone_hide") - _animPhase)];
+			_cone animateSource ["cone_hide",((_cone animationSourcePhase "cone_hide") - _animPhase)];
+			if(((_cone animationSourcePhase "cone_hide") - _animPhase) isEqualTo 0) then {
+				_cone setVariable ["class","roadcones",true];
+			};
 		};
 	};
 
@@ -424,5 +433,5 @@
 	deleteVehicle _nearCone;
 	_cone = createVehicle ["A3PL_RoadCone_x10", _pos, [], 0, "CAN_COLLIDE"];
 	_cone animateSource ["cone_hide",8,true];
-	_cone setVariable ["class","roadcones",true];
+	_cone setVariable ["class","roadcone",true];
 }] call Server_Setup_Compile;

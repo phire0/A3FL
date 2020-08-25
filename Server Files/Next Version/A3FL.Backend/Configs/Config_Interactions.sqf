@@ -861,11 +861,12 @@ A3PL_Interaction_Options =
 		{
 			private _veh = vehicle player;
 			private _turretPos = call A3PL_Lib_ReturnTurret;
+			private _newTurretPos = 0;
 			if (_turretPos isEqualTo -1) exitwith {};
-			if (_turretPos isEqualTo 0) then { _newTurretPos = 1; } else {_newTurretPos = 0;};
+			if (_turretPos isEqualTo 0) then { _newTurretPos = 1; };
 			_veh lock 0;
 			player action ["moveToTurret", _veh, [_newTurretPos]];
-			if (_newTurretPos == 1) then {[_veh] spawn A3PL_FD_LadderHeavyLoop};
+			if (_newTurretPos isEqualTo 1) then {[_veh] spawn A3PL_FD_LadderHeavyLoop};
 			_veh lock 2;
 		},
 		{(call A3PL_Lib_ReturnTurret IN [0,1]) && (typeOf vehicle player IN ["A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Ladder"]) && !((vehicle player) getVariable ["locked",true])}

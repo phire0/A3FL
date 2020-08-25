@@ -33,16 +33,6 @@
 	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-["Server_Vehicle_SetPaint",
-{
-	private _vehicle = param [0,objNull];
-	private _texture = param [1,""];
-	private _id = _vehicle getVariable ["owner",[]];
-	if(count(_id) isEqualTo 0) exitWith {};
-	private _query = format ["UPDATE objects SET color = '%2' WHERE id = '%1'",_id select 1,_texture];
-	[_query,1] spawn Server_Database_Async;
-},true] call Server_Setup_Compile;
-
 ["Server_Vehicle_InitLPChange",
 {
 	private _player = param [0,objNull];
@@ -545,4 +535,17 @@
 	if(_uid isEqualTo "") exitWith {};
 	private _data = _data - [objNull];
 	missionNamespace setVariable [format ["%1_KEYS",_uid],_data];
+},true] call Server_Setup_Compile;
+
+["Server_Vehicle_SetPaint",
+{
+	private _vehicle = param [0,objNull];
+	private _texture = param [1,""];
+	private _id = _vehicle getVariable ["owner",[]];
+	if(count(_id) isEqualTo 0) exitWith {};
+	if((typeName _texture) isEqualTo "ARRAY") then {_texture = [_texture] call Server_Database_Array;};
+	_texture = [_texture, "\", "\\"] call CBA_fnc_replace;
+	diag_log str _texture;
+	private _query = format ["UPDATE objects SET color = '%2' WHERE id = '%1'",_id select 1,_texture];
+	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;

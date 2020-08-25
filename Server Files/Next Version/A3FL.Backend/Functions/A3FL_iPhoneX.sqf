@@ -565,7 +565,7 @@
 
 	private _display = findDisplay 98100;
 	private _ctrlGrp = (_display displayCtrl 98101);
-	private _tweets = A3PL_TwitterChatPhone;
+	private _tweets = [] + A3PL_TwitterChatPhone;
 	if (!(_tweets isEqualTo [])) then {
 		reverse _tweets;
 		{

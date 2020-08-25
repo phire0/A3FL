@@ -76,7 +76,7 @@
 ['Server_iPhoneX_GetContacts',
 {
 	private _unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
-	if (isNil "_unit") exitWith {};
+	if (isNull _unit) exitWith {};
 	private _ownerID = owner _unit;
 	private _playerUID = getPlayerUID _unit;
 	private _query = format ["SELECT name_contact, phone_number_contact, note_contact FROM iphone_contacts WHERE player_id='%1' ORDER BY name_contact", _playerUID];
@@ -95,7 +95,7 @@
 ['Server_iPhoneX_GetConversations',
 {
 	private _unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
-	if (isNil "_unit") exitWith {};
+	if (isNull _unit) exitWith {};
 	private _ownerID = owner _unit;
 	private _playerUID = getPlayerUID _unit;
 	private _query = format ["SELECT name_contact, phone_number_contact, last_sms FROM iphone_conversations WHERE player_id='%1' ORDER BY name_contact", _playerUID];

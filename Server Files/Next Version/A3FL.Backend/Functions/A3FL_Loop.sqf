@@ -177,6 +177,11 @@
 	private _amount = round(random(3));
 	if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 
+	if (player_ItemClass isEqualTo "popcornbucket") exitwith {
+		Player_Item attachTo [player,[0,0,0],"RightHand"];
+		player playActionNow "gesture_eat";
+	};
+
 	Player_Hunger = Player_Hunger - _amount;
 	if ((Player_Hunger >= 45) && (Player_Hunger <= 50) && (isNil "A3PL_HungerWarning1") && (!(player getVariable ["Incapacitated",false]))) then {
 		A3PL_HungerWarning1 = true;

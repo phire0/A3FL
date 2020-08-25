@@ -153,15 +153,29 @@
 		_veh setpos _storage;
 	} else {
 		_veh setPosATL _storage;
-	};	
+	};
 	if (_veh isKindOf "helicopter") then {
 		_veh setOwner (owner _player);
 	};
+
 	if ((count _db) != 0) then {
 		_veh setFuel (_db select 0);
-		if((_db select 1) != "<null>") then {
-			_veh setObjectTextureGlobal [0,(_db select 1)];
+
+		private _texture = (_db select 1);
+		private _splitted = _texture splitString "";
+		if((_splitted select 0) isEqualTo '[') then {_texture = [_texture] call Server_Database_ToArray;};
+		diag_log format["Server_Storage_RetrieveVehiclePos: (%2) %1",_texture, typeName _texture];
+		if(typeName _texture isEqualTo "ARRAY") then {
+			{
+				_veh setObjectTextureGlobal[_foreachIndex,_x];
+			} foreach _texture;
+		} else {
+			if(!(_texture isEqualTo "<null>")) then {
+				_veh setObjectTextureGlobal [0,_texture];
+			};
 		};
+		
+
 		if((_db select 4) != "<null>") then {
 			_veh setObjectMaterialGlobal [0,(_db select 4)];
 		};
@@ -497,7 +511,6 @@
 	};
 },true] call Server_Setup_Compile;
 
-//This function can put a car back into storage
 ["Server_Storage_StoreVehicle_Position",
 {
 	private ["_storage","_near","_playerCar","_player"];

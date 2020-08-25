@@ -1696,7 +1696,7 @@
     	private _obj = call A3PL_Intersect_cursortarget;
 		private _name = Player_NameIntersect;
 		private _split = _name splitstring "_";
-		[_obj, true] remoteExec ["enableSimulationGlobal", 2];
+		_obj enableSimulation true;
 		if (count _split > 2) then
 		{
 			[_obj,(_split select 0),false] call A3PL_Lib_ToggleAnimation;
@@ -1704,7 +1704,7 @@
 			[_obj,(_split select 0)] call A3PL_Lib_ToggleAnimation;
 		};
 		sleep 10;
-		[_obj, false] remoteExec ["enableSimulationGlobal", 2];
+		_obj enableSimulation false;
 	}
 ],
 [
