@@ -741,6 +741,11 @@
 		case (_level >= 40): {0.4};
 		case (_level >= 45): {0.45};
 		case (_level >= 50): {0.5};
+		case (_level >= 55): {0.55};
+		case (_level >= 60): {0.6};
+		case (_level >= 65): {0.65};
+		case (_level >= 70): {0.7};
+		case (_level >= 75): {0.75};
 		default {0};
 	};
 	_timeEnd = _timeEnd - (_timeEnd*_coeff);
