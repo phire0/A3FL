@@ -52,6 +52,7 @@ Config_Factories =
 	["Oil Refinery",[3852.065,9212.537,0.168],
 		["f_pumpjack","","inh","inh","Pumpjack","item",true,5,[["Steel_Pellet",3]],1,25,0,"Makes 1 Pumpjack; Used for Oil Drilling"],
 		["f_Petrol","","inh","inh","Petrol","item",true,5,[["Crude_Oil",1]],3,3,0,"Makes 3 Petrol"],
+		["f_jerrycan_empty","","inh","inh","jerrycan_empty","item",true,5,[["Steel",2]],2,4,0,"Makes 2 Empty Jerry Cans"],
 		["f_jerrycan","","inh","inh","jerrycan","item",true,5,[["Petrol",1],["Steel",2]],2,4,0,"Makes 2 Jerry Cans"],
 		["f_jerrycan2","","inh","inh","jerrycan","item",true,5,[["Petrol",1],["jerrycan_empty",2]],2,4,0,"Makes 2 Jerry Cans"],
 		["f_jerrycan_kero","","inh","inh","kerosene_jerrycan","item",true,5,[["Kerosene",1],["Steel",2]],2,4,0,"Makes 2 Kerosene Jerry Cans"],
