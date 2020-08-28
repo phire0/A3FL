@@ -130,7 +130,8 @@
 			Player_ObjIntersect = player;
 			Player_NameIntersect = "";
 		};
-		if ((!(getModelInfo _parent select 2)) && ((player distance _obj) < 5)) exitWith {
+		if((!(getModelInfo _parent select 2))) exitWith {};
+		if ((player distance _obj) < 5) exitWith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _obj;
 			{

@@ -472,12 +472,12 @@
 
 	};
 
-	if ((_dikCode IN [2,3,4,8,9,10]) && {vehicle player != player} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
+	if ((_dikCode > 1 && _dikCode < 5) && {vehicle player != player} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
 		[(_dikCode-1)] call A3PL_Vehicle_SirenHotkey;
 		true;
 	};
 
-	if ((_dikCode IN [5,6]) && {vehicle player != player} && {!A3PL_Manual_KeyDown} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
+	if ((_dikCode > 5 && _dikCode < 14) && {vehicle player != player} && {!A3PL_Manual_KeyDown} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
 		[(_dikCode-1)] call A3PL_Vehicle_SirenHotkey;
 		A3PL_Manual_KeyDown = true;
 		true;

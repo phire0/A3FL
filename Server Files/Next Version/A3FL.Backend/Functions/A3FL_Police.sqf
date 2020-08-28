@@ -1540,7 +1540,7 @@
 	[[1]] remoteExec ["A3PL_Police_GiveTicketResponse",Player_TicketCop];
 	Player_TicketCop = Nil;
 	Player_TicketAmount = Nil;
-	["Error: You refused to pay the ticket",Color_Red] call A3PL_Player_Notification;
+	["You refused to pay the ticket",Color_Red] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_PayTicket",

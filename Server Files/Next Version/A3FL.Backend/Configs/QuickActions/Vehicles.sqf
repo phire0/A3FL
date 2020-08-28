@@ -1696,15 +1696,15 @@
     	private _obj = call A3PL_Intersect_cursortarget;
 		private _name = Player_NameIntersect;
 		private _split = _name splitstring "_";
-		_obj enableSimulation true;
-		if (count _split > 2) then
-		{
-			[_obj,(_split select 0),false] call A3PL_Lib_ToggleAnimation;
+		private _animationName = (_split select 0);
+		if ((_obj animationSourcePhase _animationName) < 0.5) then {
+			[_obj,true,true] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+			_obj animateSource [_animationName,1];
 		} else {
-			[_obj,(_split select 0)] call A3PL_Lib_ToggleAnimation;
+			_obj animateSource [_animationName,0];
+			waitUntil{(_obj animationSourcePhase _animationName) isEqualTo 0};
+			[_obj,false,true] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 		};
-		sleep 10;
-		_obj enableSimulation false;
 	}
 ],
 [

@@ -278,7 +278,7 @@
 	private _query = format ["INSERT INTO companies_shops(cid,location) VALUES('%1','%2')", _cid, (getpos _shop)];
 	[_query,1] spawn Server_Database_Async;
 
-	sleep 5;
+	sleep 3;
 	["You bought a shop for your company!", "green"] remoteExec ["A3PL_Player_Notification",_player];
 	[] call Server_Company_LoadShop;
 },true] call Server_Setup_Compile;
@@ -305,7 +305,7 @@
 
 ["Server_Company_LoadShop",
 {
-	private _shopList = ["Land_A3PL_Showroom","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"];
+	private _shopList = ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"];
 	private _shops = ["SELECT companies_shops.cid, companies_shops.location, companies_shops.stock, companies.name FROM companies_shops, companies WHERE companies_shops.cid = companies.id", 2, true] call Server_Database_Async;
 	{
 		private _cid = (_x select 0);
@@ -376,15 +376,16 @@
 	private _currentStock = _shop getVariable["stock",[]];
 	private _stock = [];
 	{
-		_class = (_x select 0);
-		_amount = (_x select 1);
-		_price = (_x select 2);
+		_type = (_x select 0);
+		_class = (_x select 1);
+		_amount = (_x select 2);
+		_price = (_x select 3);
 		if(_class isEqualTo _addItem) then {
 			if(!(_amount isEqualTo _addAmount)) then {
-				_stock pushback [_class,(_amount+_addAmount),_price];
+				_stock pushback [_type,_class,(_amount+_addAmount),_price];
 			};
 		} else {
-			_stock pushback [_class,_amount,_price];
+			_stock pushback [_type,_class,_amount,_price];
 		};
 	} foreach _currentStock;
 	[_shop,_stock] call Server_Company_ShopItemsUpdate;
@@ -398,15 +399,16 @@
 	private _currentStock = _shop getVariable["stock",[]];
 	private _stock = [];
 	{
-		_class = (_x select 0);
-		_amount = (_x select 1);
-		_price = (_x select 2);
+		_type = (_x select 0);
+		_class = (_x select 1);
+		_amount = (_x select 2);
+		_price = (_x select 3);
 		if(_class isEqualTo _bItem) then {
 			if(!(_amount isEqualTo _bAmount)) then {
-				_stock pushback [_class,(_amount-_bAmount),_price];
+				_stock pushback [_type,_class,(_amount-_bAmount),_price];
 			};
 		} else {
-			_stock pushback [_class,_amount,_price];
+			_stock pushback [_type,_class,_amount,_price];
 		};
 	} foreach _currentStock;
 	[_shop,_stock] call Server_Company_ShopItemsUpdate;
@@ -420,13 +422,14 @@
 	private _currentStock = _shop getVariable["stock",[]];
 	private _stock = [];
 	{
-		_class = (_x select 0);
-		_amount = (_x select 1);
-		_price = (_x select 2);
+		_type = (_x select 0);
+		_class = (_x select 1);
+		_amount = (_x select 2);
+		_price = (_x select 3);
 		if(_class isEqualTo _cItem) then {
-			_stock pushback [_class,_amount,_cPrice];
+			_stock pushback [_type,_class,_amount,_cPrice];
 		} else {
-			_stock pushback [_class,_amount,_price];
+			_stock pushback [_type,_class,_amount,_price];
 		};
 	} foreach _currentStock;
 	[_shop,_stock] call Server_Company_ShopItemsUpdate;

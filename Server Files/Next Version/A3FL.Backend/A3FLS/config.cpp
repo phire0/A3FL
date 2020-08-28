@@ -328,6 +328,13 @@ class CfgRemoteExec
 		class Server_Company_LoadCBillPhone{allowedTargets=2;};
 		class Server_Company_PayBill{allowedTargets=2;};
 
+		class Server_Company_BuyShop{allowedTargets=2;};
+		class Server_Company_SellShop{allowedTargets=2;};
+		class Server_Company_ShopAddItem{allowedTargets=2;};
+		class Server_Company_ShopAddStock{allowedTargets=2;};
+		class Server_Company_ShopRemoveStock{allowedTargets=2;};
+		class Server_Company_ShopResetPrice{allowedTargets=2;};
+
 		//Twitter
 		class A3PL_Twitter_NewMsg {allowedTargets = 0;};
 		class Server_Twitter_HandleMsg {allowedTargets = 2;};

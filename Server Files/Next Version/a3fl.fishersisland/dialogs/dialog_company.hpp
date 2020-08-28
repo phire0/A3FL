@@ -325,7 +325,7 @@ class Dialog_CompanyShop_Buy
 	movingEnable = 0;
 	enableSimulation = 1;
 	onLoad = "";
-	onUnload = "";
+	onUnload = "A3PL_Company_BuyObject = nil;";
 	class controls
 	{
 		class MainPic: RscPicture
@@ -372,7 +372,7 @@ class Dialog_CompanyShop_Sell
 	movingEnable = 0;
 	enableSimulation = 1;
 	onLoad = "";
-	onUnload = "";
+	onUnload = "A3PL_Company_BuyObject = nil;";
 	class controls
 	{
 		class MainPic: RscPicture
@@ -419,7 +419,7 @@ class Dialog_CompanyShop_Management
 	movingEnable = 0;
 	enableSimulation = 1;
 	onLoad = "";
-	onUnload = "";
+	onUnload = "A3PL_Company_BuyObject = nil;";
 	class controls
 	{
 		class MainPic: RscPicture
@@ -532,7 +532,7 @@ class Dialog_CompanyShop_Customer
 	movingEnable = 0;
 	enableSimulation = 1;
 	onLoad = "";
-	onUnload = "";
+	onUnload = "A3PL_Company_BuyObject = nil;";
 	class controls
 	{
 		class MainPic: RscPicture
@@ -559,6 +559,7 @@ class Dialog_CompanyShop_Customer
 			y = 0.753 * safezoneH + safezoneY;
 			w = 0.0670312 * safezoneW;
 			h = 0.044 * safezoneH;
+			action = "closeDialog 0;";
 		};
 		class ButtonBuy: RscButtonEmpty
 		{
