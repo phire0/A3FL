@@ -110,6 +110,7 @@
 		A3PL_Housing_StorageBox setVariable ["storage",([_storage, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 		player setVariable ["player_inventory",([_inventory, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
 		[] call A3PL_Inventory_Verify;
+		[getPlayerUID player,"addToHouse",["Item",_itemClass,"Amount",_itemAmount]] remoteExec ["Server_Log_New",2];
 	} else
 	{
 		_itemClass = (_storage select _index) select 0;
@@ -122,6 +123,7 @@
 		A3PL_Housing_StorageBox setVariable ["storage",([_storage, _itemClass, -(_itemAmount),false] call BIS_fnc_addToPairs),true];
 		player setVariable ["player_inventory",([_inventory, _itemClass, _itemAmount,false] call BIS_fnc_addToPairs),true];
 		[A3PL_Housing_StorageBox] call A3PL_Housing_VirtualVerify;
+		[getPlayerUID player,"takeFromHouse",["Item",_itemClass,"Amount",_itemAmount]] remoteExec ["Server_Log_New",2];
 	};
 	[] call A3PL_Inventory_SetCurrent;
 	[_display,A3PL_Housing_StorageBox] call A3PL_Housing_VirtualFillLB;

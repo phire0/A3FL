@@ -1004,6 +1004,8 @@
 
 ["A3PL_Medical_Respawn",
 {
+	[getPlayerUID player,"playerRespawned",[getPosATL player]] remoteExec ["Server_Log_New",2];
+
 	player setVariable ["DoubleTapped",false,true];
   	player switchMove "";
 	disableUserInput false;

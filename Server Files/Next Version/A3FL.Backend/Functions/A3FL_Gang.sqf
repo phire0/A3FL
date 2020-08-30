@@ -243,6 +243,7 @@
 	[localize"STR_NewGang_22","green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
 	[player, 20] call A3PL_Level_AddXP;
+	[getPlayerUID player,"gangHideoutCaptured",[]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_CapturedPaycheck",

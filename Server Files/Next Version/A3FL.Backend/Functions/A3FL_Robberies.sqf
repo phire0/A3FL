@@ -38,6 +38,7 @@
 	["Some items have been added to your inventory, others may be on the ground!", "yellow"] call A3PL_Player_Notification;
 	[player, 30] call A3PL_Level_AddXP;
 	[_port] call A3PL_Robberies_PortReward;
+	[getPlayerUID player,"portRobberrySuccess",[]] remoteExec ["Server_Log_New",2];
 
 	uiSleep 1200;
 	missionNamespace setVariable ["PortRobberyCooldown",false,true];
@@ -184,6 +185,7 @@
 			_storage setVariable ["timer",serverTime,true];
 			[localize"STR_CRIMINAL_PICKSUCCESSFULLHC", "green"] call A3PL_Player_Notification;
 			[player,20] call A3PL_Level_AddXP;
+			[getPlayerUID player,"seizureRobberrySuccess",[]] remoteExec ["Server_Log_New",2];
 		} else {
 			[localize"STR_CRIMINAL_YOUCANNOTPICKTHISVEHICLEHC", "red"] call A3PL_Player_Notification;
 		};
@@ -228,6 +230,7 @@
 
 	["You now own this ship for 10 minutes! You can access the Ship Weaponry to defend it!","green"] call A3PL_Player_Notification;
 	[] remoteExec ["Server_Criminal_ShipCaptured",2];
+	[getPlayerUID player,"shipCaptured",[]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Robberies_PShipRobbed",

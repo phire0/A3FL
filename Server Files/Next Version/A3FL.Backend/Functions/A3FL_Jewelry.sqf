@@ -146,6 +146,7 @@
 	sleep 1;
 	playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _object, false, _object modelToWorldVisual (_object selectionPosition [_name,"Memory"]), 1, 1, 300];
 	[_object] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
+	[getPlayerUID player,"jewelryGlassBroke",[_name]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Jewelry_PickJewelry",

@@ -23,7 +23,7 @@
 			if(_dataString == "") then {
 				_dataString = _x;
 			} else {
-				_dataString = format["%1:%2",_dataString,_x];
+				_dataString = format["%1:%2 ",_dataString,_x];
 			};
 		} forEach _data;
 	} else {

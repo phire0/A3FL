@@ -136,6 +136,7 @@
 		{_weaponHolder addItemCargoGlobal _x;} forEach _physicalItems;
 	};
 	missionNamespace setVariable ["HouseCooldown",serverTime,true];
+	[getPlayerUID player,"houseRobberrySuccess",[]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_HouseRobbery_NotifySD",

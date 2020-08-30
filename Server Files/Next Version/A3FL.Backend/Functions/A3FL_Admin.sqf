@@ -8,6 +8,27 @@
 
 #define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Federal Bureau of Investigation","fbi","fbi"]]
 #define adminTagsList [["Civilian Tag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]],["Executive Tag",["#B5B5B5","#8410ff","\A3PL_Common\icons\executive.paa"]],["Executive Supervisor Tag",["#B5B5B5","#5ab2ff","\A3PL_Common\icons\exec_supervisor.paa"]],["Developer Tag",["#B5B5B5","#FFFFFF","\A3PL_Common\icons\creator.paa"]],["Lead Dev Tag",["#B5B5B5","#2c82c9","\A3PL_Common\icons\leaddev.paa"]],["Chief Tag",["#B5B5B5","#2f9baa","\A3PL_Common\icons\chief.paa"]],["Sub-Director Tag",["#B5B5B5","#ff6d29","\A3PL_Common\icons\subdirector.paa"]],["Director Tag",["#B5B5B5","#cece08","\A3PL_Common\icons\director.paa"]]]
+#define ADMIN_OBJECTS [
+	["Business Sign","Land_A3PL_BusinessSign"],
+	["Estate Sign","Land_A3PL_EstateSign"],
+	["Estate Sign (Rented)","Land_A3PL_EstateSignRented"],
+	["Fire Hydrant","Land_A3PL_FireHydrant"],
+	["Portable Light","Land_PortableLight_double_F"],
+	["Pipes","Land_Pipes_large_F"],
+	["Tribune","Land_Tribune_F"],
+	["Ramp","Land_RampConcrete_F"],
+	["Crash Barrier","Land_Crash_barrier_F"],
+	["Stairs","Land_GH_Stairs_F"],
+	["Road Cone","RoadCone_L_F"],
+	["Road Barrier","RoadBarrier_F"],
+	["Crane","Land_Crane_F"],
+	["Bunker","Land_BagBunker_Small_F"],
+	["Finish Gate","Land_FinishGate_01_wide_F"],
+	["Podium","Land_WinnersPodium_01_F"],
+	["Concrete Block","BlockConcrete_F"],
+	["Dirt Hump","Dirthump_3_F"],
+	["Target","TargetBootcampHuman_F"]
+]
 
 ["A3PL_Admin_Check",
 {
@@ -23,7 +44,7 @@
 	pVar_FiresFrozen = false;
 
 	pVar_AdminLevel = player getVariable ["dbVar_AdminLevel",0];
-	if (pVar_AdminLevel == 0) exitwith {};
+	if (pVar_AdminLevel isEqualTo 0) exitwith {};
 
 	pVar_AdminPerms = player getVariable ["dbVar_AdminPerms",[]];
 	pVar_CursorTargetEnabled = false;
@@ -309,8 +330,8 @@
 
 	_control = _display displayCtrl 1501;
 	lbClear _control;
-	if (_selectedFactory == "Objects" || _selectedFactory == "AdminVehicles") then {
-		if (_selectedFactory == "AdminVehicles") exitWith {
+	if (_selectedFactory isEqualTo "Objects" || _selectedFactory isEqualTo "AdminVehicles") then {
+		if (_selectedFactory isEqualTo "AdminVehicles") exitWith {
 			{
 				_first_X = _x;
 				{
@@ -321,12 +342,11 @@
 			} forEach Config_Vehicles_Admin;
 		};
 
-		if (_selectedFactory == "Objects") exitWith {
+		if (_selectedFactory isEqualTo "Objects") exitWith {
 			{
-				_class = _x;
-				_i = lbAdd [1501,_class];
-				lbSetData [1501,_i,_class];
-			} forEach ["Land_A3PL_BusinessSign","Land_A3PL_EstateSign","Land_A3PL_EstateSignRented","Land_A3PL_FireHydrant","Land_PortableLight_double_F","Land_Device_slingloadable_F","PortableHelipadLight_01_yellow_F","Land_Pipes_large_F","Land_Tribune_F","Land_RampConcrete_F","Land_Crash_barrier_F","Land_GH_Stairs_F","RoadCone_L_F","RoadBarrier_F","RoadBarrier_small_F","Land_Razorwire_F"];
+				_i = lbAdd [1501,(_x select 0)];
+				lbSetData [1501,_i,(_x select 1)];
+			} forEach ADMIN_OBJECTS;
 		};
 	} else {
 		_recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
@@ -450,16 +470,15 @@
 		_control = _display displayCtrl 1501;
 		lbClear _control;
 
-		if (_selectedFactory == "Objects" || _selectedFactory == "AdminVehicles") then {
-			if (_selectedFactory == "Objects") exitWith {
+		if (_selectedFactory isEqualTo "Objects" || _selectedFactory isEqualTo "AdminVehicles") then {
+			if (_selectedFactory isEqualTo "Objects") exitWith {
 				{
-					_name = _x;
+					_name = _x select 0;
 					if ((_name find _text) != -1) then {
-						_class = _x;
-						_i = lbAdd [1501,_class];
-						lbSetData [1501,_i,_class];
+						_i = lbAdd [1501,(_x select 0)];
+						lbSetData [1501,_i,(_x select 1)];
 					};
-				} foreach ["Land_A3PL_BusinessSign","Land_A3PL_EstateSign","Land_A3PL_EstateSignRented","Land_A3PL_FireHydrant","Land_PortableLight_double_F","Land_Device_slingloadable_F","PortableHelipadLight_01_yellow_F","Land_Pipes_large_F","Land_Tribune_F","Land_RampConcrete_F","Land_Crash_barrier_F","Land_GH_Stairs_F","RoadCone_L_F","RoadBarrier_F","RoadBarrier_small_F","Land_Razorwire_F"];
+				} foreach ADMIN_OBJECTS;
 			};
 
 			if (_selectedFactory == "AdminVehicles") exitWith {
@@ -499,6 +518,7 @@
 		_selectedListText = lbText [2100,_selectedList];
 
 		if (_selectedListText isEqualTo "Objects") exitWith {
+			_obj = objNull;
 			_selectedIndex = lbCurSel 1500;
 			_selectedPlayer = (A3PL_Admin_PlayerList select _selectedIndex);
 			_selectedObject = lbCurSel 1501;
@@ -511,10 +531,11 @@
 			} else {
 				_obj = createvehicle [_objectClass,_playerPos, [], 0, "CAN_COLLIDE"];
 			};
+			_obj setVariable["owner","ADMIN",true];
 			[player,"objects",[format ["Object Spawn: %1 AT %2",_objectClass,_playerPos]]] remoteExec ["Server_AdminLoginsert", 2];
 		};
 
-		if (_selectedListText == "AdminVehicles") exitWith {
+		if (_selectedListText isEqualTo "AdminVehicles") exitWith {
 			_selectedIndex = lbCurSel 1500;
 			_selectedPlayer = (A3PL_Admin_PlayerList select _selectedIndex);
 			_selectedObject = lbCurSel 1501;

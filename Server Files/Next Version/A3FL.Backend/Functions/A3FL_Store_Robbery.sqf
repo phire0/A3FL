@@ -63,10 +63,12 @@
 
 	["Successful robbery!", "green"] call A3PL_Player_Notification;
 	[_isStation,_store] call A3PL_Store_Robbery_Reward;
+	[getPlayerUID player,"storeRobberrySuccess",[]] remoteExec ["Server_Log_New",2];
 
 	uiSleep 1800;
 	missionNamespace setVariable ["StoreCooldown",0,true];
 	_store setVariable ["cooldown",nil,true];
+
 }] call Server_Setup_Compile;
 
 ["A3PL_Store_Robbery_Reward",

@@ -57,7 +57,13 @@
 	
 	deleteVehicle _obj;
 	[_player,_class,_amount] call Server_Inventory_Add;
-	[getPlayerUID _player,"PickupItem",[_class,_amount]] call Server_Log_New;
+	_total = 0;
+	if (_class isEqualTo "cash") then {
+		_total = _player getVariable ["player_cash",0];
+	} else {
+		_total = [_class,_player] call A3PL_Inventory_Return;
+	};
+	[getPlayerUID _player,"PickupItem",[_class,_amount,"Total",_total]] call Server_Log_New;
 }, true] call Server_Setup_Compile;
 
 ["Server_Inventory_Drop", {
@@ -74,7 +80,13 @@
 		if(_class isEqualTo "cash") then {[_obj,"cash",_amount] call Server_Core_ChangeVar;};
 	};
 	[_player, _class, -(_amount)] call Server_Inventory_Add;
-	[getPlayerUID _player,"DropItem",[_class,_amount]] call Server_Log_New;
+	_total = 0;
+	if (_class isEqualTo "cash") then {
+		_total = _player getVariable ["player_cash",0];
+	} else {
+		_total = [_class,_player] call A3PL_Inventory_Return;
+	};
+	[getPlayerUID _player,"DropItem",[_class,_amount,"Total",_total]] call Server_Log_New;
 }, true] call Server_Setup_Compile;
 
 ["Server_Inventory_Return", {

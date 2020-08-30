@@ -82,39 +82,16 @@
 	clearWeaponCargoGlobal _itemBox;
 	clearBackpackCargoGlobal _itemBox;
 
-	private _physicalItems = [];
    	private _virtualItems = [];
+	private _valuableItems = [["Titanium_Ingot",40],["Iron_Ingot",40],["Coal_Ingot",40],["Coal_Ingot",40],["weed_100g",16],["shrooms",8],["cocaine",13]];
+	private _itemCount = 4 + round(random(8));
 
-	_commonItems = [];
-	_valuableItems = [];
-	_rareItems = [];
-	_magReward = [];
-	_weaponReward = [];
-	_rareMagReward = [];
-	_rareWeaponReward = [];
-
-	_valueableChance = random 100;
-	if(_valueableChance >= 50) then {_virtualItems pushBack selectRandom _valuableItems;};
-
-	_rareChance = random 100;
-	if(_rareChance >= 70) then {_virtualItems pushBack selectRandom _rareItems;};
-
-	_magChance = random 100;
-	if(_magChance >= 50) then {_physicalItems pushBack selectRandom _magReward;};
-
-	_weaponReward = random 100;
-	if(_weaponReward >= 75) then {_physicalItems pushBack selectRandom _weaponReward;};
-
-	_rareMagChance = random 100;
-	if(_rareMagChance >= 50) then {_physicalItems pushBack selectRandom _rareMagReward;};
-
-	_rareWeaponReward = random 100;
-	if(_rareWeaponReward >= 75) then {_physicalItems pushBack selectRandom _rareWeaponReward;};
-
-	_virtualItems pushBack selectRandom _commonItems;
+	for "_i" from 0 to _itemCount do {
+		_item = (selectRandom _valuableItems);
+		_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
+	};
 
 	_itemBox setVariable["storage",_virtualItems,true];
-	{_itemBox addItemCargoGlobal _x} foreach _physicalItems;
 
     sleep _eventDuration;
 
@@ -146,17 +123,24 @@
 	sleep 5;
 	_plane setDamage 0.85;
 	_plane setHitPointDamage["hitEngine", 1];
-	private _source2 = createVehicle ["#particleSource",getposATL _plane, [], 0, "CAN_COLLIDE"];
-	_source2 setparticleclass "BigDestructionSmoke";
-	_source2 attachTo [_plane,[0,0,0]];
 
-	waitUntil{!alive _pilot};
+	private _marker = createMarker ["planecrash", position (_planeWreck)];
+	_marker setMarkerShape "ICON";
+	_marker setMarkerType "A3PL_Markers_Plane";
+	_marker setMarkerText " PLANE IN DESTRESS";
+	_marker setMarkerColor "ColorWhite";
+
+	while{alive _pilot} do {
+		_marker setMarkerPos position _planeWreck;
+	};
 
 	private _crashPos = getPosATL _plane;
 	deleteVehicle _pilot;
 	deleteVehicle _plane;
 	deleteVehicle _source2;
 
+	_marker setMarkerText " PLANE CRASH";
+	_marker setMarkerPos position _crashPos;
 	private _planeWreck = createVehicle ["Land_HistoricalPlaneWreck_01_F", _crashPos, [], 0, "CAN_COLLIDE"];
 	private _boxPos = [(_crashPos select 0) - random 15,(_crashPos select 1) + random 10,_crashPos select 2];
 	private _itemBox = "B_supplyCrate_F" createVehicle _boxPos;
@@ -164,15 +148,11 @@
 	_itemBox allowDamage false;
     _itemBox setDir (90);
 
-    private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
-    if((count _fifr) >= 5) then {
-    	private _onWater = !(_position isFlatEmpty [-1, -1, -1, -1, 2, false] isEqualTo []);
-		if(_onWater || ((_position select 3) < 0)) exitWith {};
-		private _marker = createMarker [format ["vehiclefire_%1",random 4000], position (_planeWreck)];
-		_marker setMarkerShape "ICON";
+	private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
+	if((count _fifr) >= 5) then {
+		private _onWater = !(_position isFlatEmpty [-1, -1, -1, -1, 2, false] isEqualTo []);
+	if(_onWater || ((_position select 3) < 0)) exitWith {};
 		_marker setMarkerType "A3PL_Markers_FIFD";
-		_marker setMarkerText " PLANE CRASH FIRE";
-		_marker setMarkerColor "ColorWhite";
 		[localize"STR_SERVER_FIRE_VEHICLEFIREREPORT","red","fifr",3] call A3PL_Lib_JobMessage;
 		["A3PL_Common\effects\firecall.ogg",150,2,10] spawn A3PL_FD_FireStationAlarm;
 		[getposATL (_planeWreck)] spawn Server_Fire_StartFire;
@@ -203,14 +183,14 @@
 	_magChance = random 100;
 	if(_magChance >= 25) then {_physicalItems pushBack selectRandom _magReward;};
 
-	_weaponReward = random 100;
-	if(_weaponReward >= 45) then {_physicalItems pushBack selectRandom _weaponReward;};
+	_weaponRewardChance = random 100;
+	if(_weaponRewardChance >= 45) then {_physicalItems pushBack selectRandom _weaponReward;};
 
 	_rareMagChance = random 100;
 	if(_rareMagChance >= 50) then {_physicalItems pushBack selectRandom _rareMagReward;};
 
-	_rareWeaponReward = random 100;
-	if(_rareWeaponReward >= 75) then {_physicalItems pushBack selectRandom _rareWeaponReward;};
+	_rareWeaponRewardChance = random 100;
+	if(_rareWeaponRewardChance >= 75) then {_physicalItems pushBack selectRandom _rareWeaponReward;};
 
 	_virtualItems pushback selectRandom _commonItems;
 
