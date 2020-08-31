@@ -88,13 +88,13 @@ Config_NPC_Text =
 	["dmv_cdltestpass","Congratulations, you have passed your commercial driving test! Your license has been issued.",["Thank you, see you later!"],[""]],
 	["dmv_cdltestfail","Unfortunatly you have failed your commercial driving test, you can retake the test at any time for $2500",["I'm ready for a second chance","I'll come back later"],["['dmv_cdltest1'] call A3PL_NPC_Start;",""]],
 
-	["dmv_motorcycleteststart","Okay, the test costs $2500 and covers some basic motorcycle safety. Let me know when you are ready to begin.",["I'm ready!","I'm not ready, I'll be back later"],["[] call A3PL_DMV_StartTest3;",""]],
+	["dmv_motorcycleteststart","Okay, the test costs $10.000 and covers some basic motorcycle safety. Let me know when you are ready to begin.",["I'm ready!","I'm not ready, I'll be back later"],["[] call A3PL_DMV_StartTest3;",""]],
 	["dmv_motorcycletest1","Where can you test the speed of your motorcycle?",["A) Northern Island","B) Anywhere on the MSR","C) Race Track"],["['dmv_motorcycletestfail'] call A3PL_NPC_Start;","['dmv_motorcycletestfail'] call A3PL_NPC_Start;","['dmv_motorcycletest2'] call A3PL_NPC_Start;"]],
 	["dmv_motorcycletest2","What must be worn when riding a motorcycle?",["A) Helmet","B) Aviators","C) Flight Suit","D) Whatever you want"],["['dmv_motorcycletest3'] call A3PL_NPC_Start;","['motorcycle'] call A3PL_NPC_Start;","['dmv_motorcycletestfail'] call A3PL_NPC_Start;","['dmv_motorcycletestfail'] call A3PL_NPC_Start;"]],
 	["dmv_motorcycletest3","Which vehicles are classed as motorcycles?",["A) Any vehicle with 2 wheels","B) Quad bikes, 2 wheel vehicles","C) Any vehicle that goes VROOM","D) Pedal Bikes"],["['dmv_motorcycletest4'] call A3PL_NPC_Start;","['dmv_motorcycletestfail'] call A3PL_NPC_Start;","['dmv_motorcycletestfail'] call A3PL_NPC_Start;","['dmv_motorcycletestfail'] call A3PL_NPC_Start;"]],
 	["dmv_motorcycletest4","What lane must a motorcycle be driven in?",["A) Left Lane","B) Right Lane","C) Whatever is convenient","D) In between the 2 yellow lines in the center"],["['dmv_motorcycletestfail'] call A3PL_NPC_Start;","['dmv_motorcycletestpass'] call A3PL_NPC_Start; [player,'motorcycle',true] remoteExec ['Server_DMV_Add',2];","['dmv_motorcycletestfail'] call A3PL_NPC_Start;","['dmv_motorcycletestfail'] call A3PL_NPC_Start;"]],
 	["dmv_motorcycletestpass","Congratulations, you have passed your motorcycle test! Your license has been issued.",["Thank you, see you later!"],[""]],
-	["dmv_motorcycletestfail","Unfortunatly you have failed your motorcycle test, you can retake the test at any time for $2500",["I'm ready for a second chance","I'll come back later"],["['dmv_motorcycletest1'] call A3PL_NPC_Start;",""]],
+	["dmv_motorcycletestfail","Unfortunatly you have failed your motorcycle test, you can retake the test at any time for $10.000",["I'm ready for a second chance","I'll come back later"],["['dmv_motorcycletest1'] call A3PL_NPC_Start;",""]],
 
 
 	["verizon_initial",localize"STR_NPC_HELLOHOWICANHELPYOU",[localize"STR_NPC_CHOOSESUB"],["['verizon_howto'] call A3PL_NPC_Start;"]],

@@ -169,10 +169,10 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_DMV_StartTest3",{
-	if(player getVariable['player_cash',0] < 2500) exitWith {['You do not have enough money for the motorcycle test!','red'] call A3PL_Player_Notification;};
+	if(player getVariable['player_cash',0] < 10000) exitWith {['You do not have enough money for the motorcycle test!','red'] call A3PL_Player_Notification;};
 	if(['motorcycle'] call A3PL_DMV_Check) exitWith {['You already have a driving license!','red'] call A3PL_Player_Notification;};
 	['dmv_motorcycletest1'] call A3PL_NPC_Start;
 	_cash = player getVariable ['player_cash',0];
-	player setVariable ['player_cash',(_cash - 2500),true];
+	player setVariable ['player_cash',(_cash - 10000),true];
 	["Federal Reserve",500] remoteExec ["Server_Government_AddBalance",2];
 }] call Server_Setup_Compile;
