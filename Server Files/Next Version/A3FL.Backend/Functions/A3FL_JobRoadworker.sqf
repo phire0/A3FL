@@ -63,15 +63,18 @@
 
 ["A3PL_JobRoadWorker_MarkerLoop",
 {
-	private["_isRoadside","_isAdmin","_lp","_marker"];
-	_isRoadside = (player getVariable ["job","unemployed"]) isEqualTo "Roadside";
-	_isAdmin = player getVariable ["pVar_RedNameOn",false];
-
-	if(!_isRoadside && !_isAdmin) exitWith {};
+	private _isRoadside = (player getVariable ["job","unemployed"]) isEqualTo "Roadside";
+	private _isAdmin = player getVariable ["pVar_RedNameOn",false];
+	private _vehicles = [];
 
 	{deleteMarkerLocal _x;} foreach A3PL_Jobroadworker_MarkerList;
+	if(!_isRoadside && !_isAdmin) exitWith {};
 
 	A3PL_Jobroadworker_MarkerList = [];
+
+	{
+		if(!isNull _x) then {_vehicles pushback _x;};
+	} foreach Server_JobRoadWorker_Marked;
 
 	{
 		_lp = (_x getvariable ["owner",["0","ERROR"]]) select 1;
@@ -81,7 +84,7 @@
 		_marker setMarkerTextLocal format ["Impound Vehicle (LP: %1)",_lp];
 		_marker setMarkerColorLocal "ColorRed";
 		A3PL_Jobroadworker_MarkerList pushback _marker;
-	} foreach Server_JobRoadWorker_Marked;
+	} foreach _vehicles;
 }] call Server_Setup_Compile;
 
 ["A3PL_JobRoadWorker_Impound",

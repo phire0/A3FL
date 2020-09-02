@@ -71,12 +71,11 @@
 	_warehouse = param [1,objNull];
 	_pos = getposATL _player;
 	if (!isNil {_warehouse getVariable "box_spawned"}) exitwith {};
-	//set variable that disables the box to be spawned again
 	_warehouse setVariable ["box_spawned",true,false];
 
 	if (isDedicated) then { _items = [format ["SELECT items,vitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2, true] call Server_Database_Async;} else {_items = [[],[],[]];};
-	_box = createVehicle ["Box_GEN_Equip_F",_pos, [], 0, "CAN_COLLIDE"]; //replace with custom ammo box later
-	clearItemCargoGlobal _box; //temp until custom ammo box
+	_box = createVehicle ["Box_GEN_Equip_F",_pos, [], 0, "CAN_COLLIDE"];
+	clearItemCargoGlobal _box;
 	clearWeaponCargoGlobal _box;
 	clearMagazineCargoGlobal _box;
 	clearBackpackCargoGlobal _box;
@@ -89,12 +88,14 @@
 	_actualitems = _cargoItems select 2;
 	_backpacks = _cargoItems select 3;
 
-	//add items [["srifle_EBR_F"],[],[]]
 	{_box addWeaponCargoGlobal [_x,1]} foreach _weapons;
 	{_box addMagazineCargoGlobal [_x,1]} foreach _magazines;
 	{_box addItemCargoGlobal [_x,1]} foreach _actualitems;
 	{_box addBackpackCargoGlobal [_x,1]} foreach _backpacks;
 	_box setVariable ["storage",_vitems,true];
+
+	private _sCapacity = [_warehouse,4] call A3PL_Warehouses_GetData;
+	_box setVariable ["capacity",_sCapacity,true];
 },true] call Server_Setup_Compile;
 
 ["Server_Warehouses_SaveBox",

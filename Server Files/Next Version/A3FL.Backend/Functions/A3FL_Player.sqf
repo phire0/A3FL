@@ -138,11 +138,11 @@
 //creates an array which drawText will use to draw player tags on the screen, we dont want to run complicated scripts onEachFrame
 ["A3PL_Player_NameTags",
 {
-	private ["_players","_pos","_name","_tags"];
-	_players = nearestObjects [player, ["C_man_1"], 4];
-	_players = _players - [player];
-
-	_tags = [];
+	private _players = nearestObjects [player, ["C_man_1"], 4];
+	private _players = _players - [player];
+	private _tags = [];
+	private _goggles = ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","A3PL_Horse_Mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"];
+	private _headgear = ["H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs"];
 	{
 		if (simulationEnabled _x) then
 		{
@@ -151,17 +151,14 @@
 			_savedName = "";
 
 			{
-				_sUID = _x select 0;
-				_sName = _x select 1;
-
-				if(_sUID == _uid) exitWith {
-					_savedName = _sName;
+				if((_x select 0) isEqualTo _uid) exitWith {
+					_savedName = (_x select 1);
 				}
 			} forEach _saved;
 
 			_hasMaskCheck = false;
-			if (goggles _x IN ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","A3PL_Horse_Mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"]) then {_hasMaskCheck = true;};
-			if (headgear _x IN["H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs"]) then {_hasMaskCheck = true;};
+			if (goggles _x IN _goggles) then {_hasMaskCheck = true;};
+			if (headgear _x IN _headgear) then {_hasMaskCheck = true;};
 			_cansee = (profilenamespace getVariable ["Player_EnableID",true]) && (([objNull, "VIEW"] checkVisibility [eyePos player, eyePos _x]) > 0) && (!isObjectHidden _x);
 			if (_cansee) then
 			{
@@ -484,22 +481,15 @@
 //retrieve a player tag
 ["A3PL_Player_GetNameTag",
 {
-	private ["_player","_uid","_name","_saved"];
-	_player = param [0,objNull];
-	_uid = getPlayerUID _player;
-
-	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
-	_name = "Unknown";
-
+	private _player = param [0,objNull];
+	private _uid = getPlayerUID _player;
+	private _saved = profileNamespace getVariable ["A3FL_NameTags",[]];
+	private _name = "Unknown";
 	{
-		_sUID = _x select 0;
-		_sName = _x select 1;
-
-		if(_sUID == _uid) exitWith {
-			_name = _sName;
+		if((_x select 0) isEqualTo _uid) exitWith {
+			_name = (_x select 1);
 		};
 	} forEach _saved;
-
 	_name;
 }] call Server_Setup_Compile;
 

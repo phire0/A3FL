@@ -710,7 +710,7 @@
 				};
 			};
 			if(((typeOf _x) isEqualTo "A3PL_EMS_Locker")) exitWith  {
-				if (_x animationPhase "door_1" != 1) then{
+				if (_x animationSourcePhase "door_1" != 1) then {
 					_owner = _x getVariable["owner",""];
 					if(!((getPlayerUID player) isEqualTo _owner)) exitWith  {
 						["The locker is closed","red"] call A3PL_Player_Notification;

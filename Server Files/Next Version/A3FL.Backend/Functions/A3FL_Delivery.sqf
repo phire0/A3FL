@@ -13,7 +13,7 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"] call A3PL_NPC_LeaveJob};
 
-	player setVariable ["job","mailman"];
+	player setVariable ["job","mailman",true];
 	call A3PL_Player_SetMarkers;
 	[localize"STR_DELIVERY_WORKSTART","green"] call A3PL_Player_Notification;
 	[localize"STR_DELIVERY_INFO","green"] call A3PL_Player_Notification;
