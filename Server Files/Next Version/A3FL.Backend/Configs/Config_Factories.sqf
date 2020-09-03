@@ -149,20 +149,20 @@ Config_Factories =
 	["Marine Factory",[4898.23,5060.04,13],
 		["f_Rebreather","","inh","inh","V_RebreatherB","vest",true,5,[["Rubber",2],["Fibreglass",8],["Plastic",10]],1,10,0,""],
 		["f_jetski","","Jet ski","inh","C_Scooter_Transport_01_F","car",true,10,[["Steel_Pellet",1]],1,10,0,""],
-		["f_Motorboat","","inh","inh","A3PL_Motorboat","car",true,5,[["Steel_Pellet",2]],1,20,0,""],
-		["f_RHIB","","inh","inh","A3PL_RHIB","car",true,5,[["Aluminium_Pellet",8]],1,25,0,""],
-		["f_LCM","","inh","inh","A3FL_LCM","car",true,60,[["Steel_Pellet",2],["Aluminium_Pellet",12]],1,25,0,""],
+		["f_Motorboat","","inh","inh","A3PL_Motorboat","car",true,120,[["Steel_Pellet",2]],1,20,0,""],
+		["f_RHIB","","inh","inh","A3PL_RHIB","car",true,240,[["Aluminium_Pellet",8]],1,25,0,""],
+		["f_LCM","","inh","inh","A3FL_LCM","car",true,300,[["Steel_Pellet",2],["Aluminium_Pellet",12]],1,25,0,""],
 		["f_LuxuryYatch","","inh","inh","A3PL_Yacht","car","true",1800,[["Aluminium_Pellet",100]],1,200,0,""]
 	],
 
 	["Aircraft Factory",[2606.28,5321.7,1],
-		["f_Heli_Light","","inh","inh","C_Heli_Light_01_civil_F","plane",true,5,[["Aluminium_Pellet",50],["Steel_Pellet",50],["Titanium_Pellet",25],["Glass",10]],1,100,0,""],
-		["f_Heli","","inh","inh","Heli_Medium01_H","plane",true,5,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
-		["f_Military_Heli","","inh","inh","Heli_Medium01_Military_H","plane",true,5,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
-		["f_Veteran_Heli","","inh","inh","Heli_Medium01_Veteran_H","plane",true,5,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
-		["f_Luxury_Heli","","inh","inh","Heli_Medium01_Luxury_H","plane",true,5,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
-		["f_Cessna172","","inh","inh","A3PL_Cessna172","plane",true,5,[["Aluminium_Pellet",30],["Steel_Pellet",25]],1,150,0,""],
-		["f_Goose","","inh","inh","A3PL_Goose_Base","plane",true,5,[["Aluminium_Pellet",35],["Steel_Pellet",50]],1,150,0,""]
+		["f_Heli_Light","","inh","inh","C_Heli_Light_01_civil_F","plane",true,1800,[["Aluminium_Pellet",50],["Steel_Pellet",50],["Titanium_Pellet",25],["Glass",10]],1,100,0,""],
+		["f_Heli","","inh","inh","Heli_Medium01_H","plane",true,1800,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
+		["f_Military_Heli","","inh","inh","Heli_Medium01_Military_H","plane",true,1800,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
+		["f_Veteran_Heli","","inh","inh","Heli_Medium01_Veteran_H","plane",true,1800,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
+		["f_Luxury_Heli","","inh","inh","Heli_Medium01_Luxury_H","plane",true,1800,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
+		["f_Cessna172","","inh","inh","A3PL_Cessna172","plane",true,1800,[["Aluminium_Pellet",30],["Steel_Pellet",25]],1,150,0,""],
+		["f_Goose","","inh","inh","A3PL_Goose_Base","plane",true,1800,[["Aluminium_Pellet",35],["Steel_Pellet",50]],1,150,0,""]
 	],
 
 	["Vehicle Factory",[3873.923,9242.35,0],
