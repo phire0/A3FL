@@ -270,6 +270,61 @@ Config_Items =
 	["drill_bit",localize"STR_ConfigItems_drill_bit", 3, "A3PL_Drill_Bit",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["dirty_cash",localize"STR_ConfigItems_dirty_cash",0.0005,"A3PL_Money",0,true,true,true,true,true,"",[0,0,0],"",1],
 
+	//Ores
+	["Titanium_Ore",localize"STR_ConfigItems_Titanium_Ore",0.25,"A3PL_Titanium_Ore",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["Aluminium_Ore",localize"STR_ConfigItems_Aluminium_Ore",0.25,"A3PL_Resource_Ore_Orange_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["Iron_Ore",localize"STR_ConfigItems_Iron_Ore",0.25,"A3PL_Resource_Ore_Pink_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["Coal_Ore",localize"STR_ConfigItems_Coal_Ore",0.25,"A3PL_Resource_Ore_Black_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["Sulphur_Ore",localize"STR_ConfigItems_Sulphur_Ore",0.25,"A3PL_Resource_Ore_Yellow_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	
+	// 3.3 - New Ore Prep
+	//["Aluminium_Ore",localize"STR_ConfigItems_Aluminium_Ore",0.25,"A3PL_Resource_Ore_Bauxite_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Iron_Ore",localize"STR_ConfigItems_Iron_Ore",0.25,"A3PL_Resource_Ore_Iron_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Coal_Ore",localize"STR_ConfigItems_Coal_Ore",0.25,"A3PL_Resource_Ore_Coal_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Sulphur_Ore",localize"STR_ConfigItems_Sulphur_Ore",0.25,"A3PL_Resource_Ore_Sulphur_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Sapphire_Ore","Sapphire Ore",0.25,"A3PL_Resource_Ore_Sapphire_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Vivianite_Ore","Vivianite Ore",0.25,"A3PL_Resource_Ore_Vivianite_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Emerald_Ore","Emerald Ore",0.25,"A3PL_Resource_Ore_Emerald_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Gold_Ore","Gold Ore",0.25,"A3PL_Resource_Ore_Gold_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Amethyst_Ore","Amethyst Ore",0.25,"A3PL_Resource_Ore_Amethyst_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+
+	//Ingots
+	["Titanium_Ingot",localize"STR_ConfigItems_Titanium_Ingot",3,"A3PL_Titanium_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],	
+	["Aluminium_Ingot",localize"STR_ConfigItems_Aluminium_Ingot",1,"A3PL_Aluminium_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["Iron_Ingot",localize"STR_ConfigItems_Iron_Ingot",1,"A3PL_Iron_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],	
+	["Coal_Ingot",localize"STR_ConfigItems_Coal_Ingot",1,"A3PL_Coal_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
+	
+	// 3.3 - New Ore Prep	
+	//["Sapphire_Ingot","Sapphire Ingot",1,"A3PL_Sapphire_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Vivianite_Ingot","Vivianite Ingot",1,"A3PL_Vivianite_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Emerald_Ingot","Emerald Ingot",1,"A3PL_Emerald_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Gold_Ingot","Gold Ingot",1,"A3PL_Gold_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
+	//["Amethyst_Ingot","Amethyst Ingot",1,"A3PL_Amethyst_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
+
+	//Pallets
+	["Iron_Ingot_Pellet",localize"STR_ConfigItems_Iron_Ingot_Pellet",6,"A3PL_Iron_Ingot_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Coal_Ingot_Pellet",localize"STR_ConfigItems_Coal_Ingot_Pellet",6,"A3PL_Coal_Ingot_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Aluminium_Ingot_Pellet",localize"STR_ConfigItems_Aluminium_Ingot_Pellet",6,"A3PL_Aluminium_Ingot_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Titanium_Ingot_Pellet",localize"STR_ConfigItems_Titanium_Ingot_Pellet",6,"A3PL_Titanium_Ingot_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Steel_Pellet",localize"STR_ConfigItems_Steel_Pellet",6,"A3PL_Steel_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Aluminium_Pellet",localize"STR_ConfigItems_AluminumPallet",6,"A3PL_Aluminium_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Titanium_Pellet",localize"STR_ConfigItems_TitaniumPallet",6,"A3PL_Titanium_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
+
+	// 3.3 - New Ore Prep
+	//["Sapphire_Ingot_Pallet","Sapphire Ingot Pallet",6,"A3PL_Sapphire_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	//["Vivianite_Ingot_Pallet","Vivianite Ingot Pallet",6,"A3PL_Vivianite_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	//["Emerald_Ingot_Pallet","Emerald Ingot Pallet",6,"A3PL_Emerald_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	//["Gold_Ingot_Pallet","Gold Ingot Pallet",6,"A3PL_Gold_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	//["Amethyst_Ingot_Pallet","Amethyst Ingot Pallet",6,"A3PL_Amethyst_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
+
+	//Sheets
+	["Aluminium",localize"STR_ConfigItems_Aluminium",1,"A3PL_Aluminium",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["Titanium",localize"STR_ConfigItems_Titanium",1,"A3PL_Titanium",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["Steel",localize"STR_ConfigItems_Steel",1,"A3PL_Steel",0,true,true,true,true,true,"",[0,0,0],"",1],
+
+	// 3.3 - New Ore Prep
+	//["Gold","Gold Sheet",1,"A3PL_Gold",0,true,true,true,true,true,"",[0,0,0],"",1],
+
 	//Resources
 	["Synthetic_Fibre",localize"STR_ConfigItems_Synthetic_Fibre",0.2,"A3PL_Synthetic_Fiber",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Nylon",localize"STR_ConfigItems_Nylon",0.2,"A3PL_Nylon",0,true,true,true,false,false,"",[0,0,0],"",1],
@@ -284,21 +339,9 @@ Config_Items =
 	["Petrol",localize"STR_ConfigItems_Petrol",367,"A3PL_OilBarrel",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["Kerosene",localize"STR_ConfigItems_Kerosene",367,"A3PL_Kerosene",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["CanisterOil",localize"STR_ConfigItems_CanisterOil",4,"A3PL_CanisterOil",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Sand",localize"STR_ConfigItems_Sand",1,"A3PL_BucketSand",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Titanium_Ore",localize"STR_ConfigItems_Titanium_Ore",0.25,"A3PL_Titanium_Ore",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Titanium_Ingot",localize"STR_ConfigItems_Titanium_Ingot",3,"A3PL_Titanium_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Aluminium_Ore",localize"STR_ConfigItems_Aluminium_Ore",0.25,"A3PL_Resource_Ore_Orange_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Aluminium_Ingot",localize"STR_ConfigItems_Aluminium_Ingot",1,"A3PL_Aluminium_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Aluminium",localize"STR_ConfigItems_Aluminium",1,"A3PL_Aluminium",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Iron_Ore",localize"STR_ConfigItems_Iron_Ore",0.25,"A3PL_Resource_Ore_Pink_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Iron_Ingot",localize"STR_ConfigItems_Iron_Ingot",1,"A3PL_Iron_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Coal_Ore",localize"STR_ConfigItems_Coal_Ore",0.25,"A3PL_Resource_Ore_Black_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Coal_Ingot",localize"STR_ConfigItems_Coal_Ingot",1,"A3PL_Coal_Ingot",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Sulphur_Ore",localize"STR_ConfigItems_Sulphur_Ore",0.25,"A3PL_Resource_Ore_Yellow_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["Sand",localize"STR_ConfigItems_Sand",1,"A3PL_BucketSand",0,true,true,true,true,true,"",[0,0,0],"",1],		
 	["Sulphur_Powder",localize"STR_ConfigItems_Sulphur_Powder",1,"A3PL_SulphurPowder",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Gunpowder",localize"STR_ConfigItems_Gunpowder",1,"A3PL_Gunpowder",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Steel",localize"STR_ConfigItems_Steel",1,"A3PL_Steel",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Titanium",localize"STR_ConfigItems_Titanium",1,"A3PL_Titanium",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Glass_Fibre",localize"STR_ConfigItems_Glass_Fibre",1,"A3PL_Glass_Fibre",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Glass",localize"STR_ConfigItems_Glass",1,"A3PL_Glass",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Fibreglass",localize"STR_ConfigItems_Fibreglass",1,"A3PL_Fibreglass",0,true,true,true,true,true,"",[0,0,0],"",1],
@@ -307,13 +350,6 @@ Config_Items =
 	["Windows",localize"STR_ConfigItems_Windows",5,"A3PL_Glass",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Tyres",localize"STR_ConfigItems_Tyres",10,"A3PL_Tyre",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["log",localize"STR_ConfigItems_log",5,"A3PL_WoodenLog",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Iron_Ingot_Pellet",localize"STR_ConfigItems_Iron_Ingot_Pellet",6,"A3PL_Iron_Ingot_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Coal_Ingot_Pellet",localize"STR_ConfigItems_Coal_Ingot_Pellet",6,"A3PL_Coal_Ingot_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Aluminium_Ingot_Pellet",localize"STR_ConfigItems_Aluminium_Ingot_Pellet",6,"A3PL_Aluminium_Ingot_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Titanium_Ingot_Pellet",localize"STR_ConfigItems_Titanium_Ingot_Pellet",6,"A3PL_Titanium_Ingot_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Steel_Pellet",localize"STR_ConfigItems_Steel_Pellet",6,"A3PL_Steel_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Aluminium_Pellet",localize"STR_ConfigItems_AluminumPallet",6,"A3PL_Aluminium_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Titanium_Pellet",localize"STR_ConfigItems_TitaniumPallet",6,"A3PL_Titanium_Pellet",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["diamond",localize"STR_ConfigItems_diamond",1,"A3PL_Diamond",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["diamond_alex",localize"STR_ConfigItems_diamond_alex",0.5,"A3PL_Diamond_Alex",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["diamond_aqua",localize"STR_ConfigItems_diamond_aqua",0.5,"A3PL_Diamond_Aqua",0,true,true,true,true,true,"",[0,0,0],"",1],

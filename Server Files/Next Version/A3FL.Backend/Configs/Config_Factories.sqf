@@ -47,6 +47,18 @@ Config_Factories =
 		["f_ME_Bucket","","inh","inh","ME_Bucket","item",true,15,[["Steel",15]],1,5,0,"Makes 1 Excavator Bucket"],
 		["f_ME_Jackhammer","","inh","inh","ME_Jackhammer","item",true,15,[["Steel",15]],1,5,0,"Makes 1 Excavator Jackhammer"],
 		["f_Aluminium_Ingot","","inh","inh","Aluminium_Ingot","item",true,90,[["Aluminium_Ingot_Pellet",1]],826,20,0,"Makes 826 Aluminum Ingots"]
+		// 3.3 - New Ore Prep
+		//["f_Sapphire_Ingot","","inh","inh","Sapphire_Ingot","item",true,4,[["Coal_Ore",1]],1,5,0,"Makes 1 Sapphire Ingot"],
+		//["f_Vivianite_Ingot","","inh","inh","Vivianite_Ingot","item",true,4,[["Coal_Ore",1]],1,5,0,"Makes 1 Vivianite Ingot"],
+		//["f_Emerald_Ingot","","inh","inh","Emerald_Ingot","item",true,4,[["Coal_Ore",1]],1,5,0,"Makes 1 Emerald Ingot"],
+		//["f_Gold_Ingot","","inh","inh","Gold_Ingot","item",true,4,[["Coal_Ore",1]],1,5,0,"Makes 1 Gold Ingot"],
+		//["f_Amethyst_Ingot","","inh","inh","Amethyst_Ingot","item",true,4,[["Coal_Ore",1]],1,5,0,"Makes 1 Amethyst Ingot"],
+		//["f_Gold","","inh","inh","Gold","item",true,5,[["Gold_Ingot",30],["Coal_Ingot",2]],30,10,0,"Makes 30 Gold Sheets"],
+		//["f_Sapphire_Ingot_Pallet","","inh","inh","Sapphire_Ingot_Pallet","item",true,30,[["Sapphire_Ingot",826]],1,20,0,"Makes 1 Sapphire Ingot Pallet"],
+		//["f_Vivianite_Ingot_Pallet","","inh","inh","Vivianite_Ingot_Pallet","item",true,30,[["Vivianite_Ingot",826]],1,20,0,"Makes 1 Vivianite Ingot Pallet"],
+		//["f_Emerald_Ingot_Pallet","","inh","inh","Emerald_Ingot_Pallet","item",true,30,[["Emerald_Ingot",826]],1,20,0,"Makes 1 Emerald Ingot Pallet"],
+		//["f_Gold_Ingot_Pallet","","inh","inh","Gold_Ingot_Pallet","item",true,30,[["Gold_Ingot",826]],1,20,0,"Makes 1 Gold Ingot Pallet"],
+		//["f_Amethyst_Ingot_Pallet","","inh","inh","Amethyst_Ingot_Pallet","item",true,30,[["Amethyst_Ingot",826]],1,20,0,"Makes 1 Amethyst Ingot Pallet"],
 	],
 
 	["Oil Refinery",[3852.065,9212.537,0.168],
