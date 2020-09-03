@@ -24,7 +24,7 @@
 
 	[getPlayerUID player,"portRobbery",[getPos _port]] remoteExec ["Server_Log_New",2];
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Robbing the port captain...",60] spawn A3PL_Lib_LoadAction;
+	["Robbing the port captain...",180] spawn A3PL_Lib_LoadAction;
 	waitUntil {Player_ActionDoing};
 	_success = true;
 	while {Player_ActionDoing} do {

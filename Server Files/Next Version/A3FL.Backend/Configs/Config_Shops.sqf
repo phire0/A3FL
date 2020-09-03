@@ -119,7 +119,8 @@ Config_Shops_Items = [
 
 	["Shop_MiningMike",[
 			["weapon","A3PL_Pickaxe",500,-1,0],
-			["weapon","A3PL_Shovel",480,-1,0]
+			["weapon","A3PL_Shovel",480,-1,0],
+			["item","Camper_Light",950,-1,0]
 		],{[2621.08,5610.15,0.08]}
 	],
 
@@ -209,7 +210,8 @@ Config_Shops_Items = [
 			["magazine","A3PL_P226_Mag",500,-1,5],
 			["magazine","16Rnd_9x21_green_Mag",500,-1,7],
 			["magazine","16Rnd_9x21_yellow_Mag",500,-1,7],
-			["magazine","6Rnd_45ACP_Cylinder",500,-1,9]
+			["magazine","6Rnd_45ACP_Cylinder",500,-1,9],
+			["aitem","acc_flashlight_pistol",500,0,0]
 		],{[6105.3,7367.8,0.2]}
 	],
 

@@ -127,7 +127,11 @@ Config_Factories =
 		["f_m16_mag","","inh","inh","A3PL_M16_Mag","magazine",true,60,[["Steel",35],["Gunpowder",5]],2,10,0,"Makes 2 5.56x45mm 30Rnd Mags; Used in M16A2/Colt M4A1"],
 		["f_Mossberg_590K_8Rnd_buck","","inh","inh","A3FL_Mossberg_590k_8Rnd_buck","magazine",true,60,[["Steel",30],["Gunpowder",5]],2,10,0,"Makes 2 12 Guage 8Rnd Buckshot Mags; Used in Mossberg 590k"],
 		["f_optic_Holosight_blk_F","","inh","inh","optic_Holosight_blk_F","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 Mk17 Holosight; Used on all Rifles/SMGs"],
-		["f_optic_ACO_grn","","inh","inh","optic_ACO_grn","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 ACO Sight; Used on all Rifles/SMGs"]
+		["f_optic_ACO_grn","","inh","inh","optic_ACO_grn","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 ACO Sight; Used on all SMGs"],
+		["f_optic_ACO_grn_smg","","inh","inh","optic_ACO_grn_smg","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 ACO Sight; Used on all SMGs"],
+		["f_optic_ACO_smg","","inh","inh","optic_ACO_smg","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 ACO Sight; Used on all Rifles/SMGs"],
+		["f_acc_flashlight_pistol","","inh","inh","acc_flashlight_pistol","aitem",true,60,[["Steel",250]],1,25,0,"Makes 1 Pistol Flashlight; Used on most Pistols"],
+		["f_acc_flashlight","","inh","inh","acc_flashlight","aitem",true,60,[["Steel",250]],1,25,0,"Makes 1 SMG Flashlight; Used on most SMGs"]
 	],
 
 	["Marine Factory",[4898.23,5060.04,13],
