@@ -203,7 +203,7 @@ Config_Shops_Items = [
 			["weapon","hgun_P07_F",15000,-1,7],
 			["weapon","hgun_P07_khk_F",15000,-1,8],
 			["weapon","A3PL_P226",15000,-1,8],
-			["weapon","A3PL_Beretta92",15000,-1,0],
+			["weapon","A3FL_Beretta92",15000,-1,0],
 			["weapon","hgun_Pistol_heavy_02_F",15000,-1,9],
 			["magazine","10Rnd_9x21_Mag",500,-1,4],
 			["magazine","16Rnd_9x21_Mag",500,-1,4],
@@ -294,6 +294,8 @@ Config_Shops_Items = [
 			["item","zipties",2500,-1,5],
 			["aitem","acc_flashlight",3000,-1,10],
 			["aitem","optic_ACO_grn",5000,-1,10],
+			["aitem","optic_ACO_grn_smg",5000,-1,0],
+			["aitem","optic_ACO_smg",5000,-1,0],
 			["aitem","optic_Holosight_blk_F",5000,-1,10]
 		],{[3852.065,9212.537,0.168]}
 	],
@@ -339,6 +341,8 @@ Config_Shops_Items = [
 		["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0],
 		["magazine","A3FL_Mossberg_590K_8Rnd_buck",100,-1,0],
 		["aitem","optic_ACO_grn",5000,-1,10],
+		["aitem","optic_ACO_grn_smg",5000,-1,0],
+		["aitem","optic_ACO_smg",5000,-1,0],
 		["aitem","optic_Holosight_blk_F",5000,-1,10]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
@@ -400,7 +404,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_Red_Glock",650,0,0],
 			["weapon","hgun_Rook40_F",650,0,0],
 			["weapon","A3PL_P226",650,-1,0],
-			["weapon","A3PL_Beretta92",650,-1,0],
+			["weapon","A3FL_Beretta92",650,-1,0],
 			["weapon","hgun_Pistol_heavy_01_F",650,0,0],
 			["weaponPrimary","A3FL_Mossberg_590K",7500,-1,0],
 			["weaponPrimary","SMG_02_F",8000,-1,0],
@@ -424,6 +428,8 @@ Config_Shops_Items = [
 			["aitem","acc_flashlight",150,-1,0],
 			["aitem","A3FL_Mossberg_590K_Flashlight",150,-1,0],
 			["aitem","optic_ACO_grn",150,-1,0],
+			["aitem","optic_ACO_grn_smg",150,-1,0],
+			["aitem","optic_ACO_smg",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}
 	],
@@ -688,7 +694,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_Red_Glock",650,0,0],
 			["weapon","hgun_Rook40_F",650,0,0],
 			["weapon","A3PL_P226",650,-1,0],
-			["weapon","A3PL_Beretta92",650,-1,0],
+			["weapon","A3FL_Beretta92",650,-1,0],
 			["weaponPrimary","A3FL_Mossberg_590K",7500,-1,0],
 			["weaponPrimary","SMG_02_F",8000,-1,0],
 			["weaponPrimary","SMG_05_F",8000,-1,0],
@@ -710,6 +716,8 @@ Config_Shops_Items = [
 			["aitem","acc_flashlight",150,-1,0],
 			["aitem","A3FL_Mossberg_590K_Flashlight",150,-1,0],
 			["aitem","optic_ACO_grn",150,-1,0],
+			["aitem","optic_ACO_grn_smg",150,-1,0],
+			["aitem","optic_ACO_smg",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
         ],{[2597.15,5429.76,10]}
     ],
@@ -814,7 +822,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_Red_Glock",650,0,0],
 			["weapon","hgun_Rook40_F",650,0,0],
 			["weapon","A3PL_P226",650,-1,0],
-			["weapon","A3PL_Beretta92",650,-1,0],
+			["weapon","A3FL_Beretta92",650,-1,0],
 			["weapon","hgun_Pistol_heavy_01_F",650,0,0],
 			["weapon","hgun_Pistol_Signal_F",250,0,0],
 			["weaponPrimary","A3FL_Mossberg_590K",7500,-1,0],
@@ -843,6 +851,8 @@ Config_Shops_Items = [
 			["aitem","acc_flashlight",150,-1,0],
 			["aitem","A3FL_Mossberg_590K_Flashlight",150,-1,0],
 			["aitem","optic_ACO_grn",150,-1,0],
+			["aitem","optic_ACO_grn_smg",150,-1,0],
+			["aitem","optic_ACO_smg",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}
 	],
