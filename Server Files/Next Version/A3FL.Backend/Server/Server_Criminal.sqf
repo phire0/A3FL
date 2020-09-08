@@ -19,7 +19,7 @@
 
 ["Server_Criminal_BlackMarketPos",
 {
-	private _areas = [];
+	private _areas = ["blacksea_1","blacksea_2","blacksea_3","blacksea_4"];
 	private _area = _areas select (floor (random (count _areas)));
 	private _pos = [_area] call CBA_fnc_randPosArea;
 	private _pos = _pos findEmptyPosition [0, 25,(typeOf Ship_Blackmarket)];

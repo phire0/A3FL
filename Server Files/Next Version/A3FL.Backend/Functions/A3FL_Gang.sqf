@@ -191,7 +191,7 @@
 ["A3PL_Gang_Capture",
 {
 	private _obj = param [0,objNull];
-	private _win = 5000;
+	private _win = 1000;
 	private _group = group player;
 
 	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","usms"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
