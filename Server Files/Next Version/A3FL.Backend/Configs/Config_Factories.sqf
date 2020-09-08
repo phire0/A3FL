@@ -143,6 +143,7 @@ Config_Factories =
 		["f_optic_Holosight_blk_F","","inh","inh","optic_Holosight_blk_F","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 Mk17 Holosight; Used on all Rifles/SMGs"],
 		["f_optic_ACO_grn","","inh","inh","optic_ACO_grn","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 ACO Sight; Used on all SMGs"],
 		["f_optic_ACO_grn_smg","","inh","inh","optic_ACO_grn_smg","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 ACO Sight; Used on all SMGs"],
+		["f_optic_Holosight_smg_blk_F","","inh","inh","optic_Holosight_smg_blk_F","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 Mk17 Holosight; Used on all SMGs"],
 		["f_optic_ACO_smg","","inh","inh","optic_ACO_smg","aitem",true,60,[["Steel",100]],1,25,0,"Makes 1 ACO Sight; Used on all Rifles/SMGs"],
 		["f_acc_flashlight_pistol","","inh","inh","acc_flashlight_pistol","aitem",true,60,[["Steel",250]],1,25,0,"Makes 1 Pistol Flashlight; Used on most Pistols"],
 		["f_acc_flashlight","","inh","inh","acc_flashlight","aitem",true,60,[["Steel",250]],1,25,0,"Makes 1 SMG Flashlight; Used on most SMGs"]

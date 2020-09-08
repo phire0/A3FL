@@ -296,6 +296,7 @@ Config_Shops_Items = [
 			["aitem","optic_ACO_grn",5000,-1,10],
 			["aitem","optic_ACO_grn_smg",5000,-1,0],
 			["aitem","optic_ACO_smg",5000,-1,0],
+			["aitem","optic_Holosight_smg_blk_F",5000,-1,0],
 			["aitem","optic_Holosight_blk_F",5000,-1,10]
 		],{[3852.065,9212.537,0.168]}
 	],
@@ -343,6 +344,7 @@ Config_Shops_Items = [
 		["aitem","optic_ACO_grn",5000,-1,10],
 		["aitem","optic_ACO_grn_smg",5000,-1,0],
 		["aitem","optic_ACO_smg",5000,-1,0],
+		["aitem","optic_Holosight_smg_blk_F",5000,-1,0],
 		["aitem","optic_Holosight_blk_F",5000,-1,10]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
@@ -430,6 +432,7 @@ Config_Shops_Items = [
 			["aitem","optic_ACO_grn",150,-1,0],
 			["aitem","optic_ACO_grn_smg",150,-1,0],
 			["aitem","optic_ACO_smg",150,-1,0],
+			["aitem","optic_Holosight_smg_blk_F",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}
 	],
@@ -718,6 +721,7 @@ Config_Shops_Items = [
 			["aitem","optic_ACO_grn",150,-1,0],
 			["aitem","optic_ACO_grn_smg",150,-1,0],
 			["aitem","optic_ACO_smg",150,-1,0],
+			["aitem","optic_Holosight_smg_blk_F",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
         ],{[2597.15,5429.76,10]}
     ],
@@ -853,6 +857,7 @@ Config_Shops_Items = [
 			["aitem","optic_ACO_grn",150,-1,0],
 			["aitem","optic_ACO_grn_smg",150,-1,0],
 			["aitem","optic_ACO_smg",150,-1,0],
+			["aitem","optic_Holosight_smg_blk_F",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}
 	],
