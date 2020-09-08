@@ -429,6 +429,7 @@ class CfgRemoteExec
 		class Server_iPhoneX_GetListNumber{allowedTargets=2;};
 		class Server_iPhoneX_Get911Text{allowedTargets=2;};
 		class Server_iPhoneX_CallSwitchboard{allowedTargets=2;};
+		class Server_iPhoneX_Notify911{allowedTargets = 2;};
 
 		class A3PL_USCG_DragReceive{allowedTargets=0;};
 	};

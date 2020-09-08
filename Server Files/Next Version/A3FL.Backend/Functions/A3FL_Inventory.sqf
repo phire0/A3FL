@@ -372,6 +372,8 @@
 	_obj = param [0,objNull];
 	_moveToHand = param [1,false];
 
+	if((player getVariable ["Cuffed",false]) || (player getVariable ["Zipped",false])) exitWith {};
+
 	if (isNull _obj) exitwith {[localize"STR_NewInventory_15", "red"] call A3PL_Player_Notification;};
 
 	_classname = _obj getVariable "class";
@@ -398,23 +400,19 @@
 		[_obj] call A3PL_Placeables_Pickup;
 	};
 	_canPickup = [_classname,"canPickup"] call A3PL_Config_GetItem;
-	if (!_canPickup) exitwith
-	{
-		[_obj] call A3PL_Placeables_Pickup;
-	};
+	if (!_canPickup) exitwith {[_obj] call A3PL_Placeables_Pickup;};
 
-	if (typeOf _obj == "A3PL_FD_HoseEnd1_Float") then
+	if ((typeOf _obj) isEqualTo "A3PL_FD_HoseEnd1_Float") then
 	{
-		private ["_hydrant"];
-		_hydrant = (nearestObjects [_obj,["Land_A3PL_FireHydrant"], 1]) select 0;
+		private _hydrant = (nearestObjects [_obj,["Land_A3PL_FireHydrant"], 1]) select 0;
 		if (!isNil "_hydrant") then
 		{
 			_hydrant animateSource ["cap_hide",0];
 		};
 	};
 
-	if (_classname == "apple" && !simulationEnabled _obj) exitwith {[_obj] spawn A3PL_Resources_Picking;};
-	if (_classname == "shrooms" && !simulationEnabled _obj) exitwith {[_obj] spawn A3PL_Shrooms_Pick;};
+	if (_classname isEqualTo "apple" && !simulationEnabled _obj) exitwith {[_obj] spawn A3PL_Resources_Picking;};
+	if (_classname isEqualTo "shrooms" && !simulationEnabled _obj) exitwith {[_obj] spawn A3PL_Shrooms_Pick;};
 
 	player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
 
@@ -428,10 +426,7 @@
 		default {[player, _obj, _amount] remoteExecCall ["Server_Inventory_Pickup", 2];};
 	};
 
-	if (_moveToHand) then
-	{
-		[_classname] call A3PL_Inventory_Use;
-	};
+	if (_moveToHand) then {[_classname] call A3PL_Inventory_Use;};
 
 	_format = format[localize"STR_NewInventory_19",_amount, [_classname, "name"] call A3PL_Config_GetItem];
 	[_format, "green"] call A3PL_Player_Notification;

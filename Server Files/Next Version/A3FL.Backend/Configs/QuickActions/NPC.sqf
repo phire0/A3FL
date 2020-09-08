@@ -435,7 +435,7 @@
 	localize"STR_QuickActionsNPC_CCTVCentral",
 	{
 		if (!((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
-		[40000] spawn A3PL_CCTV_Open;
+		[500] spawn A3PL_CCTV_Open;
 	}
 ],
 [

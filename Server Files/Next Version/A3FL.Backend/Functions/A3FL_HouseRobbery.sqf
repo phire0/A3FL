@@ -10,17 +10,18 @@
 {
 	_house = param [0,objNull];
 	_robbedTime = missionNamespace getVariable ["HouseCooldown",serverTime-300];
-	_timeTaken = 45;
+	_timeTaken = 60;
 	_fail = false;
-	_faction = "FISD";
+	_faction = "fisd";
 
-	if ((player getVariable ["house",objNull]) isEqualTo cursorObject) exitWith{["You cannot rob your own house!","red"] call A3PL_Player_Notification;};
+	if ((player getVariable ["house",objNull]) isEqualTo _house) exitWith{["You cannot rob your own house!","red"] call A3PL_Player_Notification;};
 	if(_robbedTime > (serverTime-300)) exitWith {["Another house robbery has taken place recently, you cannot rob this house!","red"] call A3PL_Player_Notification;};
+
 	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
 	if(_nearCity IN ["Lubbock","Salt Point"]) then {
-		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < 3) exitwith {_fail=true;_faction="USCG";};
+		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < 0) exitwith {_fail=true;_faction="uscg";};
 	} else {
-		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 3) exitwith {_fail=true;_faction="FISD";};
+		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 0) exitwith {_fail=true;_faction="fisd";};
 	};
 	if(_fail) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob this house!",3,_faction],"red"] call A3PL_Player_Notification;};
 
@@ -28,11 +29,6 @@
 	["You are attempting to lockpick this house", "yellow"] call A3PL_Player_Notification;
 	player setVariable ["picking",true,true];
 	_cops = [_faction] call A3PL_Lib_FactionPlayers;
-
-	if(count(_cops) < 5) then {
-		_timeTaken = 60;
-	};
-
 	_notifyChance = random 100;
 	if(_notifyChance >= 30) then {
 		[_house] spawn A3PL_HouseRobbery_Alarm;
@@ -42,15 +38,14 @@
 	[getPlayerUID player,"houseRobbery",[getPos _house]] remoteExec ["Server_Log_New",2];
 	[_house, _timeTaken] spawn
 	{
-		private ["_house"];
-		_house = param [0,objNull];
-		_timeTaken = param [1,1];
+		private _house = param [0,objNull];
+		private _timeTaken = param [1,1];
+		private _success = true;
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 		["Lockpicking house...",_timeTaken] spawn A3PL_Lib_LoadAction;
-		_success = true;
 		waitUntil{Player_ActionDoing};
 		while {Player_ActionDoing} do {
-		if(player getVariable "cuffed") exitWith {};
+			if ((player getVariable ["Cuffed",false]) || (player getVariable ["Zipped",false])) exitWith {};
 			if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
 			if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 			if (!(player_itemClass isEqualTo "v_lockpick")) exitwith {_success = false;};
@@ -60,35 +55,30 @@
 		player switchMove "";
 		if(Player_ActionInterrupted || !_success) exitWith {
 			[localize"STR_CRIMINAL_PICKENDED", "red"] call A3PL_Player_Notification;
-			if (vehicle player == player) then {player switchMove "";};
 		};
 
 		[player_item] call A3PL_Inventory_Clear;
 		[player,"v_lockpick",-1] remoteExec ["Server_Inventory_Add",2];
 
 		_breakChance = random 100;
-		if(_breakChance >= 65) then {
-			[_house,", the lockpick broke"] call A3PL_HouseRobbery_Fail;
+		if(_breakChance >= 60) then {
+			if(_notifyChance < 30) then {
+				[_house] spawn A3PL_HouseRobbery_Alarm;
+				[_house,_faction] spawn A3PL_HouseRobbery_NotifySD;
+			};
+			[format["You have failed to lockpick this door, the lockpick broke!",_reason], "red"] call A3PL_Player_Notification;
 		} else {
 			[_house] call A3PL_HouseRobbery_Succeed;
 		};
 	};
 }] call Server_Setup_Compile;
 
-["A3PL_HouseRobbery_Fail",
-{
-  _house = param [0,objNull];
-  _reason = param [1,""];
-  [format["You have failed to lockpick this door %1!",_reason], "red"] call A3PL_Player_Notification;
-}] call Server_Setup_Compile;
-
 ["A3PL_HouseRobbery_Succeed",
 {
-	private["_physicalItems","_virtualItems"];
-	_physicalItems = [];
-	_virtualItems = [];
+	private _house = param [0,objNull];
+	private _physicalItems = [];
+	private _virtualItems = [];
 
-	_house = param [0,objNull];
 	_house setVariable ["unlocked",true,true];
 	_house setVariable ["robbed",true,true];
 
@@ -146,13 +136,12 @@
 	private _cops = [_faction] call A3PL_Lib_FactionPlayers;
 	private _namePos = [getPos _house] call A3PL_Housing_PosAddress;
 	[format["911: Robbery in progress at %1!",_namePos],"blue",_faction,1] call A3PL_Lib_JobMessage;
-	[_house,"Property Alarm","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
+	[_house,"Property Alarm","ColorBLUFOR","A3PL_Maker_FISD"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
 }] call Server_Setup_Compile;
 
 ["A3PL_HouseRobbery_Alarm", {
-	private["_house","_y"];
-	_house = param [0,objNull];
-	_y = 50;
+	private _house = param [0,objNull];
+	private _y = 50;
 	while {_y > 0} do {
 		playSound3D ["A3\Sounds_F\sfx\alarmCar.wss", _house, true, _house, 3, 1, 400];
 		uiSleep 2;
@@ -162,11 +151,9 @@
 
 ["A3PL_HouseRobbery_Secure",
 {
-	private["_house","_box"];
-	_house = param [0,objNull];
-	_box = nearestObjects[_house,["Land_MetalCase_01_large_F"],20];
+	private _house = param [0,objNull];
+	private _box = nearestObjects[_house,["Land_MetalCase_01_large_F"],20];
 	{deleteVehicle _x;} forEach _box;
-
 	_house setVariable ["unlocked",Nil,true];
 	[_house,"Door_1",false] call A3PL_Lib_ToggleAnimation;
 	["You secured this house","green"] call A3PL_Player_Notification;

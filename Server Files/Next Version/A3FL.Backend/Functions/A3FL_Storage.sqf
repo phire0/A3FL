@@ -16,7 +16,7 @@
 
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
-	if (isNil "player_objintersect") then {
+	if ((isNil "player_objintersect") || (player_objintersect isEqualTo player)) then {
 		_intersect = cursorObject;
 	} else {
 		_intersect = player_objIntersect;

@@ -7,10 +7,8 @@
 */
 
 ['A3PL_Placeables_Pickup', {
-	private ["_obj","_type","_attachedTo"];
-	_obj = param [0,(call A3PL_Intersect_Cursortarget)];
-
-	_attachedTo = attachedTo _obj;
+	private _obj = param [0,(call A3PL_Intersect_Cursortarget)];
+	private _attachedTo = attachedTo _obj;
 	if ((isPlayer _attachedTo) && (!(_attachedTo isKindOf "Car"))) exitwith {[localize"STR_NewPlaceables_1", "red"] call A3PL_Player_Notification;};
 
 	if ((!local _obj) && (!((typeOf _obj) IN ["A3PL_WheelieBin","A3FL_DrugBag"]))) exitwith
@@ -45,7 +43,7 @@
 		};
 	};
 
-	_type = typeOf _obj;
+	private _type = typeOf _obj;
 	if (_type isEqualTo "GroundWeaponHolder") then {
 		_obj attachTo [player, [0,0,0.65], "RightHand"];
 	} else {
@@ -58,12 +56,11 @@
 
 ["A3PL_Placeable_GetZOffset",
 {
-	private ["_offset","_item"];
-	_item = typeOf (_this select 0);
-	_car = (_this select 1);
-	_offset = 0;
+	private _item = typeOf (_this select 0);
+	private _car = (_this select 1);
+	private _offset = 0;
 	{
-		if (_x select 0 == _item) exitWith
+		if ((_x select 0) == _item) exitWith
 		{
 			if(_car) then {
 				_offset = _x select 1;
@@ -72,25 +69,22 @@
 			};
 		};
 	} foreach Config_Items_ZOffset;
-	_offset
+	_offset;
 }] call Server_Setup_Compile;
 
 ["A3PL_Placeable_AttachedLoop",
 {
-	private ["_obj","_sleep"];
-	_obj = param [0,objNull];
-	_attach = param [1,[0,0,0]];
-	_type = typeOf _obj;
-	_distance = player distance _obj;
-
+	private _obj = param [0,objNull];
+	private _attach = param [1,[0,0,0]];
+	private _type = typeOf _obj;
+	private _distance = player distance _obj;
 	while {(_obj IN (attachedObjects player)) && (!isNull _obj)} do
 	{
 		_sleep = 0.5;
 		if (!alive player) exitwith {detach _obj; [] call A3PL_Inventory_Drop;};
-		if (!(vehicle player == player)) exitwith
+		if (!(vehicle player isEqualTo player) || ((animationState player) == "a3pl_takenhostage")) exitwith
 		{
-			private ["_isItem"];
-			_isItem = false;
+			private _isItem = false;
 			{
 				if (_x select 3 == (typeOf _obj)) exitwith
 				{
@@ -98,12 +92,9 @@
 					_isItem = true;
 				};
 			} foreach Config_Items;
-			if (!(_isItem)) then
-			{
+			if (!(_isItem)) then {
 				detach _obj;
-			}
-			else
-			{
+			} else {
 				[] call A3PL_Inventory_Drop;
 			};
 		};

@@ -208,7 +208,7 @@ A3PL_Interaction_Options =
 			if ((typeOf _intersect) IN ["A3PL_Jayhawk","A3PL_Cutter","B_supplyCrate_F"]) exitWith {["You cannot lockpick this vehicle", "red"] call A3PL_Player_Notification;};
 			[_intersect] spawn A3PL_Criminal_PickCar;
 		},
-		{(vehicle player isEqualTo player) && {(player distance cursorObject < 7)} && {(player_ItemClass == "v_lockpick")}}
+		{((vehicle player) isEqualTo player) && {(player distance player_objintersect < 7)} && {(player_ItemClass isEqualTo "v_lockpick")}}
 	],
 	[
 		localize "STR_INTER_OPENLICMENU",
@@ -595,7 +595,7 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_STOPDRGING",
-		{[call A3PL_Intersect_cursorObject] call A3PL_Police_Drag;},
+		{[cursorObject] call A3PL_Police_Drag;},
 		{(cursorObject getVariable["dragged",false]) && ((vehicle player) isEqualTo player) && (isPlayer cursorObject)}
 	],
 	[
@@ -1038,7 +1038,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_OPCOMPUTER",
 		{call A3PL_Police_DatabaseOpen;},
-		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","usms"]) && (typeOf(vehicle player) IN Config_Police_Vehs) && ((gunner (vehicle player)) isEqualTo player)}
+		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","usms"]) && (typeOf(vehicle player) IN Config_Police_Vehs) && (((gunner (vehicle player)) isEqualTo player) || ((((crew (vehicle player)) select 0)) isEqualTo player))}
 	],
 	[
 		localize "STR_INTER_RESETLOCKF",

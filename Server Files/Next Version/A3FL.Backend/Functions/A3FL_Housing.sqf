@@ -9,26 +9,24 @@
 ["A3PL_Housing_VirtualOpen",
 {
 	disableSerialization;
-	private ["_box","_display","_control"];
-	_box = param [0,player_objintersect];
+	private _box = param [0,player_objintersect];
 	if (isNull _box) exitwith {[localize"STR_NewHousing_1)"] call A3PL_Player_Notification;};
 	if (player distance _box > 5 ) exitwith {["You are too far away from this box to open it!","red"] call A3PL_Player_Notification;};
 	if (_box getVariable ["inuse",false]) exitwith {[localize"STR_NewHousing_2","red"] call A3PL_Player_Notification;};
 	_box setVariable ["inuse",true,true];
 
 	createDialog "Dialog_HouseVirtual";
-	_display = findDisplay 37;
+	private _display = findDisplay 37;
 
 	A3PL_Housing_StorageBox = _box;
-	_control = _display displayCtrl 1600;
+	private _control = _display displayCtrl 1600;
 	_control ctrlAddeventhandler ["ButtonDown",{[true] call A3PL_Housing_VirtualChange;}];
-	_control = _display displayCtrl 1601;
+	private _control = _display displayCtrl 1601;
 	_control ctrlAddeventhandler ["ButtonDown",{[false] call A3PL_Housing_VirtualChange;}];
 
 	_display displayAddEventHandler ["unload",{A3PL_Housing_StorageBox setVariable ["inuse",nil,true]; A3PL_Housing_StorageBox = nil;}];
 
-	_capacity = _box getVariable ["capacity",0];
-
+	private _capacity = _box getVariable ["capacity",0];
 	[_display,_box] call A3PL_Housing_VirtualFillLB;
 }] call Server_Setup_Compile;
 
@@ -130,11 +128,8 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Housing_VirtualVerify", {
-	private ["_box", "_index", "_forEachIndex","_change"];
-
-	_box = param [0,objNull];
-	_change = false;
-
+	private _box = param [0,objNull];
+	private _change = false;
 	{
 		if ((_x select 1) < 1) then {
 			_index = _forEachIndex;
@@ -142,9 +137,7 @@
 			_change = true;
 		};
 	} forEach (_box getVariable "storage");
-
-	if (_change) then
-	{
+	if (_change) then {
 		_box setVariable ["storage", ((_box getVariable "storage") - ["REMOVE"]), true];
 	};
 }] call Server_Setup_Compile;
@@ -158,7 +151,7 @@
 	_return = false;
 	_doorID = _obj getVariable "doorID";
 
-	if (typeOf _obj == "Land_A3PL_Motel") then
+	if ((typeOf _obj) == "Land_A3PL_Motel") then
 	{
 		_name  = _this select 2;
 		_doorID = _obj getVariable "doorID";
@@ -183,34 +176,28 @@
 
 ["A3PL_Housing_keyFilter",
 {
-	private ["_keys","_filter","_filteredKeys","_nr"];
-	_keys = player getVariable "keys";
-	_filteredKeys = [];
-	_nr = 6;
-	_filter = _this select 0;
-	switch (_filter) do
-	{
+	private _keys = player getVariable "keys";
+	private _filteredKeys = [];
+	private _nr = 6;
+	private _filter = _this select 0;
+	switch (_filter) do {
 		case "house": {_nr = 5;};
 		case "apt": {_nr = 4;};
 		case "cars": {_nr = 6;};
 		case "warehouse": {_nr = 8};
 		default {_nr = 7;};
 	};
-
 	{
-		if ((count _x) == _nr) then
-		{
+		if ((count _x) isEqualTo _nr) then {
 			_filteredKeys pushback _x;
 		};
 	} foreach _keys;
-
 	_filteredKeys;
-
 }] call Server_Setup_Compile;
 
 ["A3PL_Housing_PickupKey",
 {
-	_obj = player_objintersect;
+	private _obj = player_objintersect;
 	if (typeOf _obj != "A3PL_HouseKey") exitwith {};
 	[_obj, player] remoteExec ["Server_Housing_PickupKey", 2];
 	[localize"STR_NewHousing_10", "yellow"] call A3PL_Player_Notification;
@@ -269,40 +256,34 @@
 ["A3PL_Housing_OpenBuyMenu",
 {
 	disableSerialization;
-	private ["_display","_control","_obj","_houses","_price"];
-	_obj = param [0,objNull];
+	private _obj = param [0,objNull];
 	if (isNull _obj) exitwith {};
-	_houses = nearestObjects [player, Config_Houses_List, 20];
+	private _houses = nearestObjects [player, Config_Houses_List, 20];
 	if (count _houses < 1) exitwith {[localize"STR_NewHousing_12","red"] call A3PL_Player_Notification;};
 	A3PL_Housing_Object = _houses select 0;
-
-	_price = [A3PL_Housing_Object,1] call A3PL_Housing_GetData;
+	private _price = [A3PL_Housing_Object,1] call A3PL_Housing_GetData;
  	createDialog "Dialog_HouseBuy";
-	_display = findDisplay 72;
-	_control = _display displayCtrl 1000;
+	private _display = findDisplay 72;
+	private _control = _display displayCtrl 1000;
 	_control ctrlSetText format ["$%1",[_price, 1, 2, true] call CBA_fnc_formatNumber];
 }] call Server_Setup_Compile;
 
 ["A3PL_Housing_Buy",
 {
-	private ["_price"];
-	_price = [A3PL_Housing_Object,1] call A3PL_Housing_GetData;
-	_level = [A3PL_Housing_Object,4] call A3PL_Housing_GetData;
+	private _price = [A3PL_Housing_Object,1] call A3PL_Housing_GetData;
+	private _level = [A3PL_Housing_Object,4] call A3PL_Housing_GetData;
+	private _namePos = [getPos A3PL_Housing_Object] call A3PL_Housing_PosAddress;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
 	if ((player getVariable ["player_level",0]) < _level) exitwith {[format["You need to be level %1 to purchase this house!",_level],"red"] call A3PL_Player_Notification;};
 	if (!isNil {A3PL_Housing_Object getVariable ["doorid",nil]}) exitwith {[localize"STR_NewHousing_14","red"] call A3PL_Player_Notification;};
 	if (!isNil {player getVariable ["house",nil]}) exitwith {[localize"STR_NewHousing_15","red"] call A3PL_Player_Notification;};
 
 	[A3PL_Housing_Object,player,true,_price] remoteExec ["Server_Housing_AssignHouse", 2];
-	closeDialog 0;
-	_namePos = [getPos A3PL_Housing_Object] call A3PL_Housing_PosAddress;
 	[format [localize"STR_NewHousing_16",_price,_namePos],"green"] call A3PL_Player_Notification;
 	[A3PL_Housing_Object] spawn
 	{
-		private ["_house"];
-		_house = param [0,objNull];
-		uiSleep 3;
-		_marker = createMarkerLocal [format["house_%1",round (random 1000)],visiblePosition _house];
+		private _house = param [0,objNull];
+		private _marker = createMarkerLocal [format["house_%1",round (random 1000)],visiblePosition _house];
 		_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
 		_marker setMarkerAlphaLocal 1;
 		_marker setMarkerColorLocal "ColorGreen";
@@ -311,6 +292,7 @@
 	A3PL_Housing_Object = nil;
 	["Federal Reserve",_price] remoteExec ["Server_Government_AddBalance",2];
 	[player, 50] call A3PL_Level_AddXP;
+	closeDialog 0;
 }] call Server_Setup_Compile;
 
 ["A3PL_Housing_Init",
@@ -348,34 +330,27 @@
 
 ["A3PL_Housing_AptAssignedMsg",
 {
-	private ["_objAssigned","_aptAssigned","_marker"];
-	_objAssigned = param [0,objNull];
-	_aptAssigned = param [1,"0"];
-
-	_marker = [_objAssigned] call A3PL_Lib_NearestMarker;
-	_text = markerText _marker;
+	private _objAssigned = param [0,objNull];
+	private _aptAssigned = param [1,"0"];
+	private _marker = [_objAssigned] call A3PL_Lib_NearestMarker;
+	private _text = markerText _marker;
 	[format [localize"STR_NewHousing_17",_aptAssigned,_text], "green"] call A3PL_Player_Notification;
 	[_objAssigned,_aptAssigned] call A3PL_Housing_Init;
 }] call Server_Setup_Compile;
 
 ["A3PL_Housing_Loaditems",
 {
-	private ["_house","_pItems","_objects","_uid"];
-	_house = param [0,objNull];
-	_pItems = param [1,[]];
-	_uid = getPlayerUID player;
-	_objects = [];
+	private _house = param [0,objNull];
+	private _pItems = param [1,[]];
+	private _uid = getPlayerUID player;
+	private _objects = [];
 	{
-		private ["_classname","_class","_pos","_dir","_obj"];
-		_classname = _x select 0;
-		_class = _x select 1;
-		_pos = _house modelToWorld (_x select 2);
-		_dir = _x select 3;
-		_obj = createVehicle [_classname, _pos, [], 0, "CAN_COLLIDE"];
-		if (!([_class,"simulation"] call A3PL_Config_GetItem)) then
-		{
-			[_obj] remoteExec ["Server_Housing_LoadItemsSimulation", 2];
-		};
+		private _classname = _x select 0;
+		private _class = _x select 1;
+		private _pos = _house modelToWorld (_x select 2);
+		private _dir = _x select 3;
+		private _obj = createVehicle [_classname, _pos, [], 0, "CAN_COLLIDE"];
+		if (!([_class,"simulation"] call A3PL_Config_GetItem)) then {[_obj] remoteExec ["Server_Housing_LoadItemsSimulation", 2];};
 		_obj setDir _dir;
 		_obj setPosATL _pos;
 		_obj setVariable ["owner",_uid,true];
@@ -409,9 +384,9 @@
 ["A3PL_RealEstates_Sell",
 {
 	closeDialog 0;
-	_sign = (nearestObjects [player, ["Land_A3PL_EstateSign"], 10,true]) select 0;
-	_house = (nearestObjects [player, Config_Houses_List, 20,true]) select 0;
-	_housePrice = ([_house,1] call A3PL_Housing_GetData) * 0.75;
+	private _sign = (nearestObjects [player, ["Land_A3PL_EstateSign"], 10,true]) select 0;
+	private _house = (nearestObjects [player, Config_Houses_List, 20,true]) select 0;
+	private _housePrice = ([_house,1] call A3PL_Housing_GetData) * 0.75;
 	[player,50] call A3PL_Level_AddXP;
 	[getPos player,_housePrice, _sign, _house] remoteExec ["Server_Housing_Sold",2];
 	[getPlayerUID player,"houseSold",[]] remoteExec ["Server_Log_New",2];
@@ -429,11 +404,10 @@
 
 ["A3PL_Housing_PosAddress",
 {
-	private["_position","_buidlingsArray","_building","_address"];
-	_position = param [0,[0,0,0]];
-	_buidlingsArray = ["Land_A3PL_Bank","Land_A3PL_Capital","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD","Land_Shop_DED_Shop_01_F","land_smallshop_ded_smallshop_01_f","land_market_ded_market_01_f","Land_Taco_DED_Taco_01_F","Land_A3PL_Gas_Station","Land_A3PL_Garage","Land_John_Hangar","Land_A3PL_CG_Station","land_a3pl_ch","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Warehouse","Land_A3FL_Airport_Hangar","Land_A3FL_Airport_Terminal","Land_A3FL_Barn","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2","Land_A3FL_Office_Building","Land_A3FL_Mansion","Land_A3FL_House1_Cream","Land_A3FL_House1_Green","Land_A3FL_House1_Blue","Land_A3FL_House1_Brown","Land_A3FL_House1_Yellow","Land_A3FL_House2_Cream","Land_A3FL_House2_Green","Land_A3FL_House2_Blue","Land_A3FL_House2_Brown","Land_A3FL_House2_Yellow","Land_A3FL_House3_Cream","Land_A3FL_House3_Green","Land_A3FL_House3_Blue","Land_A3FL_House3_Brown","Land_A3FL_House3_Yellow","Land_A3FL_House4_Cream","Land_A3FL_House4_Green","Land_A3FL_House4_Blue","Land_A3FL_House4_Brown","Land_A3FL_House4_Yellow","Land_A3FL_Anton_Modern_Bungalow"];
-	_building = (nearestObjects [_position, _buidlingsArray, 100]) select 0;
-	_address = _building getVariable["Building_Address","Unknown Address"];
+	private _position = param [0,[0,0,0]];
+	private _buidlingsArray = ["Land_A3PL_Bank","Land_A3PL_Capital","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD","Land_Shop_DED_Shop_01_F","land_smallshop_ded_smallshop_01_f","land_market_ded_market_01_f","Land_Taco_DED_Taco_01_F","Land_A3PL_Gas_Station","Land_A3PL_Garage","Land_John_Hangar","Land_A3PL_CG_Station","land_a3pl_ch","Land_A3PL_Clinic","Land_A3PL_Firestation","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home4w_DED_Home4w_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home6b_DED_Home6b_01_F","Land_Mansion01","Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_A3PL_ModernHouse1","Land_A3PL_ModernHouse2","Land_A3PL_ModernHouse3","Land_A3PL_BostonHouse","Land_A3PL_Shed3","Land_A3PL_Shed4","Land_A3PL_Shed2","Land_John_House_Grey","Land_John_House_Blue","Land_John_House_Red","Land_John_House_Green","Land_A3FL_Warehouse","Land_A3FL_Airport_Hangar","Land_A3FL_Airport_Terminal","Land_A3FL_Barn","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2","Land_A3FL_Office_Building","Land_A3FL_Mansion","Land_A3FL_House1_Cream","Land_A3FL_House1_Green","Land_A3FL_House1_Blue","Land_A3FL_House1_Brown","Land_A3FL_House1_Yellow","Land_A3FL_House2_Cream","Land_A3FL_House2_Green","Land_A3FL_House2_Blue","Land_A3FL_House2_Brown","Land_A3FL_House2_Yellow","Land_A3FL_House3_Cream","Land_A3FL_House3_Green","Land_A3FL_House3_Blue","Land_A3FL_House3_Brown","Land_A3FL_House3_Yellow","Land_A3FL_House4_Cream","Land_A3FL_House4_Green","Land_A3FL_House4_Blue","Land_A3FL_House4_Brown","Land_A3FL_House4_Yellow","Land_A3FL_Anton_Modern_Bungalow"];
+	private _building = (nearestObjects [_position, _buidlingsArray, 100]) select 0;
+	private _address = _building getVariable["Building_Address","Unknown Address"];
 	_address;
 }] call Server_Setup_Compile;
 

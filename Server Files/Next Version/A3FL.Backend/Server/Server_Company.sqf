@@ -297,7 +297,7 @@
 
 	private _signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"], 25,true];
 	if (count _signs > 0) then {
-		(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\business_sale_co.paa"];
+		(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_sale_co.paa"];
 	};
 
 	["You succesfully sold your company shop!", "green"] remoteExec ["A3PL_Player_Notification",_player];
@@ -324,7 +324,7 @@
 
 		private _signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"], 25,true];
 		if (count _signs > 0) then {
-			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\business_rented_co.paa"];
+			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];
 		};
 
 		_shop setVariable ["cid",_cid, true];

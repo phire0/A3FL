@@ -37,7 +37,7 @@
 		setTerrainGrid 50;
 	};
 
-	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride","net","jug","jug_green","jug_green_moonshine"];
+	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride","net","jug","jug_green","jug_green_moonshine","ring","ringset","bracelet","crown","necklace","golden_dildo"];
 	Player_IllegalPhysicalItems = ["cocaine_brick","distillery","distillery_hose","planter","scale","grinder","cocaine_barrel","fan"];
 	Player_ActionCompleted = true;
 	Player_ActionDoing = false;
@@ -553,7 +553,10 @@
 	A3PL_HostageTarget = _target;
 	A3PL_HostageReloading = false;
 	player setVariable["takingHostage",true,true];
+	_target setVariable["takenHostage",true,true];
 	player forceWalk true;
+
+	{detach _x;} foreach (attachedObjects _target);
 
 	_ehFired = player addEventHandler ["Fired",
 	{
@@ -608,6 +611,7 @@
 		if(_target getVariable["A3PL_Medical_Alive",true]) then {[_target,""] remoteExec ["A3PL_Lib_SyncAnim",-2];};
 		detach _target;
 	};
+	player setVariable["takingHostage",nil,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_Player_SetMarkers",

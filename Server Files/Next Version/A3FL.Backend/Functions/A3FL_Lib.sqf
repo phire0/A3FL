@@ -518,7 +518,7 @@
 		_time = _time + _refreshSpeed;
 		if(Player_ActionInterrupted) exitWith {};
 		if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
-		if (!(vehicle player == player)) exitwith {};
+		if (!(vehicle player isEqualTo player)) exitwith {};
 		if (player getVariable ["Incapacitated",false]) exitwith {};
 		if (!alive player) exitwith {};
 	};
@@ -540,7 +540,7 @@
 		(_display displayCtrl 352) ctrlCommit 0;
 		sleep 0.005;
 	};
-	uiSleep 5;
+	sleep 3;
 	Player_ActionInterrupted = false;
 }] call Server_Setup_Compile;
 

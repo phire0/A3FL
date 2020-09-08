@@ -154,7 +154,7 @@
 
 		if(_job IN _factionJobs) then {
 			_done = true;
-			_payAmount = call A3PL_Government_FactionPay;
+			_payAmount = (call A3PL_Government_FactionPay) * A3PL_Event_Paycheck;
 		} else {
 			private _inCompany = [getPlayerUID player] call A3PL_Config_InCompany;
 			if(_inCompany && (_job isEqualTo "unemployed")) then {
@@ -162,8 +162,10 @@
 				_payAmount = call A3PL_Company_Paycheck;
 			};
 		};
-		_payAmount = _payAmount * A3PL_Event_Paycheck;
-		if(!_done) then {[format[localize"STR_NewLoop_6",_payAmount], "green"] call A3PL_Player_Notification;};
+		if(!_done) then {
+			_payAmount = _payAmount * A3PL_Event_Paycheck;
+			[format[localize"STR_NewLoop_6",_payAmount], "green"] call A3PL_Player_Notification;
+		};
 
 		if(isNil "Player_Paycheck") then {Player_Paycheck = _payAmount;} else {Player_Paycheck = Player_Paycheck + _payAmount;};
 		[player,_jobXP] call A3PL_Level_AddXP;

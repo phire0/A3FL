@@ -61,6 +61,17 @@
 	};
 }] call Server_Setup_Compile;
 
+["A3PL_Medical_Concussion",{
+	[] spawn {
+		_hndl = ppEffectCreate ['ColorCorrections', 50];
+		_hndl ppEffectEnable true;
+		_hndl ppEffectAdjust [1, 0.4, 0, [0, 0, 0, 0], [1, 1, 1, 0.5], [0.299, 0.587, 0.114, 0]];
+		_hndl ppEffectCommit 0;
+		waitUntil {!([player,"head","concussion_major"] call A3PL_Medical_HasWound)};
+		ppEffectDestroy _hndl;
+	};
+}] call Server_Setup_Compile;
+
 ["A3PL_Medical_Hit",
 {
 	private ["_getHit","_unit","_sHit","_sDamage","_sSource","_sBullet","_tmpDmg"];
@@ -225,8 +236,8 @@
 				_parts = ["torso","pelvis","left upper leg","left lower leg","right upper leg","chest","right lower leg","head","right upper arm","left lower arm","right lower arm","left upper arm"];
 				_part = _parts select (round (random [0,5,11]));
 				switch (true) do {
-					case (_part isEqualTo "head"): { if (!([player,_part,"concussion_major"] call A3PL_Medical_HasWound)) then { [player,"head","concussion_major"] call A3PL_Medical_ApplyWound; }; };
-					case default { [player,_part,(["cut","bruise","wound_minor","wound_major","bone_broken","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound; };
+					case (_part isEqualTo "head"): { if (!([player,_part,"concussion_major"] call A3PL_Medical_HasWound)) then {[player,"head","concussion_major"] call A3PL_Medical_ApplyWound;[] call A3PL_Medical_Concussion;};};
+					default { [player,_part,(["cut","bruise","wound_minor","wound_major","bone_broken","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound; };
 				};
 			};
 		};
@@ -255,6 +266,7 @@
 				_part = _parts select (round (random [0,7,15]));
 				if(_part isEqualTo "head") then {
 					[player,"head","concussion_major"] call A3PL_Medical_ApplyWound;
+					[] call A3PL_Medical_Concussion;
 				} else {
 					[player,_part,(["cut","bruise","wound_major","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;
 				};
@@ -285,6 +297,7 @@
 				_part = _parts select (round (random [0,7,15]));
 				if(_part isEqualTo "head") then {
 					[player,"head","concussion_major"] call A3PL_Medical_ApplyWound;
+					[] call A3PL_Medical_Concussion;
 				} else {
 					[player,_part,(["cut","bruise","wound_major","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;
 				};
@@ -453,6 +466,7 @@
 		case "B_45ACP_Ball": {1.2};
 		case "A3PL_M16_Ball": {1.5};
 		case "B_762x39_Ball_F": {1.6};
+		case "A3FL_DesertEagle_Ammo": {1.7};
 		case "A3FL_Mossberg_590K_buck": {1.8};
 	};
 	_coef;
@@ -1089,12 +1103,14 @@
 	private _healPrice = 4500;
 	private _pCash = player getVariable ["player_cash",0];
 	private _npc = player_objintersect;
+	private _faction = player getVariable["job","unemployed"];
+	if(_faction IN ["fifr","fisd","uscg","usms"]) exitWith {["You cannot use this medic when on duty as a faction!"] call A3PL_Player_notification;};
 	if (_healPrice > _pCash) exitwith {[format [localize"STR_NPC_FIFRHEALERROR",_healPrice-_pCash]] call A3PL_Player_notification;};
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - _healPrice,true];
 
-	["You must wait 2 minutes before being fully treated, stay nearby!","orange"] call A3PL_Player_Notification;
+	["You must wait 1 minutes before being fully treated, stay nearby!","orange"] call A3PL_Player_Notification;
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Patching you up...",120] spawn A3PL_Lib_LoadAction;
+	["Patching you up...",60] spawn A3PL_Lib_LoadAction;
 	_success = true;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
@@ -1125,6 +1141,7 @@
 		if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 		["CPR in progress...",30] spawn A3PL_Lib_LoadAction;
 		_success = true;
+		_target setVariable["reviving",true,true];
 		waitUntil{Player_ActionDoing};
 		while {Player_ActionDoing} do {
 			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
@@ -1138,8 +1155,6 @@
 			["CPR Cancelled!", "red"] call A3PL_Player_Notification;
 			if ((vehicle player) isEqualTo player) then {player switchMove "";};
 		};
-
-		_target setVariable["reviving",true,true];
 
 		private _chance = random 100;
 		if(["cpr",player] call A3PL_DMV_Check) then {_chance = random 50;};

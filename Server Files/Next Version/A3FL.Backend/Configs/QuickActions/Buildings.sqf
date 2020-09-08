@@ -529,6 +529,11 @@
 ],
 [
 	"Land_A3PL_BusinessSign",
+	localize"STR_INTSECT_BUYBUSI",
+	{call A3PL_Company_OpenBuyShop;}
+],
+[
+	"Land_A3PL_BusinessSign",
 	"Purchase Warehouse",
 	{[player_objIntersect] call A3PL_Warehouses_OpenBuyMenu;}
 ],

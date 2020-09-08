@@ -130,8 +130,8 @@
 			Player_ObjIntersect = player;
 			Player_NameIntersect = "";
 		};
-		if((!(getModelInfo _parent select 2))) exitWith {};
-		if ((player distance _obj) < 5) exitWith {
+		
+		if (!(getModelInfo _parent select 2) && ((player distance _obj) < 5)) exitWith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _obj;
 			{
@@ -142,6 +142,7 @@
 				};
 			} foreach Config_Intersect_NoName;
 		};
+		if(!(getModelInfo _parent select 2)) exitWith {};
 
 		private _ins2 = [_parent, "FIRE"] intersect [_begPos, _endPos];
 		if (_ins2 isEqualTo []) exitWith {

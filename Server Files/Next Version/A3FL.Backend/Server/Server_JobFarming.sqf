@@ -8,18 +8,16 @@
 
 ["Server_JobFarming_Plant",
 {
-	private ["_class","_pos","_player","_plant","_plantClass","_plants","_ATLChange"];
-	_player = param [0,objNull];
-	_class = param [1,""];
-	_pos = param [2,[]];
+	private _player = param [0,objNull];
+	private _class = param [1,""];
+	private _pos = param [2,[]];
+	private _plantClass = "";
+	private _ATLChange = 0;
 
-	if ((isNull _player) or (_class == "")) exitwith {};
-
+	if ((isNull _player) or (_class isEqualTo "")) exitwith {};
 	if (!([_class,1,_player] call Server_Inventory_Has)) exitwith {};
 
 	[_player,_class,-1] call Server_Inventory_Add;
-	_plantClass = "";
-	_ATLChange = 0;
 	switch (_class) do {
 		case "seed_wheat": {_plantClass = "A3PL_Wheat";};
 		case "seed_corn": {_plantClass = "A3PL_Corn";};
@@ -30,7 +28,7 @@
 	};
 
 	if (_plantClass isEqualTo "") exitwith {};
-	_plant = createVehicle [_plantClass,[_pos select 0,_pos select 1, (_pos select 2) + _ATLChange], [], 0, "CAN_COLLIDE"];
+	private _plant = createVehicle [_plantClass,[_pos select 0,_pos select 1, (_pos select 2) + _ATLChange], [], 0, "CAN_COLLIDE"];
 	_plant animateSource ["plant_growth",1];
 	_plant allowDamage false;
 
@@ -44,14 +42,15 @@
 {
 	private _player = param [0,objNull];
 	private _plant = param [1,objNull];
+	private _itemClass = "";
+	private _seedItem = "";
+	private _amount = 0;
+
 	if ((isNull _player) or (isNull _plant)) exitwith {};
 	if ((_plant animationSourcePhase "plant_growth") < 1) exitwith {[4] remoteExec ["A3PL_JobFarming_PlantReceive",owner _player];};
 	if (_plant getVariable ["inuse",false]) exitwith {};
 	_plant setVariable ["inuse",true,false];
 
-	_itemClass = "";
-	_seedItem = "";
-	_amount = 0;
 	switch (typeOf _plant) do
 	{
 		case "A3PL_Wheat": {_amount = 10; _itemClass = "wheat"; _seedItem = "seed_wheat";};
@@ -69,7 +68,7 @@
 				case (_lightValue > 80): {_amount = 30;};
 				case (_lightValue > 50): {_amount = 20;};
 				case (_lightValue > 20): {_amount = 10;};
-				case default {_amount = 2;};
+				default {_amount = 2;};
 			};
 		};
 	};

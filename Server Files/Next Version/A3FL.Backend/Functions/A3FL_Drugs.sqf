@@ -70,8 +70,8 @@
 
 	//Decrese alcohol level
 	if(Player_Alcohol <= 0) exitWith {};
-	Player_Alcohol = Player_Alcohol - 1;
-	profileNamespace setVariable ["player_alcohol",Player_Alcohol];
+	Player_Alcohol = Player_Alcohol - 5;
+	[] call A3PL_Alcohol_Verify;
 }] call Server_Setup_Compile;
 
 ["A3PL_Alcohol_ResetEffects",
@@ -88,11 +88,9 @@
 //Player_Drugs = [shrooms,cocaine,weed]
 ["A3PL_Drugs_Add",
 {
-	private["_type","_add","_new"];
-	_type = param [0,"unknown"];
-	_add = param [1,0];
-
-	_index = -1;
+	private _type = param [0,"unknown"];
+	private _add = param [1,0];
+	private _index = -1;
 	switch(true) do {
 		case(_type isEqualTo "shrooms"): {
 			_index = 0;
@@ -106,7 +104,7 @@
 	};
 	if(_index < 0) exitwith {};
 
-	_new = (Player_Drugs select _index) + (_add);
+	private _new = (Player_Drugs select _index) + (_add);
 	player setVariable["drugs",true,true];
 	Player_Drugs set[_index, _new];
 	profileNamespace setVariable ["player_drugs",Player_Drugs];
@@ -114,8 +112,7 @@
 
 ["A3PL_Drugs_Loop",
 {
-	private["_totalDrugs"];
-	_totalDrugs = 0;
+	private _totalDrugs = 0;
 	{
 		_totalDrugs = _totalDrugs + _x;
 	} foreach Player_Drugs;
@@ -239,8 +236,7 @@
 
 ["A3PL_Drugs_DrugTest",
 {
-	private["_target"];
-	_target = param [0,objNull];
+	private _target = param [0,objNull];
 	[player] remoteExec ["A3PL_Drugs_DrugTestReturn",_target];
 	[player_item] call A3PL_Inventory_Clear;
 	[player,"drug_kit",-1] remoteExec ["Server_Inventory_Add",2];
@@ -248,11 +244,9 @@
 
 ["A3PL_Drugs_DrugTestReturn",
 {
-	private["_cop","_drugLevel"];
-	_cop = param [0,objNull];
-	_drugLevel = Player_Drugs;
-	_job = _cop getVariable["job","unemployed"];
-
+	private _cop = param [0,objNull];
+	private _drugLevel = Player_Drugs;
+	private _job = _cop getVariable["job","unemployed"];
 	if(_job isEqualTo "fifr") then {
 		_shrooms = _drugLevel select 0;
 		_coke = _drugLevel select 1;

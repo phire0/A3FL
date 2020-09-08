@@ -674,43 +674,33 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DeploySpikes', {
-	private ['_obj','_pos','_veh','_dir'];
-	_obj = _this select 0;
-
-	//Deploy
-	if (typeOf _obj == "A3PL_Spikes_Closed") exitwith
-	{
-		_pos = getpos _obj;
-		_dir = getDir _obj;
+	private _obj = _this select 0;
+	if ((typeOf _obj) isEqualTo "A3PL_Spikes_Closed") exitwith {
+		private _pos = getpos _obj;
+		private _dir = getDir _obj;
 		deletevehicle _obj;
-		_veh = createVehicle ["A3PL_Spikes_Open", _pos, [], 0, "CAN_COLLIDE"];
+		private _veh = createVehicle ["A3PL_Spikes_Open", _pos, [], 0, "CAN_COLLIDE"];
 		_veh setDir _dir;
-		_pos = _veh modelToWorld [1.27,0,0.5];
+		private _pos = _veh modelToWorld [1.27,0,0.5];
 		_veh setposATL _pos;
 	};
-
-	//Pack
-	if (typeOf _obj == "A3PL_Spikes_Open") exitwith
-	{
-		_pos = getpos _obj;
-		_dir = getDir _obj;
+	if ((typeOf _obj) isEqualTo "A3PL_Spikes_Open") exitwith {
+		private _pos = getpos _obj;
+		private _dir = getDir _obj;
 		deletevehicle _obj;
-		_veh = createVehicle ["A3PL_Spikes_Closed", _pos, [], 0, "CAN_COLLIDE"];
+		private _veh = createVehicle ["A3PL_Spikes_Closed", _pos, [], 0, "CAN_COLLIDE"];
 		_veh setDir _dir;
-		_pos = _veh modelToWorld [-1.27,0,0.5];
+		private _pos = _veh modelToWorld [-1.27,0,0.5];
 		_veh setposATL _pos;
 	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_SpikeHit', {
-	private ["_wheel","_veh"];
-	_veh = vehicle player;
-	_wheel = _this;
-	[_veh,_wheel] spawn
-	{
-		private ["_wheel","_veh"];
-		_veh = _this select 0;
-		_wheel = _this select 1;
+	private _veh = vehicle player;
+	private _wheel = _this;
+	[_veh,_wheel] spawn {
+		private _veh = _this select 0;
+		private _wheel = _this select 1;
 		while {(_veh getHit _wheel) < 1} do
 		{
 			waitUntil {(speed (vehicle player)) > 1};

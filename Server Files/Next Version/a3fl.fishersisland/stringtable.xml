@@ -5775,6 +5775,9 @@
    <Key ID="STR_INTSECT_RENTBUSI">
       <Original>Rent Business</Original>
    </Key>
+   <Key ID="STR_INTSECT_BUYBUSI">
+      <Original>Buy Business</Original>
+   </Key>
    <Key ID="STR_INTSECT_CONROLHOSE">
       <Original>Connect Rolled Hose</Original>
    </Key>
@@ -8750,7 +8753,7 @@
         <Original>You ate some popcorn</Original>
       </Key>
       <Key ID="STR_NewItems_6">
-        <Original>You have eaten %1 and satisfied %2 %3 of your hunger</Original>
+        <Original>You have eaten %1 and satisfied %2%3 of your hunger</Original>
       </Key>
       <Key ID="STR_NewItems_7">
         <Original>Can not retrieve the class of the item you are trying to eat</Original>

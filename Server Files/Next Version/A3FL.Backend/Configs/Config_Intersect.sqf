@@ -451,9 +451,9 @@ Config_IntersectArray =
 	["EstateSign",localize"STR_INTSECT_LEAVHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{((((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")) && {(getPlayerUID player) IN (player_objintersect getVariable['roommates',[]])}}],
 
 	//signs
-	["greenhousesign",localize"STR_INTSECT_RENTGH",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{true}], //Rent Greenhouse
-	["sign_business",localize"STR_INTSECT_RENTBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0)}], //Rent Business
-	["sign_business","Purchase Warehouse",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{count nearestObjects[player,Config_Warehouses_List,15] > 0}], //Rent Business
+	["sign_business",localize"STR_INTSECT_RENTBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0) && (((getObjectTextures player_objintersect) select 0) isEqualTo "\a3pl_objects\street\business_sign\business_rented_co.paa")}],
+	["sign_business",localize"STR_INTSECT_BUYBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0) && (((getObjectTextures player_objintersect) select 0) isEqualTo "\a3pl_objects\street\business_sign\business_rented_co.paa")}],
+	["sign_business","Purchase Warehouse",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{count nearestObjects[player,Config_Warehouses_List,15] > 0}],
 
 	//FD interactions
 	//interactions on adapter ends
@@ -1099,10 +1099,6 @@ Config_IntersectArray =
 	["gastank",localize"STR_INTSECT_USEJERRYC",_dir+"IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa",{player_itemClass == "jerrycan"}], //Use jerrycan
 	["inspect_hitfuel1",localize"STR_INTSECT_CONGASHOSE",_dir+"IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa",{typeOf Player_Item IN ["A3PL_Gas_Hose","A3PL_GasHose"]}], //Connect Gas Hose
 	["Repair",localize"STR_INTSECT_CONGASHOSE",_dir+"IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa",{(typeOf Player_Item IN ["A3PL_Gas_Hose","A3PL_GasHose"])&& {(typeOf player_objintersect == "A3PL_RHIB")}}],
-
-	//Cinema popcorn
-	["popcornmachine1",localize"STR_INTSECT_GETPOPC",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Get Popcorn
-	["popcornmachine2",localize"STR_INTSECT_GETPOPC",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Get Popcorn
 
 	["popcornBucket",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]})}], //Pickup Item
 	["popcornBucket",localize"STR_INTSECT_PICKITEMTOHAND",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]})}],	//Pickup Item To Hand

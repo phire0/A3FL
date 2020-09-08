@@ -201,7 +201,7 @@
 	if (isNil "_unit" || _phoneNumberContact isEqualTo "") exitWith {};
 	private _ownerID = owner _unit;
 	private _playerUID = getPlayerUID _unit;
-	private _result = ["SELECT from_num, message, position FROM iphone_messages WHERE to_num='911' ORDER BY date DESC LIMIT 1",2,true] call Server_Database_Async;
+	private _result = ["SELECT from_num, message, position FROM iphone_messages WHERE to_num='911' ORDER BY date DESC LIMIT 10",2,true] call Server_Database_Async;
 	reverse _result;
 	[_result] remoteExec ["A3PL_iPhoneX_911Text", _ownerID];
 },true] call Server_Setup_Compile;
@@ -314,3 +314,15 @@
 		[A3PL_iPhoneX_switchboard] remoteExec ["A3PL_iPhoneX_switchboard", _x];
 	} foreach allPlayers;
 },true] call Server_Setup_Compile;
+
+["Server_iPhoneX_Notify911",
+{
+	private _phoneNumber = param[0,""];
+	private _player = param[1,objNull];
+	private _faction = toUpper(_player getVariable["job","fifr"]);
+	private _notification = format["911 Dispatch: %1 is responding to your location!",_faction];
+	private _exists = [A3PL_iPhoneX_ListNumber, _phoneNumber] call BIS_fnc_findNestedElement;
+	if (_exists isEqualTo []) exitWith {};
+	private _target = ((A3PL_iPhoneX_ListNumber select (_exists select 0)) select 1);
+	[_notification,"blue"] remoteExec["A3PL_Player_Notification",_target];
+}] call Server_Setup_Compile;

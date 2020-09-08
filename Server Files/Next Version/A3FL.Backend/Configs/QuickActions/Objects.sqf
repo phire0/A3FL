@@ -462,11 +462,6 @@
 	{[player_objintersect,true] call A3PL_Inventory_Pickup;}
 ],
 [
-	"Land_A3PL_Cinema",
-	localize"STR_INTSECT_GETPOPC",
-	{call A3PL_Items_GrabPopcorn;}
-],
-[
 	"",
 	localize"STR_INTSECT_HARPLANT",
 	{[player_objintersect] call A3PL_JobFarming_Harvest;}

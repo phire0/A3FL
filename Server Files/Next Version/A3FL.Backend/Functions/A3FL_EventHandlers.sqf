@@ -49,7 +49,6 @@
 
 		["ArmA 3 Fishers Life","bargates_key", "Open/Close Bargates",
 		{
-			if(!(player getVariable["job","unemployed"] IN ["fisd","uscg","fifr","usms"])) exitWith {};
 			private _bargate = (nearestObjects [player, ["Land_A3PL_BarGate","Land_A3PL_BarGate_Left","Land_A3PL_BarGate_Right"], 10]) select 0;
 			private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
 			if(_canUse) then {
