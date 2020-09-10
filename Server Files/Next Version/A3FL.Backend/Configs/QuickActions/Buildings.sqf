@@ -507,7 +507,7 @@
 ],
 [
 	"Land_A3FL_DOC_Gate",
-	format [localize"STR_INTSECT_OPENDOOR",9],
+	format [localize"STR_INTSECT_OPENDOOR",10],
 	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
 ],
 [

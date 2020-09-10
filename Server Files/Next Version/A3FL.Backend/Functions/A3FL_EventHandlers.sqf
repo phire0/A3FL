@@ -49,15 +49,17 @@
 
 		["ArmA 3 Fishers Life","bargates_key", "Open/Close Bargates",
 		{
-			private _bargate = (nearestObjects [player, ["Land_A3PL_BarGate","Land_A3PL_BarGate_Left","Land_A3PL_BarGate_Right"], 10]) select 0;
-			private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
-			if(_canUse) then {
+			private _bargate = (nearestObjects [player, ["Land_A3FL_DOC_Gate","Land_A3PL_BarGate","Land_A3PL_BarGate_Left","Land_A3PL_BarGate_Right"], 20]) select 0;
+			private _veh = typeOf (vehicle player);
+			private _source = true;
+			if(_veh IN Config_Police_Vehs) then {
 				private _anim = switch(typeOf _bargate) do {
 					case "Land_A3PL_Bargate_Right": {"bargate2"};
 					case "Land_A3PL_Bargate_Left": {"bargate1"};
 					case "Land_A3FL_DOC_Gate": {
 						private _distanceOne = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["Gate_1_Pos","Memory"]));
 						private _distanceTwo = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["Gate_2_Pos","Memory"]));
+						_source = false;
 						if(_distanceTwo>_distanceOne) then {
 							"Gate_1"
 						} else {
@@ -74,11 +76,19 @@
 						};
 					};
 				};
-				if ((_bargate animationSourcePhase _anim) < 0.5) then {
+				if(_source) then {
+					if ((_bargate animationSourcePhase _anim) < 0.5) then {
 					_bargate animateSource [_anim,1];
+					} else {
+						_bargate animateSource [_anim,0];
+					};
 				} else {
-					_bargate animateSource [_anim,0];
-				};
+					if ((_bargate animationPhase _anim) < 0.5) then {
+						_bargate animate [_anim,1];
+					} else {
+						_bargate animate [_anim,0];
+					};
+				};	
 			};
 		}, "", [DIK_N, [false, false, false]]] call CBA_fnc_addKeybind;
 

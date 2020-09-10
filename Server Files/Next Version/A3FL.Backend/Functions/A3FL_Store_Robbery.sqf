@@ -18,6 +18,7 @@
 	private _duration = switch(_weapon) do {
 		case "arifle_AKM_F": {70};
 		case "A3PL_M16": {80};
+		case "A3FL_M4": {80};
 		case "A3FL_Mossberg_590K": {90};
 		case "SMG_05_F": {100};
 		case "SMG_02_F": {100};

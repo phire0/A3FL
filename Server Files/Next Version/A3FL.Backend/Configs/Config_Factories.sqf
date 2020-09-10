@@ -46,7 +46,7 @@ Config_Factories =
 		["f_Titanium_Pellet","","inh","inh","Titanium_Pellet","item",true,30,[["Titanium",60]],1,20,0,"Makes 1 Titanium Pallet"],
 		["f_ME_Bucket","","inh","inh","ME_Bucket","item",true,15,[["Steel",15]],1,5,0,"Makes 1 Excavator Bucket"],
 		["f_ME_Jackhammer","","inh","inh","ME_Jackhammer","item",true,15,[["Steel",15]],1,5,0,"Makes 1 Excavator Jackhammer"],
-		["f_Aluminium_Ingot","","inh","inh","Aluminium_Ingot","item",true,90,[["Aluminium_Ingot_Pellet",1]],826,20,0,"Makes 826 Aluminum Ingots"]
+		["f_Aluminium_Ingot","","inh","inh","Aluminium_Ingot","item",true,90,[["Aluminium_Ingot_Pellet",1]],826,20,0,"Makes 826 Aluminum Ingots"],
 		["f_Sapphire_Ingot","","inh","inh","Sapphire_Ingot","item",true,4,[["Coal_Ore",1]],1,5,0,"Makes 1 Sapphire Ingot"],
 		["f_Vivianite_Ingot","","inh","inh","Vivianite_Ingot","item",true,4,[["Coal_Ore",1]],1,5,0,"Makes 1 Vivianite Ingot"],
 		["f_Emerald_Ingot","","inh","inh","Emerald_Ingot","item",true,4,[["Coal_Ore",1]],1,5,0,"Makes 1 Emerald Ingot"],
@@ -57,7 +57,7 @@ Config_Factories =
 		["f_Vivianite_Ingot_Pallet","","inh","inh","Vivianite_Ingot_Pallet","item",true,30,[["Vivianite_Ingot",826]],1,20,0,"Makes 1 Vivianite Ingot Pallet"],
 		["f_Emerald_Ingot_Pallet","","inh","inh","Emerald_Ingot_Pallet","item",true,30,[["Emerald_Ingot",826]],1,20,0,"Makes 1 Emerald Ingot Pallet"],
 		["f_Gold_Ingot_Pallet","","inh","inh","Gold_Ingot_Pallet","item",true,30,[["Gold_Ingot",826]],1,20,0,"Makes 1 Gold Ingot Pallet"],
-		["f_Amethyst_Ingot_Pallet","","inh","inh","Amethyst_Ingot_Pallet","item",true,30,[["Amethyst_Ingot",826]],1,20,0,"Makes 1 Amethyst Ingot Pallet"],
+		["f_Amethyst_Ingot_Pallet","","inh","inh","Amethyst_Ingot_Pallet","item",true,30,[["Amethyst_Ingot",826]],1,20,0,"Makes 1 Amethyst Ingot Pallet"]
 	],
 
 	["Oil Refinery",[3852.065,9212.537,0.168],
