@@ -55,6 +55,15 @@
 				private _anim = switch(typeOf _bargate) do {
 					case "Land_A3PL_Bargate_Right": {"bargate2"};
 					case "Land_A3PL_Bargate_Left": {"bargate1"};
+					case "Land_A3FL_DOC_Gate": {
+						private _distanceOne = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["Gate_1_Pos","Memory"]));
+						private _distanceTwo = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["Gate_2_Pos","Memory"]));
+						if(_distanceTwo>_distanceOne) then {
+							"Gate_1"
+						} else {
+							"Gate_2"
+						};
+					};
 					default {
 						private _distanceOne = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate1","Memory"]));
 						private _distanceTwo = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate2","Memory"]));

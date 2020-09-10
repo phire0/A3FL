@@ -5859,6 +5859,9 @@
    <Key ID="STR_INTSECT_USEDOORB">
       <Original>Use Door Button</Original>
    </Key>
+   <Key ID="STR_INTSECT_OPENDOOR">
+      <Original>Open Door %1</Original>
+   </Key>
    <Key ID="STR_INTSECT_OPENCELL">
       <Original>Open Cell %1</Original>
    </Key>

@@ -275,3 +275,43 @@
 		};
 	} foreach allPlayers;
 }] call Server_Setup_Compile;
+
+["A3PL_PrisonGate_HandleDoor",
+{
+	private _obj = param [0,objNull];
+	private _name = param [1,""];
+
+	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"])) exitwith {["Only FIMS can use this!","red"] call A3PL_Player_Notification;};
+
+	if (_name IN
+	[
+		"console_door1","console_door2","console_door3","console_door4","console_door5","console_door6","console_door7","console_door8","console_door9","console_door10",
+		"console_gate1","console_gate2"
+	]) exitwith
+	{
+		private _anim = "";
+		private _hSel = -1;
+		switch (_name) do
+		{
+			case ("console_door1"): {_anim = "door_1"; _hSel = 0;};
+			case ("console_door2"): {_anim = "door_2"; _hSel = 1;};
+			case ("console_door3"): {_anim = "door_3"; _hSel = 2;};
+			case ("console_door4"): {_anim = "door_4"; _hSel = 3;};
+			case ("console_door5"): {_anim = "door_5"; _hSel = 4;};
+			case ("console_door6"): {_anim = "door_6"; _hSel = 5;};
+			case ("console_door7"): {_anim = "door_7"; _hSel = 6;};
+			case ("console_door8"): {_anim = "door_8"; _hSel = 7;};
+			case ("console_door9"): {_anim = "door_9"; _hSel = 8;};
+			case ("console_door10"): {_anim = "door_10"; _hSel = 9;};
+			case ("console_gate1"): {_anim = "gate_1";};
+			case ("console_gate2"): {_anim = "gate_2";};
+		};
+		if (_obj animationPhase _anim < 0.5) then {
+			_obj setObjectTextureGlobal [_hSel,"#(argb,8,8,3)color(0,1,0,1.0,co)"];
+			[_obj,_anim,false,1] call A3PL_Lib_ToggleAnimation;
+		} else {
+			_obj setObjectTextureGlobal [_hSel,"#(argb,8,8,3)color(1,0,0,1.0,co)"];
+			[_obj,_anim,false,0] call A3PL_Lib_ToggleAnimation;
+		};
+	};
+}] call Server_Setup_Compile;

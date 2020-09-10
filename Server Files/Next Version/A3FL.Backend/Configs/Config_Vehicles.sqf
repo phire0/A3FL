@@ -15,7 +15,7 @@ Config_Vehicles_Admin = [
 	["A3PL_Pierce",["Ladder","Pumper","Heavy_Ladder","Rescue"]],
 	["A3PL_BMW",["X5","M3"]],
 	["A3PL",["Silverado_PD","Silverado","Silverado_PD_ST","Silverado_FD","Silverado_FD_Brush","911GT2","Charger15","Charger15_PD","Charger15_PD_ST","Charger15_FD","Charger69","VetteZR1","Mailtruck","Gallardo","Cessna172","Lowloader","Mustang","Mustang_PD","Mustang_PD_Slicktop","F150","F150_Marker","F150_Marker_PD","Ram","Wrangler","Charger","E350","Tahoe_FD","Tahoe_PD","Tahoe_PD_Slicktop","Tahoe","CVPI","CVPI_Taxi","CVPI_PD","CVPI_PD_Slicktop","Charger_PD","Charger_PD_Slicktop","P362","P362_TowTruck","P362_Garbage_Truck","Rover","Camaro","RBM","Motorboat","RHIB","Fuel_Van","MiniExcavator","CRX","Challenger_Hellcat","Car_Trailer","Yacht","Yacht_Pirate","Challenger_Hellcat","Gallardo","Suburban","CLS63","Fatboy","1100R","Knucklehead","Monster","Kx","Urus","Cessna172","Goose_Base","Goose_USCG","Jayhawk","Taurus","Taurus_PD","Taurus_PD_ST","Taurus_FD","Raptor","Raptor_PD","Raptor_PD_ST","GMCVandura"]],
-	["A3FL",["LCM"]],
+	["A3FL",["LCM","T370"]],
 	["Heli_Medium01",["H","Luxury_H","Medic_H","Military_H","Veteran_H","Coastguard_H","Sheriff_H"]],
 	["C",["Heli_Light_01_civil_F","Van_02_transport_F"]],
 	["K",["Scooter_DarkBlue"]]
@@ -125,8 +125,6 @@ Config_Vehicles_Capacity = [
 publicVariable "Config_Vehicles_Capacity";
 
 Config_Police_Vehs = [
-	"A3PL_Police_Mustang_SE",
-	"A3PL_Police_Mustang_Default",
 	"A3PL_Engine",
 	"A3PL_Ladder",
 	"Jonzie_Ambulance",
@@ -261,6 +259,8 @@ Config_Vehicles_MSRP = [
 	["A3PL_Pierce_Heavy_Ladder",15000],
 	["A3PL_Pierce_Pumper",15000],
 	["A3PL_Pierce_Rescue",15000],
+
+	["A3FL_T370",20000],
 
 	["A3PL_Box_Trailer",35000],
 

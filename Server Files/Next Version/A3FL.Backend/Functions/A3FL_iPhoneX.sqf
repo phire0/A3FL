@@ -932,7 +932,7 @@
 				_posTxt set [1, (((_posBG select 3) / 2) - ((_posTxt select 3) / 2))];
 			};
 			_tmp ctrlSetPosition _posGrp;
-			_tmp ctrlAddEventHandler ["MouseButtonDblClick",format ["['%1',player] remoteExec ['Server_iPhoneX_Notify911',2];", _fromNum]];
+			_tmp ctrlAddEventHandler ["MouseButtonDblClick",format ["if(!(call A3PL_Player_AntiSpam)) exitWith {};['%1',player] remoteExec ['Server_iPhoneX_Notify911',2];", _fromNum]];
 			_textCtrl ctrlSetPosition _posTxt;
 			_backgroundCtrl ctrlSetPosition _posBG;
 			_tmp ctrlCommit 0;

@@ -602,6 +602,21 @@ Config_IntersectArray =
 	["garageDoor1_button",localize"STR_INTSECT_STOREVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && {(player_objintersect isKindOf "House_f")}}], //Store Vehicle
 	["garageDoor2_button",localize"STR_INTSECT_STOREVEH",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{(!(player_objIntersect getVariable ["locked",false])) && {(player_objintersect isKindOf "House_f")}}], //Store Vehicle
 
+
+	["console_door1",format [localize"STR_INTSECT_OPENDOOR",1],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_door2",format [localize"STR_INTSECT_OPENDOOR",2],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_door3",format [localize"STR_INTSECT_OPENDOOR",3],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_door4",format [localize"STR_INTSECT_OPENDOOR",4],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_door5",format [localize"STR_INTSECT_OPENDOOR",5],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_door6",format [localize"STR_INTSECT_OPENDOOR",6],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_door7",format [localize"STR_INTSECT_OPENDOOR",7],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_door8",format [localize"STR_INTSECT_OPENDOOR",8],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_door9",format [localize"STR_INTSECT_OPENDOOR",9],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_door10",format [localize"STR_INTSECT_OPENDOOR",10],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+
+	["console_gate1","Open Front Gate",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+	["console_gate2","Open Back Gate",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}],
+
 	["console_cell1",format [localize"STR_INTSECT_OPENCELL",1],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}], //Open Cell %1
 	["console_cell2",format [localize"STR_INTSECT_OPENCELL",2],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}], //Open Cell %1
 	["console_cell3",format [localize"STR_INTSECT_OPENCELL",3],_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}], //Open Cell %1

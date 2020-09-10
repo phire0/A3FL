@@ -196,11 +196,11 @@
 
 	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","usms"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
 	if((currentWeapon player) isEqualTo "") exitwith {["You do not brandish any weapon","red"] call A3PL_Player_Notification;};
-	if((currentWeapon player) IN ["A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
+	if((currentWeapon player) IN ["Rangefinder","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
 	if(_obj getVariable ["CaptureInProgress",false]) then {["Someone is already capturing this gang hideout!","red"] call A3PL_Player_Notification;};
 
-	_capturedTime = _obj getVariable["CapturedTime",serverTime-1800];
-	if(_capturedTime > (serverTime-1800)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
+	_capturedTime = _obj getVariable["CapturedTime",serverTime-600];
+	if(_capturedTime > (serverTime-600)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
 
 	_gang = _group getVariable["gang_data",nil];
 	_gangName = _gang select 2;
@@ -309,8 +309,8 @@
 	if((_obj IN [hideout_obj_1,hideout_obj_2,hideout_obj_3,hideout_obj_5]) && (_faction != "fisd")) exitWith {["This gang hideout has to be secured by the FISD","red"] call A3PL_Player_Notification;};
 	if((_obj IN [hideout_obj_4,hideout_obj_6]) && (_faction != "uscg")) exitWith {["This gang hideout has to be secured by the USCG","red"] call A3PL_Player_Notification;};
 
-	_capturedTime = _obj getVariable["CapturedTime",serverTime-1800];
-	if(_capturedTime > (serverTime-1800)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
+	_capturedTime = _obj getVariable["CapturedTime",serverTime-600];
+	if(_capturedTime > (serverTime-600)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
 
 	private _gangName = _obj getVariable["capturedName",""];
 	_marker = [_obj,"Crime"] call A3PL_Lib_NearestMarker;

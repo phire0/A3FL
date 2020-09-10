@@ -141,6 +141,10 @@
 	private _name = param [1,player_nameIntersect];
 	private _time = 10;
 	private _items = [];
+
+	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
+	if (_object getVariable[_name,false]) exitWith {["Someone is already collecting this","red"] call A3PL_Player_Notification;};
+	_object setVariable[_name,true,true];
 	switch(_name) do {
 		case("jewlery_case_1"): {
 			_time = 30;
@@ -210,8 +214,6 @@
 		};
 	};
 
-	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
-
 	if (currentWeapon player != "") then {
 		A3PL_Holster = currentWeapon player;
 		player action ["SwitchWeapon", player, player, 100];
@@ -228,7 +230,7 @@
 		if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
 	};
 	player playMoveNow "";
-	if(Player_ActionInterrupted || !_success) exitWith {["Action cancelled","red"] call A3PL_Player_Notification;};
+	if(Player_ActionInterrupted || !_success) exitWith {["Action cancelled","red"] call A3PL_Player_Notification;_object setVariable[_name,nil,true];};
 
 	{
 		private _class = _x select 0;
@@ -236,5 +238,6 @@
 		[_class,_amount] call A3PL_Inventory_Add;
 	} foreach _items;
 	_object animate [_name,1];
+	_object setVariable[_name,nil,true];
 	["You stole the jewelry!","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

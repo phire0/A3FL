@@ -456,6 +456,71 @@
 	{[player_objintersect,player_nameIntersect] call A3PL_Prison_HandleDoor;}
 ],
 [
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",1],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",2],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",3],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",4],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",5],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",6],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",7],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",8],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",9],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",9],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	format [localize"STR_INTSECT_OPENDOOR",9],
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	"Open Front Gate",
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
+	"Open Back Gate",
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
 	"Land_A3PL_CH",
 	localize"STR_INTSECT_OPCLDEFROOM",
 	{call A3PL_Intersect_HandleDoors;}
