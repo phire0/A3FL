@@ -95,8 +95,9 @@
 	_cellDoor = param [0,objNull];
 	_prison = param [1, objNull];
 
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
-		["There needs to be 3 FIMS on-duty to lock pick cell doors!","red"] call A3PL_Player_Notification;
+	private _factionReq = !(((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
+	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq) exitwith {
+		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to lockpick your cell!","red"] call A3PL_Player_Notification;
 	};
 
 	player playmove "Acts_carFixingWheel";
@@ -207,7 +208,7 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
-		["There needs to be 3 FIMS on-duty to lock pick cell doors!","red"] call A3PL_Player_Notification;
+		["There needs to be 3 FIMS on-duty to dig out of jail!","red"] call A3PL_Player_Notification;
 	};
 
 	if(player getVariable "Digging") exitWith{[localize"STR_NewRessources_Action","red"] call A3PL_Player_Notification;};
