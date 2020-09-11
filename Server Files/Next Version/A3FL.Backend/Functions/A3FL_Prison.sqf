@@ -104,7 +104,7 @@
 	["You are attempting to lockpick this cell door", "yellow"] call A3PL_Player_Notification;
 
 	_notifyChance = random 100;
-	if(_notifyChance > 90) then {
+	if(_notifyChance > 70) then {
 		playSound3D ["A3PL_Common\effects\lockdown.ogg", objNull, false, getPosASL _prison, 3, 1, 1800];
 	};
 
