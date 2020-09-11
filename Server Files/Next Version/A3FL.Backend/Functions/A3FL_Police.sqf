@@ -1633,15 +1633,28 @@
 {
 	player setVariable ["jailed",false,true];
 	player setVariable ["jail_mark",false,true];
+	private _atSD = nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 50];
+	private _atDOC = count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0;
+	private _FIMS = ["usms"] call A3PL_Lib_FactionPlayers;
 
-	private _pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 50];
-	if((count _pd) > 0) then {
-		player setPosATL [4743.79,6101.99,0.00143909];
-		player setDir 7;
-		removeUniform player;
+	if(_atDOC) then {
+		if(count(_FIMS) > 0) then {
+			["You have served your jail sentence, the Marshal Services will escort you out of jail soon.","green"] call A3PL_Player_Notification;
+			[format["DOC: %1 has served his time and needs to be released.",player getVariable["name","unknown"]],"blue","usms",3] call A3PL_Lib_JobMessage;
+		} else {
+			player setPosATL [4743.79,6101.99,0.00143909];
+			player setDir 7;
+			removeUniform player;
+			[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
+		};
 	};
-
-	[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
+	if(count(_atPD) > 0) then {
+		private _PD = _atPD select 0;
+		player setPosATL (_PD modelToWorld [-4.5,8,0]);
+		player setDir (getDir _PD);
+		removeUniform player;
+		[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_RadarLoop",

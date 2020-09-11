@@ -795,7 +795,6 @@ Config_IntersectArray =
 	["Door_24",localize"STR_INTSECT_KNOCKONDOOR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Knock On Door
 	["Door_25",localize"STR_INTSECT_KNOCKONDOOR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Knock On Door
 	["Door_26",localize"STR_INTSECT_KNOCKONDOOR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Knock On Door
-	["Door_26",localize"STR_INTSECT_KNOCKONDOOR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Knock On Door
 	["Door_27",localize"STR_INTSECT_KNOCKONDOOR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Knock On Door
 	["Door_28",localize"STR_INTSECT_KNOCKONDOOR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Knock On Door
 	["Door_29",localize"STR_INTSECT_KNOCKONDOOR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Knock On Door

@@ -18,13 +18,12 @@
 	_mapType = param [0,""];
 	_markers = [];
 
-	//timer
 	_timeLeft = missionNameSpace getVariable ["A3PL_JobWildcat_MapTimer",(diag_ticktime-2)];
 	if (_timeLeft > diag_ticktime) exitwith {[format [localize"STR_A3PL_JobWildcat_MapCooldown",round(_timeLeft-diag_ticktime)],"red"] call A3PL_Player_Notification;};
 
-	switch (true) do
+	switch (_mapType) do
 	{
-		case (_mapType == (localize"STR_Config_Resources_Oil")):
+		case (localize"STR_Config_Resources_Oil"):
 		{
 			if ((player getVariable ["Player_cash",0]) < 1000) exitwith {[localize"STR_A3PL_JobWildcat_NotEnoughMoney","red"] call A3PL_Player_Notification;};
 			player setVariable ["Player_cash",(player getVariable ["Player_Cash",0]) - 1000,true];
@@ -48,99 +47,7 @@
 			_marker setMarkerTextLocal format [localize"STR_A3PL_JobWildcat_OilArea"];
 			_markers pushback _marker;
 		};
-
-		case (_mapType == (localize"STR_Config_Resources_Iron")):
-		{
-			if ((player getVariable ["player_cash",0]) < 500) exitwith {[localize"STR_A3PL_JobWildcat_NotEnoughMoney","red"] call A3PL_Player_Notification;};
-			player setVariable ["player_cash",(player getVariable ["player_cash",0]) - 500,true];
-
-			_resArray = missionNameSpace getVariable ["Server_JobWildCat_Res",[]];
-			_newResArray = [];
-			{
-				if ((_x select 0) == _mapType) then {_newResArray pushback _x};
-			} foreach _resArray;
-
-			_exactLocation = (_newResArray select (round (random ((count _newResArray) - 1)))) select 1;
-			_pos = [((_exactLocation select 0) + (-50 + random 100)),((_exactLocation select 1) + (-50 + random 100))];
-
-			_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
-			_marker setMarkerShapeLocal "ELLIPSE";
-			_marker setMarkerSizeLocal [120,120];
-			_marker setMarkerColorLocal "ColorGreen";
-			_marker setMarkerTypeLocal "Mil_dot";
-			_marker setMarkerAlphaLocal 0.5;
-			_markers pushback _marker;
-
-			_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
-			_marker setMarkerShapeLocal "ICON";
-			_marker setMarkerColorLocal "ColorRed";
-			_marker setMarkerTypeLocal "A3PL_Markers_Pickaxe";
-			_marker setMarkerTextLocal format [localize"STR_A3PL_JobWildcat_InThisArea",toUpper _mapType];
-			_markers pushback _marker;
-		};
-
-		case (_mapType == (localize"STR_Config_Resources_Coal")):
-		{
-			if ((player getVariable ["player_cash",0]) < 500) exitwith {[localize"STR_A3PL_JobWildcat_NotEnoughMoney","red"] call A3PL_Player_Notification;};
-			player setVariable ["player_cash",(player getVariable ["player_cash",0]) - 500,true];
-
-			_resArray = missionNameSpace getVariable ["Server_JobWildCat_Res",[]];
-			_newResArray = [];
-			{
-				if ((_x select 0) == _mapType) then {_newResArray pushback _x};
-			} foreach _resArray;
-
-			_exactLocation = (_newResArray select (round (random ((count _newResArray) - 1)))) select 1;
-			_pos = [((_exactLocation select 0) + (-50 + random 100)),((_exactLocation select 1) + (-50 + random 100))];
-
-			_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
-			_marker setMarkerShapeLocal "ELLIPSE";
-			_marker setMarkerSizeLocal [120,120];
-			_marker setMarkerColorLocal "ColorGreen";
-			_marker setMarkerTypeLocal "Mil_dot";
-			_marker setMarkerAlphaLocal 0.5;
-			_markers pushback _marker;
-
-			_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
-			_marker setMarkerShapeLocal "ICON";
-			_marker setMarkerColorLocal "ColorRed";
-			_marker setMarkerTypeLocal "A3PL_Markers_Pickaxe";
-			_marker setMarkerTextLocal format [localize"STR_A3PL_JobWildcat_InThisArea",toUpper _mapType];
-			_markers pushback _marker;
-		};
-
-		case (_mapType == (localize"STR_Config_Resources_Aluminium")):
-		{
-			if ((player getVariable ["player_cash",0]) < 500) exitwith {[localize"STR_A3PL_JobWildcat_NotEnoughMoney","red"] call A3PL_Player_Notification;};
-			player setVariable ["player_cash",(player getVariable ["player_cash",0]) - 500,true];
-
-			_resArray = missionNameSpace getVariable ["Server_JobWildCat_Res",[]];
-			_newResArray = [];
-			{
-				if ((_x select 0) == _mapType) then {_newResArray pushback _x};
-			} foreach _resArray;
-
-			_exactLocation = (_newResArray select (round (random ((count _newResArray) - 1)))) select 1;
-			_pos = [((_exactLocation select 0) + (-50 + random 100)),((_exactLocation select 1) + (-50 + random 100))];
-
-			_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
-			_marker setMarkerShapeLocal "ELLIPSE";
-			_marker setMarkerSizeLocal [120,120];
-			_marker setMarkerColorLocal "ColorGreen";
-			_marker setMarkerTypeLocal "Mil_dot";
-			_marker setMarkerAlphaLocal 0.5;
-			_markers pushback _marker;
-
-			_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
-			_marker setMarkerShapeLocal "ICON";
-			_marker setMarkerColorLocal "ColorRed";
-			_marker setMarkerTypeLocal "A3PL_Markers_Pickaxe";
-			_marker setMarkerTextLocal format [localize"STR_A3PL_JobWildcat_InThisArea",toUpper _mapType];
-			_markers pushback _marker;
-		};
-
-		case (_mapType == (localize"STR_Config_Resources_Sulphur")):
-		{
+		default {
 			if ((player getVariable ["player_cash",0]) < 500) exitwith {[localize"STR_A3PL_JobWildcat_NotEnoughMoney","red"] call A3PL_Player_Notification;};
 			player setVariable ["player_cash",(player getVariable ["player_cash",0]) - 500,true];
 
@@ -170,15 +77,13 @@
 		};
 	};
 
-	if (count _markers == 0) exitwith {};
+	if ((count _markers) isEqualTo 0) exitwith {};
 	missionNameSpace setVariable ["A3PL_JobWildcat_MapTimer",(diag_ticktime + 300)];
-	[_markers] spawn
-	{
-		_markers = param [0,[]];
-		uiSleep 900;
+	[_markers] spawn {
+		private _markers = param [0,[]];
+		sleep 900;
 		{deleteMarkerLocal _x;} foreach _markers
 	};
-
 	[format [localize"STR_A3PL_JobWildcat_MapPurchasedInfo",_maptype],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 

@@ -163,36 +163,23 @@
 
 ["A3PL_Storage_CarStoreButton",
 {
-	private ["_intersect","_near","_type","_types"];
-	_intersect = player_objIntersect;
-	_type = param [0,"car"];
+	private _intersect = player_objIntersect;
+	private _type = param [0,"car"];
 	if (isNull _intersect) exitwith {};
+	private _types = ["Car","Ship","Tank","Truck","Plane","Helicopter","Air"];
+	private _near = nearestObjects [_intersect,_types,15];
 
-	_types = ["Car","Ship","Tank","Truck","Plane","Helicopter","Air"];
-
-	_near = nearestObjects [_intersect,_types,15];
-	if (count _near == 0) exitwith
-	{
-		[7] call A3PL_Storage_CarStoreResponse;
-	};
-
+	if ((count _near) isEqualTo 0) exitwith {[7] call A3PL_Storage_CarStoreResponse;};
 	[8] call A3PL_Storage_CarStoreResponse;
 
-	if (typeOf _intersect IN ["Land_A3PL_storage"]) then
-	{
+	if (typeOf _intersect IN ["Land_A3PL_storage"]) then {
 		[player,_intersect] remoteExec ["Server_Storage_StoreVehicle",2];
-	} else
-	{
-		_cars = nearestObjects [player, ["Car","Ship","Air","Tank","Truck"], 15];
-		_car = _cars select 0;
-
-		if(count _cars < 1) exitWith {
-			[localize"STR_NewStorage_9", "red"] call A3PL_Player_Notification;
-		};
-		if (((_car getVariable "owner") select 0) != (getPlayerUID player)) exitWith
-		{
-			[localize"STR_NewStorage_10", "red"] call A3PL_Player_Notification;
-		};
+	} else {
+		private _cars = nearestObjects [player, ["Car","Ship","Air","Tank","Truck"], 15];
+		if((count _cars) isEqualTo 0) exitWith {[localize"STR_NewStorage_9", "red"] call A3PL_Player_Notification;};
+		private _car = _cars select 0;
+		if (((_car getVariable "owner") select 0) != (getPlayerUID player)) exitWith {[localize"STR_NewStorage_10", "red"] call A3PL_Player_Notification;};
+		if (count (attachedObjects _car) > 0) exitWith {["There is objects attached to this vehicle, please unload everything before storing your vehicle.", "red"] call A3PL_Player_Notification;};
 		[_car,player] remoteExec ["Server_Storage_SaveLargeVehicles",2];
 	};
 }] call Server_Setup_Compile;

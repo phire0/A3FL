@@ -904,7 +904,7 @@ A3PL_Interaction_Options =
 	[
 		localize"STR_INTER_DEPLOYGASHOSE",
 		{[50] call A3PL_FD_GasDeployHose;},
-		{(player_ItemClass isEqualTo "FD_Hose") && (player getVariable ["job","unemployed"] isEqualTo "oil")}
+		{(player_ItemClass == "FD_Hose") && (player getVariable ["job","unemployed"] isEqualTo "oil")}
 	],
 	[
 		localize "STR_INTER_DIGGROUND",

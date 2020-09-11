@@ -117,7 +117,7 @@
 	private _planter = param [0,objNull];
 	if (isNull _planter) exitwith {["Couldn't determine planter","red"] call A3PL_Player_Notification;};
 	private _class = player_itemClass;
-	private _nearByPlants = nearestObjects [player, ["A3PL_Wheat", "A3PL_Corn","A3PL_Cannabis", "A3PL_Lettuce","A3PL_Coco_Plant", "A3PL_Sugarcane_Plant"], 2];
+	private _nearByPlants = nearestObjects [_planter, ["A3PL_Wheat", "A3PL_Corn","A3PL_Cannabis", "A3PL_Lettuce","A3PL_Coco_Plant", "A3PL_Sugarcane_Plant"], 4];
 	if(count(_nearByPlants) > 2) exitWith {["There is too many plants in this planter, please harvest some before planting more!", "red"] call a3pl_player_notification;};
 	private _interDist = [_planter, "FIRE"] intersect [positionCameraToWorld [0,0,0],positionCameraToWorld [0,0,1000]];
 	if (count _interDist < 1) exitwith {["Unable to determine where to place the seed", "red"] call a3pl_player_notification;};

@@ -1298,8 +1298,17 @@
 	private _display = findDisplay 99300;
 	private _control = _display displayCtrl 2100;
 	private _uid = (_control lbData (lbCurSel _control));
+	private _cooldown = player getVariable["inviteCooldown",false];
+	if(_cooldown) exitWith {["You can only transfer money every 5 minutes!", "red"] call A3PL_Player_Notification;};
 	if(_uid isEqualTo "") exitWith {["Please select a target.","red"] call A3PL_Player_Notification;};
+	
 	[_uid] call A3PL_Gang_Invite;
+
+	player setVariable["inviteCooldown",true];
+	[] spawn {
+		sleep 300;
+		player setVariable["inviteCooldown",nil];
+	};	
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_GangKick",
