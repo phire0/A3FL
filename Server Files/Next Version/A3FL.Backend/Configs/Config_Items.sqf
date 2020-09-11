@@ -301,11 +301,11 @@ Config_Items =
 	["Steel_Pellet",localize"STR_ConfigItems_Steel_Pellet",6,"A3PL_Pallet_Steel",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["Aluminium_Pellet",localize"STR_ConfigItems_AluminumPallet",6,"A3PL_Pallet_Aluminium",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["Titanium_Pellet",localize"STR_ConfigItems_TitaniumPallet",6,"A3PL_Pallet_Titanium",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Sapphire_Ingot_Pallet","Sapphire Ingot Pallet",6,"A3PL_Sapphire_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Vivianite_Ingot_Pallet","Vivianite Ingot Pallet",6,"A3PL_Vivianite_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Emerald_Ingot_Pallet","Emerald Ingot Pallet",6,"A3PL_Emerald_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Gold_Ingot_Pallet","Gold Ingot Pallet",6,"A3PL_Gold_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["Amethyst_Ingot_Pallet","Amethyst Ingot Pallet",6,"A3PL_Amethyst_Ingot_Pallet",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Sapphire_Ingot_Pallet","Sapphire Ingot Pallet",6,"A3PL_Ingot_Pallet_Sapphire",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Vivianite_Ingot_Pallet","Vivianite Ingot Pallet",6,"A3PL_Ingot_Pallet_Vivianite",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Emerald_Ingot_Pallet","Emerald Ingot Pallet",6,"A3PL_Ingot_Pallet_Emerald",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Gold_Ingot_Pallet","Gold Ingot Pallet",6,"A3PL_Ingot_Pallet_Gold",0,true,true,true,false,false,"",[0,0,0],"",1],
+	["Amethyst_Ingot_Pallet","Amethyst Ingot Pallet",6,"A3PL_Ingot_Pallet_Amethyst",0,true,true,true,false,false,"",[0,0,0],"",1],
 
 	//Sheets
 	["Aluminium",localize"STR_ConfigItems_Aluminium",1,"A3PL_Aluminium",0,true,true,true,true,true,"",[0,0,0],"",1],
