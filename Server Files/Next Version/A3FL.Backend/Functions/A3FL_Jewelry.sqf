@@ -110,7 +110,7 @@
 	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];
 	private _nameIntersect = missionNameSpace getVariable ["player_nameintersect",""];
 	private _cops = ["fisd"] call A3PL_Lib_FactionPlayers;
-	if(count(_cops) < 4) exitWith {["There is not enough Sheriffs on duty at this time to break the glass","red"] call A3PL_Player_Notification;};
+	if(count(_cops) < 3) exitWith {["There is not enough Sheriffs on duty at this time to break the glass","red"] call A3PL_Player_Notification;};
 	if (player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 2) then
 	{
 		private _var = format ["damage_%1",_nameintersect];
