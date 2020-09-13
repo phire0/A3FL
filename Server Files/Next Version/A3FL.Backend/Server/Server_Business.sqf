@@ -56,7 +56,7 @@
 		if ((isNull _player) OR (diag_tickTime > _rentTime)) then {
 			private _marker = _x select 3;
 			deleteMarker _marker;
-			_player setVariable ["job","unemployed",true];
+			if((_player getVariable["job","unemployed"]) isEqualTo "business") then {_player setVariable ["job","unemployed",true];};
 			_business setVariable ["bOwner",nil,true];
 			_business setVariable ["bName",nil,true];
 			A3PL_Business_List deleteAt _forEachIndex;
