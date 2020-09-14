@@ -1911,6 +1911,9 @@
    <Key ID="STR_ConfigItems_popcornbucket">
       <Original>Bucket of Popcorn</Original>
    </Key>
+   <Key ID="STR_ConfigItems_scene_light">
+      <Original>Scene Light</Original>
+   </Key>
    <Key ID="STR_ConfigItems_Camper_Light">
       <Original>Camper Light</Original>
    </Key>

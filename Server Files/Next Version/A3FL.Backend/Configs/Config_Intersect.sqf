@@ -25,7 +25,17 @@ Config_Intersect_NoName =
 publicVariable "Config_Intersect_NoName";
 
 Config_IntersectArray =
-[
+[	
+	["top_ladder_action","Rotate Truck Ladder",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["top_ladder_action","Climb Truck Ladder",_dir+ "IGUI\Cfg\Actions\Obsolete\ui_action_ladderonup_ca.paa",{player_objintersect animationSourcePhase "Ladder_Rotate" isEqualTo 2}],
+	["top_spot_switch","Extend/Retract Spotlight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["top_light_switch","Spotlight On/off",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player) animationSourcePhase "Top_Spot_Rotate" isEqualTo 3}],
+
+	["scene_light_1_action","Grab Scene Light #1",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect animationPhase "scene_light_1" isEqualTo 0}],
+	["scene_light_1_action","Return Scene Light #1",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect animationPhase "scene_light_1" isEqualTo 1}],
+	["scene_light_2_action","Grab Scene Light #2",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect animationPhase "scene_light_2" isEqualTo 0}],
+	["scene_light_2_action","Return Scene Light #2",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect animationPhase "scene_light_2" isEqualTo 1}],
+
 	["item_pickup","Add Item","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) isEqualTo "A3FL_PlasticBarrel") && {(Player_ItemClass IN ["kerosene_jerrycan","sulphuric_acid","calcium_carbonate","coca_paste","potassium_permangate","cocaine_base","ammonium_hydroxide","acetone","hydrocloric_acid","coca"])}}],
 	["item_pickup","Collect Product","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) isEqualTo "A3FL_PlasticBarrel") && {((["coca_paste"] call A3PL_Cocaine_InBarrel) or (["cocaine_base"] call A3PL_Cocaine_InBarrel) or (["cocaine_hydrochloride"] call A3PL_Cocaine_InBarrel))}}],
 	["item_pickup","Check Barrel Contents","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) isEqualTo "A3FL_PlasticBarrel")}],

@@ -52,14 +52,11 @@
 	private _veh = _this select 0;
 	private _type_1 = _this select 1;
 	private _TruckNumber = {(typeOf _x == _type_1)} count vehicles;
-	private _Number1 = 0;
 	private _Number2 = 0;
 	private _Number3 = _TruckNumber;
-	while {_Number3 > 9} do {_Number3 = _Number3 - 10; _Number2 = _Number2 + 1; if (_Number2 > 9) then { _Number1 = _Number1 + 1; _Number2 = 0};};
-	if (_Number1 < 1) then {_Number1 = 0;};
+	while {_Number3 > 9} do {_Number3 = _Number3 - 10; _Number2 = _Number2 + 1;};
 	if (_Number2 < 1) then {_Number2 = 0;};
 	if (_Number3 < 1) then {_Number3 = 0;};
-	private _TruckNumber1 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number1];
 	private _TruckNumber2 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number2];
 	private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number3];
 	_veh setObjectTextureGlobal [8, _TruckNumber2];

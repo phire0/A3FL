@@ -6,6 +6,112 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
+/*
+	FIFR Rescue Truck Interactions
+*/
+[
+	"A3PL_Pierce_Rescue",
+	"Rotate Truck Ladder",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationSourcePhase "Ladder_Rotate" isEqualTo 0) then {
+			_veh animateSource["Ladder_Rotate",2];
+		} else {
+			_veh animateSource["Ladder_Rotate",0];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Climb Truck Ladder",
+	{
+		private _veh = player_objintersect;
+		player setPos (_veh modelToWorld [0,-5,1]);
+		player setDir (getDir _veh);
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Extend/Retract Spotlight",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationSourcePhase "Top_Spot_Rotate" isEqualTo 0) then {
+			_veh animateSource["Top_Spot_Rotate",3];
+		} else {
+			_veh animateSource["Top_Spot_Rotate",0];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Spotlight On/off",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationSourcePhase "Top_Lights" isEqualTo 0) then {
+			_veh animateSource["Top_Lights",1];
+		} else {
+			_veh animateSource["Top_Lights",0];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Grab Scene Light #1",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationPhase "scene_light_1" isEqualTo 0) then {
+			_veh animate["scene_light_1",1];
+			private _light = "A3PL_SceneLight" createVehicle position player;
+			_light setVariable["owner",getPlayerUID player,true];
+			_light setVariable["class","scene_light",true];
+			player action ["lightOn",_light];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Grab Scene Light #2",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationPhase "scene_light_2" isEqualTo 0) then {
+			_veh animate["scene_light_2",1];
+			private _light = "A3PL_SceneLight" createVehicle position player;
+			_light setVariable["owner",getPlayerUID player,true];
+			_light setVariable["class","scene_light",true];
+			player action ["lightOn",_light];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Return Scene Light #1",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationPhase "scene_light_1" isEqualTo 1) then {
+			private _nearLights = nearestObjects [player, ["A3PL_SceneLight"], 10];
+			if(count(_nearLights) isEqualTo 0) exitWith {["No scene light nearby.","red"] call A3PL_Player_Notification;};
+			deleteVehicle (_nearLights select 0);
+			_veh animate["scene_light_1",0];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Return Scene Light #2",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationPhase "scene_light_2" isEqualTo 1) then {
+			private _nearLights = nearestObjects [player, ["A3PL_SceneLight"], 10];
+			if(count(_nearLights) isEqualTo 0) exitWith {["No scene light nearby.","red"] call A3PL_Player_Notification;};
+			deleteVehicle (_nearLights select 0);
+			_veh animate["scene_light_2",0];
+		};
+	}
+],
+
+/*
+	Patrol Boat Interactions
+*/
 [
 	"A3PL_Patrol",
 	localize"STR_INTSECT_UNLOCKPATROL",

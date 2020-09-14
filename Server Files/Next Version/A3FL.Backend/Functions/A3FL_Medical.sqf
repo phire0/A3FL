@@ -1184,7 +1184,7 @@
 		[_position, "Life Alert","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cg];
 	} else {
 		_fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
-		["Life Alert Emergency: Someone is requesting immediate assistance!","blue","uscg",3] call A3PL_Lib_JobMessage;
+		["Life Alert Emergency: Someone is requesting immediate assistance!","blue","fifr",3] call A3PL_Lib_JobMessage;
 		[_position, "Life Alert","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_fifr];
 	};
 }] call Server_Setup_Compile;

@@ -347,6 +347,23 @@
 					};
 				};
 
+				case ((typeOf _obj) isEqualTo "Land_A3FL_Anton_Modern_Bungalow"):
+				{
+					if (_name IN ["door_1","door_2","door_2",,"door_4"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
 				case ((typeOf _obj) isEqualTo "Land_Mansion01"):
 				{
 					if (_name IN ["door_8","door_1"]) then
