@@ -30,7 +30,6 @@ Config_IntersectArray =
 	["top_ladder_action","Climb Truck Ladder",_dir+ "IGUI\Cfg\Actions\Obsolete\ui_action_ladderonup_ca.paa",{player_objintersect animationSourcePhase "Ladder_Rotate" isEqualTo 2}],
 	["top_spot_switch","Extend/Retract Spotlight",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 	["top_light_switch","Spotlight On/off",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{(vehicle player) animationSourcePhase "Top_Spot_Rotate" isEqualTo 3}],
-
 	["scene_light_1_action","Grab Scene Light #1",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect animationPhase "scene_light_1" isEqualTo 0}],
 	["scene_light_1_action","Return Scene Light #1",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect animationPhase "scene_light_1" isEqualTo 1}],
 	["scene_light_2_action","Grab Scene Light #2",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect animationPhase "scene_light_2" isEqualTo 0}],
