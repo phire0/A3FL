@@ -225,6 +225,7 @@
 		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
 		if ((player distance _obj) > 30) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((currentWeapon player) isEqualTo "") exitWith {_success = false;};
 	};
 	Player_ActionDoing = false;
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification; _obj setVariable ["CaptureInProgress",false,true];};

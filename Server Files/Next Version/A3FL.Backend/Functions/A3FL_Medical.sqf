@@ -548,8 +548,10 @@
 	player setVariable ["tf_voiceVolume", 0, true];
 	player setVariable ["Zipped",false,true];
 	player setVariable ["Cuffed",false,true];
-
 	Player_Drugs = [0,0,0];
+
+	if(["life_alert"] call A3PL_Inventory_Has) then {call A3PL_Medical_LifeAlert;};
+
 	_exit = false;
 	while {!(player getVariable ["A3PL_Medical_Alive",true])} do
 	{
@@ -1169,5 +1171,20 @@
 		};
 		player playMoveNow "";
 		_target setVariable["reviving",false,true];
+	};
+}] call Server_Setup_Compile;
+
+["A3PL_Medical_LifeAlert",
+{
+	private _position = getPos player;
+	private _overWater = !(_position isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
+	if(_overWater) then {
+		_cg = ["uscg"] call A3PL_Lib_FactionPlayers;
+		["Life Alert Emergency: Someone is requesting immediate assistance!","blue","uscg",3] call A3PL_Lib_JobMessage;
+		[_position, "Life Alert","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cg];
+	} else {
+		_fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
+		["Life Alert Emergency: Someone is requesting immediate assistance!","blue","uscg",3] call A3PL_Lib_JobMessage;
+		[_position, "Life Alert","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_fifr];
 	};
 }] call Server_Setup_Compile;

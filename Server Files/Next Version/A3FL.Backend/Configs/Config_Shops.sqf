@@ -21,6 +21,7 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Clinic",[
+			["item","life_alert",15000,5000,0],
 			["item","med_bandage",10,-1,0],
 			["item","med_icepack",20,-1,0],
 			["item","med_splint",30,-1,0],

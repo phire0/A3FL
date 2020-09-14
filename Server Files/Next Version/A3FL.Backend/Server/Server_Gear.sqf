@@ -56,8 +56,8 @@
 	_unit setVariable ["gender",_sex,true];
 	_unit setVariable ["job","unemployed",true];
 	_unit setVariable ["faction","citizen",true];
-	_unit setVariable ["Player_Cash",200,true];
-	_unit setVariable ["Player_Bank",500,true];
+	_unit setVariable ["Player_Cash",500,true];
+	_unit setVariable ["Player_Bank",800,true];
 	_unit setVariable ["Player_Level",0,true];
 	_unit setVariable ["Player_XP",0,true];
 	_unit setVariable ["Player_Inventory",[],true];
@@ -68,6 +68,7 @@
 	[_unit,"repairwrench",3] call Server_Inventory_Add;
 	[_unit,"med_bandage",3] call Server_Inventory_Add;
 	[_unit,"med_icepack",2] call Server_Inventory_Add;
+	[_unit,"jerrycan",2] call Server_Inventory_Add;
 
 	[_unit,_uid,false] call Server_Gear_Save;
 	_query = format ["UPDATE players SET name='%1',pasportdate=NOW(), gender='%3', dob='%4' WHERE uid ='%2'", _name,_uid,_sex,_dob];

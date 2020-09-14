@@ -50,6 +50,7 @@
 		if ((player distance2D _store) > 10) exitWith {["You went away from the shop, the robbery failed!", "red"] call A3PL_Player_Notification; _success = false;};
 		if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((currentWeapon player) isEqualTo "") exitWith {_success = false;};
 		_timeElapsed = _timeElapsed + 0.5;
 		if (_timeElapsed isEqualTo 28) then {playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _store, false, getPosASL _store, 1, 1, 200];};
 	};

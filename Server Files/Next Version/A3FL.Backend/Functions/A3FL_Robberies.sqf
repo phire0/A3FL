@@ -31,6 +31,7 @@
 		if ((player distance2D _port) > 5) exitWith {["You went away from the captain, the robbery failed!", "red"] call A3PL_Player_Notification; _success = false;};
 		if (!(vehicle player == player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((currentWeapon player) isEqualTo "") exitWith {_success = false;};
 	};
 	if(!_success) exitWith {};
 

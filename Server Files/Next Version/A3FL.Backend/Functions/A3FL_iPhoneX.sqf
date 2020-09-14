@@ -1144,7 +1144,7 @@
 	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[_pBank, 1, 0, true] call CBA_fnc_formatNumber];
 	private _control = _display displayCtrl 99402;
 	{
-		_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
+		_index = _control lbAdd format["%1", _x getVariable ["db_id","unknown"]];
 		_control lbSetData [_index, str _x];
 	} forEach (playableUnits - [player]);
 }] call Server_Setup_Compile;

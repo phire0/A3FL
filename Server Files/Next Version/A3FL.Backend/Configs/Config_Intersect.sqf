@@ -422,6 +422,9 @@ Config_IntersectArray =
 	["dogcage",localize"STR_INTSECT_OPK9MEN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player getVariable ["job","unemployed"] IN ["uscg","fisd","usms"]}],
 
 	//mcfishers
+	["mcfishergrill",localize"STR_INTSECT_PLACEBURGER","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Burger
+	["mcFishersGrill1",localize"STR_INTSECT_PLACEBURGER","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Burger
+	["mcFishersGrill2",localize"STR_INTSECT_PLACEBURGER","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Burger
 	["mcfishergrill",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]})}], //Pickup Item
 	["mcfishergrill",localize"STR_INTSECT_CHECKITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Check Item
 	["mcfishergrill",localize"STR_INTSECT_BUYITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objintersect getVariable ["bitem",nil]})}], //Buy Item
@@ -429,9 +432,7 @@ Config_IntersectArray =
 	["mcfishertable",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
 	["mcFishersTable1",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
 	["mcFishersTable2",localize"STR_INTSECT_PLACEITEM","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Item
-	["mcfishergrill",localize"STR_INTSECT_PLACEBURGER","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Burger
-	["mcFishersGrill1",localize"STR_INTSECT_PLACEBURGER","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Burger
-	["mcFishersGrill2",localize"STR_INTSECT_PLACEBURGER","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Burger
+	
 
 	//fisherman
 	["net",localize"STR_INTSECT_BUSENET",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!((player_objintersect getVariable ["stock",-1]) == -1)}], //Buy/Sell Net

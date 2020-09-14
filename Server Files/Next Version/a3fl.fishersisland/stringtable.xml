@@ -2163,6 +2163,9 @@
    <Key ID="STR_ConfigItems_Steel_Pellet">
       <Original>Steel Pallet</Original>
    </Key>
+   <Key ID="STR_ConfigItems_life_alert">
+      <Original>Life Alert Bracelet</Original>
+   </Key>
    <Key ID="STR_ConfigItems_med_cast">
       <Original>Cast</Original>
    </Key>
