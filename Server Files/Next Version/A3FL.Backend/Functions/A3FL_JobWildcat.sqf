@@ -91,21 +91,18 @@
 ["A3PL_JobWildCat_ProspectOpen",
 {
 	disableSerialization;
-	private ["_display","_control"];
 	createDialog "Dialog_Prospect";
-	_display = findDisplay 131;
-	_control = _display displayCtrl 2100;
+	private _display = findDisplay 131;
+	private _control = _display displayCtrl 2100;
 
-	//fill combo
 	{
 		_control lbAdd (_x select 0);
 	} foreach Config_Resources_Ores;
 	_control lbAdd localize"STR_Config_Resources_Oil";
 
-	_prospectSave = profileNamespace getVariable ["A3PL_Mining_Prospect",0];
+	private _prospectSave = profileNamespace getVariable ["A3PL_Mining_Prospect",0];
 	_control lbSetCurSel _prospectSave;
 
-	//set buttonaction
 	_control = _display displayCtrl 1601;
 	_control buttonSetAction
 	"

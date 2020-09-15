@@ -285,12 +285,12 @@
 ['Server_Vehicle_Init_A3PL_Pierce_Rescue',
 {
 	_this call Server_Vehicle_Siren_Init;
-	private _light_1 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_2 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_3 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_4 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_5 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_6 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
+	private _light_1 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_2 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_3 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_4 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_5 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_6 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
 	private _Rotator1 = "A3PL_Red_Rotator" createVehicle [0,0,0];
 	private _Rotator2 = "A3PL_White_Rotator" createVehicle [0,0,0];
 	private _Rotator3 = "A3PL_Red_Rotator_off" createVehicle [0,0,0];

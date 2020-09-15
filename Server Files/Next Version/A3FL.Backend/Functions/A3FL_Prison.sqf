@@ -270,6 +270,8 @@
 {
 	private _obj = param [0,objNull];
 	private _name = param [1,""];
+
+	hint str(_name);
 	private _factionReq = !(((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
 	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
 		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
@@ -278,13 +280,38 @@
 	if (_name IN
 	[
 		"console_door1","console_door2","console_door3","console_door4","console_door5","console_door6","console_door7","console_door8","console_door9","console_door10",
-		"console_gate1","console_gate2"
+		"console_gate1","console_gate2",
+		"door_1_button","door_1_button2","door_2_button","door_2_button2","door_3_button","door_3_button2",
+		"door_4_button","door_4_button2","door_5_button","door_5_button2","door_6_button","door_6_button2",
+		"door_7_button","door_7_button2","door_8_button","door_8_button2","door_9_button","door_9_button2",
+		"door_10_button","door_10_button2"
 	]) exitwith
 	{
 		private _anim = "";
 		private _hSel = -1;
 		switch (_name) do
 		{
+			case ("door_1_button"): {_anim = "door_1"; _hSel = 0;};
+			case ("door_1_button2"): {_anim = "door_1"; _hSel = 0;};
+			case ("door_2_button"): {_anim = "door_2"; _hSel = 1;};
+			case ("door_2_button2"): {_anim = "door_2"; _hSel = 1;};
+			case ("door_3_button"): {_anim = "door_3"; _hSel = 2;};
+			case ("door_3_button2"): {_anim = "door_3"; _hSel = 2;};
+			case ("door_4_button"): {_anim = "door_4"; _hSel = 3;};
+			case ("door_4_button2"): {_anim = "door_4"; _hSel = 3;};
+			case ("door_5_button"): {_anim = "door_5"; _hSel = 4;};
+			case ("door_5_button2"): {_anim = "door_5"; _hSel = 4;};
+			case ("door_6_button"): {_anim = "door_6"; _hSel = 5;};
+			case ("door_6_button2"): {_anim = "door_6"; _hSel = 5;};
+			case ("door_7_button"): {_anim = "door_7"; _hSel = 6;};
+			case ("door_7_button2"): {_anim = "door_7"; _hSel = 6;};
+			case ("door_8_button"): {_anim = "door_8"; _hSel = 7;};
+			case ("door_8_button2"): {_anim = "door_8"; _hSel = 7;};
+			case ("door_9_button"): {_anim = "door_9"; _hSel = 8;};
+			case ("door_9_button2"): {_anim = "door_9"; _hSel = 8;};
+			case ("door_10_button"): {_anim = "door_10"; _hSel = 9;};
+			case ("door_10_button2"): {_anim = "door_10"; _hSel = 9;};
+
 			case ("console_door1"): {_anim = "door_1"; _hSel = 0;};
 			case ("console_door2"): {_anim = "door_2"; _hSel = 1;};
 			case ("console_door3"): {_anim = "door_3"; _hSel = 2;};

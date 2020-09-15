@@ -2166,8 +2166,11 @@
    <Key ID="STR_ConfigItems_Steel_Pellet">
       <Original>Steel Pallet</Original>
    </Key>
+   <Key ID="STR_ConfigItems_med_stretcher">
+      <Original>Medical Stretcher</Original>
+   </Key>
    <Key ID="STR_ConfigItems_life_alert">
-      <Original>Life Alert Bracelet</Original>
+      <Original>Life Alert System</Original>
    </Key>
    <Key ID="STR_ConfigItems_med_cast">
       <Original>Cast</Original>
@@ -8419,6 +8422,21 @@
       </Key>
       <Key ID="STR_Config_Resources_Titanium">
         <Original>Titanium</Original>
+      </Key>
+      <Key ID="STR_Config_Resources_Sapphire">
+        <Original>Sapphire</Original>
+      </Key>
+      <Key ID="STR_Config_Resources_Vivianite">
+        <Original>Vivianite</Original>
+      </Key>
+      <Key ID="STR_Config_Resources_Emerald">
+        <Original>Emerald</Original>
+      </Key>
+      <Key ID="STR_Config_Resources_Gold">
+        <Original>Gold</Original>
+      </Key>
+      <Key ID="STR_Config_Resources_Amethyst">
+        <Original>Amethyst</Original>
       </Key>
     </Package>
     <Package name="STR_NewFD">

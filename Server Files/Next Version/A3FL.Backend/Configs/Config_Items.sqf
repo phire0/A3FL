@@ -164,6 +164,7 @@ Config_Items =
 	["stinger",localize"STR_ConfigItems_stinger",3,"A3PL_Stinger",0,true,true,true,true,true,"",[2,0.5,0],"",1],
 
 	//Useable Items
+	["med_stretcher",localize"STR_ConfigItems_med_stretcher",100,"A3FL_Stretcher",0.005,true,true,true,false,false,"",[0,0,0],"",1],	
 	["life_alert",localize"STR_ConfigItems_life_alert",0.1,"A3PL_defibrillator_f",0.005,true,true,true,true,true,"",[0,0,0],"",1],	
 	["v_lockpick",localize"STR_ConfigItems_v_lockpick",0.1,"A3PL_Lockpick",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["keycard",localize"STR_ConfigItems_keycard",0.1,"A3FL_Keycard",0,true,true,true,true,true,"",[0,0,0],"",1],

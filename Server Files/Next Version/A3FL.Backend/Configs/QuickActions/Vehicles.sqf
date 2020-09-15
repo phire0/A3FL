@@ -39,6 +39,7 @@
 			_veh animateSource["Top_Spot_Rotate",3];
 		} else {
 			_veh animateSource["Top_Spot_Rotate",0];
+			_veh animateSource["Top_Lights",0];
 		};
 	}
 ],
