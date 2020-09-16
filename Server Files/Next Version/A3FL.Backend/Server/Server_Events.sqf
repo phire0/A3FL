@@ -83,7 +83,7 @@
 	clearBackpackCargoGlobal _itemBox;
 
    	private _virtualItems = [];
-	private _valuableItems = [["Titanium_Ingot",40],["Iron_Ingot",40],["Coal_Ingot",40],["Coal_Ingot",40],["weed_100g",16],["shrooms",8],["cocaine",13]];
+	private _valuableItems = [["Titanium_Ingot",20],["Iron_Ingot",40],["Coal_Ingot",40],["Aluminum_Ingot",30],["weed_100g",16],["shrooms",8],["cocaine",13]];
 	private _itemCount = 4 + round(random(8));
 
 	for "_i" from 0 to _itemCount do {
