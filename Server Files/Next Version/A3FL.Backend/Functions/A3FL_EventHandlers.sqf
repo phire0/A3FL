@@ -191,6 +191,7 @@
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 			if(((getPosATL player) select 2) > 1) exitWith {};
+			if((speed player) > 0) exitWith {};
 			if((vehicle player) isEqualTo player) then {[player,true] call A3PL_Police_Surrender;};
 		}, "", [DIK_B, [true, false, false]]] call CBA_fnc_addKeybind;
 

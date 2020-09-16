@@ -1623,7 +1623,6 @@
 	if((isNull cursorTarget) || (!isPlayer cursorTarget)) exitWith {[format[localize"STR_NewPolice_24"],"red"] call A3PL_Player_Notification;};
 	if(typeName _time != "SCALAR") exitWith {[format[localize"STR_NewPolice_25"],"red"] call A3PL_Player_Notification;};
 	if(_time <= 0) exitWith {[format[localize"STR_NewPolice_26"],"red"] call A3PL_Player_Notification;};
-	if(_time > 60 * 24) exitWith {[format[localize"STR_NewPolice_27"],"red"] call A3PL_Player_Notification;};
 
 	[_time, A3PL_JailPlayer_Target] remoteExec ["Server_Police_JailPlayer",2];
 	[player,5] call A3PL_Level_AddXP;

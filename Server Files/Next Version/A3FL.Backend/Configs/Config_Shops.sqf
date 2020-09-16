@@ -219,8 +219,6 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Prison",[
-			["item","net",150,0,0],
-			["item","bucket_empty",250,0,0],
 			["item","seed_corn",100,-1,0],
 			["item","seed_wheat",100,-1,0],
 			["item","seed_lettuce",100,-1,0],

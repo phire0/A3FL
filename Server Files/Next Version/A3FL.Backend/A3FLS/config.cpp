@@ -70,6 +70,7 @@ class CfgRemoteExec
 		class A3PL_Admin_UserInputCheck{allowedTargets=0;};
 
 		//Player
+		class A3PL_Player_SpawnMenu{allowedTargets=0;};
 		class A3PL_Player_News{allowedTargets=0;};
 		class A3PL_Player_Notification {allowedTargets = 0;};
 		class A3PL_Player_NewPlayer{allowedTargets = 0;};
@@ -118,6 +119,8 @@ class CfgRemoteExec
 		class Server_Uber_RequestDriver{allowedTargets=2;};
 
 		//Housing
+		class Server_Housing_AssignApt{allowedTargets=2;};
+		class Server_Housing_SetPosApt{allowedTargets=2;};
 		class A3PL_Housing_Loaditems {allowedTargets = 0;};
 		class A3PL_Housing_AptAssignedMsg {allowedTargets = 0;};
 		class A3PL_Housing_SetMarker{allowedTargets=0;};

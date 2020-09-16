@@ -871,6 +871,67 @@
 	[getPlayerUID player,"DebugVariablesSet",[str(_var)]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
-["A3PL_Player_Restart",{
-	[] remoteExec ["Server_Core_RestartTimer",2];
+["A3PL_Player_SpawnMenu",{
+	disableSerialization;
+	private _spawnList = [
+		["Silverton",[2445.83,5467.15,0],0],
+		["Lubbock",[2286.87,12015.3,0],0],
+		["Elk City",[6180.74,7365.69,0],0],
+		["Palm Beach",[3552.460,6664.702,0],0]
+	];
+	private _houseObj = player getVariable["house",objNull];
+	private _warehouseObj = player getVariable["warehouse",objNull];
+	private _isCG = (player getVariable["faction","citizen"]) isEqualTo "uscg";
+	if(_isCG) then {_spawnList pushback ["CG Base",[2188.62,4991.78,0],0];};
+	if(!isNull _houseObj) then {_spawnList pushback ["House",getPosATL _houseObj,1];};
+	if(!isNull _warehouseObj) then {_spawnList pushback ["Warehouse",getPosATL _warehouseObj,2];};
+
+	createDialog "Dialog_SpawnMenu";
+
+	private _display = findDisplay 130;
+	noEscape = _display displayAddEventHandler ["KeyDown", "true;"];
+	private _control = _display displayCtrl 1500;
+	{
+		_i = _control lbAdd (_x select 0);
+		_control lbSetData[_i,str(_x select 1)];
+		_control lbSetValue[_i,_x select 2];
+	} forEach _spawnList;
+	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Player_SelectSpawnMap;"];
+	_control lbSetCurSel 0;
+}] call Server_Setup_Compile;
+
+["A3PL_Player_SelectSpawn",{
+	disableSerialization;
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1500;
+	if((lbCurSel 1500) isEqualTo -1) exitWith {};
+	private _spawnPos = call compile (_control lbData (lbCurSel 1500));
+	private _spawnType = _control lbValue (lbCurSel 1500);
+	switch(_spawnType) do {
+		case 0: {
+			[player,_spawnPos] remoteExecCall ["Server_Housing_AssignApt",2];
+			[player] remoteExecCall ["Server_Housing_SetPosApt",2];
+		};
+		case 1: {
+			player setPosATL _spawnPos;
+		};
+		case 2: {
+			player setPosATL _spawnPos;
+		};
+	};
+	_display displayRemoveEventHandler ["KeyDown", noEscape];
+	closeDialog 0;
+	cutText["","BLACK IN"];
+	player enableSimulation true;
+}] call Server_Setup_Compile;
+
+["A3PL_Player_SelectSpawnMap",{
+	disableSerialization;
+	private _display = findDisplay 130;
+	private _listControl = _display displayCtrl 1500;
+	private _spawnPos = call compile (_listControl lbData (lbCurSel 1500));
+	private _mapControl = _display displayCtrl 1700;
+	_mapControl ctrlMapAnimAdd [1, 0.03, _spawnPos];
+	ctrlMapAnimCommit _mapControl;
 }] call Server_Setup_Compile;

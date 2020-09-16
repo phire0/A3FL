@@ -124,23 +124,22 @@
 	_plane setDamage 0.85;
 	_plane setHitPointDamage["hitEngine", 1];
 
-	private _marker = createMarker ["planecrash", position (_planeWreck)];
+	private _marker = createMarker ["planecrash", position (_plane)];
 	_marker setMarkerShape "ICON";
 	_marker setMarkerType "A3PL_Markers_Plane";
 	_marker setMarkerText " PLANE IN DESTRESS";
 	_marker setMarkerColor "ColorWhite";
 
 	while{alive _pilot} do {
-		_marker setMarkerPos position _planeWreck;
+		_marker setMarkerPos (position _plane);
 	};
 
-	private _crashPos = getPosATL _plane;
+	_crashPos = position _plane;
 	deleteVehicle _pilot;
 	deleteVehicle _plane;
-	deleteVehicle _source2;
 
 	_marker setMarkerText " PLANE CRASH";
-	_marker setMarkerPos position _crashPos;
+	_marker setMarkerPos (position _crashPos);
 	private _planeWreck = createVehicle ["Land_HistoricalPlaneWreck_01_F", _crashPos, [], 0, "CAN_COLLIDE"];
 	private _boxPos = [(_crashPos select 0) - random 15,(_crashPos select 1) + random 10,_crashPos select 2];
 	private _itemBox = "B_supplyCrate_F" createVehicle _boxPos;

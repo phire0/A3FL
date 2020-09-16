@@ -120,3 +120,67 @@ class Dialog_NewPlayer
 		};
 	};
 };
+
+class Dialog_SpawnMenu
+{
+	idd = 130;
+	name= "Dialog_SpawnMenu";
+	movingEnable = false;
+	enableSimulation = true;
+	class controls
+	{
+		class BlackBack: IGUIBack
+		{
+			idc = 1200;
+			x = 0 * safezoneW + safezoneX;
+			y = 0 * safezoneH + safezoneY;
+			w = 1 * safezoneW;
+			h = 1 * safezoneH;
+			colorbackground[] = 
+			{
+				0,
+				0,
+				0,
+				1
+			};
+		};
+		class RscPicture_1200: RscPicture
+		{
+			idc = 1200;
+			text = "\A3PL_Common\GUI\A3FL_SpawnMenu.paa";
+			x = 0 * safezoneW + safezoneX;
+			y = 0 * safezoneH + safezoneY;
+			w = 1 * safezoneW;
+			h = 1 * safezoneH;
+		};
+		class button_spawn: RscButtonEmpty
+		{
+			idc = 1603;
+			text = "";
+			x = 0.685625 * safezoneW + safezoneX;
+			y = 0.665 * safezoneH + safezoneY;
+			w = 0.0670312 * safezoneW;
+			h = 0.033 * safezoneH;
+			action = "call A3PL_Player_SelectSpawn;";
+		};
+		class list: RscListbox
+		{
+			idc = 1500;
+			x = 0.257656 * safezoneW + safezoneX;
+			y = 0.225 * safezoneH + safezoneY;
+			w = 0.154687 * safezoneW;
+			h = 0.396 * safezoneH;
+		};
+		class map: RscMapControl
+		{
+			idc = 1700;
+			x = 0.422656 * safezoneW + safezoneX;
+			y = 0.225 * safezoneH + safezoneY;
+			w = 0.314531 * safezoneW;
+			h = 0.396 * safezoneH;
+			maxSatelliteAlpha = 1;
+            alphaFadeStartScale = 1;
+            alphaFadeEndScale = 1;
+		};
+	};
+};

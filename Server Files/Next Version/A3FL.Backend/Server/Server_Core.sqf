@@ -10,13 +10,6 @@
 	A3PL_RetrievedInventory = true;
 	Server_Storage_ListVehicles = [];
 
-
-	//Server_AptList = nearestObjects [[2286,12015,0], ["Land_A3PL_Motel"], 5000];
-	Server_AptList = nearestObjects [[3552.460,6664.702,0], ["Land_A3PL_Motel"], 5000];
-	{
-		_x setVariable ["Server_AptAssigned",[],false];
-	} foreach Server_AptList;
-
 	//Variable that stores a list of owned/sold houses
 	Server_HouseList = [];
 	Server_WarehouseList = [];

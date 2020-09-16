@@ -105,7 +105,7 @@
 			};
 			if(speed _veh > 1) exitWith {_exit=true;};
 		};
-
+		
 		if(_exit) exitWith {};
 
 		private _begPos = positionCameraToWorld [0,0,0];

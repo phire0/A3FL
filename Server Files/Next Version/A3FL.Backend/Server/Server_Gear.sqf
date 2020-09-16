@@ -207,8 +207,6 @@
 		{
 			_ownsHouse = true;
 			_houseObj = _x;
-
-			//give the key to the player if he doesn't have it
 			_doorID = (_houseObj getVariable "doorid") select 1;
 			if (!(_doorID IN _keys)) then {
 				_allKeys = _unit getVariable["keys",[]];
@@ -217,7 +215,6 @@
 			};
 		};
 	} foreach Server_HouseList;
-
 	_ownsWarehouse = false;
 	{
 		_warehouseVar = _x getVariable ["owner",[]];
@@ -225,8 +222,6 @@
 		{
 			_ownsWarehouse = true;
 			_warehouseObj = _x;
-
-			//give the key to the player if he doesn't have it
 			_doorID = (_warehouseObj getVariable "doorid") select 1;
 			if (!(_doorID IN _keys)) then {
 				_allKeys = _unit getVariable["keys",[]];
@@ -236,59 +231,36 @@
 		};
 	} foreach Server_WarehouseList;
 
-	if (!_ownsHouse) then
-	{
-		[_unit] call Server_Housing_AssignApt;
-	} else
-	{
-		//setpos to house position
-		if ([[0,0,0],_pos] call BIS_fnc_areEqual) then
-		{
-			//for some houses we need to set the player position a bit higher
-			switch (typeOf _houseObj) do
-			{
-				case ("Land_Mansion01"): { _unit setpos [(getpos _houseObj select 0),(getpos _houseObj select 1),1]; };
-				case default { _unit setPosATL (getPosATL _houseObj); };
-			};
-		};
-		//set house var
+	if (_ownsHouse) then {
 		_unit setVariable ["house",_houseObj,true];
-
-		//load items
 		_firstOwner = (_houseObj getVariable ["owner",[]]) select 0;
 		if(_firstOwner isEqualTo _uid) then {
 			[_unit,_houseObj,_uid] call Server_Housing_LoadItems;
 		};
 	};
-
 	if(_ownsWarehouse) then {
-	_unit setVariable ["warehouse",_warehouseObj,true];
-	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
-	if(_firstOwnerWarehouse isEqualTo _uid) then {
+		_unit setVariable ["warehouse",_warehouseObj,true];
+		_firstOwner = (_warehouseObj getVariable ["owner",[]]) select 0;
+		if(_firstOwner isEqualTo _uid) then {
 			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};
-
-	if ((!([[0,0,0],_pos] call BIS_fnc_areEqual)) && (!(_ownsHouse))) then //if our position is not [0,0,0] and we have an apartment
-	{
-		private ["_near"];
-		_near = nearestObjects [_pos, ["Land_A3PL_Motel"], 14];
-		if (count _near > 0) then
-		{
-			//still set the player to the apartment position since he spawned (close) back into an apartment
+	if (!([[0,0,0],_pos] call BIS_fnc_areEqual)) then {
+		_unit setVariable["alreadySpawned",true,true];
+	};
+	/*if ([[0,0,0],_pos] call BIS_fnc_areEqual) then {
+		if(_ownsHouse) then {
+			switch (typeOf _houseObj) do {
+				case ("Land_Mansion01"): { _unit setpos [(getpos _houseObj select 0),(getpos _houseObj select 1),1]; };
+				default { _unit setPosATL (getPosATL _houseObj); };
+			};
+		} else {
 			[_unit] call Server_Housing_SetPosApt;
-		};
-	};
-
-	//change 0,0,0 with whatever we set on server start later
-	if (([[0,0,0],_pos] call BIS_fnc_areEqual) && (!(_ownsHouse))) then
-	{
-		[_unit] call Server_Housing_SetPosApt;
-	};
+		};		
+	};*/
 
 	_jailTime = (_return select 21);
-	if(_jailTime > 0) then
-	{
+	if(_jailTime > 0) then {
 		_unit setPos [4795.31,6313.62,0];
 		[_jailTime, _unit] call Server_Police_JailPlayer;
 	};

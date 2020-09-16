@@ -121,7 +121,7 @@
 	[localize"STR_NewRoadWorker_2", "green"] call A3PL_Player_Notification;
 
 	switch(_location) do {
-		case npc_roadworker: {_spawnLoc = [2353.047,5479.137,0.766];}; // Silverton
+		case npc_roadworker: {_spawnLoc = [2858.05,5551.04,0];}; // Silverton
 		case npc_roadworker_1: {_spawnLoc = [6033.625,7353,0.422];}; // Elk City // not working
 		case npc_roadworker_2: {_spawnLoc = [6934.766,7112.43,0.794];}; // Boulder City
 		case npc_roadworker_3: {_spawnLoc = [10236.220,8455.28,0.388];}; // Northdale
