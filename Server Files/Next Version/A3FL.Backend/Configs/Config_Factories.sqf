@@ -119,7 +119,7 @@ Config_Factories =
 		["f_Pistol_heavy_02","","inh","inh","hgun_Pistol_heavy_02_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 Zubr .45 ACP Pistol"],
 		["f_glock17","","inh","inh","A3PL_Red_Glock","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 Glock 17 Pistol"],
 		["f_P226","","inh","inh","A3PL_P226","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 SIG P226 Pistol"],
-		["f_Beretta92","","inh","inh","A3PL_Beretta92","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 Beretta 92 Pistol"],
+		["f_Beretta92","","inh","inh","A3FL_Beretta92","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 Beretta 92 Pistol"],
 		["f_DesertEagle","","inh","inh","A3FL_DesertEagle","weapon",true,120,[["Steel",150]],1,25,0,"Makes 1 Desert Eagle Pistol"],
 		["f_SMG_01_F","","inh","inh","SMG_01_F","weapon",true,300,[["Steel",1150]],1,75,0,"Makes 1 Vermin .45 ACP SMG"],
 		["f_SMG_02_F","","inh","inh","SMG_02_F","weapon",true,300,[["Steel",1150]],1,75,0,"Makes 1 Sting 9mm SMG"],

@@ -55,7 +55,7 @@ Config_IntersectArray =
 	["item_Pickup",localize"STR_INTSECT_GrindWheatIntoMalt","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
 	["item_Pickup",localize"STR_INTSECT_GrindCornIntoCornmeal","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
 	["scooter_driver",localize"STR_INTSECT_USEJERRYC", "\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa", {player_itemClass == "jerrycan" && {(typeOf player_objintersect == "C_Quadbike_01_F")}}],
-	["spine3",localize"STR_QuickActionsNPC_StationStore",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12]}],
+	["spine3",localize"STR_QuickActionsNPC_StationStore",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12]}],
 
 	//hunting
 	["spine2",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && {!alive player_objintersect}}],
@@ -252,8 +252,8 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheRoadService2",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_roadworker,npc_roadworker_1,npc_roadworker_2,npc_roadworker_3,npc_roadworker_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheFermer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_farmer,npc_farmer_1,npc_farmer_2,npc_farmer_N]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheOilExtractor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_oilrecovery}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheTacoHellEmpl",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]}],
-	["spine3",localize"STR_QuickActionsNPC_TakeTacoHellUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell,npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheTacoHellEmpl",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]}],
+	["spine3",localize"STR_QuickActionsNPC_TakeTacoHellUniform",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_tacohell_1,npc_tacohell_2,npc_tacohell_3,npc_tacohell_4]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheDrugDealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_drugsdealer}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheGunsVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_shopguns}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToExterminator",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_exterminatorjob}],

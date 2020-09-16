@@ -338,10 +338,10 @@ Server_Setup_Compile = {
 		[6173.09,7419.18,0],	//Elk City
 		[4165.8,6170.87,0],		//Beach Valley
 		[3435.99,7519.7,0],		//Stoney Creek
-		[2851.2,5555.24,0],		//Silverton Bella
-		[2413.74,5496.1,0],		//Silverton Impound
-		[2123,11725,0],		//Lubbock
-		[3219,12274,0] // Salt Point
+		[2605.94,5615.21,0],	//Silverton
+		[9842.12,7973.37,0],	//Deadwood
+		[2123,11725,0],			//Lubbock
+		[3219,12274,0] 			// Salt Point
 	];
 	FuelStations = [];
 	{
