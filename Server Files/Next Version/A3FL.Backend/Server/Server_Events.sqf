@@ -150,7 +150,7 @@
 	private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
 	if((count _fifr) >= 5) then {
 		private _onWater = !(_position isFlatEmpty [-1, -1, -1, -1, 2, false] isEqualTo []);
-	if(_onWater || ((_position select 3) < 0)) exitWith {};
+		if(_onWater || ((_position select 3) < 0)) exitWith {};
 		_marker setMarkerType "A3PL_Markers_FIFD";
 		[localize"STR_SERVER_FIRE_VEHICLEFIREREPORT","red","fifr",3] call A3PL_Lib_JobMessage;
 		["A3PL_Common\effects\firecall.ogg",150,2,10] spawn A3PL_FD_FireStationAlarm;

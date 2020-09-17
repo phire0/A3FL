@@ -106,12 +106,18 @@
 	if (count _return == 0) exitwith
 	{
 		[_unit,true] call Server_Gear_New;
+		_unit setVariable["alreadySpawned",true,true];
+		[_unit,[2445.83,5467.15,0]] call Server_Housing_AssignApt;
+		[_unit] call Server_Housing_SetPosApt;
 	};
 
 	_name = _return select 1;
 	if (_name == "") exitwith
 	{
 		[_unit,false] call Server_Gear_New;
+		_unit setVariable["alreadySpawned",true,true];
+		[_unit,[2445.83,5467.15,0]] call Server_Housing_AssignApt;
+		[_unit] call Server_Housing_SetPosApt;
 	};
 
 	//Set position to last known pos, can be [0,0,0] if server has restarted
@@ -369,7 +375,7 @@
 		//save furniture
 		if (!isNil {_unit getVariable ["house",nil]}) then {[_unit,_uid] call Server_Housing_SaveItems;};
 		if (!isNil {_unit getVariable ["warehouse",nil]}) then {[_unit,_uid] call Server_Warehouses_SaveItems;};
-		if (!isNil {_jobVeh}) then {deleteVehicle _jobVeh;};
+		if (!isNil {_jobVeh}) then {[_jobVeh,_uid] spawn Server_Gear_JobVehicle;};
 
 		//get rid of the assigned apt, if exist
 		_var = _unit getVariable "apt";
@@ -413,15 +419,12 @@
 	}, _timeSave]] call BIS_fnc_loop;
 }, true] call Server_Setup_Compile;
 
-
-["Server_Gear_WipeRusty",{
-	diag_log "running";
-	_query = format ["SELECT uid FROM players;"];
-	_return = [_query, 2,true] call Server_Database_Async;
-	diag_log _return;
-	{
-		_query = format ["INSERT INTO objects (id,type,class,uid,plystorage) VALUES ('%1','vehicle','A3PL_CVPI_Rusty','%2','1')",([7] call Server_Housing_GenerateID),(_x select 0)];
-		[_query,1] spawn Server_Database_Async;
-	} forEach _return;
-
-},true] call Server_Setup_Compile;
+["Server_Gear_JobVehicle",
+{
+	private _jobVeh = _this select 0;
+	private _uid = _this select 1;
+	sleep 300;
+	private _player = [_uid] call A3PL_Lib_UIDToObject;
+	if(isNull _player) exitwith {};
+	[_jobVeh] call A3PL_Vehicle_Despawn;
+}, true] call Server_Setup_Compile;

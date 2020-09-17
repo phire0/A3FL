@@ -575,12 +575,18 @@ Server_Setup_Compile = {
 	if (count _return == 0) exitwith
 	{
 		[_unit,true] call Server_Gear_New;
+		_unit setVariable["alreadySpawned",true,true];
+		[_unit,[2445.83,5467.15,0]] call Server_Housing_AssignApt;
+		[_unit] call Server_Housing_SetPosApt;
 	};
 
 	_name = _return select 1;
 	if (_name == "") exitwith
 	{
 		[_unit,false] call Server_Gear_New;
+		_unit setVariable["alreadySpawned",true,true];
+		[_unit,[2445.83,5467.15,0]] call Server_Housing_AssignApt;
+		[_unit] call Server_Housing_SetPosApt;
 	};
 
 	//Set position to last known pos, can be [0,0,0] if server has restarted

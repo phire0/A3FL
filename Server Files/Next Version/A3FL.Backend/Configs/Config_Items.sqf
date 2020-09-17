@@ -453,7 +453,7 @@ Config_Items =
 
 	["coke",localize"STR_ConfigItems_coke",0.5,"A3PL_Can_V2",0,true,true,true,true,true,"A3PL_Items_Thirst",[0,0,0],"",5],
 	["waterbottle",localize"STR_ConfigItems_WaterBottle",0.5,"A3PL_BottlePlastic_V2",0,true,true,true,true,true,"A3PL_Items_Thirst",[0,0,0],"",5],
-	["waterbottlempty",localize"STR_ConfigItems_waterbottlempty",0.1,"A3PL_BottlePlastic_V2",0,true,true,true,true,true,"",[0,0,0],"",5],
+	["waterbottlempty",localize"STR_ConfigItems_waterbottlempty",0.1,"A3PL_BottlePlastic_V2",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["beer",localize"STR_ConfigItems_beer",0.1,"A3PL_Corona",20,true,true,true,true,true,"A3PL_Items_Thirst",[-0.03,-0.05,0.1],"",5],
 	["beer_gold",localize"STR_ConfigItems_beer_gold",0.1,"A3PL_4xGold",20,true,true,true,true,true,"A3PL_Items_Thirst",[0,0,0],"",5],
 
@@ -515,7 +515,7 @@ Config_Items =
 	["ME_Bucket",localize"STR_ConfigItems_ME_Bucket",0,"A3PL_MiniExcavator_Bucket",0,true,true,true,true,true,"",[0,0,0],localize"STR_ConfigItems_ExtractMineralsFromTheSoil",1],
 	["ME_Jackhammer",localize"STR_ConfigItems_ME_Jackhammer",0,"A3PL_MiniExcavator_Jackhammer",0,true,true,true,true,true,"",[0,0,0],localize"STR_ConfigItems_AllowsToSprayMinerals",1],
 	["net",localize"STR_ConfigItems_net",1,"A3PL_FishingBuoy",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["bucket_empty",localize"STR_ConfigItems_bucket_empty",1,"A3PL_Bucket",0,true,true,true,true,true,"",[0,0,0],"",10],
+	["bucket_empty",localize"STR_ConfigItems_bucket_empty",1,"A3PL_Bucket",0,true,true,true,true,true,"",[0,0,0],"",5],
 	["bucket_full",localize"STR_ConfigItems_bucket_full",1,"A3PL_BucketFull",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["repairwrench",localize"STR_ConfigItems_repairwrench",1,"A3PL_Wrench",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["ticket",localize"STR_ConfigItems_ticket",0.1,"A3PL_Ticket",0,false,false,true,true,true,"",[0,0,0],"",1],

@@ -589,7 +589,7 @@
 	while {(player getVariable ["job","unemployed"]) == _job} do
 	{
 		if (isNull _veh) exitwith {[localize"STR_NewLib_JobVehDest","red"] call A3PL_Player_Notification; true;};
-		if (getDammage _veh >= 1) exitwith {[localize"STR_NewLib_JobVehDest","red"] call A3PL_Player_Notification; true;};
+		if ((getDammage _veh) >= 1) exitwith {[localize"STR_NewLib_JobVehDest","red"] call A3PL_Player_Notification; true;};
 		if ((player distance2D _veh) > 500) exitwith {[localize"STR_NewLib_JobVeh2Far","red"] call A3PL_Player_Notification; true;};
 		sleep 300;
 	};

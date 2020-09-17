@@ -87,7 +87,6 @@
 	[format [localize"STR_A3PL_JobWildcat_MapPurchasedInfo",_maptype],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
-//opens prospect menu
 ["A3PL_JobWildCat_ProspectOpen",
 {
 	disableSerialization;

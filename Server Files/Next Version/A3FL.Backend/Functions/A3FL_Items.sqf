@@ -8,38 +8,25 @@
 
 ["A3PL_Items_Thirst",
 {
-	private ["_classname", "_quality", "_format"];
 
-	_classname = Player_ItemClass;
-	if (Player_ItemClass == "") exitwith
-	{
-		[localize"STR_NewItems_12","red"] call A3PL_Player_Notification;
-	};
-
-	if (!isNil "Player_isDrinking") exitwith
-	{
-		[localize"STR_NewItems_11","red"] call A3PL_Player_Notification;
-	};
+	private _classname = Player_ItemClass;
+	private _quality = [_classname, "quality"] call A3PL_Config_GetThirst;
+	private _alcohol = [_classname, "alcohol"] call A3PL_Config_GetThirst;
+	if (Player_ItemClass isEqualTo "") exitwith {[localize"STR_NewItems_12","red"] call A3PL_Player_Notification;};
+	if (!isNil "Player_isDrinking") exitwith {[localize"STR_NewItems_11","red"] call A3PL_Player_Notification;};
 	Player_isDrinking = true;
 
-	//take items away
 	[_classname, -1] call A3PL_Inventory_Add;
+	if(_classname isEqualTo "waterbottle") then {["waterbottlempty", 1] call A3PL_Inventory_Add;};
 
-	//add empty bottle
-	if(_classname == "waterbottle") then {["waterbottlempty", 1] call A3PL_Inventory_Add;};
-
-	//animation
 	player playAction "Gesture_drink";
 	Player_Item attachTo [player, [-0.03,0,0.1], 'LeftHand'];
-	uiSleep 3;
+	sleep 3;
 	Player_Item setVectorDirAndUp [[0,0,-1],[0,-1,0]];
-	uiSleep 3;
+	sleep 3;
 	Player_Item setVectorDirAndUp [[0,1,0],[0,0,1]];
-	uiSleep 4.5;
-	[false] call A3PL_Inventory_PutBack;
+	sleep 4.5;
 
-	_quality = [_classname, "quality"] call A3PL_Config_GetThirst;
-	_alcohol = [_classname, "alcohol"] call A3PL_Config_GetThirst;
 	if(_alcohol) then {
 		[_quality] call A3PL_Alcohol_Add;
 	} else {
@@ -52,17 +39,14 @@
 		};
 	};
 
-	Player_IsDrinking = nil;
+	Player_ItemAmount = Player_ItemAmount - 1;
+	if(Player_ItemAmount isEqualTo 0) then{[] call A3PL_Inventory_Clear;};
 
-	//reset warnings
-	//Reset the warning variables for drinking
+	Player_IsDrinking = nil;
 	if (Player_Thirst > 50) then { A3PL_ThirstWarning1 = Nil; };
 	if (Player_Thirst > 20) then { A3PL_ThirstWarning2 = Nil; };
 	if (Player_Thirst > 10) then { A3PL_ThirstWarning3 = Nil; };
-
-	//msg
-	_format = format[localize"STR_NewItems_10", [_classname, "name"] call A3PL_Config_GetItem, _quality,"%"];
-	[_format, "green"] call A3PL_Player_Notification;
+	[format[localize"STR_NewItems_10", [_classname, "name"] call A3PL_Config_GetItem, _quality,"%"], "green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Items_Food",

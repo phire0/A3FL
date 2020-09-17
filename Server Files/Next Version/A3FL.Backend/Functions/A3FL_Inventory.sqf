@@ -320,44 +320,42 @@
 
 	if(_amount < 1) exitWith {["Please enter a valid amount","red"] call A3PL_Player_Notification;};
 	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
-
-	if (isNull _obj) exitwith
-	{
-		[localize"STR_NewInventory_12","red"] call A3PL_Player_Notification;
-	};
-
-	if (!isNil "Player_isEating") exitwith
-	{
-		[localize"STR_NewInventory_13","red"] call A3PL_Player_Notification;
-	};
-
-	if (!isNil "Player_isDrinking") exitwith
-	{
-		[localize"STR_NewInventory_25","red"] call A3PL_Player_Notification;
-	};
-
-	if (!(animationState player IN ["crew"])) then
-	{
-		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
-	};
+	if (isNull _obj) exitwith {[localize"STR_NewInventory_12","red"] call A3PL_Player_Notification;};
+	if (!isNil "Player_isEating") exitwith {[localize"STR_NewInventory_13","red"] call A3PL_Player_Notification;};
+	if (!isNil "Player_isDrinking") exitwith {[localize"STR_NewInventory_25","red"] call A3PL_Player_Notification;};
+	if (!(animationState player IN ["crew"])) then {player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';};
 
 	if (_setPos) then
 	{
-		if(_itemClass == "FD_Mask") then {
-			deleteVehicle _obj;
-			_holder = createVehicle ["GroundWeaponHolder", getposATL player, [], 0, "CAN_COLLIDE"];
-			_holder addItemCargoGlobal ["A3PL_FD_Mask",1];
-		} else {
-			detach _obj;
-			_obj setPosASL (AGLtoASL (player modelToWorld [0,1,0]));
+		switch(_itemClass) do {
+			case ("FD_Mask"): {
+				deleteVehicle _obj;
+				_holder = createVehicle ["GroundWeaponHolder", getposATL player, [], 0, "CAN_COLLIDE"];
+				_holder addItemCargoGlobal ["A3PL_FD_Mask",1];
+			};
+			case ("bucket_empty"): {
+				deleteVehicle _obj;
+				private _pos = getPos player;
+				private _dir = getDir player;
+				private _val = 1.5;
+				for "_i" from 0 to _amount do {
+					_bucket = createVehicle ["A3PL_Bucket", [(_pos select 0) + (sin _dir * _val),(_pos select 1) + (cos _dir * _val),(_pos select 2)], [], 0, "CAN_COLLIDE"];
+					_bucket setVariable["owner",getPlayerUID player,true];
+					_bucket setVariable["class","bucket_empty",true];
+					_bucket setVariable["amount",1,true];
+					_val = _val + 0.5;
+				};
+			};
+			default {
+				detach _obj;
+				_obj setPosASL (AGLtoASL (player modelToWorld [0,1,0]));
+			};
 		};
 	};
 
 	Player_Item = objNull;
 	Player_ItemClass = '';
-
-	switch (_itemclass) do
-	{
+	switch (_itemclass) do {
 		case "doorkey": {[_obj, player] remoteExec ['Server_Housing_dropKey', 2];};
 		case "cash": {[player,_obj,_itemClass,Player_ItemAmount] remoteExec ["Server_Inventory_Drop", 2];};
 		default {[player,_obj,_itemClass,_amount] remoteExec ["Server_Inventory_Drop", 2];};
