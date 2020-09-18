@@ -101,6 +101,8 @@ Config_Vehicles_Capacity = [
 	["A3PL_Pierce_Pumper",400],
 	["A3PL_Pierce_Rescue",800],
 
+	["A3FL_T370",1450],
+
 	["A3PL_Box_Trailer",950],
 
 	["C_Scooter_Transport_01_F",40],
@@ -260,7 +262,7 @@ Config_Vehicles_MSRP = [
 	["A3PL_Pierce_Pumper",15000],
 	["A3PL_Pierce_Rescue",15000],
 
-	["A3FL_T370",20000],
+	["A3FL_T370",200000],
 
 	["A3PL_Box_Trailer",35000],
 
