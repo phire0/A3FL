@@ -171,16 +171,16 @@ class Dialog_SpawnMenu
 			w = 0.154687 * safezoneW;
 			h = 0.396 * safezoneH;
 		};
-		class map: RscMapControl
+		class map: RscMapControlSpawn
 		{
 			idc = 1700;
 			x = 0.422656 * safezoneW + safezoneX;
 			y = 0.225 * safezoneH + safezoneY;
 			w = 0.314531 * safezoneW;
 			h = 0.396 * safezoneH;
-			maxSatelliteAlpha = 1;
-            alphaFadeStartScale = 1;
-            alphaFadeEndScale = 1;
+			maxSatelliteAlpha = 0.75;
+            alphaFadeStartScale = 1.15;
+            alphaFadeEndScale = 1.29;
 		};
 	};
 };
