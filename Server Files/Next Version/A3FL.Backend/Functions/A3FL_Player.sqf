@@ -144,12 +144,12 @@
 	private _goggles = ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","A3PL_Horse_Mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"];
 	private _headgear = ["H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs"];
 	{
+		private["_uid","_saved","_savedName","_hasMaskCheck","_cansee","_id","_name"];
 		if (simulationEnabled _x) then
 		{
 			_uid = getPlayerUID _x;
 			_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 			_savedName = "";
-
 			{
 				if((_x select 0) isEqualTo _uid) exitWith {
 					_savedName = (_x select 1);
@@ -163,12 +163,13 @@
 			if (_cansee) then
 			{
 				_id = _x getVariable ["db_id",-1];
-				if(_savedName != "" && !_hasMaskCheck) then {
+				if(!(_savedName isEqualTo "") && !_hasMaskCheck) then {
 					_name = format["%1 - %2",_id,_savedName];
+					_tags pushback [_x,_name];
 				} else {
 					_name = format["%1 - Unknown",_id];
+					_tags pushback [_x,_name];
 				};
-				_tags pushback [_x,_name];
 			};
 		};
 	} foreach _players;
@@ -219,6 +220,7 @@
 	A3PL_Player_biTagsArray = _iTags;
 }] call Server_Setup_Compile;
 
+//["A3PL_DrawText", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 ["A3PL_Player_DrawText",
 {
 	["A3PL_DrawText", "onEachFrame",
@@ -234,12 +236,10 @@
 			};
 		} foreach (missionNameSpace getVariable ["A3PL_Player_TagsArray",[]]);
 
-		//business names
 		{
 			drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Actions\open_door_ca.paa", [1, 1, 1, 1],_x select 0, 0.5, 0.5, 45, _x select 1, 1, 0.03, "EtelkaNarrowMediumPro"];
 		} foreach (missionNameSpace getVariable ["A3PL_Player_bTagsArray",[]]);
 
-		//business items that are for sale
 		{
 			drawIcon3D [_x select 2, [1, 1, 1, 1],_x select 0, 0.5, 0.5, 45, _x select 1, 1, 0.03, "EtelkaNarrowMediumPro"];
 		} foreach (missionNameSpace getVariable ["A3PL_Player_biTagsArray",[]]);

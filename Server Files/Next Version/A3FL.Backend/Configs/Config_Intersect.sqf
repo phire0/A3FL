@@ -1357,17 +1357,6 @@ Config_IntersectArray =
 	["Ladder_Holder",localize"STR_INTSECT_LORALADRACK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Lower/Raise Ladder Rack
 	["FT_Pump_Switch",localize"STR_INTSECT_TONOFFPUMP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Turn On\Off Pump
 
-	//FIFM
-	["Room_1_switch_1",localize"STR_QuickActionsBuildings_CheckFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objintersect getVariable ["FireAlarm",false])  && {!(player_objintersect getVariable ["FireAlarmBroke",false])} && {(player_objintersect getVariable ["FireAlarmCanBroke",true])} && {((player getVariable ["job","unemployed"]) == "fifr")}}],
-	["Room_1_switch_1",localize"STR_QuickActionsBuildings_TriggerFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objintersect getVariable ["FireAlarm",false])  && {!(player_objintersect getVariable ["FireAlarmBroke",false])}}],
-	["Room_1_switch_1",localize"STR_QuickActionsBuildings_ReEnableFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && {(player_objintersect getVariable ["FireAlarm",false])} && {!(player_objintersect getVariable ["FireAlarmBroke",false])}}],
-	["Room_1_switch_1",localize"STR_QuickActionsBuildings_RepairFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && {(player_objintersect getVariable ["FireAlarm",false])} && {(player_objintersect getVariable ["FireAlarmBroke",false])}}],
-
-	["door_4",localize"STR_QuickActionsBuildings_CheckFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objintersect getVariable ["FireAlarm",false]) && {!(player_objintersect getVariable ["FireAlarmBroke",false])} && {(player_objintersect getVariable ["FireAlarmCanBroke",true])} && {((player getVariable ["job","unemployed"]) == "fifr")}}],
-	["door_4",localize"STR_QuickActionsBuildings_TriggerFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objintersect getVariable ["FireAlarm",false])  && !(player_objintersect getVariable ["FireAlarmBroke",false])}],
-	["door_4",localize"STR_QuickActionsBuildings_ReEnableFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && (player_objintersect getVariable ["FireAlarm",false]) && {!(player_objintersect getVariable ["FireAlarmBroke",false])}}],
-	["door_4",localize"STR_QuickActionsBuildings_RepairFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && (player_objintersect getVariable ["FireAlarm",false]) && {(player_objintersect getVariable ["FireAlarmBroke",false])}}],
-
 	["firealarm",localize"STR_QuickActionsBuildings_CheckFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objintersect getVariable ["FireAlarm",false]) && {!(player_objintersect getVariable ["FireAlarmBroke",false])} && {(player_objintersect getVariable ["FireAlarmCanBroke",true])} && {((player getVariable ["job","unemployed"]) == "fifr")}}],
 	["firealarm",localize"STR_QuickActionsBuildings_TriggerFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objintersect getVariable ["FireAlarm",false])  && !(player_objintersect getVariable ["FireAlarmBroke",false])}],
 	["firealarm",localize"STR_QuickActionsBuildings_ReEnableFireAlarm",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && (player_objintersect getVariable ["FireAlarm",false]) && {!(player_objintersect getVariable ["FireAlarmBroke",false])}}],
