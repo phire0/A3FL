@@ -734,7 +734,7 @@ Server_Setup_Compile = {
 
 	_jailTime = (_return select 21);
 	if(_jailTime > 0) then {
-		_unit setPos [4795.31,6313.62,0];
+		_unit setPos [4744.56,6023.57,0];
 		[_jailTime, _unit] call Server_Police_JailPlayer;
 	};
 

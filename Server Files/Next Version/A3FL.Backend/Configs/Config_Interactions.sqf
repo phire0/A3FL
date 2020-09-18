@@ -907,7 +907,7 @@ A3PL_Interaction_Options =
 		{(player_ItemClass == "FD_Hose") && (player getVariable ["job","unemployed"] isEqualTo "oil")}
 	],
 	[
-		localize "STR_INTER_DIGGROUND",
+		"Dig Sand",
 		{[] spawn A3PL_Resources_StartDigging;},
 		{currentWeapon player isEqualTo "A3PL_Shovel" && ((vehicle player) isEqualTo player)&& ((surfaceType getpos player) isEqualTo "#cype_beach")}
 	],

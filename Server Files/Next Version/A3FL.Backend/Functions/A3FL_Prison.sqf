@@ -24,7 +24,7 @@
 		"door_7_button","door_7_button2","door_8_button","door_8_button2","door_9_button","door_9_button2",
 		"door_10_button","door_10_button2","door_11_button","door_11_button2","door_12_button","door_12_button2",
 		"door_13_button","door_13_button2","door_14_button","door_14_button2","door_15_button","door_15_button2",
-		"door_16_button","door_16_button2","door_23_button","door_23_button2","door_24_button","door_25_button","door_26_button"
+		"door_16_button","door_16_button2","door_22_button","door_22_button2","door_23_button","door_23_button2","door_24_button","door_25_button","door_26_button"
 	]) exitwith { _name = _name select [0,(_name find "_button")]; [_jail,_name,false] call A3PL_Lib_ToggleAnimation;};
 	if (_name IN
 	[
@@ -60,11 +60,9 @@
 		if (_jail animationPhase _anim < 0.5) then {
 			_jail setObjectTextureGlobal [_hSel,"#(argb,8,8,3)color(0,1,0,1.0,co)"];
 			[_jail,_anim,false,1] call A3PL_Lib_ToggleAnimation;
-			if (_name isEqualTo "console_maincell1") then {[_jail,"door_22",false,1] call A3PL_Lib_ToggleAnimation;};
 		} else {
 			_jail setObjectTextureGlobal [_hSel,"#(argb,8,8,3)color(1,0,0,1.0,co)"];
 			[_jail,_anim,false,0] call A3PL_Lib_ToggleAnimation;
-			if (_name isEqualTo "console_maincell1") then {[_jail,"door_22",false,0] call A3PL_Lib_ToggleAnimation;};
 		};
 	};
 	if (_name isEqualTo "console_lockdown") exitwith
@@ -124,7 +122,7 @@
 	player switchMove "";
 	if(Player_ActionInterrupted || !_success) exitWith {
 		["Failed to lockpick cell door!", "red"] call A3PL_Player_Notification;
-		if (vehicle player == player) then {player switchMove "";};
+		if ((vehicle player) isEqualTo player) then {player switchMove "";};
 	};
 
 	[player_item] call A3PL_Inventory_Clear;
@@ -270,8 +268,6 @@
 {
 	private _obj = param [0,objNull];
 	private _name = param [1,""];
-
-	hint str(_name);
 	private _factionReq = !(((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
 	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
 		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;

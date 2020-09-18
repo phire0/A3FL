@@ -1641,8 +1641,8 @@
 			["You have served your jail sentence, the Marshal Services will escort you out of jail soon.","green"] call A3PL_Player_Notification;
 			[format["DOC: %1 has served his time and needs to be released.",player getVariable["name","unknown"]],"blue","usms",3] call A3PL_Lib_JobMessage;
 		} else {
-			player setPosATL [4743.79,6101.99,0.00143909];
-			player setDir 7;
+			player setPosATL [4744.56,6023.57,0];
+			player setDir 178.9;
 			removeUniform player;
 			[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
 		};

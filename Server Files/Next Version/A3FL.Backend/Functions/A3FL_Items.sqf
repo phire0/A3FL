@@ -37,16 +37,16 @@
 			[-5] call A3PL_Alcohol_Add;
 			call A3PL_Alcohol_Verify;
 		};
+		if (Player_Thirst > 50) then { A3PL_ThirstWarning1 = Nil; };
+		if (Player_Thirst > 20) then { A3PL_ThirstWarning2 = Nil; };
+		if (Player_Thirst > 10) then { A3PL_ThirstWarning3 = Nil; };
+		[format[localize"STR_NewItems_10", [_classname, "name"] call A3PL_Config_GetItem, _quality,"%"], "green"] call A3PL_Player_Notification;
 	};
 
 	Player_ItemAmount = Player_ItemAmount - 1;
 	if(Player_ItemAmount isEqualTo 0) then{[] call A3PL_Inventory_Clear;};
 
-	Player_IsDrinking = nil;
-	if (Player_Thirst > 50) then { A3PL_ThirstWarning1 = Nil; };
-	if (Player_Thirst > 20) then { A3PL_ThirstWarning2 = Nil; };
-	if (Player_Thirst > 10) then { A3PL_ThirstWarning3 = Nil; };
-	[format[localize"STR_NewItems_10", [_classname, "name"] call A3PL_Config_GetItem, _quality,"%"], "green"] call A3PL_Player_Notification;
+	Player_isDrinking = nil;
 }] call Server_Setup_Compile;
 
 ["A3PL_Items_Food",

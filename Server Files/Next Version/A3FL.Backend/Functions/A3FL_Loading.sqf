@@ -41,7 +41,7 @@
 		+ "<br/>"
 		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Drugs NPC locations</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff0000'> Removed: </t><t size='1' align='left'>Legal Weapon Factory</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Silverton Revamp</t>"
 		+ "<br/>"
 		+ "<t size='0.8' align='center'>For the full changelog visit the forum @ arma3fisherslife.net</t>";
 		_control ctrlSetStructuredText (parseText _format);
@@ -180,7 +180,7 @@
 
 		[0] call A3PL_Lib_CloseDialog;
 
-		if((player getVariable["alreadySpawned",false])) then {
+		if((player getVariable["alreadySpawned",false]) || (player getVariable["jailed",false])) then {
 			cutText["","BLACK IN"];
 			player enableSimulation true;
 		} else {

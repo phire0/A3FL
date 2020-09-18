@@ -1602,6 +1602,11 @@ Config_IntersectArray =
 	["Ladder_5",format [localize"STR_INTSECT_CLIMBDOWNL",5],_dir+"IGUI\Cfg\Actions\ladderdown_ca.paa",{true}], //Climb Down Ladder %1
 	["Ladder_1",localize"STR_INTSECT_EXRELADDER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeof player_objintersect == "A3PL_Ladder"}], //Extend/Retract Ladder
 
+	["Ladder_1_1",format [localize"STR_INTSECT_CLIMBUPL",1],_dir+"IGUI\Cfg\Actions\ladderup_ca.paa",{true}], //Climb Up Ladder %1
+	["Ladder_2_1",format [localize"STR_INTSECT_CLIMBUPL",2],_dir+"IGUI\Cfg\Actions\ladderup_ca.paa",{true}],//Climb Up Ladder %1
+	["Ladder_1_2",format [localize"STR_INTSECT_CLIMBDOWNL",1],_dir+"IGUI\Cfg\Actions\ladderdown_ca.paa",{true}], //Climb Down Ladder %1
+	["Ladder_2_2",format [localize"STR_INTSECT_CLIMBDOWNL",2],_dir+"IGUI\Cfg\Actions\ladderdown_ca.paa",{true}], //Climb Down Ladder %1
+
 	//RBM
 	["Door_1",localize"STR_INTSECT_LUVEHDOORS",_dir+"IGUI\Cfg\Actions\Obsolete\ui_action_open_ca.paa",{(player_objintersect IN A3PL_Player_Vehicles) && {(simulationEnabled player_objIntersect)} && {!(player getVariable ["Cuffed",false])} && {!(player getVariable ["Zipped",false])}}], //Lock/Unlock Vehicle Doors
 	["Door_1",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) isEqualTo player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])} && {(player_objintersect IN ["A3PL_RBM","A3FL_LCM"])}}], //Enter as Driver
