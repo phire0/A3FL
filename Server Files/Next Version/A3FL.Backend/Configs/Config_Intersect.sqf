@@ -308,7 +308,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_BucheronShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_Hemlock]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopWaste",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_WasteManagement,NPC_WasteManagement_1]}],
 	["spine3",localize"STR_QuickActionsNPC_StartStopWaste",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_WasteManagement,NPC_WasteManagement_1]}],
-	["spine3",localize"STR_QuickActionsNPC_StartStopDelivery",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mailman,npc_mailman_stoney,npc_mailman_northdale,npc_mailman_beachV,npc_mailman_lubbock]}],
+	["spine3",localize"STR_QuickActionsNPC_StartStopDelivery",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mailman,npc_mailman_silverton,npc_mailman_stoney,npc_mailman_northdale,npc_mailman_beachV,npc_mailman_lubbock]}],
 	["spine3",localize"STR_QuickActionsNPC_MailManShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_mailman,npc_mailman_stoney,npc_mailman_northdale,npc_mailman_beachV,npc_mailman_lubbock]}],
 	["spine3",localize"STR_QuickActionsNPC_KartRent",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_Karts]}],
 	["spine3","Chemical Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_chemicaldealer}],

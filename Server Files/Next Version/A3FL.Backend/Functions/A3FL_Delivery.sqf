@@ -21,6 +21,7 @@
 	private _spawnPos = [];
 	switch(str(_npc)) do {
 		case("npc_mailman"): {_spawnPos = [6056.77,7393.57,0];};
+		case("npc_mailman_silverton"): {_spawnPos = [2853.394,5607.033,0.1];};
 		case("npc_mailman_stoney"): {_spawnPos = [3507.66,7541.57,0];};
 		case("npc_mailman_northdale"): {_spawnPos = [10313.1,8556.05,0];};
 		case("npc_mailman_beachV"): {_spawnPos = [4143.49,6317.9,0];};

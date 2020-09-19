@@ -334,7 +334,7 @@
 	_light_2 attachTo [_this, [0, 0, 0], "Floodlight_2"];
 	_light_3 attachTo [_this, [0, 0, 0], "Floodlight_3"];
 	_light_4 attachTo [_this, [0, 0, 0], "Floodlight_4"];
-	_Ladder attachTo [_this, [0, -1, -16.1]];
+	_Ladder attachTo [_this, [0, -5.5, -1]];
 	_Flag attachTo [_this, [-0.05, 0.39, -2.3], "Flag_Point"];
 	_light_3 setdir 180;
 	_light_4 setdir 180;
