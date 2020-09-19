@@ -31,7 +31,7 @@ Config_Shops_Items = [
 
 	["Shop_Fuel",[
 			["item","repairwrench",750,50,0],
-			["item","jerrycan",1500,600,0]
+			["item","jerrycan",1500,150,0]
 		],{[3852.065,9212.537,0.168]}
 	],
 
