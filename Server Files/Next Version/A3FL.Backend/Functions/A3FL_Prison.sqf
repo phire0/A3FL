@@ -85,6 +85,10 @@
 				_gate setObjectTextureGlobal [_forEachIndex,"#(argb,8,8,3)color(1,0,0,1.0,co)"];
 			};
 		} foreach (getObjectTextures _gate);
+
+		{
+				if (_x animationPhase "door_1" > 0.1) then {[_x,"door_1",false,0] call A3PL_Lib_ToggleAnimation;};
+		} foreach (nearestObjects [_jail, ["Land_A3FL_DOC_Wall_Tower","Land_A3FL_DOC_Wall_Tower_Corner"], 600]);
 	};
 }] call Server_Setup_Compile;
 
@@ -326,6 +330,31 @@
 			[_obj,_anim,false,1] call A3PL_Lib_ToggleAnimation;
 		} else {
 			_obj setObjectTextureGlobal [_hSel,"#(argb,8,8,3)color(1,0,0,1.0,co)"];
+			[_obj,_anim,false,0] call A3PL_Lib_ToggleAnimation;
+		};
+	};
+}] call Server_Setup_Compile;
+
+["A3PL_PrisonTower_HandleDoor",
+{
+	private _obj = param [0,objNull];
+	private _name = param [1,""];
+	private _factionReq = !(((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
+	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
+		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
+	};
+
+	if (_name IN ["door_1_button","door_1_button2"]) exitwith
+	{
+		private _anim = "";
+		switch (_name) do
+		{
+			case ("door_1_button"): {_anim = "door_1";};
+			case ("door_1_button2"): {_anim = "door_1";};
+		};
+		if (_obj animationPhase _anim < 0.5) then {
+			[_obj,_anim,false,1] call A3PL_Lib_ToggleAnimation;
+		} else {
 			[_obj,_anim,false,0] call A3PL_Lib_ToggleAnimation;
 		};
 	};

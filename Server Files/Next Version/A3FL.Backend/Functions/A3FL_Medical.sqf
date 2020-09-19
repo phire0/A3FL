@@ -1178,6 +1178,7 @@
 {
 	private _position = getPos player;
 	private _overWater = !(_position isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
+	["life_alert",-1] call A3PL_Inventory_Add;
 	if(_overWater) then {
 		_cg = ["uscg"] call A3PL_Lib_FactionPlayers;
 		["Life Alert Emergency: Someone is requesting immediate assistance!","blue","uscg",3] call A3PL_Lib_JobMessage;

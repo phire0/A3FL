@@ -165,7 +165,7 @@ class A3PL_mapAreas {
 			$STR_Description_ImpoundLots, {"impoundlot_1","impoundlot_2","impoundlot_3","impoundlot_4","impoundretrieve","impoundretrieve_1","impoundretrieve_3"}
 		},
 		{
-			$STR_Description_RobbableShops, {"store_rob_silverton","store_rob_stoney","store_rob_elk","store_rob_northdale","store_rob_lubbock"}
+			$STR_Description_RobbableShops, {"store_rob_silverton","store_rob_silverton_1","store_rob_stoney","store_rob_elk","store_rob_northdale","store_rob_lubbock"}
 		}
 	};
 };
