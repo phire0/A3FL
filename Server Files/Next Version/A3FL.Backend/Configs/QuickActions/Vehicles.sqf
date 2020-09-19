@@ -1097,11 +1097,12 @@
 	{
 		private _veh = player_objIntersect;
 		if (!(_veh isKindOf "Car")) exitwith {};
-		if (_veh animationPhase "FT_Pump_Switch" == 0) then {
+		if (_veh animationPhase "FT_Pump_Switch" isEqualTo 0) then {
 			_veh animate ["FT_Pump_Switch", 1];
 			_PumpSound = createSoundSource ["A3PL_FT_Pump", getpos _veh, [], 0];
 			_PumpSound attachTo [_veh, [0, 0, 0], "pos_switches"];
 			_veh setVariable ["PumpSound",_PumpSound,true];
+			[_veh] spawn A3PL_FD_LadderHeavyLoop;
 		} else {
 			_veh animate ["FT_Pump_Switch", 0];
 			_PumpSound = _veh getVariable "PumpSound";

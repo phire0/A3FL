@@ -102,7 +102,6 @@
 			case ("A3PL_Taurus_FD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_T370"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 		};
-		_veh call A3PL_Vehicle_Init_A3PL_Dealer;
 	};
 
 	_veh addEventHandler ["ContainerClosed",
@@ -138,35 +137,9 @@
 	}];
 }] call Server_Setup_Compile;
 
-//GetIn eventhandler to determine if we should start out loop for dealing with dealer vehicles
-["A3PL_Vehicle_Init_A3PL_Dealer",
+["A3PL_Vehicle_Init_A3PL_Pierce_Heavy_Ladder",
 {
-	private ["_veh"];
-	_veh = _this;
-
-	_veh addEventHandler ["GetIn",
-	{
-		private ["_veh","_position","_unit"];
-		_veh = param [0,objNull];
-		_position = param [1,""];
-		_unit = param [2,objNull];
-		if (player != _unit OR _position != "driver") exitwith {};
-		if (!(_veh getVariable ["dealer",false])) exitwith {};
-
-		[_veh] spawn
-		{
-			_veh = param [0,objNull];
-			while {player IN _veh} do
-			{
-				if ((speed _veh > 16) OR (speed _veh < -16)) then
-				{
-					_veh setVelocity [0,0,0];
-					[localize"STR_NewVehicleInit_2","red"] call A3PL_Player_Notification;
-				};
-				uiSleep 1;
-			};
-		};
-	}];
+	_this addEventHandler ["Fired",{[(param [0,objNull])] call A3PL_FD_LadderHeavyFired;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Init_A3PL_Motorboat",

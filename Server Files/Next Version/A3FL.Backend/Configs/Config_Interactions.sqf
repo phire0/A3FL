@@ -169,11 +169,6 @@ A3PL_Interaction_Options =
 		{(cursorobject isKindOf "Man") && {!(cursorobject getVariable["A3PL_Medical_Alive", true])}}
 	],
 	[
-		localize"STR_INTER_GETUPLADDER",
-		{player setPos(cursorobject modelToWorld [0,-4.6,1]);},
-		{((typeOf cursorobject) IN ["A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]) && ((player distance (cursorObject modeltoworld [0,-5,-1])) < 3)}
-	],
-	[
 		localize"STR_INTER_GETUPRESCUE",
 		{
 			_veh = cursorobject;
@@ -866,7 +861,6 @@ A3PL_Interaction_Options =
 			if (_turretPos isEqualTo 0) then { _newTurretPos = 1; };
 			_veh lock 0;
 			player action ["moveToTurret", _veh, [_newTurretPos]];
-			if (_newTurretPos isEqualTo 1) then {[_veh] spawn A3PL_FD_LadderHeavyLoop};
 			_veh lock 2;
 		},
 		{(call A3PL_Lib_ReturnTurret IN [0,1]) && (typeOf vehicle player IN ["A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Ladder"]) && !((vehicle player) getVariable ["locked",true])}
