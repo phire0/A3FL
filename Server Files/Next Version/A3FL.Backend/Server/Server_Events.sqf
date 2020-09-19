@@ -9,8 +9,8 @@
 ["Server_Events_Random",
 {
 	private _allEvents = [
-		Server_Events_ShipWreck,
-		Server_Events_PlaneCrash
+		Server_Events_ShipWreck
+		//Server_Events_PlaneCrash
 	];
 	if(!isNil "Server_Events_Current") exitWith {};
 
