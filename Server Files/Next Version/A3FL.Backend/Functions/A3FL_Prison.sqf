@@ -340,6 +340,9 @@
 	private _obj = param [0,objNull];
 	private _name = param [1,""];
 	private _factionReq = !(((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
+
+	if (_name IN ["door_2"]) exitwith {[_obj,"door_2",false] call A3PL_Lib_ToggleAnimation;};
+
 	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
 		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
 	};
