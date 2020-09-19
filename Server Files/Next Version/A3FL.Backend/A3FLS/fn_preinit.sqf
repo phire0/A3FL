@@ -771,7 +771,7 @@ Server_Setup_Compile = {
 		_doorid = _x select 2;
 
 		_near = nearestObjects [_pos, HOUSESLIST, 10,true];
-		if (count _near == 0) exitwith
+		if (count _near == 0) then
 		{
 			_query = format ["CALL RemovedHouse('%1');",_pos];
 			[_query,1] spawn Server_Database_Async;

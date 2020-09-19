@@ -359,7 +359,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_AccessDOJSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_doj) && {(player getVariable["faction","citizen"]) isEqualTo "doj"}}],
 	["spine3",localize"STR_QuickActionsNPC_AccessUSMSSuppliesVendor",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_fimsshop) && {(player getVariable["faction","citizen"]) isEqualTo "usms"}}],
 
-	["spine3",localize"STR_QuickActionsNPC_FIFDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo NPC_fifr_supplier2_1) && {(["fifr"] call A3PL_Government_isFactionLeader)}}],
+	["spine3",localize"STR_QuickActionsNPC_FIFDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo NPC_fifr_supplier2) && {(["fifr"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_USCGManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo NPC_uscg_supplier) && {(["uscg"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_FISDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_sd_elk_shop) && {(["fisd"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_DOJManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_doj) && {(["doj"] call A3PL_Government_isFactionLeader)}}],
