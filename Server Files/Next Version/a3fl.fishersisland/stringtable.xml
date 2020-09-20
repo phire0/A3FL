@@ -387,9 +387,6 @@
         <Key ID="STR_QuickActionsNPC_AccessShopDOC">
             <Original>DOC Shop</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_OnlyUSMS">
-            <Original>Only FIMS members have access to this shop</Original>
-        </Key>
         <Key ID="STR_QuickActionsNPC_AccessFIFRVEHShop">
             <Original>FIFR Vehicle Shop</Original>
         </Key>
@@ -447,7 +444,7 @@
         <Key ID="STR_QuickActionsNPC_AccessSDWeaponsFISD">
             <Original>FISD Weapons Shop</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_AccessUSMSCarVendor">
+        <Key ID="STR_QuickActionsNPC_AccessFIMSCarVendor">
             <Original>FIMS Car Vendor</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_AccessFISDCarVendor">
@@ -468,7 +465,7 @@
         <Key ID="STR_QuickActionsNPC_AccessDMVSuppliesVendor">
             <Original>DMV Supplies Vendor</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_AccessUSMSSuppliesVendor">
+        <Key ID="STR_QuickActionsNPC_AccessFIMSSuppliesVendor">
             <Original>FIMS Supplies Vendor</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_OnlyCitizens">
@@ -7594,8 +7591,8 @@
    <Key ID="Functions_DeliveryLocation_BoulderMcFishers">
       <Original>Boulder City McFishers</Original>
    </Key>
-   <Key ID="Functions_DeliveryLocation_BoulderGem">
-      <Original>Boulder City Gem Store</Original>
+   <Key ID="Functions_DeliveryLocation_GemStore">
+      <Original>Springfield Jewlery Store</Original>
    </Key>
    <Key ID="Functions_DeliveryLocation_Waste">
       <Original>Elk City Waste Management</Original>

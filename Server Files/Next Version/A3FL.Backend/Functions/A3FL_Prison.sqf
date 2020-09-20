@@ -11,8 +11,8 @@
 	private _jail = param [0,objNull];
 	private _name = param [1,""];
 	private _gate = (nearestObjects [_jail, ["Land_A3FL_DOC_Gate"], 1000]) select 0;
-	private _factionReq = !(((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
+	private _factionReq = !(((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
+	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
 		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
 	};
 
@@ -97,8 +97,8 @@
 	_cellDoor = param [0,objNull];
 	_prison = param [1, objNull];
 
-	private _factionReq = !(((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq) exitwith {
+	private _factionReq = !(((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
+	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && _factionReq) exitwith {
 		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to lockpick your cell!","red"] call A3PL_Player_Notification;
 	};
 
@@ -209,7 +209,7 @@
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && ((count(["usms"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
+	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && ((count(["fims"] call A3PL_Lib_FactionPlayers)) < 3)) exitwith {
 		["There needs to be 3 FIMS on-duty to dig out of jail!","red"] call A3PL_Player_Notification;
 	};
 
@@ -249,7 +249,7 @@
 {
 	{deleteMarkerLocal _x} foreach A3PL_Inmates_Markers;
 	A3PL_Inmates_Markers = nil;
-	if(!((player getVariable["job","unemployed"]) isEqualTo "usms")) exitWith {};
+	if(!((player getVariable["job","unemployed"]) isEqualTo "fims")) exitWith {};
 	A3PL_Inmates_Markers = [];
 	{
 		if ((_x getVariable ["jail_mark",false])) then {
@@ -272,8 +272,8 @@
 {
 	private _obj = param [0,objNull];
 	private _name = param [1,""];
-	private _factionReq = !(((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
+	private _factionReq = !(((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
+	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
 		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
 	};
 
@@ -339,11 +339,11 @@
 {
 	private _obj = param [0,objNull];
 	private _name = param [1,""];
-	private _factionReq = !(((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["usms"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
+	private _factionReq = !(((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
 
 	if (_name IN ["door_2"]) exitwith {[_obj,"door_2",false] call A3PL_Lib_ToggleAnimation;};
 
-	if(!(player getVariable["job","unemployed"] IN ["usms","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
+	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
 		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
 	};
 

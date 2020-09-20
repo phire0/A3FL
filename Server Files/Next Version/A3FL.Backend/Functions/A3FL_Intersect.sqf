@@ -249,10 +249,10 @@
 		private _canUse = true;
 		switch (typeOf _obj) do
 		{
-			case ("Land_A3FL_SheriffPD"): { if ((_name IN ["door_10","door_11","door_12","door_15"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {_canUse = false}; };
-			case ("Land_A3PL_Sheriffpd"): { if ((_name IN ["door_3","door_4","door_11","door_18","door_19","door_20","garagedoor_button"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {_canUse = false}; };
+			case ("Land_A3FL_SheriffPD"): { if ((_name IN ["door_10","door_11","door_12","door_15"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"])) exitwith {_canUse = false}; };
+			case ("Land_A3PL_Sheriffpd"): { if ((_name IN ["door_3","door_4","door_11","door_18","door_19","door_20","garagedoor_button"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"])) exitwith {_canUse = false}; };
 			case ("Land_A3PL_Clinic"): { if ((_name IN ["door_3","door_4","door_5","door_6","door_7","door_8","door_9","door_10","door_11"]) && !((player getVariable ["job","unemployed"]) IN ["fifr"])) exitwith {_canUse = false}; };
-			case ("Land_A3PL_Prison"): { if (((_name find "button") != -1) && !((player getVariable ["job","unemployed"]) IN ["usms"])) exitwith {_canUse = false}; };
+			case ("Land_A3PL_Prison"): { if (((_name find "button") != -1) && !((player getVariable ["job","unemployed"]) IN ["fims"])) exitwith {_canUse = false}; };
 			case ("Land_A3PL_Firestation"): {
 				if (!((player getVariable ["faction","citizen"]) IN ["fifr"]) && !(["vfd",player] call A3PL_DMV_Check)) exitwith {
 					_canUse = false;

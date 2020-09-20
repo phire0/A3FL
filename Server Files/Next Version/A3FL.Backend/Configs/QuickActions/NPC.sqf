@@ -152,7 +152,7 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_FIMSManagment",
-	{["usms"] call A3PL_Government_FactionSetup;}
+	{["fims"] call A3PL_Government_FactionSetup;}
 ],
 [
 	"",
@@ -397,7 +397,7 @@
 	"",
 	localize"STR_QuickActionsNPC_CCTVNorthdale",
 	{
-		if (!((player getVariable ["job","unemployed"]) IN ["fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
+		if (!((player getVariable ["job","unemployed"]) IN ["fisd","fims"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
 		[3000] spawn A3PL_CCTV_Open;
 	}
 ],
@@ -405,7 +405,7 @@
 	"",
 	localize"STR_QuickActionsNPC_CCTVSilverton",
 	{
-		if (!((player getVariable ["job","unemployed"]) IN ["fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
+		if (!((player getVariable ["job","unemployed"]) IN ["fisd","fims"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
 		[1000] spawn A3PL_CCTV_Open;
 	}
 ],
@@ -413,7 +413,7 @@
 	"",
 	localize"STR_QuickActionsNPC_CCTVElk",
 	{
-		if (!((player getVariable ["job","unemployed"]) IN ["fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
+		if (!((player getVariable ["job","unemployed"]) IN ["fisd","fims"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
 		[4000] spawn A3PL_CCTV_Open;
 	}
 ],
@@ -421,7 +421,7 @@
 	"",
 	localize"STR_QuickActionsNPC_CCTVCentral",
 	{
-		if (!((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
+		if (!((player getVariable ["job","unemployed"]) IN ["fisd","fims"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
 		[500] spawn A3PL_CCTV_Open;
 	}
 ],
@@ -475,12 +475,12 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_AccessUSMSSuppliesVendor",
+	localize"STR_QuickActionsNPC_AccessFIMSSuppliesVendor",
 	{["Shop_DOC"] call A3PL_Shop_Open;}
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_AccessUSMSCarVendor",
+	localize"STR_QuickActionsNPC_AccessFIMSCarVendor",
 	{["Shop_DOC_Car_Vendor"] call A3PL_Shop_Open;}
 ],
 [

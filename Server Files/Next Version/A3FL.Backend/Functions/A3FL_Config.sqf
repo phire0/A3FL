@@ -480,7 +480,7 @@
 		case ("fisd"): {_balance = "Sheriff Department"};
 		case ("uscg"): {_balance = "US Coast Guard"};
 		case ("fifr"): {_balance = "Fire Rescue"};
-		case ("usms"): {_balance = "Marshals Service"};
+		case ("fims"): {_balance = "Marshals Service"};
 		case ("doj"): {_balance = "Department of Justice"};
 	};
 	_balance;

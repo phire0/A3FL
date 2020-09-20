@@ -11,7 +11,7 @@
 	private _job = player getVariable ["job","unemployed"];
 	private _vehicles = [];
 	private _markerColor = "colorBLUFOR";
-	if(!(_job IN ["fisd","fifr","usms","uscg"]) && !isNil "A3PL_Police_GPSmarkers") exitWith {
+	if(!(_job IN ["fisd","fifr","fims","uscg"]) && !isNil "A3PL_Police_GPSmarkers") exitWith {
 		{deleteMarkerLocal _x} foreach A3PL_Police_GPSmarkers;
 		A3PL_Police_GPSmarkers = nil;
 	};
@@ -79,17 +79,15 @@
 				};
 			} foreach vehicles;
 		};
-		case ("fisd"): {
+		default {
 			{
-				if (((typeOf _x) find "_PD") != -1) then {
-					_vehicles pushback [_x,"SQUAD #"];
-				};
-			} foreach vehicles;
-		};
-		case ("usms"): {
-			{
-				if (((typeOf _x) find "_PD") != -1) then {
-					_vehicles pushback [_x,"SQUAD #"];
+				private ["_faction","_type"];
+				_type = typeOf _x;
+				_faction = _x getVariable["faction",""];
+				if((_type find "_PD") != -1) then {
+					if(_faction isEqualTo _job) then {
+						_vehicles pushback [_x,"SQUAD #"];
+					};
 				};
 			} foreach vehicles;
 		};
@@ -117,7 +115,7 @@
 
 ["A3PL_Police_HandleBreach",
 {
-	private _whitelist = ["fisd","uscg","usms"];
+	private _whitelist = ["fisd","uscg","fims"];
 	private _pJob = player getVariable["job","unemployed"];
 	if(!(_pJob IN _whitelist)) exitWith {};
 
@@ -1634,12 +1632,12 @@
 	player setVariable ["jail_mark",false,true];
 	private _atSD = nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 50];
 	private _atDOC = count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0;
-	private _FIMS = ["usms"] call A3PL_Lib_FactionPlayers;
+	private _FIMS = ["fims"] call A3PL_Lib_FactionPlayers;
 
 	if(_atDOC) then {
 		if(count(_FIMS) > 0) then {
 			["You have served your jail sentence, the Marshal Services will escort you out of jail soon.","green"] call A3PL_Player_Notification;
-			[format["DOC: %1 has served his time and needs to be released.",player getVariable["name","unknown"]],"blue","usms",3] call A3PL_Lib_JobMessage;
+			[format["DOC: %1 has served his time and needs to be released.",player getVariable["name","unknown"]],"blue","fims",3] call A3PL_Lib_JobMessage;
 		} else {
 			player setPosATL [4744.56,6023.57,0];
 			player setDir 178.9;

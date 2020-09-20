@@ -721,7 +721,7 @@
 		private _handle = false;
 		{
 			if((_x isEqualTo A3FL_Seize_Storage)) exitWith  {
-				_isLead = ["usms"] call A3PL_Government_isFactionLeader;
+				_isLead = ["fims"] call A3PL_Government_isFactionLeader;
 				_isLocked = _x getVariable["locked",true];
 				if(!_isLead && _isLocked) exitWith  {
 					["The storage is locked","red"] call A3PL_Player_Notification;

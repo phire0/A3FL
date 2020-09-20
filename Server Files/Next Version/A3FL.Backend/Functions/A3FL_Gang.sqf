@@ -194,7 +194,7 @@
 	private _win = 1000;
 	private _group = group player;
 
-	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","usms"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
+	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","fims"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
 	if((currentWeapon player) isEqualTo "") exitwith {["You do not brandish any weapon","red"] call A3PL_Player_Notification;};
 	if((currentWeapon player) IN ["A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
 	if(_obj getVariable ["CaptureInProgress",false]) then {["Someone is already capturing this gang hideout!","red"] call A3PL_Player_Notification;};
@@ -269,7 +269,7 @@
 	private _shop = param [0,objNull];
 	private _gangHideout = objNull;
 
-	if(_shop IN [npc_fuel_1,npc_fuel_2,NPC_general_1,npc_supermarket_1,Robbable_Shop_1,npc_perkfurniture,npc_perkfurniture_1,npc_perkfurniture_2,npc_roadworker]) then {
+	if(_shop IN [npc_fuel_1,NPC_general_1,npc_supermarket_1,Robbable_Shop_1,npc_perkfurniture,npc_perkfurniture_1,npc_perkfurniture_2,npc_roadworker]) then {
 		_gangHideout = hideout_obj_1;
 	};
 	if(_shop IN [npc_roadworker_3,npc_fuel_9,NPC_general_3,Robbable_Shop_2,npc_supermarket_2,npc_furniture_5,npc_furniture_6,npc_furniture_7,npc_fuel_8]) then {

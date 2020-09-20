@@ -1106,7 +1106,7 @@
 	private _pCash = player getVariable ["player_cash",0];
 	private _npc = player_objintersect;
 	private _faction = player getVariable["job","unemployed"];
-	if(_faction IN ["fifr","fisd","uscg","usms"]) exitWith {["You cannot use this medic when on duty as a faction!"] call A3PL_Player_notification;};
+	if(_faction IN ["fifr","fisd","uscg","fims"]) exitWith {["You cannot use this medic when on duty as a faction!"] call A3PL_Player_notification;};
 	if (_healPrice > _pCash) exitwith {[format [localize"STR_NPC_FIFRHEALERROR",_healPrice-_pCash]] call A3PL_Player_notification;};
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - _healPrice,true];
 

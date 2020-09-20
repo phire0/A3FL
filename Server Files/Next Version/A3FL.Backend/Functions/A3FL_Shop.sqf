@@ -85,6 +85,7 @@
 	A3PL_SHOP_CAMERA camSetRelPos [0,0,0];
 	A3PL_SHOP_CAMERA cameraEffect ["internal", "BACK"];
 	A3PL_SHOP_CAMERA camCommit 0;
+	showCinemaBorder false;
 
 	A3PL_SHOP_NPC = _npc;
 

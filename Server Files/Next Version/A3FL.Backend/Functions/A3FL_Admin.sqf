@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","usms","usms"],["United States Coast Guard","uscg","uscg"],["Federal Bureau of Investigation","fbi","fbi"]]
+#define factionsList [["Citizen of Fishers Island","citizen","unemployed"],["Fishers Island Sheriff Department","fisd","fisd"],["Fishers Island Fire and Rescue","fifr","fifr"],["Department Of Justice","doj","doj"],["Fishers Island Marshals Service","fims","fims"],["United States Coast Guard","uscg","uscg"],["Federal Bureau of Investigation","fbi","fbi"]]
 #define adminTagsList [["Civilian Tag",["#B5B5B5","#ed7202","\A3PL_Common\icons\citizen.paa"]],["Executive Tag",["#B5B5B5","#8410ff","\A3PL_Common\icons\executive.paa"]],["Executive Supervisor Tag",["#B5B5B5","#5ab2ff","\A3PL_Common\icons\exec_supervisor.paa"]],["Developer Tag",["#B5B5B5","#FFFFFF","\A3PL_Common\icons\creator.paa"]],["Lead Dev Tag",["#B5B5B5","#2c82c9","\A3PL_Common\icons\leaddev.paa"]],["Chief Tag",["#B5B5B5","#2f9baa","\A3PL_Common\icons\chief.paa"]],["Sub-Director Tag",["#B5B5B5","#ff6d29","\A3PL_Common\icons\subdirector.paa"]],["Director Tag",["#B5B5B5","#cece08","\A3PL_Common\icons\director.paa"]]]
 #define ADMIN_OBJECTS [["Business Sign","Land_A3PL_BusinessSign"],["Estate Sign","Land_A3PL_EstateSign"],["Estate Sign (Rented)","Land_A3PL_EstateSignRented"],["Fire Hydrant","Land_A3PL_FireHydrant"],["Portable Light","Land_PortableLight_double_F"],["Pipes","Land_Pipes_large_F"],["Tribune","Land_Tribune_F"],["Ramp","Land_RampConcrete_F"],["Crash Barrier","Land_Crash_barrier_F"],["Stairs","Land_GH_Stairs_F"],["Road Cone","RoadCone_L_F"],["Road Barrier","RoadBarrier_F"],["Crane","Land_Crane_F"],["Bunker","Land_BagBunker_Small_F"],["Finish Gate","Land_FinishGate_01_wide_F"],["Podium","Land_WinnersPodium_01_F"],["Concrete Block","BlockConcrete_F"],["Dirt Hump","Dirthump_3_F"],["Target","TargetBootcampHuman_F"],["Amphitheater","Land_Amphitheater_F"],["Garbage","Land_GarbageBags_F"],["Tyre Barrier","TyreBarrier_01_black_F"],["Tyre Barrier 6x","Land_TyreBarrier_01_line_x6_F"],["White Flag","Flag_White_F"],["Green Flag","Flag_Green_F"],["Red Flag","Flag_Red_F"],["Blue Flag","Flag_Blue_F"],["Party Tent","Land_PartyTent_01_F"],["Body Bag","Land_Bodybag_01_white_F"],["Dueling Target","Land_Target_Dueling_01_F"],["Large Carport","Land_Shed_Big_F"],["Small StartFinish Gate","Land_FinishGate_01_narrow_F"],["Large StartFinish Gate","Land_FinishGate_01_wide_F"]]
 
@@ -964,7 +964,7 @@
 	_message = _message + format["<br/>%1 %2", count(["fisd"] call A3PL_Lib_FactionPlayers), "FISD"];
 	_message = _message + format["<br/>%1 %2", count(["fifr"] call A3PL_Lib_FactionPlayers), "FIFR"];
 	_message = _message + format["<br/>%1 %2", count(["uscg"] call A3PL_Lib_FactionPlayers), "USCG"];
-	_message = _message + format["<br/>%1 %2", count(["usms"] call A3PL_Lib_FactionPlayers), "FIMS"];
+	_message = _message + format["<br/>%1 %2", count(["fims"] call A3PL_Lib_FactionPlayers), "FIMS"];
 	_message = _message + format["<br/>%1 %2", count(["doj"] call A3PL_Lib_FactionPlayers), "DOJ"];
 	[_message,"pink"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

@@ -463,7 +463,7 @@
 	private _control = _display displayCtrl 97620;
 	_control ctrlSetText _nameContact;
 	if (isNil "A3PL_phoneNumberActive") exitWith {};
-	if ((_phoneNumberContact isEqualTo "911") && {(player getVariable["job","unemployed"]) IN ["fisd","fifr","uscg","usms"]}) then {
+	if ((_phoneNumberContact isEqualTo "911") && {(player getVariable["job","unemployed"]) IN ["fisd","fifr","uscg","fims"]}) then {
 		[player, _phoneNumberContact] remoteExec ["Server_iPhoneX_Get911Text",2];
 	} else {
 		[player, A3PL_phoneNumberActive, _phoneNumberContact] remoteExec ["Server_iPhoneX_GetSMS",2];
@@ -699,7 +699,7 @@
 
 	if (_to isEqualTo "911") then
 	{
-		if (_pJob IN ["fisd","fifr","uscg","usms"]) then
+		if (_pJob IN ["fisd","fifr","uscg","fims"]) then
 		{
 			_SMS pushBack [_from, _message, _position];
 			[_actualPos,format["911 - %1",_from],"ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
@@ -1012,7 +1012,7 @@
 	private _FIFR = count(["fifr"] call A3PL_Lib_FactionPlayers);
 	private _FISD = count(["fisd"] call A3PL_Lib_FactionPlayers);
 	private _CG = count(["uscg"] call A3PL_Lib_FactionPlayers);
-	private _FIMS = count(["usms"] call A3PL_Lib_FactionPlayers);
+	private _FIMS = count(["fims"] call A3PL_Lib_FactionPlayers);
 	_control ctrlSetStructuredText parseText format ["<t align='center'>
 		<img image='\A3PL_Common\icons\fire.paa'/><t color='#ffffff'> %1 </t>
 		<t color='#ffffff'> %2 </t><img image='\A3PL_Common\icons\faction_sheriff.paa'/><br/>
@@ -1034,11 +1034,11 @@
 	_iPhone_Settings = profileNamespace getVariable ["A3PL_iPhoneX_Settings",[2,1,0]];
 	_control ctrlSetText format[_wallpaperActive, (_iPhone_Settings select 0)];
 
-	if ((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","usms"]) then {
+	if ((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","fims"]) then {
 		ctrlShow [97101,true];
 		ctrlShow [97102,true];
 	};
-	if ((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","usms","doj"]) then {
+	if ((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","fims","doj"]) then {
 		ctrlShow [97103,true];
 		ctrlShow [97104,true];
 	};
@@ -1208,7 +1208,7 @@
 	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[_gBank, 1, 0, true] call CBA_fnc_formatNumber];
 	_control = _display displayCtrl 99402;
 	{
-		_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
+		_index = _control lbAdd format["%1", _x getVariable ["db_id","-1"]];
 		_control lbSetData [_index, str _x];
 	} forEach playableUnits;
 }] call Server_Setup_Compile;

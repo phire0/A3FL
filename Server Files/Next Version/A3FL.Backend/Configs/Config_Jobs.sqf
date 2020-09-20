@@ -28,7 +28,7 @@ Config_Paychecks = [
 	["fifr",-1,10],
 	["uscg",-1,10],
 	["fisd",-1,10],
-	["usms",-1,10]
+	["fims",-1,10]
 ];
 publicVariable "Config_Paychecks";
 
@@ -57,7 +57,7 @@ Config_FactionItems = [
 			]
 		]
 	],
-	["usms",
+	["fims",
 		["Misc",
 			[
 				["item","dildo",100000],

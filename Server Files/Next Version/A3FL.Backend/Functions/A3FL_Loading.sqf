@@ -180,7 +180,7 @@
 
 		[0] call A3PL_Lib_CloseDialog;
 
-		if((player getVariable["alreadySpawned",false]) || (player getVariable["jailed",false])) then {
+		if((player getVariable["alreadySpawned",false])) then {
 			cutText["","BLACK IN"];
 			player enableSimulation true;
 		} else {

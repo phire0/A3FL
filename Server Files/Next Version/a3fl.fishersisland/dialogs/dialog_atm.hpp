@@ -127,9 +127,6 @@ class Dialog_ATM_Menu {
 	name= "Dialog_ATM_Menu";
 	movingEnable = false;
 	enableSimulation = true;
-	////////////////////////////////////////////////////////
-	// GUI EDITOR OUTPUT START (by Winston Halstead, v1.063, #Tomyky)
-	////////////////////////////////////////////////////////
 	class Controls
 	{
 		class BackPicture: RscPicture
@@ -170,7 +167,6 @@ class Dialog_ATM_Menu {
 			colorText[] = {0,0,0,1};
 			class Attributes {align = "center";};
 		};
-
 		class MoenyDisplay: RscText
 		{
 			idc = 4974;

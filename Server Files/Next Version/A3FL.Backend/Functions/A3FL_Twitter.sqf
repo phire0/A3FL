@@ -48,7 +48,7 @@
 			case ("fifr"): {_namepicture = "\A3PL_Common\icons\fire.paa"; _namecolor = "#FF0000";};
 			case ("fisd"): {_namepicture = "\A3PL_Common\icons\faction_sheriff.paa"; _namecolor = "#556B2F";};
 			case ("doj"): {_namepicture = "\A3PL_Common\icons\faction_doj.paa"; _namecolor = "#B18904";};
-			case ("usms"): {_namepicture = "\A3PL_Common\icons\usms.paa"; _namecolor = "#B18904";};
+			case ("fims"): {_namepicture = "\A3PL_Common\icons\usms.paa"; _namecolor = "#B18904";};
 			case ("uscg"): {_namepicture = "\A3PL_Common\icons\faction_cg.paa"; _namecolor = "#16a085";};
 		 };
 	 };

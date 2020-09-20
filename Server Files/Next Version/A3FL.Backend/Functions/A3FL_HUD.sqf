@@ -50,6 +50,7 @@
 	_control = _display displayCtrl 1100;
 	_name = player getVariable ["name",name player];
 	_control ctrlSetStructuredText parseText (format ["<t align='center'>%1</t>",_name]);
+	
 
 	_ctrl = _display displayCtrl 9520;
 	_ctrl ctrlSetFade 1;
@@ -133,11 +134,11 @@
 			(_display displayCtrl 1003) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", "DOJ"];
 			(_display displayCtrl 1004) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", _rank];
 		};
-		case ("usms"): {
+		case ("fims"): {
 			_display = uiNamespace getVariable "A3PL_HUD_FactionCard";
 			_maxIDC = 1004;
 			_card = "\A3PL_Common\GUI\Cards\Card_FIMS.paa";
-			_rank = ["usms","rank", getPlayerUID _target] call A3PL_Config_GetFactionRankData;
+			_rank = ["fims","rank", getPlayerUID _target] call A3PL_Config_GetFactionRankData;
 			(_display displayCtrl 999) ctrlSetText _card;
 			(_display displayCtrl 1000) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", (str(_target getVariable ["db_id","Error"]))];
 			(_display displayCtrl 1001) ctrlSetStructuredText parseText format["<t font='PuristaMedium' align='right' size='1' color='#000'>%1</t>", _fname];
@@ -197,11 +198,10 @@
 ["A3PL_HUD_Loop",
 {
 	disableSerialization;
-	private ["_display","_control","_name","_imgnr","_text","_itemName","_isHudEnabled","_bloodLvl","_level","_xp","_nextLevel","_bar","_blindfold"];
+	private ["_display","_control","_name","_imgnr","_isHudEnabled","_bloodLvl","_level","_xp","_nextLevel","_bar"];
 
-	_display = uiNamespace getVariable ["A3PL_HUDDisplay",displayNull];
-
-	_isHudEnabled = profileNameSpace getVariable ["A3PL_HUD_Enabled",true];
+	private _display = uiNamespace getVariable ["A3PL_HUDDisplay",displayNull];
+	private _isHudEnabled = profileNameSpace getVariable ["A3PL_HUD_Enabled",true];
 	if ((isNull _display) && _isHudEnabled) then
 	{
 		private ["_ctrl"];
@@ -268,9 +268,14 @@
 	};
 
 	_control = _display displayCtrl 1600;
-	_control ctrlSetStructuredText parseText format ["<t font='PuristaBold' align='right'>%1</t>",toUpper (player getVariable ["name",(name player)])];
+	_name = toUpper (player getVariable ["name",name player]);
+	if (player getVariable ["pVar_RedNameOn",false]) then {
+		_control ctrlSetStructuredText parseText format ["<t font='PuristaBold' align='right' color='#FF0000'>%1</t>",_name];
+	} else {
+		_control ctrlSetStructuredText parseText format ["<t font='PuristaBold' align='right'>%1</t>",_name];
+	};
 
-	_factionJobs = ["uscg","fifr","fisd","doj","usms"];
+	_factionJobs = ["uscg","fifr","fisd","doj","fims"];
 	_job = player getVariable ["job","unemployed"];
 	if(_job IN _factionJobs) then {
 		_rankName = [_job,"rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;

@@ -52,7 +52,7 @@
 
 ["A3PL_Lib_AllFactionPlayers",
 {
-	private _factions = param [0,["fisd","fifr","uscg","usms"]];
+	private _factions = param [0,["fisd","fifr","uscg","fims"]];
 	private _returnID = param [1,false];
 	private _factionPeople = [];
 	{
@@ -433,7 +433,7 @@
 		case ("fisd"): {_return = "Sheriff Department"};
 		case ("uscg"): {_return = "US Coast Guard"};
 		case ("fifr"): {_return = "Fire Rescue"};
-		case ("usms"): {_return = "FI Marshals Service"};
+		case ("fims"): {_return = "Marshals Service"};
 		case ("doj"): {_return = "Department of Justice"};
 	};
 	_return;

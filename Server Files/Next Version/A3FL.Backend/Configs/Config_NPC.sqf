@@ -114,10 +114,10 @@ Config_NPC_Text =
 	["doj_work", localize"STR_NPC_DOJWORK",[localize"STR_NPC_IMREADY",localize"STR_NPC_BEBACKLATER"],["['doj'] call A3PL_NPC_TakeJob;",""]],
 	["doj_workdenied", localize"STR_NPC_DOJDEN",[localize"STR_NPC_SORRYILEAVE"],[""]],
 
-	["doc_initial",localize "STR_NPC_DOC1",[localize"STR_NPC_DOC2",localize"STR_NPC_DOC3"],["['doc_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'usms') exitwith {['doc_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'usms') then { ['doc_work'] call A3PL_NPC_Start; } else {['doc_workdenied'] call A3PL_NPC_Start;}"]],
+	["doc_initial",localize "STR_NPC_DOC1",[localize"STR_NPC_DOC2",localize"STR_NPC_DOC3"],["['doc_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'fims') exitwith {['doc_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' isEqualTo 'fims') then { ['doc_work'] call A3PL_NPC_Start; } else {['doc_workdenied'] call A3PL_NPC_Start;}"]],
 	["doc_howto",localize "STR_NPC_DOC4",[localize"STR_NPC_DOC5"],[""]],
 	["doc_already", localize "STR_NPC_DOC6",[localize"STR_NPC_DOC7",localize"STR_NPC_DOC8"],["call A3PL_NPC_LeaveJob;",""]],
-	["doc_work",localize "STR_NPC_DOC9",[localize"STR_NPC_DOC10",localize"STR_NPC_DOC11"],["['usms'] call A3PL_NPC_TakeJob;",""]],
+	["doc_work",localize "STR_NPC_DOC9",[localize"STR_NPC_DOC10",localize"STR_NPC_DOC11"],["['fims'] call A3PL_NPC_TakeJob;",""]],
 	["doc_workdenied",localize "STR_NPC_DOC12",[localize"STR_NPC_DOC13"],[""]],
 
 	["sfp_start", localize"STR_NPC_SFPINIT",[localize"STR_NPC_SFPINIT2",localize"STR_NPC_SFPINIT4"],["call A3PL_SFP_SignOn;",""]],

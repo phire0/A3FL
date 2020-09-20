@@ -130,7 +130,7 @@
 		[[6976.15,6633.17,0],localize"Functions_DeliveryLocation_KartWheels",localize"Functions_DeliveryLocation_Kart"],
 		[[6982.53,7128.21,0],localize"Functions_DeliveryLocation_Water",localize"Functions_DeliveryLocation_BoulderTaco"],
 		[[7107.94,7197.76,0],localize"Functions_DeliveryLocation_Water",localize"Functions_DeliveryLocation_BoulderMcFishers"],
-		[[7119.9,7249.33,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_BoulderGem"],
+		[[7119.9,7249.33,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_GemStore"],
 		[[6064.7,7474.21,0],localize"Functions_DeliveryLocation_WasteUniforms",localize"Functions_DeliveryLocation_Waste"],
 		[[11842.1,9252.28,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_WeaponsFactory"],
 		[[3469.14,7483.19,0],localize"Functions_DeliveryLocation_Net",localize"Functions_DeliveryLocation_FishingShop"],

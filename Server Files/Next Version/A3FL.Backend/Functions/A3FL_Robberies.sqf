@@ -141,7 +141,7 @@
 	if (!(vehicle player == player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_CRIMINAL_YOUALREADYPICKVEHICLE", "red"] call A3PL_Player_Notification;};
 
-	_fims = ["usms"] call A3PL_Lib_FactionPlayers;
+	_fims = ["fims"] call A3PL_Lib_FactionPlayers;
 	if ((count _fims) < 5) exitwith {["There must be at least 5 Marshals on duty to rob this!","red"] call A3PL_Player_Notification;};
 
 	[] remoteExec ["A3PL_Robberies_SeizureAlert", _fims];
@@ -197,11 +197,6 @@
 {
 	["The alarm in the seizure storage has been triggered","blue"] call A3PL_Player_Notification;
 	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 1, 5];
-}] call Server_Setup_Compile;
-
-["A3PL_Robberies_SeizureAccessed",{
-	_name = player getVariable["name","unknown"];
-	[format["%1 has accessed the DOC storage container",_name],"blue","usms",1] call A3PL_Lib_JobMessage;
 }] call Server_Setup_Compile;
 
 ["A3PL_Robberies_RobPShip",

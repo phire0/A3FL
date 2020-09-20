@@ -122,7 +122,7 @@
 
 ["A3PL_FD_HandleFireAxe",
 {
-	private _whitelist = ["fifr","fisd","uscg","usms"];
+	private _whitelist = ["fifr","fisd","uscg","fims"];
 	private _pJob = player getVariable["job","unemployed"];
 	if(!(_pJob IN _whitelist)) exitWith {};
 	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];

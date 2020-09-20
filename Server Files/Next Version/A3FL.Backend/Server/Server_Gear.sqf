@@ -254,20 +254,11 @@
 	if (!([[0,0,0],_pos] call BIS_fnc_areEqual)) then {
 		_unit setVariable["alreadySpawned",true,true];
 	};
-	/*if ([[0,0,0],_pos] call BIS_fnc_areEqual) then {
-		if(_ownsHouse) then {
-			switch (typeOf _houseObj) do {
-				case ("Land_Mansion01"): { _unit setpos [(getpos _houseObj select 0),(getpos _houseObj select 1),1]; };
-				default { _unit setPosATL (getPosATL _houseObj); };
-			};
-		} else {
-			[_unit] call Server_Housing_SetPosApt;
-		};		
-	};*/
 
 	_jailTime = (_return select 21);
 	if(_jailTime > 0) then {
 		_unit setPos [4795.31,6313.62,0];
+		_unit setVariable["alreadySpawned",true,true];
 		[_jailTime, _unit] call Server_Police_JailPlayer;
 	};
 
