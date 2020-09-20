@@ -372,8 +372,8 @@
         <Key ID="STR_QuickActionsNPC_ShopClosedFrom20Till6">
             <Original>This store is closed from 8pm to 6am!</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_AccessShopFIMS">
-            <Original>FIFR Shop</Original>
+        <Key ID="STR_QuickActionsNPC_AccessShopFIEMS">
+            <Original>EMS Shop</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_OnlyFIFR">
             <Original>Only FIFR members have access to this shop</Original>
@@ -405,13 +405,10 @@
         <Key ID="STR_QuickActionsNPC_FISDManagment">
             <Original>FISD Management</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_FAAManagment">
-            <Original>FAA Management</Original>
-        </Key>
         <Key ID="STR_QuickActionsNPC_DOJManagment">
             <Original>DOJ Management</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_USMSManagment">
+        <Key ID="STR_QuickActionsNPC_FIMSManagment">
             <Original>FIMS Management</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_FIFDManagment">
@@ -419,12 +416,6 @@
         </Key>
         <Key ID="STR_QuickActionsNPC_USCGManagment">
             <Original>USCG Management</Original>
-        </Key>
-        <Key ID="STR_QuickActionsNPC_DMVManagment">
-            <Original>DMV Management</Original>
-        </Key>
-        <Key ID="STR_QuickActionsNPC_CartelManagment">
-            <Original>Cartel Management</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_FISDVehShop">
             <Original>FISD Vehicle Shop</Original>
@@ -633,7 +624,7 @@
         <Key ID="STR_QuickActionsNPC_FakeID">
             <Original>Get Fake ID</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_PriseServiceUSMS">
+        <Key ID="STR_QuickActionsNPC_TalkToFIMS">
             <Original>Talk to the Marshal</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_TalkToTheDoctorWithoutDiploma">

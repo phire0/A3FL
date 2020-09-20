@@ -13,6 +13,7 @@
 {
 	if(!(isNull(player getVariable["Player_Dog",objNull]))) exitwith {["You already have a dog","red"] call A3PL_Player_Notification;};
 	createDialog "Dialog_Kane9";
+	private _display = findDisplay 93;
 	private _control = _display displayCtrl 1500;
 	private _dogs = [["Dog 1 (Sand)","Alsatian_Sand_F"],["Dog 2 (Black)","Alsatian_Black_F"],["Dog 3 (Sandblack)","Alsatian_Sandblack_F"]];
 	{

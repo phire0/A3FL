@@ -182,82 +182,15 @@
 		private _atttachedObjects = attachedObjects _car;
 		private _countAttached = count(_attachedObjects);
 		if ((_countAttached > 0 || (_countAttached == 1 && (count(_attachedObjects select 0) == 0)))) exitWith {["Error: Contant a Director if you see this","red"] call A3PL_Player_Notification;};
-		//if (count (attachedObjects _car) > 0) exitWith {["There is objects attached to this vehicle, please unload everything before storing your vehicle. TEST2", "red"] call A3PL_Player_Notification;};
+		//if (count (attachedObjects _car) > 0) exitWith {["There is objects attached to this vehicle, please unload everything before storing your vehicle.", "red"] call A3PL_Player_Notification;};
 		[_car,player] remoteExec ["Server_Storage_SaveLargeVehicles",2];
 	};
 }] call Server_Setup_Compile;
 
-["A3PL_Storage_ObjectStoreButton",
-{
-	private ["_intersect","_near","_nearOwner","_var","_uid"];
-	_intersect = player_objIntersect;
-	if (isNull _intersect) exitwith {};
-	if (!(typeOf _intersect == "Land_A3PL_storage")) exitwith {};
-
-	_near = nearestObjects [_intersect,["Thing"],10];
-	if (count _near == 0) exitwith {[1] call A3PL_Storage_ObjectStoreResponse;};
-
-	_nearOwner = [];
-	_uid = getPlayerUID player;
-	{
-		_var = _x getVariable ["owner",nil];
-		if (!isNil "_var") then
-		{
-			if (_var == _uid) then {_nearOwner pushback _x;};
-		};
-	} foreach _near;
-
-	if (count _nearOwner == 0) exitwith {[3] call A3PL_Storage_ObjectStoreResponse;};
-	_nearOwner = _nearOwner select 0;
-
-	[2] call A3PL_Storage_ObjectStoreResponse;
-	[player, _nearOwner] remoteExec ["Server_Storage_StoreObject",2];
-}] call Server_Setup_Compile;
-
-["A3PL_Storage_ObjectRetrieveButton",
-{
-	disableSerialization;
-	private ["_display","_control","_intersect"];
-
-	_display = findDisplay 58;
-	_control = _display displayCtrl 1500;
-	_intersect = player_objIntersect;
-
-	if (isNull _intersect) exitwith {closeDialog 0; [localize"STR_NewStorage_11", "red"] call A3PL_Player_Notification;};
-	if ((typeOf _intersect) != "Land_A3PL_storage") exitwith {closeDialog 0; [localize"STR_NewStorage_12", "red"] call A3PL_Player_Notification;};
-
-	_array = (A3PL_Storage_ReturnArray select (lbCurSel _control));
-	_id = _array select 0;
-	_class = _array select 1;
-
-	[_class,player,_id] remoteExec ["Server_Storage_RetrieveObject", 2];
-
-	closeDialog 0;
-}] call Server_Setup_Compile;
-
-["A3PL_Storage_ObjectRetrieveResponse",
-{
-	private ["_return","_text"];
-	_return = param [0,1];
-	_text = "";
-	switch (_return) do
-	{
-		case 1: {_text = [localize"STR_NewStorage_13","red"]};
-		case 2: {_text = [localize"STR_NewStorage_14","green"]};
-		case 3: {_text = [localize"STR_NewStorage_15","red"]};
-		case 4: {_text = [localize"STR_NewStorage_16","red"]};
-		case 5: {_text = [localize"STR_NewStorage_17","green"]};
-		case 6: {_text = [localize"STR_NewStorage_18","red"]};
-		case 7: {_text = [localize"STR_NewStorage_19","red"]};
-	};
-	_text call A3PL_Player_Notification;
-}] call Server_Setup_Compile;
-
 ["A3PL_Storage_CarRetrieveResponse",
 {
-	private ["_return","_text"];
-	_return = param [0,1];
-	_text = "";
+	private _return = param [0,1];
+	private _text = "";
 	switch (_return) do
 	{
 		case 1: {_text = [localize"STR_NewStorage_20","red"]};
@@ -268,25 +201,10 @@
 	_text call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
-["A3PL_Storage_ObjectStoreResponse",
-{
-	private ["_return","_text"];
-	_return = param [0,1];
-	_text = "";
-	switch (_return) do
-	{
-		case 1: {_text = [localize"STR_NewStorage_24","red"]};
-		case 2: {_text = [localize"STR_NewStorage_25","green"]};
-		case 3: {_text = [localize"STR_NewStorage_26","red"]};
-	};
-	_text call A3PL_Player_Notification;
-}] call Server_Setup_Compile;
-
 ["A3PL_Storage_CarStoreResponse",
 {
-	private ["_return","_text"];
-	_return = param [0,1];
-	_text = "";
+	private _return = param [0,1];
+	private _text = "";
 	switch (_return) do
 	{
 		case 1: {_text = [localize"STR_NewStorage_27","red"]};
@@ -300,28 +218,6 @@
 		case 9: {_text = [localize"STR_NewStorage_35","green"]};
 	};
 	_text call A3PL_Player_Notification;
-}] call Server_Setup_Compile;
-
-["A3PL_Storage_OpenObjectStorage",
-{
-	if(player_objintersect getVariable ["inUse",false]) exitWith {
-		[localize"STR_NewStorage_36", "red"] call A3PL_Player_Notification;
-	};
-	createDialog "Dialog_ObjectStorage";
-
-	if(typeOf player_objintersect == "Land_A3PL_storage") then {
-		player_objintersect setVariable ["inUse",true,true];
-		[] spawn {
-			_garage = player_objintersect;
-			waitUntil {isNull findDisplay 58};
-			sleep 2;
-			_garage setVariable ["inUse",false,true];
-		};
-	} else {
-		[localize"STR_NewStorage_37", "red"] call A3PL_Player_Notification;
-	};
-
-	[player] remoteExec ["Server_Storage_ReturnObjects",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Storage_OpenCarStorage", {
@@ -360,37 +256,21 @@
 	};
 }] call Server_Setup_Compile;
 
-["A3PL_Storage_ObjectsReceive",
-{
-	disableSerialization;
-	private ["_returnArray","_display","_control","_i"];
-	_returnArray = param [0,[]];
-	_display = findDisplay 58;
-	_control = _display displayCtrl 1500;
-	{
-		_i = _control lbAdd (format ["%1",[_x select 1, "name"] call A3PL_Config_GetItem]);
-	} foreach _returnArray;
-	A3PL_Storage_ReturnArray = _returnArray;
-}] call Server_Setup_Compile;
-
 ["A3PL_Storage_VehicleReceive", {
 	disableSerialization;
-	private ["_returnArray","_display","_control","_i"];
-	_returnArray = param [0,[]];
-
-	_display = findDisplay 145;
-	_control = _display displayCtrl 1500;
+	private _returnArray = param [0,[]];
+	private _display = findDisplay 145;
+	private _control = _display displayCtrl 1500;
 
 	{
 		_x pushBack (format ["%1",getText (configFile >> "CfgVehicles" >> (_x select 1) >> "displayName")]);
 
-		_vehicleGas = format ["%1",round((_x select 3)*100)] + "%";
-		_vehiclePlate = toUpper (_x select 0);
-		_vehicleInsurance = _x select 4;
+		private _vehicleGas = format ["%1",round((_x select 3)*100)] + "%";
+		private _vehiclePlate = toUpper (_x select 0);
+		private _vehicleInsurance = _x select 4;
+		private _vehicleData = format ["%1_%2_%3_%4",_x select 5,_vehiclePlate,_vehicleGas,_vehicleInsurance];
 
-		_vehicleData = format ["%1_%2_%3_%4",_x select 5,_vehiclePlate,_vehicleGas,_vehicleInsurance];
-
-		if ((_x select 2) == "noCustomName") then {
+		if ((_x select 2) isEqualTo "noCustomName") then {
 			_i = lbAdd [1500, (format ["%1",getText (configFile >> "CfgVehicles" >> (_x select 1) >> "displayName")])];
 			lbSetData [1500,_i,_vehicleData];
 		} else {
@@ -403,24 +283,20 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Storage_VehicleInfo", {
-	_display = findDisplay 145;
-	_selectedIndex = lbCurSel 1500;
-	_selectedData = lbData [1500, _selectedIndex];
-	_dataSplit = _selectedData splitString "_";
-	_vehicleType = _dataSplit select 0;
-	_vehiclePlate = _dataSplit select 1;
-	_vehicleGas = _dataSplit select 2;
-	_vehicleInsurance = _dataSplit select 3;
-	_control = _display displayCtrl 1501;
+	private _display = findDisplay 145;
+	private _selectedIndex = lbCurSel 1500;
+	private _selectedData = lbData [1500, _selectedIndex];
+	private _dataSplit = _selectedData splitString "_";
+	private _vehicleType = _dataSplit select 0;
+	private _vehiclePlate = _dataSplit select 1;
+	private _vehicleGas = _dataSplit select 2;
+	private _vehicleInsurance = _dataSplit select 3;
+	private _control = _display displayCtrl 1501;
+	private _vehicleInsurance = "Yes";
+	if(_vehicleInsurance isEqualTo "0") then {_vehicleInsurance = "No";};
 
-	if(_vehicleInsurance isEqualTo "0") then {
-		_vehicleInsurance = "No";
-	} else {
-		_vehicleInsurance = "Yes";
-	};
-
-	_startingText = ["Type :","License :","Gas :","Insurance :"];
-	_followingText = [_vehicleType,_vehiclePlate,_vehicleGas,_vehicleInsurance];
+	private _startingText = ["Type :","License :","Gas :","Insurance :"];
+	private _followingText = [_vehicleType,_vehiclePlate,_vehicleGas,_vehicleInsurance];
 
 	lbClear 1501;
 	{
@@ -429,25 +305,19 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Storage_ChangeVehicleName", {
-	private ["_validCharacters"];
-	_display = findDisplay 145;
-	_control = _display displayCtrl 1500;
-	_selectedIndex = lbCurSel 1500;
-	_selectedData = lbData [1500, _selectedIndex];
-	_dataSplit = _selectedData splitString "_";
-	_vehiclePlateUpper = _dataSplit select 1;
-	_vehiclePlateLower = toLower _vehiclePlateUpper;
-	_vehicleNewName = ctrlText 1400;
-	_allowedCharacters = [" ","0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-	_validCharacters = true;
+	private _display = findDisplay 145;
+	private _control = _display displayCtrl 1500;
+	private _selectedIndex = lbCurSel 1500;
+	private _selectedData = lbData [1500, _selectedIndex];
+	private _dataSplit = _selectedData splitString "_";
+	private _vehiclePlateUpper = _dataSplit select 1;
+	private _vehiclePlateLower = toLower _vehiclePlateUpper;
+	private _vehicleNewName = ctrlText 1400;
+	private _allowedCharacters = [" ","0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+	private _validCharacters = true;
 
-	if ((count _vehicleNewName) < 1) exitWith {
-		[localize"STR_NewStorage_39","yellow"] call A3PL_Player_Notification;
-	};
-
-	if ((count _vehicleNewName) > 35) exitWith {
-		[localize"STR_NewStorage_40","yellow"] call A3PL_Player_Notification;
-	};
+	if ((count _vehicleNewName) < 1) exitWith {[localize"STR_NewStorage_39","yellow"] call A3PL_Player_Notification;};
+	if ((count _vehicleNewName) > 35) exitWith {[localize"STR_NewStorage_40","yellow"] call A3PL_Player_Notification;};
 
 	for "_i" from 0 to ((count _vehicleNewName) - 1) do
 	{
@@ -456,10 +326,7 @@
 		if (!(_checking IN _allowedCharacters)) exitwith {_validCharacters = false;};
 	};
 
-	if (!(_validCharacters)) exitWith {
-		[localize"STR_NewStorage_41","yellow"] call A3PL_Player_Notification;
-	};
-
+	if (!(_validCharacters)) exitWith {[localize"STR_NewStorage_41","yellow"] call A3PL_Player_Notification;};
 	[_vehiclePlateLower,_vehicleNewName] remoteExec ["Server_Storage_ChangeVehicleName",2];
 
 	closeDialog 0;

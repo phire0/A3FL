@@ -56,54 +56,6 @@
 	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-["Server_Storage_ReturnObjects",
-{
-	private _player = param [0,objNull];
-	private _uid = param [1,"-1"];
-	if (_uid == "-1") then {_uid = getplayerUID _player;};
-	private _query = format ["SELECT id,class FROM objects WHERE type = 'object' AND uid = '%1'",_uid];
-	private _objects = [_query, 2, true] call Server_Database_Async;
-	private _returnArray = [];
-	{
-		private _id = _x select 0;
-		private _class = _x select 1;
-		_returnArray pushback [_id,_class];
-	} foreach _objects;
-	[_returnArray] remoteExec ["A3PL_Storage_ObjectsReceive",_player];
-},true] call Server_Setup_Compile;
-
-["Server_Storage_RetrieveObject",
-{
-	private _itemClass = param [0,""];
-	private _player = param [1,objNull];
-	private _id = param [2,-1];
-	private _query = format ["DELETE FROM objects WHERE id = '%1'",_id];
-	[_query,1] spawn Server_Database_Async;
-
-	[2] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];
-
-	private _class = [_itemClass, "class"] call A3PL_Config_GetItem;
-	private _obj = createVehicle [_class, (getpos _player), [], 0, "CAN_COLLIDE"];
-	_obj setVariable ["owner",(getPlayerUID _player),true];
-	_obj setVariable ["class",_itemClass,true];
-	[_obj,_player] remoteExec ["Server_Player_LocalityRequest",2];
-},true] call Server_Setup_Compile;
-
-["Server_Storage_StoreObject",
-{
-	private _player = param [0,ObjNull];
-	private _obj = param [1,ObjNull];
-	if ((_obj distance _player) > 10) exitwith {[4] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];};
-	private _var = _obj getVariable ["owner",nil];
-	if (isNil "_var") exitwith {[6] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];};
-	if (!(_var == (getPlayerUID _player))) exitwith {[7] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];};
-	private _id = format["obj_%1", [10] call Server_Housing_GenerateID];
-	private _itemClass = _obj getVariable ["class",""];
-	private _query = format ["INSERT INTO objects(id,type,class,uid) VALUES('%1','object','%2','%3')",_id, _itemClass, getPlayerUID _player];
-	[_query,1] spawn Server_Database_Async;
-	deleteVehicle _obj;
-	[5] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];
-},true] call Server_Setup_Compile;
 
 ["Server_Storage_ReturnVehicles",
 {

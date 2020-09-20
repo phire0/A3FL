@@ -151,7 +151,7 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_USMSManagment",
+	localize"STR_QuickActionsNPC_FIMSManagment",
 	{["usms"] call A3PL_Government_FactionSetup;}
 ],
 [
@@ -357,18 +357,14 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_AccessShopFIMS",
-	{
-		if ((player getVariable ["faction","citizen"]) != "fifr") exitwith {[localize"STR_QuickActionsNPC_OnlyFIFR","red"] call A3PL_Player_Notification;};
-		["Shop_FIFR_Supplies_Vendor"] call A3PL_Shop_Open;
-	}
+	localize"STR_QuickActionsNPC_AccessShopFIEMS",
+	{["Shop_FIFR_Supplies_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessShopVFD",
 	{
-		if ((["vfd",player] call A3PL_DMV_Check) || ((player getVariable ["faction","citizen"]) == "fifr")) then
-		{
+		if ((["vfd",player] call A3PL_DMV_Check) || ((player getVariable ["faction","citizen"]) isEqualTo "fifr")) then {
 			["Shop_VFD_Supplies_Vendor"] call A3PL_Shop_Open;
 		} else {
 			[localize"STR_QuickActionsNPC_OnlyVFD","red"] call A3PL_Player_Notification;
@@ -378,18 +374,12 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessShopFIFR",
-	{
-		if (((player getVariable ["faction","citizen"]) != "fifr")) exitwith {
-			[localize"STR_QuickActionsNPC_OnlyFIFR","red"] call A3PL_Player_Notification;
-		};
-		["Shop_FIFR_Supplies_Vendor2"] call A3PL_Shop_Open;
-	}
+	{["Shop_FIFR_Supplies_Vendor2"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessFIFRVEHShop",
 	{
-		if ((player getVariable ["faction","citizen"]) != "fifr") exitwith {[localize"STR_QuickActionsNPC_OnlyFIFR","red"] call A3PL_Player_Notification;};
 		["Shop_FIFR_Vehicle_Vendor"] call A3PL_Shop_Open;
 	}
 ],
@@ -401,16 +391,13 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_USCGManagment",
-	{
-		if ((player getVariable ["faction","citizen"]) != "uscg") exitwith {[format [localize"STR_QuickActionsNPC_OnlyLeaderCanAccessManager","United States Coast Guard"],"red"] call A3PL_Player_Notification;};
-		["uscg"] call A3PL_Government_FactionSetup;
-	}
+	{["uscg"] call A3PL_Government_FactionSetup;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_CCTVNorthdale",
 	{
-		if (!((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
+		if (!((player getVariable ["job","unemployed"]) IN ["fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
 		[3000] spawn A3PL_CCTV_Open;
 	}
 ],
@@ -418,15 +405,15 @@
 	"",
 	localize"STR_QuickActionsNPC_CCTVSilverton",
 	{
-		if (!((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
-		[2500] spawn A3PL_CCTV_Open;
+		if (!((player getVariable ["job","unemployed"]) IN ["fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
+		[1000] spawn A3PL_CCTV_Open;
 	}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_CCTVElk",
 	{
-		if (!((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
+		if (!((player getVariable ["job","unemployed"]) IN ["fisd","usms"])) exitwith {[localize"STR_QuickActionsNPC_CCTVPermission","red"] call A3PL_Player_Notification;};
 		[4000] spawn A3PL_CCTV_Open;
 	}
 ],
@@ -454,114 +441,72 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessUSCGShop",
-	{
-		if ((player getVariable ["faction","citizen"]) != "uscg") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","uscg"],"red"] call A3PL_Player_Notification;};
-		["Shop_USCG_Supplies_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_USCG_Supplies_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessUSCGPilotShop",
-	{
-		if ((player getVariable ["faction","citizen"]) != "uscg") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","uscg"],"red"] call A3PL_Player_Notification;};
-		["Shop_USCG_Pilot_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_USCG_Pilot_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessUSCGArmory",
-	{
-		if ((player getVariable ["faction","citizen"]) != "uscg") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","uscg"],"red"] call A3PL_Player_Notification;};
-		["Shop_USCG_Weapons_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_USCG_Weapons_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessUSCGVehShop",
-	{
-		if ((player getVariable ["faction","citizen"]) != "uscg") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","uscg"],"red"] call A3PL_Player_Notification;};
-		["Shop_USCG_Car_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_USCG_Car_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessUSCGBoatShop",
-	{
-		if ((player getVariable ["faction","citizen"]) != "uscg") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","uscg"],"red"] call A3PL_Player_Notification;};
-		["Shop_USCG_Boat_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_USCG_Boat_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessWeaponsDOC",
-	{
-		if ((player getVariable ["faction","citizen"]) != "usms") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","fims"],"red"] call A3PL_Player_Notification;};
-		["Shop_DOC_Weapons_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_DOC_Weapons_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessSDWeaponsFISD",
-	{
-		if ((player getVariable ["faction","citizen"]) != "fisd") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","fisd"],"red"] call A3PL_Player_Notification;};
-		["Shop_SD_Weapons_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_SD_Weapons_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessUSMSSuppliesVendor",
-	{
-		if ((player getVariable ["faction","citizen"]) != "usms") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","usms"],"red"] call A3PL_Player_Notification;};
-		["Shop_DOC"] call A3PL_Shop_Open;
-	}
+	{["Shop_DOC"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessUSMSCarVendor",
-	{
-		if ((player getVariable ["faction","citizen"]) != "usms") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","usms"],"red"] call A3PL_Player_Notification;};
-		["Shop_DOC_Car_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_DOC_Car_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessFISDCarVendor",
-	{
-		if ((player getVariable ["faction","citizen"]) != "fisd") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","fisd"],"red"] call A3PL_Player_Notification;};
-		["Shop_SD_Car_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_SD_Car_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessFISDSuppliesVendor",
-	{
-		if ((player getVariable ["faction","citizen"]) != "fisd") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","fisd"],"red"] call A3PL_Player_Notification;};
-		["Shop_SD_Supplies_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_SD_Supplies_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessDOJSuppliesVendor",
-	{
-		if ((player getVariable ["faction","citizen"]) != "doj") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","doj"],"red"] call A3PL_Player_Notification;};
-		["Shop_DOJ_Supplies_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_DOJ_Supplies_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessUSCGAirShop",
-	{
-		if ((player getVariable ["faction","citizen"]) != "uscg") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","uscg"],"red"] call A3PL_Player_Notification;};
-		["Shop_USCG_Plane_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_USCG_Plane_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
 	localize"STR_QuickActionsNPC_AccessFIFRAirShop",
-	{
-		if ((player getVariable ["faction","citizen"]) != "fifr") exitwith {[format [localize"STR_QuickActionsNPC_OnlyTHISFactionCanAccess","fifr"],"red"] call A3PL_Player_Notification;};
-		["Shop_FIFR_Plane_Vendor"] call A3PL_Shop_Open;
-	}
+	{["Shop_FIFR_Plane_Vendor"] call A3PL_Shop_Open;}
 ],
 [
 	"",
@@ -615,7 +560,7 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_PriseServiceUSMS",
+	localize"STR_QuickActionsNPC_TalkToFIMS",
 	{["doc_initial"] call A3PL_NPC_Start;}
 ],
 [

@@ -153,7 +153,7 @@
 
 		_ins2 select 0 params ["_name", "_dist"];
 		private _posAGL = _obj modelToWorldVisual (_obj selectionPosition [_name,"Memory"]);
-		if (([_posAGL,ASLToAGL (getposASL player)] call BIS_fnc_distance2D) > 3) exitwith {
+		if (_dist > 5) exitwith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _obj;
 		};

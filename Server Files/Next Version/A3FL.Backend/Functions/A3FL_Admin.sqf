@@ -276,7 +276,11 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_FixGarage", {
-	player_objIntersect setVariable ["inUse",false,true];
+	private _target = player_objIntersect;
+	_target setVariable ["inUse",false,true];
+	if((typeOf _target) isEqualTo "Land_A3PL_storage") then {
+		_target animateSource ["storagedoor",0];
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_Camera", {

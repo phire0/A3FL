@@ -1151,12 +1151,10 @@
 			if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 			if (animationState player != "AinvPknlMstpSnonWnonDr_medic0") then {player playmove "AinvPknlMstpSnonWnonDr_medic0";}
 		};
+		_target setVariable["reviving",false,true];
 		player switchMove "";
 
-		if(Player_ActionInterrupted || !_success) exitWith {
-			["CPR Cancelled!", "red"] call A3PL_Player_Notification;
-			if ((vehicle player) isEqualTo player) then {player switchMove "";};
-		};
+		if(Player_ActionInterrupted || !_success) exitWith {["CPR Cancelled!", "red"] call A3PL_Player_Notification;};
 
 		private _chance = random 100;
 		if(["cpr",player] call A3PL_DMV_Check) then {_chance = random 50;};
@@ -1169,8 +1167,6 @@
 		} else {
 			["CPR Failed", "red"] call A3PL_Player_Notification;
 		};
-		player playMoveNow "";
-		_target setVariable["reviving",false,true];
 	};
 }] call Server_Setup_Compile;
 
