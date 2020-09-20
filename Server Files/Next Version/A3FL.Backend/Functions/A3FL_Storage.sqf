@@ -179,7 +179,10 @@
 		if((count _cars) isEqualTo 0) exitWith {[localize"STR_NewStorage_9", "red"] call A3PL_Player_Notification;};
 		private _car = _cars select 0;
 		if (((_car getVariable "owner") select 0) != (getPlayerUID player)) exitWith {[localize"STR_NewStorage_10", "red"] call A3PL_Player_Notification;};
-		if (count (attachedObjects _car) > 0) exitWith {["There is objects attached to this vehicle, please unload everything before storing your vehicle.", "red"] call A3PL_Player_Notification;};
+		private _atttachedObjects = attachedObjects _car;
+		private _countAttached = count(_attachedObjects);
+		if ((_countAttached > 0 || (_countAttached == 1 && (count(_attachedObjects select 0) == 0)))) exitWith {["Error: Contant a Director if you see this","red"] call A3PL_Player_Notification;};
+		//if (count (attachedObjects _car) > 0) exitWith {["There is objects attached to this vehicle, please unload everything before storing your vehicle. TEST2", "red"] call A3PL_Player_Notification;};
 		[_car,player] remoteExec ["Server_Storage_SaveLargeVehicles",2];
 	};
 }] call Server_Setup_Compile;
