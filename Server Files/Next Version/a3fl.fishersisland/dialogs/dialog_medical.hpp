@@ -240,9 +240,10 @@ class Dialog_DeathScreen
 {
 	idd = 7300;
 	movingEnable = 0;
-	enableSimulation = 1;
+    enableSimulation = 1;
 	onLoad = "";
 	onUnload = "";
+	class controlsBackground { };
 	class controls
 	{
 		class DeathInformation: RscStructuredText

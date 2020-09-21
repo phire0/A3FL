@@ -368,6 +368,7 @@ class CfgRemoteExec
 		class A3PL_Debug_ExecuteCompiled{allowedTargets=2;};
 
 		//Medical
+		class A3PL_Medical_Respawn{allowedTargets=0;};
 		class A3PL_Medical_Revived{allowedTargets=0;};
 		class A3PL_Medical_ApplyPWound{allowedTargets=0;};
 		class A3PL_Medical_Die{allowedTargets=0;};

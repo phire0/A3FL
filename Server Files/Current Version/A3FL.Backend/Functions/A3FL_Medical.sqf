@@ -666,7 +666,7 @@
 
 	[_display,_unit] call A3PL_Medical_LoadParts;
 	while {!isNull _display} do {
-		sleep 0.2;
+		uiSleep 0.5;
 		[] call A3PL_Medical_LoadItems;
 	};
 }] call Server_Setup_Compile;

@@ -625,8 +625,7 @@
 ["A3PL_EventHandlers_Killed",
 {
 	player removeEventHandler["Killed",0];
-	player addEventHandler ["Killed",{[] spawn A3PL_Medical_Die;}];
-	player addEventHandler ["Respawn", {call A3PL_Medical_onRespawn;}];
+	player addEventHandler ["Killed",{_this call A3PL_Medical_Die;}];
 }] call Server_Setup_Compile;
 
 ["A3PL_EventHandlers_HandleDamage",

@@ -1707,9 +1707,6 @@
    <Key ID="STR_ConfigItems_apple">
       <Original>Apple</Original>
    </Key>
-   <Key ID="STR_ConfigItems_donut">
-      <Original>Donut</Original>
-   </Key>
    <Key ID="STR_ConfigItems_handcuffs">
       <Original>Handcuffs</Original>
    </Key>
@@ -4245,7 +4242,7 @@
    <Key ID="STR_INTER_ATTACHHELI">
       <Original>Attach Helicopter</Original>
    </Key>
-   <Key ID="STR_INTER_DEPLOYGASHOSE">
+   <Key ID="STR_INTER_DEPLOYPETROLHOSE">
       <Original>Deploy Petrol Hose</Original>
    </Key>
    <Key ID="STR_INTER_CLIMBCUTTER">
