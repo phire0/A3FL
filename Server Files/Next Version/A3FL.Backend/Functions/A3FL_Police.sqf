@@ -45,7 +45,7 @@
 					_vehicles pushback [_x,"EMS #"];
 					_found = true;
 				};
-				if((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Raptor_PD","A3PL_Taurus_FD","A3PL_Charger15_FD"]) then {
+				if(((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Raptor_PD","A3PL_Taurus_FD","A3PL_Charger15_FD"]) && ((_x getVariable["faction",""]) isEqualTo _job)) then {
 					_vehicles pushback [_x,"CAR #"];
 					_found = true;
 				};
@@ -62,19 +62,22 @@
 		};
 		case ("uscg"): {
 			{
-				if (((typeOf _x) isEqualTo "A3PL_Cutter")) then {
+				private ["_faction","_type"];
+				_type = typeOf _x;
+				_faction = _x getVariable["faction",""];
+				if ((_type isEqualTo "A3PL_Cutter")) then {
 					_vehicles pushback [_x,"USCG CUTTER "];
 				};
-				if (((typeOf _x) isEqualTo "A3PL_Goose_USCG")) then {
+				if ((_type isEqualTo "A3PL_Goose_USCG")) then {
 					_vehicles pushback [_x,"WHALE UNIT"];
 				};
-				if ((typeOf _x) isEqualTo "A3PL_RBM") then	{
+				if (_type isEqualTo "A3PL_RBM") then	{
 					_vehicles pushback [_x,"MARITIME UNIT #"];
 				};
-				if ((typeOf _x) isEqualTo "A3PL_Jayhawk") then {
+				if (_type isEqualTo "A3PL_Jayhawk") then {
 					_vehicles pushback [_x,"AIR UNIT #"];
 				};
-				if (((typeOf _x) find "_PD") != -1) then {
+				if (((_type find "_PD") != -1) && (_faction isEqualTo _job)) then {
 					_vehicles pushback [_x,"SQUAD #"];
 				};
 			} foreach vehicles;
