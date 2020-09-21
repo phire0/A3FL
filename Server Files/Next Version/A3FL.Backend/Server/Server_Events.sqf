@@ -32,7 +32,7 @@
 {
 	["Ship Wreck"] call Server_Events_Start;
 	["ALERT! ALERT! A shipwreck has been detected in the waters of Fishers Island! Go and try to recover it's content!","yellow"] remoteExec ["A3PL_Player_Notification", -2];
-	private _eventDuration = 30*60;
+	private _eventDuration = 20*60;
 	private _wreckArray = ["Land_Boat_06_wreck_F","Land_Wreck_Traw2_F","Land_Wreck_Traw_F","Land_UWreck_FishingBoat_F"];
 	private _propsArray = ["Land_Sack_F","Land_BarrelTrash_F","Land_Sacks_goods_F","Land_CratesWooden_F","Land_Cages_F","Land_GarbagePallet_F","Land_GarbageBarrel_01_F","Land_Pallets_F","Land_Garbage_square5_F","Land_CratesShabby_F","Land_CanisterPlastic_F","Land_Garbage_line_F","Land_WoodenBox_F","Land_Sacks_heap_F","Land_PaperBox_closed_F","Land_GarbageBags_F","Land_Pallets_F","Land_GarbageBags_F"];
 	private _lootArray = ["diamond"];
@@ -105,7 +105,7 @@
 {
 	["Plane Crash"] call Server_Events_Start;
 	["ALERT! ALERT! A plane is having engines issues !","yellow"] remoteExec ["A3PL_Player_Notification", -2];
-	private _eventDuration = 30*60;
+	private _eventDuration = 20*60;
 	private _posArray = [[8130.25,6353.81,130]];
 
 	private _plane = createVehicle ["C_Plane_Civil_01_F", (_posArray call BIS_fnc_selectRandom), [], 0, "CAN_COLLIDE"];
@@ -132,20 +132,20 @@
 
 	while{alive _pilot} do {
 		_marker setMarkerPos (position _plane);
+		sleep 2;
 	};
 
-	_crashPos = position _plane;
 	deleteVehicle _pilot;
-	deleteVehicle _plane;
-
+	_crashPos = getPos _plane;
 	_marker setMarkerText " PLANE CRASH";
-	_marker setMarkerPos (position _crashPos);
-	private _planeWreck = createVehicle ["Land_HistoricalPlaneWreck_01_F", _crashPos, [], 0, "CAN_COLLIDE"];
+	_marker setMarkerPos _crashPos;
+	private _planeWreck = createVehicle ["Land_HistoricalPlaneWreck_01_F", _plane, [], 0, "CAN_COLLIDE"];
 	private _boxPos = [(_crashPos select 0) - random 15,(_crashPos select 1) + random 10,_crashPos select 2];
 	private _itemBox = "B_supplyCrate_F" createVehicle _boxPos;
 	_itemBox setVariable["locked",false,true];
 	_itemBox allowDamage false;
     _itemBox setDir (90);
+	deleteVehicle _plane;
 
 	private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
 	if((count _fifr) >= 5) then {

@@ -51,25 +51,21 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_PepperSpray",{
-	[] spawn {
-		_hndl = ppEffectCreate ['dynamicBlur', 505];
-		_hndl ppEffectEnable true;
-		_hndl ppEffectAdjust [5];
-		_hndl ppEffectCommit 0;
-		waitUntil {!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)};
-		ppEffectDestroy _hndl;
-	};
+	_hndl = ppEffectCreate ['dynamicBlur', 505];
+	_hndl ppEffectEnable true;
+	_hndl ppEffectAdjust [5];
+	_hndl ppEffectCommit 0;
+	waitUntil {!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)};
+	ppEffectDestroy _hndl;
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_Concussion",{
-	[] spawn {
-		_hndl = ppEffectCreate ['ColorCorrections', 50];
-		_hndl ppEffectEnable true;
-		_hndl ppEffectAdjust [1, 0.4, 0, [0, 0, 0, 0], [1, 1, 1, 0.5], [0.299, 0.587, 0.114, 0]];
-		_hndl ppEffectCommit 0;
-		waitUntil {!([player,"head","concussion_major"] call A3PL_Medical_HasWound)};
-		ppEffectDestroy _hndl;
-	};
+	_hndl = ppEffectCreate ['ColorCorrections', 50];
+	_hndl ppEffectEnable true;
+	_hndl ppEffectAdjust [1, 0.4, 0, [0, 0, 0, 0], [1, 1, 1, 0.5], [0.299, 0.587, 0.114, 0]];
+	_hndl ppEffectCommit 0;
+	waitUntil {!([player,"head","concussion_major"] call A3PL_Medical_HasWound)};
+	ppEffectDestroy _hndl;
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_Hit",
@@ -174,7 +170,7 @@
 		if(!((goggles player) IN _masks)) then {
 			if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
 				[player,"head","pepper_spray"] call A3PL_Medical_ApplyWound;
-				[] call A3PL_Medical_PepperSpray;
+				[] spawn A3PL_Medical_PepperSpray;
 			};
 		};
 	};
@@ -236,7 +232,7 @@
 				_parts = ["torso","pelvis","left upper leg","left lower leg","right upper leg","chest","right lower leg","head","right upper arm","left lower arm","right lower arm","left upper arm"];
 				_part = _parts select (round (random [0,5,11]));
 				switch (true) do {
-					case (_part isEqualTo "head"): { if (!([player,_part,"concussion_major"] call A3PL_Medical_HasWound)) then {[player,"head","concussion_major"] call A3PL_Medical_ApplyWound;[] call A3PL_Medical_Concussion;};};
+					case (_part isEqualTo "head"): { if (!([player,_part,"concussion_major"] call A3PL_Medical_HasWound)) then {[player,"head","concussion_major"] call A3PL_Medical_ApplyWound;[] spawn A3PL_Medical_Concussion;};};
 					default { [player,_part,(["cut","bruise","wound_minor","wound_major","bone_broken","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound; };
 				};
 			};
@@ -266,7 +262,7 @@
 				_part = _parts select (round (random [0,7,15]));
 				if(_part isEqualTo "head") then {
 					[player,"head","concussion_major"] call A3PL_Medical_ApplyWound;
-					[] call A3PL_Medical_Concussion;
+					[] spawn A3PL_Medical_Concussion;
 				} else {
 					[player,_part,(["cut","bruise","wound_major","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;
 				};
@@ -297,7 +293,7 @@
 				_part = _parts select (round (random [0,7,15]));
 				if(_part isEqualTo "head") then {
 					[player,"head","concussion_major"] call A3PL_Medical_ApplyWound;
-					[] call A3PL_Medical_Concussion;
+					[] spawn A3PL_Medical_Concussion;
 				} else {
 					[player,_part,(["cut","bruise","wound_major","bone_broken"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;
 				};
@@ -459,7 +455,6 @@
 ["A3PL_Medical_CaliberDamage",
 {
 	private _bullet = param[0,""];
-	diag_log str(_bullet);
 	private _coef = switch(_bullet) do {
 		default {1};
 		case "B_9x21_Ball": {1.2};
@@ -486,22 +481,19 @@
 
 ["A3PL_Medical_GetVar",
 {
-	private ["_player","_var","_vars","_return"];
-	_player = param [0,objNull];
-	_var = param [1,""];
-	_vars = _player getVariable ["A3PL_MedicalVars",[MAXBLOODLVL,"120/80",37]];
-	_return = 0;
+	private _player = param [0,objNull];
+	private _var = param [1,""];
+	private _vars = _player getVariable ["A3PL_MedicalVars",[MAXBLOODLVL,"120/80",37]];
+	private _return = 0;
 	switch (_var) do {
 		case ("blood"):{_return = _vars select 0;};
 		case ("pressure"):{_return = _vars select 1;};
 		case ("temperature"):{_return = _vars select 2;};
-		case default {_return = _vars select 0;};
+		default {_return = _vars select 0;};
 	};
 	_return;
 }] call Server_Setup_Compile;
 
-//apply a medical var e.g. blood,temperature,blood pressure and sync that variable to the network
-//_change should be in format ["blood","pressure","temperature"]
 ["A3PL_Medical_ApplyVar",
 {
 	private _player = param [0,player];
@@ -599,8 +591,10 @@
 	player setVariable ["DoubleTapped",false,true];
 	player setVariable ["TimeRemaining",nil,true];
 
-	[] call A3PL_Medical_LowerAlcohol;
-	[] call A3PL_Medical_LowerDrugs;
+	Player_Alcohol = 0;
+	Player_Drugs = [0,0,0];
+	profileNamespace setVariable ["player_alcohol",Player_Alcohol];
+	profileNamespace setVariable ["player_drugs",Player_Drugs];
 
 	disableUserInput false;
 	_effect ppEffectEnable false;
@@ -608,25 +602,6 @@
 	[player,"PlayerProne"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 }] call Server_Setup_Compile;
 
-["A3PL_Medical_LowerAlcohol",
-{
-	if(Player_Alcohol >= 80) then {
-		Player_Alcohol = 50;
-		profileNamespace setVariable ["player_alcohol",Player_Alcohol];
-	};
-}] call Server_Setup_Compile;
-
-["A3PL_Medical_LowerDrugs",
-{
-	{
-		if(_x >= 80) then {
-			Player_Drugs set[_forEachIndex, 50];
-		};
-	} foreach Player_Drugs;
-	profileNamespace setVariable ["player_drugs",Player_Drugs];
-}] call Server_Setup_Compile;
-
-//Check if we have a wound or combination of wounds
 ["A3PL_Medical_HasWound",
 {
 	private ["_player","_part","_wound","_hasWound"];
@@ -778,15 +753,14 @@
 
 ["A3PL_Medical_ClearLog",
 {
-	private ["_player"];
-	if ((player getVariable ["job","unemployed"]) != "fifr") exitwith {["Only EMS can erase that"] call A3PL_Player_Notification;};
-	_player = param [0,A3PL_MedicalVar_Target];
+	private _player = param [0,A3PL_MedicalVar_Target];
+	private _job = player getVariable ["job","unemployed"];
+	if !(_job isEqualTo "fifr") exitwith {["Only EMS can erase that"] call A3PL_Player_Notification;};
 	if (isNull _player) exitwith {};
 	_player setVariable ["A3PL_MedicalLog",nil,true];
 	[(findDisplay 73),_player] call A3PL_Medical_LoadParts;
 }] call Server_Setup_Compile;
 
-//open the medical menu
 ["A3PL_Medical_Open",
 {
 	disableSerialization;
@@ -798,46 +772,41 @@
 
 	if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
 		[] spawn {
-		_hndl = ppEffectCreate ['dynamicBlur', 505];
-		_hndl ppEffectEnable true;
-		_hndl ppEffectAdjust [5];
-		_hndl ppEffectCommit 0;
-		waitUntil {isNull findDisplay 73};
-		ppEffectDestroy _hndl;
+			_hndl = ppEffectCreate ['dynamicBlur', 505];
+			_hndl ppEffectEnable true;
+			_hndl ppEffectAdjust [5];
+			_hndl ppEffectCommit 0;
+			waitUntil {isNull findDisplay 73};
+			ppEffectDestroy _hndl;
 		};
 	};
 
-	//setup variables
 	A3PL_MedicalVar_CurrentPart = "chest";
 	A3PL_MedicalVar_Target = _unit;
 	["chest"] call A3PL_Medical_SelectPart;
 
-	//nil variables
 	_display displayAddEventHandler ["unLoad",
 	{
 		A3PL_MedicalVar_CurrentPart = nil;
 		A3PL_MedicalVar_Controls = nil;
 	}];
 
-	//set patient text
 	_control = _display displayCtrl 1100;
-	if (_unit == player) then {
+	if (_unit isEqualTo player) then {
 		_control ctrlSetStructuredText parseText format ["<t size='1.4' align='center' font='PuristaSemiBold'>%1</t>",toUpper (player getVariable ["name",name player])];
 	} else {
 		_control ctrlSetStructuredText parseText format ["<t size='1.4' align='center' font='PuristaSemiBold'>%1</t>",toUpper ([_unit] call A3PL_Player_GetNameTag)];
 	};
 
-	//add button eventhandlers
 	{
 		buttonSetAction [1602+_forEachIndex,format ["['%1'] call A3PL_Medical_SelectPart;",_x]];
 	} foreach ["head","chest","torso","pelvis","left upper leg","left lower leg","right upper leg","right lower leg","right upper arm","left upper arm","left lower arm","right lower arm"];
 	buttonSetAction [1601,"[] call A3PL_Medical_TreatWoundButton"];
 	buttonSetAction [1600,"[] call A3PL_Medical_ClearLog"];
 
-	//load wounds
 	[_display,_unit] call A3PL_Medical_LoadParts;
 	while {!isNull _display} do {
-		uiSleep 0.2;
+		sleep 0.2;
 		[] call A3PL_Medical_LoadItems;
 	};
 }] call Server_Setup_Compile;
@@ -848,8 +817,6 @@
 	private ["_part","_display","_control","_player","_lbArray"];
 	_player = missionNameSpace getVariable ["A3PL_MedicalVar_Target",objNull];
 	_part = missionNameSpace getVariable ["A3PL_MedicalVar_CurrentPart","chest"];
-	//add treatments for this part
-	//load treatments,and items to treat
 	_display = findDisplay 73;
 	_control = _display displayCtrl 1502;
 	_lbArray = [];
@@ -878,7 +845,6 @@
 		};
 	} foreach (player getVariable ["player_inventory",[]]);
 
-	//add all the listbox stuff
 	lbClear _control;
 	{
 		_index = _control lbAdd (_x select 0);
@@ -887,8 +853,6 @@
 
 }] call Server_Setup_Compile;
 
-//display wounds on the base model inside the dialog
-//This also loads the treatments available
 ["A3PL_Medical_LoadParts",
 {
 	disableSerialization;
@@ -966,7 +930,6 @@
 	};
 }] call Server_Setup_Compile;
 
-//what happends when we select a body part
 ["A3PL_Medical_SelectPart",
 {
 	disableSerialization;
@@ -990,16 +953,14 @@
 		case ("right upper arm"): {_partName = "right arm"};
 		case ("right lower arm"): {_partName = "right forearm"};
 	};
-	//set selected part text
 	_display = findDisplay 73;
 	_control = _display displayCtrl 1104;
 	_control ctrlSetStructuredText parseText format ["<t size='1.3' align='center' font='PuristaSemiBold'>%1</t>",toUpper _partName];
 
-	//listbox with wounds
 	_control = _display displayCtrl 1501;
 	lbClear _control;
 	{
-		if (_x select 0 == _part) then {
+		if ((_x select 0) == _part) then {
 			for "_i" from 1 to (count _x-1) do {
 				private ["_woundArr","_index","_woundClass","_color"];
 				_woundArr = _x select _i;
@@ -1054,7 +1015,7 @@
     removeAllContainers player;
 
     [player] remoteExec ["Server_Inventory_RemoveAll", 2];
-	if(player getVariable "gender" == "male") then {
+	if(player getVariable "gender" isEqualTo "male") then {
     	player addUniform (["A3PL_citizen2_Uniform","A3PL_citizen3_Uniform","A3PL_citizen4_Uniform","A3PL_citizen5_Uniform"] select (round (random 3)));
 	} else {
     	player addUniform (["woman1","woman2","woman3"] select (round (random 2)));
@@ -1147,7 +1108,7 @@
 		waitUntil{Player_ActionDoing};
 		while {Player_ActionDoing} do {
 			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-			if (!(vehicle player == player)) exitwith {_success = false;};
+			if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
 			if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 			if (animationState player != "AinvPknlMstpSnonWnonDr_medic0") then {player playmove "AinvPknlMstpSnonWnonDr_medic0";}
 		};
@@ -1177,11 +1138,11 @@
 	["life_alert",-1] call A3PL_Inventory_Add;
 	if(_overWater) then {
 		_cg = ["uscg"] call A3PL_Lib_FactionPlayers;
-		["Life Alert Emergency: Someone is requesting immediate assistance!","blue","uscg",3] call A3PL_Lib_JobMessage;
+		["Life Alert Emergency: Someone is requesting immediate assistance!","blue","uscg",1] call A3PL_Lib_JobMessage;
 		[_position, "Life Alert","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_cg];
 	} else {
 		_fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
-		["Life Alert Emergency: Someone is requesting immediate assistance!","blue","fifr",3] call A3PL_Lib_JobMessage;
+		["Life Alert Emergency: Someone is requesting immediate assistance!","blue","fifr",1] call A3PL_Lib_JobMessage;
 		[_position, "Life Alert","ColorRed"] remoteExec ["A3PL_Lib_CreateMarker",_fifr];
 	};
 }] call Server_Setup_Compile;

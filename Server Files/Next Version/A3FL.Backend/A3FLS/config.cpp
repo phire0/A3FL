@@ -100,6 +100,7 @@ class CfgRemoteExec
 		class Server_Gang_UpdateGangBalance{allowedTargets=2;};
 		class Server_Gang_NotifyPurchase{allowedTargets=2;};
 		class Server_Gang_RewardFactions{allowedTargets=2;};
+		class Server_Gang_ManageSetup{allowedTargets=2;};
 
 		//Locker
 		class Server_Locker_Save{allowedTargets=2;};
@@ -395,6 +396,7 @@ class CfgRemoteExec
 		class A3PL_Robberies_SeizureAlert{allowedTargets=0;};
 
 		//iPhoneX
+		class A3PL_iPhoneX_gangMngmtReceived{allowedTargets=0;};
 		class A3PL_iPhoneX_Contacts{allowedTargets=0;};
 		class A3PL_iPhoneX_Conversations{allowedTargets=0;};
 		class A3PL_iPhoneX_setPhoneNumber{allowedTargets=0;};

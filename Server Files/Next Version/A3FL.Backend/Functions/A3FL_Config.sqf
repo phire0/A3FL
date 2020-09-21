@@ -463,7 +463,7 @@
 		};
 	} forEach _config;
 
-	if ((count _rankData) isEqualTo 0) then {_rankData = ["Reserve",[getPlayerUID player],0];};
+	if ((count _rankData) isEqualTo 0) then {_rankData = ["Reserve",[getPlayerUID player],200];};
 	switch (_search) do {
 		default { _return = _rankData; };
 		case "rank": { _return = _rankData select 0; };

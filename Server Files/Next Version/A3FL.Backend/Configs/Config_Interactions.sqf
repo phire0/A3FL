@@ -1032,7 +1032,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_OPCOMPUTER",
 		{call A3PL_Police_DatabaseOpen;},
-		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","fims"]) && (typeOf(vehicle player) IN Config_Police_Vehs) && (((gunner (vehicle player)) isEqualTo player) || ((((crew (vehicle player)) select 0)) isEqualTo player))}
+		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","fims"]) && (typeOf(vehicle player) IN Config_Police_Vehs)}
 	],
 	[
 		localize "STR_INTER_RESETLOCKF",

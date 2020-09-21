@@ -1268,7 +1268,7 @@
 		_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
 		_control lbSetData [_index, getPlayerUID _x];
 	} forEach (playableUnits - [player]);
-
+	
 	_control = _display displayCtrl 1500;
 	{
 		if((getPlayerUID _x) IN (_gang select 3)) then {
@@ -1276,9 +1276,22 @@
 			_control lbSetData [_index, getPlayerUID _x];
 		};
 	} forEach AllPlayers;
+	[(_gang select 0), player] remoteExec ["Server_Gang_ManageSetup",2];
+}] call Server_Setup_Compile;
 
-	_control = _display displayCtrl 1101;
-	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[(_gang select 4), 1, 0, true] call CBA_fnc_formatNumber];
+["A3PL_iPhoneX_gangMngmtReceived",
+{
+	private _bank = param[0,0];
+	private _members = param[1,[]];
+	disableSerialization;
+	private _display = findDisplay 99300;
+	private _control = _display displayCtrl 1500;
+	{
+		_index = _control lbAdd format["%1", _x select 0];
+		_control lbSetData [_index, _x select 1];
+	} forEach _members;
+	private _control = _display displayCtrl 1101;
+	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[_bank, 1, 0, true] call CBA_fnc_formatNumber];
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_GangSetLead",
