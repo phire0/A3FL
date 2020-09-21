@@ -334,17 +334,22 @@
 				_holder addItemCargoGlobal ["A3PL_FD_Mask",1];
 			};
 			case ("bucket_empty"): {
-				deleteVehicle _obj;
-				private _pos = getPos player;
-				private _dir = getDir player;
-				private _val = 1.5;
-				for "_i" from 0 to _amount do {
-					_bucket = createVehicle ["A3PL_Bucket", [(_pos select 0) + (sin _dir * _val),(_pos select 1) + (cos _dir * _val),(_pos select 2)], [], 0, "CAN_COLLIDE"];
-					_bucket setVariable["owner",getPlayerUID player,true];
-					_bucket setVariable["class","bucket_empty",true];
-					_bucket setVariable["amount",1,true];
-					_val = _val + 0.5;
-				};
+				if(_amount <= 5) then {
+					deleteVehicle _obj;
+					private _pos = getPos player;
+					private _dir = getDir player;
+					private _val = 1.5;
+					for "_i" from 1 to _amount do {
+						_bucket = createVehicle ["A3PL_Bucket", [(_pos select 0) + (sin _dir * _val),(_pos select 1) + (cos _dir * _val),(_pos select 2)], [], 0, "CAN_COLLIDE"];
+						_bucket setVariable["owner",getPlayerUID player,true];
+						_bucket setVariable["class","bucket_empty",true];
+						_bucket setVariable["amount",1,true];
+						_val = _val + 0.5;
+					};
+				} else {
+					detach _obj;
+					_obj setPosASL (AGLtoASL (player modelToWorld [0,1,0]));
+				}
 			};
 			default {
 				detach _obj;
