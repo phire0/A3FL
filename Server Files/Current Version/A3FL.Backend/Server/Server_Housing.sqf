@@ -128,7 +128,7 @@
 		_doorid = _x select 2;
 
 		_near = nearestObjects [_pos, HOUSESLIST, 10,true];
-		if (count _near == 0) exitwith
+		if (count _near == 0) then
 		{
 			_query = format ["CALL RemovedHouse('%1');",_pos];
 			[_query,1] spawn Server_Database_Async;
@@ -222,16 +222,13 @@
 ["Server_Housing_AssignApt",
 {
 	private ["_player","_objToAssign","_var","_cannotAssign","_AptToAssign","_doorName"];
-	_player = param [0,objNull];
-
-	_list = Server_AptList;
-	if((_player getVariable["faction","citizen"]) isEqualTo "uscg") then {
-		_list = nearestObjects [[2188.62,4991.78,0], ["Land_A3PL_Motel"], 5000];
-	};
+	private _player = param [0,objNull];
+	private _spawnPos = param [1,[3552.460,6664.702,0]];
+	private _list = nearestObjects [_spawnPos, ["Land_A3PL_Motel"], 5000];
 
 	{
 		private ["_assigned"];
-		_assigned = _x getVariable "Server_AptAssigned";
+		_assigned = _x getVariable ["Server_AptAssigned",[]];
 		if (count _assigned < 8) exitwith
 		{
 			_objToAssign = _x;
@@ -241,7 +238,7 @@
 
 	if (isNil "_objToAssign") exitwith {diag_log "Error assigning apartment to player: None available"};
 
-	_var = _objToAssign getVariable "Server_AptAssigned";
+	_var = _objToAssign getVariable ["Server_AptAssigned",[]];
 	_cannotAssign = [];
 
 	{
@@ -275,7 +272,7 @@
 
 	//could potentially also use aptNumber
 	_var1 = _player getVariable "apt";
-	_var = _var1 getVariable "Server_AptAssigned";
+	_var = _var1 getVariable ["Server_AptAssigned",[]];
 	{
 		if ((_x select 1) == _player) exitwith
 		{

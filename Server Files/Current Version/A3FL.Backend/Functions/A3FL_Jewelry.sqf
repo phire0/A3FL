@@ -49,21 +49,12 @@
 
 ["A3PL_Jewelry_StartDrill",
 {
-	_drill = param [0,player_objintersect];
-	_fail = false;
-	_faction = "FISD";
-	_copsRequired = 7;
+	private _drill = param [0,player_objintersect];
+	private _copsRequired = 6;
+	private _nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
+	
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
-
-	if(_nearCity isEqualTo "Lubbock") then {
-		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < _copsRequired) exitwith {_fail=true;_faction="USCG";};
-	} else {
-		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < _copsRequired) exitwith {_fail=true;_faction="FISD";};
-	};
-
-	if(_fail) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob the Jewelry Store!",_copsRequired,_faction],"red"] call A3PL_Player_Notification;};
-
+	if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < _copsRequired) exitwith {[format ["There needs to be a minimum of %1 SD officers online to rob the Jewelry Store!",_copsRequired],"red"] call A3PL_Player_Notification;};
 	if (typeOf _drill != "A3PL_Drill_Bank") exitwith {["You are not looking at the drill","red"] call A3PL_Player_Notification;};
 	if (_drill animationPhase "drill_bit" < 1) exitwith {["Drill bit has not been installed","red"] call A3PL_Player_Notification;};
 	if (_drill animationSourcePhase "drill_handle" > 0) exitwith {["Drill has already been started","red"] call A3PL_Player_Notification;};
@@ -71,13 +62,9 @@
 	if(_robTime >= (diag_Ticktime-7200)) exitWith {["A bank has already been robbed less than 2 hours ago","red"] call A3PL_Player_Notification;};
 
 
-	_store = (nearestObjects [player, ["Land_A3FL_Fishers_Jewelry"], 15]) select 0;
+	private _store = (nearestObjects [player, ["Land_A3FL_Fishers_Jewelry"], 15]) select 0;
 	[getPlayerUID player,"jewelryRobbery",[getPos _store]] remoteExec ["Server_Log_New",2];
-
 	[format["!!! ALERT !!! A jewelry store is being robbed at %1 !", _nearCity],"green","fisd",3] call A3PL_Lib_JobMessage;
-	if(_nearCity isEqualTo "Lubbock") then {
-		[format["!!! ALERT !!! A jewelry store is being robbed at %1 !", _nearCity],"green","uscg",3] call A3PL_Lib_JobMessage;
-	};
 
 	missionNamespace setVariable ["JewelryCooldown",diag_Ticktime,true];
 	playSound3D ["A3PL_Common\effects\bankalarm.ogg", _store, true, _store, 3, 1, 250];
@@ -98,10 +85,9 @@
 
 	_store setVariable ["CanOpenSafe",true,true];
 	_store setVariable ["timer",serverTime,true];
-	uiSleep 1;
+	sleep 1;
 	deleteVehicle _drill;
 	["Drilling completed. The drill and the drill bit both unfortunatly broke during drilling.","green"] call A3PL_Player_Notification;
-
 	[_store] call A3PL_Jewelry_LoadSafe;
 }] call Server_Setup_Compile;
 
@@ -124,7 +110,7 @@
 	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];
 	private _nameIntersect = missionNameSpace getVariable ["player_nameintersect",""];
 	private _cops = ["fisd"] call A3PL_Lib_FactionPlayers;
-	if(count(_cops) < 4) exitWith {["There is not enough Sheriffs on duty at this time to break the glass","red"] call A3PL_Player_Notification;};
+	if(count(_cops) < 3) exitWith {["There is not enough Sheriffs on duty at this time to break the glass","red"] call A3PL_Player_Notification;};
 	if (player distance (_intersect modelToWorld (_intersect selectionPosition _nameIntersect)) < 2) then
 	{
 		private _var = format ["damage_%1",_nameintersect];
@@ -142,10 +128,11 @@
 	private _name = param [1,player_nameIntersect];
 	private _cops = ["fisd"] call A3PL_Lib_FactionPlayers;
 	_object animate [_name,1];
-	playSound3D ["A3\Sounds_F\arsenal\sfx\bullet_hits\glass_07.wss", player, true, getPosASL player, 4, 50];
+	playSound3D ["A3\Sounds_F\arsenal\sfx\bullet_hits\glass_07.wss", player, true, getPosASL player, 4, 1, 20];
 	sleep 1;
 	playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _object, false, _object modelToWorldVisual (_object selectionPosition [_name,"Memory"]), 1, 1, 300];
 	[_object] remoteExec ["A3PL_Store_Robbery_Alert", _cops];
+	[getPlayerUID player,"jewelryGlassBroke",[_name]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Jewelry_PickJewelry",
@@ -154,6 +141,10 @@
 	private _name = param [1,player_nameIntersect];
 	private _time = 10;
 	private _items = [];
+
+	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
+	if (_object getVariable[_name,false]) exitWith {["Someone is already collecting this","red"] call A3PL_Player_Notification;};
+	_object setVariable[_name,true,true];
 	switch(_name) do {
 		case("jewlery_case_1"): {
 			_time = 30;
@@ -223,8 +214,6 @@
 		};
 	};
 
-	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
-
 	if (currentWeapon player != "") then {
 		A3PL_Holster = currentWeapon player;
 		player action ["SwitchWeapon", player, player, 100];
@@ -241,7 +230,7 @@
 		if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
 	};
 	player playMoveNow "";
-	if(Player_ActionInterrupted || !_success) exitWith {["Action cancelled","red"] call A3PL_Player_Notification;};
+	if(Player_ActionInterrupted || !_success) exitWith {["Action cancelled","red"] call A3PL_Player_Notification;_object setVariable[_name,nil,true];};
 
 	{
 		private _class = _x select 0;
@@ -249,5 +238,6 @@
 		[_class,_amount] call A3PL_Inventory_Add;
 	} foreach _items;
 	_object animate [_name,1];
+	_object setVariable[_name,nil,true];
 	["You stole the jewelry!","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

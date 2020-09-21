@@ -54,42 +54,19 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_ManageOpen', {
-	private ["_display","_control","_isCorporate","_isBoss","_cid","_companyBudget"];
 	disableSerialization;
-
-	_isCorporate = [getPlayerUID player] call A3PL_Config_InCompany;
+	private _isCorporate = [getPlayerUID player] call A3PL_Config_InCompany;
 	if(!_isCorporate) exitWith {[localize"STR_COMPANY_YOUDONTHAVECOMPANY","red"] call A3PL_Player_Notification;};
-	_isBoss = [getPlayerUID player] call A3PL_Config_IsCompanyBoss;
+	private _isBoss = [getPlayerUID player] call A3PL_Config_IsCompanyBoss;
 	if(!_isBoss) exitWith {[localize"STR_COMPANY_YOUDONTLEADEROFCOMPANY","red"] call A3PL_Player_Notification;};
 
-	_cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
-	_companyBudget = [_cid, "bank"] call A3PL_Config_GetCompanyData;
+	private _cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
+	private _companyBudget = [_cid, "bank"] call A3PL_Config_GetCompanyData;
 
 	createDialog "Dialog_Company_Manage";
-	_display = findDisplay 137;
-
-	_control = _display displayCtrl 1100;
+	private _display = findDisplay 137;
+	private _control = _display displayCtrl 1100;
 	_control ctrlSetStructuredText parseText format["<t align='right' size='1.2'>$%1</t>",[_companyBudget] call A3PL_Lib_FormatNumber];
-
-	//Close
-	_control = _display displayCtrl 1703;
-	_control buttonSetAction "[0] call A3PL_Lib_CloseDialog;";
-
-	//Desc edit
-	_control = _display displayCtrl 1702;
-	_control buttonSetAction "call A3PL_Company_DescEdit;";
-
-	//Pay edit
-	_control = _display displayCtrl 1701;
-	_control buttonSetAction "call A3PL_Company_SetPay;";
-
-	//Fire
-	_control = _display displayCtrl 1700;
-	_control buttonSetAction "call A3PL_Company_Fire;";
-
-	//Bank transfer
-	_control = _display displayCtrl 1704;
-	_control buttonSetAction "call call A3PL_Company_Transfer;";
 
 	[_cid, player] remoteExec ["Server_Company_ManageSetup",2];
 }] call Server_Setup_Compile;
@@ -438,34 +415,6 @@
 	[format[localize"STR_SERVER_COMPANY_PAYEDBILL",_amount],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
-['A3PL_Company_BillPayFaction', {
-	disableSerialization;
-
-	_display = findDisplay 139;
-	_control = _display displayCtrl 1500;
-	_isPaid = _control lbValue (lbCurSel _control);
-	if(_isPaid isEqualTo 0) exitWith {[format[localize"STR_SERVER_COMPANY_ALREDAYPAID",_amount-_pBank],"red"] call A3PL_Player_Notification;};
-
-	_control = _display displayCtrl 1001;
-	_amount = parseNumber (ctrlText _control);
-
-	_factionBalance = [player] call A3PL_Government_MyFactionBalance;
-	if(_factionBalance < _amount) exitwith {
-		[format[localize"STR_SERVER_COMPANY_CANTPAYBILLFACTION",_amount-_factionBalance],"red"] call A3PL_Player_Notification;
-	};
-
-	_balance = [_job] call A3PL_Config_GetBalance;
-	[_balance,-_amount,"",format[localize"STR_SERVER_COMPANY_BILLSPAREM"]] remoteExec ["Server_Government_AddBalance",2];
-
-	_control = _display displayCtrl 1500;
-	_bid = parseNumber(_control lbData (lbCurSel _control));
-
-	[_bid,_amount,player] remoteExec ["Server_Company_PayBill"];
-	[0] call A3PL_Lib_CloseDialog;
-	_amount = [_amount, 1, 0, true] call CBA_fnc_formatNumber;
-	[format[localize"STR_SERVER_COMPANY_PAYEDBILLFACTION",_amount],"green"] call A3PL_Player_Notification;
-}] call Server_Setup_Compile;
-
 ['A3PL_Company_BillPayCompany', {
 	disableSerialization;
 	_display = findDisplay 139;
@@ -508,4 +457,132 @@
 	private _cid = [_uid] call A3PL_Config_GetCompanyID;
 	["You resigned from your company.","green"] call A3PL_Player_Notification;
 	[_cid, _uid, false] remoteExec ["Server_Company_Fire",2];
+}] call Server_Setup_Compile;
+
+/*
+	COMPANY SHOPS BELLOW
+*/
+
+#define BUSINESSOBJS ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"]
+#define BUSINESSPRICE 800000
+
+['A3PL_Company_OpenBuyShop', {
+	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
+	A3PL_Company_BuyObject = _nearBy select 0;
+
+	createDialog "Dialog_CompanyShop_Buy";
+	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1100;
+	_control ctrlSetText format ["$%1",[BUSINESSPRICE, 1, 2, true] call CBA_fnc_formatNumber];
+}] call Server_Setup_Compile;
+
+['A3PL_Company_BuyShop', {
+	private _cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
+	private _cBudget = [_cid, "bank"] call A3PL_Config_GetCompanyData;
+
+	if(_cBudget < BUSINESSPRICE) exitWith {[format["You don't have $%1 on your company bank account to buy this shop",[BUSINESSPRICE, 1, 2, true] call CBA_fnc_formatNumber], "red"] call A3PL_Player_Notification;};
+
+	[_cid, -(BUSINESSPRICE), "Bought Shop"] remoteExec ["Server_Company_SetBank",2];
+	[A3PL_Company_BuyObject,player,_cid] remoteExec ["Server_Company_BuyShop",2];
+	closeDialog 0;
+}] call Server_Setup_Compile;
+
+['A3PL_Company_OpenSellShop', {
+	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
+	A3PL_Company_BuyObject = _nearBy select 0;
+
+	createDialog "Dialog_CompanyShop_Sell";
+	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1100;
+	_control ctrlSetText format ["$%1",[(BUSINESSPRICE*0.7), 1, 2, true] call CBA_fnc_formatNumber];
+}] call Server_Setup_Compile;
+
+['A3PL_Company_SellShop', {
+	private _cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
+	private _cBudget = [_cid, "bank"] call A3PL_Config_GetCompanyData;
+	private _shopCid = A3PL_Company_BuyObject getVariable["cid",0];
+	if(!(_shopCid isEqualTo _cid)) exitWith {["Your company doesn't own this shop!","red"] call A3PL_Player_Notification;};
+	[_cid, +(BUSINESSPRICE*0.7), "Sold Shop"] remoteExec ["Server_Company_SetBank",2];
+	[A3PL_Company_BuyObject,player] remoteExec ["Server_Company_SellShop",2];
+	closeDialog 0;
+}] call Server_Setup_Compile;
+
+//Open the customer UI
+['A3PL_Company_OpenShop', {
+	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
+	A3PL_Company_BuyObject = _nearBy select 0;
+
+	createDialog "Dialog_CompanyShop_Customer";
+	private _display = findDisplay 130;
+}] call Server_Setup_Compile;
+
+//Customer function, buy from the comp stock
+['A3PL_Company_ShopBuy', {
+}] call Server_Setup_Compile;
+
+
+	//Handle virtual items to start with then cars
+['A3PL_Company_OpenShopStock', {
+	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
+	A3PL_Company_BuyObject = _nearBy select 0;
+
+	createDialog "Dialog_CompanyShop_Management";
+	private _display = findDisplay 130;
+
+	private _control = _display displayCtrl 1501;
+	private _inventory = player getVariable ["player_inventory",[]];
+	lbClear _control;
+
+	{
+		private _id = _x select 0;
+		private _amount = _x select 1;
+		private _infoString = format["%1__%2__%3","item",_id,_amount];
+		private _i = _control lbAdd format ["(%2x) %1",([_id,"name"] call A3PL_Config_GetItem),_amount];
+		_control lbSetData [_i,_infoString];
+	} foreach _inventory;
+
+	private _near = nearestObjects [player, ["Thing"], 10];
+	{
+		if ((!isNil {_x getVariable ["ainv",nil]}) || (!isNil {_x getVariable ["finv",nil]}) || (isNil {_x getVariable ["class",nil]})) then {
+			_near deleteAt _forEachIndex;
+		};
+	} foreach _near;
+	{
+		if ((_x getVariable ["owner",""]) isEqualTo (getPlayerUID player)) then {
+			private _id = _x getVariable ["class",""];
+			private _infoString = format["%1__%2__%3__%4","item",_id,1,_x];
+			private _i = _control lbAdd format ["(1x) %1",([_id,"name"] call A3PL_Config_GetItem)];
+			_control lbSetData [_i,_infoString];
+		};
+	} foreach _near;
+
+	private _stock = A3PL_Company_BuyObject getVariable["stock",[]];
+	private _control = _display displayCtrl 1500;
+	lbClear _control;
+	{
+		private _type = (_x select 0);
+		private _class = (_x select 1);
+		private _amount = (_x select 2);
+		private _price = (_x select 3);
+		private _infoString = format["%1__%2__%3__%4",_type,_class,_amount,_price];
+		private _name = [_class,_type,"name"] call A3PL_Factory_Inheritance;
+		private _i = _control lbAdd format ["(%2x) %1",_name,_amount];
+		_control lbSetData [_i,format ["%1",_infoString]];
+	} forEach _stock;
+}] call Server_Setup_Compile;
+
+//Add a new item to stock to sell
+['A3PL_Company_AddNewShopStock', {
+}] call Server_Setup_Compile;
+
+//Add x to current stock
+['A3PL_Company_AddShopStock', {
+}] call Server_Setup_Compile;
+
+//Remove x items from stock
+['A3PL_Company_RemoveShopStock', {
 }] call Server_Setup_Compile;

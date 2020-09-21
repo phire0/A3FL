@@ -463,7 +463,7 @@
 		};
 	} forEach _config;
 
-	if ((count _rankData) isEqualTo 0) then {_rankData = ["Reserve",[getPlayerUID player],0];};
+	if ((count _rankData) isEqualTo 0) then {_rankData = ["Reserve",[getPlayerUID player],200];};
 	switch (_search) do {
 		default { _return = _rankData; };
 		case "rank": { _return = _rankData select 0; };
@@ -480,7 +480,7 @@
 		case ("fisd"): {_balance = "Sheriff Department"};
 		case ("uscg"): {_balance = "US Coast Guard"};
 		case ("fifr"): {_balance = "Fire Rescue"};
-		case ("usms"): {_balance = "Marshals Service"};
+		case ("fims"): {_balance = "Marshals Service"};
 		case ("doj"): {_balance = "Department of Justice"};
 	};
 	_balance;

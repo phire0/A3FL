@@ -29,19 +29,19 @@
 		//+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>TEXT_HERE.</t>"
 
 		_control = (_display displayCtrl 69);
-		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.2</t>"
+		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.3</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Major Crime (Jewelry Store) </t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>New Pistols</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Warehouse robberies</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Concussion Effects</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Bank Heist gives only money</t>"
-		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Multiple seeds in hand</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>911 Confirmation</t>"
 		+ "<br/>"
 		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Quality of Life changes</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff0000'> Removed: </t><t size='1' align='left'>Legal Weapon Factory</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Drugs NPC locations</t>"
+		+ "<br/>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Silverton Revamp</t>"
 		+ "<br/>"
 		+ "<t size='0.8' align='center'>For the full changelog visit the forum @ arma3fisherslife.net</t>";
 		_control ctrlSetStructuredText (parseText _format);
@@ -111,26 +111,6 @@
 		player setVariable ["working",false,true];
 		player setVariable ["DoubleTapped",false,true];
 
-		// use this sleep instead of this while in editor
-		if (isServer) then {
-			// uiSleep 2;
-		} else
-		{
-			//If position is changed by the server we have loaded the gear
-			while {_pos isEqualTo (getpos player)} do
-			{
-				uiSleep 0.4;
-				_format = localize "STR_A3PLS_LOADINGREQUEST_RECEIVINGPLAYERGEAR1";
-				_control ctrlSetStructuredText (parseText _format);
-				uiSleep 0.4;
-				_format = localize "STR_A3PLS_LOADINGREQUEST_RECEIVINGPLAYERGEAR2";
-				_control ctrlSetStructuredText (parseText _format);
-				uiSleep 0.4;
-				_format = localize "STR_A3PLS_LOADINGREQUEST_RECEIVINGPLAYERGEAR3";
-				_control ctrlSetStructuredText (parseText _format);
-			};
-		};
-
 		//okay, we are out of the loop, lets set the markers for houses
 		_control = (_display displayCtrl 11059);
 		_control progressSetPosition 0.4;
@@ -142,7 +122,6 @@
 		_control = (_display displayCtrl 10359);
 		_format = localize "STR_A3PLS_LOADINGREQUEST_ASSIGNHOUSEAPPARTMENT";
 		_control ctrlSetStructuredText (parseText _format);
-
 
 		// Stats retrieved succesfully
 		_control = (_display displayCtrl 11059);
@@ -156,8 +135,6 @@
 		_format = localize "STR_A3PLS_LOADINGREQUEST_PLAYERGEARLOADED";
 		_control ctrlSetStructuredText (parseText _format);
 
-		// uiSleep 1;
-
 		_format = localize "STR_A3PLS_LOADINGREQUEST_INITIALIZINGCURRENTVEHICLES";
 		_control ctrlSetStructuredText (parseText _format);
 
@@ -167,8 +144,6 @@
 		A3PL_Vehicle_HandleInitU deleteAt ((count A3PL_Vehicle_HandleInitU) - 1);
 		A3PL_Vehicle_HandleInitU = toString A3PL_Vehicle_HandleInitU;
 		A3PL_HandleVehicleInit = compileFinal A3PL_Vehicle_HandleInitU;
-
-		// uiSleep 2;
 
 		// Vehicles loaded
 		_control = (_display displayCtrl 11059);
@@ -182,8 +157,6 @@
 		_format = localize "STR_A3PLS_LOADINGREQUEST_VEHICLESINITIALIZEDSUCCESFULLY";
 		_control ctrlSetStructuredText (parseText _format);
 
-		// uiSleep 2;
-
 		call A3PL_Medical_Init;
 		_control = (_display displayCtrl 10360);
 		_format = "<t size='2' align='center' color='#B8B8B8'>80%</t>";
@@ -192,8 +165,6 @@
 		_control = (_display displayCtrl 10359);
 		_format = localize "STR_A3PLS_LOADINGREQUEST_MEDICALSYSTEMINITIALIZED";
 		_control ctrlSetStructuredText (parseText _format);
-
-		// uiSleep 1;
 
 		//Once done loading everything lets closeDialog
 		_control = (_display displayCtrl 11059);
@@ -207,20 +178,21 @@
 		_format = localize "STR_A3PLS_LOADINGREQUEST_PLAYERINITIALIZEDSUCCESFULLY";
 		_control ctrlSetStructuredText (parseText _format);
 
-		// uiSleep 1;
-
-		_display displayRemoveEventHandler ["KeyDown", noEscape];
-
 		[0] call A3PL_Lib_CloseDialog;
 
-		player setVariable ["tf_voiceVolume", 1, true];
-		cutText["","BLACK IN"];
+		if((player getVariable["alreadySpawned",false])) then {
+			cutText["","BLACK IN"];
+			player enableSimulation true;
+		} else {
+			call A3PL_Player_SpawnMenu;
+		};
 
-		//load the admins
+		player setVariable ["tf_voiceVolume", 1, true];
 		call A3PL_Admin_Check;
 
-		player enableSimulation true;
 		player setvariable ["FinishedLoading",true,true];
 		showChat false;
+
+		_display displayRemoveEventHandler ["KeyDown", noEscape];
 	};
 },false,true] call Server_Setup_Compile;

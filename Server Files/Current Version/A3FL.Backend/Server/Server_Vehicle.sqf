@@ -33,16 +33,6 @@
 	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-["Server_Vehicle_SetPaint",
-{
-	private _vehicle = param [0,objNull];
-	private _texture = param [1,""];
-	private _id = _vehicle getVariable ["owner",[]];
-	if(count(_id) isEqualTo 0) exitWith {};
-	private _query = format ["UPDATE objects SET color = '%2' WHERE id = '%1'",_id select 1,_texture];
-	[_query,1] spawn Server_Database_Async;
-},true] call Server_Setup_Compile;
-
 ["Server_Vehicle_InitLPChange",
 {
 	private _player = param [0,objNull];
@@ -164,8 +154,7 @@
 	private _sirenType = "police";
 	switch (true) do {
 		case (_classname IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]): {_sirenType = "fire";};
-		case (_classname IN ["A3PL_Tahoe_FD","A3PL_Taurus_FD","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Charger15_FD"]): {_sirenType = "fire_FR";};
-		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Charger15_FD"]): {_sirenType = "police";};
+		case (_classname IN ["A3PL_Silverado_FD_Brush","A3PL_Charger15_FD","A3PL_Taurus_FD","A3PL_Tahoe_FD"]): {_sirenType = "fire_FR";};
 		case (_classname IN ["Jonzie_Ambulance","A3PL_E350"]): {_sirenType = "ems";};
 	};
 	switch (_sirenType) do {
@@ -295,12 +284,12 @@
 ['Server_Vehicle_Init_A3PL_Pierce_Rescue',
 {
 	_this call Server_Vehicle_Siren_Init;
-	private _light_1 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_2 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_3 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_4 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_5 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
-	private _light_6 = "A3PL_Floodlight_Double" createVehicle [0,0,0];
+	private _light_1 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_2 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_3 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_4 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_5 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
+	private _light_6 = "A3PL_RescueTruck_Light" createVehicle [0,0,0];
 	private _Rotator1 = "A3PL_Red_Rotator" createVehicle [0,0,0];
 	private _Rotator2 = "A3PL_White_Rotator" createVehicle [0,0,0];
 	private _Rotator3 = "A3PL_Red_Rotator_off" createVehicle [0,0,0];
@@ -345,7 +334,7 @@
 	_light_2 attachTo [_this, [0, 0, 0], "Floodlight_2"];
 	_light_3 attachTo [_this, [0, 0, 0], "Floodlight_3"];
 	_light_4 attachTo [_this, [0, 0, 0], "Floodlight_4"];
-	_Ladder attachTo [_this, [0, -1, -16.1]];
+	_Ladder attachTo [_this, [0, -5.5, -1]];
 	_Flag attachTo [_this, [-0.05, 0.39, -2.3], "Flag_Point"];
 	_light_3 setdir 180;
 	_light_4 setdir 180;
@@ -545,4 +534,17 @@
 	if(_uid isEqualTo "") exitWith {};
 	private _data = _data - [objNull];
 	missionNamespace setVariable [format ["%1_KEYS",_uid],_data];
+},true] call Server_Setup_Compile;
+
+["Server_Vehicle_SetPaint",
+{
+	private _vehicle = param [0,objNull];
+	private _texture = param [1,""];
+	private _id = _vehicle getVariable ["owner",[]];
+	if(count(_id) isEqualTo 0) exitWith {};
+	if((typeName _texture) isEqualTo "ARRAY") then {_texture = [_texture] call Server_Database_Array;};
+	_texture = [_texture, "\", "\\"] call CBA_fnc_replace;
+	diag_log str _texture;
+	private _query = format ["UPDATE objects SET color = '%2' WHERE id = '%1'",_id select 1,_texture];
+	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;

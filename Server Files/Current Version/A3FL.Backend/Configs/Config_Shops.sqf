@@ -21,6 +21,7 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Clinic",[
+			["item","life_alert",15000,5000,0],
 			["item","med_bandage",10,-1,0],
 			["item","med_icepack",20,-1,0],
 			["item","med_splint",30,-1,0],
@@ -30,7 +31,7 @@ Config_Shops_Items = [
 
 	["Shop_Fuel",[
 			["item","repairwrench",750,50,0],
-			["item","jerrycan",1500,600,0]
+			["item","jerrycan",1500,150,0]
 		],{[3852.065,9212.537,0.168]}
 	],
 
@@ -119,7 +120,8 @@ Config_Shops_Items = [
 
 	["Shop_MiningMike",[
 			["weapon","A3PL_Pickaxe",500,-1,0],
-			["weapon","A3PL_Shovel",480,-1,0]
+			["weapon","A3PL_Shovel",480,-1,0],
+			["item","Camper_Light",950,-1,0]
 		],{[2621.08,5610.15,0.08]}
 	],
 
@@ -202,30 +204,31 @@ Config_Shops_Items = [
 			["weapon","hgun_P07_F",15000,-1,7],
 			["weapon","hgun_P07_khk_F",15000,-1,8],
 			["weapon","A3PL_P226",15000,-1,8],
+			["weapon","A3FL_Beretta92",15000,-1,0],
 			["weapon","hgun_Pistol_heavy_02_F",15000,-1,9],
 			["magazine","10Rnd_9x21_Mag",500,-1,4],
 			["magazine","16Rnd_9x21_Mag",500,-1,4],
 			["magazine","A3PL_Red_Glock_Mag",500,-1,5],
 			["magazine","A3PL_P226_Mag",500,-1,5],
+			["magazine","A3FL_Beretta92_Mag",500,-1,0],
 			["magazine","16Rnd_9x21_green_Mag",500,-1,7],
 			["magazine","16Rnd_9x21_yellow_Mag",500,-1,7],
-			["magazine","6Rnd_45ACP_Cylinder",500,-1,9]
+			["magazine","6Rnd_45ACP_Cylinder",500,-1,9],
+			["aitem","acc_flashlight_pistol",500,0,0]
 		],{[6105.3,7367.8,0.2]}
 	],
 
 	["Shop_Prison",[
-			["item","net",80,0,0],
-			["item","bucket_empty",150,0,0],
 			["item","seed_corn",100,-1,0],
 			["item","seed_wheat",100,-1,0],
 			["item","seed_lettuce",100,-1,0],
 			["item","seed_coca",100,-1,0],
 			["item","seed_sugar",100,-1,0],
-			["item","lettuce",-1,80,0],
-			["item","corn",-1,80,0],
-			["item","wheat",-1,80,0],
-			["item","sugarcane",-1,80,0],
-			["item","coca",-1,80,0]
+			["item","lettuce",-1,10,0],
+			["item","corn",-1,10,0],
+			["item","wheat",-1,10,0],
+			["item","sugarcane",-1,10,0],
+			["item","coca",-1,10,0]
 		],{[2621.08,5610.15,0.08]}
 	],
 
@@ -290,6 +293,9 @@ Config_Shops_Items = [
 			["item","zipties",2500,-1,5],
 			["aitem","acc_flashlight",3000,-1,10],
 			["aitem","optic_ACO_grn",5000,-1,10],
+			["aitem","optic_ACO_grn_smg",5000,-1,0],
+			["aitem","optic_ACO_smg",5000,-1,0],
+			["aitem","optic_Holosight_smg_blk_F",5000,-1,0],
 			["aitem","optic_Holosight_blk_F",5000,-1,10]
 		],{[3852.065,9212.537,0.168]}
 	],
@@ -316,6 +322,8 @@ Config_Shops_Items = [
 		["weapon","hgun_P07_khk_F",20000,-1,8],
 		["weapon","A3PL_Red_Glock",20000,-1,6],
 		["weapon","A3PL_P226",20000,-1,8],
+		["weapon","A3PL_Beretta92",20000,-1,8],
+		["weapon","A3FL_DesertEagle",25000,-1,8],
 		["weaponPrimary","SMG_05_F",175000,-1,0],
 		["weaponPrimary","SMG_02_F",175000,-1,0],
 		["weaponPrimary","SMG_01_F",175000,-1,0],
@@ -325,6 +333,8 @@ Config_Shops_Items = [
 		["magazine","10Rnd_9x21_Mag",100,-1,4],
 		["magazine","A3PL_Red_Glock_Mag",100,-1,5],
 		["magazine","A3PL_P226_Mag",100,-1,5],
+		["magazine","A3FL_Beretta92_Mag",100,-1,5],
+		["magazine","A3FL_DesertEagle_Mag",150,-1,5],
 		["magazine","16Rnd_9x21_green_Mag",100,-1,7],
 		["magazine","16Rnd_9x21_yellow_Mag",100,-1,7],
 		["magazine","6Rnd_45ACP_Cylinder",100,-1,9],
@@ -335,49 +345,10 @@ Config_Shops_Items = [
 		["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0],
 		["magazine","A3FL_Mossberg_590K_8Rnd_buck",100,-1,0],
 		["aitem","optic_ACO_grn",5000,-1,10],
+		["aitem","optic_ACO_grn_smg",5000,-1,0],
+		["aitem","optic_ACO_smg",5000,-1,0],
+		["aitem","optic_Holosight_smg_blk_F",5000,-1,0],
 		["aitem","optic_Holosight_blk_F",5000,-1,10]
-		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
-	],
-
-	["Shop_BlackMarket",[
-			["item","weed_5g",-1,540,4],
-			["item","weed_10g",-1,915,4],
-			["item","weed_15g",-1,1035,4],
-			["item","weed_20g",-1,1770,4],
-			["item","weed_25g",-1,2212,4],
-			["item","weed_30g",-1,2655,4],
-			["item","weed_35g",-1,3097,4],
-			["item","weed_40g",-1,3540,4],
-			["item","weed_45g",-1,3982,4],
-			["item","weed_50g",-1,4425,4],
-			["item","weed_55g",-1,4867,4],
-			["item","weed_60g",-1,5310,4],
-			["item","weed_65g",-1,5752,4],
-			["item","weed_70g",-1,6195,4],
-			["item","weed_75g",-1,6637,4],
-			["item","weed_80g",-1,7080,4],
-			["item","weed_85g",-1,7522,4],
-			["item","weed_90g",-1,7965,4],
-			["item","weed_95g",-1,8407,4],
-			["item","weed_100g",-1,8850,4],
-			["item","turtle",-1,15000,6],
-			["item","shrooms",-1,525,7],
-			["item","cocaine",-1,1000,8],
-			["item","keycard",10000,-1,5],
-			["item","cocaine_brick",-1,10000,8],
-			["item","diamond_tourmaline_ill",-1,22000,8],
-			["item","diamond_aqua_ill",-1,27000,8],
-			["item","diamond_alex_ill",-1,32000,8],
-			["item","diamond_sapphire_ill",-1,37000,8],
-			["item","diamond_ruby_ill",-1,42000,8],
-			["item","diamond_emerald_ill",-1,47000,8],
-			["item","diamond_ill",-1,52000,8],
-			["item","ringset",-1,900,8],
-			["item","ring",-1,900,8],
-			["item","bracelet",-1,900,8],
-			["item","crown",-1,8000,8],
-			["item","necklace",-1,5000,8],
-			["item","golden_dildo",-1,15000,8]
 		],{ASLToATL (Ship_BlackMarket modelToWorld [-1,9,-4.4])}
 	],
 
@@ -438,7 +409,9 @@ Config_Shops_Items = [
 			["weapon","A3PL_Red_Glock",650,0,0],
 			["weapon","hgun_Rook40_F",650,0,0],
 			["weapon","A3PL_P226",650,-1,0],
+			["weapon","A3FL_Beretta92",650,-1,0],
 			["weapon","hgun_Pistol_heavy_01_F",650,0,0],
+			["weapon","hgun_ACPC2_F",650,0,0],
 			["weaponPrimary","A3FL_Mossberg_590K",7500,-1,0],
 			["weaponPrimary","SMG_02_F",8000,-1,0],
 			["weaponPrimary","SMG_05_F",8000,-1,0],
@@ -450,7 +423,9 @@ Config_Shops_Items = [
 			["magazine","A3PL_Red_Glock_Mag",150,0,0],
 			["magazine","16Rnd_9x21_Mag",150,0,0],
 			["magazine","A3PL_P226_Mag",150,-1,0],
+			["magazine","A3FL_Beretta92_Mag",150,-1,0],
 			["magazine","11Rnd_45ACP_Mag",150,0,0],
+			["magazine","9Rnd_45ACP_Mag",150,0,0],
 			["magazine","30Rnd_9x21_Mag_SMG_02",180,-1,0],
 			["magazine","A3PL_M16_Mag",200,0,0],
 			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
@@ -460,6 +435,9 @@ Config_Shops_Items = [
 			["aitem","acc_flashlight",150,-1,0],
 			["aitem","A3FL_Mossberg_590K_Flashlight",150,-1,0],
 			["aitem","optic_ACO_grn",150,-1,0],
+			["aitem","optic_ACO_grn_smg",150,-1,0],
+			["aitem","optic_ACO_smg",150,-1,0],
+			["aitem","optic_Holosight_smg_blk_F",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}
 	],
@@ -724,6 +702,8 @@ Config_Shops_Items = [
 			["weapon","A3PL_Red_Glock",650,0,0],
 			["weapon","hgun_Rook40_F",650,0,0],
 			["weapon","A3PL_P226",650,-1,0],
+			["weapon","A3FL_Beretta92",650,-1,0],
+			["weapon","hgun_ACPC2_F",650,0,0],
 			["weaponPrimary","A3FL_Mossberg_590K",7500,-1,0],
 			["weaponPrimary","SMG_02_F",8000,-1,0],
 			["weaponPrimary","SMG_05_F",8000,-1,0],
@@ -735,6 +715,8 @@ Config_Shops_Items = [
 			["magazine","A3PL_Red_Glock_Mag",150,0,0],
 			["magazine","16Rnd_9x21_Mag",150,0,0],
 			["magazine","A3PL_P226_Mag",150,-1,0],
+			["magazine","A3FL_Beretta92_Mag",150,-1,0],
+			["magazine","9Rnd_45ACP_Mag",150,0,0],
 			["magazine","30Rnd_9x21_Mag_SMG_02",150,-1,0],
 			["magazine","A3PL_M16_Mag",200,0,0],
 			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
@@ -744,6 +726,9 @@ Config_Shops_Items = [
 			["aitem","acc_flashlight",150,-1,0],
 			["aitem","A3FL_Mossberg_590K_Flashlight",150,-1,0],
 			["aitem","optic_ACO_grn",150,-1,0],
+			["aitem","optic_ACO_grn_smg",150,-1,0],
+			["aitem","optic_ACO_smg",150,-1,0],
+			["aitem","optic_Holosight_smg_blk_F",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
         ],{[2597.15,5429.76,10]}
     ],
@@ -848,8 +833,10 @@ Config_Shops_Items = [
 			["weapon","A3PL_Red_Glock",650,0,0],
 			["weapon","hgun_Rook40_F",650,0,0],
 			["weapon","A3PL_P226",650,-1,0],
+			["weapon","A3FL_Beretta92",650,-1,0],
 			["weapon","hgun_Pistol_heavy_01_F",650,0,0],
 			["weapon","hgun_Pistol_Signal_F",250,0,0],
+			["weapon","hgun_ACPC2_F",650,0,0],
 			["weaponPrimary","A3FL_Mossberg_590K",7500,-1,0],
 			["weaponPrimary","SMG_02_F",8000,-1,0],
 			["weaponPrimary","SMG_05_F",8000,-1,0],
@@ -862,7 +849,9 @@ Config_Shops_Items = [
 			["magazine","A3PL_Red_Glock_Mag",150,0,0],
 			["magazine","16Rnd_9x21_Mag",150,0,0],
 			["magazine","A3PL_P226_Mag",150,-1,0],
+			["magazine","A3FL_Beretta92_Mag",150,-1,0],
 			["magazine","11Rnd_45ACP_Mag",150,0,0],
+			["magazine","9Rnd_45ACP_Mag",150,0,0],
 			["magazine","30Rnd_9x21_Mag_SMG_02",180,-1,0],
 			["magazine","A3PL_M16_Mag",200,0,0],
 			["magazine","A3FL_Mossberg_590K_Beanbag",50,-1,0],
@@ -875,6 +864,9 @@ Config_Shops_Items = [
 			["aitem","acc_flashlight",150,-1,0],
 			["aitem","A3FL_Mossberg_590K_Flashlight",150,-1,0],
 			["aitem","optic_ACO_grn",150,-1,0],
+			["aitem","optic_ACO_grn_smg",150,-1,0],
+			["aitem","optic_ACO_smg",150,-1,0],
+			["aitem","optic_Holosight_smg_blk_F",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
 		],{uscg_table modelToWorld [0,0,-0.5]}
 	],
@@ -1061,10 +1053,8 @@ Config_Shops_Items = [
 			["uniform","A3PL_Cap_Amer_Outfit_Uniform",0,-1,0],
 			["uniform","A3PL_Deadpool_Outfit_Uniform",0,-1,0],
 			["uniform","A3PL_Grn_Lantern_Outfit_Uniform",0,-1,0],
-			["uniform","A3PL_BubblegumCheetas_Uniform",0,-1,0],
 			["uniform","A3PL_Donald_Duck_Uniform",0,-1,0],
 			["uniform","A3PL_Jumpsuit_Uniform",0,-1,0],
-			["uniform","A3PL_Kendra_Uniform",0,-1,0],
 			["uniform","A3PL_Mcflirtles_Employee_Uniform",0,-1,0],
 			["uniform","A3PL_SkyDesigns_CEO_Uniform",0,-1,0],
 			["uniform","A3PL_Surf_Lifesave_Uniform",0,-1,0],
@@ -1288,5 +1278,5 @@ Config_Shops_Items = [
 ];
 publicVariable "Config_Shops_Items";
 
-// Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_2,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
+// Config_Shops_StockSystemObjects = [npc_supermarket_1,npc_supermarket_2,npc_shopguns,npc_fuel_1,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12];
 // publicVariableServer "Config_Shops_StockSystemObjects";

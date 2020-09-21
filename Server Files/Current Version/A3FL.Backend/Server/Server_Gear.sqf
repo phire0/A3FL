@@ -56,8 +56,8 @@
 	_unit setVariable ["gender",_sex,true];
 	_unit setVariable ["job","unemployed",true];
 	_unit setVariable ["faction","citizen",true];
-	_unit setVariable ["Player_Cash",200,true];
-	_unit setVariable ["Player_Bank",500,true];
+	_unit setVariable ["Player_Cash",500,true];
+	_unit setVariable ["Player_Bank",800,true];
 	_unit setVariable ["Player_Level",0,true];
 	_unit setVariable ["Player_XP",0,true];
 	_unit setVariable ["Player_Inventory",[],true];
@@ -68,6 +68,7 @@
 	[_unit,"repairwrench",3] call Server_Inventory_Add;
 	[_unit,"med_bandage",3] call Server_Inventory_Add;
 	[_unit,"med_icepack",2] call Server_Inventory_Add;
+	[_unit,"jerrycan",2] call Server_Inventory_Add;
 
 	[_unit,_uid,false] call Server_Gear_Save;
 	_query = format ["UPDATE players SET name='%1',pasportdate=NOW(), gender='%3', dob='%4' WHERE uid ='%2'", _name,_uid,_sex,_dob];
@@ -105,12 +106,18 @@
 	if (count _return == 0) exitwith
 	{
 		[_unit,true] call Server_Gear_New;
+		_unit setVariable["alreadySpawned",true,true];
+		[_unit,[2445.83,5467.15,0]] call Server_Housing_AssignApt;
+		[_unit] call Server_Housing_SetPosApt;
 	};
 
 	_name = _return select 1;
 	if (_name == "") exitwith
 	{
 		[_unit,false] call Server_Gear_New;
+		_unit setVariable["alreadySpawned",true,true];
+		[_unit,[2445.83,5467.15,0]] call Server_Housing_AssignApt;
+		[_unit] call Server_Housing_SetPosApt;
 	};
 
 	//Set position to last known pos, can be [0,0,0] if server has restarted
@@ -206,8 +213,6 @@
 		{
 			_ownsHouse = true;
 			_houseObj = _x;
-
-			//give the key to the player if he doesn't have it
 			_doorID = (_houseObj getVariable "doorid") select 1;
 			if (!(_doorID IN _keys)) then {
 				_allKeys = _unit getVariable["keys",[]];
@@ -216,7 +221,6 @@
 			};
 		};
 	} foreach Server_HouseList;
-
 	_ownsWarehouse = false;
 	{
 		_warehouseVar = _x getVariable ["owner",[]];
@@ -224,8 +228,6 @@
 		{
 			_ownsWarehouse = true;
 			_warehouseObj = _x;
-
-			//give the key to the player if he doesn't have it
 			_doorID = (_warehouseObj getVariable "doorid") select 1;
 			if (!(_doorID IN _keys)) then {
 				_allKeys = _unit getVariable["keys",[]];
@@ -235,60 +237,28 @@
 		};
 	} foreach Server_WarehouseList;
 
-	if (!_ownsHouse) then
-	{
-		[_unit] call Server_Housing_AssignApt;
-	} else
-	{
-		//setpos to house position
-		if ([[0,0,0],_pos] call BIS_fnc_areEqual) then
-		{
-			//for some houses we need to set the player position a bit higher
-			switch (typeOf _houseObj) do
-			{
-				case ("Land_Mansion01"): { _unit setpos [(getpos _houseObj select 0),(getpos _houseObj select 1),1]; };
-				case default { _unit setpos (getpos _houseObj); };
-			};
-		};
-		//set house var
+	if (_ownsHouse) then {
 		_unit setVariable ["house",_houseObj,true];
-
-		//load items
 		_firstOwner = (_houseObj getVariable ["owner",[]]) select 0;
 		if(_firstOwner isEqualTo _uid) then {
 			[_unit,_houseObj,_uid] call Server_Housing_LoadItems;
 		};
 	};
-
 	if(_ownsWarehouse) then {
-	_unit setVariable ["warehouse",_warehouseObj,true];
-	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
-	if(_firstOwnerWarehouse isEqualTo _uid) then {
+		_unit setVariable ["warehouse",_warehouseObj,true];
+		_firstOwner = (_warehouseObj getVariable ["owner",[]]) select 0;
+		if(_firstOwner isEqualTo _uid) then {
 			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};
-
-	if ((!([[0,0,0],_pos] call BIS_fnc_areEqual)) && (!(_ownsHouse))) then //if our position is not [0,0,0] and we have an apartment
-	{
-		private ["_near"];
-		_near = nearestObjects [_pos, ["Land_A3PL_Motel"], 14];
-		if (count _near > 0) then
-		{
-			//still set the player to the apartment position since he spawned (close) back into an apartment
-			[_unit] call Server_Housing_SetPosApt;
-		};
-	};
-
-	//change 0,0,0 with whatever we set on server start later
-	if (([[0,0,0],_pos] call BIS_fnc_areEqual) && (!(_ownsHouse))) then
-	{
-		[_unit] call Server_Housing_SetPosApt;
+	if (!([[0,0,0],_pos] call BIS_fnc_areEqual)) then {
+		_unit setVariable["alreadySpawned",true,true];
 	};
 
 	_jailTime = (_return select 21);
-	if(_jailTime > 0) then
-	{
+	if(_jailTime > 0) then {
 		_unit setPos [4795.31,6313.62,0];
+		_unit setVariable["alreadySpawned",true,true];
 		[_jailTime, _unit] call Server_Police_JailPlayer;
 	};
 
@@ -396,7 +366,7 @@
 		//save furniture
 		if (!isNil {_unit getVariable ["house",nil]}) then {[_unit,_uid] call Server_Housing_SaveItems;};
 		if (!isNil {_unit getVariable ["warehouse",nil]}) then {[_unit,_uid] call Server_Warehouses_SaveItems;};
-		if (!isNil {_jobVeh}) then {deleteVehicle _jobVeh;};
+		if (!isNil {_jobVeh}) then {[_jobVeh,_uid] spawn Server_Gear_JobVehicle;};
 
 		//get rid of the assigned apt, if exist
 		_var = _unit getVariable "apt";
@@ -440,15 +410,12 @@
 	}, _timeSave]] call BIS_fnc_loop;
 }, true] call Server_Setup_Compile;
 
-
-["Server_Gear_WipeRusty",{
-	diag_log "running";
-	_query = format ["SELECT uid FROM players;"];
-	_return = [_query, 2,true] call Server_Database_Async;
-	diag_log _return;
-	{
-		_query = format ["INSERT INTO objects (id,type,class,uid,plystorage) VALUES ('%1','vehicle','A3PL_CVPI_Rusty','%2','1')",([7] call Server_Housing_GenerateID),(_x select 0)];
-		[_query,1] spawn Server_Database_Async;
-	} forEach _return;
-
-},true] call Server_Setup_Compile;
+["Server_Gear_JobVehicle",
+{
+	private _jobVeh = _this select 0;
+	private _uid = _this select 1;
+	sleep 300;
+	private _player = [_uid] call A3PL_Lib_UIDToObject;
+	if(isNull _player) exitwith {};
+	[_jobVeh] call A3PL_Vehicle_Despawn;
+}, true] call Server_Setup_Compile;

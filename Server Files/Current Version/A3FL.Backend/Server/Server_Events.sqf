@@ -9,8 +9,8 @@
 ["Server_Events_Random",
 {
 	private _allEvents = [
-		Server_Events_ShipWreck,
-		Server_Events_PlaneCrash
+		Server_Events_ShipWreck
+		//Server_Events_PlaneCrash
 	];
 	if(!isNil "Server_Events_Current") exitWith {};
 
@@ -32,7 +32,7 @@
 {
 	["Ship Wreck"] call Server_Events_Start;
 	["ALERT! ALERT! A shipwreck has been detected in the waters of Fishers Island! Go and try to recover it's content!","yellow"] remoteExec ["A3PL_Player_Notification", -2];
-	private _eventDuration = 30*60;
+	private _eventDuration = 20*60;
 	private _wreckArray = ["Land_Boat_06_wreck_F","Land_Wreck_Traw2_F","Land_Wreck_Traw_F","Land_UWreck_FishingBoat_F"];
 	private _propsArray = ["Land_Sack_F","Land_BarrelTrash_F","Land_Sacks_goods_F","Land_CratesWooden_F","Land_Cages_F","Land_GarbagePallet_F","Land_GarbageBarrel_01_F","Land_Pallets_F","Land_Garbage_square5_F","Land_CratesShabby_F","Land_CanisterPlastic_F","Land_Garbage_line_F","Land_WoodenBox_F","Land_Sacks_heap_F","Land_PaperBox_closed_F","Land_GarbageBags_F","Land_Pallets_F","Land_GarbageBags_F"];
 	private _lootArray = ["diamond"];
@@ -82,39 +82,16 @@
 	clearWeaponCargoGlobal _itemBox;
 	clearBackpackCargoGlobal _itemBox;
 
-	private _physicalItems = [];
    	private _virtualItems = [];
+	private _valuableItems = [["Titanium_Ingot",20],["Iron_Ingot",40],["Coal_Ingot",40],["Aluminium_Ingot",30],["weed_100g",8],["shrooms",8],["cocaine",13]];
+	private _itemCount = 4 + round(random(6));
 
-	_commonItems = [];
-	_valuableItems = [];
-	_rareItems = [];
-	_magReward = [];
-	_weaponReward = [];
-	_rareMagReward = [];
-	_rareWeaponReward = [];
-
-	_valueableChance = random 100;
-	if(_valueableChance >= 50) then {_virtualItems pushBack selectRandom _valuableItems;};
-
-	_rareChance = random 100;
-	if(_rareChance >= 70) then {_virtualItems pushBack selectRandom _rareItems;};
-
-	_magChance = random 100;
-	if(_magChance >= 50) then {_physicalItems pushBack selectRandom _magReward;};
-
-	_weaponReward = random 100;
-	if(_weaponReward >= 75) then {_physicalItems pushBack selectRandom _weaponReward;};
-
-	_rareMagChance = random 100;
-	if(_rareMagChance >= 50) then {_physicalItems pushBack selectRandom _rareMagReward;};
-
-	_rareWeaponReward = random 100;
-	if(_rareWeaponReward >= 75) then {_physicalItems pushBack selectRandom _rareWeaponReward;};
-
-	_virtualItems pushBack selectRandom _commonItems;
+	for "_i" from 0 to _itemCount do {
+		_item = (selectRandom _valuableItems);
+		_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
+	};
 
 	_itemBox setVariable["storage",_virtualItems,true];
-	{_itemBox addItemCargoGlobal _x} foreach _physicalItems;
 
     sleep _eventDuration;
 
@@ -128,7 +105,7 @@
 {
 	["Plane Crash"] call Server_Events_Start;
 	["ALERT! ALERT! A plane is having engines issues !","yellow"] remoteExec ["A3PL_Player_Notification", -2];
-	private _eventDuration = 30*60;
+	private _eventDuration = 20*60;
 	private _posArray = [[8130.25,6353.81,130]];
 
 	private _plane = createVehicle ["C_Plane_Civil_01_F", (_posArray call BIS_fnc_selectRandom), [], 0, "CAN_COLLIDE"];
@@ -146,33 +123,35 @@
 	sleep 5;
 	_plane setDamage 0.85;
 	_plane setHitPointDamage["hitEngine", 1];
-	private _source2 = createVehicle ["#particleSource",getposATL _plane, [], 0, "CAN_COLLIDE"];
-	_source2 setparticleclass "BigDestructionSmoke";
-	_source2 attachTo [_plane,[0,0,0]];
 
-	waitUntil{!alive _pilot};
+	private _marker = createMarker ["planecrash", position (_plane)];
+	_marker setMarkerShape "ICON";
+	_marker setMarkerType "A3PL_Markers_Plane";
+	_marker setMarkerText " PLANE IN DESTRESS";
+	_marker setMarkerColor "ColorWhite";
 
-	private _crashPos = getPosATL _plane;
+	while{alive _pilot} do {
+		_marker setMarkerPos (position _plane);
+		sleep 2;
+	};
+
 	deleteVehicle _pilot;
-	deleteVehicle _plane;
-	deleteVehicle _source2;
-
-	private _planeWreck = createVehicle ["Land_HistoricalPlaneWreck_01_F", _crashPos, [], 0, "CAN_COLLIDE"];
+	_crashPos = getPos _plane;
+	_marker setMarkerText " PLANE CRASH";
+	_marker setMarkerPos _crashPos;
+	private _planeWreck = createVehicle ["Land_HistoricalPlaneWreck_01_F", _plane, [], 0, "CAN_COLLIDE"];
 	private _boxPos = [(_crashPos select 0) - random 15,(_crashPos select 1) + random 10,_crashPos select 2];
 	private _itemBox = "B_supplyCrate_F" createVehicle _boxPos;
 	_itemBox setVariable["locked",false,true];
 	_itemBox allowDamage false;
     _itemBox setDir (90);
+	deleteVehicle _plane;
 
-    private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
-    if((count _fifr) >= 5) then {
-    	private _onWater = !(_position isFlatEmpty [-1, -1, -1, -1, 2, false] isEqualTo []);
+	private _fifr = ["fifr"] call A3PL_Lib_FactionPlayers;
+	if((count _fifr) >= 5) then {
+		private _onWater = !(_position isFlatEmpty [-1, -1, -1, -1, 2, false] isEqualTo []);
 		if(_onWater || ((_position select 3) < 0)) exitWith {};
-		private _marker = createMarker [format ["vehiclefire_%1",random 4000], position (_planeWreck)];
-		_marker setMarkerShape "ICON";
 		_marker setMarkerType "A3PL_Markers_FIFD";
-		_marker setMarkerText " PLANE CRASH FIRE";
-		_marker setMarkerColor "ColorWhite";
 		[localize"STR_SERVER_FIRE_VEHICLEFIREREPORT","red","fifr",3] call A3PL_Lib_JobMessage;
 		["A3PL_Common\effects\firecall.ogg",150,2,10] spawn A3PL_FD_FireStationAlarm;
 		[getposATL (_planeWreck)] spawn Server_Fire_StartFire;
@@ -203,14 +182,14 @@
 	_magChance = random 100;
 	if(_magChance >= 25) then {_physicalItems pushBack selectRandom _magReward;};
 
-	_weaponReward = random 100;
-	if(_weaponReward >= 45) then {_physicalItems pushBack selectRandom _weaponReward;};
+	_weaponRewardChance = random 100;
+	if(_weaponRewardChance >= 45) then {_physicalItems pushBack selectRandom _weaponReward;};
 
 	_rareMagChance = random 100;
 	if(_rareMagChance >= 50) then {_physicalItems pushBack selectRandom _rareMagReward;};
 
-	_rareWeaponReward = random 100;
-	if(_rareWeaponReward >= 75) then {_physicalItems pushBack selectRandom _rareWeaponReward;};
+	_rareWeaponRewardChance = random 100;
+	if(_rareWeaponRewardChance >= 75) then {_physicalItems pushBack selectRandom _rareWeaponReward;};
 
 	_virtualItems pushback selectRandom _commonItems;
 

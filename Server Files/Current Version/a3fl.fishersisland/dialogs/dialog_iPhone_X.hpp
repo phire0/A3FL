@@ -3574,11 +3574,12 @@ class A3PL_iPhone_appGangManagement
 			y = 0.621 * safezoneH + safezoneY;
 			w = 0.0876563 * safezoneW;
 			h = 0.022 * safezoneH;
+			sizeEx = 0.018 * safezoneW;
 		};
 		class text_money: RscStructuredText
 		{
 			idc = 1101;
-			text = "1234567890";
+			text = "";
 			x = 0.737188 * safezoneW + safezoneX;
 			y = 0.654 * safezoneH + safezoneY;
 			w = 0.0721875 * safezoneW;

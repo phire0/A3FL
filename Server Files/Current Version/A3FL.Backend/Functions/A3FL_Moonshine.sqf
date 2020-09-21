@@ -11,32 +11,29 @@
 	private ["_output","_nearby","_input","_pos","_mixer"];
 	_output = param [0,""];
 	_mixer = param [1,objNull];
+	_success = true;
 	switch (_output) do
 	{
 		case ("malt"):
-		{
-			//check for wheat nearby
+		{			
 			_input = objNull;
 			_nearby = nearestObjects [_mixer, ["A3PL_Sack"], 2];
 			{
-				if (_x getVariable "class" == "wheat") exitwith {_input = _x;};
+				if (_x getVariable "class" isEqualTo "wheat") exitwith {_input = _x;};
 			} foreach _nearby;
 			if (isNull _input) exitwith {["There is no wheat to grind nearby"] call A3PL_Player_Notification;};
 
-			//wait
-			if (!Player_ActionCompleted) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
-			Player_ActionCompleted = false;
+			if (Player_ActionDoing) exitwith {[localize"STR_NewVehicle_15","red"] call A3PL_Player_Notification;};
 			["Malt grinding...",20] spawn A3PL_Lib_LoadAction;
 			waitUntil{Player_ActionDoing};
-			_success = true;
 			while {Player_ActionDoing} do {
 				if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 				if ((vehicle player) != player) exitWith {_success = false;};
 				if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+				if ((player distance2D _mixer) > 15) exitwith {_success = false};
 			};
-			if(Player_ActionInterrupted || !_success) exitWith {["Action interrupted","red"] call A3PL_Player_Notification;};
+			if(Player_ActionInterrupted || !_success) exitWith {["Grinding interrupted","red"] call A3PL_Player_Notification;};
 
-			//delete the wheat and grind it
 			_pos = getposATL _input;
 			deleteVehicle _input;
 			_malt = createvehicle ["A3PL_Grainsack_Malt", _pos, [], 0, "CAN_COLLIDE"];
@@ -46,27 +43,24 @@
 		};
 		case ("yeast"):
 		{
-			//check for wheat nearby
 			_input = objNull;
 			_nearby = nearestObjects [_mixer, ["A3PL_Sack"], 2];
 			{
-				if (_x getVariable "class" == "wheat") exitwith {_input = _x;};
+				if (_x getVariable "class" isEqualTo "wheat") exitwith {_input = _x;};
 			} foreach _nearby;
 			if (isNull _input) exitwith {["There is no wheat to grind nearby"] call A3PL_Player_Notification;};
 
-			//wait
-			if (!Player_ActionCompleted) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
-			Player_ActionCompleted = false;
-			["Wheat grinding...",20] spawn A3PL_Lib_LoadAction;
+			if (Player_ActionDoing) exitwith {[localize"STR_NewVehicle_15","red"] call A3PL_Player_Notification;};
+			["Yeast grinding...",20] spawn A3PL_Lib_LoadAction;
 			waitUntil{Player_ActionDoing};
 			while {Player_ActionDoing} do {
 				if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 				if ((vehicle player) != player) exitWith {_success = false;};
 				if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+				if ((player distance2D _mixer) > 15) exitwith {_success = false};
 			};
-			if(Player_ActionInterrupted || !_success) exitWith {["Action interrupted","red"] call A3PL_Player_Notification;};
+			if(Player_ActionInterrupted || !_success) exitWith {["Grinding interrupted","red"] call A3PL_Player_Notification;};
 
-			//delete the wheat and grind it
 			_pos = getposATL _input;
 			deleteVehicle _input;
 			_yeast = createvehicle ["A3PL_Grainsack_Yeast", _pos, [], 0, "CAN_COLLIDE"];
@@ -76,27 +70,24 @@
 		};
 		case ("cornmeal"):
 		{
-			//check for wheat nearby
 			_input = objNull;
 			_nearby = nearestObjects [_mixer, ["A3PL_CornCob"], 2];
 			{
-				if (_x getVariable "class" == "corn") exitwith {_input = _x;};
+				if (_x getVariable "class" isEqualTo "corn") exitwith {_input = _x;};
 			} foreach _nearby;
 			if (isNull _input) exitwith {["There is no corn cob nearby to grind"] call A3PL_Player_Notification;};
 
-			//wait
-			if (!Player_ActionCompleted) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
-			Player_ActionCompleted = false;
+			if (Player_ActionDoing) exitwith {[localize"STR_NewVehicle_15","red"] call A3PL_Player_Notification;};
 			["Corn grinding...",20] spawn A3PL_Lib_LoadAction;
 			waitUntil{Player_ActionDoing};
 			while {Player_ActionDoing} do {
 				if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
 				if ((vehicle player) != player) exitWith {_success = false;};
 				if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+				if ((player distance2D _mixer) > 15) exitwith {_success = false};
 			};
-			if(Player_ActionInterrupted || !_success) exitWith {["Action interrupted","red"] call A3PL_Player_Notification;};
+			if(Player_ActionInterrupted || !_success) exitWith {["Grinding interrupted","red"] call A3PL_Player_Notification;};
 
-			//delete the wheat and grind it
 			_pos = getposATL _input;
 			deleteVehicle _input;
 			_cornmeal = createvehicle ["A3PL_Grainsack_CornMeal", _pos, [], 0, "CAN_COLLIDE"];
@@ -110,54 +101,46 @@
 ["A3PL_Moonshine_InstallHose",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_dist","_hose","_hoses"];
-	_dist = param [0,objNull];
-	_hoses = nearestObjects [_dist, ["A3PL_Distillery_Hose"], 2];
-	if (count _hoses < 1) exitwith {["No distillery pipes nearby","red"] call A3PL_Player_Notification;};
-	_hose = _hoses select 0;
+	private _dist = param [0,objNull];
+	private _hoses = nearestObjects [_dist, ["A3PL_Distillery_Hose"], 2];
+	if ((count _hoses) < 1) exitwith {["No distillery pipes nearby","red"] call A3PL_Player_Notification;};
+	private _hose = _hoses select 0;
 	_hose attachto [_dist,[-0.53,0.48,-0.3]];
 }] call Server_Setup_Compile;
 
 ["A3PL_Moonshine_InstallJug",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_jug","_hose","_jugs"];
-	_hose = param [0,objNull];
-	_jugs = nearestObjects [_hose, ["A3PL_Jug","A3PL_Jug_Green"], 2];
-	if (count _jugs < 1) exitwith {["No pot nearby","red"] call A3PL_Player_Notification;};
-	_jug = _jugs select 0;
+	private _hose = param [0,objNull];
+	private _jugs = nearestObjects [_hose, ["A3PL_Jug","A3PL_Jug_Green"], 2];
+	if ((count _jugs) < 1) exitwith {["No pot nearby","red"] call A3PL_Player_Notification;};
+	private _jug = _jugs select 0;
 	_jug attachto [_hose,[-0.2,-0.17,-0.57]];
 }] call Server_Setup_Compile;
 
 ["A3PL_Moonshine_addItem",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_dist","_nearby"];
-	_dist = param [0,objNull];
-	_nearby = nearestObjects [_dist, ["A3PL_Grainsack_Malt","A3PL_Grainsack_Yeast","A3PL_Grainsack_CornMeal"], 2];
+	private _dist = param [0,objNull];
+	private _nearby = nearestObjects [_dist, ["A3PL_Grainsack_Malt","A3PL_Grainsack_Yeast","A3PL_Grainsack_CornMeal"], 2];
 
 	//check for correct items
 	if (count _nearby < 1) exitwith {["There is no malt, yeast or cornmeal nearby, move it closer to the distillery","red"] call A3PL_Player_Notification;};
-	_nearby = _nearby select 0;
-	_item = _nearby getVariable "class";
-
-	//check for items already in dist
-	_items = _dist getVariable ["items",[]];
+	private _nearby = _nearby select 0;
+	private _item = _nearby getVariable "class";
+	private _items = _dist getVariable ["items",[]];
 	if (_item IN _items) exitwith {["This (closest) item has already been added to the distillery, add a different item closer to the distillery.","red"] call A3PL_Player_Notification;};
 
 	//take item and add it to array
 	deleteVehicle _nearby;
 	_items pushback _item;
 	_dist setVariable ["items",_items,true];
-
-	//msg
 	[format ["You added %1 in the distillery",[_item,"name"] call A3PL_Config_GetItem],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Moonshine_CheckStatus",
 {
-	private ["_distillery"];
-	_distillery = param [0,objNull];
+	private _distillery = param [0,objNull];
 	if (!(_distillery getVariable ["running",false])) exitwith {["The distillery is not running","red"] call A3PL_Player_Notification;};
 	[format ["It remains %1 seconds at this distillery until completion",(_distillery getVariable ["timeleft",180])],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
@@ -169,14 +152,8 @@
 	_dist = param [0,objNull];
 	if (_dist getVariable ["running",false]) exitwith {["The distillery is already in operation","red"] call A3PL_Player_Notification;};
 
-	/*if ((player distance (getmarkerpos "Hangar_Moonshine") > 50)) exitwith {
-		["Vous devez être dans l'entrepot de moonshine pour l'allumer","red"] call A3PL_Player_Notification;
-	};*/
-
 	_playerLevel = player getVariable["Player_Level",0];
-	if ((_playerLevel) < 6) exitWith {
-		["You will unlock this resource at level 6","red"] call A3PL_Player_Notification;
-	};
+	if ((_playerLevel) < 6) exitWith {["You will unlock this resource at level 6","red"] call A3PL_Player_Notification;};
 
 	//check for required items and attached objects
 	_items = _dist getVariable ["items",[]];
@@ -221,8 +198,7 @@
 	_dist setVariable ["running",nil,true];
 	deleteVehicle _sound;
 
-	if (_succes) then
-	{
+	if (_succes) then {
 		_dist setVariable ["items",nil,true];
 		_position = getPosATL _jug;
 		deleteVehicle _jug;
@@ -231,8 +207,7 @@
 		_jug setVariable ["class","jug_moonshine",true];
 		["One of your distilleries has finished creating moonshine","green"] call A3PL_Player_Notification;
 		[player,19] call A3PL_Level_AddXP;
-	} else
-	{
+	} else {
 		["One of your distilleries has not finished","red"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;

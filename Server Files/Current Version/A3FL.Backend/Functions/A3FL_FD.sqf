@@ -52,14 +52,11 @@
 	private _veh = _this select 0;
 	private _type_1 = _this select 1;
 	private _TruckNumber = {(typeOf _x == _type_1)} count vehicles;
-	private _Number1 = 0;
 	private _Number2 = 0;
 	private _Number3 = _TruckNumber;
-	while {_Number3 > 9} do {_Number3 = _Number3 - 10; _Number2 = _Number2 + 1; if (_Number2 > 9) then { _Number1 = _Number1 + 1; _Number2 = 0};};
-	if (_Number1 < 1) then {_Number1 = 0;};
+	while {_Number3 > 9} do {_Number3 = _Number3 - 10; _Number2 = _Number2 + 1;};
 	if (_Number2 < 1) then {_Number2 = 0;};
 	if (_Number3 < 1) then {_Number3 = 0;};
-	private _TruckNumber1 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number1];
 	private _TruckNumber2 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number2];
 	private _TruckNumber3 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _Number3];
 	_veh setObjectTextureGlobal [8, _TruckNumber2];
@@ -125,7 +122,7 @@
 
 ["A3PL_FD_HandleFireAxe",
 {
-	private _whitelist = ["fifr","fisd","uscg","usms"];
+	private _whitelist = ["fifr","fisd","uscg","fims"];
 	private _pJob = player getVariable["job","unemployed"];
 	if(!(_pJob IN _whitelist)) exitWith {};
 	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];
@@ -480,16 +477,9 @@
 	private ["_inlet","_source","_veh","_water"];
 	_veh = param [0,objNull];
 
-	if ((_veh == player) && (currentWeapon player != "A3PL_High_Pressure")) exitwith {};
+	if ((_veh isEqualTo player) && (currentWeapon player != "A3PL_High_Pressure")) exitwith {};
 
-	if (typeOf _veh == "A3PL_Pierce_Heavy_Ladder") then
-	{
-		_inlet = [objNull,_veh,"inlet_r"] call A3PL_FD_FindAdapterCap;
-	} else
-	{
-		_inlet = [] call A3PL_Lib_AttachedFirst;
-	};
-
+	_inlet = [] call A3PL_Lib_AttachedFirst;
 	if ((isNull _inlet) OR (!(typeOf _inlet IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]))) exitwith {};
 
 	_source = [_inlet] call A3PL_FD_FindSource;
@@ -523,67 +513,63 @@
 	missionNamespace setVariable ["A3PL_FD_FiredCount",_firedCount];
 }] call Server_Setup_Compile;
 
-//this is the loop we run while we are controlling the heavy ladder
 ["A3PL_FD_LadderHeavyLoop",
 {
 	private ["_veh","_sourceAmount","_inlet","_ammoWaterGun","_setZero","_otherEnd"];
 	_veh = param [0,objNull];
-	if (typeOf _veh != "A3PL_Pierce_Heavy_Ladder") exitwith {};
+	if (!((typeOf _veh) isEqualTo "A3PL_Pierce_Heavy_Ladder")) exitwith {};
 
-	if (missionNameSpace getVariable ["A3PL_FD_LadderHeavyLoopRunning",false]) exitwith {};
-	A3PL_FD_LadderHeavyLoopRunning = true;
 
-	//while we are controlling the watercannon
-	//add fired eventhandler
-	missionNamespace setVariable ["A3PL_FD_FiredCount",0];
-	_veh addEventHandler ["Fired",{[(param [0,objNull])] call A3PL_FD_WaterFiredEH;}];
+	_filling = _veh getVariable["A3PL_FD_LadderHeavyLoopRunning",false];
+	if (_filling) exitwith {};
+	_veh setVariable["A3PL_FD_LadderHeavyLoopRunning",true,true];
 
-	while {(player IN _veh) && (call A3PL_Lib_ReturnTurret == 1)} do
+	_i = 0;
+	waitUntil {sleep 0.1; _i = _i + 0.1; if (_i > 3) exitwith {_veh animate ["ft_pump_switch",0,true]}; _veh animationPhase "ft_pump_switch" > 0};
+	while {(_veh animationPhase "ft_pump_switch" > 0)} do
 	{
-		uiSleep 1;
-		if ((!(player IN _veh)) OR (!(call A3PL_Lib_ReturnTurret == 1))) exitwith {};
-		//check if inlet is connected
-		//end,veh,memory
-		_inlet = [objNull,_veh,"inlet_r"] call A3PL_FD_FindAdapterCap;
-
-		//var to know if we should empty the ammo for the watergun
-		_setZero = false;
-
-		//get vehicle ammo
-		_ammoWaterGun = player ammo "A3PL_High_Pressure";
-
-		//okay we found inlet, and our pump shift is engaged
-		if ((!isNull _inlet) && (_veh animationPhase "FT_Pump_Switch" > 0.5)) then
+		_end = [objNull,_veh,"inlet_r"] call A3PL_FD_FindAdapterCap;
+		if (!isNull _end) then
 		{
-			//check if it is connected to a valid source
-			_source = [_inlet] call A3PL_FD_FindSource;
+			_source = [_end] call A3PL_FD_FindSource;
 			if (!isNull _source) then
 			{
-				_otherEnd = [_inlet,true] call A3PL_FD_FindSource;
-				_sourceAmount = [_source,_otherEnd] call A3PL_FD_SourceAmount;
-				if (_sourceAmount != 0 && ((_ammoWaterGun - _sourceAmount > 10) OR (_ammoWaterGun - _sourceAmount < -10))) then
+				_sourceAmount = [_source] call A3PL_FD_SourceAmount;
+				if (_sourceAmount >= 5) then
 				{
-					_veh setVehicleAmmoDef (0.001 * _sourceAmount);
-				} else
-				{
-					if (_sourceAmount == 0) then {_setZero = true;};
+					if (_veh animationPhase "ft_pump_switch" > 0.9) then
+					{
+						_water = _veh getVariable ["water",0];
+						if (_water < 1200) then
+						{
+							_veh setVariable ["water",_water + 10,true];
+							_veh setAmmo ["A3PL_High_Pressure_Ladder", _water];
+						};
+						if ((typeOf _source) isEqualTo "A3PL_Pierce_Pumper") then
+						{
+							_source setVariable ["water",_sourceAmount - 10,true];
+							_source animate ["Water_Gauge1",(_sourceAmount - 10) / 1800];
+						};
+					};
 				};
-			} else
-			{
-				_setZero = true;
 			};
-		} else
-		{
-			_setZero = true;
 		};
-
-		if (_setZero && (_ammoWaterGun != 0)) then
-		{
-			_veh setVehicleAmmoDef 0;
-		};
+		sleep 1;
 	};
+
 	_veh removeAllEventHandlers "Fired";
-	A3PL_FD_LadderHeavyLoopRunning = nil;
+	_veh setVariable["A3PL_FD_LadderHeavyLoopRunning",nil,true];
+}] call Server_Setup_Compile;
+
+["A3PL_FD_LadderHeavyFired",
+{
+	private _veh = param [0,objNull];
+	private _waterLevel = _veh getVariable["water",0];
+	private _ammoWaterGun = player ammo "A3PL_High_Pressure";
+	private _newWaterLevel = (_waterLevel-10);
+	if(_newWaterLevel < 0) then {_newWaterLevel = 0;};
+	_veh setVariable["water",_newWaterLevel,true];
+	if(_newWaterLevel isEqualTo 0) exitWith {_veh setAmmo ["A3PL_High_Pressure_Ladder", 0];};
 }] call Server_Setup_Compile;
 
 ["A3PL_FD_DropHose",

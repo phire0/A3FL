@@ -77,11 +77,10 @@
 		[6173.09,7419.18,0],	//Elk City
 		[4165.8,6170.87,0],		//Beach Valley
 		[3435.99,7519.7,0],		//Stoney Creek
-		[2851.2,5555.24,0],		//Silverton Bella
-		[2413.74,5496.1,0],		//Silverton Impound
-		[9842.12,7973.37,0],		//Deadwood
-		[2123,11725,0],		//Lubbock
-		[3219,12274,0] // Salt Point
+		[2605.94,5615.21,0],	//Silverton
+		[9842.12,7973.37,0],	//Deadwood
+		[2123,11725,0],			//Lubbock
+		[3219,12274,0] 			// Salt Point
 	];
 	FuelStations = [];
 	{
@@ -101,11 +100,12 @@
 	_craneleft setDir 232.025;
 	_craneleft setFuel 0;
 
+	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 7200]] call BIS_fnc_loop;
+
 	["itemAdd", ["Server_PoliceLoop", { call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_Fishing", {call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
 
-	["itemAdd", ["Server_Loop_BlackMarket", {call Server_Criminal_BlackMarketPos;}, 1200]] call BIS_fnc_loop;
-	["itemAdd", ["Server_Loop_BlackMarketNear", {call Server_Criminal_BlackMarketNear;}, 60]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_BlackMarket", {call Server_Criminal_BlackMarketPos;}, 7200]] call BIS_fnc_loop;
 
 	["itemAdd", ["Server_Loop_DealerPos", {call Server_JobFarming_DrugDealerPos;}, 1200]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_RepairTerrain", {[] spawn Server_Core_RepairTerrain;}, 600]] call BIS_fnc_loop;
@@ -114,7 +114,7 @@
 	["itemAdd", ["Server_Loop_OilRandomization", {[] spawn Server_JobWildcat_RandomizeOil;}, 3600]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_ResRandomization", {[] spawn Server_JobWildcat_RandomizeRes;}, 3600]] call BIS_fnc_loop;
 
-	["itemAdd", ["Server_Loop_Criminal_MoveNPCs", {[] spawn Server_Criminal_MoveNPCs;}, 7200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_Criminal_MoveNPCs", {[] spawn Server_Criminal_MoveNPCs;}, 21600]] call BIS_fnc_loop;
 
 	//cleanup
 	["itemAdd", ["Server_Loop_Cleanup", {[] spawn Server_Core_Clean;}, 900]] call BIS_fnc_loop;

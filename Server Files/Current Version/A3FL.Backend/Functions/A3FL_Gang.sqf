@@ -191,16 +191,16 @@
 ["A3PL_Gang_Capture",
 {
 	private _obj = param [0,objNull];
-	private _win = 5000;
+	private _win = 1000;
 	private _group = group player;
 
-	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","usms"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
+	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","fims"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
 	if((currentWeapon player) isEqualTo "") exitwith {["You do not brandish any weapon","red"] call A3PL_Player_Notification;};
-	if((currentWeapon player) IN ["A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
+	if((currentWeapon player) IN ["A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
 	if(_obj getVariable ["CaptureInProgress",false]) then {["Someone is already capturing this gang hideout!","red"] call A3PL_Player_Notification;};
 
-	_capturedTime = _obj getVariable["CapturedTime",serverTime-1800];
-	if(_capturedTime > (serverTime-1800)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
+	_capturedTime = _obj getVariable["CapturedTime",serverTime-600];
+	if(_capturedTime > (serverTime-600)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
 
 	_gang = _group getVariable["gang_data",nil];
 	_gangName = _gang select 2;
@@ -210,7 +210,7 @@
 
 	_obj setVariable ["CaptureInProgress",true,true];
 
-	_marker = [_obj] call A3PL_Lib_NearestMarker;
+	_marker = [_obj,"Crime"] call A3PL_Lib_NearestMarker;
 	_marker setMarkerColor "ColorOrange";
 	[format["%1 has started capturing a gang hideout!",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 
@@ -225,6 +225,7 @@
 		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
 		if ((player distance _obj) > 30) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((currentWeapon player) isEqualTo "") exitWith {_success = false;Player_ActionInterrupted=true;};
 	};
 	Player_ActionDoing = false;
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification; _obj setVariable ["CaptureInProgress",false,true];};
@@ -243,6 +244,7 @@
 	[localize"STR_NewGang_22","green"] call A3PL_Player_Notification;
 	[_group,_win] call A3PL_Gang_AddBank;
 	[player, 20] call A3PL_Level_AddXP;
+	[getPlayerUID player,"gangHideoutCaptured",[]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Gang_CapturedPaycheck",
@@ -267,7 +269,7 @@
 	private _shop = param [0,objNull];
 	private _gangHideout = objNull;
 
-	if(_shop IN [npc_fuel_1,npc_fuel_2,NPC_general_1,npc_supermarket_1,Robbable_Shop_1,npc_perkfurniture,npc_perkfurniture_1,npc_perkfurniture_2,npc_roadworker]) then {
+	if(_shop IN [npc_fuel_1,NPC_general_1,npc_supermarket_1,Robbable_Shop_1,npc_perkfurniture,npc_perkfurniture_1,npc_perkfurniture_2,npc_roadworker]) then {
 		_gangHideout = hideout_obj_1;
 	};
 	if(_shop IN [npc_roadworker_3,npc_fuel_9,NPC_general_3,Robbable_Shop_2,npc_supermarket_2,npc_furniture_5,npc_furniture_6,npc_furniture_7,npc_fuel_8]) then {
@@ -276,7 +278,7 @@
 	if(_shop IN [Robbable_Shop_3,npc_roadworker_1,npc_fuel_6,npc_hunting,npc_illegal_eq,NPC_Big_Weapon_Dealer,npc_weaponfactory_1]) then {
 		_gangHideout = hideout_obj_3;
 	};
-	if(_shop IN [npc_captureship,npc_blackmarket]) then {
+	if(_shop IN [npc_captureship]) then {
 		_gangHideout = hideout_obj_4;
 	};
 	if(_shop IN [npc_fuel_10,Low_End_Car_Shop,npc_shopguns]) then {
@@ -308,11 +310,11 @@
 	if((_obj IN [hideout_obj_1,hideout_obj_2,hideout_obj_3,hideout_obj_5]) && (_faction != "fisd")) exitWith {["This gang hideout has to be secured by the FISD","red"] call A3PL_Player_Notification;};
 	if((_obj IN [hideout_obj_4,hideout_obj_6]) && (_faction != "uscg")) exitWith {["This gang hideout has to be secured by the USCG","red"] call A3PL_Player_Notification;};
 
-	_capturedTime = _obj getVariable["CapturedTime",serverTime-1800];
-	if(_capturedTime > (serverTime-1800)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
+	_capturedTime = _obj getVariable["CapturedTime",serverTime-600];
+	if(_capturedTime > (serverTime-600)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};
 
 	private _gangName = _obj getVariable["capturedName",""];
-	_marker = [_obj] call A3PL_Lib_NearestMarker;
+	_marker = [_obj,"Crime"] call A3PL_Lib_NearestMarker;
 	_marker setMarkerColor "ColorOrange";
 	[format["%1 has started capturing a gang hideout from %2!",(toUpper _faction),_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 	Player_ActionCompleted = false;
@@ -320,11 +322,10 @@
 	["Securing Gang Hideout...",120] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	_success = true;
-	_animTime = diag_tickTime;
 	while {Player_ActionDoing} do {
 		if (Player_ActionInterrupted) exitWith {_success = false;};
 		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (!(vehicle player == player)) exitwith {_success = false;};
+		if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
 	};
 	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;_obj setVariable ["CaptureInProgress",false,true];};

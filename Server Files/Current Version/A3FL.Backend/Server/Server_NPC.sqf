@@ -13,5 +13,5 @@
 	_player setVariable ["job",_job,true];
 	[1,_job] remoteExec ["A3PL_NPC_TakeJobResponse",_player];
 	[] remoteExec ["A3PL_Player_SetMarkers", _player];
-	if ((backpack _player != "A3PL_LR") && (_job IN ["uscg","fifr","fisd","usms","doj"])) then {_player addBackpackGlobal "A3PL_LR";};
+	if ((backpack _player != "A3PL_LR") && (_job IN ["uscg","fifr","fisd","fims","doj"])) then {_player addBackpackGlobal "A3PL_LR";};
 },true] call Server_Setup_Compile;

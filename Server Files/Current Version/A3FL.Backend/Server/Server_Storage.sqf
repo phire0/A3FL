@@ -37,9 +37,10 @@
 	private _vehMags = getMagazineCargo _veh;
 	private _vehBackpacks = getBackpackCargo _veh;
 	private _oldWeapons = getWeaponCargo _veh;
-	private _whitelist = ["A3FL_PepperSpray","A3FL_PoliceBaton","A3PL_High_Pressure","A3PL_Jaws","A3PL_FireAxe","A3PL_FireExtinguisher","A3PL_Pickaxe","A3PL_Shovel","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","hgun_Pistol_Signal_F"];
+	private _whitelist = ["srifle_LRR_F","srifle_LRR_SOS_F","A3FL_PepperSpray","A3FL_PoliceBaton","A3PL_High_Pressure","A3PL_Jaws","A3PL_FireAxe","A3PL_FireExtinguisher","A3PL_Pickaxe","A3PL_Shovel","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","hgun_Pistol_Signal_F"];
 	private _vehWeapons = [[],[]];
 	{
+		diag_log str(_x);
 		if(_x IN _whitelist) then {
 			(_vehWeapons select 0) pushback ((_oldWeapons select 0) select _foreachIndex);
 			(_vehWeapons select 1) pushback ((_oldWeapons select 1) select _foreachIndex);
@@ -55,54 +56,6 @@
 	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-["Server_Storage_ReturnObjects",
-{
-	private _player = param [0,objNull];
-	private _uid = param [1,"-1"];
-	if (_uid == "-1") then {_uid = getplayerUID _player;};
-	private _query = format ["SELECT id,class FROM objects WHERE type = 'object' AND uid = '%1'",_uid];
-	private _objects = [_query, 2, true] call Server_Database_Async;
-	private _returnArray = [];
-	{
-		private _id = _x select 0;
-		private _class = _x select 1;
-		_returnArray pushback [_id,_class];
-	} foreach _objects;
-	[_returnArray] remoteExec ["A3PL_Storage_ObjectsReceive",_player];
-},true] call Server_Setup_Compile;
-
-["Server_Storage_RetrieveObject",
-{
-	private _itemClass = param [0,""];
-	private _player = param [1,objNull];
-	private _id = param [2,-1];
-	private _query = format ["DELETE FROM objects WHERE id = '%1'",_id];
-	[_query,1] spawn Server_Database_Async;
-
-	[2] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];
-
-	private _class = [_itemClass, "class"] call A3PL_Config_GetItem;
-	private _obj = createVehicle [_class, (getpos _player), [], 0, "CAN_COLLIDE"];
-	_obj setVariable ["owner",(getPlayerUID _player),true];
-	_obj setVariable ["class",_itemClass,true];
-	[_obj,_player] remoteExec ["Server_Player_LocalityRequest",2];
-},true] call Server_Setup_Compile;
-
-["Server_Storage_StoreObject",
-{
-	private _player = param [0,ObjNull];
-	private _obj = param [1,ObjNull];
-	if ((_obj distance _player) > 10) exitwith {[4] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];};
-	private _var = _obj getVariable ["owner",nil];
-	if (isNil "_var") exitwith {[6] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];};
-	if (!(_var == (getPlayerUID _player))) exitwith {[7] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];};
-	private _id = format["obj_%1", [10] call Server_Housing_GenerateID];
-	private _itemClass = _obj getVariable ["class",""];
-	private _query = format ["INSERT INTO objects(id,type,class,uid) VALUES('%1','object','%2','%3')",_id, _itemClass, getPlayerUID _player];
-	[_query,1] spawn Server_Database_Async;
-	deleteVehicle _obj;
-	[5] remoteExec ["A3PL_Storage_ObjectRetrieveResponse",_player];
-},true] call Server_Setup_Compile;
 
 ["Server_Storage_ReturnVehicles",
 {
@@ -139,7 +92,7 @@
 	private _player = param [1,objNull];
 	private _id = param [2,-1];
 	private _storage = param [3,[]];
-
+	private _dir = nil;
 	if (count _storage > 3) then {
 		_dir = _storage select 3;
 		_storage = [_storage select 0,_storage select 1,_storage select 2];
@@ -147,20 +100,35 @@
 	[format ["UPDATE objects SET plystorage = '0',impounded='0' WHERE id = '%1'",_id],1] spawn Server_Database_Async;
 	private _db = [format ["SELECT fuel,color,numpchange,iscustomplate,material,istorage,tuning,damage,insurance,vstorage FROM objects WHERE id = '%1'",_id], 2, false] call Server_Database_Async;
 	private _veh = [_class,_storage,_id,_player] call Server_Vehicle_Spawn;
+
+	if(!isNil "_dir") then {_veh setDir _dir;};
 	if (_veh isKindOf "Ship") then {
 		_veh setpos _storage;
 	} else {
 		_veh setPosATL _storage;
 	};
-	if (!isNil "_dir") then {_veh setDir _dir;};
 	if (_veh isKindOf "helicopter") then {
 		_veh setOwner (owner _player);
 	};
+
 	if ((count _db) != 0) then {
 		_veh setFuel (_db select 0);
-		if((_db select 1) != "<null>") then {
-			_veh setObjectTextureGlobal [0,(_db select 1)];
+
+		private _texture = (_db select 1);
+		private _splitted = _texture splitString "";
+		if((_splitted select 0) isEqualTo '[') then {_texture = [_texture] call Server_Database_ToArray;};
+		diag_log format["Server_Storage_RetrieveVehiclePos: (%2) %1",_texture, typeName _texture];
+		if(typeName _texture isEqualTo "ARRAY") then {
+			{
+				_veh setObjectTextureGlobal[_foreachIndex,_x];
+			} foreach _texture;
+		} else {
+			if(!(_texture isEqualTo "<null>")) then {
+				_veh setObjectTextureGlobal [0,_texture];
+			};
 		};
+		
+
 		if((_db select 4) != "<null>") then {
 			_veh setObjectMaterialGlobal [0,(_db select 4)];
 		};
@@ -211,12 +179,11 @@
 		if((count _damage) > 0) then {
 			_parts = getAllHitPointsDamage _veh;
 			for "_i" from 0 to ((count _damage) - 1) do {
-				diag_log format["%1 - %2",((_parts select 0) select _i),_damage select _i];
 				_veh setHitPointDamage [format ["%1",((_parts select 0) select _i)],_damage select _i];
 			};
 		};
 	};
-	[getPlayerUID _player,"garageRetreive",["Class",_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
+	[getPlayerUID _player,"garageRetrieve",["Class",_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
 	[_veh] remoteExec ["A3PL_Vehicle_AddKey",_player];
 	[4] remoteExec ["A3PL_Storage_CarRetrieveResponse",_player];
 }] call Server_Setup_Compile;
@@ -322,7 +289,7 @@
 			_veh setOwner (owner _player);
 		};
 	};
-	[getPlayerUID _player,"garageRetreive",["Class",_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
+	[getPlayerUID _player,"garageRetrieve",["Class",_class,"Plate",_id]] remoteExec ["Server_Log_New",2];
 	[_veh] remoteExec ["A3PL_Vehicle_AddKey",_player];
 	_storage animateSource ["storagedoor",1];
 	[_player,_storage,_veh,_id] spawn
@@ -497,7 +464,6 @@
 	};
 },true] call Server_Setup_Compile;
 
-//This function can put a car back into storage
 ["Server_Storage_StoreVehicle_Position",
 {
 	private ["_storage","_near","_playerCar","_player"];

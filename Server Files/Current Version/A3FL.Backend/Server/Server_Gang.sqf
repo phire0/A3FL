@@ -144,3 +144,19 @@
 		[format["Your faction has captured a gang hideout, you have been rewarded $%1 for good performance!",_amount],"green"] remoteExec ["A3PL_Player_Notification",_x];
 	} foreach ([_faction] call A3PL_Lib_FactionPlayers);
 },true] call Server_Setup_Compile;
+
+["Server_Gang_ManageSetup",
+{
+	private _id = param [0,-1];
+	private _player = param [1,objNull];
+	private _query = [format ["SELECT bank, members FROM gangs WHERE id='%1'",_id], 2] call Server_Database_Async;
+	if(count(_query) isEqualTo 0) exitWith {};
+	private _money = _query select 0;
+	private _members = [_query select 1] call Server_Database_ToArray;
+	private _compileMembers = [];
+	{
+		private _name = ([format ["SELECT name FROM players WHERE uid='%1'",_x], 2] call Server_Database_Async) select 0;
+		_compileMembers pushback ([_name, _x]);
+	} foreach _members;
+	[_money,_compileMembers] remoteExec ["A3PL_iPhoneX_gangMngmtReceived",(owner _player)];
+},true] call Server_Setup_Compile;

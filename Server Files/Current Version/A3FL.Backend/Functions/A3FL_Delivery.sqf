@@ -13,7 +13,7 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"] call A3PL_NPC_LeaveJob};
 
-	player setVariable ["job","mailman"];
+	player setVariable ["job","mailman",true];
 	call A3PL_Player_SetMarkers;
 	[localize"STR_DELIVERY_WORKSTART","green"] call A3PL_Player_Notification;
 	[localize"STR_DELIVERY_INFO","green"] call A3PL_Player_Notification;
@@ -21,6 +21,7 @@
 	private _spawnPos = [];
 	switch(str(_npc)) do {
 		case("npc_mailman"): {_spawnPos = [6056.77,7393.57,0];};
+		case("npc_mailman_silverton"): {_spawnPos = [2853.394,5607.033,0.1];};
 		case("npc_mailman_stoney"): {_spawnPos = [3507.66,7541.57,0];};
 		case("npc_mailman_northdale"): {_spawnPos = [10313.1,8556.05,0];};
 		case("npc_mailman_beachV"): {_spawnPos = [4143.49,6317.9,0];};
@@ -100,22 +101,22 @@
 		[[2185.043,5117.308,0],localize"Functions_DeliveryLocation_Clothing",localize"Functions_DeliveryLocation_USCG"],
 		[[2185.043,5117.308,0],localize"Functions_DeliveryLocation_PS4",localize"Functions_DeliveryLocation_USCG"],
 		[[2185.043,5117.308,0],localize"Functions_DeliveryLocation_Shoes2",localize"Functions_DeliveryLocation_USCG"],
-		[[2624.89,5456.65,0],localize"Functions_DeliveryLocation_Oxygen",localize"Functions_DeliveryLocation_Clinic"],
-		[[2624.89,5456.65,0],localize"Functions_DeliveryLocation_Chair",localize"Functions_DeliveryLocation_Clinic"],
-		[[2624.89,5456.65,0],localize"Functions_DeliveryLocation_Desktop",localize"Functions_DeliveryLocation_Clinic"],
-		[[2624.89,5456.65,0],localize"Functions_DeliveryLocation_Comp",localize"Functions_DeliveryLocation_Clinic"],
-		[[2624.89,5456.65,0],localize"Functions_DeliveryLocation_Fe",localize"Functions_DeliveryLocation_Clinic"],
-		[[2624.89,5456.65,0],localize"Functions_DeliveryLocation_Pen",localize"Functions_DeliveryLocation_Clinic"],
-		[[2624.89,5456.65,0],localize"Functions_DeliveryLocation_Bloc",localize"Functions_DeliveryLocation_Clinic"],
-		[[2624.89,5456.65,0],localize"Functions_DeliveryLocation_Badge",localize"Functions_DeliveryLocation_Clinic"],
-		[[2624.89,5456.65,0],localize"Functions_DeliveryLocation_Medical",localize"Functions_DeliveryLocation_Clinic"],
-		[[2537.9,5605.41,0],localize"Functions_DeliveryLocation_Paycheck",localize"Functions_DeliveryLocation_Bank"],
-		[[2537.9,5605.41,0],localize"Functions_DeliveryLocation_Pen",localize"Functions_DeliveryLocation_Bank"],
-		[[2537.9,5605.41,0],localize"Functions_DeliveryLocation_Fe",localize"Functions_DeliveryLocation_Bank"],
-		[[2537.9,5605.41,0],localize"Functions_DeliveryLocation_CB",localize"Functions_DeliveryLocation_Bank"],
-		[[10183.6,8722.56,0],localize"Functions_DeliveryLocation_ContratVente",localize"Functions_DeliveryLocation_CarDealer"],
-		[[10183.6,8722.56,0],localize"Functions_DeliveryLocation_CarKey",localize"Functions_DeliveryLocation_CarDealer"],
-		[[10183.6,8722.56,0],localize"Functions_DeliveryLocation_Repair",localize"Functions_DeliveryLocation_CarDealer"],
+		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Oxygen",localize"Functions_DeliveryLocation_Clinic"],
+		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Chair",localize"Functions_DeliveryLocation_Clinic"],
+		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Desktop",localize"Functions_DeliveryLocation_Clinic"],
+		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Comp",localize"Functions_DeliveryLocation_Clinic"],
+		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Fe",localize"Functions_DeliveryLocation_Clinic"],
+		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Pen",localize"Functions_DeliveryLocation_Clinic"],
+		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Bloc",localize"Functions_DeliveryLocation_Clinic"],
+		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Badge",localize"Functions_DeliveryLocation_Clinic"],
+		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Medical",localize"Functions_DeliveryLocation_Clinic"],
+		[[2685.52,5510.61,0.00143909],localize"Functions_DeliveryLocation_Paycheck",localize"Functions_DeliveryLocation_Bank"],
+		[[2685.52,5510.61,0.00143909],localize"Functions_DeliveryLocation_Pen",localize"Functions_DeliveryLocation_Bank"],
+		[[2685.52,5510.61,0.00143909],localize"Functions_DeliveryLocation_Fe",localize"Functions_DeliveryLocation_Bank"],
+		[[2685.52,5510.61,0.00143909],localize"Functions_DeliveryLocation_CB",localize"Functions_DeliveryLocation_Bank"],
+		[[2698.64,5555.01,0.00144005],localize"Functions_DeliveryLocation_ContratVente",localize"Functions_DeliveryLocation_CarDealer"],
+		[[2698.64,5555.01,0.00144005],localize"Functions_DeliveryLocation_CarKey",localize"Functions_DeliveryLocation_CarDealer"],
+		[[2698.64,5555.01,0.00144005],localize"Functions_DeliveryLocation_Repair",localize"Functions_DeliveryLocation_CarDealer"],
 		[[10234.2,8490.62,0],localize"Functions_DeliveryLocation_Repair",localize"Functions_DeliveryLocation_GasStation"],
 		[[10234.2,8490.62,0],localize"Functions_DeliveryLocation_Jerrycan",localize"Functions_DeliveryLocation_GasStation"],
 		[[10234.2,8490.62,0],localize"Functions_DeliveryLocation_Etagere",localize"Functions_DeliveryLocation_GasStation"],
@@ -129,11 +130,11 @@
 		[[6976.15,6633.17,0],localize"Functions_DeliveryLocation_KartWheels",localize"Functions_DeliveryLocation_Kart"],
 		[[6982.53,7128.21,0],localize"Functions_DeliveryLocation_Water",localize"Functions_DeliveryLocation_BoulderTaco"],
 		[[7107.94,7197.76,0],localize"Functions_DeliveryLocation_Water",localize"Functions_DeliveryLocation_BoulderMcFishers"],
-		[[7119.9,7249.33,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_BoulderGem"],
+		[[7119.9,7249.33,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_GemStore"],
 		[[6064.7,7474.21,0],localize"Functions_DeliveryLocation_WasteUniforms",localize"Functions_DeliveryLocation_Waste"],
 		[[11842.1,9252.28,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_WeaponsFactory"],
 		[[3469.14,7483.19,0],localize"Functions_DeliveryLocation_Net",localize"Functions_DeliveryLocation_FishingShop"],
-		[[2471.12,5640.3,0],localize"Functions_DeliveryLocation_Tournevis",localize"Functions_DeliveryLocation_FurnStore"],
+		[[2452.64,5564.99,0.00143957],localize"Functions_DeliveryLocation_Tournevis",localize"Functions_DeliveryLocation_FurnStore"],
 		[[10004.7,7878.45,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_FirearmsDealer"],
 		[[3541.34,5157.79,0],localize"Functions_DeliveryLocation_Comp",localize"Functions_DeliveryLocation_PaintBall"]
 	];

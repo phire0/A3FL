@@ -11,7 +11,7 @@
 	private _job = player getVariable ["job","unemployed"];
 	private _vehicles = [];
 	private _markerColor = "colorBLUFOR";
-	if(!(_job IN ["fisd","fifr","usms","uscg"]) && !isNil "A3PL_Police_GPSmarkers") exitWith {
+	if(!(_job IN ["fisd","fifr","fims","uscg"]) && !isNil "A3PL_Police_GPSmarkers") exitWith {
 		{deleteMarkerLocal _x} foreach A3PL_Police_GPSmarkers;
 		A3PL_Police_GPSmarkers = nil;
 	};
@@ -45,7 +45,7 @@
 					_vehicles pushback [_x,"EMS #"];
 					_found = true;
 				};
-				if((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Raptor_PD","A3PL_Taurus_FD","A3PL_Charger15_FD"]) then {
+				if(((typeOf _x) IN ["A3PL_CVPI_PD","A3PL_Tahoe_FD","A3PL_Raptor_PD","A3PL_Taurus_FD","A3PL_Charger15_FD"]) && ((_x getVariable["faction",""]) isEqualTo _job)) then {
 					_vehicles pushback [_x,"CAR #"];
 					_found = true;
 				};
@@ -62,34 +62,35 @@
 		};
 		case ("uscg"): {
 			{
-				if (((typeOf _x) isEqualTo "A3PL_Cutter")) then {
+				private ["_faction","_type"];
+				_type = typeOf _x;
+				_faction = _x getVariable["faction",""];
+				if ((_type isEqualTo "A3PL_Cutter")) then {
 					_vehicles pushback [_x,"USCG CUTTER "];
 				};
-				if (((typeOf _x) isEqualTo "A3PL_Goose_USCG")) then {
+				if ((_type isEqualTo "A3PL_Goose_USCG")) then {
 					_vehicles pushback [_x,"WHALE UNIT"];
 				};
-				if ((typeOf _x) isEqualTo "A3PL_RBM") then	{
+				if (_type isEqualTo "A3PL_RBM") then	{
 					_vehicles pushback [_x,"MARITIME UNIT #"];
 				};
-				if ((typeOf _x) isEqualTo "A3PL_Jayhawk") then {
+				if (_type isEqualTo "A3PL_Jayhawk") then {
 					_vehicles pushback [_x,"AIR UNIT #"];
 				};
-				if (((typeOf _x) find "_PD") != -1) then {
+				if (((_type find "_PD") != -1) && (_faction isEqualTo _job)) then {
 					_vehicles pushback [_x,"SQUAD #"];
 				};
 			} foreach vehicles;
 		};
-		case ("fisd"): {
+		default {
 			{
-				if (((typeOf _x) find "_PD") != -1) then {
-					_vehicles pushback [_x,"SQUAD #"];
-				};
-			} foreach vehicles;
-		};
-		case ("usms"): {
-			{
-				if (((typeOf _x) find "_PD") != -1) then {
-					_vehicles pushback [_x,"SQUAD #"];
+				private ["_faction","_type"];
+				_type = typeOf _x;
+				_faction = _x getVariable["faction",""];
+				if((_type find "_PD") != -1) then {
+					if(_faction isEqualTo _job) then {
+						_vehicles pushback [_x,"SQUAD #"];
+					};
 				};
 			} foreach vehicles;
 		};
@@ -117,7 +118,7 @@
 
 ["A3PL_Police_HandleBreach",
 {
-	private _whitelist = ["fisd","uscg","usms"];
+	private _whitelist = ["fisd","uscg","fims"];
 	private _pJob = player getVariable["job","unemployed"];
 	if(!(_pJob IN _whitelist)) exitWith {};
 
@@ -674,43 +675,33 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DeploySpikes', {
-	private ['_obj','_pos','_veh','_dir'];
-	_obj = _this select 0;
-
-	//Deploy
-	if (typeOf _obj == "A3PL_Spikes_Closed") exitwith
-	{
-		_pos = getpos _obj;
-		_dir = getDir _obj;
+	private _obj = _this select 0;
+	if ((typeOf _obj) isEqualTo "A3PL_Spikes_Closed") exitwith {
+		private _pos = getpos _obj;
+		private _dir = getDir _obj;
 		deletevehicle _obj;
-		_veh = createVehicle ["A3PL_Spikes_Open", _pos, [], 0, "CAN_COLLIDE"];
+		private _veh = createVehicle ["A3PL_Spikes_Open", _pos, [], 0, "CAN_COLLIDE"];
 		_veh setDir _dir;
-		_pos = _veh modelToWorld [1.27,0,0.5];
+		private _pos = _veh modelToWorld [1.27,0,0.5];
 		_veh setposATL _pos;
 	};
-
-	//Pack
-	if (typeOf _obj == "A3PL_Spikes_Open") exitwith
-	{
-		_pos = getpos _obj;
-		_dir = getDir _obj;
+	if ((typeOf _obj) isEqualTo "A3PL_Spikes_Open") exitwith {
+		private _pos = getpos _obj;
+		private _dir = getDir _obj;
 		deletevehicle _obj;
-		_veh = createVehicle ["A3PL_Spikes_Closed", _pos, [], 0, "CAN_COLLIDE"];
+		private _veh = createVehicle ["A3PL_Spikes_Closed", _pos, [], 0, "CAN_COLLIDE"];
 		_veh setDir _dir;
-		_pos = _veh modelToWorld [-1.27,0,0.5];
+		private _pos = _veh modelToWorld [-1.27,0,0.5];
 		_veh setposATL _pos;
 	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_SpikeHit', {
-	private ["_wheel","_veh"];
-	_veh = vehicle player;
-	_wheel = _this;
-	[_veh,_wheel] spawn
-	{
-		private ["_wheel","_veh"];
-		_veh = _this select 0;
-		_wheel = _this select 1;
+	private _veh = vehicle player;
+	private _wheel = _this;
+	[_veh,_wheel] spawn {
+		private _veh = _this select 0;
+		private _wheel = _this select 1;
 		while {(_veh getHit _wheel) < 1} do
 		{
 			waitUntil {(speed (vehicle player)) > 1};
@@ -1540,7 +1531,7 @@
 	[[1]] remoteExec ["A3PL_Police_GiveTicketResponse",Player_TicketCop];
 	Player_TicketCop = Nil;
 	Player_TicketAmount = Nil;
-	["Error: You refused to pay the ticket",Color_Red] call A3PL_Player_Notification;
+	["You refused to pay the ticket",Color_Red] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_PayTicket",
@@ -1633,7 +1624,6 @@
 	if((isNull cursorTarget) || (!isPlayer cursorTarget)) exitWith {[format[localize"STR_NewPolice_24"],"red"] call A3PL_Player_Notification;};
 	if(typeName _time != "SCALAR") exitWith {[format[localize"STR_NewPolice_25"],"red"] call A3PL_Player_Notification;};
 	if(_time <= 0) exitWith {[format[localize"STR_NewPolice_26"],"red"] call A3PL_Player_Notification;};
-	if(_time > 60 * 24) exitWith {[format[localize"STR_NewPolice_27"],"red"] call A3PL_Player_Notification;};
 
 	[_time, A3PL_JailPlayer_Target] remoteExec ["Server_Police_JailPlayer",2];
 	[player,5] call A3PL_Level_AddXP;
@@ -1643,15 +1633,28 @@
 {
 	player setVariable ["jailed",false,true];
 	player setVariable ["jail_mark",false,true];
+	private _atSD = nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 50];
+	private _atDOC = count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0;
+	private _FIMS = ["fims"] call A3PL_Lib_FactionPlayers;
 
-	private _pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 50];
-	if((count _pd) > 0) then {
-		player setPosATL [4743.79,6101.99,0.00143909];
-		player setDir 7;
-		removeUniform player;
+	if(_atDOC) then {
+		if(count(_FIMS) > 0) then {
+			["You have served your jail sentence, the Marshal Services will escort you out of jail soon.","green"] call A3PL_Player_Notification;
+			[format["DOC: %1 has served his time and needs to be released.",player getVariable["name","unknown"]],"blue","fims",3] call A3PL_Lib_JobMessage;
+		} else {
+			player setPosATL [4744.56,6023.57,0];
+			player setDir 178.9;
+			removeUniform player;
+			[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
+		};
 	};
-
-	[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
+	if(count(_atPD) > 0) then {
+		private _PD = _atPD select 0;
+		player setPosATL (_PD modelToWorld [-4.5,8,0]);
+		player setDir (getDir _PD);
+		removeUniform player;
+		[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_RadarLoop",
@@ -1819,7 +1822,7 @@
 ["A3PL_Police_PanicMarker",
 {
 	private _player = param [0,objNull];
-	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 2, 5];
+	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 1, 8];
 	[localize"STR_NewPolice_31","red"] call A3PL_Player_Notification;
 	[_player,"Panic Button","ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
 }] call Server_Setup_Compile;

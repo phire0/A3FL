@@ -363,11 +363,10 @@
 	switch (true) do
 	{
 		case (_classname IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]): {_sirenType = "fire";};
-		case (_classname IN ["A3PL_Tahoe_FD"]): {_sirenType = "fire_FR";};
-		case (_classname IN ["A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","M_explorer","A3PL_Silverado_PD_ST"]): {_sirenType = "police";};
+		case (_classname IN ["A3PL_Silverado_FD_Brush","A3PL_Charger15_FD","A3PL_Taurus_FD","A3PL_Tahoe_FD"]): {_sirenType = "fire_FR";};
 		case (_classname IN ["Jonzie_Ambulance","A3PL_E350"]): {_sirenType = "ems";};
 		case (_classname IN ["A3PL_P362_TowTruck","A3PL_F150_Marker"]): {_sirenType = "civ";};
-		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB","A3FL_LCM"]): {_sirenType = "Ship";};
+		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB"]): {_sirenType = "Ship";};
 		default {_sirenType = "police";};
 	};
 
@@ -433,7 +432,7 @@
 				};
 				case 5 :
 				{
-					if (_veh animationPhase "SoundSource_3" < 0.5 && {A3PL_Manual_KeyDown}) then
+					if (_veh animationPhase "SoundSource_3" < 0.5 && {!A3PL_Manual_KeyDown}) then
 					{
 						_veh animate ["SoundSource_3",1, true];
 						_veh animate ["FT_Switch_36",1];
@@ -445,7 +444,7 @@
 				};
 				case 6 :
 				{
-					if (_veh animationPhase "SoundSource_4" < 0.5 && {A3PL_Manual_KeyDown}) then
+					if (_veh animationPhase "SoundSource_4" < 0.5) then
 					{
 						_veh animate ["SoundSource_4",1, true];
 						_veh animate ["FT_Switch_37",1];
@@ -454,36 +453,6 @@
 						_veh animate ["SoundSource_4",0, true];
 						_veh animate ["FT_Switch_37",0];
 					};
-				};
-				case 7 :
-				{
-	        if (_veh animationPhase "PD_Switch_9" < 0.5) then {
-	            _veh animate ["PD_Switch_9",1];
-							_veh animate ["DS_Floodlights",1];
-	        } else {
-	            _veh animate ["PD_Switch_9",0];
-							_veh animate ["DS_Floodlights",0];
-		        };
-				};
-				case 8 :
-				{
-					if (_veh animationPhase "PD_Switch_10" < 0.5) then {
-	            _veh animate ["PD_Switch_10",1];
-							_veh animate ["PS_Floodlights",1];
-	        } else {
-	            _veh animate ["PD_Switch_10",0];
-							_veh animate ["PS_Floodlights",0];
-	        };
-				};
-				case 9 :
-				{
-	        if (_veh animationSourcePhase "Spotlight" < 0.5 && _veh animationPhase "Spotlight_Addon" > 0.5) then {
-	            _veh animateSource ["Spotlight",1];
-				if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOn",_veh];};
-	        } else {
-	            _veh animateSource ["Spotlight",0];
-				if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOff",_veh];};
-	        };
 				};
 			};
 		};
@@ -954,7 +923,7 @@
 	[_trailer] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 	[_truck] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 
-	[] spawn {sleep 60;_truck allowDamage true;};
+	_truck spawn {sleep 60;_this allowDamage true;};
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_TrailerAttach",
@@ -1702,14 +1671,13 @@
     private _veh = param [0,objNull];
     while {local _veh} do {
         private _overWater = !(position _veh isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
-        private _canDamage = _veh getVariable ["canDamage",true];
-        if (_overWater && _canDamage) then {
+        private _canDamage = isDamageAllowed _veh;
+        private _speed = speed _veh;
+        if (_overWater && _canDamage && (_speed < 80)) then {
             _veh allowDamage false;
-            _veh setVariable ["canDamage",false,false];
         };
-        if (!_overWater && !_canDamage) then {
+        if (!_overWater && !_canDamage && (_speed >= 80)) then {
             _veh allowDamage true;
-            _veh setVariable ["canDamage",nil,false];
         };
     };
 }, false] call Server_Setup_Compile;

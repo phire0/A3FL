@@ -6,6 +6,113 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
+/*
+	FIFR Rescue Truck Interactions
+*/
+[
+	"A3PL_Pierce_Rescue",
+	"Rotate Truck Ladder",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationSourcePhase "Ladder_Rotate" isEqualTo 0) then {
+			_veh animateSource["Ladder_Rotate",2];
+		} else {
+			_veh animateSource["Ladder_Rotate",0];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Climb Truck Ladder",
+	{
+		private _veh = player_objintersect;
+		player setPos (_veh modelToWorld [0,-5,1]);
+		player setDir (getDir _veh);
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Extend/Retract Spotlight",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationSourcePhase "Top_Spot_Rotate" isEqualTo 0) then {
+			_veh animateSource["Top_Spot_Rotate",3];
+		} else {
+			_veh animateSource["Top_Spot_Rotate",0];
+			_veh animateSource["Top_Lights",0];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Spotlight On/off",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationSourcePhase "Top_Lights" isEqualTo 0) then {
+			_veh animateSource["Top_Lights",1];
+		} else {
+			_veh animateSource["Top_Lights",0];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Grab Scene Light #1",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationPhase "scene_light_1" isEqualTo 0) then {
+			_veh animate["scene_light_1",1];
+			private _light = "A3PL_SceneLight" createVehicle position player;
+			_light setVariable["owner",getPlayerUID player,true];
+			_light setVariable["class","scene_light",true];
+			player action ["lightOn",_light];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Grab Scene Light #2",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationPhase "scene_light_2" isEqualTo 0) then {
+			_veh animate["scene_light_2",1];
+			private _light = "A3PL_SceneLight" createVehicle position player;
+			_light setVariable["owner",getPlayerUID player,true];
+			_light setVariable["class","scene_light",true];
+			player action ["lightOn",_light];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Return Scene Light #1",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationPhase "scene_light_1" isEqualTo 1) then {
+			private _nearLights = nearestObjects [player, ["A3PL_SceneLight"], 10];
+			if(count(_nearLights) isEqualTo 0) exitWith {["No scene light nearby.","red"] call A3PL_Player_Notification;};
+			deleteVehicle (_nearLights select 0);
+			_veh animate["scene_light_1",0];
+		};
+	}
+],
+[
+	"A3PL_Pierce_Rescue",
+	"Return Scene Light #2",
+	{
+		private _veh = player_objintersect;
+		if(_veh animationPhase "scene_light_2" isEqualTo 1) then {
+			private _nearLights = nearestObjects [player, ["A3PL_SceneLight"], 10];
+			if(count(_nearLights) isEqualTo 0) exitWith {["No scene light nearby.","red"] call A3PL_Player_Notification;};
+			deleteVehicle (_nearLights select 0);
+			_veh animate["scene_light_2",0];
+		};
+	}
+],
+
+/*
+	Patrol Boat Interactions
+*/
 [
 	"A3PL_Patrol",
 	localize"STR_INTSECT_UNLOCKPATROL",
@@ -990,11 +1097,12 @@
 	{
 		private _veh = player_objIntersect;
 		if (!(_veh isKindOf "Car")) exitwith {};
-		if (_veh animationPhase "FT_Pump_Switch" == 0) then {
+		if (_veh animationPhase "FT_Pump_Switch" isEqualTo 0) then {
 			_veh animate ["FT_Pump_Switch", 1];
 			_PumpSound = createSoundSource ["A3PL_FT_Pump", getpos _veh, [], 0];
 			_PumpSound attachTo [_veh, [0, 0, 0], "pos_switches"];
 			_veh setVariable ["PumpSound",_PumpSound,true];
+			[_veh] spawn A3PL_FD_LadderHeavyLoop;
 		} else {
 			_veh animate ["FT_Pump_Switch", 0];
 			_PumpSound = _veh getVariable "PumpSound";
@@ -1022,7 +1130,7 @@
 		private _veh = player_objintersect;
 		private _animName = player_nameintersect;
 		if (_animName isEqualTo "") exitwith {};
-		if (((_animName == "bt_lever_2") && (_veh animationPhase "bt_lever_2" < 0.5)) || ((_animName == "bt_lever_3") && (_veh animationPhase "bt_lever_3" < 0.5)) ) then {
+		if (((_animName == "bt_lever_1") && (_veh animationPhase "bt_lever_1" < 0.5))) then {
 			[_veh] spawn A3PL_FD_BrushLoop;
 		};
 		[_veh,_animName,false] call A3PL_Lib_ToggleAnimation;
@@ -1043,7 +1151,7 @@
 			};
 		};
 		if((typeOf _veh) isEqualTo "A3PL_Silverado_FD_Brush") then {
-			if (((_animName == "bt_lever_2") && (_veh animationPhase "bt_lever_2" < 0.5)) || ((_animName == "bt_lever_3") && (_veh animationPhase "bt_lever_3" < 0.5)) ) then {
+			if (((_animName == "bt_lever_1") && (_veh animationPhase "bt_lever_1" < 0.5))) then {
 				[_veh] spawn A3PL_FD_BrushLoop;
 			};
 		};
@@ -1248,13 +1356,18 @@
     "",
     localize"STR_INTSECT_ACCPOLDB",
     {
-    	if(isNull (findDisplay 211) && ((typeOf player_objintersect) == "A3PL_Pierce_Rescue") && ((player getVariable ["job","unemployed"]) IN ["fifr"])) then {call A3PL_FD_DatabaseOpen;};
-        if (isNull (findDisplay 211) && (player_objintersect animationPhase "Laptop_Top" > 0.5)) then {
-			if ((player getVariable ["job","unemployed"]) IN ["fisd","uscg","usms"]) then {
+    	if((typeOf player_objintersect) isEqualTo "Land_A3FL_DOC_Gate") then {
+    		if (isNull (findDisplay 211) && (player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims"]) then {
 				call A3PL_Police_DatabaseOpen;
 			};
-			if ((player getVariable ["job","unemployed"]) IN ["fifr"]) then {call A3PL_FD_DatabaseOpen;};
-        };
+    	} else {
+    		if (isNull (findDisplay 211) && (player_objintersect animationPhase "Laptop_Top" > 0.5)) then {
+				if ((player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims"]) then {
+					call A3PL_Police_DatabaseOpen;
+				};
+				if ((player getVariable ["job","unemployed"]) IN ["fifr"]) then {call A3PL_FD_DatabaseOpen;};
+			};
+    	};
     }
 ],
 [
@@ -1696,15 +1809,15 @@
     	private _obj = call A3PL_Intersect_cursortarget;
 		private _name = Player_NameIntersect;
 		private _split = _name splitstring "_";
-		_obj enableSimulationGlobal true;
-		if (count _split > 2) then
-		{
-			[_obj,(_split select 0),false] call A3PL_Lib_ToggleAnimation;
+		private _animationName = (_split select 0);
+		if ((_obj animationSourcePhase _animationName) < 0.5) then {
+			[_obj,true,true] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+			_obj animateSource [_animationName,1];
 		} else {
-			[_obj,(_split select 0)] call A3PL_Lib_ToggleAnimation;
+			_obj animateSource [_animationName,0];
+			waitUntil{(_obj animationSourcePhase _animationName) isEqualTo 0};
+			[_obj,false,true] remoteExec ["Server_Vehicle_EnableSimulation", 2];
 		};
-		sleep 10;
-		_obj enableSimulationGlobal false;
 	}
 ],
 [

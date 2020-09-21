@@ -268,3 +268,169 @@
 	private _result = [_query, 2, true] call Server_Database_Async;
 	[_result] remoteExec ["A3PL_iPhoneX_appCompaniesBills",owner _player];
 },true] call Server_Setup_Compile;
+
+["Server_Company_BuyShop",
+{
+	private _shop = param[0,objNull];
+	private _player = param[1,objNull];
+	private _cid = param[2,0];
+
+	private _query = format ["INSERT INTO companies_shops(cid,location) VALUES('%1','%2')", _cid, (getpos _shop)];
+	[_query,1] spawn Server_Database_Async;
+
+	sleep 3;
+	["You bought a shop for your company!", "green"] remoteExec ["A3PL_Player_Notification",_player];
+	[] call Server_Company_LoadShop;
+},true] call Server_Setup_Compile;
+
+["Server_Company_SellShop",
+{
+	private _shop = param[0,objNull];
+	private _player = param[1,objNull];
+
+	private _query = format ["DELETE FROM companies_shops WHERE location ='%1'", (getpos _shop)];
+	[_query,1] spawn Server_Database_Async;
+
+	_shop setVariable ["id",nil,true];
+	_shop setVariable ["cid",nil, true];
+	_shop setVariable ["stock",nil, true];
+
+	private _signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"], 25,true];
+	if (count _signs > 0) then {
+		(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_sale_co.paa"];
+	};
+
+	["You succesfully sold your company shop!", "green"] remoteExec ["A3PL_Player_Notification",_player];
+},true] call Server_Setup_Compile;
+
+["Server_Company_LoadShop",
+{
+	private _shopList = ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"];
+	private _shops = ["SELECT companies_shops.cid, companies_shops.location, companies_shops.stock, companies.name FROM companies_shops, companies WHERE companies_shops.cid = companies.id", 2, true] call Server_Database_Async;
+	{
+		private _cid = (_x select 0);
+		private _pos = call compile (_x select 1);
+		private _stock = [(_x select 2)] call Server_Database_ToArray;
+		private _company = (_x select 3);
+
+		private _near = nearestObjects [_pos, _shopList, 10,true];
+		if ((count _near) isEqualTo 0) exitwith {[format ["DELETE FROM companies_shops WHERE location = '%1'",_pos],1] spawn Server_Database_Async;};
+
+		private _shop = (_near select 0);
+		if (!([_pos,(getpos _shop)] call BIS_fnc_areEqual)) then {
+			_query = format ["UPDATE companies_shops SET location='%1' WHERE location ='%2'", (getpos _shop), _pos];
+			[_query,1] spawn Server_Database_Async;
+		};
+
+		private _signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"], 25,true];
+		if (count _signs > 0) then {
+			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];
+		};
+
+		_shop setVariable ["cid",_cid, true];
+		_shop setVariable ["stock",_stock, true];
+
+		private _marker = createMarker [format ["company%1",floor random 3000], _pos];
+		_marker setMarkerSize [0.7, 0.7];
+		_marker setMarkerShape "ICON";
+		_marker setMarkerType "A3PL_Markers_Business";
+		_marker setMarkerText _company;
+	} foreach _shops;
+},true] call Server_Setup_Compile;
+
+["Server_Company_ShopItemsUpdate",
+{
+	private _shop = param[0,objNull];
+	private _stock = param[1,[]];
+
+	_shop setVariable["stock",_stock,true];
+
+	_stock = [_stock] call Server_Database_Array;
+	_query = format ["UPDATE companies_shops SET stock='%2' WHERE location ='%1'", (getpos _shop), _stock];
+	[_query,1] spawn Server_Database_Async;
+},true] call Server_Setup_Compile;
+
+["Server_Company_ShopAddItem",
+{
+	private _shop = param[0,objNull];
+	private _addItem = param[1,""];
+	private _addAmount = param[2,0];
+	private _addPrice = param[3,0];
+	private _player = param[4,objNull];
+	private _currentStock = _shop getVariable["stock",[]];
+	private _exit = false;
+	{
+		_class = (_x select 0);
+		if(_class isEqualTo _addItem) exitWith {_exit = true};
+	} foreach _currentStock;
+	if(_exit) exitWith {["This item is already available for sale, please use the refill stock option", "red"] remoteExec ["A3PL_Player_Notification",_player];};
+	_currentStock pushback [_addItem,_addAmount,_addPrice];
+	[_shop,_currentStock] call Server_Company_ShopItemsUpdate;
+},true] call Server_Setup_Compile;
+
+["Server_Company_ShopAddStock",
+{
+	private _shop = param[0,objNull];
+	private _addItem = param[1,""];
+	private _addAmount = param[2,0];
+	private _currentStock = _shop getVariable["stock",[]];
+	private _stock = [];
+	{
+		_type = (_x select 0);
+		_class = (_x select 1);
+		_amount = (_x select 2);
+		_price = (_x select 3);
+		if(_class isEqualTo _addItem) then {
+			if(!(_amount isEqualTo _addAmount)) then {
+				_stock pushback [_type,_class,(_amount+_addAmount),_price];
+			};
+		} else {
+			_stock pushback [_type,_class,_amount,_price];
+		};
+	} foreach _currentStock;
+	[_shop,_stock] call Server_Company_ShopItemsUpdate;
+},true] call Server_Setup_Compile;
+
+["Server_Company_ShopRemoveStock",
+{
+	private _shop = param[0,objNull];
+	private _bItem = param[1,""];
+	private _bAmount = param[2,0];
+	private _currentStock = _shop getVariable["stock",[]];
+	private _stock = [];
+	{
+		_type = (_x select 0);
+		_class = (_x select 1);
+		_amount = (_x select 2);
+		_price = (_x select 3);
+		if(_class isEqualTo _bItem) then {
+			if(!(_amount isEqualTo _bAmount)) then {
+				_stock pushback [_type,_class,(_amount-_bAmount),_price];
+			};
+		} else {
+			_stock pushback [_type,_class,_amount,_price];
+		};
+	} foreach _currentStock;
+	[_shop,_stock] call Server_Company_ShopItemsUpdate;
+},true] call Server_Setup_Compile;
+
+["Server_Company_ShopResetPrice",
+{
+	private _shop = param[0,objNull];
+	private _cItem = param[1,""];
+	private _cPrice = param[2,0];
+	private _currentStock = _shop getVariable["stock",[]];
+	private _stock = [];
+	{
+		_type = (_x select 0);
+		_class = (_x select 1);
+		_amount = (_x select 2);
+		_price = (_x select 3);
+		if(_class isEqualTo _cItem) then {
+			_stock pushback [_type,_class,_amount,_cPrice];
+		} else {
+			_stock pushback [_type,_class,_amount,_price];
+		};
+	} foreach _currentStock;
+	[_shop,_stock] call Server_Company_ShopItemsUpdate;
+},true] call Server_Setup_Compile;

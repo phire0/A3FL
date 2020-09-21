@@ -105,7 +105,7 @@
 			};
 			if(speed _veh > 1) exitWith {_exit=true;};
 		};
-
+		
 		if(_exit) exitWith {};
 
 		private _begPos = positionCameraToWorld [0,0,0];
@@ -130,7 +130,8 @@
 			Player_ObjIntersect = player;
 			Player_NameIntersect = "";
 		};
-		if ((!(getModelInfo _parent select 2)) && ((player distance _obj) < 5)) exitWith {
+		
+		if (!(getModelInfo _parent select 2) && ((player distance _obj) < 5)) exitWith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _obj;
 			{
@@ -141,6 +142,7 @@
 				};
 			} foreach Config_Intersect_NoName;
 		};
+		if(!(getModelInfo _parent select 2)) exitWith {};
 
 		private _ins2 = [_parent, "FIRE"] intersect [_begPos, _endPos];
 		if (_ins2 isEqualTo []) exitWith {
@@ -151,7 +153,7 @@
 
 		_ins2 select 0 params ["_name", "_dist"];
 		private _posAGL = _obj modelToWorldVisual (_obj selectionPosition [_name,"Memory"]);
-		if (([_posAGL,ASLToAGL (getposASL player)] call BIS_fnc_distance2D) > 3) exitwith {
+		if (_dist > 5) exitwith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _obj;
 		};
@@ -207,6 +209,8 @@
 	private _name = Player_NameIntersect;
 
 	if ((typeOf _obj) isEqualTo "Land_A3PL_Prison") exitwith {[_obj,_name] call A3PL_Prison_HandleDoor;};
+	if ((typeOf _obj) isEqualTo "Land_A3FL_DOC_Gate") exitwith {[_obj,_name] call A3PL_PrisonGate_HandleDoor;};
+	if ((typeOf _obj) IN ["Land_A3FL_DOC_Wall_Tower","Land_A3FL_DOC_Wall_Tower_Corner"]) exitwith {[_obj,_name] call A3PL_PrisonTower_HandleDoor;};
 
 	private _split = _name splitstring "_";
 	if ((((_split select 0) find "garagedoor") != -1) || (((_split select 0) find "hangardoor") != -1)) exitwith
@@ -245,10 +249,10 @@
 		private _canUse = true;
 		switch (typeOf _obj) do
 		{
-			case ("Land_A3FL_SheriffPD"): { if ((_name IN ["door_10","door_11","door_12","door_15"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {_canUse = false}; };
-			case ("Land_A3PL_Sheriffpd"): { if ((_name IN ["door_3","door_4","door_11","door_18","door_19","door_20","garagedoor_button"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","usms"])) exitwith {_canUse = false}; };
+			case ("Land_A3FL_SheriffPD"): { if ((_name IN ["door_10","door_11","door_12","door_15"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"])) exitwith {_canUse = false}; };
+			case ("Land_A3PL_Sheriffpd"): { if ((_name IN ["door_3","door_4","door_11","door_18","door_19","door_20","garagedoor_button"]) && !((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"])) exitwith {_canUse = false}; };
 			case ("Land_A3PL_Clinic"): { if ((_name IN ["door_3","door_4","door_5","door_6","door_7","door_8","door_9","door_10","door_11"]) && !((player getVariable ["job","unemployed"]) IN ["fifr"])) exitwith {_canUse = false}; };
-			case ("Land_A3PL_Prison"): { if (((_name find "button") != -1) && !((player getVariable ["job","unemployed"]) IN ["usms"])) exitwith {_canUse = false}; };
+			case ("Land_A3PL_Prison"): { if (((_name find "button") != -1) && !((player getVariable ["job","unemployed"]) IN ["fims"])) exitwith {_canUse = false}; };
 			case ("Land_A3PL_Firestation"): {
 				if (!((player getVariable ["faction","citizen"]) IN ["fifr"]) && !(["vfd",player] call A3PL_DMV_Check)) exitwith {
 					_canUse = false;
@@ -313,7 +317,21 @@
 					};
 				};
 
-				case ((typeOf _obj) IN ["Land_A3FL_House1_Cream","Land_A3FL_House1_Green","Land_A3FL_House1_Blue","Land_A3FL_House1_Brown","Land_A3FL_House1_Yellow"]):
+				case ((typeOf _obj) IN ["Land_A3FL_House1_Cream","Land_A3FL_House1_Green","Land_A3FL_House1_Blue","Land_A3FL_House1_Brown","Land_A3FL_House1_Yellow","Land_A3FL_House3_Cream","Land_A3FL_House3_Green","Land_A3FL_House3_Blue","Land_A3FL_House3_Brown","Land_A3FL_House3_Yellow"]):
+				{
+					if (_name IN ["door_1","door_2","door_3","door_4","door_5"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else {
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+				case ((typeOf _obj) IN []):
 				{
 					if (_name IN ["door_1","door_2","door_3","door_4","door_5"]) then
 					{
@@ -331,6 +349,23 @@
 				case ((typeOf _obj) IN Config_Houses_List):
 				{
 					if (_name IN ["door_1","door_2","door_3"]) then
+					{
+						if (isNil {_obj getVariable "unlocked"}) exitwith
+						{
+							_format = format[localize'STR_NewIntersect_2'];
+							[_format, "red"] call A3PL_Player_Notification;
+						};
+
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					} else
+					{
+						[_obj,format ["%1_%2",(_split select 0),(_split select 1)],false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
+				case ((typeOf _obj) isEqualTo "Land_A3FL_Anton_Modern_Bungalow"):
+				{
+					if (_name IN ["door_1","door_2","door_2","door_4"]) then
 					{
 						if (isNil {_obj getVariable "unlocked"}) exitwith
 						{

@@ -48,6 +48,7 @@ class CfgRemoteExec
 		class BIS_fnc_objectVar {};
 		class bis_fnc_setidentity {allowedTargets=0;};
 		class BIS_fnc_earthquake {allowedTargets=0;};
+		class enableSimulationGlobal{allowedTargets=2;};
 
 		//Storage
 		class A3PL_Storage_ObjectsReceive {allowedTargets = 0;};
@@ -69,6 +70,7 @@ class CfgRemoteExec
 		class A3PL_Admin_UserInputCheck{allowedTargets=0;};
 
 		//Player
+		class A3PL_Player_SpawnMenu{allowedTargets=0;};
 		class A3PL_Player_News{allowedTargets=0;};
 		class A3PL_Player_Notification {allowedTargets = 0;};
 		class A3PL_Player_NewPlayer{allowedTargets = 0;};
@@ -98,6 +100,7 @@ class CfgRemoteExec
 		class Server_Gang_UpdateGangBalance{allowedTargets=2;};
 		class Server_Gang_NotifyPurchase{allowedTargets=2;};
 		class Server_Gang_RewardFactions{allowedTargets=2;};
+		class Server_Gang_ManageSetup{allowedTargets=2;};
 
 		//Locker
 		class Server_Locker_Save{allowedTargets=2;};
@@ -117,6 +120,8 @@ class CfgRemoteExec
 		class Server_Uber_RequestDriver{allowedTargets=2;};
 
 		//Housing
+		class Server_Housing_AssignApt{allowedTargets=2;};
+		class Server_Housing_SetPosApt{allowedTargets=2;};
 		class A3PL_Housing_Loaditems {allowedTargets = 0;};
 		class A3PL_Housing_AptAssignedMsg {allowedTargets = 0;};
 		class A3PL_Housing_SetMarker{allowedTargets=0;};
@@ -327,6 +332,13 @@ class CfgRemoteExec
 		class Server_Company_LoadCBillPhone{allowedTargets=2;};
 		class Server_Company_PayBill{allowedTargets=2;};
 
+		class Server_Company_BuyShop{allowedTargets=2;};
+		class Server_Company_SellShop{allowedTargets=2;};
+		class Server_Company_ShopAddItem{allowedTargets=2;};
+		class Server_Company_ShopAddStock{allowedTargets=2;};
+		class Server_Company_ShopRemoveStock{allowedTargets=2;};
+		class Server_Company_ShopResetPrice{allowedTargets=2;};
+
 		//Twitter
 		class A3PL_Twitter_NewMsg {allowedTargets = 0;};
 		class Server_Twitter_HandleMsg {allowedTargets = 2;};
@@ -384,6 +396,7 @@ class CfgRemoteExec
 		class A3PL_Robberies_SeizureAlert{allowedTargets=0;};
 
 		//iPhoneX
+		class A3PL_iPhoneX_gangMngmtReceived{allowedTargets=0;};
 		class A3PL_iPhoneX_Contacts{allowedTargets=0;};
 		class A3PL_iPhoneX_Conversations{allowedTargets=0;};
 		class A3PL_iPhoneX_setPhoneNumber{allowedTargets=0;};
@@ -421,6 +434,7 @@ class CfgRemoteExec
 		class Server_iPhoneX_GetListNumber{allowedTargets=2;};
 		class Server_iPhoneX_Get911Text{allowedTargets=2;};
 		class Server_iPhoneX_CallSwitchboard{allowedTargets=2;};
+		class Server_iPhoneX_Notify911{allowedTargets = 2;};
 
 		class A3PL_USCG_DragReceive{allowedTargets=0;};
 	};

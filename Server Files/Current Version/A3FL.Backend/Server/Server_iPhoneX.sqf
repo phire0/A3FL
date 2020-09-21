@@ -76,7 +76,7 @@
 ['Server_iPhoneX_GetContacts',
 {
 	private _unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
-	if (isNil "_unit") exitWith {};
+	if (isNull _unit) exitWith {};
 	private _ownerID = owner _unit;
 	private _playerUID = getPlayerUID _unit;
 	private _query = format ["SELECT name_contact, phone_number_contact, note_contact FROM iphone_contacts WHERE player_id='%1' ORDER BY name_contact", _playerUID];
@@ -95,7 +95,7 @@
 ['Server_iPhoneX_GetConversations',
 {
 	private _unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
-	if (isNil "_unit") exitWith {};
+	if (isNull _unit) exitWith {};
 	private _ownerID = owner _unit;
 	private _playerUID = getPlayerUID _unit;
 	private _query = format ["SELECT name_contact, phone_number_contact, last_sms FROM iphone_conversations WHERE player_id='%1' ORDER BY name_contact", _playerUID];
@@ -201,7 +201,8 @@
 	if (isNil "_unit" || _phoneNumberContact isEqualTo "") exitWith {};
 	private _ownerID = owner _unit;
 	private _playerUID = getPlayerUID _unit;
-	private _result = ["SELECT from_num, message, position FROM iphone_messages WHERE to_num='911' ORDER BY date LIMIT 10",2,true] call Server_Database_Async;
+	private _result = ["SELECT from_num, message, position FROM iphone_messages WHERE to_num='911' ORDER BY date DESC LIMIT 10",2,true] call Server_Database_Async;
+	reverse _result;
 	[_result] remoteExec ["A3PL_iPhoneX_911Text", _ownerID];
 },true] call Server_Setup_Compile;
 
@@ -237,7 +238,8 @@
 	private _playerUID = getPlayerUID _unit;
 	private _query = format ["UPDATE iphone_conversations SET last_SMS='""%1""' WHERE phone_number_contact='%2' AND player_id='%3'", _message, _phoneNumberContact, _playerUID];
 	[_query,1] call Server_Database_Async;
-	[_unit] remoteExec ["A3PL_iPhoneX_getConversations",2];
+	sleep 1;
+	[_unit] call Server_iPhoneX_GetConversations;
 },true] call Server_Setup_Compile;
 
 ['Server_iPhoneX_SavePhoneNumberActive',
@@ -271,6 +273,7 @@
 			[_from, _message, _to, _position] remoteExec ["A3PL_iPhoneX_receiveSMS", ((A3PL_iPhoneX_ListNumber select (_exists select 0)) select 1)];
 		};
 	};
+	[_unit,_to,_message] call Server_iPhoneX_SaveLastSMS;
 },true] call Server_Setup_Compile;
 
 ['Server_iPhoneX_DeleteSMS',
@@ -311,3 +314,15 @@
 		[A3PL_iPhoneX_switchboard] remoteExec ["A3PL_iPhoneX_switchboard", _x];
 	} foreach allPlayers;
 },true] call Server_Setup_Compile;
+
+["Server_iPhoneX_Notify911",
+{
+	private _phoneNumber = param[0,""];
+	private _player = param[1,objNull];
+	private _faction = toUpper(_player getVariable["job","fifr"]);
+	private _notification = format["911 Dispatch: %1 is responding to your location!",_faction];
+	private _exists = [A3PL_iPhoneX_ListNumber, _phoneNumber] call BIS_fnc_findNestedElement;
+	if (_exists isEqualTo []) exitWith {};
+	private _target = ((A3PL_iPhoneX_ListNumber select (_exists select 0)) select 1);
+	[_notification,"blue"] remoteExec["A3PL_Player_Notification",_target];
+}] call Server_Setup_Compile;

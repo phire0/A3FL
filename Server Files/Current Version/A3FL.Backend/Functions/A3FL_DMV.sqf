@@ -131,6 +131,20 @@
 	if (_license IN _plicenses) then {true;} else {false;};
 }] call Server_Setup_Compile;
 
+["A3PL_DMV_Check2", {
+	private _license = param [0,"cdl"];
+	private _player = param [1,player];
+	private _plicenses = _player getVariable ["licenses",[]];
+	if (_license IN _plicenses) then {true;} else {false;};
+}] call Server_Setup_Compile;
+
+["A3PL_DMV_Check3", {
+	private _license = param [0,"motorcycle"];
+	private _player = param [1,player];
+	private _plicenses = _player getVariable ["licenses",[]];
+	if (_license IN _plicenses) then {true;} else {false;};
+}] call Server_Setup_Compile;
+
 ["A3PL_DMV_Truck", {
 	[localize"A3PL_P362_TowTruck",[2757.38,5465.27,0],"DMV",1800] spawn A3PL_Lib_JobVehicle_Assign;
 	["STR_DMV_TRUCKSPAWN","green"] call A3PL_Player_Notification;
@@ -142,5 +156,23 @@
 	['dmv_drivingtest1'] call A3PL_NPC_Start;
 	_cash = player getVariable ['player_cash',0];
 	player setVariable ['player_cash',(_cash - 500),true];
+	["Federal Reserve",500] remoteExec ["Server_Government_AddBalance",2];
+}] call Server_Setup_Compile;
+
+["A3PL_DMV_StartTest2",{
+	if(player getVariable['player_cash',0] < 2500) exitWith {['You do not have enough money for the commercial driving test!','red'] call A3PL_Player_Notification;};
+	if(['cdl'] call A3PL_DMV_Check) exitWith {['You already have a driving license!','red'] call A3PL_Player_Notification;};
+	['dmv_cdltest1'] call A3PL_NPC_Start;
+	_cash = player getVariable ['player_cash',0];
+	player setVariable ['player_cash',(_cash - 2500),true];
+	["Federal Reserve",500] remoteExec ["Server_Government_AddBalance",2];
+}] call Server_Setup_Compile;
+
+["A3PL_DMV_StartTest3",{
+	if(player getVariable['player_cash',0] < 10000) exitWith {['You do not have enough money for the motorcycle test!','red'] call A3PL_Player_Notification;};
+	if(['motorcycle'] call A3PL_DMV_Check) exitWith {['You already have a driving license!','red'] call A3PL_Player_Notification;};
+	['dmv_motorcycletest1'] call A3PL_NPC_Start;
+	_cash = player getVariable ['player_cash',0];
+	player setVariable ['player_cash',(_cash - 10000),true];
 	["Federal Reserve",500] remoteExec ["Server_Government_AddBalance",2];
 }] call Server_Setup_Compile;

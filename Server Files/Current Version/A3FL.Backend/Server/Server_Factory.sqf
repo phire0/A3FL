@@ -73,65 +73,59 @@
 ["Server_Factory_Add",
 {
 	private ["_items","_player","_inventory","_newCash","_type","_item","_items","_i","_move","_fail","_obj"];
-	_player = param [0,objNull]; //player obviously
-	_type = param [1,""]; //factory we are adding this item to
-	_item = param [2,["",1]]; //items we are adding
-	_move = param [3,true]; //whether we are moving this item and should delete it from there
-	_obj = param [4,nil]; //additional object we must remove if moved to the factory
+	_player = param [0,objNull];
+	_type = param [1,""];
+	_item = param [2,["",1]];
+	_move = param [3,true];
+	_obj = param [4,nil];
 	_fail = false;
-	if (_move) then
-	{
-		if (!isNil "_obj") then
-		{
+	if (_move) then {
+		if (!isNil "_obj") then {
 			if (isNull _obj) exitwith {_fail = true;};
 			deleteVehicle _obj;
-		} else
-		{
+		} else {
 			private ["_class","_amount","_has"];
-			//check if we have this item
 			_has = [(_item select 0),(_item select 1),_player] call Server_Inventory_Has;
 			if (!_has) exitwith {_fail = true;};
-			//REMOVE ITEM WE ARE ADDING TO STORAGE
 			_inventory = _player getVariable ["player_inventory",[]];
 			_class = _item select 0;
 			_amount = _item select 1;
-			if (_class == "cash") then
-			{
+			if (_class isEqualTo "cash") then {
 				_newcash = (_player getVariable ["player_cash",0]) - _amount;
-			} else
-			{
+			} else {
 				_inventory = [_inventory, _class, -(_amount), true] call BIS_fnc_addToPairs;
 			};
-
 			_player setvariable ["player_inventory",_inventory,true];
 			[_player] call Server_Inventory_Verify;
 			if (!isNil "_newCash") then {_player setvariable ["player_cash",_newcash,true];};
-			//END OF REMOVING ITEM
 		};
 	};
-	if (_fail) exitwith {}; //player is adding something that he doesn't have, or cannot be found
+	if (_fail) exitwith {};
 
-	//START OF ADDING ITEM TO fSTORAGE
 	_storage = _player getvariable ["player_fStorage",[]];
-	_newArr = [_type,"items",_player] call A3PL_Config_GetPlayerFStorage; //exists in array already
+	_newArr = [_type,"items",_player] call A3PL_Config_GetPlayerFStorage;
 	{
 		if ((_x select 0) == _type) exitwith {_i = _forEachIndex;};
-	} foreach _storage; //get the index this factory is at
-	if (typeName _newArr != "BOOL") then //item exists
-	{
+	} foreach _storage;
+
+	if (typeName _newArr != "BOOL") then {
 		_newArr = [_newArr, (_item select 0), (_item select 1), true] call BIS_fnc_addToPairs;
-		diag_log str(_newArr);
 		if (isNil "_i") exitwith {};
 		(_storage select _i) set [1,_newArr];
-	} else
-	{
+	} else {
 		_storage pushBack [_type,[[(_item select 0),(_item select 1)]]];
 	};
-	_player setvariable ["player_fstorage",_storage,true]; //set var
+
+	_player setvariable ["player_fstorage",_storage,true];
 	_query = format ["UPDATE players SET f_storage='%1' WHERE uid='%2'",([_storage] call Server_Database_Array),getPlayerUID _player];
-	[_query,1] spawn Server_Database_Async; //set database
-	//END OF ADDING ITEM TO fSTORAGE
-	[getPlayerUID _player,"addFactory",[_type,_item]] call Server_Log_New;
+	[_query,1] spawn Server_Database_Async;
+	
+
+	_newTotal = 0;
+	{
+		if((_x select 0) isEqualTo (_item select 0)) exitWith {_newTotal = (_x select 1);}
+	} forEach _newArr;
+	[getPlayerUID _player,"addFactory",["Factory",_type,"Item",(_item select 0),"Amount",(_item select 1),"Total",_newTotal]] call Server_Log_New;
 },true] call Server_Setup_Compile;
 
 //script that runs upon collecting

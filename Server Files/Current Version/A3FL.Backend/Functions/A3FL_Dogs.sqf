@@ -13,12 +13,13 @@
 {
 	if(!(isNull(player getVariable["Player_Dog",objNull]))) exitwith {["You already have a dog","red"] call A3PL_Player_Notification;};
 	createDialog "Dialog_Kane9";
-	_dogs = [["Dog 1 (Sand)","Alsatian_Sand_F"],["Dog 2 (Black)","Alsatian_Black_F"],["Dog 3 (Sandblack)","Alsatian_Sandblack_F"]];
+	private _display = findDisplay 93;
+	private _control = _display displayCtrl 1500;
+	private _dogs = [["Dog 1 (Sand)","Alsatian_Sand_F"],["Dog 2 (Black)","Alsatian_Black_F"],["Dog 3 (Sandblack)","Alsatian_Sandblack_F"]];
 	{
-		_i = lbAdd [1500,(_x select 0)];
-		lbSetData [1500,_i,(_x select 1)];
+		_i = _control lbAdd (_x select 0);
+		_control lbSetData [_i,(_x select 1)];
 	} foreach _dogs;
-	_control = _display displayCtrl 1500;
 	_control lbSetCurSel 0;
 }] call Server_Setup_Compile;
 
@@ -32,10 +33,8 @@
 
 ["A3PL_Dogs_BuyReceive",
 {
-	private ["_class","_dog"];
-	_class = param [0,"Alsatian_Sand_F"];
-
-	_dog = createAgent [_class, getPosATL player, [], 1, "CAN_COLLIDE"];
+	private _class = param [0,"Alsatian_Sand_F"];
+	private _dog = createAgent [_class, getPosATL player, [], 1, "CAN_COLLIDE"];
 	_dog setposATL (getposATL player);
 	_dog playMove "Dog_Sit";
 
@@ -43,14 +42,13 @@
 	_dog setVariable["Dog_Moving",false,true];
 	_dog setVariable ["BIS_fnc_animalBehaviour_disable", true];
 	[_dog] spawn {
-		private ["_dog","_doDrugsCheck"];
-		_dog = param [0,objNull];
-		_doDrugsCheck = 0;
-		_moved = false;
+		private _dog = param [0,objNull];
+		private _doDrugsCheck = 0;
+		private _moved = false;
 		while {alive _dog} do
 		{
-			uiSleep 0.5;
-			_moving = _dog getVariable["Dog_Moving",false];
+			sleep 0.5;
+			private _moving = _dog getVariable["Dog_Moving",false];
 			if (vehicle player != player) then
 			{
 				if (!(attachedTo _dog == (vehicle player))) then

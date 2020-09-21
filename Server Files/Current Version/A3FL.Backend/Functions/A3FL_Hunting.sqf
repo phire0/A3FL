@@ -40,6 +40,7 @@
 	};
 
 	_amount = 1 + floor(random(3));
+	_amount = _amount * A3PL_Event_DblHarvest;
 	[_meatItem,_amount] call A3PL_Inventory_Add;
 	[format [localize"STR_NewHunting_Earned",_animalType,_amount,[_meatItem,"name"] call A3PL_Config_GetItem],"green"] call A3PL_Player_Notification;
 

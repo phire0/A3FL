@@ -13,10 +13,10 @@
 	Server_JobWildCat_Oil = [[[3488.800,12506.046,0],10000]];
 	for "_i" from 0 to 30 do {
 		private ["_randPos","_overWater"];
-		_randPos = ["OilSpawnArea"] call CBA_fnc_randPosArea;
+		_randPos = ["FIMiningArea"] call CBA_fnc_randPosArea;
 		_overWater = !(_randPos isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
 		while {_overWater} do {
-			_randPos = ["OilSpawnArea"] call CBA_fnc_randPosArea;
+			_randPos = ["FIMiningArea"] call CBA_fnc_randPosArea;
 			_overWater = !(_randPos isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
 		};
 		_oilAmounts = [210,252,294,336,378,420,462,504];
@@ -32,19 +32,21 @@
 	Server_JobWildCat_Res = [];
 	{
 		private _name = _x select 0;
-		private _minArea = _x select 1;
-		private _maxArea = _x select 2;
-		private _minOres = _x select 3;
-		private _maxOres = _x select 4;
-		private _areas = round (_minArea + (random (_maxArea-_minArea)));
+		private _areas = _x select 1;
+		private _ores = _x select 2;
+		private _maxOres = _x select 3;
+		private _island = _x select 5;
+		if(_island isEqualTo "All") then {
+			_island = ["FIMiningArea","NIMiningArea"] call BIS_fnc_selectRandom;
+		};
 		for "_i" from 0 to _areas do {
-			private _randPos = ["OilSpawnArea"] call CBA_fnc_randPosArea;
+			private _randPos = [_island] call CBA_fnc_randPosArea;
 			private _overWater = !(_randPos isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
 			while {_overWater} do {
-				_randPos = ["OilSpawnArea"] call CBA_fnc_randPosArea;
+				_randPos = [_island] call CBA_fnc_randPosArea;
 				_overWater = !(_randPos isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
 			};
-			private _arr = [_name,_randPos,round(_minOres + (random (_maxOres-_minOres)))];
+			private _arr = [_name,_randPos,_ores];
 			Server_JobWildCat_Res pushback _arr;
 		};
 	} foreach Config_Resources_Ores;
@@ -55,21 +57,27 @@
 {
 	private _player = param [0,objNull];
 	private _foundOre = param [1,""];
-	private _objClass = "A3PL_Resource_Ore_Black";
+	private _objClass = "A3PL_Resource_Ore_Coal";
 	switch (_foundOre) do {
-		case (localize"STR_Config_Resources_Iron"): {_objClass = "A3PL_Resource_Ore_Pink";};
-		case (localize"STR_Config_Resources_Coal"): {_objClass = "A3PL_Resource_Ore_Black";};
-		case (localize"STR_Config_Resources_Aluminium"): {_objClass = "A3PL_Resource_Ore_Orange";};
-		case (localize"STR_Config_Resources_Sulphur"): {_objClass = "A3PL_Resource_Ore_Yellow";};
+		case (localize"STR_Config_Resources_Iron"): {_objClass = "A3PL_Resource_Ore_Iron";};
+		case (localize"STR_Config_Resources_Coal"): {_objClass = "A3PL_Resource_Ore_Coal";};
+		case (localize"STR_Config_Resources_Aluminium"): {_objClass = "A3PL_Resource_Ore_Bauxite";};
+		case (localize"STR_Config_Resources_Sulphur"): {_objClass = "A3PL_Resource_Ore_Sulphur";};
+		case (localize"STR_Config_Resources_Sapphire"): {_objClass = "A3PL_Resource_Ore_Sapphire";};
+		case (localize"STR_Config_Resources_Vivianite"): {_objClass = "A3PL_Resource_Ore_Vivianite";};
+		case (localize"STR_Config_Resources_Emerald"): {_objClass = "A3PL_Resource_Ore_Emerald";};
+		case (localize"STR_Config_Resources_Gold"): {_objClass = "A3PL_Resource_Ore_Gold";};
+		case (localize"STR_Config_Resources_Amethyst"): {_objClass = "A3PL_Resource_Ore_Amethyst";};
 	};
 	private _obj = createVehicle [_objClass,_player, [], 0, "CAN_COLLIDE"];
 	_obj setVariable ["oreClass",_foundOre,false];
 	{
-		if ((toLower (_x select 0)) == _foundOre) exitwith {
-			_obj setVariable ["smallOreItemClass",_x select 5,false];
-			_obj setVariable ["smallOreAmount",_x select 6,false];
+		if ((_x select 0) isEqualTo _foundOre) exitwith {
+			_obj setVariable ["smallOreItemClass",_x select 3,false];
+			_obj setVariable ["smallOreAmount",_x select 4,false];
 		};
 	} foreach Config_Resources_Ores;
+
 	_obj addEventHandler ["HandleDamage", {
 		private _obj = param [0,objNull];
 		private _sel = param [1,""];
@@ -103,6 +111,9 @@
 				_itemClass = _obj getVariable ["smallOreItemClass","ore_metal"];
 				_amount = 1 * A3PL_Event_DblHarvest;
 				[_itemClass,_amount] remoteExec ["A3PL_Inventory_Add", (owner _ins)];
+
+				diag_log str (_obj getVariable ["smallOreItemClass","Jamie Sexy"]);
+				diag_log str (_obj getVariable ["smallOreAmount","Jamie Sexy"]);
 				[format["You succesfully mined %1 ore",_amount], "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];
 			};
 			_obj setVariable ["dmg",_dmg,false];

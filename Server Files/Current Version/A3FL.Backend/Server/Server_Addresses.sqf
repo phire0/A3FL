@@ -122,11 +122,15 @@
 		private _a = _x select 0;
 		private _b = _x select 1;
 		private _name = _x select 2;
-		private _roadObject = str (roadAt _a);
-		private _aID = parseNumber (( _roadObject splitString ":" ) select 0);
-		private _roadObject = str (roadAt _b);
-		private _bID = parseNumber (( _roadObject splitString ":" ) select 0);
-		Server_Addresses_Roads pushBack [_aID,_bID,_name];
+		private _roadObject = roadAt _a;
+		if(!isNull _roadObject) then {
+			private _aID = parseNumber ((str (_roadObject) splitString ":") select 0);
+			private _roadObject = roadAt _b;
+			if(!isNull _roadObject) then {
+				private _bID = parseNumber ((str(_roadObject) splitString ":") select 0);
+				Server_Addresses_Roads pushBack [_aID,_bID,_name];
+			};
+		};
 	} forEach _Server_Roads_Data;
 	publicVariable "Server_Addresses_Roads";
 

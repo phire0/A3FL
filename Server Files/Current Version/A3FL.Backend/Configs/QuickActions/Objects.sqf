@@ -214,7 +214,7 @@
 	"",
 	{
 		_sotrage = player_objintersect;
-		_isLead = ["usms"] call A3PL_Government_isFactionLeader;
+		_isLead = ["fims"] call A3PL_Government_isFactionLeader;
 		_isLocked = _sotrage getVariable["locked",true];
 		if(!_isLead && _isLocked) then {
 			["The storage is locked","red"] call A3PL_Player_Notification;
@@ -460,11 +460,6 @@
 	"",
 	localize"STR_INTSECT_PICKITEMTOHAND",
 	{[player_objintersect,true] call A3PL_Inventory_Pickup;}
-],
-[
-	"Land_A3PL_Cinema",
-	localize"STR_INTSECT_GETPOPC",
-	{call A3PL_Items_GrabPopcorn;}
 ],
 [
 	"",

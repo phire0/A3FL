@@ -372,8 +372,8 @@
         <Key ID="STR_QuickActionsNPC_ShopClosedFrom20Till6">
             <Original>This store is closed from 8pm to 6am!</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_AccessShopFIMS">
-            <Original>FIFR Shop</Original>
+        <Key ID="STR_QuickActionsNPC_AccessShopFIEMS">
+            <Original>EMS Shop</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_OnlyFIFR">
             <Original>Only FIFR members have access to this shop</Original>
@@ -386,9 +386,6 @@
         </Key>
         <Key ID="STR_QuickActionsNPC_AccessShopDOC">
             <Original>DOC Shop</Original>
-        </Key>
-        <Key ID="STR_QuickActionsNPC_OnlyUSMS">
-            <Original>Only FIMS members have access to this shop</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_AccessFIFRVEHShop">
             <Original>FIFR Vehicle Shop</Original>
@@ -405,13 +402,10 @@
         <Key ID="STR_QuickActionsNPC_FISDManagment">
             <Original>FISD Management</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_FAAManagment">
-            <Original>FAA Management</Original>
-        </Key>
         <Key ID="STR_QuickActionsNPC_DOJManagment">
             <Original>DOJ Management</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_USMSManagment">
+        <Key ID="STR_QuickActionsNPC_FIMSManagment">
             <Original>FIMS Management</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_FIFDManagment">
@@ -419,12 +413,6 @@
         </Key>
         <Key ID="STR_QuickActionsNPC_USCGManagment">
             <Original>USCG Management</Original>
-        </Key>
-        <Key ID="STR_QuickActionsNPC_DMVManagment">
-            <Original>DMV Management</Original>
-        </Key>
-        <Key ID="STR_QuickActionsNPC_CartelManagment">
-            <Original>Cartel Management</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_FISDVehShop">
             <Original>FISD Vehicle Shop</Original>
@@ -456,7 +444,7 @@
         <Key ID="STR_QuickActionsNPC_AccessSDWeaponsFISD">
             <Original>FISD Weapons Shop</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_AccessUSMSCarVendor">
+        <Key ID="STR_QuickActionsNPC_AccessFIMSCarVendor">
             <Original>FIMS Car Vendor</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_AccessFISDCarVendor">
@@ -477,7 +465,7 @@
         <Key ID="STR_QuickActionsNPC_AccessDMVSuppliesVendor">
             <Original>DMV Supplies Vendor</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_AccessUSMSSuppliesVendor">
+        <Key ID="STR_QuickActionsNPC_AccessFIMSSuppliesVendor">
             <Original>FIMS Supplies Vendor</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_OnlyCitizens">
@@ -633,7 +621,7 @@
         <Key ID="STR_QuickActionsNPC_FakeID">
             <Original>Get Fake ID</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_PriseServiceUSMS">
+        <Key ID="STR_QuickActionsNPC_TalkToFIMS">
             <Original>Talk to the Marshal</Original>
         </Key>
         <Key ID="STR_QuickActionsNPC_TalkToTheDoctorWithoutDiploma">
@@ -1911,6 +1899,9 @@
    <Key ID="STR_ConfigItems_popcornbucket">
       <Original>Bucket of Popcorn</Original>
    </Key>
+   <Key ID="STR_ConfigItems_scene_light">
+      <Original>Scene Light</Original>
+   </Key>
    <Key ID="STR_ConfigItems_Camper_Light">
       <Original>Camper Light</Original>
    </Key>
@@ -2162,6 +2153,12 @@
    </Key>
    <Key ID="STR_ConfigItems_Steel_Pellet">
       <Original>Steel Pallet</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_med_stretcher">
+      <Original>Medical Stretcher</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_life_alert">
+      <Original>Life Alert System</Original>
    </Key>
    <Key ID="STR_ConfigItems_med_cast">
       <Original>Cast</Original>
@@ -5775,6 +5772,9 @@
    <Key ID="STR_INTSECT_RENTBUSI">
       <Original>Rent Business</Original>
    </Key>
+   <Key ID="STR_INTSECT_BUYBUSI">
+      <Original>Buy Business</Original>
+   </Key>
    <Key ID="STR_INTSECT_CONROLHOSE">
       <Original>Connect Rolled Hose</Original>
    </Key>
@@ -5855,6 +5855,9 @@
    </Key>
    <Key ID="STR_INTSECT_USEDOORB">
       <Original>Use Door Button</Original>
+   </Key>
+   <Key ID="STR_INTSECT_OPENDOOR">
+      <Original>Open Door %1</Original>
    </Key>
    <Key ID="STR_INTSECT_OPENCELL">
       <Original>Open Cell %1</Original>
@@ -7588,8 +7591,8 @@
    <Key ID="Functions_DeliveryLocation_BoulderMcFishers">
       <Original>Boulder City McFishers</Original>
    </Key>
-   <Key ID="Functions_DeliveryLocation_BoulderGem">
-      <Original>Boulder City Gem Store</Original>
+   <Key ID="Functions_DeliveryLocation_GemStore">
+      <Original>Springfield Jewlery Store</Original>
    </Key>
    <Key ID="Functions_DeliveryLocation_Waste">
       <Original>Elk City Waste Management</Original>
@@ -8408,6 +8411,21 @@
       <Key ID="STR_Config_Resources_Titanium">
         <Original>Titanium</Original>
       </Key>
+      <Key ID="STR_Config_Resources_Sapphire">
+        <Original>Sapphire</Original>
+      </Key>
+      <Key ID="STR_Config_Resources_Vivianite">
+        <Original>Vivianite</Original>
+      </Key>
+      <Key ID="STR_Config_Resources_Emerald">
+        <Original>Emerald</Original>
+      </Key>
+      <Key ID="STR_Config_Resources_Gold">
+        <Original>Gold</Original>
+      </Key>
+      <Key ID="STR_Config_Resources_Amethyst">
+        <Original>Amethyst</Original>
+      </Key>
     </Package>
     <Package name="STR_NewFD">
       <Key ID="STR_NewFD_PinceSuccess">
@@ -8653,7 +8671,7 @@
         <Original>Group invitation sent</Original>
       </Key>
       <Key ID="STR_NewGang_26">
-        <Original>This hideout has been captured less than 30 minutes ago</Original>
+        <Original>This hideout has been captured less than 10 minutes ago</Original>
       </Key>
       <Key ID="STR_NewGang_27">
         <Original>You won $%1 for holding gangs hideouts</Original>
@@ -8750,7 +8768,7 @@
         <Original>You ate some popcorn</Original>
       </Key>
       <Key ID="STR_NewItems_6">
-        <Original>You have eaten %1 and satisfied %2 %3 of your hunger</Original>
+        <Original>You have eaten %1 and satisfied %2%3 of your hunger</Original>
       </Key>
       <Key ID="STR_NewItems_7">
         <Original>Can not retrieve the class of the item you are trying to eat</Original>

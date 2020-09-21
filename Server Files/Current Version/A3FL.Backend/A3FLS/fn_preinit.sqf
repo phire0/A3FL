@@ -163,26 +163,6 @@ Server_Setup_Compile = {
 		player setVariable ["working",false,true];
 		player setVariable ["DoubleTapped",false,true];
 
-		// use this sleep instead of this while in editor
-		if (isServer) then {
-			// uiSleep 2;
-		} else
-		{
-			//If position is changed by the server we have loaded the gear
-			while {_pos isEqualTo (getpos player)} do
-			{
-				uiSleep 0.4;
-				_format = localize "STR_A3PLS_LOADINGREQUEST_RECEIVINGPLAYERGEAR1";
-				_control ctrlSetStructuredText (parseText _format);
-				uiSleep 0.4;
-				_format = localize "STR_A3PLS_LOADINGREQUEST_RECEIVINGPLAYERGEAR2";
-				_control ctrlSetStructuredText (parseText _format);
-				uiSleep 0.4;
-				_format = localize "STR_A3PLS_LOADINGREQUEST_RECEIVINGPLAYERGEAR3";
-				_control ctrlSetStructuredText (parseText _format);
-			};
-		};
-
 		//okay, we are out of the loop, lets set the markers for houses
 		_control = (_display displayCtrl 11059);
 		_control progressSetPosition 0.4;
@@ -194,7 +174,6 @@ Server_Setup_Compile = {
 		_control = (_display displayCtrl 10359);
 		_format = localize "STR_A3PLS_LOADINGREQUEST_ASSIGNHOUSEAPPARTMENT";
 		_control ctrlSetStructuredText (parseText _format);
-
 
 		// Stats retrieved succesfully
 		_control = (_display displayCtrl 11059);
@@ -208,8 +187,6 @@ Server_Setup_Compile = {
 		_format = localize "STR_A3PLS_LOADINGREQUEST_PLAYERGEARLOADED";
 		_control ctrlSetStructuredText (parseText _format);
 
-		// uiSleep 1;
-
 		_format = localize "STR_A3PLS_LOADINGREQUEST_INITIALIZINGCURRENTVEHICLES";
 		_control ctrlSetStructuredText (parseText _format);
 
@@ -219,8 +196,6 @@ Server_Setup_Compile = {
 		A3PL_Vehicle_HandleInitU deleteAt ((count A3PL_Vehicle_HandleInitU) - 1);
 		A3PL_Vehicle_HandleInitU = toString A3PL_Vehicle_HandleInitU;
 		A3PL_HandleVehicleInit = compileFinal A3PL_Vehicle_HandleInitU;
-
-		// uiSleep 2;
 
 		// Vehicles loaded
 		_control = (_display displayCtrl 11059);
@@ -234,8 +209,6 @@ Server_Setup_Compile = {
 		_format = localize "STR_A3PLS_LOADINGREQUEST_VEHICLESINITIALIZEDSUCCESFULLY";
 		_control ctrlSetStructuredText (parseText _format);
 
-		// uiSleep 2;
-
 		call A3PL_Medical_Init;
 		_control = (_display displayCtrl 10360);
 		_format = "<t size='2' align='center' color='#B8B8B8'>80%</t>";
@@ -244,8 +217,6 @@ Server_Setup_Compile = {
 		_control = (_display displayCtrl 10359);
 		_format = localize "STR_A3PLS_LOADINGREQUEST_MEDICALSYSTEMINITIALIZED";
 		_control ctrlSetStructuredText (parseText _format);
-
-		// uiSleep 1;
 
 		//Once done loading everything lets closeDialog
 		_control = (_display displayCtrl 11059);
@@ -259,19 +230,19 @@ Server_Setup_Compile = {
 		_format = localize "STR_A3PLS_LOADINGREQUEST_PLAYERINITIALIZEDSUCCESFULLY";
 		_control ctrlSetStructuredText (parseText _format);
 
-		// uiSleep 1;
-
 		_display displayRemoveEventHandler ["KeyDown", noEscape];
 
 		[0] call A3PL_Lib_CloseDialog;
+		if((player getVariable["alreadySpawned",false])) then {
+			cutText["","BLACK IN"];
+			player enableSimulation true;
+		} else {
+			call A3PL_Player_SpawnMenu;
+		};
 
 		player setVariable ["tf_voiceVolume", 1, true];
-		cutText["","BLACK IN"];
-
-		//load the admins
 		call A3PL_Admin_Check;
 
-		player enableSimulation true;
 		player setvariable ["FinishedLoading",true,true];
 		showChat false;
 	};
@@ -338,10 +309,10 @@ Server_Setup_Compile = {
 		[6173.09,7419.18,0],	//Elk City
 		[4165.8,6170.87,0],		//Beach Valley
 		[3435.99,7519.7,0],		//Stoney Creek
-		[2851.2,5555.24,0],		//Silverton Bella
-		[2413.74,5496.1,0],		//Silverton Impound
-		[2123,11725,0],		//Lubbock
-		[3219,12274,0] // Salt Point
+		[2605.94,5615.21,0],	//Silverton
+		[9842.12,7973.37,0],	//Deadwood
+		[2123,11725,0],			//Lubbock
+		[3219,12274,0] 			// Salt Point
 	];
 	FuelStations = [];
 	{
@@ -361,11 +332,12 @@ Server_Setup_Compile = {
 	_craneleft setDir 232.025;
 	_craneleft setFuel 0;
 
+	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 7200]] call BIS_fnc_loop;
+	
 	["itemAdd", ["Server_PoliceLoop", { call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_Fishing", {call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
 
-	["itemAdd", ["Server_Loop_BlackMarket", {call Server_Criminal_BlackMarketPos;}, 1200]] call BIS_fnc_loop;
-	["itemAdd", ["Server_Loop_BlackMarketNear", {call Server_Criminal_BlackMarketNear;}, 60]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_BlackMarket", {call Server_Criminal_BlackMarketPos;}, 7200]] call BIS_fnc_loop;
 
 	["itemAdd", ["Server_Loop_DealerPos", {call Server_JobFarming_DrugDealerPos;}, 1200]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_RepairTerrain", {[] spawn Server_Core_RepairTerrain;}, 600]] call BIS_fnc_loop;
@@ -374,7 +346,7 @@ Server_Setup_Compile = {
 	["itemAdd", ["Server_Loop_OilRandomization", {[] spawn Server_JobWildcat_RandomizeOil;}, 3600]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_ResRandomization", {[] spawn Server_JobWildcat_RandomizeRes;}, 3600]] call BIS_fnc_loop;
 
-	["itemAdd", ["Server_Loop_Criminal_MoveNPCs", {[] spawn Server_Criminal_MoveNPCs;}, 7200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_Loop_Criminal_MoveNPCs", {[] spawn Server_Criminal_MoveNPCs;}, 21600]] call BIS_fnc_loop;
 
 	//cleanup
 	["itemAdd", ["Server_Loop_Cleanup", {[] spawn Server_Core_Clean;}, 900]] call BIS_fnc_loop;
@@ -603,12 +575,18 @@ Server_Setup_Compile = {
 	if (count _return == 0) exitwith
 	{
 		[_unit,true] call Server_Gear_New;
+		_unit setVariable["alreadySpawned",true,true];
+		[_unit,[2445.83,5467.15,0]] call Server_Housing_AssignApt;
+		[_unit] call Server_Housing_SetPosApt;
 	};
 
 	_name = _return select 1;
 	if (_name == "") exitwith
 	{
 		[_unit,false] call Server_Gear_New;
+		_unit setVariable["alreadySpawned",true,true];
+		[_unit,[2445.83,5467.15,0]] call Server_Housing_AssignApt;
+		[_unit] call Server_Housing_SetPosApt;
 	};
 
 	//Set position to last known pos, can be [0,0,0] if server has restarted
@@ -704,8 +682,6 @@ Server_Setup_Compile = {
 		{
 			_ownsHouse = true;
 			_houseObj = _x;
-
-			//give the key to the player if he doesn't have it
 			_doorID = (_houseObj getVariable "doorid") select 1;
 			if (!(_doorID IN _keys)) then {
 				_allKeys = _unit getVariable["keys",[]];
@@ -714,7 +690,6 @@ Server_Setup_Compile = {
 			};
 		};
 	} foreach Server_HouseList;
-
 	_ownsWarehouse = false;
 	{
 		_warehouseVar = _x getVariable ["owner",[]];
@@ -722,74 +697,34 @@ Server_Setup_Compile = {
 		{
 			_ownsWarehouse = true;
 			_warehouseObj = _x;
-			diag_log "owns a warehouse";
-
-			//give the key to the player if he doesn't have it
 			_doorID = (_warehouseObj getVariable "doorid") select 1;
-			diag_log format ["key ID %1",_doorID];
 			if (!(_doorID IN _keys)) then {
 				_allKeys = _unit getVariable["keys",[]];
 				_allKeys pushBack _doorID;
-				diag_log format ["allKeys %1",_allKeys];
 				_unit setVariable ["keys",_allKeys,true];
 			};
 		};
 	} foreach Server_WarehouseList;
 
-	if (!_ownsHouse) then
-	{
-		[_unit] call Server_Housing_AssignApt;
-	} else
-	{
-		//setpos to house position
-		if ([[0,0,0],_pos] call BIS_fnc_areEqual) then
-		{
-			//for some houses we need to set the player position a bit higher
-			switch (typeOf _houseObj) do
-			{
-				case ("Land_Mansion01"): { _unit setpos [(getpos _houseObj select 0),(getpos _houseObj select 1),1]; };
-				case default { _unit setpos (getpos _houseObj); };
-			};
-		};
-		//set house var
+	if (_ownsHouse) then {
 		_unit setVariable ["house",_houseObj,true];
-
-		//load items
 		_firstOwner = (_houseObj getVariable ["owner",[]]) select 0;
 		if(_firstOwner isEqualTo _uid) then {
 			[_unit,_houseObj,_uid] call Server_Housing_LoadItems;
 		};
 	};
 	if(_ownsWarehouse) then {
-	_unit setVariable ["warehouse",_warehouseObj,true];
-	_firstOwnerWarehouse = (_warehouseObj getVariable ["owner",[]]) select 0;
-	if(_firstOwnerWarehouse isEqualTo _uid) then {
-			diag_log "calling loadItems";
+		_unit setVariable ["warehouse",_warehouseObj,true];
+		_firstOwner = (_warehouseObj getVariable ["owner",[]]) select 0;
+		if(_firstOwner isEqualTo _uid) then {
 			[_unit,_warehouseObj,_uid] call Server_Warehouses_LoadItems;
 		};
 	};
 
-	if ((!([[0,0,0],_pos] call BIS_fnc_areEqual)) && (!(_ownsHouse))) then //if our position is not [0,0,0] and we have an apartment
-	{
-		private ["_near"];
-		_near = nearestObjects [_pos, ["Land_A3PL_Motel"], 14];
-		if (count _near > 0) then
-		{
-			//still set the player to the apartment position since he spawned (close) back into an apartment
-			[_unit] call Server_Housing_SetPosApt;
-		};
-	};
-
-	//change 0,0,0 with whatever we set on server start later
-	if (([[0,0,0],_pos] call BIS_fnc_areEqual) && (!(_ownsHouse))) then
-	{
-		[_unit] call Server_Housing_SetPosApt;
-	};
-
 	_jailTime = (_return select 21);
-	if(_jailTime > 0) then
-	{
-		_unit setPos [4795.31,6313.62,0];
+	if(_jailTime > 0) then {
+		_unit setPos [4744.56,6023.57,0];
+		_unit setVariable["alreadySpawned",true,true];
 		[_jailTime, _unit] call Server_Police_JailPlayer;
 	};
 
@@ -826,7 +761,7 @@ Server_Setup_Compile = {
 		_doorid = _x select 2;
 
 		_near = nearestObjects [_pos, HOUSESLIST, 10,true];
-		if (count _near == 0) exitwith
+		if (count _near == 0) then
 		{
 			_query = format ["CALL RemovedHouse('%1');",_pos];
 			[_query,1] spawn Server_Database_Async;
@@ -893,8 +828,11 @@ Server_Setup_Compile = {
 	{_box addItemCargoGlobal [_x,1]} foreach _actualitems;
 	{_box addBackpackCargoGlobal [_x,1]} foreach _backpacks;
 	_box setVariable ["storage",_vitems,true];
-},true] call Server_Setup_Compile;
 
+	//Capacity
+	private _sCapacity = [_house,3] call A3PL_Housing_GetData;
+	_box setVariable ["capacity",_sCapacity,true];
+},true] call Server_Setup_Compile;
 
 //Initialize houses, assign all doorIDs, on server start
 //COMPILE BLOCK WARNING
@@ -946,12 +884,11 @@ Server_Setup_Compile = {
 	_warehouse = param [1,objNull];
 	_pos = getposATL _player;
 	if (!isNil {_warehouse getVariable "box_spawned"}) exitwith {};
-	//set variable that disables the box to be spawned again
 	_warehouse setVariable ["box_spawned",true,false];
 
 	if (isDedicated) then { _items = [format ["SELECT items,vitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2, true] call Server_Database_Async;} else {_items = [[],[],[]];};
-	_box = createVehicle ["Box_GEN_Equip_F",_pos, [], 0, "CAN_COLLIDE"]; //replace with custom ammo box later
-	clearItemCargoGlobal _box; //temp until custom ammo box
+	_box = createVehicle ["Box_GEN_Equip_F",_pos, [], 0, "CAN_COLLIDE"];
+	clearItemCargoGlobal _box;
 	clearWeaponCargoGlobal _box;
 	clearMagazineCargoGlobal _box;
 	clearBackpackCargoGlobal _box;
@@ -964,12 +901,14 @@ Server_Setup_Compile = {
 	_actualitems = _cargoItems select 2;
 	_backpacks = _cargoItems select 3;
 
-	//add items [["srifle_EBR_F"],[],[]]
 	{_box addWeaponCargoGlobal [_x,1]} foreach _weapons;
 	{_box addMagazineCargoGlobal [_x,1]} foreach _magazines;
 	{_box addItemCargoGlobal [_x,1]} foreach _actualitems;
 	{_box addBackpackCargoGlobal [_x,1]} foreach _backpacks;
 	_box setVariable ["storage",_vitems,true];
+
+	private _sCapacity = [_warehouse,4] call A3PL_Warehouses_GetData;
+	_box setVariable ["capacity",_sCapacity,true];
 },true] call Server_Setup_Compile;
 
 ["Server_Warehouses_LoadItems",

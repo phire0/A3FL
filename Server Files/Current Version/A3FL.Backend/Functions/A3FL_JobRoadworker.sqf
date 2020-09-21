@@ -63,15 +63,18 @@
 
 ["A3PL_JobRoadWorker_MarkerLoop",
 {
-	private["_isRoadside","_isAdmin","_lp","_marker"];
-	_isRoadside = (player getVariable ["job","unemployed"]) isEqualTo "Roadside";
-	_isAdmin = player getVariable ["pVar_RedNameOn",false];
-
-	if(!_isRoadside && !_isAdmin) exitWith {};
+	private _isRoadside = (player getVariable ["job","unemployed"]) isEqualTo "Roadside";
+	private _isAdmin = player getVariable ["pVar_RedNameOn",false];
+	private _vehicles = [];
 
 	{deleteMarkerLocal _x;} foreach A3PL_Jobroadworker_MarkerList;
+	if(!_isRoadside && !_isAdmin) exitWith {};
 
 	A3PL_Jobroadworker_MarkerList = [];
+
+	{
+		if(!isNull _x) then {_vehicles pushback _x;};
+	} foreach Server_JobRoadWorker_Marked;
 
 	{
 		_lp = (_x getvariable ["owner",["0","ERROR"]]) select 1;
@@ -81,7 +84,7 @@
 		_marker setMarkerTextLocal format ["Impound Vehicle (LP: %1)",_lp];
 		_marker setMarkerColorLocal "ColorRed";
 		A3PL_Jobroadworker_MarkerList pushback _marker;
-	} foreach Server_JobRoadWorker_Marked;
+	} foreach _vehicles;
 }] call Server_Setup_Compile;
 
 ["A3PL_JobRoadWorker_Impound",
@@ -118,7 +121,7 @@
 	[localize"STR_NewRoadWorker_2", "green"] call A3PL_Player_Notification;
 
 	switch(_location) do {
-		case npc_roadworker: {_spawnLoc = [2353.047,5479.137,0.766];}; // Silverton
+		case npc_roadworker: {_spawnLoc = [2858.05,5551.04,0.5];}; // Silverton
 		case npc_roadworker_1: {_spawnLoc = [6033.625,7353,0.422];}; // Elk City // not working
 		case npc_roadworker_2: {_spawnLoc = [6934.766,7112.43,0.794];}; // Boulder City
 		case npc_roadworker_3: {_spawnLoc = [10236.220,8455.28,0.388];}; // Northdale

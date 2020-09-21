@@ -8,91 +8,59 @@
 
 ["A3PL_Items_Thirst",
 {
-	private ["_classname", "_quality", "_format"];
 
-	_classname = Player_ItemClass;
-	if (Player_ItemClass == "") exitwith
-	{
-		[localize"STR_NewItems_12","red"] call A3PL_Player_Notification;
-	};
-
-	if (!isNil "Player_isDrinking") exitwith
-	{
-		[localize"STR_NewItems_11","red"] call A3PL_Player_Notification;
-	};
+	private _classname = Player_ItemClass;
+	private _quality = [_classname, "quality"] call A3PL_Config_GetThirst;
+	private _alcohol = [_classname, "alcohol"] call A3PL_Config_GetThirst;
+	if (Player_ItemClass isEqualTo "") exitwith {[localize"STR_NewItems_12","red"] call A3PL_Player_Notification;};
+	if (!isNil "Player_isDrinking") exitwith {[localize"STR_NewItems_11","red"] call A3PL_Player_Notification;};
 	Player_isDrinking = true;
 
-	//take items away
 	[_classname, -1] call A3PL_Inventory_Add;
+	if(_classname isEqualTo "waterbottle") then {["waterbottlempty", 1] call A3PL_Inventory_Add;};
 
-	//add empty bottle
-	if(_classname == "waterbottle") then {["waterbottlempty", 1] call A3PL_Inventory_Add;};
-
-	//animation
 	player playAction "Gesture_drink";
 	Player_Item attachTo [player, [-0.03,0,0.1], 'LeftHand'];
-	uiSleep 3;
+	sleep 3;
 	Player_Item setVectorDirAndUp [[0,0,-1],[0,-1,0]];
-	uiSleep 3;
+	sleep 3;
 	Player_Item setVectorDirAndUp [[0,1,0],[0,0,1]];
-	uiSleep 4.5;
-	[false] call A3PL_Inventory_PutBack;
+	sleep 4.5;
 
-	_quality = [_classname, "quality"] call A3PL_Config_GetThirst;
-	_alcohol = [_classname, "alcohol"] call A3PL_Config_GetThirst;
 	if(_alcohol) then {
 		[_quality] call A3PL_Alcohol_Add;
 	} else {
 		Player_Thirst = Player_Thirst + _quality;
 		call A3PL_Lib_VerifyThirst;
 		profileNamespace setVariable ["player_thirst",Player_Thirst];
-		if((_classname == "waterbottle") && (Player_Alcohol > 0)) then {
+		if((_classname isEqualTo "waterbottle") && (Player_Alcohol > 0)) then {
 			[-5] call A3PL_Alcohol_Add;
 			call A3PL_Alcohol_Verify;
 		};
+		if (Player_Thirst > 50) then { A3PL_ThirstWarning1 = Nil; };
+		if (Player_Thirst > 20) then { A3PL_ThirstWarning2 = Nil; };
+		if (Player_Thirst > 10) then { A3PL_ThirstWarning3 = Nil; };
+		[format[localize"STR_NewItems_10", [_classname, "name"] call A3PL_Config_GetItem, _quality,"%"], "green"] call A3PL_Player_Notification;
 	};
 
-	Player_IsDrinking = nil;
+	Player_ItemAmount = Player_ItemAmount - 1;
+	if(Player_ItemAmount isEqualTo 0) then{[] call A3PL_Inventory_Clear;};
 
-	//reset warnings
-	//Reset the warning variables for drinking
-	if (Player_Thirst > 50) then { A3PL_ThirstWarning1 = Nil; };
-	if (Player_Thirst > 20) then { A3PL_ThirstWarning2 = Nil; };
-	if (Player_Thirst > 10) then { A3PL_ThirstWarning3 = Nil; };
-
-	//msg
-	_format = format[localize"STR_NewItems_10", [_classname, "name"] call A3PL_Config_GetItem, _quality,"%"];
-	[_format, "green"] call A3PL_Player_Notification;
+	Player_isDrinking = nil;
 }] call Server_Setup_Compile;
 
 ["A3PL_Items_Food",
 {
-	private ["_classname", "_quality", "_format"];
-
-	_classname = Player_ItemClass;
-	if (Player_ItemClass == "") exitwith
-	{
-		[localize"STR_NewItems_7","red"] call A3PL_Player_Notification;
-	};
-
-	if (!isNil "Player_isEating") exitwith
-	{
-		[localize"STR_NewItems_8","red"] call A3PL_Player_Notification;
-	};
-
-	if (!([_classname,1] call A3PL_Inventory_Has)) exitwith
-	{
-		[localize"STR_NewItems_9","red"] call A3PL_Player_Notification;
-	};
-
+	private _classname = Player_ItemClass;
+	private _quality = [_classname, "quality"] call A3PL_Config_GetFood;
+	private _drug = [_classname, "drug"] call A3PL_Config_GetFood;
+	if (Player_ItemClass isEqualTo "") exitwith {[localize"STR_NewItems_7","red"] call A3PL_Player_Notification;};
+	if (!isNil "Player_isEating") exitwith {[localize"STR_NewItems_8","red"] call A3PL_Player_Notification;};
+	if (!([_classname,1] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewItems_9","red"] call A3PL_Player_Notification;};
+	
 	Player_isEating = true;
-
 	player playActionNow "gesture_eat";
-
 	[_classname, -1] call A3PL_Inventory_Add;
-
-	_quality = [_classname, "quality"] call A3PL_Config_GetFood;
-	_drug = [_classname, "drug"] call A3PL_Config_GetFood;
 
 	if(_drug) then {
 		[_classname,_quality] call A3PL_Drugs_Add;
@@ -101,45 +69,19 @@
 		call A3PL_Lib_VerifyHunger;
 		profileNamespace setVariable ["player_hunger",Player_Hunger];
 
-		if (_quality > 0) then
-		{
-			_format = format[localize"STR_NewItems_6", [_classname, "name"] call A3PL_Config_GetItem, _quality,"%"];
-			[_format, "green"] call A3PL_Player_Notification;
+		if (_quality > 0) then {
+			[format[localize"STR_NewItems_6", [_classname, "name"] call A3PL_Config_GetItem, _quality,"%"], "green"] call A3PL_Player_Notification;
 		};
-
-		if (Player_Hunger > 50) then
-		{
-			A3PL_HungerWarning1 = Nil;
-		};
-
-		if (Player_Hunger > 20) then
-		{
-			A3PL_HungerWarning2 = Nil;
-		};
-
-		if (Player_Hunger > 10) then
-		{
-			A3PL_HungerWarning3 = Nil;
-		};
+		if (Player_Hunger > 50) then {A3PL_HungerWarning1 = Nil;};
+		if (Player_Hunger > 20) then {A3PL_HungerWarning2 = Nil;};
+		if (Player_Hunger > 10) then {A3PL_HungerWarning3 = Nil;};
 	};
 
-	[] spawn
-	{
-		uiSleep 3;
-		[false] call A3PL_Inventory_PutBack;
+	[] spawn {
+		sleep 3;
+		Player_ItemAmount = Player_ItemAmount - 1;
+		if(Player_ItemAmount isEqualTo 0) then{[] call A3PL_Inventory_Clear;};
 		Player_isEating = Nil;
-	};
-}] call Server_Setup_Compile;
-
-["A3PL_Items_GrabPopcorn",
-{
-	if (["popcornbucket",1] call A3PL_Inventory_Has) then
-	{
-		[localize"STR_NewItems_4","red"] call A3PL_Player_Notification;
-	} else
-	{
-		[player,"popcornbucket",1] remoteExec ["Server_Inventory_Add",2];
-		[localize"STR_NewItems_5","green"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
 

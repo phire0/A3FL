@@ -49,13 +49,23 @@
 
 		["ArmA 3 Fishers Life","bargates_key", "Open/Close Bargates",
 		{
-			if(!(player getVariable["job","unemployed"] IN ["fisd","uscg","fifr","usms"])) exitWith {};
-			private _bargate = (nearestObjects [player, ["Land_A3PL_BarGate","Land_A3PL_BarGate_Left","Land_A3PL_BarGate_Right"], 10]) select 0;
-			private _canUse = [getPos _bargate] call A3PL_Config_CanUseBargate;
-			if(_canUse) then {
+			private _bargate = (nearestObjects [player, ["Land_A3FL_DOC_Gate","Land_A3PL_BarGate","Land_A3PL_BarGate_Left","Land_A3PL_BarGate_Right"], 20]) select 0;
+			private _veh = typeOf (vehicle player);
+			private _source = true;
+			if(_veh IN Config_Police_Vehs) then {
 				private _anim = switch(typeOf _bargate) do {
 					case "Land_A3PL_Bargate_Right": {"bargate2"};
 					case "Land_A3PL_Bargate_Left": {"bargate1"};
+					case "Land_A3FL_DOC_Gate": {
+						private _distanceOne = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["Gate_1_Pos","Memory"]));
+						private _distanceTwo = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["Gate_2_Pos","Memory"]));
+						_source = false;
+						if(_distanceTwo>_distanceOne) then {
+							"Gate_1"
+						} else {
+							"Gate_2"
+						};
+					};
 					default {
 						private _distanceOne = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate1","Memory"]));
 						private _distanceTwo = player distance2D (_bargate modelToWorldVisual (_bargate selectionPosition ["button_bargate2","Memory"]));
@@ -66,11 +76,19 @@
 						};
 					};
 				};
-				if ((_bargate animationSourcePhase _anim) < 0.5) then {
+				if(_source) then {
+					if ((_bargate animationSourcePhase _anim) < 0.5) then {
 					_bargate animateSource [_anim,1];
+					} else {
+						_bargate animateSource [_anim,0];
+					};
 				} else {
-					_bargate animateSource [_anim,0];
-				};
+					if ((_bargate animationPhase _anim) < 0.5) then {
+						_bargate animate [_anim,1];
+					} else {
+						_bargate animate [_anim,0];
+					};
+				};	
 			};
 		}, "", [DIK_N, [false, false, false]]] call CBA_fnc_addKeybind;
 
@@ -172,7 +190,9 @@
 		["ArmA 3 Fishers Life","surrender", "Surrender",
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-			if(vehicle player isEqualTo player) then {[player,true] call A3PL_Police_Surrender;};
+			if(((getPosATL player) select 2) > 1) exitWith {};
+			if((speed player) > 0) exitWith {};
+			if((vehicle player) isEqualTo player) then {[player,true] call A3PL_Police_Surrender;};
 		}, "", [DIK_B, [true, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","medical_menu", "Medical Menu",
@@ -471,12 +491,12 @@
 
 	};
 
-	if ((_dikCode IN [2,3,4,8,9,10]) && {vehicle player != player} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
+	if ((_dikCode > 1 && _dikCode < 5) && {vehicle player != player} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
 		[(_dikCode-1)] call A3PL_Vehicle_SirenHotkey;
 		true;
 	};
 
-	if ((_dikCode IN [5,6]) && {vehicle player != player} && {!A3PL_Manual_KeyDown} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
+	if ((_dikCode > 5 && _dikCode < 14) && {vehicle player != player} && {!A3PL_Manual_KeyDown} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
 		[(_dikCode-1)] call A3PL_Vehicle_SirenHotkey;
 		A3PL_Manual_KeyDown = true;
 		true;
@@ -701,7 +721,7 @@
 		private _handle = false;
 		{
 			if((_x isEqualTo A3FL_Seize_Storage)) exitWith  {
-				_isLead = ["usms"] call A3PL_Government_isFactionLeader;
+				_isLead = ["fims"] call A3PL_Government_isFactionLeader;
 				_isLocked = _x getVariable["locked",true];
 				if(!_isLead && _isLocked) exitWith  {
 					["The storage is locked","red"] call A3PL_Player_Notification;
@@ -709,7 +729,7 @@
 				};
 			};
 			if(((typeOf _x) isEqualTo "A3PL_EMS_Locker")) exitWith  {
-				if (_x animationPhase "door_1" != 1) then{
+				if (_x animationSourcePhase "door_1" != 1) then {
 					_owner = _x getVariable["owner",""];
 					if(!((getPlayerUID player) isEqualTo _owner)) exitWith  {
 						["The locker is closed","red"] call A3PL_Player_Notification;

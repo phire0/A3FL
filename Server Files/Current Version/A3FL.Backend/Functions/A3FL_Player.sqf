@@ -37,7 +37,7 @@
 		setTerrainGrid 50;
 	};
 
-	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride","net","jug","jug_green","jug_green_moonshine"];
+	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride","net","jug","jug_green","jug_green_moonshine","ring","ringset","bracelet","crown","necklace","golden_dildo"];
 	Player_IllegalPhysicalItems = ["cocaine_brick","distillery","distillery_hose","planter","scale","grinder","cocaine_barrel","fan"];
 	Player_ActionCompleted = true;
 	Player_ActionDoing = false;
@@ -138,40 +138,38 @@
 //creates an array which drawText will use to draw player tags on the screen, we dont want to run complicated scripts onEachFrame
 ["A3PL_Player_NameTags",
 {
-	private ["_players","_pos","_name","_tags"];
-	_players = nearestObjects [player, ["C_man_1"], 4];
-	_players = _players - [player];
-
-	_tags = [];
+	private _players = nearestObjects [player, ["C_man_1"], 4];
+	private _players = _players - [player];
+	private _tags = [];
+	private _goggles = ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","A3PL_Horse_Mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"];
+	private _headgear = ["H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs"];
 	{
+		private["_uid","_saved","_savedName","_hasMaskCheck","_cansee","_id","_name"];
 		if (simulationEnabled _x) then
 		{
 			_uid = getPlayerUID _x;
 			_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
 			_savedName = "";
-
 			{
-				_sUID = _x select 0;
-				_sName = _x select 1;
-
-				if(_sUID == _uid) exitWith {
-					_savedName = _sName;
+				if((_x select 0) isEqualTo _uid) exitWith {
+					_savedName = (_x select 1);
 				}
 			} forEach _saved;
 
 			_hasMaskCheck = false;
-			if (goggles _x IN ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","A3PL_Horse_Mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"]) then {_hasMaskCheck = true;};
-			if (headgear _x IN["H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs"]) then {_hasMaskCheck = true;};
+			if (goggles _x IN _goggles) then {_hasMaskCheck = true;};
+			if (headgear _x IN _headgear) then {_hasMaskCheck = true;};
 			_cansee = (profilenamespace getVariable ["Player_EnableID",true]) && (([objNull, "VIEW"] checkVisibility [eyePos player, eyePos _x]) > 0) && (!isObjectHidden _x);
 			if (_cansee) then
 			{
 				_id = _x getVariable ["db_id",-1];
-				if(_savedName != "" && !_hasMaskCheck) then {
+				if(!(_savedName isEqualTo "") && !_hasMaskCheck) then {
 					_name = format["%1 - %2",_id,_savedName];
+					_tags pushback [_x,_name];
 				} else {
 					_name = format["%1 - Unknown",_id];
+					_tags pushback [_x,_name];
 				};
-				_tags pushback [_x,_name];
 			};
 		};
 	} foreach _players;
@@ -222,6 +220,7 @@
 	A3PL_Player_biTagsArray = _iTags;
 }] call Server_Setup_Compile;
 
+//["A3PL_DrawText", "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
 ["A3PL_Player_DrawText",
 {
 	["A3PL_DrawText", "onEachFrame",
@@ -237,12 +236,10 @@
 			};
 		} foreach (missionNameSpace getVariable ["A3PL_Player_TagsArray",[]]);
 
-		//business names
 		{
 			drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Actions\open_door_ca.paa", [1, 1, 1, 1],_x select 0, 0.5, 0.5, 45, _x select 1, 1, 0.03, "EtelkaNarrowMediumPro"];
 		} foreach (missionNameSpace getVariable ["A3PL_Player_bTagsArray",[]]);
 
-		//business items that are for sale
 		{
 			drawIcon3D [_x select 2, [1, 1, 1, 1],_x select 0, 0.5, 0.5, 45, _x select 1, 1, 0.03, "EtelkaNarrowMediumPro"];
 		} foreach (missionNameSpace getVariable ["A3PL_Player_biTagsArray",[]]);
@@ -484,22 +481,15 @@
 //retrieve a player tag
 ["A3PL_Player_GetNameTag",
 {
-	private ["_player","_uid","_name","_saved"];
-	_player = param [0,objNull];
-	_uid = getPlayerUID _player;
-
-	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
-	_name = "Unknown";
-
+	private _player = param [0,objNull];
+	private _uid = getPlayerUID _player;
+	private _saved = profileNamespace getVariable ["A3FL_NameTags",[]];
+	private _name = "Unknown";
 	{
-		_sUID = _x select 0;
-		_sName = _x select 1;
-
-		if(_sUID == _uid) exitWith {
-			_name = _sName;
+		if((_x select 0) isEqualTo _uid) exitWith {
+			_name = (_x select 1);
 		};
 	} forEach _saved;
-
 	_name;
 }] call Server_Setup_Compile;
 
@@ -563,7 +553,10 @@
 	A3PL_HostageTarget = _target;
 	A3PL_HostageReloading = false;
 	player setVariable["takingHostage",true,true];
+	_target setVariable["takenHostage",true,true];
 	player forceWalk true;
+
+	{detach _x;} foreach (attachedObjects _target);
 
 	_ehFired = player addEventHandler ["Fired",
 	{
@@ -618,6 +611,7 @@
 		if(_target getVariable["A3PL_Medical_Alive",true]) then {[_target,""] remoteExec ["A3PL_Lib_SyncAnim",-2];};
 		detach _target;
 	};
+	player setVariable["takingHostage",nil,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_Player_SetMarkers",
@@ -629,15 +623,15 @@
 	} else {
 		{_x setMarkerAlphaLocal 1;} forEach ["trash_bin_1","trash_bin_2","trash_bin_3","trash_bin_4","trash_bin_5","trash_bin_6","trash_bin_7","trash_bin_8","trash_bin_9","trash_bin_10","trash_bin_11","trash_bin_12","trash_bin_13","trash_bin_14","trash_bin_15","trash_bin_16","trash_bin_17","trash_bin_18","trash_bin_19","trash_bin_20","trash_bin_21","trash_bin_22","trash_bin_23","trash_bin_24","trash_bin_25","trash_bin_26","trash_bin_27","trash_bin_28","trash_bin_29","trash_bin_30","trash_bin_31","trash_bin_32","trash_bin_33","trash_bin_34","trash_bin_35","trash_bin_36","trash_bin_37","trash_bin_38","trash_bin_39","trash_bin_40","trash_bin_41","trash_bin_42","trash_bin_43","trash_bin_44","trash_bin_45","trash_bin_46","trash_bin_47","trash_bin_48","trash_bin_49","trash_bin_50","trash_bin_51","trash_bin_52","trash_bin_53","trash_bin_54","trash_bin_55","trash_bin_56","trash_bin_57","trash_bin_58","trash_bin_59","trash_bin_60","trash_bin_61","trash_bin_62","trash_bin_63","trash_bin_64","trash_bin_65","trash_bin_66","trash_bin_67","trash_bin_68","trash_bin_69","trash_bin_70","trash_bin_71"];
 	};
-	if(_faction IN ["fifr","uscg","fisd","usms","doj"]) then {
+	if(_faction IN ["fifr","uscg","fisd","fims","doj"]) then {
 		{_x setMarkerAlphaLocal 0;} forEach ["chemical_dealer","Shroom_Picking","Crime_Base","Shrooms_Field","Moonshine_Shop","Moonshine_Shop_1"];
 	} else {
 		{_x setMarkerAlphaLocal 1;} forEach ["chemical_dealer","Shroom_Picking","Crime_Base","Shrooms_Field","Moonshine_Shop","Moonshine_Shop_1"];
 	};
 	if(_faction != "fbi") then {
-		{_x setMarkerAlphaLocal 0;} forEach ["Area_PirateYacht_1","Area_PirateYacht_2","A3PL_Marker_Hunting_1","A3PL_Marker_Hunting","A3PL_Marker_Hunting_3","A3PL_Marker_Hunting_2","A3PL_Marker_Fish4","A3PL_Marker_Fish3","A3PL_Marker_SallySpeedway","OilSpawnArea","CemeteryArea","Area_DrugDealer9","Area_DrugDealer8","Area_DrugDealer7","Area_DrugDealer6","Area_DrugDealer5","Area_DrugDealer4","Area_DrugDealer3","Area_DrugDealer2","Area_DrugDealer1","Area_DrugDealer","Area_DrugDealer10","Area_DrugDealer11","Area_DrugDealer12","Area_DrugDealer13","Area_DrugDealer14","A3PL_Markers_Fish6","A3PL_Markers_Fish1","LumberJack_Rectangle","A3PL_Marker_Sand1","A3PL_Marker_Sand2","A3PL_Marker_Fish1","A3PL_Marker_Fish2","A3PL_Marker_Fish8","A3PL_Marker_Fish7","A3PL_Marker_Fish5","A3PL_Marker_Fish6","Picking_Apple_1"];
+		{_x setMarkerAlphaLocal 0;} forEach ["Area_PirateYacht_1","Area_PirateYacht_2","A3PL_Marker_Hunting_1","A3PL_Marker_Hunting","A3PL_Marker_Hunting_3","A3PL_Marker_Hunting_2","A3PL_Marker_Fish4","A3PL_Marker_Fish3","A3PL_Marker_SallySpeedway","FIMiningArea","NIMiningArea","CemeteryArea","Area_DrugDealer9","Area_DrugDealer8","Area_DrugDealer7","Area_DrugDealer6","Area_DrugDealer5","Area_DrugDealer4","Area_DrugDealer3","Area_DrugDealer2","Area_DrugDealer1","Area_DrugDealer","Area_DrugDealer10","Area_DrugDealer11","Area_DrugDealer12","Area_DrugDealer13","Area_DrugDealer14","A3PL_Markers_Fish6","A3PL_Markers_Fish1","LumberJack_Rectangle","A3PL_Marker_Sand1","A3PL_Marker_Sand2","A3PL_Marker_Fish1","A3PL_Marker_Fish2","A3PL_Marker_Fish8","A3PL_Marker_Fish7","A3PL_Marker_Fish5","A3PL_Marker_Fish6","Picking_Apple_1"];
 	} else {
-		{_x setMarkerAlphaLocal 1;} forEach ["Area_PirateYacht_1","Area_PirateYacht_2","A3PL_Marker_Hunting_1","A3PL_Marker_Hunting","A3PL_Marker_Hunting_3","A3PL_Marker_Hunting_2","A3PL_Marker_Fish4","A3PL_Marker_Fish3","A3PL_Marker_SallySpeedway","OilSpawnArea","CemeteryArea","Area_DrugDealer9","Area_DrugDealer8","Area_DrugDealer7","Area_DrugDealer6","Area_DrugDealer5","Area_DrugDealer4","Area_DrugDealer3","Area_DrugDealer2","Area_DrugDealer1","Area_DrugDealer","Area_DrugDealer10","Area_DrugDealer11","Area_DrugDealer12","Area_DrugDealer13","Area_DrugDealer14","A3PL_Markers_Fish6","A3PL_Markers_Fish1","LumberJack_Rectangle","A3PL_Marker_Sand1","A3PL_Marker_Sand2","A3PL_Marker_Fish1","A3PL_Marker_Fish2","A3PL_Marker_Fish8","A3PL_Marker_Fish7","A3PL_Marker_Fish6","A3PL_Marker_Fish5","Picking_Apple_1"];
+		{_x setMarkerAlphaLocal 1;} forEach ["Area_PirateYacht_1","Area_PirateYacht_2","A3PL_Marker_Hunting_1","A3PL_Marker_Hunting","A3PL_Marker_Hunting_3","A3PL_Marker_Hunting_2","A3PL_Marker_Fish4","A3PL_Marker_Fish3","A3PL_Marker_SallySpeedway","FIMiningArea","NIMiningArea","CemeteryArea","Area_DrugDealer9","Area_DrugDealer8","Area_DrugDealer7","Area_DrugDealer6","Area_DrugDealer5","Area_DrugDealer4","Area_DrugDealer3","Area_DrugDealer2","Area_DrugDealer1","Area_DrugDealer","Area_DrugDealer10","Area_DrugDealer11","Area_DrugDealer12","Area_DrugDealer13","Area_DrugDealer14","A3PL_Markers_Fish6","A3PL_Markers_Fish1","LumberJack_Rectangle","A3PL_Marker_Sand1","A3PL_Marker_Sand2","A3PL_Marker_Fish1","A3PL_Marker_Fish2","A3PL_Marker_Fish8","A3PL_Marker_Fish7","A3PL_Marker_Fish6","A3PL_Marker_Fish5","Picking_Apple_1"];
 	};
 }] call Server_Setup_Compile;
 
@@ -704,7 +698,7 @@
 			case ("uscg"): {_fname = "United States Coast Guard"};
 			case ("fisd"): {_fname = "Sheriff Department"};
 			case ("doj"): {_fname = "Department of Justice"};
-			case ("usms"): {_fname = "Fishers Island Marshals Service"};
+			case ("fims"): {_fname = "Fishers Island Marshals Service"};
 		};
 		[format["You've been hired by %1",_fname],"green"] spawn A3PL_Player_Notification;
 	} else {
@@ -877,6 +871,67 @@
 	[getPlayerUID player,"DebugVariablesSet",[str(_var)]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
-["A3PL_Player_Restart",{
-	[] remoteExec ["Server_Core_RestartTimer",2];
+["A3PL_Player_SpawnMenu",{
+	disableSerialization;
+	private _spawnList = [
+		["Silverton",[2445.83,5467.15,0],0],
+		["Lubbock",[2286.87,12015.3,0],0],
+		["Elk City",[6180.74,7365.69,0],0],
+		["Palm Beach",[3552.460,6664.702,0],0]
+	];
+	private _houseObj = player getVariable["house",objNull];
+	private _warehouseObj = player getVariable["warehouse",objNull];
+	private _isCG = (player getVariable["faction","citizen"]) isEqualTo "uscg";
+	if(_isCG) then {_spawnList pushback ["CG Base",[2188.62,4991.78,0],0];};
+	if(!isNull _houseObj) then {_spawnList pushback ["House",getPosATL _houseObj,1];};
+	if(!isNull _warehouseObj) then {_spawnList pushback ["Warehouse",getPosATL _warehouseObj,2];};
+
+	createDialog "Dialog_SpawnMenu";
+
+	private _display = findDisplay 130;
+	noEscape = _display displayAddEventHandler ["KeyDown", "true;"];
+	private _control = _display displayCtrl 1500;
+	{
+		_i = _control lbAdd (_x select 0);
+		_control lbSetData[_i,str(_x select 1)];
+		_control lbSetValue[_i,_x select 2];
+	} forEach _spawnList;
+	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Player_SelectSpawnMap;"];
+	_control lbSetCurSel 0;
+}] call Server_Setup_Compile;
+
+["A3PL_Player_SelectSpawn",{
+	disableSerialization;
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1500;
+	if((lbCurSel 1500) isEqualTo -1) exitWith {};
+	private _spawnPos = call compile (_control lbData (lbCurSel 1500));
+	private _spawnType = _control lbValue (lbCurSel 1500);
+	switch(_spawnType) do {
+		case 0: {
+			[player,_spawnPos] remoteExecCall ["Server_Housing_AssignApt",2];
+			[player] remoteExecCall ["Server_Housing_SetPosApt",2];
+		};
+		case 1: {
+			player setPosATL _spawnPos;
+		};
+		case 2: {
+			player setPosATL _spawnPos;
+		};
+	};
+	_display displayRemoveEventHandler ["KeyDown", noEscape];
+	closeDialog 0;
+	cutText["","BLACK IN"];
+	player enableSimulation true;
+}] call Server_Setup_Compile;
+
+["A3PL_Player_SelectSpawnMap",{
+	disableSerialization;
+	private _display = findDisplay 130;
+	private _listControl = _display displayCtrl 1500;
+	private _spawnPos = call compile (_listControl lbData (lbCurSel 1500));
+	private _mapControl = _display displayCtrl 1700;
+	_mapControl ctrlMapAnimAdd [1, 0.03, _spawnPos];
+	ctrlMapAnimCommit _mapControl;
 }] call Server_Setup_Compile;

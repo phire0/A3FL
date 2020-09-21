@@ -7,10 +7,6 @@ class Dialog_Medical
 	onUnload = "";
 	class controls
 	{
-		////////////////////////////////////////////////////////
-		// GUI EDITOR OUTPUT START (by Kane, v1.063, #Rafono)
-		////////////////////////////////////////////////////////
-
 		class static_bg: RscPicture
 		{
 			idc = 1200;
@@ -106,6 +102,7 @@ class Dialog_Medical
 			y = 0.788111 * safezoneH + safezoneY;
 			w = 0.0990625 * safezoneW;
 			h = 0.0383333 * safezoneH;
+			action = "[] call A3PL_Medical_ClearLog;";
 		};
 		class button_treat: RscButtonEmpty
 		{
@@ -114,6 +111,7 @@ class Dialog_Medical
 			y = 0.786926 * safezoneH + safezoneY;
 			w = 0.0990625 * safezoneW;
 			h = 0.0383333 * safezoneH;
+			action = "[] call A3PL_Medical_TreatWoundButton;";
 		};
 		class button_head: RscButtonEmpty
 		{
@@ -123,6 +121,7 @@ class Dialog_Medical
 			w = 0.04125 * safezoneW;
 			h = 0.0874074 * safezoneH;
 			tooltip = $STR_MEDICAL_GUIHEAD;
+			action = "['head'] call A3PL_Medical_SelectPart;";
 		};
 		class button_spine1: RscButtonEmpty
 		{
@@ -132,6 +131,7 @@ class Dialog_Medical
 			w = 0.0615625 * safezoneW;
 			h = 0.0753704 * safezoneH;
 			tooltip = $STR_MEDICAL_GUICHEST;
+			action = "['chest'] call A3PL_Medical_SelectPart;";
 		};
 		class button_spine2: RscButtonEmpty
 		{
@@ -141,6 +141,7 @@ class Dialog_Medical
 			w = 0.0572395 * safezoneW;
 			h = 0.0695926 * safezoneH;
 			tooltip = $STR_MEDICAL_GUITORSO;
+			action = "['torso'] call A3PL_Medical_SelectPart;";
 		};
 		class button_spine3: RscButtonEmpty
 		{
@@ -150,6 +151,7 @@ class Dialog_Medical
 			w = 0.0603646 * safezoneW;
 			h = 0.0760741 * safezoneH;
 			tooltip = $STR_MEDICAL_GUIPELVIS;
+			action = "['pelvis'] call A3PL_Medical_SelectPart;";
 		};
 		class button_leftupperleg: RscButtonEmpty
 		{
@@ -159,6 +161,7 @@ class Dialog_Medical
 			w = 0.0386979 * safezoneW;
 			h = 0.113482 * safezoneH;
 			tooltip = $STR_MEDICAL_GUILEFTUPPERLEG;
+			action = "['left upper leg'] call A3PL_Medical_SelectPart;";
 		};
 		class button_leftlowerleg: RscButtonEmpty
 		{
@@ -168,6 +171,7 @@ class Dialog_Medical
 			w = 0.0386979 * safezoneW;
 			h = 0.113482 * safezoneH;
 			tooltip = $STR_MEDICAL_GUILEFTLOWERLEG;
+			action = "['left lower leg'] call A3PL_Medical_SelectPart;";
 		};
 		class button_rightupperleg: RscButtonEmpty
 		{
@@ -177,6 +181,7 @@ class Dialog_Medical
 			w = 0.0386979 * safezoneW;
 			h = 0.113482 * safezoneH;
 			tooltip = $STR_MEDICAL_GUIRIGHTUPPERLEG;
+			action = "['right upper leg'] call A3PL_Medical_SelectPart;";
 		};
 		class button_rightlowerleg: RscButtonEmpty
 		{
@@ -186,6 +191,7 @@ class Dialog_Medical
 			w = 0.0386979 * safezoneW;
 			h = 0.113482 * safezoneH;
 			tooltip = $STR_MEDICAL_GUIRIGHTLOWERLEG;
+			action = "['right lower leg'] call A3PL_Medical_SelectPart;";
 		};
 		class button_rightupperarm: RscButtonEmpty
 		{
@@ -195,6 +201,7 @@ class Dialog_Medical
 			w = 0.0418229 * safezoneW;
 			h = 0.13463 * safezoneH;
 			tooltip = $STR_MEDICAL_GUIRIGHTUPPERARM;
+			action = "['right upper arm'] call A3PL_Medical_SelectPart;";
 		};
 		class button_leftupperarm: RscButtonEmpty
 		{
@@ -204,6 +211,7 @@ class Dialog_Medical
 			w = 0.0418229 * safezoneW;
 			h = 0.13463 * safezoneH;
 			tooltip = $STR_MEDICAL_GUILEFTUPPERARM;
+			action = "['left upper arm'] call A3PL_Medical_SelectPart;";
 		};
 		class button_leftlowerarm: RscButtonEmpty
 		{
@@ -213,6 +221,7 @@ class Dialog_Medical
 			w = 0.04125 * safezoneW;
 			h = 0.132 * safezoneH;
 			tooltip = $STR_MEDICAL_GUILEFTLOWERARM;
+			action = "['left lower arm'] call A3PL_Medical_SelectPart;";
 		};
 		class button_rightlowerarm: RscButtonEmpty
 		{
@@ -222,9 +231,7 @@ class Dialog_Medical
 			w = 0.04125 * safezoneW;
 			h = 0.132 * safezoneH;
 			tooltip = $STR_MEDICAL_GUIRIGHTLOWERARM;
+			action = "['right lower arm'] call A3PL_Medical_SelectPart;";
 		};
-		////////////////////////////////////////////////////////
-		// GUI EDITOR OUTPUT END
-		////////////////////////////////////////////////////////
 	};
 };

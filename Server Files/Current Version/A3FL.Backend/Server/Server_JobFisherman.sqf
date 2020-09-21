@@ -62,7 +62,7 @@
 		diag_log format ["Error: _buoy isnull in Server_JobFisherman_GrabNet for %1",name _player];
 		[1] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 	};
-	if (!(["bucket_empty",1,_player] call Server_Inventory_Has)) exitwith {[0] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];};
+	if (!(["bucket_empty",1,_player] call Server_Inventory_Has)) exitwith {[0] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];_buoy setVariable ["used",false,true];};
 	[_player, "bucket_empty", -1] call Server_Inventory_Add;
 	Server_FishingBuoys = Server_FishingBuoys - [_buoy];
 
@@ -129,7 +129,7 @@
 				[8] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 			};
 		};
-		case default {
+		default {
 			[_player,"bucket_full",1] call Server_Inventory_Add;
 			[3] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 		};

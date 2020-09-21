@@ -13,24 +13,25 @@
 	_cooldown = missionNamespace getVariable ["PortRobberyCooldown",false];
 
 	if (_cooldown) exitwith {["A port has already been robbed recently","red"] call A3PL_Player_Notification;};
-	if ((currentWeapon player) == "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
-	if ((currentWeapon player) IN ["hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a port with this weapon!","red"] call A3PL_Player_Notification;};
+	if ((currentWeapon player) isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
+	if ((currentWeapon player) IN ["A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a port with this weapon!","red"] call A3PL_Player_Notification;};
 
 	_cg = ["uscg"] call A3PL_Lib_FactionPlayers;
-	if ((count _cg) < 3) exitwith {["There must be at least 3 USCG on duty to rob this port!","red"] call A3PL_Player_Notification;};
+	if ((count _cg) < 2) exitwith {["There must be at least 2 USCG on duty to rob this port!","red"] call A3PL_Player_Notification;};
 
 	missionNamespace setVariable ["PortRobberyCooldown",true,true];
 	[_port] call A3PL_Robberies_PortAlert;
 
 	[getPlayerUID player,"portRobbery",[getPos _port]] remoteExec ["Server_Log_New",2];
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Robbing the port captain...",60] spawn A3PL_Lib_LoadAction;
+	["Robbing the port captain...",180] spawn A3PL_Lib_LoadAction;
 	waitUntil {Player_ActionDoing};
 	_success = true;
 	while {Player_ActionDoing} do {
 		if ((player distance2D _port) > 5) exitWith {["You went away from the captain, the robbery failed!", "red"] call A3PL_Player_Notification; _success = false;};
 		if (!(vehicle player == player)) exitwith {_success = false;};
 		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((currentWeapon player) isEqualTo "") exitWith {_success = false;};
 	};
 	if(!_success) exitWith {};
 
@@ -38,6 +39,7 @@
 	["Some items have been added to your inventory, others may be on the ground!", "yellow"] call A3PL_Player_Notification;
 	[player, 30] call A3PL_Level_AddXP;
 	[_port] call A3PL_Robberies_PortReward;
+	[getPlayerUID player,"portRobberrySuccess",[]] remoteExec ["Server_Log_New",2];
 
 	uiSleep 1200;
 	missionNamespace setVariable ["PortRobberyCooldown",false,true];
@@ -139,7 +141,7 @@
 	if (!(vehicle player == player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_CRIMINAL_YOUALREADYPICKVEHICLE", "red"] call A3PL_Player_Notification;};
 
-	_fims = ["usms"] call A3PL_Lib_FactionPlayers;
+	_fims = ["fims"] call A3PL_Lib_FactionPlayers;
 	if ((count _fims) < 5) exitwith {["There must be at least 5 Marshals on duty to rob this!","red"] call A3PL_Player_Notification;};
 
 	[] remoteExec ["A3PL_Robberies_SeizureAlert", _fims];
@@ -184,6 +186,7 @@
 			_storage setVariable ["timer",serverTime,true];
 			[localize"STR_CRIMINAL_PICKSUCCESSFULLHC", "green"] call A3PL_Player_Notification;
 			[player,20] call A3PL_Level_AddXP;
+			[getPlayerUID player,"seizureRobberrySuccess",[]] remoteExec ["Server_Log_New",2];
 		} else {
 			[localize"STR_CRIMINAL_YOUCANNOTPICKTHISVEHICLEHC", "red"] call A3PL_Player_Notification;
 		};
@@ -194,11 +197,6 @@
 {
 	["The alarm in the seizure storage has been triggered","blue"] call A3PL_Player_Notification;
 	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 1, 5];
-}] call Server_Setup_Compile;
-
-["A3PL_Robberies_SeizureAccessed",{
-	_name = player getVariable["name","unknown"];
-	[format["%1 has accessed the DOC storage container",_name],"blue","usms",1] call A3PL_Lib_JobMessage;
 }] call Server_Setup_Compile;
 
 ["A3PL_Robberies_RobPShip",
@@ -228,6 +226,7 @@
 
 	["You now own this ship for 10 minutes! You can access the Ship Weaponry to defend it!","green"] call A3PL_Player_Notification;
 	[] remoteExec ["Server_Criminal_ShipCaptured",2];
+	[getPlayerUID player,"shipCaptured",[]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Robberies_PShipRobbed",

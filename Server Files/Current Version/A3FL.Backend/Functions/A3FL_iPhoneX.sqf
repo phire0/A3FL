@@ -417,11 +417,10 @@
 	_exists = [_conversations, _phoneNumberContact] call BIS_fnc_findNestedElement;
 	if (!(_exists isEqualTo [])) exitWith {["This conversation already exists","red"] call A3PL_Player_Notification;};
 
-	_conversations pushBack [_nameContact, _phoneNumberContact, "Aucun message reçu"];
+	_conversations pushBack [_nameContact, _phoneNumberContact, "No messages"];
 	A3PL_conversations = [_conversations,[],{_x select 0},"ASCEND"] call BIS_fnc_sortBy;
 	[_uid, _nameContact, _phoneNumberContact, _message] remoteExec ["Server_iPhoneX_SaveConversation",2];
 
-	{ctrlDelete _x;} count (player getVariable ["iPhoneX_PhoneConversations", []]);
 	_error = false;
 	closeDialog 0;
 	call A3PL_iPhoneX_AppSMSList;
@@ -461,15 +460,10 @@
 
 	if (_phoneNumberContact isEqualTo "911") then {ctrlEnable [97623,false];};
 
-
-	{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
-
-	player setVariable ["iPhoneX_CurrentConversation", []];
-
 	private _control = _display displayCtrl 97620;
 	_control ctrlSetText _nameContact;
 	if (isNil "A3PL_phoneNumberActive") exitWith {};
-	if ((_phoneNumberContact isEqualTo "911") && {(player getVariable["job","unemployed"]) IN ["fisd","fifr","uscg","usms"]}) then {
+	if ((_phoneNumberContact isEqualTo "911") && {(player getVariable["job","unemployed"]) IN ["fisd","fifr","uscg","fims"]}) then {
 		[player, _phoneNumberContact] remoteExec ["Server_iPhoneX_Get911Text",2];
 	} else {
 		[player, A3PL_phoneNumberActive, _phoneNumberContact] remoteExec ["Server_iPhoneX_GetSMS",2];
@@ -490,7 +484,6 @@
 		_conversations pushBack [_nameContact, _phoneNumberContact];
 		A3PL_conversations = [_conversations,[],{_x select 0},"ASCEND"] call BIS_fnc_sortBy;
 		[_uid, _nameContact, _phoneNumberContact, _message] remoteExec ["Server_iPhoneX_SaveConversation",2];
-		{ctrlDelete _x;} count (player getVariable ["iPhoneX_PhoneConversations", []]);
 	};
 	[_nameContact, _phoneNumberContact] spawn A3PL_iPhoneX_AppSMSNew;
 }] call Server_Setup_Compile;
@@ -501,20 +494,14 @@
 	createDialog "A3PL_iPhone_appSMSList";
 	private _display = findDisplay 98900;
 	private _ctrlGrp = (_display displayCtrl 97516);
-	private _ctrlList = [];
 
 	if (isNil "A3PL_phoneNumberActive") then {ctrlEnable [97655,false];};
-	{ctrlDelete _x;} count (player getVariable ["iPhoneX_PhoneConversations", []]);
-	{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
-
-	player setVariable ["iPhoneX_CurrentConversation", []];
 	if (!(A3PL_conversations isEqualTo [])) then {
 		{
 			_nameContact = _x select 0;
 			_phoneNumberContact = _x select 1;
 			_lastSMS = _x select 2;
 			_tmp = _display ctrlCreate ["iPhone_X_conversations", -1, _ctrlGrp];
-			_ctrlList pushBack _tmp;
 			_pos = ctrlPosition _tmp;
 			_pos set [1, (_pos select 1) + (_pos select 3) * _forEachIndex];
 			(_tmp controlsGroupCtrl 98101) ctrlSetText _nameContact;
@@ -524,7 +511,6 @@
 			_tmp ctrlCommit 0;
 		} forEach A3PL_conversations;
 	};
-	player setVariable ["iPhoneX_PhoneConversations", _ctrlList];
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_AppSMSNew",
@@ -565,7 +551,7 @@
 
 	private _display = findDisplay 98100;
 	private _ctrlGrp = (_display displayCtrl 98101);
-	private _tweets = A3PL_TwitterChatPhone;
+	private _tweets = [] + A3PL_TwitterChatPhone;
 	if (!(_tweets isEqualTo [])) then {
 		reverse _tweets;
 		{
@@ -616,10 +602,8 @@
 
 ["A3PL_iPhoneX_NewSMS",
 {
-	private ["_display","_ctrlDisplay","_ctrlGrp","_ctrlList","_fromNum","_toNum","_message","_type","_tmp","_textCtrl","_backgroundCtrl","_posGrp","_posTxt","_textHeight","_posBG","_tmpPos","_diff","_toFind","_replaceBy","_a"];
+	private ["_display","_ctrlDisplay","_ctrlGrp","_fromNum","_toNum","_message","_type","_tmp","_textCtrl","_backgroundCtrl","_posGrp","_posTxt","_textHeight","_posBG","_tmpPos","_diff","_toFind","_replaceBy","_a"];
 	disableSerialization;
-
-	{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
 
 	_display = findDisplay 99100;
 	_ctrlGrp = (_display displayCtrl 97511);
@@ -686,7 +670,6 @@
 		} forEach A3PL_SMS;
 	};
 
-	player setVariable ["iPhoneX_ConversationsMS", _ctrlList];
 	_ctrlGrp = (_display displayCtrl 97511);
 	_ctrlGrp ctrlSetAutoScrollSpeed 0.000001;
 	_ctrlGrp ctrlSetAutoScrollDelay 0.000001;
@@ -716,11 +699,10 @@
 
 	if (_to isEqualTo "911") then
 	{
-		if (_pJob IN ["fisd","fifr","uscg","usms"]) then
+		if (_pJob IN ["fisd","fifr","uscg","fims"]) then
 		{
 			_SMS pushBack [_from, _message, _position];
 			[_actualPos,format["911 - %1",_from],"ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
-			{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
 			_hour = str (date select 3);
 			_minute  = str (date select 4);
 			_time = format["%1h%2", if((count _hour) isEqualTo 1) then {("0" + _hour)} else {_hour}, if((count _minute) isEqualTo 1) then {("0" + _minute)} else {_minute}];
@@ -737,9 +719,6 @@
 			_conversations pushBack [_nameContact, _from, _message];
 			A3PL_conversations = [_conversations,[],{_x select 0},"ASCEND"] call BIS_fnc_sortBy;
 			[_uid, _nameContact, _from, _message] remoteExec ["Server_iPhoneX_SaveConversation",2];
-			{
-				ctrlDelete _x;
-			} count (player getVariable ["iPhoneX_PhoneConversations", []]);
 		} else {
 			[player, _from, _message] remoteExec ["Server_iPhoneX_SaveLastSMS", 2];
 		};
@@ -749,7 +728,6 @@
 			if (_from isEqualTo _phoneNumberContact) then
 			{
 				_SMS pushBack [_from, A3PL_phoneNumberActive, _message];
-				{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
 				call A3PL_iPhoneX_newSMS;
 			};
 
@@ -818,7 +796,6 @@
 
 	if(_phoneNumberContact isEqualTo "911") exitWith {closeDialog 0;};
 
-	{ctrlDelete _x;} count (player getVariable ["iPhoneX_ConversationsMS", []]);
 	call A3PL_iPhoneX_NewSMS;
 
 	_display = findDisplay 99100;
@@ -844,13 +821,11 @@
 	_display = findDisplay 99100;
 	_ctrlGrp = (_display displayCtrl 97511);
 	_ctrlList = [];
-
 	if (!(A3PL_SMS isEqualTo [])) then {
 		{
 			_fromNum = _x select 0;
 			_toNum = _x select 1;
 			_message = _x select 2;
-
 			_a = 0;
 			while {_a < 11} do {
 				_toFind = [";)","<3",":)",":fuck",":hi",":o",":dac",":p",":@",":-(",":("];
@@ -912,7 +887,6 @@
 	};
 
 	player setVariable ["iPhoneX_CurrentConversation", _phoneNumberContact];
-	player setVariable ["iPhoneX_ConversationsMS", _ctrlList];
 
 	_ctrlGrp ctrlSetAutoScrollSpeed 0.000001;
 	_ctrlGrp ctrlSetAutoScrollDelay 0.000001;
@@ -924,12 +898,11 @@
 ["A3PL_iPhoneX_911Text",
 {
 	disableSerialization;
-	private _result = [_this,0,[],[[]]] call BIS_fnc_param;
-	if (_result isEqualTo [[]]) then {_result = [];};
-	A3PL_SMS = _result;
+	private _result = param[0,[]];
 	private _display = findDisplay 99100;
 	private _ctrlGrp = (_display displayCtrl 97511);
 	private _ctrlList = [];
+	A3PL_SMS = _result;
 	if (!(A3PL_SMS isEqualTo [])) then {
 		{
 			private _fromNum = _x select 0;
@@ -959,6 +932,7 @@
 				_posTxt set [1, (((_posBG select 3) / 2) - ((_posTxt select 3) / 2))];
 			};
 			_tmp ctrlSetPosition _posGrp;
+			_tmp ctrlAddEventHandler ["MouseButtonDblClick",format ["if(!(call A3PL_Player_AntiSpam)) exitWith {};['%1',player] remoteExec ['Server_iPhoneX_Notify911',2];", _fromNum]];
 			_textCtrl ctrlSetPosition _posTxt;
 			_backgroundCtrl ctrlSetPosition _posBG;
 			_tmp ctrlCommit 0;
@@ -969,7 +943,6 @@
 	};
 
 	player setVariable ["iPhoneX_CurrentConversation", "911"];
-	player setVariable ["iPhoneX_ConversationsMS", _ctrlList];
 
 	_ctrlGrp ctrlSetAutoScrollSpeed 0.000001;
 	_ctrlGrp ctrlSetAutoScrollDelay 0.000001;
@@ -1039,7 +1012,7 @@
 	private _FIFR = count(["fifr"] call A3PL_Lib_FactionPlayers);
 	private _FISD = count(["fisd"] call A3PL_Lib_FactionPlayers);
 	private _CG = count(["uscg"] call A3PL_Lib_FactionPlayers);
-	private _FIMS = count(["usms"] call A3PL_Lib_FactionPlayers);
+	private _FIMS = count(["fims"] call A3PL_Lib_FactionPlayers);
 	_control ctrlSetStructuredText parseText format ["<t align='center'>
 		<img image='\A3PL_Common\icons\fire.paa'/><t color='#ffffff'> %1 </t>
 		<t color='#ffffff'> %2 </t><img image='\A3PL_Common\icons\faction_sheriff.paa'/><br/>
@@ -1061,11 +1034,11 @@
 	_iPhone_Settings = profileNamespace getVariable ["A3PL_iPhoneX_Settings",[2,1,0]];
 	_control ctrlSetText format[_wallpaperActive, (_iPhone_Settings select 0)];
 
-	if ((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","usms"]) then {
+	if ((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","fims"]) then {
 		ctrlShow [97101,true];
 		ctrlShow [97102,true];
 	};
-	if ((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","usms","doj"]) then {
+	if ((player getVariable ["job","unemployed"]) IN ["uscg","fifr","fisd","fims","doj"]) then {
 		ctrlShow [97103,true];
 		ctrlShow [97104,true];
 	};
@@ -1171,7 +1144,7 @@
 	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[_pBank, 1, 0, true] call CBA_fnc_formatNumber];
 	private _control = _display displayCtrl 99402;
 	{
-		_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
+		_index = _control lbAdd format["%1", _x getVariable ["db_id","unknown"]];
 		_control lbSetData [_index, str _x];
 	} forEach (playableUnits - [player]);
 }] call Server_Setup_Compile;
@@ -1235,7 +1208,7 @@
 	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[_gBank, 1, 0, true] call CBA_fnc_formatNumber];
 	_control = _display displayCtrl 99402;
 	{
-		_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
+		_index = _control lbAdd format["%1", _x getVariable ["db_id","-1"]];
 		_control lbSetData [_index, str _x];
 	} forEach playableUnits;
 }] call Server_Setup_Compile;
@@ -1295,7 +1268,7 @@
 		_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
 		_control lbSetData [_index, getPlayerUID _x];
 	} forEach (playableUnits - [player]);
-
+	
 	_control = _display displayCtrl 1500;
 	{
 		if((getPlayerUID _x) IN (_gang select 3)) then {
@@ -1303,9 +1276,22 @@
 			_control lbSetData [_index, getPlayerUID _x];
 		};
 	} forEach AllPlayers;
+	[(_gang select 0), player] remoteExec ["Server_Gang_ManageSetup",2];
+}] call Server_Setup_Compile;
 
-	_control = _display displayCtrl 1101;
-	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[(_gang select 4), 1, 0, true] call CBA_fnc_formatNumber];
+["A3PL_iPhoneX_gangMngmtReceived",
+{
+	private _bank = param[0,0];
+	private _members = param[1,[]];
+	disableSerialization;
+	private _display = findDisplay 99300;
+	private _control = _display displayCtrl 1500;
+	{
+		_index = _control lbAdd format["%1", _x select 0];
+		_control lbSetData [_index, _x select 1];
+	} forEach _members;
+	private _control = _display displayCtrl 1101;
+	_control ctrlSetStructuredText parseText format ["<t align='center' size='1.3'>$%1</t>",[_bank, 1, 0, true] call CBA_fnc_formatNumber];
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_GangSetLead",
@@ -1325,8 +1311,17 @@
 	private _display = findDisplay 99300;
 	private _control = _display displayCtrl 2100;
 	private _uid = (_control lbData (lbCurSel _control));
+	private _cooldown = player getVariable["inviteCooldown",false];
+	if(_cooldown) exitWith {["You can only invite gang members every 5 minutes!", "red"] call A3PL_Player_Notification;};
 	if(_uid isEqualTo "") exitWith {["Please select a target.","red"] call A3PL_Player_Notification;};
+	
 	[_uid] call A3PL_Gang_Invite;
+
+	player setVariable["inviteCooldown",true];
+	[] spawn {
+		sleep 300;
+		player setVariable["inviteCooldown",nil];
+	};	
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_GangKick",

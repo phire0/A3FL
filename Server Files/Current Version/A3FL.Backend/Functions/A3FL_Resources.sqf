@@ -64,16 +64,22 @@
 
 ["A3PL_Resources_Picking",
 {
-	private ["_apple"];
-	_apple = param [0,objNull];
-
-	if (!Player_ActionCompleted) exitwith {[localize"STR_NewRessources_Action","red"] call A3PL_Player_Notification;};
-	Player_ActionCompleted = false;
+	private _apple = param [0,objNull];
+	private _success = true;
+	if (!(vehicle player isEqualTo player)) exitwith {[localize"STR_NewVehicle_14", "red"] call A3PL_Player_Notification;};
+	if (Player_ActionDoing) exitwith {[localize"STR_NewVehicle_15","red"] call A3PL_Player_Notification;};
 	["Picking...",2] spawn A3PL_Lib_LoadAction;
-	while {uiSleep 1.5; !Player_ActionCompleted } do
-	{
-		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
+	waitUntil{Player_ActionDoing};
+	[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];
+	while {Player_ActionDoing} do {
+		if ((player distance2D _apple) > 8) exitwith {_success = false};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
+		if ((vehicle player) != player) exitwith {_success = false;};
+		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
 	};
+	player playMoveNow "";
+	if(Player_ActionInterrupted || !_success) exitWith {["Picking cancelled","red"] call A3PL_Player_Notification;};
 
 	if (!isNull _apple) then {
 		[player, _apple, 1] remoteExecCall ["Server_Inventory_Pickup", 2];

@@ -57,7 +57,13 @@
 	
 	deleteVehicle _obj;
 	[_player,_class,_amount] call Server_Inventory_Add;
-	[getPlayerUID _player,"PickupItem",[_class,_amount]] call Server_Log_New;
+	_total = 0;
+	if (_class isEqualTo "cash") then {
+		_total = _player getVariable ["player_cash",0];
+	} else {
+		_total = [_class,_player] call A3PL_Inventory_Return;
+	};
+	[getPlayerUID _player,"PickupItem",[_class,_amount,"Total",_total]] call Server_Log_New;
 }, true] call Server_Setup_Compile;
 
 ["Server_Inventory_Drop", {
@@ -66,13 +72,21 @@
 	private _class = param [2,""];
 	private _amount = param [3,1];
 	if (isNull(_player)) exitWith {diag_log "ERROR: _player in Server_Inventory_Drop is null"};
-	[_obj,"class",_class] call Server_Core_ChangeVar;
-	if (_amount != 1) then {[_obj,"amount",_amount] call Server_Core_ChangeVar;};
-	[_obj,"owner",(getPlayerUID _player)] call Server_Core_ChangeVar;
-	if(_class IN ["doorkey","housekey"]) exitwith {};
-	if(_class isEqualTo "cash") then {[_obj,"cash",_amount] call Server_Core_ChangeVar;};
+	if(!isNull _obj) then {
+		[_obj,"class",_class] call Server_Core_ChangeVar;
+		if (_amount != 1) then {[_obj,"amount",_amount] call Server_Core_ChangeVar;};
+		[_obj,"owner",(getPlayerUID _player)] call Server_Core_ChangeVar;
+		if(_class IN ["doorkey","housekey"]) exitwith {};
+		if(_class isEqualTo "cash") then {[_obj,"cash",_amount] call Server_Core_ChangeVar;};
+	};
 	[_player, _class, -(_amount)] call Server_Inventory_Add;
-	[getPlayerUID _player,"DropItem",[_class,_amount]] call Server_Log_New;
+	_total = 0;
+	if (_class isEqualTo "cash") then {
+		_total = _player getVariable ["player_cash",0];
+	} else {
+		_total = [_class,_player] call A3PL_Inventory_Return;
+	};
+	[getPlayerUID _player,"DropItem",[_class,_amount,"Total",_total]] call Server_Log_New;
 }, true] call Server_Setup_Compile;
 
 ["Server_Inventory_Return", {

@@ -1,3 +1,10 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
 
 ["A3PL_Lib_CloseInventoryDialog",
 {
@@ -45,7 +52,7 @@
 
 ["A3PL_Lib_AllFactionPlayers",
 {
-	private _factions = param [0,["fisd","fifr","uscg","usms"]];
+	private _factions = param [0,["fisd","fifr","uscg","fims"]];
 	private _returnID = param [1,false];
 	private _factionPeople = [];
 	{
@@ -336,12 +343,14 @@
 ["A3PL_Lib_NearestMarker",
 {
 	private _objPos = param [0,[0,0,0]];
+	private _filter = param [1,""];
 	private _nearm = "";
 	private _nearest = 100;
 	{
 		if(_x != "myGPS") then {
 			_d = _objPos distance (getMarkerPos _x);
-			if ( _d < _nearest) then {
+			_fil = [_filter, str(_x)] call BIS_fnc_inString;
+			if ((_d < _nearest) && _fil) then {
 				_nearest = _d;
 				_nearm = _x;
 			};
@@ -424,7 +433,7 @@
 		case ("fisd"): {_return = "Sheriff Department"};
 		case ("uscg"): {_return = "US Coast Guard"};
 		case ("fifr"): {_return = "Fire Rescue"};
-		case ("usms"): {_return = "FI Marshals Service"};
+		case ("fims"): {_return = "Marshals Service"};
 		case ("doj"): {_return = "Department of Justice"};
 	};
 	_return;
@@ -509,7 +518,7 @@
 		_time = _time + _refreshSpeed;
 		if(Player_ActionInterrupted) exitWith {};
 		if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
-		if (!(vehicle player == player)) exitwith {};
+		if (!(vehicle player isEqualTo player)) exitwith {};
 		if (player getVariable ["Incapacitated",false]) exitwith {};
 		if (!alive player) exitwith {};
 	};
@@ -531,7 +540,7 @@
 		(_display displayCtrl 352) ctrlCommit 0;
 		sleep 0.005;
 	};
-	uiSleep 5;
+	sleep 3;
 	Player_ActionInterrupted = false;
 }] call Server_Setup_Compile;
 
@@ -580,9 +589,9 @@
 	while {(player getVariable ["job","unemployed"]) == _job} do
 	{
 		if (isNull _veh) exitwith {[localize"STR_NewLib_JobVehDest","red"] call A3PL_Player_Notification; true;};
-		if (getDammage _veh >= 1) exitwith {[localize"STR_NewLib_JobVehDest","red"] call A3PL_Player_Notification; true;};
+		if ((getDammage _veh) >= 1) exitwith {[localize"STR_NewLib_JobVehDest","red"] call A3PL_Player_Notification; true;};
 		if ((player distance2D _veh) > 500) exitwith {[localize"STR_NewLib_JobVeh2Far","red"] call A3PL_Player_Notification; true;};
-		uiSleep 10;
+		sleep 300;
 	};
 	[_veh] call A3PL_Vehicle_Despawn;
 	player setVariable ["jobVehicle",nil,true];
