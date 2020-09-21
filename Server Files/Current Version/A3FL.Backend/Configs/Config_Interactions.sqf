@@ -609,12 +609,12 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_EATITEM",
 		{call A3PL_Items_Food;},
-		{(([Player_ItemClass, 'fnc'] call A3PL_Config_GetItem) isEqualTo 'A3PL_Items_Food') && !{underwater(vehicle player)}}
+		{(([Player_ItemClass, 'fnc'] call A3PL_Config_GetItem) isEqualTo 'A3PL_Items_Food') && !(underwater(vehicle player))}
 	],
 	[
 		localize "STR_INTER_DRINKITEM",
 		{[] spawn A3PL_Items_Thirst;},
-		{(([Player_ItemClass, 'fnc'] call A3PL_Config_GetItem) isEqualTo 'A3PL_Items_Thirst') && !{underwater(vehicle player)}}
+		{(([Player_ItemClass, 'fnc'] call A3PL_Config_GetItem) isEqualTo 'A3PL_Items_Thirst') && !(underwater(vehicle player))}
 	],
 	[
 		localize "STR_INTER_USEDRUGS",

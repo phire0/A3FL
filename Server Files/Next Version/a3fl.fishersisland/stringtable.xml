@@ -4269,7 +4269,7 @@
       <Original>Minor Bullet Wound</Original>
    </Key>
    <Key ID="STR_ConfigMedical_2">
-      <Original>Major Bullet Wound</Original>
+      <Original>Bullet Wound</Original>
    </Key>
    <Key ID="STR_ConfigMedical_3">
       <Original>Major Bullet Wound(Head)</Original>
@@ -4299,7 +4299,7 @@
       <Original>Minor Concussion</Original>
    </Key>
    <Key ID="STR_ConfigMedical_12">
-      <Original>Major Concussion</Original>
+      <Original>Concussion</Original>
    </Key>
    <Key ID="STR_ConfigMedical_13">
       <Original>Nausea</Original>

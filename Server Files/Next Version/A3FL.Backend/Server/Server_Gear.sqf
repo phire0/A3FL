@@ -62,6 +62,9 @@
 	_unit setVariable ["Player_XP",0,true];
 	_unit setVariable ["Player_Inventory",[],true];
 	_unit setVariable ["Cuffed",false,true];
+	_unit setVariable ["A3PL_Medical_Alive",true,true];
+	_unit setVariable ["A3PL_Wounds",[],true];
+	_unit setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
 
 	[_unit,"burger_full_cooked",10] call Server_Inventory_Add;
 	[_unit,"coke",10] call Server_Inventory_Add;

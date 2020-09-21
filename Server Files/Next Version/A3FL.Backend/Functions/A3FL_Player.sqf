@@ -48,6 +48,7 @@
 	Player_AntiSpam = false;
 	Player_AntiListboxSpam = false;
 	Player_Lockview = false;
+	Player_Ragdoll = false;
 
 	//Vehicles keys
 	A3PL_Player_Vehicles = [];

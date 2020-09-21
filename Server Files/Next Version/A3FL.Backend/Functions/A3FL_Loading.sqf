@@ -157,7 +157,6 @@
 		_format = localize "STR_A3PLS_LOADINGREQUEST_VEHICLESINITIALIZEDSUCCESFULLY";
 		_control ctrlSetStructuredText (parseText _format);
 
-		call A3PL_Medical_Init;
 		_control = (_display displayCtrl 10360);
 		_format = "<t size='2' align='center' color='#B8B8B8'>80%</t>";
 		_control ctrlSetStructuredText (parseText _format);

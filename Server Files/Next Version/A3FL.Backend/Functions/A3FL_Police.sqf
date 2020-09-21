@@ -1953,7 +1953,7 @@
 			A3PL_SquadNb_Veh setVariable ["squadnb",_number,true];
 		};
 	};
-	A3PL_SquadNb_Veh setVariable["vehFaction",_faction,true];
+	A3PL_SquadNb_Veh setVariable["faction",_faction,true];
 	A3PL_SquadNb_Veh = nil;
 	closeDialog 0;
 }] call Server_Setup_Compile;
