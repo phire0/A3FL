@@ -317,6 +317,7 @@ Config_IntersectArray =
 	["spine3","Talk to Mushrooms Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_ill_shrooms}],
 	["spine3","Talk to Marijuana Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_ill_weed}],
 	["spine3","Talk to the Ship Captain",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_ship_captain,npc_ship_captain_1,npc_ship_captain_2]}],
+	["spine3","Boat Safety Shop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_ship_captain,npc_ship_captain_1,npc_ship_captain_2]}],
 
 	//Rob Stores
 	["spine3",localize"STR_QuickActionsNPC_RobShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect IN [Robbable_Shop_1,Robbable_Shop_2,Robbable_Shop_3,Robbable_Shop_4,Robbable_Shop_5,Robbable_Shop_6])}],
@@ -1743,6 +1744,7 @@ Config_GenArray =
 	"Secure Gang Hideout",
 	"Enter into Evidince",
 	"Talk to the Ship Captain",
+	"Boat Safety Shop",
 	"Talk to Illegal Trader",
 	"Talk to Moonshine Dealer",
 	"Talk to Cocaine Dealer",

@@ -185,7 +185,7 @@ Config_Shops_Items = [
 			["magazine","6Rnd_RedSignal_F",50,0,0],
 			["vest","V_Safety_orange_F",80,-1,0],
 			["item","Lifebuoy",100,-1,0],
-			["aitem","tfar_anprc152",1000,-1,0],
+			["aitem","tfar_anprc152",1000,-1,0]
 		],{[2605.13,5621.28,0.08]}
 	],
 
@@ -1279,6 +1279,16 @@ Config_Shops_Items = [
 			["item","weed_90g",-1,7965,4],
 			["item","weed_95g",-1,8407,4],
 			["item","weed_100g",-1,8850,4]
+		],{[3456.32,7513.2,1]}
+	],
+
+	["Shop_Boat_Saftey",[
+			["weapon","hgun_Pistol_Signal_F",250,0,0],
+			["magazine","6Rnd_GreenSignal_F",50,0,0],
+			["magazine","6Rnd_RedSignal_F",50,0,0],
+			["vest","V_Safety_orange_F",80,-1,0],
+			["item","Lifebuoy",100,-1,0],
+			["aitem","tfar_anprc152",1000,-1,0]
 		],{[3456.32,7513.2,1]}
 	]
 ];

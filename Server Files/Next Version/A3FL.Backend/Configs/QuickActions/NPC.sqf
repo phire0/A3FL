@@ -38,6 +38,11 @@
 ],
 [
 	"",
+	"Boat Safety Shop",
+	{["Shop_Boat_Safety"] call A3PL_Shop_Open;}
+],
+[
+	"",
 	"Low End Car Dealer",
 	{["Shop_Low_End_Car_Dealer"] call A3PL_Shop_Open;}
 ],
