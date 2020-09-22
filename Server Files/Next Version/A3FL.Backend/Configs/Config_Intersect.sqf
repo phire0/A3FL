@@ -297,7 +297,6 @@ Config_IntersectArray =
 
 	//shops
 	["spine3",localize"STR_INTSECT_CAPTSHIP",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_captureship}],
-	["spine3",localize"STR_QuickActionsNPC_CatpuredShip",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo npc_captureship}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_4,npc_furniture_6,npc_perkfurniture_1,npc_perkfurniture_4]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessShopSupply2",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_furniture_3,npc_furniture_5,npc_perkfurniture_2,npc_perkfurniture_5]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessGeneralShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [NPC_general_1,NPC_general_2,NPC_general_3,NPC_general_4]}],
@@ -801,9 +800,9 @@ Config_IntersectArray =
 	["RightForeArm",localize"STR_INTSECT_CUFFUN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{((player getVariable "job") IN ["uscg","fisd","fims"]) && (((player_Itemclass == "handcuffs") && (isPlayer player_objintersect)) OR ((player_objintersect getVariable ["Cuffed",true]) && (isPlayer player_objintersect)))}], //Cuff/Uncuff
 
 	//Lockpick handcuffs
-	["Spine1",localize"STR_INTSECT_LPCUFF","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(player_Itemclass == "v_lockpick") && {(isPlayer player_objintersect)} && {(player_objintersect getVariable ["Cuffed",true])} && {(isPlayer player_objintersect)}}], //Cuff/Uncuff
-	["Spine3",localize"STR_INTSECT_LPCUFF","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(player_Itemclass == "v_lockpick") && {(isPlayer player_objintersect)} && {(player_objintersect getVariable ["Cuffed",true])} && {(isPlayer player_objintersect)}}], //Cuff/Uncuff
-	["RightHand",localize"STR_INTSECT_LPCUFF","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(player_Itemclass == "v_lockpick") && {(isPlayer player_objintersect)} && {(player_objintersect getVariable ["Cuffed",true])} && {(isPlayer player_objintersect)}}], //Cuff/Uncuff
+	["Spine1",localize"STR_INTSECT_LPCUFF","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(["v_lockpick",1] call A3PL_Inventory_Has) && {(isPlayer player_objintersect)} && {(player_objintersect getVariable ["Cuffed",true])} && {(isPlayer player_objintersect)}}],
+	["Spine3",localize"STR_INTSECT_LPCUFF","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(["v_lockpick",1] call A3PL_Inventory_Has) && {(isPlayer player_objintersect)} && {(player_objintersect getVariable ["Cuffed",true])} && {(isPlayer player_objintersect)}}],
+	["RightHand",localize"STR_INTSECT_LPCUFF","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(["v_lockpick",1] call A3PL_Inventory_Has) && {(isPlayer player_objintersect)} && {(player_objintersect getVariable ["Cuffed",true])} && {(isPlayer player_objintersect)}}],
 
 	["Spine3",localize"STR_INTSECT_DRAG","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(isPlayer player_objintersect) && {(player_objintersect getVariable ["Cuffed",true])} && {((player getVariable "job") IN ["uscg","fisd","fims"])} }], //Drag
 	["Spine1",localize"STR_INTSECT_DRAG","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(isPlayer player_objintersect) && {(player_objintersect getVariable ["Cuffed",true])} && {((player getVariable "job") IN ["uscg","fisd","fims"])}}], //Drag
@@ -1912,7 +1911,6 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_BuySellChristmasItems",
 	localize"STR_QuickActionsNPC_AccessShopSupply",
 	localize"STR_INTSECT_CAPTSHIP",
-	localize"STR_QuickActionsNPC_CatpuredShip",
 	localize"STR_QuickActionsNPC_AccessShopSupply2",
 	localize"STR_QuickActionsNPC_AccessShopFIEMS",
 	localize"STR_QuickActionsNPC_AccessShopFIFR",

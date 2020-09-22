@@ -573,7 +573,6 @@
 	private _class = param [0,""];
 	private _pos = param [1,[]];
 	private _job = param [2,""];
-	private _assignTime = param [3,1200];
 	private _inArea = param [4,""];
 
 	[_class,_pos,format ["%1",toUpper _job],player] remoteExec ["Server_Vehicle_Spawn", 2];

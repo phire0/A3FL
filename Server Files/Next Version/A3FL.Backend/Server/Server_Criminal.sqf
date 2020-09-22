@@ -17,30 +17,6 @@
 	} foreach Server_Jailed_Players;
 },true] call Server_Setup_Compile;
 
-["Server_Criminal_BlackMarketPos",
-{
-	private _areas = ["blacksea_1","blacksea_2","blacksea_3","blacksea_4"];
-	private _area = _areas select (floor (random (count _areas)));
-	private _pos = [_area] call CBA_fnc_randPosArea;
-	private _pos = _pos findEmptyPosition [0, 25,(typeOf Ship_Blackmarket)];
-	if ((count _pos) isEqualTo 0) exitwith {call Server_Criminal_BlackMarketPos};
-	private _nearPlayers = nearestObjects [Ship_Blackmarket,["C_man_1"],200];
-	{
-		if (!(isPlayer _x)) then {
-			_nearPlayers = _nearPlayers - [_x];
-		};
-	} foreach _nearPlayers;
-	if ((count _nearPlayers) > 0) exitwith {};
-	if(!surfaceIsWater _pos) exitWith {call Server_Criminal_BlackMarketPos;};
-	Ship_Blackmarket setPosASL [(_pos select 0),(_pos select 1),((getposASL ship_blackmarket) select 2)];
-},true] call Server_Setup_Compile;
-
-["Server_Criminal_ShipCaptured", {
-	Ship_BlackMarket setVariable["captured",true,true];
-	sleep 600;
-	Ship_BlackMarket setVariable["captured",false,true];
-},true] call Server_Setup_Compile;
-
 ["Server_Criminal_TurtlesMove",
 {
 	private _markerArea = "A3PL_Marker_Fish5";

@@ -666,42 +666,48 @@
 
 	[_display,_unit] call A3PL_Medical_LoadParts;
 	while {!isNull _display} do {
-		uiSleep 0.5;
 		[] call A3PL_Medical_LoadItems;
+		uiSleep 1.5;
 	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_LoadItems",
 {
 	disableSerialization;
-	private _player = missionNameSpace getVariable ["A3PL_MedicalVar_Target",objNull];
-	private _part = missionNameSpace getVariable ["A3PL_MedicalVar_CurrentPart","chest"];
-	private _display = findDisplay 73;
-	private _control = _display displayCtrl 1502;
-	private _lbArray = [];
-	lbClear _control;
-
-	if ([_player,_part,"taser"] call A3PL_Medical_HasWound) then {_lbArray pushback ["Pull out taser dart","pull_taser"];};
-	if (_part IN ["right upper arm","left upper arm","left lower arm","right lower arm"]) then {
-		private ["_itemName","_itemAmount"];
-		_itemName = "medS_bloodbag";
-		_itemAmount = [_itemName] call A3PL_Inventory_Return;
-		if ([_itemName,1] call A3PL_Inventory_Has) then {
-			_lbArray pushback [(format ["%1 (x%2)",([_itemName,"name"] call A3PL_Config_GetItem),_itemAmount]),_itemName];
+	private ["_part","_display","_control","_player","_lbArray"];
+	_player = missionNameSpace getVariable ["A3PL_MedicalVar_Target",objNull];
+	_part = missionNameSpace getVariable ["A3PL_MedicalVar_CurrentPart","chest"];
+	_display = findDisplay 73;
+	_control = _display displayCtrl 1502;
+	_lbArray = [];
+	switch (true) do
+	{
+		case ([_player,_part,"taser"] call A3PL_Medical_HasWound):
+		{
+			_lbArray pushback ["Pull out taser dart","pull_taser"];
+		};
+		case (_part IN ["right upper arm","left upper arm","left lower arm","right lower arm"]): {
+			private ["_itemName","_itemAmount"];
+			_itemName = "medS_bloodbag";
+			_itemAmount = [_itemName] call A3PL_Inventory_Return;
+			if ([_itemName,1] call A3PL_Inventory_Has) then {
+				_lbArray pushback [(format ["%1 (x%2)",([_itemName,"name"] call A3PL_Config_GetItem),_itemAmount]),_itemName];
+			};
 		};
 	};
 
 	{
-		private ["_itemName","_itemAmount"];
+		private ["_itemName","_itemAmount","_index"];
 		_itemName = _x select 0;
 		_itemAmount = _x select 1;
-		if ((_itemName find "med_") isEqualTo 0) then {
+		if ((_itemName find "med_") == 0) then {
 			_lbArray pushback [(format ["%1 (x%2)",[_itemName,"name"] call A3PL_Config_GetItem,_itemAmount]),_itemName];
 		};
 	} foreach (player getVariable ["player_inventory",[]]);
 
+	lbClear _control;
 	{
-		private _index = _control lbAdd (_x select 0);
+		_index = _control lbAdd (_x select 0);
 		_control lbSetData [_index,(_x select 1)];
 	} foreach _lbArray;
 }] call Server_Setup_Compile;

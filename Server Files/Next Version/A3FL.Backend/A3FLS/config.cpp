@@ -362,7 +362,6 @@ class CfgRemoteExec
 
 		//Criminal
 		class Server_Criminal_RemoveJail{allowedTargets=2;};
-		class Server_Criminal_ShipCaptured{allowedTargets=2;};
 
 		//Debug
 		class A3PL_Debug_ExecuteCompiled{allowedTargets=2;};

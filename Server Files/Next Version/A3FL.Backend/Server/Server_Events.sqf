@@ -1,4 +1,4 @@
-/*
+Server_Events_Random/*
 	ArmA 3 Fishers Life
 	Code written by ArmA 3 Fishers Life Development Team
 	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
@@ -10,7 +10,7 @@
 {
 	private _allEvents = [
 		Server_Events_ShipWreck
-		//Server_Events_PlaneCrash
+		Server_Events_PlaneCrash
 	];
 	if(!isNil "Server_Events_Current") exitWith {};
 

@@ -11,7 +11,7 @@
 	_npc = param [0,objNull];
 	if(isNull(_npc)) exitWith {};
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"] call A3PL_NPC_LeaveJob};
+	if ((player getVariable ["job","unemployed"]) isEqualTo "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"] call A3PL_NPC_LeaveJob};
 
 	player setVariable ["job","mailman",true];
 	call A3PL_Player_SetMarkers;
@@ -29,7 +29,7 @@
 	};
 
 	uiSleep (random 2 + 2);
-	["A3PL_Mailtruck",_spawnPos,"MAILMAN",1800] spawn A3PL_Lib_JobVehicle_Assign;
+	["A3PL_Mailtruck",_spawnPos,"MAILMAN"] spawn A3PL_Lib_JobVehicle_Assign;
 
 	uiSleep (random 2 + 2);
 	call A3PL_Delivery_GenPackage;

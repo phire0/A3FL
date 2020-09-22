@@ -892,8 +892,15 @@
 	player setVariable ["jailtime",nil,true];
 	[player] remoteExec ["Server_Criminal_RemoveJail", 2];
 
-	player setPos [2616.57,5470.4,0.00143385];
-	player setdir 99;
+	private _nearestClinic = nearestObjects [player, ["Land_A3PL_Clinic"], 10000];
+	if(count(_nearestClinic) > 0) then {
+		private _clinic = _nearestClinic select 0;
+		player setPosATL (_clinic modelToWorld [-7,-7,-2.5]); 
+		player setDir ((getDir _clinic)-140);
+	} else {
+		player setPos [2616.57,5470.4,0.00143385];
+		player setdir 99;
+	};
 	player playAction "PlayerStand";
 	player setVariable ["tf_voiceVolume", 1, true];
 }] call Server_Setup_Compile;

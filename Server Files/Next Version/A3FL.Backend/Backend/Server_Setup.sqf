@@ -47,7 +47,6 @@
 		call Server_Addresses_Setup;
 		call Server_Housing_Initialize;
 
-		call Server_Criminal_BlackMarketPos;
 		call Server_JobFarming_DrugDealerPos;
 		[] spawn Server_JobWildcat_RandomizeOil;
 		[] spawn Server_JobWildcat_RandomizeRes;
@@ -100,12 +99,10 @@
 	_craneleft setDir 232.025;
 	_craneleft setFuel 0;
 
-	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 7200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 3600]] call BIS_fnc_loop;
 
 	["itemAdd", ["Server_PoliceLoop", { call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_Fishing", {call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
-
-	["itemAdd", ["Server_Loop_BlackMarket", {call Server_Criminal_BlackMarketPos;}, 7200]] call BIS_fnc_loop;
 
 	["itemAdd", ["Server_Loop_DealerPos", {call Server_JobFarming_DrugDealerPos;}, 1200]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_RepairTerrain", {[] spawn Server_Core_RepairTerrain;}, 600]] call BIS_fnc_loop;

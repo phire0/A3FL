@@ -1030,6 +1030,7 @@ Config_Factories =
 		["f_FBI_Backwards","","inh","inh","A3PL_FBI_Backwards","headgear",true,0,[["cash",1]],1,0,0,""],
 		["f_FBI_Backwards2","","inh","inh","A3PL_FBI_Backwards2","headgear",true,0,[["cash",1]],1,0,0,""],
 		["f_FBI_Backwards3","","inh","inh","A3PL_FBI_Backwards3","headgear",true,0,[["cash",1]],1,0,0,""],
+		["f_life_alert","","inh","inh","life_alert","item",true,0,[["cash",1]],1,0,0,""],
 		["f_drill_bit","","inh","inh","drill_bit","item",true,0,[["cash",1]],1,0,0,""],
 		["f_Backpack_Drill","","Drill Bag","inh","A3PL_Backpack_Drill","backpack",true,0,[["cash",1]],1,0,0,""],
 		["f_Backpack_Money","","Money Bag","inh","A3PL_Backpack_Money","backpack",true,0,[["cash",1]],1,0,0,""],

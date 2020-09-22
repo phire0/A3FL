@@ -240,18 +240,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_CatpuredShip",
-	{
-		_captured = Ship_BlackMarket getVariable["captured",false];
-		if(_captured) then {
-			["Shop_CapturedShip"] call A3PL_Shop_Open;
-		} else {
-			["You need to capture the ship first!","red"] call A3PL_Player_Notification;
-		};
-	}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_PaintBallShop",
 	{["Shop_Paintball"] call A3PL_Shop_Open;}
 ],
