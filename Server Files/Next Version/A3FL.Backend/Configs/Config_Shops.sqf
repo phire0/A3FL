@@ -179,7 +179,13 @@ Config_Shops_Items = [
 			["item","shark_4lb_tag",-1,1100,3],
 			["item","shark_5lb_tag",-1,2500,3],
 			["item","shark_7lb_tag",-1,4600,3],
-			["item","shark_10lb_tag",-1,6800,3]
+			["item","shark_10lb_tag",-1,6800,3],
+			["weapon","hgun_Pistol_Signal_F",250,0,0],
+			["magazine","6Rnd_GreenSignal_F",50,0,0],
+			["magazine","6Rnd_RedSignal_F",50,0,0],
+			["vest","V_Safety_orange_F",80,-1,0],
+			["item","Lifebuoy",100,-1,0],
+			["aitem","tfar_anprc152",1000,-1,0],
 		],{[2605.13,5621.28,0.08]}
 	],
 
