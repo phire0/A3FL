@@ -9,12 +9,16 @@ Server_Events_Random/*
 ["Server_Events_Random",
 {
 	private _allEvents = [
-		Server_Events_ShipWreck
-		Server_Events_PlaneCrash
+		[Server_Events_ShipWreck,{true}]
+		[Server_Events_PlaneCrash,{true}]
 	];
 	if(!isNil "Server_Events_Current") exitWith {};
 
-	[] spawn (selectRandom _allEvents);
+	_selected = selectRandom _allEvents;
+	while {!(call (_selected select 1))} do {
+		_selected = selectRandom _allEvents;
+	};
+	[] spawn (_selected select 0);
 },true] call Server_Setup_Compile;
 
 ["Server_Events_Start",
