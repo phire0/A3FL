@@ -105,9 +105,9 @@
 	_control = _display displayCtrl 1601;
 	_control buttonSetAction
 	"
-			[(lbText [2100,(lbCurSel 2100)])] call A3PL_JobWildcat_ProspectInit;
-			profileNamespace setVariable ['A3PL_Mining_Prospect',(lbCurSel 2100)];
-			closeDialog 0;
+		[(lbText [2100,(lbCurSel 2100)])] call A3PL_JobWildcat_ProspectInit;
+		profileNamespace setVariable ['A3PL_Mining_Prospect',(lbCurSel 2100)];
+		closeDialog 0;
 	";
 }] call Server_Setup_Compile;
 
