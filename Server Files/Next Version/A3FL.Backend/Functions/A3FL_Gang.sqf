@@ -56,6 +56,7 @@
 	private _members =  _gang select 3;
 	private _maxMembers = _gang select 5;
 
+	if((getPlayerUID player) != (_gang select 1)) exitWith {["Only the lead of the gang can invite someone","red"] call A3PL_Player_Notification;};
 	if((count _members) > _maxMembers) exitWith {[format [localize"STR_NewGang_4",_maxMembers],"red"] call A3PL_Player_Notification;};
 
 	private _target = [_invited] call A3PL_Lib_UIDToObject;

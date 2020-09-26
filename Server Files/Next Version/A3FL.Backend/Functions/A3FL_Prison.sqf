@@ -257,7 +257,9 @@
 	private _obj = param [0,objNull];
 	private _name = param [1,""];
 	private _factionReq = !(((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
-	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
+	private _faction = player getVariable["faction","citizen"] IN ["fims","fisd","uscg"];
+
+	if(!(_faction) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
 		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
 	};
 
@@ -324,10 +326,10 @@
 	private _obj = param [0,objNull];
 	private _name = param [1,""];
 	private _factionReq = !(((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
-
+	private _faction = player getVariable["job","unemployed"] IN ["fims","fisd","uscg"];
 	if (_name IN ["door_2"]) exitwith {[_obj,"door_2",false] call A3PL_Lib_ToggleAnimation;};
 
-	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
+	if(!_faction && _factionReq && (["keycard",1] call A3PL_Inventory_Has)) exitwith {
 		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to use the key card!","red"] call A3PL_Player_Notification;
 	};
 

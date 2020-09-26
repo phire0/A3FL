@@ -719,7 +719,7 @@ Server_Setup_Compile = {
 
 	_jailTime = (_return select 21);
 	if(_jailTime > 0) then {
-		_unit setPos [4744.56,6023.57,0];
+		_unit setPos [4758.43,6167.78,0];
 		_unit setVariable["alreadySpawned",true,true];
 		[_jailTime, _unit] call Server_Police_JailPlayer;
 	};

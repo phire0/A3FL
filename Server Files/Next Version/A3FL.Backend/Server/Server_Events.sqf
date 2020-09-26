@@ -87,8 +87,8 @@ Server_Events_Random/*
 	clearBackpackCargoGlobal _itemBox;
 
    	private _virtualItems = [];
-	private _valuableItems = [["Titanium_Ingot",20],["Iron_Ingot",40],["Coal_Ingot",40],["Aluminium_Ingot",30],["weed_100g",8],["shrooms",8],["cocaine",13]];
-	private _itemCount = 4 + round(random(6));
+	private _valuableItems = [["Titanium_Ingot",5],["Iron_Ingot",20],["Coal_Ingot",20],["Aluminium_Ingot",15],["weed_100g",3],["shrooms",4],["cocaine",8]];
+	private _itemCount = 4 + round(random(5));
 
 	for "_i" from 0 to _itemCount do {
 		_item = (selectRandom _valuableItems);

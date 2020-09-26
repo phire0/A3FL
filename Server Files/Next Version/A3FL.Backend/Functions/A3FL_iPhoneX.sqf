@@ -991,8 +991,13 @@
 	private["_display","_control"];
 	disableSerialization;
 
+	private _opened = false;
+	{
+		if(!isNull (findDisplay _x)) exitWith {_opened = true;};
+	} foreach [97000,97100,97200,97300,97400,97500,97600,97700,97800,97900,97910,98000,98100,98200,98200,98300,98400,98500,98600,98700,98800,98900,99000,99100,99200,99300,99400];
+	if(_opened) exitWith {};
+
 	if(underwater (vehicle player)) exitWith {["You cannot use your phone while underwater","red"] call A3PL_Player_Notification;};
-	if(!isNull (findDisplay 97000)) exitWith {};
 	if (A3PL_phoneCallOn) exitWith {[] spawn A3PL_iPhoneX_AppCall;};
 	if(player getVariable["iPhone_911_Text",false]) exitWith {[1, 'Emergency services', '911'] spawn A3PL_iPhoneX_AppSMS;};
 	if(player getVariable["iPhone_911_Call",false]) exitWith {[] spawn A3PL_iPhoneX_AppSwitchboard;};
@@ -1269,13 +1274,6 @@
 		_control lbSetData [_index, getPlayerUID _x];
 	} forEach (playableUnits - [player]);
 	
-	_control = _display displayCtrl 1500;
-	{
-		if((getPlayerUID _x) IN (_gang select 3)) then {
-			_index = _control lbAdd format["%1", _x getVariable ["name","unknown"]];
-			_control lbSetData [_index, getPlayerUID _x];
-		};
-	} forEach AllPlayers;
 	[(_gang select 0), player] remoteExec ["Server_Gang_ManageSetup",2];
 }] call Server_Setup_Compile;
 
@@ -1336,6 +1334,7 @@
 	private _gang = _group getVariable ["gang_data",nil];
 	if(isNil '_gang') exitWith {};
 	if((_target isEqualTo (_gang select 1)) || _target isEqualTo (getPlayerUID player)) exitWith {[format ["You cannot fire yourself"],"red"] call A3PL_Player_Notification;};
+	if((getPlayerUID player) != (_gang select 1)) exitWith {["Only the lead of the gang can kick someone","red"] call A3PL_Player_Notification;};
 
 	["You have removed someone from your gang","green"] call A3PL_Player_Notification;
 	[_target, true] call A3PL_Gang_RemoveMember;
