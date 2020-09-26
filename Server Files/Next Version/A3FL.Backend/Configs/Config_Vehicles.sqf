@@ -122,7 +122,9 @@ Config_Vehicles_Capacity = [
 	["A3PL_Jayhawk",40],
 	["A3PL_Cessna172",60],
 	["A3PL_Goose_Base",80],
-	["A3PL_Goose_USCG",80]
+	["A3PL_Goose_USCG",80],
+
+	["A3FL_Nissan_GTR",220]
 ];
 publicVariable "Config_Vehicles_Capacity";
 
@@ -284,6 +286,8 @@ Config_Vehicles_MSRP = [
 	["A3PL_Jayhawk",50000],
 	["A3PL_Cessna172",380000],
 	["A3PL_Goose_Base",660000],
-	["A3PL_Goose_USCG",665000]
+	["A3PL_Goose_USCG",665000],
+
+	["A3FL_Nissan_GTR",310000]
 ];
 publicVariable "Config_Vehicles_MSRP";

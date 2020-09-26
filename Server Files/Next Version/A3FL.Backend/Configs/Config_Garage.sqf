@@ -90,7 +90,7 @@ Config_Garage_Upgrade =
 		["Winch","addon","Winch",localize "STR_CGAR_W",localize "STR_CGAR_STD",[0.3,5.2,0.9],[0,1.2,1],500,[],0], //,"Winch","Only cosmetic",
 		["Driving_Lights","addon","Driving_Lights",localize "STR_CGAR_DL",localize "STR_CGAR_DLD",[0.3,5.2,0.9],[0,1.2,1],500,[],0], //"Driving Lights","Driving Lights mounted on Bull Bar"
 		["Roof_Rack","addon","Roof_Rack",localize "STR_CGAR_RR",localize "STR_CGAR_RRD",[1.3,3,0],[0,1,0],500,[],0], // "Roof Rack","Cargo rack for the roof"
-		["Lightbar","addon","Lightbar",localize "STR_CGAR_LB",localize "STR_CGAR_LBRD",[1.3,3,0],[0,1,0],500,[],0], // "Lightbar","Bar of lights mounted on the roll bar"
+		["Lightbar","addon","Lightbar",localize "STR_CGAR_LB","Light bar mounted on the roll-bar",[1.3,3,0],[0,1,0],500,[],0], // "Lightbar","Bar of lights mounted on the roll bar"
 		["Roll_Bar","addon","Roll_Bar",localize "STR_CGAR_RC",localize "STR_CGAR_RCD",[1.3,3,0],[0,1,0],500,[],0], //Roll Cage","Protect occupants when the vehicle rolls over"
 		["Spair_Tire","addon","Spair_Tire",localize "STR_CGAR_ST",localize "STR_CGAR_STD","Towbar_Cam",[4,0,1.5],500,[],0], //Spare Tire","Only cosmetic"
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[4,0,1.5],500,[],0] //Add towbar, Allows you to hitch trailers
@@ -224,21 +224,21 @@ Config_Garage_Upgrade =
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0,0,0],[0,0,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0,0,0],[0,0,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,0,0],[0,0,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA",localize "STR_CGAR_ANTENNADESC",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
+		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_PD_ST",
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0,0,0],[0,0,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0,0,0],[0,0,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,0,0],[0,0,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA",localize "STR_CGAR_ANTENNADESC",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
+		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_FD",
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0,0,0],[0,0,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0,0,0],[0,0,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,0,0],[0,0,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA",localize "STR_CGAR_ANTENNADESC",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
+		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_FD_Brush",
@@ -261,6 +261,21 @@ Config_Garage_Upgrade =
 	["A3PL_Raptor_PD_ST",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0]  //,"Front pushbar","Protect front from collisions",
+	],
+	["A3FL_Nissan_GTR",
+		["Stock_Front_Bumper","addon","Stock_Front_Bumper","Stock Front Bumper","Original Front Bumper",[0.3,5.2,0.9],[0,1.2,1],500,[],0],
+		["Stock_Rear_Bumper","addon","Stock_Rear_Bumper","Stock Rear Bumper","Original Rear Bumper","Towbar_Cam",[4,0,1.5],500,[],0],
+		["Stock_Front_Fender","addon","Stock_Front_Fender","Stock Front Fender","Original Front Fender",[1.3,3,0],[0.1,1,0.5],500,[],0],
+		["Stock_Rear_Fender","addon","Stock_Rear_Fender","Stock Rear Fender","Original Rear Fender",[1.3,3,0],[0.1,1,0.5],500,[],0],
+		["Stock_Side_Skirt","addon","Stock_Side_Skirt","Stock Side Skirt","Original Side Skirt",[1.3,3,0],[0.1,1,0.5],500,[],0],
+		["Stock_Windows","addon","Stock_Windows","Stock Windows","Original Windows",[1.3,3,0],[0.1,1,0.5],500,[],0],
+		["Liberty_Walk_Front_Bumper","addon","Liberty_Walk_Front_Bumper","Liberty Walk Front Bumper","Liberty Walk Kit - Front Bumper",[0.3,5.2,0.9],[0,1.2,1],500,[],0],
+		["Liberty_Walk_Rear_Bumper","addon","Liberty_Walk_Rear_Bumper","Liberty Walk Rear Bumper","Liberty Walk Kit - Rear Bumper","Towbar_Cam",[4,0,1.5],500,[],0],
+		["Liberty_Walk_Front_Fender","addon","Liberty_Walk_Front_Fender","Liberty Walk Front Fender","Liberty Walk Kit - Front Fender",[1.3,3,0],[0.1,1,0.5],500,[],0],
+		["Liberty_Walk_Rear_Fender","addon","Liberty_Walk_Rear_Fender","Liberty Walk Rear Fender","Liberty Walk Kit - Rear Fender",[1.3,3,0],[0.1,1,0.5],500,[],0],
+		["Liberty_Walk_Side_Skirt","addon","Liberty_Walk_Side_Skirt","Liberty Walk Side Skirt","Liberty Walk Kit - Side Skirts",[1.3,3,0],[0.1,1,0.5],500,[],0],
+		["Liberty_Walk_Spoiler","addon","Liberty_Walk_Spoiler","Liberty Walk Spoiler","Liberty Walk Kit - Spoiler","Towbar_Cam",[4,0,1.5],500,[],0],
+		["Tinted_Windows","addon","Tinted_Windows","Tinted Windows","Tinted Windows",[1.3,3,0],[0.1,1,0.5],500,[],0]
 	]
 ];
 publicVariable "Config_Garage_Upgrade";

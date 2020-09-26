@@ -201,6 +201,7 @@ Config_Factories =
 		["f_911GT2","","inh","inh","A3PL_911GT2","car",true,1200,[["Steel_Pellet",18],["Aluminium_Pellet",17],["Titanium_Pellet",30],["Windows",4],["Tyres",4]],1,120,0,""],
 		["f_Urus","","inh","inh","A3PL_Urus","car",true,1200,[["Steel_Pellet",14],["Aluminium_Pellet",17],["Titanium_Pellet",20],["Windows",6],["Tyres",4]],1,120,0,""],
 		["f_Gallardo","","inh","inh","A3PL_Gallardo","car",true,1200,[["Steel_Pellet",14],["Aluminium_Pellet",17],["Titanium_Pellet",35],["Windows",6],["Tyres",4]],1,100,0,""],
+		["f_Nissan_GTR","","inh","inh","A3FL_Nissan_GTR","car",true,1200,[["Steel_Pellet",12],["Aluminium_Pellet",27],["Windows",4],["Tyres",4]],1,120,0,""],
 		["f_Monster","","inh","inh","A3PL_Monster","car",true,1200,[["Steel_Pellet",20],["Aluminium_Pellet",27],["Titanium_Pellet",9],["Windows",4],["Tyres",8]],1,80,0,""],
 		["f_Kx","","inh","inh","A3PL_Kx","car",true,600,[["Steel_Pellet",10],["Aluminium_Pellet",9],["Tyres",2]],1,60,0,""],
 		["f_Fatboy","","inh","inh","A3PL_Fatboy","car",true,1200,[["Steel_Pellet",10],["Aluminium_Pellet",10],["Titanium_Pellet",3],["Windows",1],["Tyres",2]],1,120,0,""],
