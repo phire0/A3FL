@@ -1234,7 +1234,7 @@ Config_Shops_Items = [
 		],{[3456.32,7513.2,1]}
 	],
 
-	["Shop_Boat_Saftey",[
+	["Shop_Boat_Safety",[
 			["weapon","hgun_Pistol_Signal_F",250,0,0],
 			["magazine","6Rnd_GreenSignal_F",50,0,0],
 			["magazine","6Rnd_RedSignal_F",50,0,0],
