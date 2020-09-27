@@ -55,6 +55,7 @@
 		[] spawn Server_Lumber_TreeRespawn;				//spawn trees for lumberyacking
 		[] spawn Server_Criminal_MoveNPCs;
 		call Server_Government_BudgetTransfer;
+		call Server_Company_LoadShop;
 
 		//load stock values
 		// [] spawn Server_ShopStock_Load;

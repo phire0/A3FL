@@ -240,7 +240,7 @@
 		case ("fd_yadapter_out2"): {_dirOffset = 60; _attachOffset = [0.07,0.10,0];};
 		case ("inlet_r"): {_dirOffset = -180; _attachOffset = [0,0,0]; _memOffset = "inlet_r"; _animate = "Inlet_R_Cap";};
 		case ("inlet_ds"): {_dirOffset = -90; _attachOffset = [0,0,0]; _memOffset = "inlet_ds"; _animate = "Inlet_DS_Cap";};
-		case ("inlet_bt"): {_dirOffset = 180; _attachOffset = [0,0.05,0]; _memOffset = "inlet_bt"; _animate = "inlet_bt_cap";};
+		case ("inlet_bt"): {_dirOffset = 180; _attachOffset = [0,0.03,0]; _memOffset = "inlet_bt"; _animate = "inlet_bt_cap";};
 		case ("outlet_ps"): {_dirOffset = 90; _attachOffset = [0.05,0,0]; _memOffset = "outlet_ps"; _animate = "Outlet_PS_Cap";};
 		case ("outlet_ds"): {_dirOffset = -90; _attachOffset = [-0.05,0,0]; _memOffset = "outlet_ds"; _animate = "Outlet_DS_Cap";};
 

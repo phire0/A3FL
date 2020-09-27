@@ -105,7 +105,6 @@
 			};
 			if(speed _veh > 1) exitWith {_exit=true;};
 		};
-		
 		if(_exit) exitWith {};
 
 		private _begPos = positionCameraToWorld [0,0,0];
@@ -152,8 +151,9 @@
 		};
 
 		_ins2 select 0 params ["_name", "_dist"];
-		private _posAGL = _obj modelToWorldVisual (_obj selectionPosition [_name,"Memory"]);
-		if (_dist > 5) exitwith {
+		private _relPos = _obj selectionPosition [_name,"Memory"];
+		private _posAGL = _obj modelToWorldVisual (_relPos);
+		if ((_dist >= 5) || (_relPos isEqualTo [0,0,0])) exitwith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _obj;
 		};
