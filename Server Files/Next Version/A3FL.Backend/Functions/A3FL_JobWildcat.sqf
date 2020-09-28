@@ -289,3 +289,69 @@
 		[localize"STR_A3PL_JobWildcat_Canceled","red"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
+
+["A3PL_JobWildcat_RareMaps",
+{
+	private _allOres = [];
+	params[
+		["_npc",objNull,[objNull]]
+	];
+
+	private _chance = random 100;
+	private _mapType = "";
+	private _island = "FIMiningArea";
+	if(_npc isEqualTo npc_miningmike) then {
+		if(_chance <= 60) then {
+			_mapType = localize"STR_Config_Resources_Sapphire";
+		} else {
+			_mapType = localize"STR_Config_Resources_Vivianite";
+		};
+	} else {
+		_island = "NIMiningArea";
+		_mapType = localize"STR_Config_Resources_Sapphire";
+		/*
+		localize"STR_Config_Resources_Emerald"
+		localize"STR_Config_Resources_Gold"
+		localize"STR_Config_Resources_Amethyst"
+		*/		
+	};
+	if(_maptype isEqualTo "") exitWith {["Error loading the map type","red"] call A3PL_Player_Notification;};
+
+	private _resArray = missionNameSpace getVariable ["Server_JobWildCat_Res",[]];
+	private _possibleLocations = [];
+	{
+		private _type = _x select 0;
+		private _pos = _x select 1;
+		if(_type isEqualTo _pos) then {
+			if(_pos inArea _island) then {
+				_possibleLocations pushback _x;
+			};
+		};
+	} foreach _resArray;
+	private _givenLocation = (selectRandom _possibleLocations) select 1;
+
+	_pos = [((_givenLocation select 0) + (-50 + random 100)),((_givenLocation select 1) + (-50 + random 100))];
+
+	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
+	_marker setMarkerShapeLocal "ELLIPSE";
+	_marker setMarkerSizeLocal [120,120];
+	_marker setMarkerColorLocal "ColorGreen";
+	_marker setMarkerTypeLocal "Mil_dot";
+	_marker setMarkerAlphaLocal 0.5;
+	_markers pushback _marker;
+
+	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
+	_marker setMarkerShapeLocal "ICON";
+	_marker setMarkerColorLocal "ColorRed";
+	_marker setMarkerTypeLocal "A3PL_Markers_Pickaxe";
+	_marker setMarkerTextLocal format [localize"STR_A3PL_JobWildcat_InThisArea",toUpper _mapType];
+	_markers pushback _marker;
+	if ((count _markers) isEqualTo 0) exitwith {};
+	missionNameSpace setVariable ["A3PL_JobWildcat_MapTimer",(diag_ticktime + 300)];
+	[_markers] spawn {
+		private _markers = param [0,[]];
+		sleep 900;
+		{deleteMarkerLocal _x;} foreach _markers
+	};
+	[format [localize"STR_A3PL_JobWildcat_MapPurchasedInfo",_maptype],"green"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;

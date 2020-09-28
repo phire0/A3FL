@@ -435,23 +435,23 @@ class Dialog_CompanyShop_Management
 		{
 			idc = 1500;
 			x = 0.257656 * safezoneW + safezoneX;
-			y = 0.216 * safezoneH + safezoneY;
+			y = 0.22 * safezoneH + safezoneY;
 			w = 0.195937 * safezoneW;
-			h = 0.339 * safezoneH;
+			h = 0.33 * safezoneH;
 		};
 		class PlayerInventory: RscListbox
 		{
 			idc = 1501;
 			x = 0.54125 * safezoneW + safezoneX;
-			y = 0.216 * safezoneH + safezoneY;
-			w = 0.201094 * safezoneW;
-			h = 0.339 * safezoneH;
+			y = 0.22 * safezoneH + safezoneY;
+			w = 0.195937 * safezoneW;
+			h = 0.33 * safezoneH;
 		};
 		class TextStock: RscStructuredText
 		{
 			idc = 1100;
 			x = 0.309219 * safezoneW + safezoneX;
-			y = 0.59 * safezoneH + safezoneY;
+			y = 0.57 * safezoneH + safezoneY;
 			w = 0.139219 * safezoneW;
 			h = 0.033 * safezoneH;
 		};
@@ -503,7 +503,7 @@ class Dialog_CompanyShop_Management
 		{
 			idc = 1401;
 			text = "1";
-			x = 0.6 * safezoneW + safezoneX;
+			x = 0.595 * safezoneW + safezoneX;
 			y = 0.67 * safezoneH + safezoneY;
 			w = 0.08 * safezoneW;
 			h = 0.04 * safezoneH;
@@ -528,7 +528,7 @@ class Dialog_CompanyShop_Management
 		};
 	};
 };
-
+//
 class Dialog_CompanyShop_Customer
 {
 	idd = 130;
@@ -551,9 +551,9 @@ class Dialog_CompanyShop_Customer
 		{
 			idc = 1500;
 			x = 0.257656 * safezoneW + safezoneX;
-			y = 0.28 * safezoneH + safezoneY;
-			w = 0.479531 * safezoneW;
-			h = 0.341 * safezoneH;
+			y = 0.3 * safezoneH + safezoneY;
+			w = 0.475 * safezoneW;
+			h = 0.338 * safezoneH;
 		};
 		class ButtonClose: RscButtonEmpty
 		{
@@ -597,6 +597,14 @@ class Dialog_CompanyShop_Customer
 			y = 0.654 * safezoneH + safezoneY;
 			w = 0.159844 * safezoneW;
 			h = 0.033 * safezoneH;
+		};
+		class TextCompany: RscStructuredText
+		{
+			idc = 1102;
+			x = 0.355625 * safezoneW + safezoneX;
+			y = 0.192 * safezoneH + safezoneY;
+			w = 0.350625 * safezoneW;
+			h = 0.055 * safezoneH;
 		};
 	};
 };

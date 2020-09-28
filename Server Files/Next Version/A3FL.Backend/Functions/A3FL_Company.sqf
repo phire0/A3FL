@@ -508,32 +508,19 @@
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
-//Open the customer UI
 ['A3PL_Company_OpenShop', {
 	private _nearBy = nearestObjects [player, ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_Building = _nearBy select 0;
-
 	createDialog "Dialog_CompanyShop_Customer";
 	private _display = findDisplay 130;
-
-	private _stock = A3PL_Company_Building getVariable["stock",[]];
-	private _control = _display displayCtrl 1500;
-	lbClear _control;
-	{
-		private _type = (_x select 0);
-		private _class = (_x select 1);
-		private _amount = (_x select 2);
-		private _price = (_x select 3);
-		private _infoString = format["%1,%2,%3,%4",_type,_class,_amount,_price];
-		private _name = [_class,_type,"name"] call A3PL_Factory_Inheritance;
-		private _i = _control lbAdd format ["(%2x) %1",_name,_amount];
-		_control lbSetData [_i,format ["%1",_infoString]];
-	} forEach _stock;
-	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Company_ShopStockSelect;"];
+	private _control = _display displayCtrl 1102;
+	private _cid = A3PL_Company_Building getVariable["cid",-1];
+	private _cName = [_cid, "name"] call A3PL_Config_GetCompanyData;
+	_control ctrlSetStructuredText parseText format["<t size='2'>%1</t>",_cName];
+	call A3PL_Company_RefreshShop;
 }] call Server_Setup_Compile;
 
-//Customer function, buy from the comp stock
 ['A3PL_Company_ShopBuy', {
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1500;
@@ -549,14 +536,14 @@
 	private _canTake = true;
 	switch(_type) do {
 		case ("item"):{
-			_itemName = [_itemClass,"name"] call A3PL_Config_GetItem;
+			_itemName = [_class,"name"] call A3PL_Config_GetItem;
 		};
 		case ("vehicle"): {
-			_itemName = getText (configFile >> "CfgVehicles" >> _itemClass >> "displayName");
+			_itemName = getText (configFile >> "CfgVehicles" >> _class >> "displayName");
 			_buyAmount = 1;
 		};
 		case ("plane"): {
-			_itemName = getText (configFile >> "CfgVehicles" >> _itemClass >> "displayName");
+			_itemName = getText (configFile >> "CfgVehicles" >> _class >> "displayName");
 			_buyAmount = 1;
 		};
 	};
@@ -564,7 +551,6 @@
 	if(_buyAmount < 0) exitWith {["Please enter a valid amount!","red"] call A3PL_Player_Notification;};
 	if(_buyAmount > _amount) exitWith {["There is not enough stock!","red"] call A3PL_Player_Notification;};
 	if(_price > _cash) exitWith {[format["You do not have $%1 to buy %2 %3",_price,_buyAmount,_itemName],"red"] call A3PL_Player_Notification;};
-
 
 	switch(_type) do {
 		case ("item"):{
@@ -591,17 +577,42 @@
 	if(!_canTake) exitWith {["You cannot carry this amount!","red"] call A3PL_Player_Notification;};
 
 	player setVariable["Player_Cash",(_cash-_price),true];
+	[A3PL_Company_Building,_class,_takeAmount,player,true] remoteExec ["Server_Company_ShopRemoveStock",2];
 }] call Server_Setup_Compile;
 
-//Handle virtual items to start with then cars
+['A3PL_Company_RefreshShop', {
+	private _display = findDisplay 130;
+	private _stock = A3PL_Company_Building getVariable["stock",[]];
+	private _control = _display displayCtrl 1500;
+
+	if(_stock isEqualTo []) then {
+		_control lbAdd "The stocks are empty";
+	} else {
+		lbClear _control;
+		{
+			private _type = (_x select 0);
+			private _class = (_x select 1);
+			private _amount = (_x select 2);
+			private _price = (_x select 3);
+			private _infoString = format["%1,%2,%3,%4",_type,_class,_amount,_price];
+			private _name = [_class,_type,"name"] call A3PL_Factory_Inheritance;
+			private _i = _control lbAdd format ["(%2x) %1",_name,_amount];
+			_control lbSetData [_i,format ["%1",_infoString]];
+		} forEach _stock;
+		_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Company_ShopStockSelect;"];
+	};
+}] call Server_Setup_Compile;
+
 ['A3PL_Company_OpenShopStock', {
 	private _nearBy = nearestObjects [player, ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_Building = _nearBy select 0;
-
 	createDialog "Dialog_CompanyShop_Management";
-	private _display = findDisplay 130;
+	call A3PL_Company_RefreshShopStock;
+}] call Server_Setup_Compile;
 
+['A3PL_Company_RefreshShopStock', {
+	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1501;
 	private _inventory = player getVariable ["player_inventory",[]];
 	lbClear _control;
@@ -623,7 +634,7 @@
 	{
 		if ((_x getVariable ["owner",""]) isEqualTo (getPlayerUID player)) then {
 			private _id = _x getVariable ["class",""];
-			private _infoString = format["%1,%2,%3,%4","item",_id,1,_x];
+			private _infoString = format["%1,%2,%3,OBJ_%4","item",_id,1,_x];
 			private _i = _control lbAdd format ["(1x) %1",([_id,"name"] call A3PL_Config_GetItem)];
 			_control lbSetData [_i,_infoString];
 		};
@@ -645,7 +656,6 @@
 	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Company_ShopStockSelect;"];
 }] call Server_Setup_Compile;
 
-//Add a new item to stock to sell - handle vehicles later on
 ['A3PL_Company_AddShopStock', {
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1501;
@@ -670,20 +680,29 @@
 	switch(_type) do {
 		case "item": {
 			if(count(_itemData) isEqualTo 4) then {
-				deleteVehicle _itemData select 4;
+				_objString = _itemData select 3;
+				_splitted = _objString splitString "_";
+				if ((_splitted select 0) isEqualTo "OBJ") then
+				{
+					private _typeOf = toArray _objString;
+					_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;
+					_typeOf = toString _typeOf;
+					private _veh = [_typeOf] call A3PL_Lib_vehStringToObj;
+					deleteVehicle _veh;
+				};
 			};
 			[_class,-(_addAmount)] call A3PL_Inventory_Add;
 		};
 		case "vehicle": {
-			if(count(_itemData) isEqualTo 4) then {
-				deleteVehicle _itemData select 4;
-			};
+
+		};
+		case "plane": {
+			
 		};
 	};
-	[A3PL_Company_Building,_type,_class,_addAmount,_addPrice] remoteExec ["Server_Company_ShopAddStock",2];
+	[A3PL_Company_Building,_type,_class,_addAmount,_addPrice,player] remoteExec ["Server_Company_ShopAddStock",2];
 }] call Server_Setup_Compile;
 
-//Remove x items from stock
 ['A3PL_Company_RemoveShopStock', {
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1500;
@@ -716,12 +735,15 @@
 			[player,[_class,1],"","car"] remoteExec ["Server_Factory_Create", 2];
 			_takeAmount = 1;
 		};
+		case "plane": {
+			[player,[_class,1],"","plane"] remoteExec ["Server_Factory_Create", 2];
+			_takeAmount = 1;
+		};
 	};
 	if(!_canTake) exitWith {[format [localize "STR_SHOP_NOTENOUGHSPACE",_amount, _itemName],"red"] call A3PL_Player_Notification;};
-	[A3PL_Company_Building,_class,_takeAmount] remoteExec ["Server_Company_ShopRemoveStock",2];
+	[A3PL_Company_Building,_class,_takeAmount,player] remoteExec ["Server_Company_ShopRemoveStock",2];
 }] call Server_Setup_Compile;
 
-//Update price
 ['A3PL_Company_UpdateStockPrice', {
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1500;
@@ -735,10 +757,11 @@
 	if (_addPrice < 0) exitWith {["Please enter a valid price!","red"] call A3PL_Player_Notification;};
 	if (_price isEqualTo _addPrice) exitWith {["ARE YOU FUCKING RETARDED?","red"] call A3PL_Player_Notification;};
 
-	[A3PL_Company_Building,_class,_addPrice] remoteExec ["Server_Company_ShopResetPrice",2];
+	private _control = _display displayCtrl 1101;
+	_control ctrlSetStructuredText parseText format["$%1",[_addPrice, 1, 0, true] call CBA_fnc_formatNumber];	
+	[A3PL_Company_Building,_class,_addPrice,player] remoteExec ["Server_Company_ShopResetPrice",2];
 }] call Server_Setup_Compile;
 
-//Select in stock
 ['A3PL_Company_ShopStockSelect', {
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1500;

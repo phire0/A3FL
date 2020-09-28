@@ -310,6 +310,8 @@ class CfgRemoteExec
 		class Server_AdminLoginsert {allowedTargets = 2;};
 
 		//Company
+		class A3PL_Company_RefreshShop{allowedTargets=0;};
+		class A3PL_Company_RefreshShopStock{allowedTargets=0;};
 		class A3PL_Company_BillDataReceive{allowedTargets=0;};
 		class A3PL_Company_HiringConfirmation{allowedTargets=0;};
 		class A3PL_Company_HistoryReceive{allowedTargets=0;};
