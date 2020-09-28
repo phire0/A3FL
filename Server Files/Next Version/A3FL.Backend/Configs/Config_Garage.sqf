@@ -273,7 +273,7 @@ Config_Garage_Upgrade =
         ["Liberty_Walk_Rear_Bumper","addon","Liberty_Walk_Rear_Bumper","Liberty Walk Rear Bumper","Liberty Walk Kit - Rear Bumper","Towbar_Cam",[4,0,1.5],500,[],0],
         ["Liberty_Walk_Rear_Fender","addon","Liberty_Walk_Rear_Fender","Liberty Walk Rear Fender","Liberty Walk Kit - Rear Fender",[1.3,3,0],[0.1,1,0.5],500,[],0],
         ["Liberty_Walk_Side_Skirt","addon","Liberty_Walk_Side_Skirt","Liberty Walk Side Skirt","Liberty Walk Kit - Side Skirts",[1.3,3,0],[0.1,1,0.5],500,[],0],
-        ["Liberty_Walk_Wheels","addon","Liberty_Walk_Wheels","Liberty Walk Wheels","Liberty Walk Kit - Side Skirts",[1.3,3,0],[0.1,1,0.5],500,[],0],
+        ["Liberty_Walk_Test","addon","Liberty_Walk_Test","Liberty Walk Wheels","Liberty Walk Kit - Side Skirts",[1.3,3,0],[0.1,1,0.5],500,[],0],
         ["Liberty_Walk_Spoiler","addon","Liberty_Walk_Spoiler","Liberty Walk Spoiler","Liberty Walk Kit - Spoiler","Towbar_Cam",[4,0,1.5],500,[],0],
         ["Tinted_Windows","addon","Tinted_Windows","Tinted Windows","Tinted Windows",[1.3,3,0],[0.1,1,0.5],500,[],0]
     ]
