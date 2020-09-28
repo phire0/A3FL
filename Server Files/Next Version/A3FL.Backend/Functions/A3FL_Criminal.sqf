@@ -168,6 +168,7 @@
 	_suicide setVelocity [100,0,0];
 	{
 		[_x,[-5000]] call A3PL_Medical_ApplyVar;
+		[_x,"chest","wound_major"] call A3PL_Medical_ApplyWound;
 	} foreach _nearP;
 	removeVest player;
 }] call Server_Setup_Compile;
