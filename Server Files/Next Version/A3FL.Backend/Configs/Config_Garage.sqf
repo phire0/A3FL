@@ -263,18 +263,7 @@ Config_Garage_Upgrade =
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0]  //,"Front pushbar","Protect front from collisions",
 	],
 	["A3FL_Nissan_GTR",
-        ["Stock_Front_Bumper","addon","Stock_Front_Bumper","Stock Front Bumper","Original Front Bumper",[0.3,5.2,0.9],[0,1.2,1],500,[],0],
-        ["Stock_Rear_Bumper","addon","Stock_Rear_Bumper","Stock Rear Bumper","Original Rear Bumper","Towbar_Cam",[4,0,1.5],500,[],0],
-        ["Stock_Rear_Fender","addon","Stock_Rear_Fender","Stock Rear Fender","Original Rear Fender",[1.3,3,0],[0.1,1,0.5],500,[],0],
-        ["Stock_Side_Skirt","addon","Stock_Side_Skirt","Stock Side Skirt","Original Side Skirt",[1.3,3,0],[0.1,1,0.5],500,[],0],
-        ["Stock_Wheels","addon","Stock_Wheels","Stock Wheels","Original Side Skirt",[1.3,3,0],[0.1,1,0.5],500,[],0],
         ["Stock_Windows","addon","Stock_Windows","Stock Windows","Original Windows",[1.3,3,0],[0.1,1,0.5],500,[],0],
-        ["Liberty_Walk_Front_Bumper_Fender","addon","Liberty_Walk_Front_Bumper_Fender","Liberty Walk Front Bumper & Fender","Liberty Walk Kit - Front Bumper",[0.3,5.2,0.9],[0,1.2,1],500,[],0],
-        ["Liberty_Walk_Rear_Bumper","addon","Liberty_Walk_Rear_Bumper","Liberty Walk Rear Bumper","Liberty Walk Kit - Rear Bumper","Towbar_Cam",[4,0,1.5],500,[],0],
-        ["Liberty_Walk_Rear_Fender","addon","Liberty_Walk_Rear_Fender","Liberty Walk Rear Fender","Liberty Walk Kit - Rear Fender",[1.3,3,0],[0.1,1,0.5],500,[],0],
-        ["Liberty_Walk_Side_Skirt","addon","Liberty_Walk_Side_Skirt","Liberty Walk Side Skirt","Liberty Walk Kit - Side Skirts",[1.3,3,0],[0.1,1,0.5],500,[],0],
-        ["Liberty_Walk_Test","addon","Liberty_Walk_Test","Liberty Walk Wheels","Liberty Walk Kit - Side Skirts",[1.3,3,0],[0.1,1,0.5],500,[],0],
-        ["Liberty_Walk_Spoiler","addon","Liberty_Walk_Spoiler","Liberty Walk Spoiler","Liberty Walk Kit - Spoiler","Towbar_Cam",[4,0,1.5],500,[],0],
         ["Tinted_Windows","addon","Tinted_Windows","Tinted Windows","Tinted Windows",[1.3,3,0],[0.1,1,0.5],500,[],0]
     ]
 ];
