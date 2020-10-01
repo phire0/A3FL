@@ -348,6 +348,9 @@
         <Key ID="STR_QuickActionsNPC_BuyMapOil">
             <Original>Buy Oil Map ($1000)</Original>
         </Key>
+        <Key ID="STR_QuickActionsNPC_BuyMapRare">
+            <Original>Buy Rare Resources Map ($2500)</Original>
+        </Key>
         <Key ID="STR_QuickActionsNPC_AccessShopSupply2">
             <Original>Furniture Store 2</Original>
         </Key>

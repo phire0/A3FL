@@ -308,12 +308,22 @@
 		};
 	} else {
 		_island = "NIMiningArea";
-		_mapType = localize"STR_Config_Resources_Sapphire";
-		/*
-		localize"STR_Config_Resources_Emerald"
-		localize"STR_Config_Resources_Gold"
-		localize"STR_Config_Resources_Amethyst"
-		*/		
+
+		if ((_chance >= 1) && (_chance <= 30)) then {
+			_mapType = localize"STR_Config_Resources_Sapphire";
+		}
+		elseif ((_chance >= 31) && (_chance <= 50)) then {
+			_mapType = localize"STR_Config_Resources_Vivianite";
+		}
+		elseif ((_chance >= 51) && (_chance <= 70)) then {
+			_mapType = localize"STR_Config_Resources_Emerald";
+		}
+		elseif ((_chance >= 71) && (_chance <= 85)) then {
+			_mapType = localize"STR_Config_Resources_Gold";
+		}
+		else {
+			_maptype = localize"STR_Config_Resources_Amethyst";
+		};
 	};
 	if(_maptype isEqualTo "") exitWith {["Error loading the map type","red"] call A3PL_Player_Notification;};
 
@@ -328,6 +338,10 @@
 			};
 		};
 	} foreach _resArray;
+
+	if ((player getVariable ["Player_cash",0]) < 2500) exitwith {[localize"STR_A3PL_JobWildcat_NotEnoughMoney","red"] call A3PL_Player_Notification;};
+	player setVariable ["Player_cash",(player getVariable ["Player_Cash",0]) - 2500,true];
+
 	private _givenLocation = (selectRandom _possibleLocations) select 1;
 
 	_pos = [((_givenLocation select 0) + (-50 + random 100)),((_givenLocation select 1) + (-50 + random 100))];

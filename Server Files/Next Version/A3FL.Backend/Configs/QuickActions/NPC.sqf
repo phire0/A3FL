@@ -325,6 +325,11 @@
 ],
 [
 	"",
+	localize"STR_QuickActionsNPC_BuyMapRare",
+	{["Rare Resource"] call A3PL_JobWildcat_RareMaps;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_AccessMinerShop",
 	{["Shop_MiningMike"] call A3PL_Shop_Open;}
 ],
