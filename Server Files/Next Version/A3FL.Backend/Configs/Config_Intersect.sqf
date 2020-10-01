@@ -528,6 +528,10 @@ Config_IntersectArray =
 	["carInfo",localize"STR_INTSECT_VEHSTOR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!isNil {player_objIntersect getVariable "positionSpawn"}}], //Vehicle Storage
 	["carInfo",localize"STR_INTSECT_STOREVEH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!isNil {player_objIntersect getVariable "positionSpawn"}}], //Store Vehicle
 
+	["carInfo",localize"STR_INTSECT_ACCCOMPGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objIntersect getVariable "positionSpawn"}) && {[getPlayerUID player] call A3PL_Config_InCompany}}],
+	["carInfo",localize"STR_INTSECT_TRSCOMPGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objIntersect getVariable "positionSpawn"}) && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
+	["carInfo",localize"STR_INTSECT_TRSPERSGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objIntersect getVariable "positionSpawn"}) && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
+
 	//aircraft paint
 	["carInfo",localize"STR_INTSECT_PAINTAIRC",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objIntersect == AircraftPaint}], //Paint Aircraft
 	["carInfo",localize"STR_INTSECT_STOREAIRC",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objIntersect == AircraftStore_1}], //Store Aircraft
@@ -666,6 +670,18 @@ Config_IntersectArray =
 	["StorageDoor1",localize"STR_INTSECT_STOREVEH","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Vehicle
 	["StorageDoor2",localize"STR_INTSECT_STOREVEH","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Vehicle
 	["StorageDoor3",localize"STR_INTSECT_STOREVEH","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{player_objIntersect animationSourcePhase "StorageDoor" < 0.1}], //Store Vehicle
+
+	["StorageDoor1",localize"STR_INTSECT_ACCCOMPGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect animationSourcePhase "StorageDoor" < 0.1) && {[getPlayerUID player] call A3PL_Config_InCompany}}],
+	["StorageDoor2",localize"STR_INTSECT_ACCCOMPGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect animationSourcePhase "StorageDoor" < 0.1) && {[getPlayerUID player] call A3PL_Config_InCompany}}],
+	["StorageDoor3",localize"STR_INTSECT_ACCCOMPGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect animationSourcePhase "StorageDoor" < 0.1) && {[getPlayerUID player] call A3PL_Config_InCompany}}],
+
+	["StorageDoor1",localize"STR_INTSECT_TRSCOMPGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect animationSourcePhase "StorageDoor" < 0.1) && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
+	["StorageDoor2",localize"STR_INTSECT_TRSCOMPGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect animationSourcePhase "StorageDoor" < 0.1) && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
+	["StorageDoor3",localize"STR_INTSECT_TRSCOMPGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect animationSourcePhase "StorageDoor" < 0.1) && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
+
+	["StorageDoor1",localize"STR_INTSECT_TRSPERSGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect animationSourcePhase "StorageDoor" < 0.1) && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
+	["StorageDoor2",localize"STR_INTSECT_TRSPERSGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect animationSourcePhase "StorageDoor" < 0.1) && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
+	["StorageDoor3",localize"STR_INTSECT_TRSPERSGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect animationSourcePhase "StorageDoor" < 0.1) && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
 
 	//apt building main doors
 	["door0",localize"STR_INTSECT_DOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{true}], //Door
@@ -2311,7 +2327,10 @@ Config_GenArray =
 	"Low End Car Dealer",
 	localize"STR_INTSECT_CONHOSETOENGIN",
 	localize"STR_INTSECT_CONHOSETOENGDIS",
-	localize"STR_INTSECT_OPCLINLET"
+	localize"STR_INTSECT_OPCLINLET",
+	localize "STR_INTSECT_ACCCOMPGAR",
+	localize "STR_INTSECT_TRSPERSGAR",
+	localize "STR_INTSECT_TRSCOMPGAR"
 ];
 publicVariable "Config_GenArray";
 

@@ -787,13 +787,14 @@
 	};
 	if(["life_alert"] call A3PL_Inventory_Has) then {call A3PL_Medical_LifeAlert;};
 
-	A3PL_Player_DeadBodyGear = getUnitLoadout player;
+	A3PL_Player_DeadBodyGear = getUnitLoadout _unit;
 
 	_unit setVariable ["A3PL_Medical_Alive",false,true];
 	_unit setVariable ["TimeRemaining",_timer,true];
 	_unit setVariable ["tf_voiceVolume", 0, true];
 	_unit setVariable ["Zipped",false,true];
 	_unit setVariable ["Cuffed",false,true];
+	_unit setVariable ["DoubleTapped",false,true];
 	[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 
 	A3PL_deathCam  = "CAMERA" camCreate (getPosATL _unit);
@@ -804,7 +805,7 @@
 	A3PL_deathCam camSetRelPos [0,3.5,4.5];
 	A3PL_deathCam camSetFOV .5;
 	A3PL_deathCam camSetFocus [50,0];
-	A3PL_deathCam camCommit 0;	
+	A3PL_deathCam camCommit 0;
 	if(pVar_AdminLevel < 3) then {
 		(findDisplay 7300) displaySetEventHandler ["KeyDown","{true}"];
 	} else {
@@ -817,8 +818,8 @@
 		private _timer = _this select 2;
 		private _display = findDisplay 7300;
 		private _control = _display displayCtrl 1001;
-		_exit = false;
-		while {!(_unit getVariable ["A3PL_Medical_Alive",true])} do
+		private _exit = false;
+		while {!(_unit getVariable ["A3PL_Medical_Alive",true]) && !(player getVariable ["A3PL_Medical_Alive",true])} do
 		{
 			if(_unit getVariable ["DoubleTapped",false]) then {
 				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CANNOT remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];

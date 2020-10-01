@@ -102,6 +102,21 @@
 ],
 [
 	"",
+	localize"STR_INTSECT_ACCCOMPGAR",
+	{[true] call A3PL_Storage_OpenCarStorage;}
+],
+[
+	"",
+	localize"STR_INTSECT_TRSCOMPGAR",
+	{[1] call A3PL_Storage_CarStoreButton;}
+],
+[
+	"",
+	localize"STR_INTSECT_TRSPERSGAR",
+	{[2] call A3PL_Storage_CarStoreButton;}
+],
+[
+	"",
 	localize"STR_INTSECT_STOREVEH",
 	{call A3PL_Storage_CarStoreButton;}
 ],

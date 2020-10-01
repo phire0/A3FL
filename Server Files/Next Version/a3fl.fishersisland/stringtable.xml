@@ -5661,6 +5661,18 @@
    <Key ID="STR_INTSECT_SPVHINGAR">
       <Original>Spawn vehicle in garage</Original>
    </Key>
+   <Key ID="STR_INTSECT_SPVHINGAR">
+      <Original>Spawn vehicle in garage</Original>
+   </Key>
+   <Key ID="STR_INTSECT_ACCCOMPGAR">
+      <Original>Access company garage</Original>
+   </Key>
+   <Key ID="STR_INTSECT_TRSCOMPGAR">
+      <Original>Transfer to company garage</Original>
+   </Key>
+   <Key ID="STR_INTSECT_TRSPERSGAR">
+      <Original>Transfer to personal garage</Original>
+   </Key>
    <Key ID="STR_INTSECT_ACCVIRSTOR">
       <Original>Virtual Storage</Original>
    </Key>

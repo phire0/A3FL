@@ -615,6 +615,7 @@
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1501;
 	private _inventory = player getVariable ["player_inventory",[]];
+	private _uid = getPlayerUID player;
 	lbClear _control;
 
 	{
@@ -632,13 +633,28 @@
 		};
 	} foreach _near;
 	{
-		if ((_x getVariable ["owner",""]) isEqualTo (getPlayerUID player)) then {
+		if ((_x getVariable ["owner",""]) isEqualTo _uid) then {
 			private _id = _x getVariable ["class",""];
 			private _infoString = format["%1,%2,%3,OBJ_%4","item",_id,1,_x];
 			private _i = _control lbAdd format ["(1x) %1",([_id,"name"] call A3PL_Config_GetItem)];
 			_control lbSetData [_i,_infoString];
 		};
 	} foreach _near;
+
+	private _near = nearestObjects [player, ["Car","Tank","Ship","Air","Plane"], 15];
+	{
+		private _owner = _x getVariable["owner",nil];
+		if(!isNil "_owner") then {
+			if((_owner select 0) isEqualTo _uid) then {
+				private _id = typeOf _x;
+				private _displayName = getText (configFile >> "CfgVehicles" >> _id >> "displayName");;
+				private _type = if((_x isKindOf "Air") || (_x isKindOf "Plane")) then {"plane"} else {"vehicle"};
+				private _infoString = format["%1,%2,%3,OBJ_%4",_type,_id,1,_x];
+				private _i = _control lbAdd format ["(1x) %1",_displayName];
+				_control lbSetData [_i,_infoString];
+			};
+		};
+	} forEach _near;
 
 	private _stock = A3PL_Company_Building getVariable["stock",[]];
 	private _control = _display displayCtrl 1500;
@@ -694,10 +710,33 @@
 			[_class,-(_addAmount)] call A3PL_Inventory_Add;
 		};
 		case "vehicle": {
-
+			if(count(_itemData) isEqualTo 4) then {
+				_objString = _itemData select 3;
+				_splitted = _objString splitString "_";
+				if ((_splitted select 0) isEqualTo "OBJ") then
+				{
+					private _typeOf = toArray _objString;
+					_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;
+					_typeOf = toString _typeOf;
+					private _veh = [_typeOf] call A3PL_Lib_vehStringToObj;
+					[_veh] remoteExecCall ["Server_Vehicle_Sell",2];
+				};
+			};
+			
 		};
 		case "plane": {
-			
+			if(count(_itemData) isEqualTo 4) then {
+				_objString = _itemData select 3;
+				_splitted = _objString splitString "_";
+				if ((_splitted select 0) isEqualTo "OBJ") then
+				{
+					private _typeOf = toArray _objString;
+					_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;
+					_typeOf = toString _typeOf;
+					private _veh = [_typeOf] call A3PL_Lib_vehStringToObj;
+					[_veh] remoteExecCall ["Server_Vehicle_Sell",2];
+				};
+			};
 		};
 	};
 	[A3PL_Company_Building,_type,_class,_addAmount,_addPrice,player] remoteExec ["Server_Company_ShopAddStock",2];

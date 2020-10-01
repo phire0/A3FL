@@ -59,19 +59,29 @@
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 		case "lookupvehicles": {
-			private _query = format ["SELECT id,class,stolen,insurance FROM objects WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND NOT type='object'",_name];
+			private _query = format ["SELECT id,class,stolen,insurance FROM objects WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND NOT type='object' AND cid = '0'",_name];
 			private _return = [_query, 2,true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 		case "lookuplicense": {
-			private _query = format ["SELECT name, (SELECT stolen FROM objects WHERE id='%1') AS stolen, (SELECT class FROM objects WHERE id = '%1') AS class, (SELECT insurance FROM objects WHERE id = '%1') AS insured FROM players WHERE uid = (SELECT uid FROM objects WHERE (type='vehicle' OR type='plane') AND id='%1')",_name];
+			private _query = format ["SELECT name, (SELECT stolen FROM objects WHERE id='%1') AS stolen, (SELECT class FROM objects WHERE id = '%1') AS class, (SELECT insurance FROM objects WHERE id = '%1') AS insured, (SELECT cid FROM objects WHERE id='%1') AS cid FROM players WHERE uid = (SELECT uid FROM objects WHERE (type='vehicle' OR type='plane') AND id='%1')",_name];
 			private _return = [_query, 2] call Server_Database_Async;
 			_return pushBack _name;
+
+			if(!((_return select 4) isEqualTo 0)) then {
+				private _query = format ["SELECT name FROM companies WHERE id = '%1'",(_return select 4)];
+				private _creturn = [_query, 2] call Server_Database_Async;
+				_return pushBack (_creturn select 0);
+			};
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 		case "lookupcompany": {
 			private _query = format ["SELECT name, description, (SELECT name FROM players WHERE uid=(SELECT boss FROM companies WHERE name='%1')) AS boss, bank, licenses FROM companies WHERE name = '%1'",_name];
 			private _return = [_query, 2] call Server_Database_Async;
+			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+		};
+		case "lookupcompvehicles": {
+			private _return = [];
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 		case "lookupaddress": {
@@ -337,6 +347,7 @@
 		_storage addWeaponCargoGlobal [((_weapons select 0) select _i), ((_weapons select 1) select _i)];
 	};
 	_storage setVariable["storage",_virtual,true];
+	_storage setVariable["capacity",10000,true];
 },true] call Server_Setup_Compile;
 
 ["Server_Police_SeizureSave",

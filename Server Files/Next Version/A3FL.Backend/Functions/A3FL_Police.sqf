@@ -876,10 +876,10 @@
 		case "lookuplicense":
 		{
 			if(count _return > 1) then {
-				_plate = _return select 4;
-				_insured = _return select 3;
 				_name = _return select 0;
 				_class = _return select 2;
+				_insured = _return select 3;
+				_plate = _return select 5;
 
 				_vehName = getText(configFile >>  "CfgVehicles" >>  _class >> "displayName");
 
@@ -901,6 +901,10 @@
 				<t align='center'>Owner: %2</t><br />
 				<t align='center'>Reported stolen: %4</t><br />
 				<t align='center'>Insurance: %5</t>",_plate,_name,_vehName,_stolen,_insured];
+
+				if(count(_return) isEqualTo 7) then {
+					_output = _output + format["<br /><t align='center'>Company: %1</t>",_return select 6];
+				};
 			} else {
 				_output = format ["No information available for registration %1",_plate];
 			};

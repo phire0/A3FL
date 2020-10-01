@@ -204,7 +204,7 @@
 	private _isBeingRobbed = Ship_BlackMarket getVariable["robProgress",false];
 	private _cooldown = Ship_BlackMarket getVariable ["RobCooldown",serverTime-7200];
 	if (_isBeingRobbed) exitWith {["The ship is already being robbed!","red"] call A3PL_Player_Notification;};
-	if (_cooldown >= (serverTime-7200)) exitWith {["The ship has already been robbed recently!","red"] call A3PL_Player_Notification;};
+	if (_cooldown > (serverTime-7200)) exitWith {["The ship has already been robbed recently!","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) IN ["A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a port with this weapon!","red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {["You are already doing something.","red"] call A3PL_Player_Notification;};
@@ -215,16 +215,15 @@
 
 	[] remoteExec ["A3PL_Robberies_PShipRobbed",_CG];
 
-	["Robbing the ship...",300] spawn A3PL_Lib_LoadAction;
-	_success = true;
+	["Robbing the ship...",480] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
-		if((player distance Ship_BlackMarket) > 20) exitWith {_success = false;};
-		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if ((vehicle player) != player) exitwith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if((player distance Ship_BlackMarket) > 20) exitWith {Player_ActionInterrupted = true;};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {Player_ActionInterrupted = true;};
+		if ((vehicle player) != player) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
 	};
-	if(!_success) exitWith {["Capture cancelled.","red"] call A3PL_Player_Notification;};
+	if(Player_ActionInterrupted) exitWith {["Capture cancelled.","red"] call A3PL_Player_Notification;};
 	[] call A3PL_Robberies_ShipSuccess;
 	
 	[getPlayerUID player,"shipCaptured",[]] remoteExec ["Server_Log_New",2];
@@ -234,6 +233,7 @@
 {
 	private _countUSCG = count(["uscg"] call A3PL_Lib_FactionPlayers);
 	private _moneyAmount = 250000 + round(random 50000) + (10000*_countUSCG);
+	private _currentMoney = player getVariable["Player_Cash",0];
 	private _totalArray = [["weed_100g",8],["shrooms",8],["cocaine",13]];
 	private _finalArray = [];
 	private _itemCount = 2 + round(random(5));
@@ -244,6 +244,7 @@
 	{
 		[(_x select 0),(_x select 1)] call A3PL_Inventory_Add;
 	} foreach _finalArray;
+	player setVariable["Player_Cash",_currentMoney+_moneyAmount,true];
 	Ship_BlackMarket setVariable ["RobCooldown",diag_Ticktime,true];
 }] call Server_Setup_Compile;
 

@@ -164,7 +164,7 @@
 ["A3PL_Storage_CarStoreButton",
 {
 	private _intersect = player_objIntersect;
-	private _type = param [0,"car"];
+	private _toCompany = param [0,0];
 	if (isNull _intersect) exitwith {};
 	private _types = ["Car","Ship","Tank","Truck","Plane","Helicopter","Air"];
 	private _near = nearestObjects [_intersect,_types,15];
@@ -173,7 +173,7 @@
 	[8] call A3PL_Storage_CarStoreResponse;
 
 	if (typeOf _intersect IN ["Land_A3PL_storage"]) then {
-		[player,_intersect] remoteExec ["Server_Storage_StoreVehicle",2];
+		[player,_intersect,_toCompany] remoteExec ["Server_Storage_StoreVehicle",2];
 	} else {
 		private _cars = nearestObjects [player, ["Car","Ship","Air","Tank","Truck"], 15];
 		if((count _cars) isEqualTo 0) exitWith {[localize"STR_NewStorage_9", "red"] call A3PL_Player_Notification;};
@@ -183,7 +183,7 @@
 		private _countAttached = count(_attachedObjects);
 		if ((_countAttached > 0 || (_countAttached == 1 && (count(_attachedObjects select 0) == 0)))) exitWith {["Error: Contant a Director if you see this","red"] call A3PL_Player_Notification;};
 		//if (count (attachedObjects _car) > 0) exitWith {["There is objects attached to this vehicle, please unload everything before storing your vehicle.", "red"] call A3PL_Player_Notification;};
-		[_car,player] remoteExec ["Server_Storage_SaveLargeVehicles",2];
+		[_car,player,_toCompany] remoteExec ["Server_Storage_SaveLargeVehicles",2];
 	};
 }] call Server_Setup_Compile;
 
@@ -221,39 +221,36 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Storage_OpenCarStorage", {
-	private ["_type"];
-
-	if(player_objintersect getVariable ["inUse",false]) exitWith {
-		[localize"STR_NewStorage_38", "red"] call A3PL_Player_Notification;
-	};
+	if(player_objintersect getVariable ["inUse",false]) exitWith {[localize"STR_NewStorage_38", "red"] call A3PL_Player_Notification;};
 
 	createDialog "dialog_PlayerGarage";
-
-	_type = player_objintersect getVariable ["type","vehicle"];
+	private _type = player_objintersect getVariable ["type","vehicle"];
 	if (!(player_objintersect IN A3PL_Jobroadworker_Impounds)) then {
 		player_objintersect setVariable ["inUse",true,true];
 	};
 
 	[] spawn {
-		private ["_garage"];
-		_garage = player_objintersect;
+		private _garage = player_objintersect;
 		waitUntil {uiSleep 0.1; isNull findDisplay 145};
-		uiSleep 2;
+		sleep 2;
 		_garage setVariable ["inUse",false,true];
 	};
 
-	if (player_objintersect IN A3PL_Jobroadworker_Impounds) then {
+	if (player_objintersect IN A3PL_Jobroadworker_Impounds) exitWith {
 		[player,"-1",1] remoteExec ["Server_Storage_ReturnVehicles", 2];
 	};
-	if (player_objintersect IN A3PL_Air_Impounds) then {
+	if (player_objintersect IN A3PL_Air_Impounds) exitWith {
 		[player,"-1",1,"plane"] remoteExec ["Server_Storage_ReturnVehicles", 2];
 	};
-	if (player_objintersect IN A3PL_Chopshop_Retrivals) then {
+	if (player_objintersect IN A3PL_Chopshop_Retrivals) exitWith {
 		[player,"-1",2] remoteExec ["Server_Storage_ReturnVehicles", 2];
 	};
-	if ((A3PL_Chopshop_Retrivals find player_objintersect == -1) && (A3PL_Jobroadworker_Impounds find player_objintersect == -1)) then {
-		[player,"-1",0,_type] remoteExec ["Server_Storage_ReturnVehicles", 2];
+	private _company = param[0,false];
+	if(_company) exitWith {
+		private _cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
+		[player,"-1",0,_type,_cid] remoteExec ["Server_Storage_ReturnVehicles", 2];
 	};
+	[player,"-1",0,_type] remoteExec ["Server_Storage_ReturnVehicles", 2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Storage_VehicleReceive", {
