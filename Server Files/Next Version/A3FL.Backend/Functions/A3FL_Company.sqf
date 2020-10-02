@@ -523,8 +523,11 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_ShopBuy', {
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1500;
+	if ((lbCurSel _control) < 0) exitwith {["Please select an item in the list first","red"] call A3PL_Player_Notification;};
+
 	private _itemData = (_control lbData (lbCurSel _control)) splitString ",";
 	private _control = _display displayCtrl 1400;
 	private _buyAmount = floor(parseNumber (ctrlText _control));
@@ -535,7 +538,8 @@
 	private _cash = player getVariable["Player_Cash",0];
 	private _itemName = "undefined";
 	private _canTake = true;
-	private _cid = A3PL_Company_Building getVariable["cid",-1];
+	private _cid = A3PL_Company_Building getVariable["cid",-1];	
+
 	switch(_type) do {
 		case ("item"):{
 			_itemName = [_class,"name"] call A3PL_Config_GetItem;
@@ -675,8 +679,10 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_AddShopStock', {
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1501;
+	if ((lbCurSel _control) < 0) exitwith {["Please select an item in the list first","red"] call A3PL_Player_Notification;};
 	private _itemData = _control lbData (lbCurSel _control);
 
 	private _control = _display displayCtrl 1401;
@@ -745,8 +751,10 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_RemoveShopStock', {
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1500;
+	if ((lbCurSel _control) < 0) exitwith {["Please select an item in the list first","red"] call A3PL_Player_Notification;};
 	private _itemData = (_control lbData (lbCurSel _control)) splitString ",";
 	private _control = _display displayCtrl 1400;
 	private _takeAmount = floor(parseNumber (ctrlText _control));

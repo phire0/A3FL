@@ -1113,7 +1113,7 @@ A3PL_Interaction_Options =
 	[
 		"Shop Management",
 		{call A3PL_Company_OpenShopStock;},
-		{((typeOf cursorObject) isKindOf "House") && {!isNil {cursorObject getVariable["cid",nil]}} && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}
+		{((typeOf cursorObject) isKindOf "House") && {([getPlayerUID player] call A3PL_Config_GetCompanyID) isEqualTo cursorObject getVariable["cid",0]}}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";
