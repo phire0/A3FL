@@ -307,6 +307,7 @@
 {
 	private _shopList = ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"];
 	private _shops = ["SELECT companies_shops.cid, companies_shops.location, companies_shops.stock, companies.name FROM companies_shops, companies WHERE companies_shops.cid = companies.id", 2, true] call Server_Database_Async;
+
 	{
 		private _cid = (_x select 0);
 		private _pos = call compile (_x select 1);

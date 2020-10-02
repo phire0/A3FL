@@ -551,9 +551,9 @@ class Dialog_CompanyShop_Customer
 		{
 			idc = 1500;
 			x = 0.257656 * safezoneW + safezoneX;
-			y = 0.3 * safezoneH + safezoneY;
-			w = 0.475 * safezoneW;
-			h = 0.338 * safezoneH;
+			y = 0.285 * safezoneH + safezoneY;
+			w = 0.482 * safezoneW;
+			h = 0.34 * safezoneH;
 		};
 		class ButtonClose: RscButtonEmpty
 		{

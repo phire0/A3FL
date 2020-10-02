@@ -138,7 +138,7 @@
 		// "colorCorrections" ppEffectEnable true;
 		// "colorCorrections" ppEffectAdjust [0.5, 0.5, 0, [(random 10),(random 10),(random 10),0.2], [1,1,5,2], [(random 5),(random 5),(random 5),(random 5)]];
 		// "colorCorrections" ppEffectCommit 40;
-		player setstamina 100;
+		player setStamina 100;
 
 		//Adjusting animations speed
 		//player setAnimSpeedCoef (1+(_totalDrugs/200));
@@ -160,7 +160,6 @@
 	if((Player_Drugs select 1) > 0) then {
 		_coke = Player_Drugs select 1;
 
-
 		resetCamShake;
 		enableCamShake true;
 		addCamShake [((_coke)*0.6), 100, 2];
@@ -168,21 +167,21 @@
 		// "colorCorrections" ppEffectEnable true;
 		// "colorCorrections" ppEffectAdjust [0.5, 0.5, 0, [(random 10),(random 10),(random 10),0.2], [1,1,5,2], [(random 5),(random 5),(random 5),(random 5)]];
 		// "colorCorrections" ppEffectCommit 40;
-		player setAnimSpeedCoef 1.3;
+		player setAnimSpeedCoef 1.2;
 
 		//Adjusting animations speed
 		//player setAnimSpeedCoef (1+(_totalDrugs/200));
 
 		//Visual Effects
-		if(_coke > 30) then {
-			// "colorCorrections" ppEffectEnable true;
-			// "colorCorrections" ppEffectAdjust [0.01, 0.01, 0.06, 0.06];	//Make it variate with alcohol level
-			// "colorCorrections" ppEffectCommit 30;
-			player setStamina 200;
-		};
 		if(_coke >= 15) then {
 			// "colorCorrections" ppEffectEnable true;
 			// "colorCorrections" ppEffectAdjust [(_coke/800), (_coke/800), true];
+			// "colorCorrections" ppEffectCommit 30;
+			player setStamina 100;
+		};
+		if(_coke > 30) then {
+			// "colorCorrections" ppEffectEnable true;
+			// "colorCorrections" ppEffectAdjust [0.01, 0.01, 0.06, 0.06];	//Make it variate with alcohol level
 			// "colorCorrections" ppEffectCommit 30;
 			player setStamina 150;
 		};

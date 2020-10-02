@@ -5785,7 +5785,10 @@
       <Original>Rent Business</Original>
    </Key>
    <Key ID="STR_INTSECT_BUYBUSI">
-      <Original>Buy Business</Original>
+      <Original>Buy Company Shop</Original>
+   </Key>
+   <Key ID="STR_INTSECT_SELLBUSI">
+      <Original>Sell Company Shop</Original>
    </Key>
    <Key ID="STR_INTSECT_CONROLHOSE">
       <Original>Connect Rolled Hose</Original>

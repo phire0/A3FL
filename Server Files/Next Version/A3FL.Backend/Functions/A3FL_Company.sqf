@@ -489,6 +489,7 @@
 
 ['A3PL_Company_OpenSellShop', {
 	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	private _cid = 
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_BuyObject = _nearBy select 0;
 

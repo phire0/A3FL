@@ -459,7 +459,10 @@ Config_IntersectArray =
 
 	//signs
 	["sign_business",localize"STR_INTSECT_RENTBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\business_sign\business_sale_co.paa")}],
-	["sign_business",localize"STR_INTSECT_BUYBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\business_sign\business_sale_co.paa")}],
+	
+	["sign_business",localize"STR_INTSECT_BUYBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\business_sign\business_sale_co.paa") && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
+	["sign_business",localize"STR_INTSECT_SELLBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\business_sign\business_rented_co.paa") && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
+
 	["sign_business","Purchase Warehouse",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{count nearestObjects[player,Config_Warehouses_List,15] > 0}],
 
 	//FD interactions

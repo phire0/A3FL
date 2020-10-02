@@ -250,7 +250,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_OPENMED",
 		{[player] spawn A3PL_Medical_Open;},
-		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "")}
+		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "") && !(underwater(vehicle player))}
 	],
 	[
 		localize "STR_INTER_TAKEPHOST",
@@ -526,7 +526,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_INVENTORY",
 		{call A3PL_Inventory_Open;},
-		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "") && ((vehicle player) isEqualTo player) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && (animationState player) != "a3pl_takenhostage"}
+		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "") && ((vehicle player) isEqualTo player) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && ((animationState player) != "a3pl_takenhostage") && !(underwater(vehicle player))}
 	],
 	[
 		localize "STR_INTER_INVENTORY",
@@ -1103,6 +1103,17 @@ A3PL_Interaction_Options =
 			_dog setVariable["Dog_Moving",false,true];
 		},
 		{!(isNull(player getVariable["Player_Dog",objNull]))}
+	],
+
+	[
+		"Open Company Shop",
+		{call A3PL_Company_OpenShop;},
+		{((typeOf cursorObject) isKindOf "House") && {!isNil {cursorObject getVariable["cid",nil]}}}
+	],
+	[
+		"Shop Management",
+		{call A3PL_Company_OpenShopStock;},
+		{((typeOf cursorObject) isKindOf "House") && {!isNil {cursorObject getVariable["cid",nil]}} && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";
