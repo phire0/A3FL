@@ -442,6 +442,21 @@ Config_Factories =
 		["f_MG_Watercraft_Uniform","","inh","inh","A3PL_MG_Watercraft_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Infowars_Uniform","","inh","inh","A3PL_Infowars_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_DHLSwimmer_Uniform","","inh","inh","A3PL_DHLSwimmer_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Sorrento_Shirt_Uniform","","inh","inh","A3PL_Sorrento_Shirt_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_StonedCombat_Uniform","","inh","inh","A3PL_StonedCombat_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_COD3_Manager_Uniform","","inh","inh","A3PL_COD3_Manager_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_COD3_CEO_Uniform","","inh","inh","A3PL_COD3_CEO_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_COD3_CMO_Uniform","","inh","inh","A3PL_COD3_CMO_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_COD3_COO_Uniform","","inh","inh","A3PL_COD3_COO_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_COD3_CFO_Uniform","","inh","inh","A3PL_COD3_CFO_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_COD3_Combat_Uniform","","inh","inh","A3PL_COD3_Combat_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_COD3_Swimmer_Uniform","","inh","inh","A3PL_COD3_Swimmer_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_FICS_Trainee_Uniform","","inh","inh","A3PL_FICS_Trainee_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_FICS_Member_Uniform","","inh","inh","A3PL_FICS_Member_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_FICS_Supervisor_Uniform","","inh","inh","A3PL_FICS_Supervisor_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_FICS_Manager_Uniform","","inh","inh","A3PL_FICS_Manager_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_FICS_Executive_Uniform","","inh","inh","A3PL_FICS_Executive_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Watchful_Eyes_Hunter_Uniform","","inh","inh","A3PL_Watchful_Eyes_Hunter_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Sorrento_Shirt_Uniform","","inh","inh","A3PL_Sorrento_Shirt_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
@@ -463,7 +478,8 @@ Config_Factories =
 		["f_FakeNews_Safety","","inh","inh","A3PL_FakeNews_Safety","vest",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Express_vest","","inh","inh","A3PL_Express_vest","vest",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Evergreen_Vest","","inh","inh","A3PL_Evergreen_Vest","vest",true,5,[["Polyester",1]],1,1,0,""],
-		["f_DeadwoodMC_Vest","","inh","inh","A3PL_DeadwoodMC_Vest","vest",true,5,[["Polyester",1]],1,1,0,""]
+		["f_DeadwoodMC_Vest","","inh","inh","A3PL_DeadwoodMC_Vest","vest",true,5,[["Polyester",1]],1,1,0,""],
+		["f_JoseConstruct_Safety_Vest","","inh","inh","A3PL_JoseConstruct_Safety_Vest","vest",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
 	["Headgear Factory",[3852.065,9212.537,1.2],
@@ -626,7 +642,8 @@ Config_Factories =
 		["f_H_Evergreen_Cap","","inh","inh","A3PL_Evergreen_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_H_FRIGGUS_Cap","","inh","inh","A3PL_FRIGGUS_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Veloucci_Cap","","inh","inh","A3PL_Veloucci_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
-		["f_Veloucci_Cap_Camo","","inh","inh","A3PL_Veloucci_Cap_Camo","headgear",true,5,[["Polyester",1]],1,1,0,""]
+		["f_Veloucci_Cap_Camo","","inh","inh","A3PL_Veloucci_Cap_Camo","headgear",true,5,[["Polyester",1]],1,1,0,""],
+		["f_COD3_Cap","","inh","inh","A3PL_COD3_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
 	["Goggle Factory",[3852.065,9212.537,1.2],
