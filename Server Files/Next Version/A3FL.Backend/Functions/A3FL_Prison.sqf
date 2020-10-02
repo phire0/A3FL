@@ -64,18 +64,17 @@
 			[_jail,_anim,false,0] call A3PL_Lib_ToggleAnimation;
 		};
 	};
-	if (_name isEqualTo "console_lockdown") exitwith
-	{
-		[_jail] call A3PL_Prison_Lockdown;
-		
+	if (_name isEqualTo "console_lockdown") exitwith {
+		call A3PL_Prison_Lockdown;
 	};
 }] call Server_Setup_Compile;
 
-["A3PL_Prison_LockpickCell",
+["A3PL_Prison_Lockdown",
 {
-	private _jail = param [0,objNull];
+	private _pos = getPos player;
+	private _jail = (nearestObjects [_pos, ["Land_A3PL_Prison"], 1000]) select 0;
+	private _gate = (nearestObjects [_pos, ["Land_A3FL_DOC_Gate"], 1000]) select 0;
 	private _cooldown = _jail getVariable["lockdownEngaged",serverTime-300];
-	private _gate = (nearestObjects [_jail, ["Land_A3FL_DOC_Gate"], 1000]) select 0;
 	if(_cooldown > (serverTime-300)) exitWith {["The Prison lockdown was already used less than 5 minutes ago","red"] call A3PL_Player_Notification;};
 	_jail setVariable["lockdownEngaged",serverTime,true];
 	playSound3D ["A3PL_Common\effects\lockdown.ogg", _jail, false, getPosASL _jail, 3, 1, 1800];
@@ -96,7 +95,6 @@
 			_gate setObjectTextureGlobal [_forEachIndex,"#(argb,8,8,3)color(1,0,0,1.0,co)"];
 		};
 	} foreach (getObjectTextures _gate);
-
 	{
 			if (_x animationPhase "door_1" > 0.1) then {[_x,"door_1",false,0] call A3PL_Lib_ToggleAnimation;};
 	} foreach (nearestObjects [_jail, ["Land_A3FL_DOC_Wall_Tower","Land_A3FL_DOC_Wall_Tower_Corner"], 600]);
@@ -318,6 +316,9 @@
 			_obj setObjectTextureGlobal [_hSel,"#(argb,8,8,3)color(1,0,0,1.0,co)"];
 			[_obj,_anim,false,0] call A3PL_Lib_ToggleAnimation;
 		};
+	};
+	if (_name isEqualTo "console_lockdown") exitwith {
+		call A3PL_Prison_Lockdown;
 	};
 }] call Server_Setup_Compile;
 

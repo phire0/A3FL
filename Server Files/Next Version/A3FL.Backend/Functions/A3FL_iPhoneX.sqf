@@ -283,7 +283,7 @@
 	disableSerialization;
 	private _from = _this select 0;
 	private _to = _this select 1;
-	["Someone is calling on the emergency line","yellow"] call A3PL_Player_Notification;
+	["Someone is calling 911","yellow"] call A3PL_Player_Notification;
 	playSound3D ["A3PL_Common\GUI\phone\sounds\emergency_sound.ogg", player, false, getPosASL player, 5, 1, 5];
 	player setVariable["iPhone_911_Call",true,false];
 	sleep 30;
@@ -707,7 +707,7 @@
 			_minute  = str (date select 4);
 			_time = format["%1h%2", if((count _hour) isEqualTo 1) then {("0" + _hour)} else {_hour}, if((count _minute) isEqualTo 1) then {("0" + _minute)} else {_minute}];
 			player setVariable ["iPhone_X_lastSMS",[_namecontact, _message, _time, _from]];
-			playSound3D ["A3PL_Common\GUI\phone\sounds\emergency_sound.ogg", player, false, getPosASL player, 5, 1, 5];
+			if ((_iPhone_Settings select 2) isEqualTo 0) then {playSound3D ["A3PL_Common\GUI\phone\sounds\emergency_sound.ogg", player, false, getPosASL player, 5, 1, 5];};
 			[format["911 : %1",_message],"blue"] call A3PL_Player_Notification;
 			player setVariable["iPhone_911_Text",true,false];
 			sleep 30;
@@ -756,7 +756,7 @@
 			player setVariable ["iPhone_X_lastSMS",[_namecontact, _message, _time, _from]];
 			_iPhone_Settings = profileNamespace getVariable ["A3PL_iPhoneX_Settings",[2,1,0]];
 			if ((_iPhone_Settings select 2) isEqualTo 0) then {playSound3D ["A3PL_Common\GUI\phone\sounds\notification_sound.ogg", player, false, getPosASL player, 5, 1, 5];};
-			["You have received an SMS","yellow"] call A3PL_Player_Notification;
+			["You have received a text message","yellow"] call A3PL_Player_Notification;
 			playSound3D ["A3PL_Common\GUI\phone\sounds\notification_sound.ogg", player, false, getPosASL player, 5, 1, 5];
 		};
 	};
