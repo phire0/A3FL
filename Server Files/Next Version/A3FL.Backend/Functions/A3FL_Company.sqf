@@ -535,6 +535,7 @@
 	private _cash = player getVariable["Player_Cash",0];
 	private _itemName = "undefined";
 	private _canTake = true;
+	private _cid = A3PL_Company_Building getVariable["cid",-1];
 	switch(_type) do {
 		case ("item"):{
 			_itemName = [_class,"name"] call A3PL_Config_GetItem;
@@ -576,7 +577,7 @@
 		};
 	};
 	if(!_canTake) exitWith {["You cannot carry this amount!","red"] call A3PL_Player_Notification;};
-
+	[_cid, _price, format["Shop %1x%2",_buyAmount,_itemName]] remoteExec ["Server_Company_SetBank",2];
 	player setVariable["Player_Cash",(_cash-_price),true];
 	[A3PL_Company_Building,_class,_takeAmount,player,true] remoteExec ["Server_Company_ShopRemoveStock",2];
 }] call Server_Setup_Compile;

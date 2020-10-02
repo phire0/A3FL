@@ -773,7 +773,7 @@
 ["A3PL_Medical_Die",
 {
 	params [["_unit",objNull,[objNull]]];
-	private _timer = 60;
+	private _timer = 600;
 	private _lastDamage = _unit getVariable ["lastDamage",0];
 	disableSerialization;
 	
