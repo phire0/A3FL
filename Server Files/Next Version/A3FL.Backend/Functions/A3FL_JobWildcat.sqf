@@ -312,16 +312,16 @@
 		if ((_chance >= 1) && (_chance <= 30)) then {
 			_mapType = localize"STR_Config_Resources_Sapphire";
 		}
-		elseif ((_chance >= 31) && (_chance <= 50)) then {
+		if ((_chance >= 31) && (_chance <= 50)) then {
 			_mapType = localize"STR_Config_Resources_Vivianite";
 		}
-		elseif ((_chance >= 51) && (_chance <= 70)) then {
+		if ((_chance >= 51) && (_chance <= 70)) then {
 			_mapType = localize"STR_Config_Resources_Emerald";
 		}
-		elseif ((_chance >= 71) && (_chance <= 85)) then {
+		if ((_chance >= 71) && (_chance <= 85)) then {
 			_mapType = localize"STR_Config_Resources_Gold";
 		}
-		else {
+		if ((_chance >= 86) && (_chance <= 100)) then {
 			_maptype = localize"STR_Config_Resources_Amethyst";
 		};
 	};
