@@ -648,7 +648,6 @@ Config_Shops_Items = [
 			["vest","A3PL_SD_Rig",350,-1,0],
 			["vest","A3PL_SD_Rig_Air",350,-1,0],
 			["vest","A3PL_SD_High_Threat_Lite",350,-1,0],
-			["headgear","A3PL_Sheriff_Test_Cap",0,-1,0],
 			["headgear","A3PL_Sheriff_Black_Cap",0,-1,0],
 			["headgear","A3PL_Sheriff_Campaign_Hat_Grey",0,-1,0],
 			["headgear","A3PL_Sheriff_Grey_Cap",0,-1,0],

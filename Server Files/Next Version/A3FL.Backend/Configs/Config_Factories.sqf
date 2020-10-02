@@ -244,7 +244,6 @@ Config_Factories =
 		["f_CaseyLogistics_CEO_Uniform","","inh","inh","A3PL_CaseyLogistics_CEO_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_CaseyLogistics_CFO_Uniform","","inh","inh","A3PL_CaseyLogistics_CFO_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_CaseyLogistics_Foun_Uniform","","inh","inh","A3PL_CaseyLogistics_Foun_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
-		["f_Fishers_Island_Civilian_Service_Uniform","","inh","inh","A3PL_Fishers_Island_Civilian_Service_Uniform ","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Escaroba_Security_Uniform","","inh","inh","A3PL_Escaroba_Security_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_High_Society_Uniform","","inh","inh","A3PL_High_Society_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Daniel_Uniform","","inh","inh","A3PL_Daniel_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],

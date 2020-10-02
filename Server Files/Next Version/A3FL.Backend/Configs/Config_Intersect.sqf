@@ -272,8 +272,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_BuyMapAluminium",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
 	["spine3",localize"STR_QuickActionsNPC_BuyMapSulfur",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
 	["spine3",localize"STR_QuickActionsNPC_BuyMapOil",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
-	["spine3",localize"STR_QuickActionsNPC_BuyMapRare",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike]}],
-	["spine3",localize"STR_QuickActionsNPC_BuyMapRare",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike2]}],
+	["spine3",localize"STR_QuickActionsNPC_BuyMapRare",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_miningmike,npc_miningmike2]}],
 
 	["spine3",localize"STR_QuickActionsNPC_OpenBusiness",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_government) && {!([getPlayerUID player] call A3PL_Config_InCompany)}}],
 	["spine3",localize"STR_QuickActionsNPC_BusinessManagement",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_government) && {([getPlayerUID player] call A3PL_Config_IsCompanyBoss)}}],
@@ -2041,6 +2040,7 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_BuyMapAluminium",
 	localize"STR_QuickActionsNPC_BuyMapSulfur",
 	localize"STR_QuickActionsNPC_BuyMapOil",
+	localize"STR_QuickActionsNPC_BuyMapRare",
 	format [localize"STR_INTSECT_OCCOMPT",1],
 	format [localize"STR_INTSECT_OCCOMPT",2],
 	format [localize"STR_INTSECT_OCCOMPT",3],
