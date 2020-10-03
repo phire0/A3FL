@@ -849,8 +849,6 @@
 	camDestroy A3PL_deathCam;
 	if(dialog) then {closeDialog 0;};
 	
-
-	disableUserInput false;
 	player switchMove "";
 	player setDamage 0;
 	player setVariable ["DoubleTapped",false,true];
@@ -862,6 +860,7 @@
 	player setVariable ["A3PL_MedicalVars",[MAXBLOODLVL,"120/80",37],true];
 	player setVariable ["A3PL_MedicalLog",nil,true];
 	player setVariable ["TimeRemaining",nil,true];
+	player allowDamage true;
 
 	Player_Hunger = 100;
 	Player_Thirst = 100;
@@ -959,6 +958,7 @@
 	player setDir (getDir _deadBody);
 	player setPosASL (visiblePositionASL _deadBody);
 	player setUnitLoadout A3PL_Player_DeadBodyGear;
+	player allowDamage true;
 	deleteVehicle (_deadBody);
 }] call Server_Setup_Compile;
 

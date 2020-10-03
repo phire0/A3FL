@@ -634,6 +634,7 @@
 		A3PL_DeadBody setVariable["realPlayer",player,true];
 		A3PL_DeadBody setVariable["A3PL_Medical_Alive",false,true];
 		player setVariable["deadBody",A3PL_DeadBody,true];
+		player allowDamage false;
 		player playMoveNow "AmovPpneMstpSrasWrflDnon";
 	}];
 }] call Server_Setup_Compile;
