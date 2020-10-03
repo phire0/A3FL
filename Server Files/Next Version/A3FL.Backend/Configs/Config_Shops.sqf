@@ -614,6 +614,7 @@ Config_Shops_Items = [
 			["item","plastic_barrier_large",0,-1,0],
 			["aitem","Rangefinder",50,-1,0],
 			["weapon","A3PL_FireAxe",250,-1,0],
+			["weapon","A3PL_Jaws",250,-1,0],
 			["uniform","A3PL_SD_NR_Tan_Uniform",0,-1,0],
 			["uniform","A3PL_SD_Cad_Tan_Uniform",0,-1,0],
 			["uniform","A3PL_SD_Dep_Tan_Uniform",0,-1,0],
