@@ -102,6 +102,7 @@
 			case ("A3PL_Taurus_FD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_T370"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_Nissan_GTR"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_Nissan_GTR_LW"): {_veh call A3PL_Vehicle_Init_A3PL_Engine; };
 		};
 	};
 
