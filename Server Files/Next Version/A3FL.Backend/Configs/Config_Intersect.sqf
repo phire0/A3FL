@@ -829,7 +829,6 @@ Config_IntersectArray =
 	["Spine1",localize"STR_INTSECT_DRAG","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(isPlayer player_objintersect) && {(player_objintersect getVariable ["Cuffed",true])} && {((player getVariable "job") IN ["uscg","fisd","fims"])}}], //Drag
 	["Spine3",localize"STR_INTSECT_DRAG","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(isPlayer player_objintersect) && {(surfaceIsWater position player)} && {(player_objintersect getVariable ["Cuffed",true])} && {((player getVariable "job") IN ["uscg","fisd","fims"])}}], //Drag
 	["Spine1",localize"STR_INTSECT_DRAG","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{(isPlayer player_objintersect) && (surfaceIsWater position player) && {(player_objintersect getVariable ["Cuffed",true])} && {((player getVariable "job") IN ["uscg","fisd","fims"])}}], //Drag
-	["spine3",localize"STR_INTSECT_KICKDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{(animationState player_objintersect == "a3pl_handsupkneelcuffed") && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && (animationState player) != "a3pl_takenhostage"}], //Kick Down
 	["Spine3",localize"STR_INTSECT_PATDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{((player getVariable "job") IN ["fisd","uscg","faa","fims"]) && (isPlayer player_objintersect) && ((animationState player_objintersect IN ["a3pl_idletohandsup","a3pl_handsuptokneel"]) || (player_objintersect getVariable ["Cuffed",true]))}], //Pat down
 	["Spine3","Remove Mask","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfoAirRTDFull\ico_insp_hand_1_ca.paa",{((player getVariable "job") IN ["fisd","uscg","fims"]) && {(player_objintersect getVariable ["Cuffed",true])} && {(goggles player_objintersect != "")} && {(isPlayer player_objintersect)}}], //Remove mask
 
@@ -1462,6 +1461,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_A3PL_Medical_ChestCompressions","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{{!(player_objIntersect getVariable ["A3PL_Medical_Alive",true])}}],
 	["spine3",localize"STR_INTSECT_OPENMEDICALMEN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && {isPlayer player_objIntersect}}],
 
+	["spine3",localize"STR_INTSECT_KICKDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{(animationState player_objintersect == "a3pl_handsupkneelcuffed") && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && (animationState player) != "a3pl_takenhostage"}], //Kick Down
 	//Ladder Actions
 	["Ladder_1",localize"STR_INTSECT_PICKUPLAD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeof player_objintersect == "A3PL_Ladder"}], //Pickup Ladder
 	["Ladder_1",format [localize"STR_INTSECT_CLIMBUPL",1],_dir+"IGUI\Cfg\Actions\ladderup_ca.paa",{true}], //Climb Up Ladder %1
@@ -1978,7 +1978,6 @@ Config_GenArray =
 	localize"STR_INTSECT_DRAG",
 	localize"STR_INTSECT_DRAGH",
 	localize"STR_INTSECT_Grab",
-	localize"STR_INTSECT_KICKDOWN",
 	localize"STR_INTSECT_LUVEHDOORS",
  	localize"STR_INTSECT_REPVEH",
 	localize"STR_INTSECT_HANDTICKET",
@@ -1998,6 +1997,7 @@ Config_GenArray =
 	localize"STR_INTSECT_TOGLPF",
 	localize"STR_INTSECT_TOGRPF",
 	localize"STR_INTSECT_OPENMEDICALMEN",
+	localize"STR_INTSECT_KICKDOWN",
 	localize"STR_A3PL_Medical_ChestCompressions",
 	localize"STR_INTSECT_REDRARM",
 	localize"STR_INTSECT_REDRARMD",
