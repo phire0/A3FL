@@ -517,6 +517,7 @@ Config_Factories =
 		["f_Supreme_Cap","","inh","inh","A3PL_Supreme_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Supreme_LV","","inh","inh","A3PL_Supreme_LV","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Axel_Cap","","inh","inh","A3PL_Axel_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Watchful_Eyes_Helmet","","inh","inh","A3PL_Watchful_Eyes_Helmet","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Gunn_Racing_Helmet","","inh","inh","A3PL_Gunn_Racing_Helmet","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Gunn_Racing_Cap","","inh","inh","A3PL_Gunn_Racing_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Gunn_Fedora","","inh","inh","A3PL_Gunn_Fedora","headgear",true,5,[["Polyester",1]],1,1,0,""],

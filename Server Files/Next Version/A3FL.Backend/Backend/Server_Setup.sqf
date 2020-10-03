@@ -186,6 +186,4 @@
 	publicVariable "A3PL_Event_CrimePayout";
 
 	Server_AllBusStops = nearestObjects [[6420.21,7001.08,0], ["Land_A3PL_BusStop"], 5000, false];
-
-	Ship_BlackMarket enableSimulationGlobal false;
 },true,true] call Server_Setup_Compile;
