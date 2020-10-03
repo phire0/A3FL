@@ -501,7 +501,8 @@
 	true;
 	};
 	if ((_dikCode isEqualTo 71) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
-		_target = _target getVariable["realPlayer",player_objintersect];
+		_target = player_objintersect;
+		if(!alive _target) then {_target = _target getVariable["realPlayer",player_objintersect];};		
 		[player,"admin_heal",[_target getVariable["name","unknown"]]] remoteExec ["Server_AdminLoginsert", 2];
 		_target setDamage 0;
 		_target setVariable ["A3PL_Medical_Alive",true,true];
@@ -626,6 +627,7 @@
 ["A3PL_EventHandlers_Killed",
 {
 	player removeEventHandler["Killed",0];
+	player removeEventHandler["Respawn",0];
 	player addEventHandler ["Killed",{_this call A3PL_Medical_Die;}];
 	player addEventHandler ["Respawn", {
 		private _unit = _this select 0;
@@ -657,7 +659,10 @@
 		private _noDamage = if (_selection isEqualTo "") then {damage _unit;} else {_unit getHit _selection;};
 		private _noDamageBullets = ["A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball","A3FL_PepperSpray_Ball"];
 		private _adminMode = _unit getVariable ["pVar_RedNameOn",false];
-	
+		private _controlDamage = false;
+		private _damageScript = false;
+		if(["ammo", _projectile] call BIS_fnc_inString) then {_damage = _damage / 5;};
+		if(!(_unit getVariable["A3PL_Medical_Alive",true])) then {_damageScript = true;};
 		if (!isNull _source) then {
 			if(_source != _unit) then {
 				if (_projectile IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie"]) then {
@@ -684,10 +689,20 @@
 				};
 			};
 		};
-		if (!_adminMode && {!(_projectile IN _noDamageBullets)}) then {
+		if(!isNull _instigator) then {
+			if(count(attachedObjects _instigator) > 0) then {
+				{
+					if(!isNull _x) exitWith {_controlDamage = true;};
+				} forEach attachedObjects _instigator;
+			};
+		} else {
+			_controlDamage = true;
+		};
+
+		if (!_adminMode && {!(_projectile IN _noDamageBullets)} && {!_controlDamage}) then {
 			if ((_damage > 0) && {!(_selection isEqualTo "")}) then {
-				if (diag_tickTime > ((missionNameSpace getVariable ["A3PL_HitTime",diag_ticktime-0.2]) + 0.1)) then {
-					A3PL_HitTime = diag_ticktime;
+				if (diag_tickTime > ((missionNameSpace getVariable ["A3PL_HitTime",diag_tickTime-0.2]) + 0.1)) then {
+					A3PL_HitTime = diag_tickTime;
 					[_unit,_selection,_damage,_source,_projectile] spawn A3PL_Medical_Hit;
 				};
 				if((!isNull _instigator) && {!(_instigator isEqualTo _unit)}) then {
@@ -696,7 +711,7 @@
 				};
 			};
 		};
-		if(_projectile IN _noDamageBullets || {_adminMode}) then {_damage = _noDamage;};
+		if(_projectile IN _noDamageBullets || {_adminMode} || {_controlDamage} || {_damageScript}) then {_damage = _noDamage;};
 		_damage;
 	}];
 }] call Server_Setup_Compile;
@@ -746,6 +761,10 @@
 				} else {
 					["This locker is closed",Color_Red] call A3PL_Player_Notification;
 				};
+			};
+			if (_x isKindOf "CAManBase" && {!alive _x}) exitWith {
+				["You cannot steal from dead bodies","red"] call A3PL_Player_Notification;
+				_handle = true;				
 			};
 		} count [_container, _secContainer];
 		_handle;

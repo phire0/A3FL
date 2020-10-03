@@ -152,7 +152,8 @@
 
 		_ins2 select 0 params ["_name", "_dist"];
 		private _selPos = _obj selectionPosition [_name,"Memory"];
-		if ((_dist >= 4) || {_selPos isEqualTo [0,0,0]}) exitwith {
+		private _realZero = (player_objintersect isKindOf "House") && {_selPos isEqualTo [0,0,0]};
+		if ((_dist >= 4) || {_realZero}) exitwith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _obj;
 		};

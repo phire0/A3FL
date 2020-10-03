@@ -853,12 +853,18 @@
 				if(visibleMap) then
 				{
 					{
-						_marker = createMarkerLocal [format["%1_marker",_x],visiblePosition _x];
+						private _pos = visiblePosition _x;
+						private _text = format[" (%1) %2", _x getVariable["name","ERROR"], name _x];
+						if(!(_x getVariable["A3PL_Medical_Alive",true])) then {
+							_pos = visiblePosition (_x getVariable["deadBody",_x]);
+							_text = format[" (Dead) %1", _x getVariable["name","ERROR"]];
+						};
+						_marker = createMarkerLocal [format["%1_marker",_x],_pos];
 						_marker setMarkerColorLocal "ColorYellow";
 						_marker setMarkerTypeLocal "Mil_dot";
 						_marker setMarkerSizeLocal [0.5, 0.5];
 						_marker setMarkerAlphaLocal 1;
-						_marker setMarkerTextLocal format[" (%1) %2", _x getVariable["name","ERROR"], name _x];
+						_marker setMarkerTextLocal _text;
 						_playerMarkers pushBack [_marker,_x];
 					} foreach (allPlayers - [player]);
 					while {visibleMap} do

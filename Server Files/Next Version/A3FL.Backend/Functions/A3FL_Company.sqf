@@ -462,11 +462,11 @@
 	COMPANY SHOPS BELLOW
 */
 
-#define BUSINESSOBJS ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"]
+#define BUSINESSOBJS ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"]
 #define BUSINESSPRICE 800000
 
 ['A3PL_Company_OpenBuyShop', {
-	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	private _nearBy = nearestObjects [player, ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_BuyObject = _nearBy select 0;
 
@@ -488,7 +488,7 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_OpenSellShop', {
-	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	private _nearBy = nearestObjects [player, ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	private _cid = 
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_BuyObject = _nearBy select 0;
@@ -510,7 +510,7 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_OpenShop', {
-	private _nearBy = nearestObjects [player, ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
+	private _nearBy = nearestObjects [player, ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_Building = _nearBy select 0;
 
@@ -614,7 +614,7 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_OpenShopStock', {
-	private _nearBy = nearestObjects [player, ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
+	private _nearBy = nearestObjects [player, ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_Building = _nearBy select 0;
 	if(A3PL_Company_Building getVariable["inUse",false]) exitWith {["Someone is already using this shop!","red"] call A3PL_Player_Notification;};

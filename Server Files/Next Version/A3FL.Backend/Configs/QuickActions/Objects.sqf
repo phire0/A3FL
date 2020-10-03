@@ -210,7 +210,7 @@
     {[player_objintersect] call A3PL_Housing_VirtualOpen;}
 ],
 [
-	"B_supplyCrate_F",
+	"C_IDAP_supplyCrate_F",
 	"",
 	{
 		_sotrage = player_objintersect;

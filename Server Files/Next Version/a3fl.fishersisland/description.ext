@@ -8,8 +8,16 @@ enableDebugConsole[] = {};
 
 skipLobby = 1;
 disabledAI = 1;
-joinUnassigned = 0;
 forceRotorLibSimulation = 2;
+
+joinUnassigned = 0;
+
+corpseManagerMode = 1;
+corpseRemovalMinTime = 30*60;
+corpseRemovalMaxTime = 30*60;
+wreckManagerMode = 1;
+wreckRemovalMinTime = 1*60;
+wreckRemovalMaxTime = 3*60;
 
 debriefing = 0;
 briefing = 0;
@@ -38,10 +46,6 @@ class Header
 	minPlayers = 1;
 	maxPlayers = 110;
 };
-
-wreckLimit = 1;
-wreckRemovalMinTime = 30;
-wreckRemovalMaxTime = 60;
 
 #include "Dialogs\common.hpp"
 #include "Dialogs\marcos.hpp"

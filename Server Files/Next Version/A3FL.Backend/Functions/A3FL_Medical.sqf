@@ -788,6 +788,7 @@
 	if(["life_alert"] call A3PL_Inventory_Has) then {call A3PL_Medical_LifeAlert;};
 
 	A3PL_Player_DeadBodyGear = getUnitLoadout _unit;
+	if((backpack _unit) isEqualTo "A3PL_LR") then {A3PL_Player_DeadRadio = (call TFAR_fnc_activeLrRadio) call TFAR_fnc_getLrSettings;};
 
 	_unit setVariable ["A3PL_Medical_Alive",false,true];
 	_unit setVariable ["TimeRemaining",_timer,true];
@@ -811,7 +812,7 @@
 	} else {
 		(findDisplay 7300) displaySetEventHandler ["KeyDown","if ((_this select 1) isEqualTo 1) then {true}"];
 	};
-	diag_log str(isNil "A3PL_DeadBody");
+	
 	[_unit,_lastDamage,_timer] spawn {
 		private _unit = _this select 0;
 		private _lastDamage = _this select 1;
@@ -824,11 +825,9 @@
 			if(_unit getVariable ["DoubleTapped",false]) then {
 				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CANNOT remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
 				_control ctrlSetStructuredText  parseText _format;
-				//if ((animationState _unit) != "Incapacitated") then {[_unit,"Incapacitated"] remoteExec ["A3PL_Lib_SyncAnim",-2];};
 			} else {
 				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CAN remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
 				_control ctrlSetStructuredText  parseText _format;
-				//if ((animationState _unit) != "AinjPpneMstpSnonWnonDnon") then {[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];};
 			};
 			sleep 1;
 			_timer = _timer - 1;
@@ -836,12 +835,13 @@
 			if (_timer <= 0) exitwith {_exit = true;[] remoteExecCall ["A3PL_Medical_Respawn",player];};
 		};
 		if(_exit) exitWith {};
-		[] remoteExecCall ["A3PL_Medical_Revived",player];
+		call A3PL_Medical_Revived;
 	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_Respawn",
 {
+	private _bodyPos = getPos A3PL_DeadBody;
 	deleteVehicle A3PL_DeadBody;
 	[getPlayerUID player,"playerRespawned",[getPosATL player]] remoteExec ["Server_Log_New",2];
 
@@ -867,7 +867,7 @@
 	Player_Alcohol = 0;
 	Player_Drugs = [0,0,0];
 	profileNamespace setVariable ["player_hunger",Player_Hunger];
-	profileNamespace setVariable ["player_thirst",Player_Thirst];	
+	profileNamespace setVariable ["player_thirst",Player_Thirst];
 	profileNamespace setVariable ["player_alcohol",Player_Alcohol];
 	profileNamespace setVariable ["player_drugs",Player_Drugs];
 
@@ -888,7 +888,7 @@
 	player setVariable ["jailtime",nil,true];
 	[player] remoteExec ["Server_Criminal_RemoveJail", 2];
 
-	private _nearestClinic = nearestObjects [player, ["Land_A3PL_Clinic"], 10000];
+	private _nearestClinic = nearestObjects [_bodyPos, ["Land_A3PL_Clinic"], 10000];
 	if(count(_nearestClinic) > 0) then {
 		private _clinic = _nearestClinic select 0;
 		player setPosATL (_clinic modelToWorld [-7,-7,-2.5]); 
@@ -945,7 +945,6 @@
 
 ["A3PL_Medical_Revived",
 {
-	private _deadBody = A3PL_DeadBody;
 	A3PL_deathCam cameraEffect ["TERMINATE","BACK"];
 	camDestroy A3PL_deathCam;
 	closeDialog 0;
@@ -955,11 +954,14 @@
 	player setVariable ["Zipped",false,true];
 	player setVariable ["A3PL_Medical_Alive",true,true];
 	player setVariable ["TimeRemaining",nil,true];
-	player setDir (getDir _deadBody);
-	player setPosASL (visiblePositionASL _deadBody);
+	player setDir (getDir A3PL_DeadBody);
+	player setPosASL (visiblePositionASL A3PL_DeadBody);
 	player setUnitLoadout A3PL_Player_DeadBodyGear;
+	if((backpack _unit) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Player_DeadRadio] call TFAR_fnc_setLrSettings;};
 	player allowDamage true;
-	deleteVehicle (_deadBody);
+	player setVariable ["tf_voiceVolume", 1, true];
+	sleep 1;
+	deleteVehicle (A3PL_DeadBody);
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_LifeAlert",
