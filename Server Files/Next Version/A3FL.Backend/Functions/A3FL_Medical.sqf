@@ -40,7 +40,7 @@
 	params ["_unit", "_selection", "_damage", "_source", "_projectile"];
 	private _unconscious = !(player getVariable["A3PL_Medical_Alive",true]);
 	private _timeRemain = player getVariable ["TimeRemaining",600];
-	if(_unconscious  && {_timeRemain < 520}) exitWith {player setVariable ["DoubleTapped",true,true];};
+	if(_unconscious  && {_timeRemain < 580}) exitWith {player setVariable ["DoubleTapped",true,true];};
 	if ((_selection IN ["spine1","spine2","spine3"]) && (_projectile isEqualTo "") && (isBurning player)) then {_projectile = "FireDamage";};
 	[_selection,_damage,_projectile] call A3PL_Medical_GenerateWounds;
 }] call Server_Setup_Compile;
@@ -811,7 +811,7 @@
 	} else {
 		(findDisplay 7300) displaySetEventHandler ["KeyDown","if ((_this select 1) isEqualTo 1) then {true}"];
 	};
-
+	diag_log str(isNil "A3PL_DeadBody");
 	[_unit,_lastDamage,_timer] spawn {
 		private _unit = _this select 0;
 		private _lastDamage = _this select 1;
@@ -824,29 +824,25 @@
 			if(_unit getVariable ["DoubleTapped",false]) then {
 				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CANNOT remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
 				_control ctrlSetStructuredText  parseText _format;
-				if ((animationState _unit) != "Incapacitated") then {
-					[_unit,"Incapacitated"] remoteExec ["A3PL_Lib_SyncAnim",-2];
-				};
+				//if ((animationState _unit) != "Incapacitated") then {[_unit,"Incapacitated"] remoteExec ["A3PL_Lib_SyncAnim",-2];};
 			} else {
 				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CAN remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
 				_control ctrlSetStructuredText  parseText _format;
-				if ((animationState _unit) != "AinjPpneMstpSnonWnonDnon") then {
-					[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
-				};
+				//if ((animationState _unit) != "AinjPpneMstpSnonWnonDnon") then {[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];};
 			};
 			sleep 1;
 			_timer = _timer - 1;
 			_unit setVariable ["TimeRemaining",_timer,true];
-			if (_timer <= 0) exitwith {_exit = true;[_unit] remoteExecCall ["A3PL_Medical_Respawn",player];};
+			if (_timer <= 0) exitwith {_exit = true;[] remoteExecCall ["A3PL_Medical_Respawn",player];};
 		};
 		if(_exit) exitWith {};
-		[_unit] remoteExecCall ["A3PL_Medical_Revived",player];
+		[] remoteExecCall ["A3PL_Medical_Revived",player];
 	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_Respawn",
 {
-	deleteVehicle (param[0,objNull]);
+	deleteVehicle A3PL_DeadBody;
 	[getPlayerUID player,"playerRespawned",[getPosATL player]] remoteExec ["Server_Log_New",2];
 
 	A3PL_deathCam cameraEffect ["TERMINATE","BACK"];
@@ -914,6 +910,8 @@
 	if (Player_ActionDoing) exitwith {["You are already doing an action","red"] call A3PL_Player_Notification;};
 
     player playmove "AinvPknlMstpSnonWnonDr_medic0";
+
+    _target = _target getVariable["realPlayer",_target];
 	[_target] spawn
 	{
 		private _target = param [0,objNull];
@@ -948,7 +946,7 @@
 
 ["A3PL_Medical_Revived",
 {
-	private _deadBody = param[0,objNull];
+	private _deadBody = A3PL_DeadBody;
 	A3PL_deathCam cameraEffect ["TERMINATE","BACK"];
 	camDestroy A3PL_deathCam;
 	closeDialog 0;

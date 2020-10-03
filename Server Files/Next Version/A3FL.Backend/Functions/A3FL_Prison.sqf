@@ -220,7 +220,7 @@
 	_suceedChance = random 100;
 	if(_suceedChance > 70) then {
 		["Successfully dug out of jail!","green"] call A3PL_Player_Notification;
-		_positions = [[5001,6310,0],[4234,6212,0]];
+		_positions = [[4791.35,6206.43,0.00143886],[4722.96,6202.12,0.00178289],[4724.76,6066.46,0.00209379],[4794.03,6112.77,0.00143862]];
 		player setPosATL (selectRandom _positions);
 	} else {
 		["Failed to dig out of jail!","red"] call A3PL_Player_Notification;

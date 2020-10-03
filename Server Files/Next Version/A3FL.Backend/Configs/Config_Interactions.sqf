@@ -200,7 +200,7 @@ A3PL_Interaction_Options =
 		{
 			private _intersect = player_objintersect;
 			if (isNull _intersect) exitwith {};
-			if ((typeOf _intersect) IN ["A3PL_Jayhawk","A3PL_Cutter","B_supplyCrate_F"]) exitWith {["You cannot lockpick this vehicle", "red"] call A3PL_Player_Notification;};
+			if ((typeOf _intersect) IN ["A3PL_Jayhawk","A3PL_Cutter","B_supplyCrate_F","C_IDAP_supplyCrate_F"]) exitWith {["You cannot lockpick this vehicle", "red"] call A3PL_Player_Notification;};
 			[_intersect] spawn A3PL_Criminal_PickCar;
 		},
 		{((vehicle player) isEqualTo player) && {(player distance player_objintersect < 7)} && {(player_ItemClass isEqualTo "v_lockpick")}}
@@ -1113,7 +1113,7 @@ A3PL_Interaction_Options =
 	[
 		"Shop Management",
 		{call A3PL_Company_OpenShopStock;},
-		{((typeOf cursorObject) isKindOf "House") && {([getPlayerUID player] call A3PL_Config_GetCompanyID) isEqualTo cursorObject getVariable["cid",0]}}
+		{((typeOf cursorObject) isKindOf "House") && {([getPlayerUID player] call A3PL_Config_GetCompanyID) isEqualTo (cursorObject getVariable["cid",0])}}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";

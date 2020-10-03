@@ -292,7 +292,6 @@
 
 ["A3PL_JobWildcat_RareMaps",
 {
-	private _allOres = [];
 	params[
 		["_npc",objNull,[objNull]]
 	];
@@ -308,19 +307,16 @@
 		};
 	} else {
 		_island = "NIMiningArea";
-
-		if ((_chance >= 1) && (_chance <= 30)) then {
-			_mapType = localize"STR_Config_Resources_Sapphire";
-		}
+		_mapType = localize"STR_Config_Resources_Sapphire";
 		if ((_chance >= 31) && (_chance <= 50)) then {
 			_mapType = localize"STR_Config_Resources_Vivianite";
-		}
+		};
 		if ((_chance >= 51) && (_chance <= 70)) then {
 			_mapType = localize"STR_Config_Resources_Emerald";
-		}
+		};
 		if ((_chance >= 71) && (_chance <= 85)) then {
 			_mapType = localize"STR_Config_Resources_Gold";
-		}
+		};
 		if ((_chance >= 86) && (_chance <= 100)) then {
 			_maptype = localize"STR_Config_Resources_Amethyst";
 		};
@@ -332,7 +328,7 @@
 	{
 		private _type = _x select 0;
 		private _pos = _x select 1;
-		if(_type isEqualTo _pos) then {
+		if(_type isEqualTo _mapType) then {
 			if(_pos inArea _island) then {
 				_possibleLocations pushback _x;
 			};
@@ -341,6 +337,8 @@
 
 	if ((player getVariable ["Player_cash",0]) < 2500) exitwith {[localize"STR_A3PL_JobWildcat_NotEnoughMoney","red"] call A3PL_Player_Notification;};
 	player setVariable ["Player_cash",(player getVariable ["Player_Cash",0]) - 2500,true];
+
+	if(_possibleLocations isEqualTo []) exitWith {["Unable to locate ressource, try again!","red"] call A3PL_Player_Notification;};
 
 	private _givenLocation = (selectRandom _possibleLocations) select 1;
 

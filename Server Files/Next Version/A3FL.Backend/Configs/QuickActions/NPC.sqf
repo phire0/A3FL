@@ -326,7 +326,7 @@
 [
 	"",
 	localize"STR_QuickActionsNPC_BuyMapRare",
-	{["Rare Resource"] call A3PL_JobWildcat_RareMaps;}
+	{[player_objintersect] call A3PL_JobWildcat_RareMaps;}
 ],
 [
 	"",

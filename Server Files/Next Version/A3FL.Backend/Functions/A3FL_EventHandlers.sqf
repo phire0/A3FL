@@ -501,11 +501,12 @@
 	true;
 	};
 	if ((_dikCode isEqualTo 71) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
-		[player,"admin_heal",[player_objintersect getVariable["name","unknown"]]] remoteExec ["Server_AdminLoginsert", 2];
-		player_objintersect setDamage 0;
-		player_objintersect setVariable ["A3PL_Medical_Alive",true,true];
-		player_objintersect setVariable ["A3PL_Wounds",[],true];
-		player_objintersect setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+		_target = _target getVariable["realPlayer",player_objintersect];
+		[player,"admin_heal",[_target getVariable["name","unknown"]]] remoteExec ["Server_AdminLoginsert", 2];
+		_target setDamage 0;
+		_target setVariable ["A3PL_Medical_Alive",true,true];
+		_target setVariable ["A3PL_Wounds",[],true];
+		_target setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
 	true;
 	};
 	if ((_dikCode isEqualTo 72) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
@@ -626,6 +627,15 @@
 {
 	player removeEventHandler["Killed",0];
 	player addEventHandler ["Killed",{_this call A3PL_Medical_Die;}];
+	player addEventHandler ["Respawn", {
+		private _unit = _this select 0;
+		private _corpse = _this select 1;
+		A3PL_DeadBody = _corpse;
+		A3PL_DeadBody setVariable["realPlayer",player,true];
+		A3PL_DeadBody setVariable["A3PL_Medical_Alive",false,true];
+		player setVariable["deadBody",A3PL_DeadBody,true];
+		player playMoveNow "AmovPpneMstpSrasWrflDnon";
+	}];
 }] call Server_Setup_Compile;
 
 ["A3PL_EventHandlers_HandleDamage",

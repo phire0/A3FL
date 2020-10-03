@@ -113,13 +113,14 @@
 
 ["A3PL_Player_AntiSpam",
 {
+	private _time = param[0,0.5];
 	if(Player_AntiSpam) exitWith {
-		[localize "STR_PLAYER_ANTISPAM", "red"] call A3PL_Player_Notification; //System: Anti-spam, slow down!
+		[localize "STR_PLAYER_ANTISPAM", "red"] call A3PL_Player_Notification;
 		false
 	};
 	Player_AntiSpam = true;
-	[] spawn {
-		uiSleep 0.5;
+	[_time] spawn {
+		sleep _time;
 		Player_AntiSpam = false;
 	};
 	true

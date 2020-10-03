@@ -419,7 +419,7 @@ class Dialog_CompanyShop_Management
 	movingEnable = 0;
 	enableSimulation = 1;
 	onLoad = "";
-	onUnload = "A3PL_Company_Building = nil;";
+	onUnload = "A3PL_Company_Building setVariable['inUse',false,true];A3PL_Company_Building = nil;";
 	class controls
 	{
 		class MainPic: RscPicture
@@ -528,14 +528,14 @@ class Dialog_CompanyShop_Management
 		};
 	};
 };
-//
+
 class Dialog_CompanyShop_Customer
 {
 	idd = 130;
 	movingEnable = 0;
 	enableSimulation = 1;
 	onLoad = "";
-	onUnload = "A3PL_Company_Building = nil;";
+	onUnload = "A3PL_Company_Building setVariable['inUse',false,true];A3PL_Company_Building = nil;";
 	class controls
 	{
 		class MainPic: RscPicture

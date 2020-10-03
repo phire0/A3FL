@@ -242,7 +242,7 @@ class Dialog_DeathScreen
 	movingEnable = 0;
     enableSimulation = 1;
 	onLoad = "";
-	onUnload = "";
+	onUnload = "if(!isNil 'A3PL_deathCam') then {A3PL_deathCam cameraEffect ['TERMINATE','BACK'];camDestroy A3PL_deathCam;};";
 	class controlsBackground { };
 	class controls
 	{

@@ -513,6 +513,10 @@
 	private _nearBy = nearestObjects [player, ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_Building = _nearBy select 0;
+
+	if(A3PL_Company_Building getVariable["inUse",false]) exitWith {["Someone is already using this shop!","red"] call A3PL_Player_Notification;};
+	A3PL_Company_Building setVariable["inUse",true,true];
+	
 	createDialog "Dialog_CompanyShop_Customer";
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1102;
@@ -523,7 +527,7 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_ShopBuy', {
-	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	if(!([5] call A3PL_Player_AntiSpam)) exitWith {};
 	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1500;
 	if ((lbCurSel _control) < 0) exitwith {["Please select an item in the list first","red"] call A3PL_Player_Notification;};
@@ -583,7 +587,7 @@
 	if(!_canTake) exitWith {["You cannot carry this amount!","red"] call A3PL_Player_Notification;};
 	[_cid, _price, format["Shop %1x%2",_buyAmount,_itemName]] remoteExec ["Server_Company_SetBank",2];
 	player setVariable["Player_Cash",(_cash-_price),true];
-	[A3PL_Company_Building,_class,_takeAmount,player,true] remoteExec ["Server_Company_ShopRemoveStock",2];
+	[A3PL_Company_Building,_class,_buyAmount,player,true] remoteExec ["Server_Company_ShopRemoveStock",2];
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_RefreshShop', {
@@ -613,6 +617,8 @@
 	private _nearBy = nearestObjects [player, ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_Building = _nearBy select 0;
+	if(A3PL_Company_Building getVariable["inUse",false]) exitWith {["Someone is already using this shop!","red"] call A3PL_Player_Notification;};
+	A3PL_Company_Building setVariable["inUse",true,true];
 	createDialog "Dialog_CompanyShop_Management";
 	call A3PL_Company_RefreshShopStock;
 }] call Server_Setup_Compile;

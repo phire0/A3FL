@@ -35,11 +35,11 @@
 		private _areas = _x select 1;
 		private _ores = _x select 2;
 		private _maxOres = _x select 3;
-		private _island = _x select 5;
-		if(_island isEqualTo "All") then {
-			_island = ["FIMiningArea","NIMiningArea"] call BIS_fnc_selectRandom;
-		};
 		for "_i" from 0 to _areas do {
+			private _island = _x select 5;
+			if(_island isEqualTo "All") then {
+				_island = ["FIMiningArea","NIMiningArea"] call BIS_fnc_selectRandom;
+			};
 			private _randPos = [_island] call CBA_fnc_randPosArea;
 			private _overWater = !(_randPos isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
 			while {_overWater} do {

@@ -114,7 +114,7 @@
 		switch(_data select 1) do {
 			case 0: {lbAdd [1503, format ["%1 %2", _text, _selectedPlayer getVariable [(_data select 0),"Undefined"]]];};
 			case 1: {lbAdd [1503, format ["%1 %2", _text,(_selectedPlayer getVariable [(_data select 0),-1]) call CBA_fnc_formatNumber]];};
-			case 2: {lbAdd [1503, format ["%1 %2", _text, str(_selectedPlayer getVariable [(_data select 0),"Undefined"])]];};
+			case 2: {lbAdd [1503, format ["%1 %2", _text, str(_selectedPlayer getVariable [(_data select 0),"true"])]];};
 			case 3: {lbAdd [1503, format ["%1 %2", _text, _data select 0]];};
 		};
 	} forEach _playerInfoArray;

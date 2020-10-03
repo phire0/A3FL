@@ -1459,8 +1459,8 @@ Config_IntersectArray =
 	["deliverybox",localize"STR_INTSECT_SELLITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect getVariable ["owner","0"]) == (getPlayerUID player)}], //Sell Item
 
 	//medical
-	["spine3",localize"STR_A3PL_Medical_ChestCompressions","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{(Player_ActionCompleted) && {isPlayer player_objIntersect} && {!(player_objIntersect getVariable ["A3PL_Medical_Alive", true])}}], //Chest Compressions
-	["spine3",localize"STR_INTSECT_OPENMEDICALMEN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && {(Player_ActionCompleted)} && {isPlayer player_objIntersect}}], //Open Medical Menu
+	["spine3",localize"STR_A3PL_Medical_ChestCompressions","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{{!(player_objIntersect getVariable ["A3PL_Medical_Alive",true])}}],
+	["spine3",localize"STR_INTSECT_OPENMEDICALMEN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && {isPlayer player_objIntersect}}],
 
 	//Ladder Actions
 	["Ladder_1",localize"STR_INTSECT_PICKUPLAD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{typeof player_objintersect == "A3PL_Ladder"}], //Pickup Ladder
