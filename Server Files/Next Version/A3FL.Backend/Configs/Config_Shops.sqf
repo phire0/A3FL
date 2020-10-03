@@ -316,6 +316,7 @@ Config_Shops_Items = [
 			["item","v_lockpick",1350,-1,5],
 			["item","zipties",2500,-1,5],
 			["item","drill_bit",6500,-1,8],
+			["item","keycard",10000,-1,8],
 			["backpack","A3PL_Backpack_Drill",20000,-1,8],
 			["backpack","A3PL_Backpack_Money",6000,-1,8],
 			["weapon","hgun_Pistol_01_F",20000,-1,4],
@@ -327,7 +328,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_Red_Glock",20000,-1,6],
 			["weapon","A3PL_P226",20000,-1,8],
 			["weapon","A3FL_P227",20000,-1,8],
-			["weapon","A3PL_Beretta92",20000,-1,8],
+			["weapon","A3FL_Beretta92",20000,-1,8],
 			["weapon","A3FL_DesertEagle",25000,-1,8],
 			["weaponPrimary","SMG_05_F",175000,-1,0],
 			["weaponPrimary","SMG_02_F",175000,-1,0],
@@ -1208,7 +1209,8 @@ Config_Shops_Items = [
 			["item","bracelet",-1,900,8],
 			["item","crown",-1,8000,8],
 			["item","necklace",-1,5000,8],
-			["item","golden_dildo",-1,15000,8]
+			["item","golden_dildo",-1,15000,8],
+			["item","turtle",-1,10000,6]
 		],{[3456.32,7513.2,1]}
 	],
 	["Shop_Ill_Moonshine",[
