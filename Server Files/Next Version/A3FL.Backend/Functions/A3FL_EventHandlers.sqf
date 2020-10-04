@@ -663,6 +663,7 @@
 		private _damageScript = false;
 		if(["ammo", _projectile] call BIS_fnc_inString) then {_damage = _damage / 5;};
 		if(!(_unit getVariable["A3PL_Medical_Alive",true])) then {_damageScript = true;};
+		if(_projectile IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver","A3FL_PepperSpray_Ball"]) then {_damageScript = true;};
 		if (!isNull _source) then {
 			if(_source != _unit) then {
 				if (_projectile IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie"]) then {
