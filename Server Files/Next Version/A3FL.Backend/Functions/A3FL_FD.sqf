@@ -1067,6 +1067,21 @@
 
 ['A3PL_FD_DatabaseArgu',{
 	params[["_edit","",[""]],["_index",0,[0]]];
+
+	private _allowedChars = toArray "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ,";
+	private _checkEdit = toArray _edit;
+	private _forbiddenUsed = false;
+
+	{
+		if (!(_x in _allowedChars)) exitWith {
+			_forbiddenUsed = true;
+		};
+	} forEach _checkEdit;
+
+	if (_forbiddenUsed) exitWith {
+		"SpecialCharacterError";
+	};
+
 	_array = _edit splitString " ";
 	_return = _array select _index;
 	_return
@@ -1160,17 +1175,14 @@
 	_control = _display displayCtrl 1401;
 	_edit = ctrlText _control;
 
-	//First enter the entered command into the computer
 	_newstruct = format["%1<br />%2",(player Getvariable "FDDatabaseStruc"),"> "+_edit];
 	player setVariable ["FDDatabaseStruc",_newstruct,false];
 
 	[_newstruct] call A3PL_FD_UpdateComputer;
 
-	//Okay now we need to clear the rscedit
 	_control = _display displayCtrl 1401;
 	_control ctrlSetText "";
 
-	//Okay now lets do some magic
 	_edit0 = [_edit,0] call A3PL_FD_DatabaseArgu;
 	if ((_edit0 IN ["sendcall","lookpatient","lookhistory","addhistory","clinic","callvfd","clearfires"]) && (!(player getVariable "FDDatabaseLogin"))) exitwith
 	{
@@ -1217,7 +1229,6 @@
 			_name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_FD_Database", 2];
 
-			//Output
 			_output = format ["Finding a patient in FIFR Database...",_name];
 		};
 		case "sendcall":
@@ -1255,7 +1266,6 @@
 			_name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_FD_Database", 2];
 
-			//Output
 			_output = format ["Search of the medical file in progress...",_name];
 		};
 		case "addhistory":
@@ -1282,6 +1292,10 @@
 			} else {
 				_output = "Error: You are not high command";
 			};
+		};
+		case "SpecialCharacterError":
+		{
+			_output = "You cannot enter special characters into the MDT!";
 		};
 		default {_output = "Error: Unknown command"};
 	};

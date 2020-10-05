@@ -805,6 +805,21 @@
 
 ['A3PL_Police_DatabaseArgu',{
 	params[["_edit","",[""]],["_index",0,[0]]];
+
+	private _allowedChars = toArray "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ,";
+	private _checkEdit = toArray _edit;
+	private _forbiddenUsed = false;
+
+	{
+		if (!(_x in _allowedChars)) exitWith {
+			_forbiddenUsed = true;
+		};
+	} forEach _checkEdit;
+
+	if (_forbiddenUsed) exitWith {
+		"SpecialCharacterError";
+	};
+
 	_array = _edit splitString " ";
 	_return = _array select _index;
 	_return
@@ -813,6 +828,8 @@
 ['A3PL_Police_DatabaseRequireLogin',
 	["lookup","warrantinfo","lookuplicense","lookupcompany","tickethistory","lookupaddress","insertarrest","darknet","lookupwarehouse"]
 ] call Server_Setup_Compile;
+
+
 
 ['A3PL_Police_DatabaseEnterReceive',
 {
@@ -993,7 +1010,7 @@
 			if (count _return > 0) then
 			{
 				{
-					_output = _output + (format ["<t align='center'>%1 - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2]);
+					_output = _output + (format ["<t align='center'>%1 - $%4 - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2,_x select 3]);
 				} foreach _return;
 				_output = _output;
 			} else
@@ -1006,7 +1023,7 @@
 			if (count _return > 0) then
 			{
 				{
-					_output = _output + (format ["<t align='center'>%1 - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2]);
+					_output = _output + (format ["<t align='center'>%1 - %4 Month(s) - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2,_x select 3]);
 				} foreach _return;
 				_output = _output;
 			} else
@@ -1098,13 +1115,21 @@
 		};
 	};
 
-	//Rebuild out text
 	_text = [_array, "<br />"] call CBA_fnc_join;
 
 	player setVariable ["PoliceDatabaseStruc",_text,false];
 
-	//Update our control
 	_control ctrlSetStructuredText parseText _text;
+}] call Server_Setup_Compile;
+
+['A3PL_Police_IsStringNumber',
+{
+	params[["_str","0"]];
+
+	{
+		if (!(_x isEqualTo "0") && (parseNumber _x isEqualTo 0)) exitWith {true};
+	} count (_str splitString "") isEqualTo 0;
+
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseEnter',
@@ -1335,7 +1360,10 @@
 		{
 
 			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_amount = parseNumber ([_edit,3] call A3PL_Police_DatabaseArgu);
+			_amount = [_edit,3] call A3PL_Police_DatabaseArgu;
+			_amountNum = parseNumber _amount;
+			
+			if (!([_amount] call A3PL_Police_IsStringNumber)) exitWith {_output = format ["Error: You must follow the correct syntax..."];};
 
 			_array = _edit splitString " ";
 			for "_i" from 1 to 4 do {
@@ -1345,7 +1373,7 @@
 			_info = [_array," "] call CBA_fnc_join;
 			_issuedBy = player getVariable ["name",name player];
 
-			[player,[_name,_amount,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
+			[player,[_name,_amountNum,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
 			_output = format ["Inserting a fine into the database ..."];
 		};
 
@@ -1391,6 +1419,10 @@
 			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			_time = ([_edit,3] call A3PL_Police_DatabaseArgu);
 
+			if (!([_time] call A3PL_Police_IsStringNumber)) exitWith {
+				_output = format ["Error: You must follow the correct syntax..."];
+			};
+
 			_array = _edit splitString " ";
 			for "_i" from 1 to 4 do {
 				_array deleteAt 0;
@@ -1423,6 +1455,12 @@
 
 			_output = format ["Search the darknet for hidden messages ..",_name];
 		};
+
+		case "SpecialCharacterError":
+		{
+			_output = "You cannot enter special characters into the MDT!";
+		};
+
 		default {_output = "Error: Unknown Command"};
 	};
 

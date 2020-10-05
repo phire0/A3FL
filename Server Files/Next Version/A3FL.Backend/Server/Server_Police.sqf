@@ -159,12 +159,12 @@
 			[_name,_call,_output] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 		case "ticketlist": {
-			private _query = format ["SELECT time,info,issuedby FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='ticket')",_name];
+			private _query = format ["SELECT time,info,issuedby,amount FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='ticket')",_name];
 			private _return = [_query, 2,true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 		case "arrestlist": {
-			private _query = format ["SELECT time,info,issuedby FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='arrest')",_name];
+			private _query = format ["SELECT time,info,issuedby,amount FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='arrest')",_name];
 			private _return = [_query, 2,true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
