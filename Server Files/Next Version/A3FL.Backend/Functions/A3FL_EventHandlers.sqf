@@ -464,7 +464,7 @@
 		true;
 	};
 
-	if ((_dikCode > 5 && _dikCode < 14) && {vehicle player != player} && {!A3PL_Manual_KeyDown} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
+	if ((_dikCode > 6 && _dikCode < 14) && {vehicle player != player} && {!A3PL_Manual_KeyDown} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
 		[(_dikCode-1)] call A3PL_Vehicle_SirenHotkey;
 		A3PL_Manual_KeyDown = true;
 		true;
