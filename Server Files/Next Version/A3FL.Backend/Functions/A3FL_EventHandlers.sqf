@@ -567,12 +567,12 @@
 			player addMagazine "A3PL_PickAxeMag";
 		};
 		if (_itemClass isEqualTo "A3PL_Jaws") exitWith {
-			player removeMagazines "A3PL_FireaxeMag";
-			player addMagazine "A3PL_FireaxeMag";
+			player removeMagazines "A3PL_FireAxeMag";
+			player addMagazine "A3PL_FireAxeMag";
 		};
-		if (_itemClass isEqualTo "A3PL_Fireaxe") exitWith {
-			player removeMagazines "A3PL_FireaxeMag";
-			player addMagazine "A3PL_FireaxeMag";
+		if (_itemClass isEqualTo "A3PL_FireAxe") exitWith {
+			player removeMagazines "A3PL_FireAxeMag";
+			player addMagazine "A3PL_FireAxeMag";
 		};
 		if (_itemClass isEqualTo "A3PL_Scythe") exitWith {
 			player removeMagazines "A3PL_ScytheMag";
