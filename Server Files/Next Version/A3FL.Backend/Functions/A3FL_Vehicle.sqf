@@ -432,14 +432,14 @@
 				};
 				case 5 :
 				{
-					if (_veh animationPhase "SoundSource_2" == 0) then
+					if (_veh animationPhase "SoundSource_3" == 0) then
 					{
-						_veh animate ["SoundSource_2",1, true];
+						_veh animate ["SoundSource_3",1, true];
 						_veh animate ["FT_Switch_36",1];
 					}else
 					{
 
-						_veh animate ["SoundSource_2",0, true];
+						_veh animate ["SoundSource_3",0, true];
 						_veh animate ["FT_Switch_36",0];
 					};
 				};
