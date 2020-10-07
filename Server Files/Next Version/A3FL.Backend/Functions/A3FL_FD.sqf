@@ -77,7 +77,7 @@
 ["A3PL_FD_HandleJaws",
 {
 	private _pJob = player getVariable["job","unemployed"];
-	if(!(_pJob isEqualTo "fifr")) exitWith {};
+	if((!(_pJob isEqualTo "fifr")) || (!(_pJob isEqualTo "fisd"))) exitWith {};
 	private _intersect = missionNameSpace getVariable ["player_objintersect",objNull];
 	private _nameIntersect = missionNameSpace getVariable ["player_nameintersect",""];
 
