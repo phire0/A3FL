@@ -1832,10 +1832,10 @@
 			[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
 		};
 	};
-	if(count(_atPD) > 0) then {
-		private _PD = _atPD select 0;
-		player setPosATL (_PD modelToWorld [-4.5,8,0]);
-		player setDir (getDir _PD);
+	if(count(_atSD) > 0) then {
+		private _SD = _atSD select 0;
+		player setPosATL (_SD modelToWorld [-4.5,8,0]);
+		player setDir (getDir _SD);
 		removeUniform player;
 		[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
 	};
