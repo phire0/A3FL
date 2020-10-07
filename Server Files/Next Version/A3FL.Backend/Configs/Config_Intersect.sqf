@@ -1459,7 +1459,7 @@ Config_IntersectArray =
 
 	//medical
 	["spine3",localize"STR_A3PL_Medical_ChestCompressions","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{!(player_objIntersect getVariable ["A3PL_Medical_Alive",true])}],
-	["spine3",localize"STR_INTSECT_OPENMEDICALMEN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && {isPlayer player_objIntersect}}],
+	["spine3",localize"STR_INTSECT_OPENMEDICALMEN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{((player getVariable ["job","unemployed"]) == "fifr") && {(isPlayer player_objIntersect) || (!(player_objIntersect getVariable ["A3PL_Medical_Alive",true]))}}],
 
 	["spine3",localize"STR_INTSECT_KICKDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{(animationState player_objintersect == "a3pl_handsupkneelcuffed") && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && (animationState player) != "a3pl_takenhostage"}], //Kick Down
 	//Ladder Actions

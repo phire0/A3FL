@@ -281,7 +281,7 @@
 					private _newBloodLvl = _bloodValue + (_x);
 					if (_newBloodLvl <= 0) then {
 						_newBloodLvl = 0;
-						if (player getVariable["A3PL_Medical_Alive",true]) then {player setDamage 1;};
+						if (isNull (player getVariable["deadBody",objNull])) then {player setDamage 1;};
 					};
 					["\A3PL_Common\GUI\medical\overlay_blood.paa",1,(_newBloodLvl/5000)] call A3PL_HUD_SetOverlay;
 					player setVariable["bloodOverlay",true,true];
@@ -393,6 +393,10 @@
 	private _unit = param [0,player];
 	createDialog "dialog_medical";
 	private _display = findDisplay 73;
+
+	if(_unit getVariable["A3PL_Medical_Alive",true]) then {
+		_unit = _unit getVariable["realPlayer",objNull];
+	};
 
 	if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
 		[] spawn {
@@ -893,6 +897,9 @@
 	private _nearestClinic = nearestObjects [_bodyPos, ["Land_A3PL_Clinic"], 10000];
 	if(count(_nearestClinic) > 0) then {
 		private _clinic = _nearestClinic select 0;
+		if(getPos _clinic isEqualTo []) then {
+			_clinic = _nearestClinic select 1;
+		};
 		player setPosATL (_clinic modelToWorld [-7,-7,-2.5]); 
 		player setDir ((getDir _clinic)-140);
 	} else {
@@ -962,7 +969,7 @@
 	if((backpack _unit) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Player_DeadRadio] call TFAR_fnc_setLrSettings;};
 	player allowDamage true;
 	player setVariable ["tf_voiceVolume", 1, true];
-	sleep 1;
+	sleep 0.2;
 	deleteVehicle (A3PL_DeadBody);
 }] call Server_Setup_Compile;
 

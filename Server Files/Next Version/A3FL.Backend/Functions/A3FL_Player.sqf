@@ -562,7 +562,7 @@
 	_ehFired = player addEventHandler ["Fired",
 	{
 		if ((A3PL_HostageMode isEqualTo "hostage")) exitwith {
-			if ((!isNull A3PL_HostageTarget) && ((handgunWeapon player) != "A3PL_Taser")) then {detach A3PL_HostageTarget; [] remoteExec ["A3PL_Medical_Die",A3PL_HostageTarget];};
+			if ((!isNull A3PL_HostageTarget) && ((handgunWeapon player) != "A3PL_Taser")) then {detach A3PL_HostageTarget; A3PL_HostageTarget setDamage 1;};
 			A3PL_EnableHostage = false;
 		};
 	}];

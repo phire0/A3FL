@@ -657,7 +657,7 @@
 			["_hitPoint","",[""]]
 		];
 		private _noDamage = if (_selection isEqualTo "") then {damage _unit;} else {_unit getHit _selection;};
-		private _noDamageBullets = ["A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball","A3FL_PepperSpray_Ball"];
+		private _noDamageBullets = ["B_408_Ball","A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball","A3FL_PepperSpray_Ball"];
 		private _adminMode = _unit getVariable ["pVar_RedNameOn",false];
 		private _controlDamage = false;
 		private _damageScript = false;

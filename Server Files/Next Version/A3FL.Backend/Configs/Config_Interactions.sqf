@@ -1113,7 +1113,7 @@ A3PL_Interaction_Options =
 	[
 		"Shop Management",
 		{call A3PL_Company_OpenShopStock;},
-		{((typeOf cursorObject) IN ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"]) && {([getPlayerUID player] call A3PL_Config_GetCompanyID) isEqualTo (cursorObject getVariable["cid",0])}}
+		{((typeOf cursorObject) isKindOf "House") && {([getPlayerUID player] call A3PL_Config_GetCompanyID) isEqualTo (cursorObject getVariable["cid",-1])}}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";
