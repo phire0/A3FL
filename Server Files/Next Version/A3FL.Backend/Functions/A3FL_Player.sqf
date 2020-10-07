@@ -874,18 +874,18 @@
 
 ["A3PL_Player_SpawnMenu",{
 	disableSerialization;
-	private _spawnList = [
-		["Silverton",[2445.83,5467.15,0],0],
-		["Lubbock",[2286.87,12015.3,0],0],
-		["Elk City",[6180.74,7365.69,0],0],
-		["Palm Beach",[3552.460,6664.702,0],0]
-	];
+	private _spawnList = [];
 	private _houseObj = player getVariable["house",objNull];
 	private _warehouseObj = player getVariable["warehouse",objNull];
 	private _isCG = (player getVariable["faction","citizen"]) isEqualTo "uscg";
 	if(_isCG) then {_spawnList pushback ["CG Base",[2188.62,4991.78,0],0];};
 	if(!isNull _houseObj) then {_spawnList pushback ["House",getPosATL _houseObj,1];};
 	if(!isNull _warehouseObj) then {_spawnList pushback ["Warehouse",getPosATL _warehouseObj,2];};
+	
+	_spawnList pushback ["Silverton",[2445.83,5467.15,0],0];
+	_spawnList pushback ["Lubbock",[2286.87,12015.3,0],0];
+	_spawnList pushback ["Elk City",[6180.74,7365.69,0],0];
+	_spawnList pushback	["Palm Beach",[3552.460,6664.702,0],0];
 
 	createDialog "Dialog_SpawnMenu";
 
