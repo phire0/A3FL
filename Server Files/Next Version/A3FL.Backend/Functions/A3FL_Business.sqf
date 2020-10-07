@@ -13,7 +13,7 @@
 #define MaxBPriceDefault 900000
 #define BMinBPriceDefault 0
 #define BMaxBPriceDefault 900000
-#define BUSINESSOBJS ["Land_A3PL_Showroom","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"]
+#define BUSINESSOBJS ["Land_A3PL_Showroom","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2","A3FL_Anton_Store"]
 
 //Buy business
 ["A3PL_Business_Buy",
