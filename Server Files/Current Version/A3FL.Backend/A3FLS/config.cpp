@@ -310,6 +310,8 @@ class CfgRemoteExec
 		class Server_AdminLoginsert {allowedTargets = 2;};
 
 		//Company
+		class A3PL_Company_RefreshShop{allowedTargets=0;};
+		class A3PL_Company_RefreshShopStock{allowedTargets=0;};
 		class A3PL_Company_BillDataReceive{allowedTargets=0;};
 		class A3PL_Company_HiringConfirmation{allowedTargets=0;};
 		class A3PL_Company_HistoryReceive{allowedTargets=0;};
@@ -362,12 +364,13 @@ class CfgRemoteExec
 
 		//Criminal
 		class Server_Criminal_RemoveJail{allowedTargets=2;};
-		class Server_Criminal_ShipCaptured{allowedTargets=2;};
 
 		//Debug
 		class A3PL_Debug_ExecuteCompiled{allowedTargets=2;};
 
 		//Medical
+		class A3PL_Medical_Respawn{allowedTargets=0;};
+		class A3PL_Medical_Revived{allowedTargets=0;};
 		class A3PL_Medical_ApplyPWound{allowedTargets=0;};
 		class A3PL_Medical_Die{allowedTargets=0;};
 		class A3PL_Medical_DeadMarker{allowedTargets=0;};

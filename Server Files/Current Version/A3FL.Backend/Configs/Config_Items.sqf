@@ -165,7 +165,7 @@ Config_Items =
 
 	//Useable Items
 	["med_stretcher",localize"STR_ConfigItems_med_stretcher",100,"A3FL_Stretcher",0.005,true,true,true,false,false,"",[0,0,0],"",1],	
-	["life_alert",localize"STR_ConfigItems_life_alert",0.1,"A3PL_defibrillator_f",0.005,true,true,true,true,true,"",[0,0,0],"",1],	
+	["life_alert",localize"STR_ConfigItems_life_alert",0.1,"A3PL_MultiMeter",0.005,true,true,true,true,true,"",[0,0,0],"",1],	
 	["v_lockpick",localize"STR_ConfigItems_v_lockpick",0.1,"A3PL_Lockpick",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["keycard",localize"STR_ConfigItems_keycard",0.1,"A3FL_Keycard",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["med_cast",localize"STR_ConfigItems_med_cast",0.1,"A3PL_Medical_Cast",0.05,true,true,true,true,true,"",[0,0,0],"",1],
@@ -278,7 +278,7 @@ Config_Items =
 	["Aluminium_Ore",localize"STR_ConfigItems_Aluminium_Ore",0.25,"A3PL_Resource_Ore_Bauxite_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Iron_Ore",localize"STR_ConfigItems_Iron_Ore",0.25,"A3PL_Resource_Ore_Iron_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Coal_Ore",localize"STR_ConfigItems_Coal_Ore",0.25,"A3PL_Resource_Ore_Coal_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Sulphur_Ore",localize"STR_ConfigItems_Sulphur_Ore",0.25,"A3PL_Resource_Ore_Sulphur_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["Sulphur_Ore",localize"STR_ConfigItems_Sulphur_Ore",0.25,"A3PL_Resource_Ore_Suphur_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Sapphire_Ore","Sapphire Ore",0.25,"A3PL_Resource_Ore_Sapphire_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Vivianite_Ore","Vivianite Ore",0.25,"A3PL_Resource_Ore_Vivianite_Small",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["Emerald_Ore","Emerald Ore",0.25,"A3PL_Resource_Ore_Emerald_Small",0,true,true,true,true,true,"",[0,0,0],"",1],

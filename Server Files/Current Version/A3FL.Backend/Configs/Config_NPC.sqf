@@ -136,8 +136,9 @@ Config_NPC_Text =
 	["atc", localize"STR_NPC_ATCINIT",[localize"STR_NPC_ATC_1",localize"STR_NPC_ATC_2"],["call A3PL_ATC_Tower;",""]],
 	["freight_initial", localize"STR_NPC_FREIGHTINIT",[localize"STR_NPC_FREIGHT_OPT1",localize"STR_NPC_FREIGHT_OPT2",localize"STR_NPC_FREIGHT_OPT3"],["[player_objintersect] call A3PL_Freight_Start;","[player_objintersect] call A3PL_Freight_Unload;",""]],
 
-	["ship_initial", "Hi, I run the shipping company How can I help you?",["Sign on as a Ship Captain",localize"STR_NPC_FREIGHT_OPT3"],["if (['boat',player] call A3PL_DMV_Check) then { ['captain'] call A3PL_NPC_TakeJob;['ship_captain_accepted'] call A3PL_NPC_Start; } else {['ship_captain_denied'] call A3PL_NPC_Start;}",""]],
-	["ship_captain_accepted", "You are now working for the shipping company!",["Thanks, I'll be on my way now!","I need to rent a ship!"],["","[player_objintersect] call A3PL_JobShipCaptain_RentVehicle;"]],
-	["ship_captain_denied", "You need to get a boating license to work for me, contact USCG to get one!",["Thanks, I'll be on my way now!"],[""]]
+	["ship_initial", "Hi, I run the shipping company How can I help you?",["Sign on as a Ship Captain","I need to rent a ship!",localize"STR_NPC_FREIGHT_OPT3"],["if ((player getVariable ['job','unemployed']) == 'captain') exitwith {['ship_captain_denied'] call A3PL_NPC_Start;}; ['captain'] call A3PL_NPC_TakeJob; ['ship_captain_accepted'] call A3PL_NPC_Start;","['ship_captain_rent'] call A3PL_NPC_Start;",""]],
+	["ship_captain_accepted", "You are now working for the shipping company!",["Thanks, I'll be on my way now!","I need to rent a ship!"],["","['ship_captain_rent'] call A3PL_NPC_Start;"]],
+	["ship_captain_denied", "You are already working for the shipping company!",["Thanks, I'll be on my way now!"],[""]],
+	["ship_captain_rent", "What type of boat do you wish to rent ?",["A jetski !","A motorboat !", "A RHIB !","A Landing Craft !","Nevermind, I'm good!"],["[player_objintersect,'C_Scooter_Transport_01_F',800] call A3PL_JobShipCaptain_RentVehicle;","[player_objintersect,'A3PL_Motorboat',1200] call A3PL_JobShipCaptain_RentVehicle;","[player_objintersect,'A3PL_RHIB',2000] call A3PL_JobShipCaptain_RentVehicle;","[player_objintersect,'A3FL_LCM',4000] call A3PL_JobShipCaptain_RentVehicle;",""]]
 ];
 publicVariable "Config_NPC_Text";

@@ -12,6 +12,7 @@
 ["A3PL_EventHandlers_Setup",
 {
 	call A3PL_EventHandlers_HandleDamage;
+	call A3PL_EventHandlers_Killed;
 	call A3PL_EventHandlers_Take;
 	call A3PL_EventHandlers_Fired;
 	call A3PL_EventHandlers_FiredNear;
@@ -168,7 +169,7 @@
 		{
 			if(underwater (vehicle player)) exitWith {["You cannot use your phone while underwater","red"] call A3PL_Player_Notification;};
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-			if (animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
+			if(animationState player in ["A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			if(!dialog) then {[] spawn A3PL_iPhoneX_appTwitterPost;};
 		}, "", [DIK_U, [false, true, false]]] call CBA_fnc_addKeybind;
 
@@ -197,21 +198,15 @@
 
 		["ArmA 3 Fishers Life","medical_menu", "Medical Menu",
 		{
-			if (!isNull (findDisplay 73)) exitWith
-			{
-				(findDisplay 73) closeDisplay 0;
-			};
+			if (!isNull (findDisplay 73)) exitWith {(findDisplay 73) closeDisplay 0;};
 			[player] spawn A3PL_Medical_Open;
 		}, "", [DIK_COMMA, [true, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","e_inventory", "Virtual Inventory",
 		{
 			if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-			if(vehicle player == player) then {
-				if (!isNull (findDisplay 1001)) exitWith
-				{
-					(findDisplay 1001) closeDisplay 0;
-				};
+			if(vehicle player isEqualTo player) then {
+				if (!isNull (findDisplay 1001)) exitWith {(findDisplay 1001) closeDisplay 0;};
 				call A3PL_Inventory_Open;
 			} else {
 				_veh = vehicle player;
@@ -236,27 +231,26 @@
 		["ArmA 3 Fishers Life","vault_key", "Vault Key",
 		{
 			_max_height = 4.3;
-		 if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
-		 if(speed player < 8) exitWith {};
-		 if((player == vehicle player) && (player getvariable ["jump",true]) && (isTouchingGround player)) then  {
+			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
+			if(speed player < 8) exitWith {};
+			if((player isEqualTo vehicle player) && (player getvariable ["jump",true]) && (isTouchingGround player)) then  {
+				player setvariable ["jump",false];
 
-		 player setvariable ["jump",false];
+				_height = 6-((load player)*10);
+				_vel = velocity player;
+				_dir = direction player;
+				_speed = 0.4;
+				if (_height > _max_height) then {_height = _max_height};
+				player setVelocity [(_vel select 0)+(sin _dir*_speed),(_vel select 1)+(cos _dir*_speed),(_vel select 2)+_height];
 
-		_height = 6-((load player)*10);
-		_vel = velocity player;
-		_dir = direction player;
-		_speed = 0.4;
-		if (_height > _max_height) then {_height = _max_height};
-			player setVelocity [(_vel select 0)+(sin _dir*_speed),(_vel select 1)+(cos _dir*_speed),(_vel select 2)+_height];
-
-			[player,"AovrPercMrunSrasWrflDf"] remoteExec ["A3PL_Lib_SyncAnim",0];
-			player spawn {sleep 2; player setvariable ["jump",true]};
-		};
-	}, "", [DIK_V, [true, false, false]]] call CBA_fnc_addKeybind;
+				[player,"AovrPercMrunSrasWrflDf"] remoteExec ["A3PL_Lib_SyncAnim",0];
+				player spawn {sleep 2; player setvariable ["jump",true]};
+			};
+		}, "", [DIK_V, [true, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","animation_1", "(Animation) Hello",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if((vehicle player) isEqualTo player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "Gesture_wave";
 				true;
@@ -265,7 +259,7 @@
 
 		["ArmA 3 Fishers Life","animation_2", "(Animation) Finger",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if((vehicle player) isEqualTo player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "Gesture_finger";
 				true;
@@ -274,7 +268,7 @@
 
 		["ArmA 3 Fishers Life","animation_3", "(Animation) Watching",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if((vehicle player) isEqualTo player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "Gesture_watching";
 				true;
@@ -283,14 +277,12 @@
 
 		["ArmA 3 Fishers Life","animation_4", "(Animation) Dance 1",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if((vehicle player) isEqualTo player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-				if ((animationState player) != "A3PL_Dance_House1") then
-				{
+				if ((animationState player) != "A3PL_Dance_House1") then {
 					[player, "A3PL_Dance_House1"] remoteExec ["A3PL_Lib_SyncAnim",0];
 					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
-				} else
-				{
+				} else {
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
 				};
 				true;
@@ -299,14 +291,12 @@
 
 		["ArmA 3 Fishers Life","animation_5", "(Animation) Dance 2",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if((vehicle player) isEqualTo player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-				if ((animationState player) != "A3PL_Dance_Samba") then
-				{
+				if ((animationState player) != "A3PL_Dance_Samba") then {
 					[player, "A3PL_Dance_Samba"] remoteExec ["A3PL_Lib_SyncAnim",0];
 					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
-				} else
-				{
+				} else {
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
 				};
 				true;
@@ -315,7 +305,7 @@
 
 		["ArmA 3 Fishers Life","animation_6", "(Animation) Dab",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if((vehicle player) isEqualTo player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "gesture_dab";
 				true;
@@ -324,7 +314,7 @@
 
 		["ArmA 3 Fishers Life","animation_7", "(Animation) Naruto Run",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if((vehicle player) isEqualTo player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
 				player playAction "Foski_StopNarutoRun";
 				true;
@@ -333,14 +323,12 @@
 
 		["ArmA 3 Fishers Life","animation_8", "(Animation) Dance 3",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if((vehicle player) isEqualTo player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-				if ((animationState player) != "Acts_Dance_01") then
-				{
+				if ((animationState player) != "Acts_Dance_01") then {
 					[player, "Acts_Dance_01"] remoteExec ["A3PL_Lib_SyncAnim",0];
 					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
-				} else
-				{
+				} else {
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
 				};
 				true;
@@ -349,14 +337,12 @@
 
 		["ArmA 3 Fishers Life","animation_9", "(Animation) Dance 4",
 		{
-			if(vehicle player == player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
+			if((vehicle player) isEqualTo player && !(animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"])) then {
 				if((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false])) exitWith{};
-				if ((animationState player) != "Acts_Dance_02") then
-				{
+				if ((animationState player) != "Acts_Dance_02") then {
 					[player, "Acts_Dance_02"] remoteExec ["A3PL_Lib_SyncAnim",0];
 					if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
-				} else
-				{
+				} else {
 					[player, ""] remoteExec ["A3PL_Lib_SyncAnim",0];
 				};
 				true;
@@ -372,15 +358,6 @@
 				[] spawn A3PL_Interaction_ActionKey;
 			};
 		}];
-	};
-}] call Server_Setup_Compile;
-
-["A3PL_Prevent_Patdown_Cloning",
-{
-	if(player getVariable ["patdown",false]) then {
-		[localize"STR_EVENTHANDLERS_DUPLICATION","red"] call A3PL_Player_Notification;
-		[getPlayerUID player,"PatdownPhisCloningAtempt",[]] remoteExec ["Server_Log_New",2];
-		true;
 	};
 }] call Server_Setup_Compile;
 
@@ -422,14 +399,12 @@
 
 	if(isNil "A3PL_Manual_KeyDown") then {A3PL_Manual_KeyDown = false};
 
-	if (_dikCode == 59) exitWith {
-		if (pVar_AdminMenuGranted) exitWith
-		{
+	if (_dikCode isEqualTo 59) exitWith {
+		if (pVar_AdminMenuGranted) exitWith {
 			call A3PL_AdminOpen;
 		};
 	};
-
-	if (_dikCode == 60) exitWith {
+	if (_dikCode isEqualTo 60) exitWith {
 		if (pVar_AdminMenuGranted) then {
 			if (pVar_CursorTargetEnabled) then {
 				pVar_CursorTargetEnabled = false;
@@ -438,14 +413,12 @@
 			};
 		};
 	};
-
-	if (_dikCode == 61) exitWith {
+	if (_dikCode isEqualTo 61) exitWith {
 		if (pVar_AdminMenuGranted) then {
 			disableSerialization;
 			pVar_AdminPrePosition = getPosATL player;
 
 			player hideObjectGlobal true;
-
 			if (!isObjectHidden player) then
 			{
 				[] spawn {
@@ -481,14 +454,9 @@
 			player hideObjectGlobal true;
 		};
 	};
-
-	if (_dikCode == 62) exitWith {
+	if (_dikCode isEqualTo 62) exitWith {
 		if !("Debug" IN (player getVariable ["dbVar_AdminPerms",[]])) exitWith {};
 		call A3PL_Debug_Open;
-	};
-
-	if((_dikCode IN [30,31,32,21]) && (Player_ActionDoing)) exitWith {
-
 	};
 
 	if ((_dikCode > 1 && _dikCode < 5) && {vehicle player != player} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
@@ -496,65 +464,58 @@
 		true;
 	};
 
-	if ((_dikCode > 5 && _dikCode < 14) && {vehicle player != player} && {!A3PL_Manual_KeyDown} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
+	if ((_dikCode > 6 && _dikCode < 14) && {vehicle player != player} && {!A3PL_Manual_KeyDown} && {typeOf vehicle player in Config_Police_Vehs} && {(player == driver (vehicle player))}) exitWith {
 		[(_dikCode-1)] call A3PL_Vehicle_SirenHotkey;
 		A3PL_Manual_KeyDown = true;
 		true;
 	};
 
-	if ((_dikCode == 82) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+	if ((_dikCode isEqualTo 82) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
 		player_objintersect lock false;
 		player action["GetInDriver",player_objintersect];
 		player_objintersect lock true;
 	true;
 	};
-
-	if ((_dikCode == 79) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+	if ((_dikCode isEqualTo 79) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
 		[player_objintersect] call A3PL_Admin_AttachTo;
 	true;
 	};
-
-	if ((_dikCode == 80) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+	if ((_dikCode isEqualTo 80) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
 		call A3PL_Admin_DetachAll;
 	true;
 	};
-
-	if ((_dikCode == 81) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+	if ((_dikCode isEqualTo 81) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
 		[player_objintersect] remoteExec ["Server_Police_Impound",2];
 	true;
 	};
-
-	if ((_dikCode == 75) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+	if ((_dikCode isEqualTo 75) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
 		[player_objintersect] call A3PL_Vehicle_Despawn;
 	true;
 	};
-
-	if ((_dikCode == 76) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+	if ((_dikCode isEqualTo 76) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
 		player moveInCargo player_objintersect;
 	true;
 	};
-
-	if ((_dikCode == 77) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+	if ((_dikCode isEqualTo 77) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
 		[player_objintersect] call A3PL_Admin_EjectAll;
 	true;
 	};
-
-	if ((_dikCode == 71) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
-		[player,"admin_heal",[player_objintersect getVariable["name","unknown"]]] remoteExec ["Server_AdminLoginsert", 2];
-		player_objintersect setDamage 0;
-		player_objintersect setVariable ["A3PL_Medical_Alive",true,true];
-		player_objintersect setVariable ["A3PL_Wounds",[],true];
-		player_objintersect setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+	if ((_dikCode isEqualTo 71) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+		_target = player_objintersect;
+		if(!alive _target) then {_target = _target getVariable["realPlayer",player_objintersect];};		
+		[player,"admin_heal",[_target getVariable["name","unknown"]]] remoteExec ["Server_AdminLoginsert", 2];
+		_target setDamage 0;
+		_target setVariable ["A3PL_Medical_Alive",true,true];
+		_target setVariable ["A3PL_Wounds",[],true];
+		_target setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
 	true;
 	};
-
-	if ((_dikCode == 72) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+	if ((_dikCode isEqualTo 72) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
 		[player,"admin_repair",[typeOf player_objintersect]] remoteExec ["Server_AdminLoginsert", 2];
 		player_objintersect setdammage 0;
 		true;
 	};
-
-	if ((_dikCode == 73) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
+	if ((_dikCode isEqualTo 73) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
 		[player,"admin_refuel",[typeOf player_objintersect]] remoteExec ["Server_AdminLoginsert", 2];
 		player_objintersect setFuel 1;
 		true;
@@ -562,11 +523,9 @@
 	false;
 }] call Server_Setup_Compile;
 
-["A3PL_EventHandlers_HandleUp", //exit with true to overwrite default arma keys, and prevent rpt errors
+["A3PL_EventHandlers_HandleUp",
 {
 	params["_ctrl", "_dikCode", "_shift", "_ctrlKey", "_alt"];
-
-	//Siren Hotkeys (up)
 	_dikCodeBegin = 4;
 	if (vehicle player IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","Jonzie_Ambulance","A3PL_Tahoe_FD","A3PL_Tahoe_PD"]) then {_dikCodeBegin = 5};
 	if ((_dikCode > _dikCodeBegin && _dikCode < 14) && {vehicle player != player} && {typeOf vehicle player in Config_Police_Vehs}) exitWith {
@@ -574,76 +533,70 @@
 		A3PL_Manual_KeyDown = false;
 		true;
 	};
-
-	//Scroll menu
-	if (_dikCode IN (actionKeys "Action")) then
-	{
+	if (_dikCode IN (actionKeys "Action")) then {
 		[] spawn A3PL_Interaction_ActionKey;
 		true;
 	};
 }] call Server_Setup_Compile;
 
-//Take eventhandler for player
 ["A3PL_EventHandlers_Take",
 {
 	player addEventHandler ["Take",
 	{
 		_itemClass = param [2,""];
-		if (_itemClass == "A3PL_High_Pressure_Holder") then {
+		if (_itemClass isEqualTo "A3PL_High_Pressure_Holder") exitWith {
 			player setAmmo ["A3PL_High_Pressure_Holder",0];
 		};
-		if (_itemClass IN ["A3PL_High_Pressure_Water_Mag","A3PL_Medium_Pressure_Water_Mag","A3PL_Low_Pressure_Water_Mag"]) then {
+		if (_itemClass IN ["A3PL_High_Pressure_Water_Mag","A3PL_Medium_Pressure_Water_Mag","A3PL_Low_Pressure_Water_Mag"]) exitWith {
 			player removeMagazine _itemClass;
 		};
 
-		if (_itemClass == "A3PL_FD_Mask") then {
+		if (_itemClass == "A3PL_FD_Mask") exitWith {
 			[localize"STR_EVENTHANDLERS_OBJECTINVENTORYADD","green"] call A3PL_Player_Notification;
 			removeGoggles player;
 			player removeItem "A3PL_FD_Mask";
 			["fd_mask",1] call A3PL_Inventory_Add;
 		};
 
-		if (_itemClass == "A3PL_Shovel") then {
+		if (_itemClass isEqualTo "A3PL_Shovel") exitWith {
 			player removeMagazines "A3PL_ShovelMag";
 			player addMagazine "A3PL_ShovelMag";
 		};
-		if (_itemClass == "A3PL_Pickaxe") then {
+		if (_itemClass isEqualTo "A3PL_Pickaxe") exitWith {
 			player removeMagazines "A3PL_PickAxeMag";
 			player addMagazine "A3PL_PickAxeMag";
 		};
-		if (_itemClass == "A3PL_Jaws") then {
-			player removeMagazines "A3PL_FireaxeMag";
-			player addMagazine "A3PL_FireaxeMag";
+		if (_itemClass isEqualTo "A3PL_Jaws") exitWith {
+			player removeMagazines "A3PL_FireAxeMag";
+			player addMagazine "A3PL_FireAxeMag";
 		};
-		if (_itemClass == "A3PL_Fireaxe") then {
-			player removeMagazines "A3PL_FireaxeMag";
-			player addMagazine "A3PL_FireaxeMag";
+		if (_itemClass isEqualTo "A3PL_FireAxe") exitWith {
+			player removeMagazines "A3PL_FireAxeMag";
+			player addMagazine "A3PL_FireAxeMag";
 		};
-		if (_itemClass == "A3PL_Scythe") then {
+		if (_itemClass isEqualTo "A3PL_Scythe") exitWith {
 			player removeMagazines "A3PL_ScytheMag";
 			player addMagazine "A3PL_ScytheMag";
 		};
-		if (_itemClass == "A3FL_GolfDriver") then {
+		if (_itemClass isEqualTo "A3FL_GolfDriver") exitWith {
 			player removeMagazines "A3FL_GolfDriverMag";
 			player addMagazine "A3FL_GolfDriverMag";
 		};
-		if (_itemClass == "A3FL_BaseballBat") then {
+		if (_itemClass isEqualTo "A3FL_BaseballBat") exitWith {
 			player removeMagazines "A3FL_BaseballBatMag";
 			player addMagazine "A3FL_BaseballBatMag";
 		};
-		if (_itemClass == "A3FL_PoliceBaton") then {
+		if (_itemClass isEqualTo "A3FL_PoliceBaton") exitWith {
 			player removeMagazines "A3FL_PoliceBatonMag";
 			player addMagazine "A3FL_PoliceBatonMag";
 		};
-
-		if (_itemClass IN ["U_B_Protagonist_VR","U_I_Protagonist_VR","U_O_Protagonist_VR"]) then {
+		if (_itemClass IN ["U_B_Protagonist_VR","U_I_Protagonist_VR","U_O_Protagonist_VR"]) exitWith {
 			if (!(["motorhead"] call A3PL_Lib_hasPerk)) then {
 				[localize"STR_EVENTHANDLERS_MotorheadPerk","red"] call A3PL_Player_Notification;
 				if ((uniform player) == _itemClass) then {removeUniform player;};
 				player removeItem _itemClass;
 			};
 		};
-
 		if (_itemClass IN ["A3PL_IronMan_Outfit_Uniform","A3PL_Cap_Amer_Outfit_Uniform","A3PL_Deadpool_Outfit_Uniform","A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","A3PL_Ghost_Necklace","G_EyeProtectors_F","A3PL_Crown","A3PL_Tiara","A3PL_CancerRib_Cap","A3PL_Conehat","A3PL_Cowboy","A3PL_Mexicanhat","A3PL_Sombrero","A3PL_Grn_Lantern_Outfit_Uniform",
 			"A3PL_BubblegumCheetas_Uniform","A3PL_Donald_Duck_Uniform","A3PL_Eatsleep_Uniform","A3PL_GotGuns_Uniform""A3PL_JurasGolf_Uni_Uniform","A3PL_Jumpsuit_Uniform","A3PL_Kendra_Uniform","A3PL_Mcflirtles_Employee_Uniform","A3PL_Moonshine_Willy_Uniform","A3PL_Sicarios_Cartel_Uniform","A3PL_SkyDesigns_CEO_Uniform","A3PL_Surf_Lifesave_Uniform","A3PL_Ghostbusters_Belt","A3PL_Anon_mask","A3PL_GhostBusters_Cap","A3PL_Horse_Mask","A3PL_LavendarRibbon_Fedora","A3PL_Yelnats_Janitorial_Cap"]) then {
 			if (!(["things"] call A3PL_Lib_hasPerk)) then {
@@ -671,25 +624,96 @@
 	}];
 }] call Server_Setup_Compile;
 
+["A3PL_EventHandlers_Killed",
+{
+	player removeEventHandler["Killed",0];
+	player removeEventHandler["Respawn",0];
+	player addEventHandler ["Killed",{_this call A3PL_Medical_Die;}];
+	player addEventHandler ["Respawn", {
+		private _unit = _this select 0;
+		private _corpse = _this select 1;
+		A3PL_DeadBody = _corpse;
+		A3PL_DeadBody setVariable["realPlayer",player,true];
+		A3PL_DeadBody setVariable["A3PL_Medical_Alive",false,true];
+		player setVariable["deadBody",A3PL_DeadBody,true];
+		player allowDamage false;
+		player playMoveNow "AmovPpneMstpSrasWrflDnon";
+	}];
+}] call Server_Setup_Compile;
+
 ["A3PL_EventHandlers_HandleDamage",
 {
+	player removeEventHandler["HandleDamage",0];
 	player addEventHandler ["HandleDamage",
 	{
-		private _unit = _this select 0;
-		private _selection = _this select 1;
-		private _damage = _this select 2;
-		private _source = _this select 3;
-		private _projectile = _this select 4;
-		private _dmg = 0;
-		if((_projectile isEqualTo "A3FL_PepperSpray_Ball") && (_unit isEqualTo _source)) exitWith {_dmg;};
-		if (_damage > 0) then {
-			private _hit = _unit getVariable ["getHit",[]];
-			_hit pushback [_selection,_damage,_projectile,_source];
-			_unit setVariable ["getHit",_hit,false];
+		params [
+			["_unit",objNull,[objNull]],
+			["_selection","",[""]],
+			["_damage",0,[0]],
+			["_source",objNull,[objNull]],
+			["_projectile","",[""]],
+			["_hitIndex",0,[0]],
+			["_instigator",objNull,[objNull]],
+			["_hitPoint","",[""]]
+		];
+		private _noDamage = if (_selection isEqualTo "") then {damage _unit;} else {_unit getHit _selection;};
+		private _noDamageBullets = ["B_408_Ball","A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball","A3FL_PepperSpray_Ball"];
+		private _adminMode = _unit getVariable ["pVar_RedNameOn",false];
+		private _controlDamage = false;
+		private _damageScript = false;
+		if(["ammo", _projectile] call BIS_fnc_inString) then {_damage = _damage / 5;};
+		if(!(_unit getVariable["A3PL_Medical_Alive",true])) then {_damageScript = true;};
+		if(_projectile IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver","A3FL_PepperSpray_Ball"]) then {_damageScript = true;};
+		if (!isNull _source) then {
+			if(_source != _unit) then {
+				if (_projectile IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie"]) then {
+					if (alive _unit) then {
+						if (!Player_Ragdoll) then {
+							if !(isNull objectParent _unit) then {
+								if (typeOf (vehicle _unit) IN ["B_Quadbike_01_F","C_Kart_01_F","K_Scooter_DarkBlue"]) then {
+									_unit action ["Eject",vehicle _unit];
+									[_unit,_source] spawn A3PL_Medical_Tazed;
+								};
+							} else {
+								[_unit,_source] spawn A3PL_Medical_Tazed;
+							};
+						};
+					};
+				};
+				if (_projectile isEqualTo "A3PL_Paintball_Bullet") then {
+					if (isNil "A3PL_Medical_PaintBallHit") exitwith {};
+					if ((player distance (getMarkerPos "paintball_larry")) > 300) exitWith {};
+					A3PL_Medical_PaintBallHit = true;
+					player playaction "gestureFreeze";
+					sleep 0.6;
+					A3PL_Medical_PaintBallHit = nil;
+				};
+			};
 		};
-		player setVariable ["lastDamage",(_source getVariable["db_id",0]),true];
-		[_unit] spawn A3PL_Medical_Hit;
-		_dmg;
+		if(!isNull _instigator) then {
+			if(count(attachedObjects _instigator) > 0) then {
+				{
+					if(!isNull _x) exitWith {_controlDamage = true;};
+				} forEach attachedObjects _instigator;
+			};
+		} else {
+			_controlDamage = true;
+		};
+
+		if (!_adminMode && {!(_projectile IN _noDamageBullets)} && {!_controlDamage}) then {
+			if ((_damage > 0) && {!(_selection isEqualTo "")}) then {
+				if (diag_tickTime > ((missionNameSpace getVariable ["A3PL_HitTime",diag_tickTime-0.2]) + 0.1)) then {
+					A3PL_HitTime = diag_tickTime;
+					[_unit,_selection,_damage,_source,_projectile] spawn A3PL_Medical_Hit;
+				};
+				if((!isNull _instigator) && {!(_instigator isEqualTo _unit)}) then {
+					_unit setVariable ["lastDamage",(_instigator getVariable["db_id","Unknown"]),true];
+					[getPlayerUID _unit,"hitReceived",["Shooter",_instigator getVariable["name","unknwon"],"Bullet",_projectile]] remoteExec ["Server_Log_New",2];
+				};
+			};
+		};
+		if(_projectile IN _noDamageBullets || {_adminMode} || {_controlDamage} || {_damageScript}) then {_damage = _noDamage;};
+		_damage;
 	}];
 }] call Server_Setup_Compile;
 
@@ -701,7 +725,7 @@
 		private _distance = param [2,100];
 		private _weaponClass = param [3,""];
 		private _except = ["A3PL_FireExtinguisher","CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
-		if(_distance <= 30 && (!(_weaponClass IN _except))) then {
+		if(_distance <= 25 && (!(_weaponClass IN _except))) then {
 			Player_LockView = true;
 			Player_LockView_Time = time + (2 * 60);
 		};
@@ -738,6 +762,10 @@
 				} else {
 					["This locker is closed",Color_Red] call A3PL_Player_Notification;
 				};
+			};
+			if (_x isKindOf "CAManBase" && {!alive _x}) exitWith {
+				["You cannot steal from dead bodies","red"] call A3PL_Player_Notification;
+				_handle = true;				
 			};
 		} count [_container, _secContainer];
 		_handle;

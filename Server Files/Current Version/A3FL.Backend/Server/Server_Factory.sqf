@@ -120,12 +120,13 @@
 	_query = format ["UPDATE players SET f_storage='%1' WHERE uid='%2'",([_storage] call Server_Database_Array),getPlayerUID _player];
 	[_query,1] spawn Server_Database_Async;
 	
-
-	_newTotal = 0;
-	{
-		if((_x select 0) isEqualTo (_item select 0)) exitWith {_newTotal = (_x select 1);}
-	} forEach _newArr;
-	[getPlayerUID _player,"addFactory",["Factory",_type,"Item",(_item select 0),"Amount",(_item select 1),"Total",_newTotal]] call Server_Log_New;
+	if (typeName _newArr isEqualTo "ARRAY") then {
+		_newTotal = 0;
+		{
+			if((_x select 0) isEqualTo (_item select 0)) exitWith {_newTotal = (_x select 1);}
+		} forEach _newArr;
+		[getPlayerUID _player,"addFactory",["Factory",_type,"Item",(_item select 0),"Amount",(_item select 1),"Total",_newTotal]] call Server_Log_New;
+	};
 },true] call Server_Setup_Compile;
 
 //script that runs upon collecting

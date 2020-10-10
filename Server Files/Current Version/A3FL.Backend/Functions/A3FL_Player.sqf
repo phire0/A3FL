@@ -48,6 +48,7 @@
 	Player_AntiSpam = false;
 	Player_AntiListboxSpam = false;
 	Player_Lockview = false;
+	Player_Ragdoll = false;
 
 	//Vehicles keys
 	A3PL_Player_Vehicles = [];
@@ -113,12 +114,12 @@
 ["A3PL_Player_AntiSpam",
 {
 	if(Player_AntiSpam) exitWith {
-		[localize "STR_PLAYER_ANTISPAM", "red"] call A3PL_Player_Notification; //System: Anti-spam, slow down!
+		[localize "STR_PLAYER_ANTISPAM", "red"] call A3PL_Player_Notification;
 		false
 	};
 	Player_AntiSpam = true;
 	[] spawn {
-		uiSleep 0.5;
+		sleep 0.5;
 		Player_AntiSpam = false;
 	};
 	true
@@ -541,7 +542,7 @@
 	private _target = param [0,objNull];
 
 	if (!(_target IN allPlayers)) exitwith {[localize "STR_PLAYER_NOTLOOKINGVALPL","red"] call A3PL_Player_Notification;};
-	if ((handgunWeapon player isEqualTo "") OR ((handgunWeapon player) IN ["A3PL_Jaws","A3PL_Taser2","A3PL_Pickaxe","A3PL_Shovel","A3PL_High_Pressure","A3PL_FireExtinguisher","A3PL_Predator"])) exitwith {["You need a handgun","red"] call A3PL_Player_Notification;};
+	if ((handgunWeapon player isEqualTo "") OR ((handgunWeapon player) IN ["A3FL_PepperSpray","hgun_Pistol_Signal_F","A3PL_Jaws","A3PL_Taser2","A3PL_Pickaxe","A3PL_Shovel","A3PL_High_Pressure","A3PL_FireExtinguisher","A3PL_Predator"])) exitwith {["You need a handgun","red"] call A3PL_Player_Notification;};
 	if (!isNil "A3PL_EnableHostage") exitwith {[localize "STR_PLAYER_TAKESOMEONEHOST","red"] call A3PL_Player_Notification;};
 
 	if ((_target distance2D player) > 3) exitwith {["Too far away to take this person hostage!","red"] call A3PL_Player_Notification;};
@@ -561,7 +562,7 @@
 	_ehFired = player addEventHandler ["Fired",
 	{
 		if ((A3PL_HostageMode isEqualTo "hostage")) exitwith {
-			if ((!isNull A3PL_HostageTarget) && ((handgunWeapon player) != "A3PL_Taser")) then {detach A3PL_HostageTarget; [] remoteExec ["A3PL_Medical_Die",A3PL_HostageTarget];};
+			if ((!isNull A3PL_HostageTarget) && ((handgunWeapon player) != "A3PL_Taser")) then {detach A3PL_HostageTarget; A3PL_HostageTarget setDamage 1;};
 			A3PL_EnableHostage = false;
 		};
 	}];
@@ -873,18 +874,18 @@
 
 ["A3PL_Player_SpawnMenu",{
 	disableSerialization;
-	private _spawnList = [
-		["Silverton",[2445.83,5467.15,0],0],
-		["Lubbock",[2286.87,12015.3,0],0],
-		["Elk City",[6180.74,7365.69,0],0],
-		["Palm Beach",[3552.460,6664.702,0],0]
-	];
+	private _spawnList = [];
 	private _houseObj = player getVariable["house",objNull];
 	private _warehouseObj = player getVariable["warehouse",objNull];
 	private _isCG = (player getVariable["faction","citizen"]) isEqualTo "uscg";
 	if(_isCG) then {_spawnList pushback ["CG Base",[2188.62,4991.78,0],0];};
 	if(!isNull _houseObj) then {_spawnList pushback ["House",getPosATL _houseObj,1];};
 	if(!isNull _warehouseObj) then {_spawnList pushback ["Warehouse",getPosATL _warehouseObj,2];};
+	
+	_spawnList pushback ["Silverton",[2445.83,5467.15,0],0];
+	_spawnList pushback ["Lubbock",[2286.87,12015.3,0],0];
+	_spawnList pushback ["Elk City",[6180.74,7365.69,0],0];
+	_spawnList pushback	["Palm Beach",[3552.460,6664.702,0],0];
 
 	createDialog "Dialog_SpawnMenu";
 

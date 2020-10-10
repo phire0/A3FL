@@ -214,6 +214,19 @@
 	"",
 	{
 		_sotrage = player_objintersect;
+		_isLocked = _sotrage getVariable["locked",true];
+		if(_isLocked) then {
+			["The storage is locked","red"] call A3PL_Player_Notification;
+		} else {
+			[player_objintersect] call A3PL_Housing_VirtualOpen;
+		};
+    }
+],
+[
+	"C_IDAP_supplyCrate_F",
+	"",
+	{
+		_sotrage = player_objintersect;
 		_isLead = ["fims"] call A3PL_Government_isFactionLeader;
 		_isLocked = _sotrage getVariable["locked",true];
 		if(!_isLead && _isLocked) then {

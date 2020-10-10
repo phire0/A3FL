@@ -102,6 +102,21 @@
 ],
 [
 	"",
+	localize"STR_INTSECT_ACCCOMPGAR",
+	{[true] call A3PL_Storage_OpenCarStorage;}
+],
+[
+	"",
+	localize"STR_INTSECT_TRSCOMPGAR",
+	{[1] call A3PL_Storage_CarStoreButton;}
+],
+[
+	"",
+	localize"STR_INTSECT_TRSPERSGAR",
+	{[2] call A3PL_Storage_CarStoreButton;}
+],
+[
+	"",
 	localize"STR_INTSECT_STOREVEH",
 	{call A3PL_Storage_CarStoreButton;}
 ],
@@ -457,6 +472,11 @@
 ],
 [
 	"Land_A3FL_DOC_Gate",
+	localize"STR_INTSECT_LOCKDOWN",
+	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
+],
+[
+	"Land_A3FL_DOC_Gate",
 	format [localize"STR_INTSECT_OPENDOOR",1],
 	{[player_objintersect,player_nameIntersect] call A3PL_PrisonGate_HandleDoor;}
 ],
@@ -596,6 +616,11 @@
 	"Land_A3PL_BusinessSign",
 	localize"STR_INTSECT_BUYBUSI",
 	{call A3PL_Company_OpenBuyShop;}
+],
+[
+	"Land_A3PL_BusinessSign",
+	localize"STR_INTSECT_SELLBUSI",
+	{call A3PL_Company_OpenSellShop;}
 ],
 [
 	"Land_A3PL_BusinessSign",

@@ -300,17 +300,16 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_SendBill', {
-	private ["_target","_display","_control","_amount","_desc","_cid"];
 	params[
-		["_target","",[""]],
+		["_target",objNull,[objNull]],
 		["_amount",0,[0]],
 		["_desc","",[""]]
 	];
 	if(_target isEqualTo "") exitWith {};
 
-	_cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
+	private _cid = [getPlayerUID player] call A3PL_Config_GetCompanyID;
 	[_cid, _amount, _desc, _target] remoteExec ["Server_Company_SendBill",2];
-	_amount = [_amount, 1, 0, true] call CBA_fnc_formatNumber;
+	private _amount = [_amount, 1, 0, true] call CBA_fnc_formatNumber;
 	[format[localize"STR_SERVER_COMPANY_SENDEDBILL",_amount],"green"] call A3PL_Player_Notification;
 	[0] call A3PL_Lib_CloseDialog;
 }] call Server_Setup_Compile;
@@ -463,11 +462,11 @@
 	COMPANY SHOPS BELLOW
 */
 
-#define BUSINESSOBJS ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3PL_Gas_Station","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"]
+#define BUSINESSOBJS ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"]
 #define BUSINESSPRICE 800000
 
 ['A3PL_Company_OpenBuyShop', {
-	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	private _nearBy = nearestObjects [player, ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_BuyObject = _nearBy select 0;
 
@@ -489,7 +488,8 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Company_OpenSellShop', {
-	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	private _nearBy = nearestObjects [player, ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
+	private _cid = 
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
 	A3PL_Company_BuyObject = _nearBy select 0;
 
@@ -509,38 +509,131 @@
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
-//Open the customer UI
 ['A3PL_Company_OpenShop', {
-	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
+	private _nearBy = nearestObjects [player, ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
 	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
-	A3PL_Company_BuyObject = _nearBy select 0;
+	A3PL_Company_Building = _nearBy select 0;
 
+	if(A3PL_Company_Building getVariable["inUse",false]) exitWith {["Someone is already using this shop!","red"] call A3PL_Player_Notification;};
+	A3PL_Company_Building setVariable["inUse",true,true];
+	
 	createDialog "Dialog_CompanyShop_Customer";
 	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1102;
+	private _cid = A3PL_Company_Building getVariable["cid",-1];
+	private _cName = [_cid, "name"] call A3PL_Config_GetCompanyData;
+	_control ctrlSetStructuredText parseText format["<t size='2'>%1</t>",_cName];
+	call A3PL_Company_RefreshShop;
 }] call Server_Setup_Compile;
 
-//Customer function, buy from the comp stock
 ['A3PL_Company_ShopBuy', {
+	if(!([5] call A3PL_Player_AntiSpam)) exitWith {};
+	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1500;
+	if ((lbCurSel _control) < 0) exitwith {["Please select an item in the list first","red"] call A3PL_Player_Notification;};
+
+	private _itemData = (_control lbData (lbCurSel _control)) splitString ",";
+	private _control = _display displayCtrl 1400;
+	private _buyAmount = floor(parseNumber (ctrlText _control));
+	private _type = _itemData select 0;
+	private _class = _itemData select 1;
+	private _amount = parseNumber(_itemData select 2);
+	private _price = parseNumber(_itemData select 3);
+	private _cash = player getVariable["Player_Cash",0];
+	private _itemName = "undefined";
+	private _canTake = true;
+	private _cid = A3PL_Company_Building getVariable["cid",-1];	
+
+	switch(_type) do {
+		case ("item"):{
+			_itemName = [_class,"name"] call A3PL_Config_GetItem;
+		};
+		case ("vehicle"): {
+			_itemName = getText (configFile >> "CfgVehicles" >> _class >> "displayName");
+			_buyAmount = 1;
+		};
+		case ("plane"): {
+			_itemName = getText (configFile >> "CfgVehicles" >> _class >> "displayName");
+			_buyAmount = 1;
+		};
+	};
+	_price = _price*_buyAmount;
+	if(_buyAmount < 0) exitWith {["Please enter a valid amount!","red"] call A3PL_Player_Notification;};
+	if(_buyAmount > _amount) exitWith {["There is not enough stock!","red"] call A3PL_Player_Notification;};
+	if(_price > _cash) exitWith {[format["You do not have $%1 to buy %2 %3",_price,_buyAmount,_itemName],"red"] call A3PL_Player_Notification;};
+
+	switch(_type) do {
+		case ("item"):{
+			if ([_class,"canPickup"] call A3PL_Config_GetItem) then {
+				if(([[_class,_buyAmount]] call A3PL_Inventory_TotalWeight) <= Player_MaxWeight) then {
+					[_class,_buyAmount] call A3PL_Inventory_Add;
+				} else {
+					_canTake = false;
+				};
+			} else {
+				private _veh = createVehicle [([_class,"class"] call A3PL_Config_GetItem), getposATL player, [], 0, "CAN_COLLIDE"];
+				if (!([_class,"simulation"] call A3PL_Config_GetItem)) then {[_veh] remoteExec ["Server_Vehicle_EnableSimulation",2];};
+				_veh setVariable ["class",_class,true];
+				_veh setVariable ["owner",getPlayerUID player,true];
+			};
+		};
+		case ("vehicle"): {
+			[player,[_class,1],"","car"] remoteExec ["Server_Factory_Create", 2];
+		};
+		case ("plane"): {
+			[player,[_class,1],"","plane"] remoteExec ["Server_Factory_Create", 2];
+		};
+	};
+	if(!_canTake) exitWith {["You cannot carry this amount!","red"] call A3PL_Player_Notification;};
+	[_cid, _price, format["Shop %1x%2",_buyAmount,_itemName]] remoteExec ["Server_Company_SetBank",2];
+	player setVariable["Player_Cash",(_cash-_price),true];
+	[A3PL_Company_Building,_class,_buyAmount,player,true] remoteExec ["Server_Company_ShopRemoveStock",2];
 }] call Server_Setup_Compile;
 
-
-	//Handle virtual items to start with then cars
-['A3PL_Company_OpenShopStock', {
-	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
-	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
-	A3PL_Company_BuyObject = _nearBy select 0;
-
-	createDialog "Dialog_CompanyShop_Management";
+['A3PL_Company_RefreshShop', {
 	private _display = findDisplay 130;
+	private _stock = A3PL_Company_Building getVariable["stock",[]];
+	private _control = _display displayCtrl 1500;
 
+	if(_stock isEqualTo []) then {
+		_control lbAdd "The stocks are empty";
+	} else {
+		lbClear _control;
+		{
+			private _type = (_x select 0);
+			private _class = (_x select 1);
+			private _amount = (_x select 2);
+			private _price = (_x select 3);
+			private _infoString = format["%1,%2,%3,%4",_type,_class,_amount,_price];
+			private _name = [_class,_type,"name"] call A3PL_Factory_Inheritance;
+			private _i = _control lbAdd format ["(%2x) %1",_name,_amount];
+			_control lbSetData [_i,format ["%1",_infoString]];
+		} forEach _stock;
+		_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Company_ShopStockSelect;"];
+	};
+}] call Server_Setup_Compile;
+
+['A3PL_Company_OpenShopStock', {
+	private _nearBy = nearestObjects [player, ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 20];
+	if (count _nearBy < 1) exitwith {["Error: No business building nearby","red"] call A3PL_Player_Notification;};
+	A3PL_Company_Building = _nearBy select 0;
+	if(A3PL_Company_Building getVariable["inUse",false]) exitWith {["Someone is already using this shop!","red"] call A3PL_Player_Notification;};
+	A3PL_Company_Building setVariable["inUse",true,true];
+	createDialog "Dialog_CompanyShop_Management";
+	call A3PL_Company_RefreshShopStock;
+}] call Server_Setup_Compile;
+
+['A3PL_Company_RefreshShopStock', {
+	private _display = findDisplay 130;
 	private _control = _display displayCtrl 1501;
 	private _inventory = player getVariable ["player_inventory",[]];
+	private _uid = getPlayerUID player;
 	lbClear _control;
 
 	{
 		private _id = _x select 0;
 		private _amount = _x select 1;
-		private _infoString = format["%1__%2__%3","item",_id,_amount];
+		private _infoString = format["%1,%2,%3","item",_id,_amount];
 		private _i = _control lbAdd format ["(%2x) %1",([_id,"name"] call A3PL_Config_GetItem),_amount];
 		_control lbSetData [_i,_infoString];
 	} foreach _inventory;
@@ -552,15 +645,30 @@
 		};
 	} foreach _near;
 	{
-		if ((_x getVariable ["owner",""]) isEqualTo (getPlayerUID player)) then {
+		if ((_x getVariable ["owner",""]) isEqualTo _uid) then {
 			private _id = _x getVariable ["class",""];
-			private _infoString = format["%1__%2__%3__%4","item",_id,1,_x];
+			private _infoString = format["%1,%2,%3,OBJ_%4","item",_id,1,_x];
 			private _i = _control lbAdd format ["(1x) %1",([_id,"name"] call A3PL_Config_GetItem)];
 			_control lbSetData [_i,_infoString];
 		};
 	} foreach _near;
 
-	private _stock = A3PL_Company_BuyObject getVariable["stock",[]];
+	private _near = nearestObjects [player, ["Car","Tank","Ship","Air","Plane"], 15];
+	{
+		private _owner = _x getVariable["owner",nil];
+		if(!isNil "_owner") then {
+			if((_owner select 0) isEqualTo _uid) then {
+				private _id = typeOf _x;
+				private _displayName = getText (configFile >> "CfgVehicles" >> _id >> "displayName");;
+				private _type = if((_x isKindOf "Air") || (_x isKindOf "Plane")) then {"plane"} else {"vehicle"};
+				private _infoString = format["%1,%2,%3,OBJ_%4",_type,_id,1,_x];
+				private _i = _control lbAdd format ["(1x) %1",_displayName];
+				_control lbSetData [_i,_infoString];
+			};
+		};
+	} forEach _near;
+
+	private _stock = A3PL_Company_Building getVariable["stock",[]];
 	private _control = _display displayCtrl 1500;
 	lbClear _control;
 	{
@@ -568,21 +676,157 @@
 		private _class = (_x select 1);
 		private _amount = (_x select 2);
 		private _price = (_x select 3);
-		private _infoString = format["%1__%2__%3__%4",_type,_class,_amount,_price];
+		private _infoString = format["%1,%2,%3,%4",_type,_class,_amount,_price];
 		private _name = [_class,_type,"name"] call A3PL_Factory_Inheritance;
 		private _i = _control lbAdd format ["(%2x) %1",_name,_amount];
 		_control lbSetData [_i,format ["%1",_infoString]];
 	} forEach _stock;
+	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_Company_ShopStockSelect;"];
 }] call Server_Setup_Compile;
 
-//Add a new item to stock to sell
-['A3PL_Company_AddNewShopStock', {
-}] call Server_Setup_Compile;
-
-//Add x to current stock
 ['A3PL_Company_AddShopStock', {
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1501;
+	if ((lbCurSel _control) < 0) exitwith {["Please select an item in the list first","red"] call A3PL_Player_Notification;};
+	private _itemData = _control lbData (lbCurSel _control);
+
+	private _control = _display displayCtrl 1401;
+	private _addAmount = floor(parseNumber (ctrlText _control));
+	if(_addAmount < 0) exitWith {["Please enter a valid amount!","red"] call A3PL_Player_Notification;};
+
+	private _control = _display displayCtrl 1403;
+	private _addPrice = floor(parseNumber (ctrlText _control));
+	if(_addPrice < 0) exitWith {["Please enter a valid price!","red"] call A3PL_Player_Notification;};
+
+	_itemData = _itemData splitString ",";
+	if(count(_itemData) < 3) exitWith {["Error while loading item info, please try again!","red"] call A3PL_Player_Notification;};
+	private _type = _itemData select 0;
+	private _class = _itemData select 1;
+	private _amount = parseNumber(_itemData select 2);
+
+	if(_addAmount > _amount) exitWith {["You do not have this amount to add!","red"] call A3PL_Player_Notification;};
+
+	switch(_type) do {
+		case "item": {
+			if(count(_itemData) isEqualTo 4) then {
+				_objString = _itemData select 3;
+				_splitted = _objString splitString "_";
+				if ((_splitted select 0) isEqualTo "OBJ") then
+				{
+					private _typeOf = toArray _objString;
+					_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;
+					_typeOf = toString _typeOf;
+					private _veh = [_typeOf] call A3PL_Lib_vehStringToObj;
+					deleteVehicle _veh;
+				};
+			};
+			[_class,-(_addAmount)] call A3PL_Inventory_Add;
+		};
+		case "vehicle": {
+			if(count(_itemData) isEqualTo 4) then {
+				_objString = _itemData select 3;
+				_splitted = _objString splitString "_";
+				if ((_splitted select 0) isEqualTo "OBJ") then
+				{
+					private _typeOf = toArray _objString;
+					_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;
+					_typeOf = toString _typeOf;
+					private _veh = [_typeOf] call A3PL_Lib_vehStringToObj;
+					[_veh] remoteExecCall ["Server_Vehicle_Sell",2];
+				};
+			};
+			
+		};
+		case "plane": {
+			if(count(_itemData) isEqualTo 4) then {
+				_objString = _itemData select 3;
+				_splitted = _objString splitString "_";
+				if ((_splitted select 0) isEqualTo "OBJ") then
+				{
+					private _typeOf = toArray _objString;
+					_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;_typeOf deleteAt 0;
+					_typeOf = toString _typeOf;
+					private _veh = [_typeOf] call A3PL_Lib_vehStringToObj;
+					[_veh] remoteExecCall ["Server_Vehicle_Sell",2];
+				};
+			};
+		};
+	};
+	[A3PL_Company_Building,_type,_class,_addAmount,_addPrice,player] remoteExec ["Server_Company_ShopAddStock",2];
 }] call Server_Setup_Compile;
 
-//Remove x items from stock
 ['A3PL_Company_RemoveShopStock', {
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1500;
+	if ((lbCurSel _control) < 0) exitwith {["Please select an item in the list first","red"] call A3PL_Player_Notification;};
+	private _itemData = (_control lbData (lbCurSel _control)) splitString ",";
+	private _control = _display displayCtrl 1400;
+	private _takeAmount = floor(parseNumber (ctrlText _control));
+	if(_takeAmount < 0) exitWith {["Please enter a valid amount!","red"] call A3PL_Player_Notification;};
+	if(count(_itemData) < 3) exitWith {["Error while loading item info, please try again!","red"] call A3PL_Player_Notification;};
+	private _type = _itemData select 0;
+	private _class = _itemData select 1;
+	private _amount = parseNumber(_itemData select 2);
+	if(_takeAmount > _amount) exitWith {["You do not have this amount to add!","red"] call A3PL_Player_Notification;};
+	private _canTake = true;
+	switch(_type) do {
+		case "item": {
+			if ([_class,"canPickup"] call A3PL_Config_GetItem) then {
+				if(([[_class,_takeAmount]] call A3PL_Inventory_TotalWeight) <= Player_MaxWeight) then {
+					[_class,_takeAmount] call A3PL_Inventory_Add;
+				} else {
+					_canTake = false;
+				};
+			} else {
+				private _veh = createVehicle [([_class,"class"] call A3PL_Config_GetItem), getposATL player, [], 0, "CAN_COLLIDE"];
+				if (!([_class,"simulation"] call A3PL_Config_GetItem)) then {[_veh] remoteExec ["Server_Vehicle_EnableSimulation",2];};
+				_veh setVariable ["class",_class,true];
+				_veh setVariable ["owner",getPlayerUID player,true];
+			};
+		};
+		case "vehicle": {
+			[player,[_class,1],"","car"] remoteExec ["Server_Factory_Create", 2];
+			_takeAmount = 1;
+		};
+		case "plane": {
+			[player,[_class,1],"","plane"] remoteExec ["Server_Factory_Create", 2];
+			_takeAmount = 1;
+		};
+	};
+	if(!_canTake) exitWith {[format [localize "STR_SHOP_NOTENOUGHSPACE",_amount, _itemName],"red"] call A3PL_Player_Notification;};
+	[A3PL_Company_Building,_class,_takeAmount,player] remoteExec ["Server_Company_ShopRemoveStock",2];
+}] call Server_Setup_Compile;
+
+['A3PL_Company_UpdateStockPrice', {
+	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1500;
+	private _itemData = (_control lbData (lbCurSel _control)) splitString ",";
+	if (count(_itemData) < 3) exitWith {["Error while loading item info, please try again!","red"] call A3PL_Player_Notification;};
+	private _class = _itemData select 1;
+	private _price = parseNumber(_itemData select 3);
+
+	private _control = _display displayCtrl 1403;
+	private _addPrice = floor(parseNumber (ctrlText _control));
+	if (_addPrice < 0) exitWith {["Please enter a valid price!","red"] call A3PL_Player_Notification;};
+	if (_price isEqualTo _addPrice) exitWith {["ARE YOU FUCKING RETARDED?","red"] call A3PL_Player_Notification;};
+
+	private _control = _display displayCtrl 1101;
+	_control ctrlSetStructuredText parseText format["$%1",[_addPrice, 1, 0, true] call CBA_fnc_formatNumber];	
+	[A3PL_Company_Building,_class,_addPrice,player] remoteExec ["Server_Company_ShopResetPrice",2];
+}] call Server_Setup_Compile;
+
+['A3PL_Company_ShopStockSelect', {
+	private _display = findDisplay 130;
+	private _control = _display displayCtrl 1500;
+	private _itemData = (_control lbData (lbCurSel _control)) splitString ",";
+	if(count(_itemData) < 3) exitWith {["Error while loading item info, please try again!","red"] call A3PL_Player_Notification;};
+	private _amount = parseNumber(_itemData select 2);
+	private _price = parseNumber(_itemData select 3);
+
+	private _control = _display displayCtrl 1100;
+	_control ctrlSetStructuredText parseText format["%1",_amount];
+	private _control = _display displayCtrl 1101;
+	_control ctrlSetStructuredText parseText format["$%1",[_price, 1, 0, true] call CBA_fnc_formatNumber];
 }] call Server_Setup_Compile;

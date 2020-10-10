@@ -209,7 +209,6 @@ Server_Setup_Compile = {
 		_format = localize "STR_A3PLS_LOADINGREQUEST_VEHICLESINITIALIZEDSUCCESFULLY";
 		_control ctrlSetStructuredText (parseText _format);
 
-		call A3PL_Medical_Init;
 		_control = (_display displayCtrl 10360);
 		_format = "<t size='2' align='center' color='#B8B8B8'>80%</t>";
 		_control ctrlSetStructuredText (parseText _format);
@@ -277,7 +276,6 @@ Server_Setup_Compile = {
 		call Server_Housing_Initialize;
 		call Server_Warehouses_Initialize;
 
-		call Server_Criminal_BlackMarketPos;
 		call Server_JobFarming_DrugDealerPos;
 		[] spawn Server_JobWildcat_RandomizeOil;
 		[] spawn Server_JobWildcat_RandomizeRes;
@@ -286,7 +284,7 @@ Server_Setup_Compile = {
 		[] spawn Server_Lumber_TreeRespawn;				//spawn trees for lumberyacking
 		[] spawn Server_Criminal_MoveNPCs;
 		call Server_Government_BudgetTransfer;
-
+		call Server_Company_LoadShop;
 
 		//load stock values
 		// [] spawn Server_ShopStock_Load;
@@ -332,12 +330,10 @@ Server_Setup_Compile = {
 	_craneleft setDir 232.025;
 	_craneleft setFuel 0;
 
-	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 7200]] call BIS_fnc_loop;
+	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 3600]] call BIS_fnc_loop;
 	
 	["itemAdd", ["Server_PoliceLoop", { call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_Fishing", {call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
-
-	["itemAdd", ["Server_Loop_BlackMarket", {call Server_Criminal_BlackMarketPos;}, 7200]] call BIS_fnc_loop;
 
 	["itemAdd", ["Server_Loop_DealerPos", {call Server_JobFarming_DrugDealerPos;}, 1200]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_RepairTerrain", {[] spawn Server_Core_RepairTerrain;}, 600]] call BIS_fnc_loop;
@@ -723,7 +719,7 @@ Server_Setup_Compile = {
 
 	_jailTime = (_return select 21);
 	if(_jailTime > 0) then {
-		_unit setPos [4744.56,6023.57,0];
+		_unit setPos [4758.43,6167.78,0];
 		_unit setVariable["alreadySpawned",true,true];
 		[_jailTime, _unit] call Server_Police_JailPlayer;
 	};

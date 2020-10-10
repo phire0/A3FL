@@ -425,7 +425,6 @@
 		case "itemTreat": { _return = _config select 5; };
 		case "doesTreatHeal": { _return = _config select 6; };
 		case "itemHeal": { _return = _config select 7; };
-		case "damage": { _return = _config select 8; };
 	};
 	_return;
 }] call Server_Setup_Compile;
