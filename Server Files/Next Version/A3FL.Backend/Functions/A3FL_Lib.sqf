@@ -10,8 +10,8 @@
 {
 	private _t = 0;
 	while {isNull (findDisplay 602)} do {
-		uiSleep 0.1;
 		_t = _t + 0.1;
+		sleep 0.1;
 		if (_t > 5) exitwith {};
 	};
 	player setVariable ["inventory_opened", nil, true];

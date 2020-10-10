@@ -605,6 +605,7 @@
 	{
 		[player,1] remoteExec ["A3PL_Police_SurrenderAnim",true];
 	};*/
+	[] spawn A3PL_Lib_CloseInventoryDialog;
 	if (((animationState _obj) IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (_upDown)) exitwith
 	{
 		[player,2] remoteExec ["A3PL_Police_SurrenderAnim", -2];
