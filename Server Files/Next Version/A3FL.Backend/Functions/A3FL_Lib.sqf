@@ -16,6 +16,9 @@
 	};
 	player setVariable ["inventory_opened", nil, true];
 	closeDialog 602;
+	while{dialog} do {
+		closeDialog 0;
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Lib_MoneyFormat",

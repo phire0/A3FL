@@ -167,6 +167,9 @@
 		_mags = magazines _target;
 		if (currentMagazine _target != "") then {_mags pushback (currentMagazine _target);};
 
+		private _conditions = (animationState A3PL_Police_Target IN ["a3pl_idletohandsup","a3pl_handsuptokneel"]) || (A3PL_Police_Target getVariable ["Cuffed",true]) || (A3PL_Police_Target getVariable ["Zipped",true]);
+		if(!_conditions) exitWith {};
+		
 		createDialog "Dialog_PatDown";
 		_display = findDisplay 93;
 
@@ -235,6 +238,13 @@
 
 		A3PL_Police_Target = _target;
 		_display displayAddEventHandler ["unload",{A3PL_Police_Target setVariable ["patdown",nil,true]; A3PL_Police_Target = nil; A3PL_Police_WeaponHolder = nil;}];
+
+		while{!isNull findDisplay 93} do {
+			private _conditions = (animationState A3PL_Police_Target IN ["a3pl_idletohandsup","a3pl_handsuptokneel"]) || (A3PL_Police_Target getVariable ["Cuffed",true]) || (A3PL_Police_Target getVariable ["Zipped",true]);
+			if(!_conditions) then {
+				closeDialog 0;
+			};
+		};
 	};
 }] call Server_Setup_Compile;
 

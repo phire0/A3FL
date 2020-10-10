@@ -20,8 +20,7 @@
 	_veh addEventHandler ["ContainerOpened",
 	{
 		_container = param [0,objNull];
-		if (_container getVariable ["locked",true]) then
-		{
+		if (_container getVariable ["locked",true]) then {
 			[] spawn A3PL_Lib_CloseInventoryDialog;
 			[localize"STR_NewVehicleInit_1","red"] call A3PL_Player_Notification;
 		};
