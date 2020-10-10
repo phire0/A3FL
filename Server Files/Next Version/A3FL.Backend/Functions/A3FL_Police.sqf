@@ -167,7 +167,7 @@
 		_mags = magazines _target;
 		if (currentMagazine _target != "") then {_mags pushback (currentMagazine _target);};
 
-		private _conditions = (animationState A3PL_Police_Target IN ["a3pl_idletohandsup","a3pl_handsuptokneel"]) || (A3PL_Police_Target getVariable ["Cuffed",true]) || (A3PL_Police_Target getVariable ["Zipped",true]);
+		private _conditions = (animationState _target IN ["a3pl_idletohandsup","a3pl_handsuptokneel"]) || (_target getVariable ["Cuffed",true]) || (_target getVariable ["Zipped",true]);
 		if(!_conditions) exitWith {};
 		
 		createDialog "Dialog_PatDown";
