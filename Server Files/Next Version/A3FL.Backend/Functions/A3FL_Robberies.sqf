@@ -14,7 +14,7 @@
 
 	if (_cooldown) exitwith {["A port has already been robbed recently","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
-	if ((currentWeapon player) IN ["A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a port with this weapon!","red"] call A3PL_Player_Notification;};
+	if ((currentWeapon player) IN ["A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a port with this weapon!","red"] call A3PL_Player_Notification;};
 
 	_cg = ["uscg"] call A3PL_Lib_FactionPlayers;
 	if ((count _cg) < 2) exitwith {["There must be at least 2 USCG on duty to rob this port!","red"] call A3PL_Player_Notification;};
@@ -206,7 +206,7 @@
 	if (_isBeingRobbed) exitWith {["The ship is already being robbed!","red"] call A3PL_Player_Notification;};
 	if (_cooldown > (serverTime-7200)) exitWith {["The ship has already been robbed recently!","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
-	if ((currentWeapon player) IN ["A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a port with this weapon!","red"] call A3PL_Player_Notification;};
+	if ((currentWeapon player) IN ["A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a port with this weapon!","red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {["You are already doing something.","red"] call A3PL_Player_Notification;};
 
 	private _requiredCG = 5;

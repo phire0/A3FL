@@ -542,7 +542,7 @@
 	private _target = param [0,objNull];
 
 	if (!(_target IN allPlayers)) exitwith {[localize "STR_PLAYER_NOTLOOKINGVALPL","red"] call A3PL_Player_Notification;};
-	if ((handgunWeapon player isEqualTo "") OR ((handgunWeapon player) IN ["A3PL_Jaws","A3PL_Taser2","A3PL_Pickaxe","A3PL_Shovel","A3PL_High_Pressure","A3PL_FireExtinguisher","A3PL_Predator"])) exitwith {["You need a handgun","red"] call A3PL_Player_Notification;};
+	if ((handgunWeapon player isEqualTo "") OR ((handgunWeapon player) IN ["A3FL_PepperSpray","hgun_Pistol_Signal_F","A3PL_Jaws","A3PL_Taser2","A3PL_Pickaxe","A3PL_Shovel","A3PL_High_Pressure","A3PL_FireExtinguisher","A3PL_Predator"])) exitwith {["You need a handgun","red"] call A3PL_Player_Notification;};
 	if (!isNil "A3PL_EnableHostage") exitwith {[localize "STR_PLAYER_TAKESOMEONEHOST","red"] call A3PL_Player_Notification;};
 
 	if ((_target distance2D player) > 3) exitwith {["Too far away to take this person hostage!","red"] call A3PL_Player_Notification;};

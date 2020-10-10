@@ -628,6 +628,7 @@
 		_target setVariable ["A3PL_Wounds",[],true];
 		_target setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
 		_target setDamage 0;
+		closeDialog 0;
 		[player,"admin_heal",[format ["Healing %1",name _target]]] remoteExec ["Server_AdminLoginsert", 2];
 	} else {
 		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;

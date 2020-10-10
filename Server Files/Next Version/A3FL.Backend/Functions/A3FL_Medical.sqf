@@ -394,7 +394,7 @@
 	createDialog "dialog_medical";
 	private _display = findDisplay 73;
 
-	if(_unit getVariable["A3PL_Medical_Alive",true]) then {
+	if(!(_unit getVariable["A3PL_Medical_Alive",true])) then {
 		_unit = _unit getVariable["realPlayer",objNull];
 	};
 
@@ -427,7 +427,7 @@
 
 	[_display,_unit] call A3PL_Medical_LoadParts;
 	while {!isNull _display} do {
-		sleep 2;
+		sleep 0.2;
 		[] call A3PL_Medical_LoadItems;
 	};
 }] call Server_Setup_Compile;
@@ -826,22 +826,30 @@
 		private _display = findDisplay 7300;
 		private _control = _display displayCtrl 1001;
 		private _exit = false;
+		private _format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CAN remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
 		while {!(_unit getVariable ["A3PL_Medical_Alive",true]) && !(player getVariable ["A3PL_Medical_Alive",true])} do
 		{
 			if(_unit getVariable ["DoubleTapped",false]) then {
 				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CANNOT remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
-				_control ctrlSetStructuredText  parseText _format;
-			} else {
-				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CAN remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
-				_control ctrlSetStructuredText  parseText _format;
 			};
+			_control ctrlSetStructuredText  parseText _format;
 			sleep 1;
 			_timer = _timer - 1;
 			_unit setVariable ["TimeRemaining",_timer,true];
-			if (_timer <= 0) exitwith {_exit = true;[] remoteExecCall ["A3PL_Medical_Respawn",player];};
+			if (_timer <= 0) exitwith {_exit = true;};
 		};
-		if(_exit) exitWith {};
+		if(_exit) exitWith {call A3PL_Medical_Respawn;};
 		call A3PL_Medical_Revived;
+	};
+
+	[_unit] spawn {
+		private _unit = _this select 0;
+		waitUntil {
+			A3PL_deathCam camSetTarget _unit;
+			A3PL_deathCam camSetRelPos [0,3.5,4.5];
+			A3PL_deathCam camCommit 0;
+			speed _unit isEqualTo 0
+		};
 	};
 }] call Server_Setup_Compile;
 
@@ -897,7 +905,7 @@
 	private _nearestClinic = nearestObjects [_bodyPos, ["Land_A3PL_Clinic"], 10000];
 	if(count(_nearestClinic) > 0) then {
 		private _clinic = _nearestClinic select 0;
-		if(getPos _clinic isEqualTo []) then {
+		if(getPos _clinic isEqualTo [4743.09,6071.22,0.221574]) then {
 			_clinic = _nearestClinic select 1;
 		};
 		player setPosATL (_clinic modelToWorld [-7,-7,-2.5]); 
