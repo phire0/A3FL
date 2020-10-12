@@ -167,9 +167,6 @@
 		_mags = magazines _target;
 		if (currentMagazine _target != "") then {_mags pushback (currentMagazine _target);};
 
-		private _conditions = (animationState _target IN ["a3pl_idletohandsup","a3pl_handsuptokneel"]) || (_target getVariable ["Cuffed",true]) || (_target getVariable ["Zipped",true]);
-		if(!_conditions) exitWith {};
-		
 		createDialog "Dialog_PatDown";
 		_display = findDisplay 93;
 
@@ -238,13 +235,6 @@
 
 		A3PL_Police_Target = _target;
 		_display displayAddEventHandler ["unload",{A3PL_Police_Target setVariable ["patdown",nil,true]; A3PL_Police_Target = nil; A3PL_Police_WeaponHolder = nil;}];
-
-		while{!isNull findDisplay 93} do {
-			private _conditions = (animationState A3PL_Police_Target IN ["a3pl_idletohandsup","a3pl_handsuptokneel"]) || (A3PL_Police_Target getVariable ["Cuffed",true]) || (A3PL_Police_Target getVariable ["Zipped",true]);
-			if(!_conditions) then {
-				closeDialog 0;
-			};
-		};
 	};
 }] call Server_Setup_Compile;
 
@@ -605,7 +595,6 @@
 	{
 		[player,1] remoteExec ["A3PL_Police_SurrenderAnim",true];
 	};*/
-	[] spawn A3PL_Lib_CloseInventoryDialog;
 	if (((animationState _obj) IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (_upDown)) exitwith
 	{
 		[player,2] remoteExec ["A3PL_Police_SurrenderAnim", -2];
@@ -816,25 +805,14 @@
 
 ['A3PL_Police_DatabaseArgu',{
 	params[["_edit","",[""]],["_index",0,[0]]];
-
-	private _allowedChars = toArray "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ,";
-	private _checkEdit = toArray _edit;
-	private _forbiddenUsed = false;
-
-	{
-		if (!(_x in _allowedChars)) exitWith {
-			_forbiddenUsed = true;
-		};
-	} forEach _checkEdit;
-
-	if (_forbiddenUsed) exitWith {
-		"SpecialCharacterError";
-	};
-
 	_array = _edit splitString " ";
 	_return = _array select _index;
 	_return
 }] call Server_Setup_Compile;
+
+['A3PL_Police_DatabaseRequireLogin',
+	["lookup","warrantinfo","lookuplicense","lookupcompany","tickethistory","lookupaddress","insertarrest","darknet","lookupwarehouse"]
+] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseEnterReceive',
 {
@@ -853,12 +831,7 @@
 					_warrantCount = "<t color='#ff0000'>Yes</t>";
 				};
 
-				_cautionStr = "None";
-				if ((count(_return select 10)) >= 3) then {
-					_cautionStr = format["<t color='#ff0000'>%1</t>", _return select 10];
-				};
-
-				_output = format ["<t align='center'>Name: %1</t><br /><t align='center'>Sex: %2</t><br /><t align='center'>DOB: %3</t><br /><t align='center'>Passport Date: %9</t><br /><t align='center'>Active warrant: %4</t><br /><t align='center'>Cautions: %13</t><br /><t align='center'>Warning History: %5</t><br /><t align='center'>Ticket History: %6</t><br /><t align='center'>Arrest History: %7</t><br /><t align='center'>Report History: %8</t><br /><t align='center'>Bank Account: $%11</t><br /><t align='center'>Licenses: %10</t><br/><t align='center'>Company: %12</t>",
+				_output = format ["<t align='center'>Name: %1</t><br /><t align='center'>Sex: %2</t><br /><t align='center'>DOB: %3</t><br /><t align='center'>Passport Date: %9</t><br /><t align='center'>Active warrant: %4</t><br /><t align='center'>Warning History: %5</t><br /><t align='center'>Ticket History: %6</t><br /><t align='center'>Arrest History: %7</t><br /><t align='center'>Report History: %8</t><br /><t align='center'>Bank Account: $%11</t><br /><t align='center'>Licenses: %10</t><br/><t align='center'>Company: %12</t>",
 				_name,
 				(_return select 0),
 				(_return select 1),
@@ -870,8 +843,7 @@
 				(_return select 7),
 				(_return select 8),
 				[(_return select 9), 1, 0, true] call CBA_fnc_formatNumber,
-				(_return select 11),
-				_cautionStr
+				(_return select 10)
 				];
 			} else
 			{
@@ -881,6 +853,7 @@
 
 		case "lookupvehicles":
 		{
+
 			if (count _return > 0) then
 			{
 				{
@@ -903,10 +876,10 @@
 		case "lookuplicense":
 		{
 			if(count _return > 1) then {
+				_plate = _return select 4;
+				_insured = _return select 3;
 				_name = _return select 0;
 				_class = _return select 2;
-				_insured = _return select 3;
-				_plate = _return select 5;
 
 				_vehName = getText(configFile >>  "CfgVehicles" >>  _class >> "displayName");
 
@@ -928,10 +901,6 @@
 				<t align='center'>Owner: %2</t><br />
 				<t align='center'>Reported stolen: %4</t><br />
 				<t align='center'>Insurance: %5</t>",_plate,_name,_vehName,_stolen,_insured];
-
-				if(count(_return) isEqualTo 7) then {
-					_output = _output + format["<br /><t align='center'>Company: %1</t>",_return select 6];
-				};
 			} else {
 				_output = format ["No information available for registration %1",_plate];
 			};
@@ -979,17 +948,14 @@
 				_output = "No registered warehouses found for this citizen!";
 			};
 		};
-
 		case "markstolen":
 		{
 			_output = _return;
 		};
-
 		case "markfound":
 		{
 			_output = _return;
 		};
-
 		case "warrantlist":
 		{
 
@@ -1004,7 +970,6 @@
 				_output = format ["Can not find active mandates for %1",_name];
 			};
 		};
-
 		case "warrantinfo":
 		{
 			if (count _return > 0) then
@@ -1015,18 +980,16 @@
 				_output = format ["No warrant exists",_name];
 			};
 		};
-
 		case "removewarrant":
 		{
 			_output = _return;
 		};
-
 		case "ticketlist":
 		{
 			if (count _return > 0) then
 			{
 				{
-					_output = _output + (format ["<t align='center'>%1 - $%4 - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2,_x select 3]);
+					_output = _output + (format ["<t align='center'>%1 - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2]);
 				} foreach _return;
 				_output = _output;
 			} else
@@ -1034,13 +997,12 @@
 				_output = format ["No history of fines is available for %1",_name];
 			};
 		};
-
 		case "arrestlist":
 		{
 			if (count _return > 0) then
 			{
 				{
-					_output = _output + (format ["<t align='center'>%1 - %4 Month(s) - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2,_x select 3]);
+					_output = _output + (format ["<t align='center'>%1 - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2]);
 				} foreach _return;
 				_output = _output;
 			} else
@@ -1048,7 +1010,6 @@
 				_output = format ["No arrest available for %1",_name];
 			};
 		};
-
 		case "warninglist":
 		{
 			if (count _return > 0) then
@@ -1062,32 +1023,26 @@
 				_output = format ["No warning history is available for %1",_name];
 			};
 		};
-
 		case "insertwarrant":
 		{
 			_output = _return;
 		};
-
 		case "insertticket":
 		{
 			_output = _return;
 		};
-
 		case "insertwarning":
 		{
 			_output = _return;
 		};
-
 		case "insertreport":
 		{
 			_output = _return;
 		};
-
 		case "insertarrest":
 		{
 			_output = _return;
 		};
-
 		case "lookupvehicles":
 		{
 
@@ -1103,7 +1058,6 @@
 				_output = format ["<t align='center'>No vehicles found!</t>"];
 			};
 		};
-
 		case "darknet":
 		{
 			if (count _return > 0) then
@@ -1116,56 +1070,6 @@
 				_output = "No Dark Net messages found!";
 			};
 		};
-
-		case "setcaution":
-		{
-			_output = _return;
-		};
-
-		case "clearcautions":
-		{
-			_output = _return;
-		};
-
-		case "bololist":
-		{
-			if (count _return > 0) then
-			{
-				{
-					_output = _output + (format ["<t align='center'>%1 - %2 - %3 - Inserted by: %4</t><br />", _x select 0, _x select 2, _x select 1, _x select 3]);
-				} foreach _return;
-				_output = _output;
-			} else
-			{
-				_output = format ["No BOLO notices found."];
-			};
-		};
-
-		case "insertbolo":
-		{
-			_output = _return;
-		};
-
-		case "removebolo":
-		{
-			_output = _return;
-		};
-
-		case "stolenvehicles":
-		{
-			if (count _return > 0) then
-			{
-				{
-					_vehName = getText(configFile >>  "CfgVehicles" >>  _x select 2 >> "displayName");
-					_output = _output + (format ["<t align='center'>%1. License: %2 - Model: %3 - Owner: %4</t><br />", _forEachIndex+1, _x select 1, _vehName, _x select 3]);
-				} foreach _return;
-				_output = (_output + "<t align='center'>End of the list of vehicles</t>");
-			} else
-			{
-				_output = format ["<t align='center'>No vehicles are currently marked as stolen!</t>"];
-			};
-		};
-
 		default {_output = "Unknown error - Contact the developer"};
 	};
 
@@ -1190,21 +1094,13 @@
 		};
 	};
 
+	//Rebuild out text
 	_text = [_array, "<br />"] call CBA_fnc_join;
 
 	player setVariable ["PoliceDatabaseStruc",_text,false];
 
+	//Update our control
 	_control ctrlSetStructuredText parseText _text;
-}] call Server_Setup_Compile;
-
-['A3PL_Police_IsStringNumber',
-{
-	params[["_str","0"]];
-
-	{
-		if (!(_x isEqualTo "0") && (parseNumber _x isEqualTo 0)) exitWith {true};
-	} count (_str splitString "") isEqualTo 0;
-
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseEnter',
@@ -1216,25 +1112,26 @@
 	_control = _display displayCtrl 1401;
 	_edit = ctrlText _control;
 
+
 	_newstruct = format["%1<br />%2",(player Getvariable "PoliceDatabaseStruc"),"> "+_edit];
 	player setVariable ["PoliceDatabaseStruc",_newstruct,false];
 
 	[_newstruct] call A3PL_Police_UpdateComputer;
 
+
 	_control = _display displayCtrl 1401;
 	_control ctrlSetText "";
 
+
 	_edit0 = [_edit,0] call A3PL_Police_DatabaseArgu;
-	if ((!(player getVariable "PoliceDatabaseLogin")) && (!(_edit0 isEqualTo "login"))) exitwith
+	if ((_edit0 IN A3PL_Police_DatabaseRequireLogin) && (!(player getVariable "PoliceDatabaseLogin"))) exitwith
 	{
 		_newstruct = format["%1<br />%2",(player Getvariable "PoliceDatabaseStruc"),"Error: You do not have permission to use this command"];
 		player setVariable ["PoliceDatabaseStruc",_newstruct,false];
 
 		[_newstruct] call A3PL_Police_UpdateComputer;
 	};
-
 	_output = "";
-	
 	switch (_edit0) do {
 		case "help":
 		{
@@ -1260,18 +1157,10 @@
 			<t align='center'>insertarrest [firstname] [lastname] [time] [description] - Insert an arrest</t><br />
 			<t align='center'>lookupaddress [firstname] [lastname] - View house address</t><br />
 			<t align='center'>lookupwarehouse [firstname] [lastname] - View warehouse address</t><br />
-			<t align='center'>setcaution [firstname] [lastname] - Set a caution on a citizen</t><br />
-			<t align='center'>clearcautions [firstname] [lastname] - Clear the cautions for a citizen</t><br />
-			<t align='center'>insertbolo [BOLO description] - Insert a new BOLO notice</t><br />
-			<t align='center'>removebolo [BOLO ID] - Remove a BOLO notice</t><br />
-			<t align='center'>bololist - View a list of active BOLO notices</t><br />
-			<t align='center'>stolenvehicles - View a list of stolen vehicles</t><br />
 			<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t><br />
 			";
 		};
-
 		case "clear": {_output = "<t align='center'>Computer Database - F.I.S.D.</t><br /><t align='center'>Enter 'help' for the list of available commands</t>";};
-		
 		case "login":
 		{
 			private ["_pass"];
@@ -1285,7 +1174,6 @@
 				_output = "Error: Incorrect password";
 			};
 		};
-
 		case "lookup":
 		{
 			private ["_name"];
@@ -1443,10 +1331,7 @@
 		{
 
 			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_amount = [_edit,3] call A3PL_Police_DatabaseArgu;
-			_amountNum = parseNumber _amount;
-			
-			if (!([_amount] call A3PL_Police_IsStringNumber)) exitWith {_output = format ["Error: You must follow the correct syntax..."];};
+			_amount = parseNumber ([_edit,3] call A3PL_Police_DatabaseArgu);
 
 			_array = _edit splitString " ";
 			for "_i" from 1 to 4 do {
@@ -1456,9 +1341,7 @@
 			_info = [_array," "] call CBA_fnc_join;
 			_issuedBy = player getVariable ["name",name player];
 
-			diag_log str(_info);
-
-			[player,[_name,_amountNum,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
+			[player,[_name,_amount,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
 			_output = format ["Inserting a fine into the database ..."];
 		};
 
@@ -1504,10 +1387,6 @@
 			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			_time = ([_edit,3] call A3PL_Police_DatabaseArgu);
 
-			if (!([_time] call A3PL_Police_IsStringNumber)) exitWith {
-				_output = format ["Error: You must follow the correct syntax..."];
-			};
-
 			_array = _edit splitString " ";
 			for "_i" from 1 to 4 do {
 				_array deleteAt 0;
@@ -1531,7 +1410,6 @@
 			[player,_name,_license,_edit0] remoteExec ["Server_Police_Database", 2];
 			_ouput = format["License revoked ..."];
 		};
-
 		case "darknet":
 		{
 			private ["_name"];
@@ -1539,81 +1417,8 @@
 
 			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
 
-			_output = format ["Searching the darknet for hidden messages ...",_name];
+			_output = format ["Search the darknet for hidden messages ..",_name];
 		};
-
-		case "setcaution":
-		{
-			private _name = ([_edit, 1] call A3PL_Police_DatabaseArgu) + " " + ([_edit, 2] call A3PL_Police_DatabaseArgu);
-
-			_array = _edit splitString " ";
-			for "_i" from 1 to 3 do {
-				_array deleteAt 0;
-			};
-
-			_cautionDesc = [_array, " "] call CBA_fnc_join;
-			_issuedBy = player getVariable ["name", name player];
-
-			if (count(_cautionDesc) <= 3) exitWith {_output = "You must enter a valid caution description.";};
-
-			[player, [_issuedBy, _name, _cautionDesc], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Attempting to update cautions for %1 ...", _name];
-			
-		};
-
-		case "clearcautions":
-		{
-			private _name = ([_edit, 1] call A3PL_Police_DatabaseArgu) + " " + ([_edit, 2] call A3PL_Police_DatabaseArgu);
-
-			[player, [_name], _edit0] remoteExec ["Server_Police_Database", 2];
-
-			_output = format ["Attempting to clear cautions for %1 ...", _name];
-		};
-
-		case "bololist":
-		{
-			[player, [_name], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Loading BOLO List ..."];
-		};
-
-		case "insertbolo":
-		{
-			_array = _edit splitString " ";
-			_array deleteAt 0;
-			_boloDesc = [_array, " "] call CBA_fnc_join;
-			
-			if (count(_boloDesc) <= 8) exitWith {_output = "Please enter a descriptive BOLO notice.";};
-
-			_issuedBy = player getVariable ["name", name player];
-
-			[player, [_issuedBy, _boloDesc], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Attempting to insert BOLO notice ..."];
-		};
-
-		case "removebolo":
-		{
-			private _boloID = [_edit, 1] call A3PL_Police_DatabaseArgu;
-			private _boloIDNum = parseNumber _boloID;
-
-			if (!([_boloID] call A3PL_Police_IsStringNumber)) exitWith {
-				_output = format ["Error: Please insert a valid BOLO ID..."];
-			};
-
-			[player, [_boloIDNum], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Attempting to remove BOLO notice '%1' ...", _boloID];
-		};
-
-		case "stolenvehicles":
-		{
-			[player, [""], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Retrieving list of stolen vehicles ..."];
-		};
-
-		case "SpecialCharacterError":
-		{
-			_output = "You cannot enter special characters into the MDT!";
-		};
-
 		default {_output = "Error: Unknown Command"};
 	};
 
@@ -1843,10 +1648,10 @@
 			[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
 		};
 	};
-	if(count(_atSD) > 0) then {
-		private _SD = _atSD select 0;
-		player setPosATL (_SD modelToWorld [-4.5,8,0]);
-		player setDir (getDir _SD);
+	if(count(_atPD) > 0) then {
+		private _PD = _atPD select 0;
+		player setPosATL (_PD modelToWorld [-4.5,8,0]);
+		player setDir (getDir _PD);
 		removeUniform player;
 		[format[localize"STR_NewPolice_28"],"green"] call A3PL_Player_Notification;
 	};

@@ -200,7 +200,7 @@ A3PL_Interaction_Options =
 		{
 			private _intersect = player_objintersect;
 			if (isNull _intersect) exitwith {};
-			if ((typeOf _intersect) IN ["A3PL_Jayhawk","A3PL_Cutter","B_supplyCrate_F","C_IDAP_supplyCrate_F"]) exitWith {["You cannot lockpick this vehicle", "red"] call A3PL_Player_Notification;};
+			if ((typeOf _intersect) IN ["A3PL_Jayhawk","A3PL_Cutter","B_supplyCrate_F"]) exitWith {["You cannot lockpick this vehicle", "red"] call A3PL_Player_Notification;};
 			[_intersect] spawn A3PL_Criminal_PickCar;
 		},
 		{((vehicle player) isEqualTo player) && {(player distance player_objintersect < 7)} && {(player_ItemClass isEqualTo "v_lockpick")}}
@@ -250,7 +250,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_OPENMED",
 		{[player] spawn A3PL_Medical_Open;},
-		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "") && !(underwater(vehicle player))}
+		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "")}
 	],
 	[
 		localize "STR_INTER_TAKEPHOST",
@@ -526,7 +526,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_INVENTORY",
 		{call A3PL_Inventory_Open;},
-		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "") && ((vehicle player) isEqualTo player) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && ((animationState player) != "a3pl_takenhostage") && !(underwater(vehicle player))}
+		{(!isPlayer cursorObject) && (Player_ItemClass isEqualTo "") && ((vehicle player) isEqualTo player) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true])) && (animationState player) != "a3pl_takenhostage"}
 	],
 	[
 		localize "STR_INTER_INVENTORY",
@@ -1103,17 +1103,6 @@ A3PL_Interaction_Options =
 			_dog setVariable["Dog_Moving",false,true];
 		},
 		{!(isNull(player getVariable["Player_Dog",objNull]))}
-	],
-
-	[
-		"Open Company Shop",
-		{call A3PL_Company_OpenShop;},
-		{((typeOf cursorObject) isKindOf "House") && {!isNil {cursorObject getVariable["cid",nil]}}}
-	],
-	[
-		"Shop Management",
-		{call A3PL_Company_OpenShopStock;},
-		{((typeOf cursorObject) isKindOf "House") && {([getPlayerUID player] call A3PL_Config_GetCompanyID) isEqualTo (cursorObject getVariable["cid",-1])}}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";

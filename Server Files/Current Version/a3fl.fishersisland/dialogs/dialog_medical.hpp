@@ -235,25 +235,3 @@ class Dialog_Medical
 		};
 	};
 };
-
-class Dialog_DeathScreen
-{
-	idd = 7300;
-	movingEnable = 0;
-    enableSimulation = 1;
-	onLoad = "";
-	onUnload = "if(!isNil 'A3PL_deathCam') then {A3PL_deathCam cameraEffect ['TERMINATE','BACK'];camDestroy A3PL_deathCam;};";
-	class controlsBackground { };
-	class controls
-	{
-		class DeathInformation: RscStructuredText
-		{
-			idc = 1001;
-			text = "";
-			x = 0.29375 * safezoneW + safezoneX;
-			y = 0.247 * safezoneH + safezoneY;
-			w = 0.4125 * safezoneW;
-			h = 0.44 * safezoneH;
-		};
-	};
-};

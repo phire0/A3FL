@@ -56,7 +56,6 @@
 	private _members =  _gang select 3;
 	private _maxMembers = _gang select 5;
 
-	if((getPlayerUID player) != (_gang select 1)) exitWith {["Only the lead of the gang can invite someone","red"] call A3PL_Player_Notification;};
 	if((count _members) > _maxMembers) exitWith {[format [localize"STR_NewGang_4",_maxMembers],"red"] call A3PL_Player_Notification;};
 
 	private _target = [_invited] call A3PL_Lib_UIDToObject;
@@ -250,7 +249,7 @@
 
 ["A3PL_Gang_CapturedPaycheck",
 {
-	private _objects = [hideout_obj_1,hideout_obj_2,hideout_obj_3,hideout_obj_5,hideout_obj_6];
+	private _objects = [hideout_obj_1,hideout_obj_2,hideout_obj_3,hideout_obj_4,hideout_obj_5,hideout_obj_6];
 	private _win = 0;
 	private _group = group player;
 	private _gang = _group getVariable["gang_data",nil];
@@ -279,6 +278,9 @@
 	if(_shop IN [Robbable_Shop_3,npc_roadworker_1,npc_fuel_6,npc_hunting,npc_illegal_eq,NPC_Big_Weapon_Dealer,npc_weaponfactory_1]) then {
 		_gangHideout = hideout_obj_3;
 	};
+	if(_shop IN [npc_captureship]) then {
+		_gangHideout = hideout_obj_4;
+	};
 	if(_shop IN [npc_fuel_10,Low_End_Car_Shop,npc_shopguns]) then {
 		_gangHideout = hideout_obj_5;
 	};
@@ -306,7 +308,7 @@
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 
 	if((_obj IN [hideout_obj_1,hideout_obj_2,hideout_obj_3,hideout_obj_5]) && (_faction != "fisd")) exitWith {["This gang hideout has to be secured by the FISD","red"] call A3PL_Player_Notification;};
-	if((_obj IN [hideout_obj_6]) && (_faction != "uscg")) exitWith {["This gang hideout has to be secured by the USCG","red"] call A3PL_Player_Notification;};
+	if((_obj IN [hideout_obj_4,hideout_obj_6]) && (_faction != "uscg")) exitWith {["This gang hideout has to be secured by the USCG","red"] call A3PL_Player_Notification;};
 
 	_capturedTime = _obj getVariable["CapturedTime",serverTime-600];
 	if(_capturedTime > (serverTime-600)) exitWith {[localize"STR_NewGang_26","red"] call A3PL_Player_Notification;};

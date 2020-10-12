@@ -105,6 +105,7 @@
 			};
 			if(speed _veh > 1) exitWith {_exit=true;};
 		};
+		
 		if(_exit) exitWith {};
 
 		private _begPos = positionCameraToWorld [0,0,0];
@@ -137,7 +138,7 @@
 				if ((_x select 0) == (typeOf _obj)) then {
 					private _name = _x select 1;
 					private _icon = _x select 2;
-					drawIcon3D [_icon, [1,1,1,1], getPos _obj, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
+					drawIcon3D [_icon, [1,1,1,1], getpos _obj, 1, 1, 45,_name, 1, 0.05, "PuristaSemiBold"];
 				};
 			} foreach Config_Intersect_NoName;
 		};
@@ -151,9 +152,8 @@
 		};
 
 		_ins2 select 0 params ["_name", "_dist"];
-		private _selPos = _obj selectionPosition [_name,"Memory"];
-		private _realZero = (player_objintersect isKindOf "House") && {_selPos isEqualTo [0,0,0]};
-		if ((_dist >= 4) || {_realZero}) exitwith {
+		private _posAGL = _obj modelToWorldVisual (_obj selectionPosition [_name,"Memory"]);
+		if (_dist > 5) exitwith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _obj;
 		};
@@ -162,7 +162,6 @@
 		Player_NameIntersect = _name;
 		Player_ObjIntersect = _obj;
 
-		private _posAGL = _obj modelToWorldVisual (_selPos);
 		private _icon = "\a3\ui_f\data\map\GroupIcons\icon_default.paa";
 		private _config = (_name call A3PL_Intersect_ConditionCalc);
 		private _countConfig = (count _config) - 1;

@@ -16,7 +16,7 @@
 	player setVariable ["job","exterminator"];
 	[localize"STR_EXTERMINATOR_WORKSTART","green"] call A3PL_Player_Notification;
 	[localize"STR_EXTERMINATOR_MAPLOCATION","green"] call A3PL_Player_Notification;
-	["A3PL_Mailtruck",[9986.59,7943.14,0],"EXTERMINATOR"] spawn A3PL_Lib_JobVehicle_Assign;
+	["A3PL_Mailtruck",[9986.59,7943.14,0],"EXTERMINATOR",1800] spawn A3PL_Lib_JobVehicle_Assign;
 	call A3PL_Exterminator_PestStart;
 }] call Server_Setup_Compile;
 

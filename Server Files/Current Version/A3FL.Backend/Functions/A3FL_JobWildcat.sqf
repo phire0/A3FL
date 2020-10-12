@@ -105,9 +105,9 @@
 	_control = _display displayCtrl 1601;
 	_control buttonSetAction
 	"
-		[(lbText [2100,(lbCurSel 2100)])] call A3PL_JobWildcat_ProspectInit;
-		profileNamespace setVariable ['A3PL_Mining_Prospect',(lbCurSel 2100)];
-		closeDialog 0;
+			[(lbText [2100,(lbCurSel 2100)])] call A3PL_JobWildcat_ProspectInit;
+			profileNamespace setVariable ['A3PL_Mining_Prospect',(lbCurSel 2100)];
+			closeDialog 0;
 	";
 }] call Server_Setup_Compile;
 
@@ -288,82 +288,4 @@
 	} else {
 		[localize"STR_A3PL_JobWildcat_Canceled","red"] call A3PL_Player_Notification;
 	};
-}] call Server_Setup_Compile;
-
-["A3PL_JobWildcat_RareMaps",
-{
-	params[
-		["_npc",objNull,[objNull]]
-	];
-
-	private _chance = random 100;
-	private _mapType = "";
-	private _island = "FIMiningArea";
-	if(_npc isEqualTo npc_miningmike) then {
-		if(_chance <= 60) then {
-			_mapType = localize"STR_Config_Resources_Sapphire";
-		} else {
-			_mapType = localize"STR_Config_Resources_Vivianite";
-		};
-	} else {
-		_island = "NIMiningArea";
-		_mapType = localize"STR_Config_Resources_Sapphire";
-		if ((_chance >= 31) && (_chance <= 50)) then {
-			_mapType = localize"STR_Config_Resources_Vivianite";
-		};
-		if ((_chance >= 51) && (_chance <= 70)) then {
-			_mapType = localize"STR_Config_Resources_Emerald";
-		};
-		if ((_chance >= 71) && (_chance <= 85)) then {
-			_mapType = localize"STR_Config_Resources_Gold";
-		};
-		if ((_chance >= 86) && (_chance <= 100)) then {
-			_maptype = localize"STR_Config_Resources_Amethyst";
-		};
-	};
-	if(_maptype isEqualTo "") exitWith {["Error loading the map type","red"] call A3PL_Player_Notification;};
-
-	private _resArray = missionNameSpace getVariable ["Server_JobWildCat_Res",[]];
-	private _possibleLocations = [];
-	{
-		private _type = _x select 0;
-		private _pos = _x select 1;
-		if(_type isEqualTo _mapType) then {
-			if(_pos inArea _island) then {
-				_possibleLocations pushback _x;
-			};
-		};
-	} foreach _resArray;
-
-	if ((player getVariable ["Player_cash",0]) < 2500) exitwith {[localize"STR_A3PL_JobWildcat_NotEnoughMoney","red"] call A3PL_Player_Notification;};
-	player setVariable ["Player_cash",(player getVariable ["Player_Cash",0]) - 2500,true];
-
-	if(_possibleLocations isEqualTo []) exitWith {["Unable to locate ressource, try again!","red"] call A3PL_Player_Notification;};
-
-	private _givenLocation = (selectRandom _possibleLocations) select 1;
-
-	_pos = [((_givenLocation select 0) + (-50 + random 100)),((_givenLocation select 1) + (-50 + random 100))];
-
-	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
-	_marker setMarkerShapeLocal "ELLIPSE";
-	_marker setMarkerSizeLocal [120,120];
-	_marker setMarkerColorLocal "ColorGreen";
-	_marker setMarkerTypeLocal "Mil_dot";
-	_marker setMarkerAlphaLocal 0.5;
-	_markers pushback _marker;
-
-	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
-	_marker setMarkerShapeLocal "ICON";
-	_marker setMarkerColorLocal "ColorRed";
-	_marker setMarkerTypeLocal "A3PL_Markers_Pickaxe";
-	_marker setMarkerTextLocal format [localize"STR_A3PL_JobWildcat_InThisArea",toUpper _mapType];
-	_markers pushback _marker;
-	if ((count _markers) isEqualTo 0) exitwith {};
-	missionNameSpace setVariable ["A3PL_JobWildcat_MapTimer",(diag_ticktime + 300)];
-	[_markers] spawn {
-		private _markers = param [0,[]];
-		sleep 900;
-		{deleteMarkerLocal _x;} foreach _markers
-	};
-	[format [localize"STR_A3PL_JobWildcat_MapPurchasedInfo",_maptype],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

@@ -90,7 +90,7 @@ Config_Garage_Upgrade =
 		["Winch","addon","Winch",localize "STR_CGAR_W",localize "STR_CGAR_STD",[0.3,5.2,0.9],[0,1.2,1],500,[],0], //,"Winch","Only cosmetic",
 		["Driving_Lights","addon","Driving_Lights",localize "STR_CGAR_DL",localize "STR_CGAR_DLD",[0.3,5.2,0.9],[0,1.2,1],500,[],0], //"Driving Lights","Driving Lights mounted on Bull Bar"
 		["Roof_Rack","addon","Roof_Rack",localize "STR_CGAR_RR",localize "STR_CGAR_RRD",[1.3,3,0],[0,1,0],500,[],0], // "Roof Rack","Cargo rack for the roof"
-		["Lightbar","addon","Lightbar",localize "STR_CGAR_LB","Light bar mounted on the roll-bar",[1.3,3,0],[0,1,0],500,[],0], // "Lightbar","Bar of lights mounted on the roll bar"
+		["Lightbar","addon","Lightbar",localize "STR_CGAR_LB",localize "STR_CGAR_LBRD",[1.3,3,0],[0,1,0],500,[],0], // "Lightbar","Bar of lights mounted on the roll bar"
 		["Roll_Bar","addon","Roll_Bar",localize "STR_CGAR_RC",localize "STR_CGAR_RCD",[1.3,3,0],[0,1,0],500,[],0], //Roll Cage","Protect occupants when the vehicle rolls over"
 		["Spair_Tire","addon","Spair_Tire",localize "STR_CGAR_ST",localize "STR_CGAR_STD","Towbar_Cam",[4,0,1.5],500,[],0], //Spare Tire","Only cosmetic"
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[4,0,1.5],500,[],0] //Add towbar, Allows you to hitch trailers
@@ -224,21 +224,21 @@ Config_Garage_Upgrade =
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0,0,0],[0,0,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0,0,0],[0,0,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,0,0],[0,0,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
+		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA",localize "STR_CGAR_ANTENNADESC",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_PD_ST",
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0,0,0],[0,0,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0,0,0],[0,0,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,0,0],[0,0,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
+		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA",localize "STR_CGAR_ANTENNADESC",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_FD",
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0,0,0],[0,0,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0,0,0],[0,0,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,0,0],[0,0,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
+		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA",localize "STR_CGAR_ANTENNADESC",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_FD_Brush",

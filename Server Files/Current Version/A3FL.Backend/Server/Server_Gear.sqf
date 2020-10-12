@@ -62,9 +62,6 @@
 	_unit setVariable ["Player_XP",0,true];
 	_unit setVariable ["Player_Inventory",[],true];
 	_unit setVariable ["Cuffed",false,true];
-	_unit setVariable ["A3PL_Medical_Alive",true,true];
-	_unit setVariable ["A3PL_Wounds",[],true];
-	_unit setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
 
 	[_unit,"burger_full_cooked",10] call Server_Inventory_Add;
 	[_unit,"coke",10] call Server_Inventory_Add;
@@ -260,7 +257,7 @@
 
 	_jailTime = (_return select 21);
 	if(_jailTime > 0) then {
-		_unit setPos [4758.43,6167.78,0];
+		_unit setPos [4795.31,6313.62,0];
 		_unit setVariable["alreadySpawned",true,true];
 		[_jailTime, _unit] call Server_Police_JailPlayer;
 	};

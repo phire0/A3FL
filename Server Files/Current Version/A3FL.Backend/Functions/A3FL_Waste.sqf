@@ -30,7 +30,7 @@
 
 	hint str _spawnLoc;
 
-	["A3PL_P362_Garbage_Truck",_spawnLoc,"waste"] spawn A3PL_Lib_JobVehicle_Assign;
+	["A3PL_P362_Garbage_Truck",_spawnLoc,"waste",1800] spawn A3PL_Lib_JobVehicle_Assign;
 }] call Server_Setup_Compile;
 
 ["A3PL_Waste_CheckNear",

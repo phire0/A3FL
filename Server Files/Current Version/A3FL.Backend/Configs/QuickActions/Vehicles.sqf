@@ -1144,13 +1144,14 @@
 		private _animName = player_nameintersect;
 
 		if(_animName isEqualTo "") exitWith {};
+
 		if((typeOf _veh) isEqualTo "A3PL_Pierce_Pumper") then {
-			if (_animName isEqualTo "ft_lever_8" && (_veh animationPhase "ft_lever_8" < 0.5)) then {
+			if (_animName == "ft_lever_8" && (_veh animationPhase "ft_lever_8" < 0.5)) then {
 				[_veh] spawn A3PL_FD_EngineLoop;
 			};
 		};
 		if((typeOf _veh) isEqualTo "A3PL_Silverado_FD_Brush") then {
-			if (((_animName isEqualTo "bt_lever_1") && (_veh animationPhase "bt_lever_1" < 0.5))) then {
+			if (((_animName == "bt_lever_1") && (_veh animationPhase "bt_lever_1" < 0.5))) then {
 				[_veh] spawn A3PL_FD_BrushLoop;
 			};
 		};

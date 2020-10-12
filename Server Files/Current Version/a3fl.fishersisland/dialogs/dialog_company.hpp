@@ -419,7 +419,7 @@ class Dialog_CompanyShop_Management
 	movingEnable = 0;
 	enableSimulation = 1;
 	onLoad = "";
-	onUnload = "A3PL_Company_Building setVariable['inUse',false,true];A3PL_Company_Building = nil;";
+	onUnload = "A3PL_Company_BuyObject = nil;";
 	class controls
 	{
 		class MainPic: RscPicture
@@ -435,23 +435,23 @@ class Dialog_CompanyShop_Management
 		{
 			idc = 1500;
 			x = 0.257656 * safezoneW + safezoneX;
-			y = 0.22 * safezoneH + safezoneY;
+			y = 0.214 * safezoneH + safezoneY;
 			w = 0.195937 * safezoneW;
-			h = 0.33 * safezoneH;
+			h = 0.341 * safezoneH;
 		};
 		class PlayerInventory: RscListbox
 		{
 			idc = 1501;
 			x = 0.54125 * safezoneW + safezoneX;
-			y = 0.22 * safezoneH + safezoneY;
-			w = 0.195937 * safezoneW;
-			h = 0.33 * safezoneH;
+			y = 0.214 * safezoneH + safezoneY;
+			w = 0.201094 * safezoneW;
+			h = 0.341 * safezoneH;
 		};
 		class TextStock: RscStructuredText
 		{
 			idc = 1100;
 			x = 0.309219 * safezoneW + safezoneX;
-			y = 0.57 * safezoneH + safezoneY;
+			y = 0.566 * safezoneH + safezoneY;
 			w = 0.139219 * safezoneW;
 			h = 0.033 * safezoneH;
 		};
@@ -470,7 +470,6 @@ class Dialog_CompanyShop_Management
 			y = 0.665 * safezoneH + safezoneY;
 			w = 0.061875 * safezoneW;
 			h = 0.055 * safezoneH;
-			action = "call A3PL_Company_RemoveShopStock;";
 		};
 		class ButtonAdd: RscButtonEmpty
 		{
@@ -479,7 +478,6 @@ class Dialog_CompanyShop_Management
 			y = 0.665 * safezoneH + safezoneY;
 			w = 0.0670312 * safezoneW;
 			h = 0.055 * safezoneH;
-			action = "call A3PL_Company_AddShopStock;";
 		};
 		class ButtonClose: RscButtonEmpty
 		{
@@ -496,17 +494,17 @@ class Dialog_CompanyShop_Management
 			text = "1";
 			x = 0.257656 * safezoneW + safezoneX;
 			y = 0.67 * safezoneH + safezoneY;
-			w = 0.08 * safezoneW;
+			w = 0.0825 * safezoneW;
 			h = 0.04 * safezoneH;
 		};
 		class EditAdd: RscEdit
 		{
 			idc = 1401;
 			text = "1";
-			x = 0.595 * safezoneW + safezoneX;
+			x = 0.592812 * safezoneW + safezoneX;
 			y = 0.67 * safezoneH + safezoneY;
-			w = 0.08 * safezoneW;
-			h = 0.04 * safezoneH;
+			w = 0.0825 * safezoneW;
+			h = 0.044 * safezoneH;
 		};
 		class EditPrice: RscEdit
 		{
@@ -524,7 +522,6 @@ class Dialog_CompanyShop_Management
 			y = 0.665 * safezoneH + safezoneY;
 			w = 0.0825 * safezoneW;
 			h = 0.044 * safezoneH;
-			action = "call A3PL_Company_UpdateStockPrice;";
 		};
 	};
 };
@@ -535,7 +532,7 @@ class Dialog_CompanyShop_Customer
 	movingEnable = 0;
 	enableSimulation = 1;
 	onLoad = "";
-	onUnload = "A3PL_Company_Building setVariable['inUse',false,true];A3PL_Company_Building = nil;";
+	onUnload = "A3PL_Company_BuyObject = nil;";
 	class controls
 	{
 		class MainPic: RscPicture
@@ -551,9 +548,9 @@ class Dialog_CompanyShop_Customer
 		{
 			idc = 1500;
 			x = 0.257656 * safezoneW + safezoneX;
-			y = 0.285 * safezoneH + safezoneY;
-			w = 0.482 * safezoneW;
-			h = 0.34 * safezoneH;
+			y = 0.28 * safezoneH + safezoneY;
+			w = 0.479531 * safezoneW;
+			h = 0.341 * safezoneH;
 		};
 		class ButtonClose: RscButtonEmpty
 		{
@@ -571,7 +568,6 @@ class Dialog_CompanyShop_Customer
 			y = 0.665 * safezoneH + safezoneY;
 			w = 0.061875 * safezoneW;
 			h = 0.055 * safezoneH;
-			action = "call A3PL_Company_ShopBuy;";
 		};
 		class EditBuy: RscEdit
 		{
@@ -584,7 +580,7 @@ class Dialog_CompanyShop_Customer
 		};
 		class TextPrice: RscStructuredText
 		{
-			idc = 1101;
+			idc = 1100;
 			x = 0.309219 * safezoneW + safezoneX;
 			y = 0.698 * safezoneH + safezoneY;
 			w = 0.159844 * safezoneW;
@@ -592,19 +588,11 @@ class Dialog_CompanyShop_Customer
 		};
 		class TextStock: RscStructuredText
 		{
-			idc = 1100;
+			idc = 1101;
 			x = 0.309219 * safezoneW + safezoneX;
 			y = 0.654 * safezoneH + safezoneY;
 			w = 0.159844 * safezoneW;
 			h = 0.033 * safezoneH;
-		};
-		class TextCompany: RscStructuredText
-		{
-			idc = 1102;
-			x = 0.355625 * safezoneW + safezoneX;
-			y = 0.192 * safezoneH + safezoneY;
-			w = 0.350625 * safezoneW;
-			h = 0.055 * safezoneH;
 		};
 	};
 };

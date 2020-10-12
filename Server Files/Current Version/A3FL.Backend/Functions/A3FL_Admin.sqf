@@ -114,7 +114,7 @@
 		switch(_data select 1) do {
 			case 0: {lbAdd [1503, format ["%1 %2", _text, _selectedPlayer getVariable [(_data select 0),"Undefined"]]];};
 			case 1: {lbAdd [1503, format ["%1 %2", _text,(_selectedPlayer getVariable [(_data select 0),-1]) call CBA_fnc_formatNumber]];};
-			case 2: {lbAdd [1503, format ["%1 %2", _text, str(_selectedPlayer getVariable [(_data select 0),"true"])]];};
+			case 2: {lbAdd [1503, format ["%1 %2", _text, str(_selectedPlayer getVariable [(_data select 0),"Undefined"])]];};
 			case 3: {lbAdd [1503, format ["%1 %2", _text, _data select 0]];};
 		};
 	} forEach _playerInfoArray;
@@ -628,7 +628,6 @@
 		_target setVariable ["A3PL_Wounds",[],true];
 		_target setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
 		_target setDamage 0;
-		closeDialog 0;
 		[player,"admin_heal",[format ["Healing %1",name _target]]] remoteExec ["Server_AdminLoginsert", 2];
 	} else {
 		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
@@ -854,18 +853,12 @@
 				if(visibleMap) then
 				{
 					{
-						private _pos = visiblePosition _x;
-						private _text = format[" (%1) %2", _x getVariable["name","ERROR"], name _x];
-						if(!(_x getVariable["A3PL_Medical_Alive",true])) then {
-							_pos = visiblePosition (_x getVariable["deadBody",_x]);
-							_text = format[" (Dead) %1", _x getVariable["name","ERROR"]];
-						};
-						_marker = createMarkerLocal [format["%1_marker",_x],_pos];
+						_marker = createMarkerLocal [format["%1_marker",_x],visiblePosition _x];
 						_marker setMarkerColorLocal "ColorYellow";
 						_marker setMarkerTypeLocal "Mil_dot";
 						_marker setMarkerSizeLocal [0.5, 0.5];
 						_marker setMarkerAlphaLocal 1;
-						_marker setMarkerTextLocal _text;
+						_marker setMarkerTextLocal format[" (%1) %2", _x getVariable["name","ERROR"], name _x];
 						_playerMarkers pushBack [_marker,_x];
 					} foreach (allPlayers - [player]);
 					while {visibleMap} do

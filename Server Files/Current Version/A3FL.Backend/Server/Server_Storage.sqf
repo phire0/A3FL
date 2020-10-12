@@ -56,20 +56,15 @@
 	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;
 
+
 ["Server_Storage_ReturnVehicles",
 {
 	private _player = param [0,objNull];
 	private _uid = param [1,"-1"];
 	private _impound = param [2,0];
 	private _type = param [3,"vehicle"];
-	private _cid = param [4,0];
 	if (_uid == "-1") then {_uid = getplayerUID _player;};
-	private _query = "";
-	if(_cid isEqualTo 0) then {
-		_query = format ["SELECT id,class,customName,fuel,insurance FROM objects WHERE (type = '%3' AND plystorage = '1') AND (uid = '%1' AND impounded='%2') ORDER BY customName",_uid,_impound,_type];
-	} else {
-		_query = format ["SELECT id,class,customName,fuel,insurance FROM objects WHERE (type = '%2' AND plystorage = '1') AND (cid = '%3' AND impounded='%1') ORDER BY customName",_impound,_type,_cid];
-	};
+	private _query = format ["SELECT id,class,customName,fuel,insurance FROM objects WHERE (type = '%3' AND plystorage = '1') AND (uid = '%1' AND impounded='%2') ORDER BY customName",_uid,_impound,_type];
 	private _objects = [_query, 2, true] call Server_Database_Async;
 	private _returnArray = [];
 	{
@@ -103,7 +98,7 @@
 		_storage = [_storage select 0,_storage select 1,_storage select 2];
 	};
 	[format ["UPDATE objects SET plystorage = '0',impounded='0' WHERE id = '%1'",_id],1] spawn Server_Database_Async;
-	private _db = [format ["SELECT fuel,color,numpchange,iscustomplate,material,istorage,tuning,damage,insurance,vstorage,cid FROM objects WHERE id = '%1'",_id], 2, false] call Server_Database_Async;
+	private _db = [format ["SELECT fuel,color,numpchange,iscustomplate,material,istorage,tuning,damage,insurance,vstorage FROM objects WHERE id = '%1'",_id], 2, false] call Server_Database_Async;
 	private _veh = [_class,_storage,_id,_player] call Server_Vehicle_Spawn;
 
 	if(!isNil "_dir") then {_veh setDir _dir;};
@@ -122,6 +117,7 @@
 		private _texture = (_db select 1);
 		private _splitted = _texture splitString "";
 		if((_splitted select 0) isEqualTo '[') then {_texture = [_texture] call Server_Database_ToArray;};
+		diag_log format["Server_Storage_RetrieveVehiclePos: (%2) %1",_texture, typeName _texture];
 		if(typeName _texture isEqualTo "ARRAY") then {
 			{
 				_veh setObjectTextureGlobal[_foreachIndex,_x];
@@ -170,7 +166,6 @@
 		};
 		private _virtualInventory = [(_db select 9)] call Server_Database_ToArray;
 		_veh setVariable["storage",_virtualInventory,true];
-		_veh setVariable["cid",(_db select 10),true];
 
 		private _addons = [(_db select 6)] call Server_Database_ToArray;
 		if ((count _addons) > 0) then {
@@ -210,7 +205,7 @@
 		[1] remoteExec ["A3PL_Storage_CarRetrieveResponse",_player];
 	};
 
-	_query = format ["SELECT fuel,color,numpchange,iscustomplate,material,istorage,tuning,damage,insurance,vstorage,cid FROM objects WHERE id = '%1'",_id];
+	_query = format ["SELECT fuel,color,numpchange,iscustomplate,material,istorage,tuning,damage,insurance,vstorage FROM objects WHERE id = '%1'",_id];
 	_db = [_query, 2, false] call Server_Database_Async;
 
 	_query = format ["UPDATE objects SET plystorage = '0',impounded = '0' WHERE id = '%1'",_id];
@@ -262,7 +257,6 @@
 		};
 		_virtualInventory = [(_db select 9)] call Server_Database_ToArray;
 		_veh setVariable["storage",_virtualInventory,true];
-		_veh setVariable["cid",(_db select 10),true];
 		_addons = [(_db select 6)] call Server_Database_ToArray;
 		if ((count _addons) > 0) then {
 			{
@@ -326,7 +320,6 @@
 {
 	private _player = param [0,ObjNull];
 	private _storage = param [1,ObjNull];
-	private _toCompany = param [2,0];
 	private _uid = getPlayerUID _player;
 	private _near = nearestObjects [_player,["Car","Ship","Air","Tank"],25];
 	if ((count _near) isEqualTo 0) exitwith {[7] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
@@ -341,18 +334,14 @@
 	} foreach _near;
 	if (isNil "_playerCar") exitwith {[6] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
 
-	[_playerCar,_storage,_player,_toCompany] spawn
+	[_playerCar,_storage,_player] spawn
 	{
 		private _playerCar = param [0,objNull];
 		private _storage = param [1,objNull];
 		private _player = param [2,objNull];
-		private _toCompany = param[3,0];
 		private _t = 0;
 		private _fail = false;
 		private _class = typeOf _playerCar;
-		private _cid = _playerCar getVariable["cid",0];
-		if(_toCompany isEqualTo 1) then {_cid = [getPlayerUID _player] call A3PL_Config_GetCompanyID;};
-		if(_toCompany isEqualTo 2) then {_cid = 0;};
 		while {(_playerCar distance _player > 5) OR (_player IN _playerCar)} do
 		{
 			_t = _t + 1;
@@ -383,7 +372,7 @@
 			if(count(getAllHitPointsDamage _playerCar) isEqualTo 3) then {
 				_damage = [(getAllHitPointsDamage _playerCar) select 2] call Server_Database_Array;
 			};
-			private _query = format ["UPDATE objects SET plystorage = '1',fuel='%2',color='%3',material='%4', damage='%5', cid='%6' WHERE id = '%1'",_id,(fuel _playerCar),_Texture,_materialLocation,_damage,_cid];
+			private _query = format ["UPDATE objects SET plystorage = '1',fuel='%2',color='%3',material='%4' WHERE id = '%1'",_id,(fuel _playerCar),_Texture,_materialLocation];
 			[_query,1] spawn Server_Database_Async;
 			Server_Storage_ListVehicles - [_playerCar];
 			[_playerCar,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
@@ -397,7 +386,6 @@
 {
 	private _player = param [0,ObjNull];
 	private _storage = param [1,ObjNull];
-	private _toCompany = param [2,0];	
 	private _uid = getPlayerUID _player;
 	if (_storage animationPhase "StorageDoor1" > 0.1) exitwith {[1] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
 	private _near = nearestObjects [_storage,["Car","Ship","Air"],9];
@@ -410,23 +398,23 @@
 			_playerCar = _x;
 		};
 	} foreach _near;
-	if (isNil "_playerCar") exitwith {[6] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
+
+	if (isNil "_playerCar") exitwith
+	{
+		[6] remoteExec ["A3PL_Storage_CarStoreResponse",_player];
+	};
 
 	_storage animateSource ["storagedoor",1];
 
 	[2] remoteExec ["A3PL_Storage_CarStoreResponse",_player];
-	[_playerCar,_storage,_player,_toCompany] spawn
+	[_playerCar,_storage,_player] spawn
 	{
 		private _playerCar = param [0,objNull];
 		private _storage = param [1,objNull];
 		private _player = param [2,objNull];
-		private _toCompany = param[3,0];
 		private _t = 0;
 		private _fail = false;
 		private _class = typeOf _playerCar;
-		private _cid = _playerCar getVariable["cid",0];
-		if(_toCompany isEqualTo 1) then {_cid = [getPlayerUID _player] call A3PL_Config_GetCompanyID;};
-		if(_toCompany isEqualTo 2) then {_cid = 0;};
 		while {(_playerCar distance _storage > 3) OR ((_player IN _playerCar) OR ((_player distance _storage) < 4.8))} do
 		{
 			_t = _t + 1;
@@ -464,7 +452,7 @@
 			if(count(getAllHitPointsDamage _playerCar) isEqualTo 3) then {
 				_damage = [(getAllHitPointsDamage _playerCar) select 2] call Server_Database_Array;
 			};
-			_query = format ["UPDATE objects SET plystorage = '1',fuel='%2',color='%3',material='%4',damage='%5',cid='%6' WHERE id = '%1'",_id,(fuel _playerCar),_Texture,_materialLocation,_damage,_cid];
+			_query = format ["UPDATE objects SET plystorage = '1',fuel='%2',color='%3',material='%4',damage='%5' WHERE id = '%1'",_id,(fuel _playerCar),_Texture,_materialLocation,_damage];
 			[_query,1] spawn Server_Database_Async;
 			Server_Storage_ListVehicles - [_playerCar];
 			[_playercar,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
@@ -476,29 +464,113 @@
 	};
 },true] call Server_Setup_Compile;
 
+["Server_Storage_StoreVehicle_Position",
+{
+	private ["_storage","_near","_playerCar","_player"];
+	_player = param [0,ObjNull];
+	_storage = param [1,ObjNull];
+	_uid = getPlayerUID _player;
+
+
+	//Look for nearest vehicle
+	_near = nearestObjects [_player,["Car","Ship","Air","Tank","Truck"],15];
+	if (count _near == 0) exitwith
+	{
+		[7] remoteExec ["A3PL_Storage_CarStoreResponse",_player];
+	};
+
+	{
+		_var = _x getVariable "owner";
+		if (!isNil "_var") then {
+			if ((_var select 0) == _uid) exitwith {
+				_playerCar = _x;
+			};
+		};
+	} foreach _near;
+
+	if (isNil "_playerCar") exitwith {
+		[6] remoteExec ["A3PL_Storage_CarStoreResponse",_player];
+	};
+
+	[8] remoteExec ["A3PL_Storage_CarStoreResponse",_player];
+	//Okay now tell the user to drive the car inside
+	[_playerCar,_storage,_player] spawn
+	{
+		private ["_playerCar","_storage","_player","_t","_fail","_var","_id"];
+		_playerCar = param [0,objNull];
+		_storage = param [1,objNull];
+		_player = param [2,objNull];
+
+		_t = 0;
+		_fail = false;
+		while {(_playerCar distance _storage > 15) OR ((_player IN _playerCar) OR ((_player distance _storage) < 4.8))} do
+		{
+			_t = _t + 1;
+			uiSleep 1;
+			if (isNull _playerCar) exitwith
+			{
+				_fail = true;
+				[5] remoteExec ["A3PL_Storage_CarStoreResponse",_player];
+			};
+			if (_t > 119) exitwith
+			{
+				//we can do more here later
+				[4] remoteExec ["A3PL_Storage_CarStoreResponse",_player];
+				_fail = true;
+			};
+		};
+
+		if (!_fail) then {
+			[3] remoteExec ["A3PL_Storage_CarStoreResponse",_player];
+		};
+
+
+		if (!_fail) then
+		{
+			private ["_sirenObj"];
+			[_playercar] call Server_Storage_VehicleVirtual;
+
+			//save the car here
+			_var = _playerCar getVariable "owner";
+			_id = _var select 1;
+			_Path = (getObjectTextures _playerCar) select 0;
+			_material = (getObjectMaterials _playerCar) select 0;
+			_damage = [];
+			if(count(getAllHitPointsDamage _playerCar) isEqualTo 3) then {_damage = [(getAllHitPointsDamage _playerCar) select 2] call Server_Database_Array;};
+			_Pathformat = format ["%1",_Path];
+			_materialFormat = format ["%1",_material];
+			_Texture = [_Pathformat, "\", "\\"] call CBA_fnc_replace;
+			_materialLocation = [_materialFormat, "\", "\\"] call CBA_fnc_replace;
+			_query = format ["UPDATE objects SET plystorage = '1',fuel='%2',color='%3',material='%4',damage='%5' WHERE id = '%1'",_id,(fuel _playerCar),_Texture,_materialLocation,_damage];
+			[_query,1] spawn Server_Database_Async;
+			Server_Storage_ListVehicles - [_playerCar];
+			[_playercar,false] remoteExec ["A3PL_Vehicle_AddKey",_player];
+			[_playercar] call Server_Vehicle_Despawn;
+		};
+	};
+
+},true] call Server_Setup_Compile;
+
 ["Server_Storage_SaveLargeVehicles",
 {
-	private _playerCar = param [0,objNull];
-	private _player = param [1,objNull];
-	private _toCompany = param [2,0];
+	private ["_veh","_var","_id","_query"];
+	_playerCar = param [0,objNull];
+	_player = param [1,objNull];
 	if (isNull _playerCar) exitwith {};
 
 	[_playerCar] call Server_Storage_VehicleVirtual;
 
-	private _var = _playerCar getVariable ["owner",nil];
-	private _id = _var select 1;
-	private _Path = (getObjectTextures _playerCar) select 0;
-	private _material = (getObjectMaterials _playerCar) select 0;
-	private _damage = [];
+	_var = _playerCar getVariable ["owner",nil];
+	_id = _var select 1;
+	_Path = (getObjectTextures _playerCar) select 0;
+	_material = (getObjectMaterials _playerCar) select 0;
+	_damage = [];
 	if(count(getAllHitPointsDamage _playerCar) isEqualTo 3) then {_damage = [(getAllHitPointsDamage _playerCar) select 2] call Server_Database_Array;};
-	private _Pathformat = format ["%1",_Path];
-	private _materialFormat = format ["%1",_material];
-	private _Texture = [_Pathformat, "\", "\\"] call CBA_fnc_replace;
-	private _materialLocation = [_materialFormat, "\", "\\"] call CBA_fnc_replace;
-	private _cid = _playerCar getVariable["cid",0];
-	if(_toCompany isEqualTo 1) then {_cid = [getPlayerUID _player] call A3PL_Config_GetCompanyID;};
-	if(_toCompany isEqualTo 2) then {_cid = 0;};
-	_query = format ["UPDATE objects SET plystorage = '1',fuel='%2',color='%3',material='%4',damage='%5',cid='%6' WHERE id = '%1'",_id,(fuel _playerCar),_Texture,_materialLocation,_damage,_cid];
+	_Pathformat = format ["%1",_Path];
+	_materialFormat = format ["%1",_material];
+	_Texture = [_Pathformat, "\", "\\"] call CBA_fnc_replace;
+	_materialLocation = [_materialFormat, "\", "\\"] call CBA_fnc_replace;
+	_query = format ["UPDATE objects SET plystorage = '1',fuel='%2',color='%3',material='%4',damage='%5' WHERE id = '%1'",_id,(fuel _playerCar),_Texture,_materialLocation,_damage];
 	[_query,1] spawn Server_Database_Async;
 	[_playerCar] call Server_Vehicle_Despawn;
 },true] call Server_Setup_Compile;

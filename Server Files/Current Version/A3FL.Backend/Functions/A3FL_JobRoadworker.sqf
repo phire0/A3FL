@@ -129,6 +129,6 @@
 		default {_spawnLoc = [2353.047,5479.137,0.766];};
 	};
 
-	["A3PL_P362_TowTruck",_spawnLoc,"ROADSIDE"] spawn A3PL_Lib_JobVehicle_Assign;
+	["A3PL_P362_TowTruck",_spawnLoc,"ROADSIDE",1800] spawn A3PL_Lib_JobVehicle_Assign;
 	[player, 5] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
