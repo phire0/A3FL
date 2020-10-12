@@ -915,9 +915,9 @@
 				};
 
 				if(_insured isEqualTo 0) then {
-					_insured = "Yes";
+					_isInsured = "Yes";
 				} else {
-					_insured = "No";
+					_isInsured = "No";
 				};
 
 				_output = format["
@@ -925,7 +925,7 @@
 				<t align='center'>Type: %3</t><br />
 				<t align='center'>Owner: %2</t><br />
 				<t align='center'>Reported stolen: %4</t><br />
-				<t align='center'>Insurance: %5</t>",_plate,_name,_vehName,_stolen,_insured];
+				<t align='center'>Insurance: %5</t>",_plate,_name,_vehName,_stolen,_isInsured];
 
 				if(count(_return) isEqualTo 7) then {
 					_output = _output + format["<br /><t align='center'>Company: %1</t>",_return select 6];

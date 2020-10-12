@@ -289,11 +289,11 @@
 	private _vehicleGas = _dataSplit select 2;
 	private _vehicleInsurance = _dataSplit select 3;
 	private _control = _display displayCtrl 1501;
-	private _vehicleInsurance = "Yes";
-	if(_vehicleInsurance isEqualTo "0") then {_vehicleInsurance = "No";};
+	private _vehicleInsured = "Yes";
+	if(_vehicleInsurance isEqualTo "0") then {_vehicleInsured = "No";};
 
 	private _startingText = ["Type :","License :","Gas :","Insurance :"];
-	private _followingText = [_vehicleType,_vehiclePlate,_vehicleGas,_vehicleInsurance];
+	private _followingText = [_vehicleType,_vehiclePlate,_vehicleGas,_vehicleInsured];
 
 	lbClear 1501;
 	{
