@@ -40,10 +40,12 @@
 			(SELECT COUNT(Actiontype) FROM policedatabase WHERE Actiontype='report' AND uid = (SELECT uid FROM players WHERE name='%1')) AS reportAmount,
 			(SELECT pasportdate FROM players WHERE name = '%1') AS pasportDate,
 			(SELECT licenses FROM players WHERE name = '%1') AS licenses,
-			(SELECT bank FROM players WHERE name = '%1') AS bank
+			(SELECT bank FROM players WHERE name = '%1') AS bank,
+			(SELECT info FROM policedatabase WHERE ActionType='caution' AND uid = (SELECT uid FROM players WHERE name='%1')) AS cautionRes
 			FROM players
 			WHERE uid = (SELECT uid FROM players WHERE name='%1')
 			LIMIT 1", _name];
+			
 			private _return = [_query, 2] call Server_Database_Async;
 			if(count(_return) > 0) then {
 				private _query = format ["SELECT uid FROM players WHERE name='%1'", _name];
@@ -58,22 +60,37 @@
 			};
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+		
 		case "lookupvehicles": {
-			private _query = format ["SELECT id,class,stolen,insurance FROM objects WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND NOT type='object'",_name];
+			private _query = format ["SELECT id,class,stolen,insurance FROM objects WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND NOT type='object' AND cid = '0'",_name];
 			private _return = [_query, 2,true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "lookuplicense": {
-			private _query = format ["SELECT name, (SELECT stolen FROM objects WHERE id='%1') AS stolen, (SELECT class FROM objects WHERE id = '%1') AS class, (SELECT insurance FROM objects WHERE id = '%1') AS insured FROM players WHERE uid = (SELECT uid FROM objects WHERE (type='vehicle' OR type='plane') AND id='%1')",_name];
+			private _query = format ["SELECT name, (SELECT stolen FROM objects WHERE id='%1') AS stolen, (SELECT class FROM objects WHERE id = '%1') AS class, (SELECT insurance FROM objects WHERE id = '%1') AS insured, (SELECT cid FROM objects WHERE id='%1') AS cid FROM players WHERE uid = (SELECT uid FROM objects WHERE (type='vehicle' OR type='plane') AND id='%1')",_name];
 			private _return = [_query, 2] call Server_Database_Async;
 			_return pushBack _name;
+
+			if(!((_return select 4) isEqualTo 0)) then {
+				private _query = format ["SELECT name FROM companies WHERE id = '%1'",(_return select 4)];
+				private _creturn = [_query, 2] call Server_Database_Async;
+				_return pushBack (_creturn select 0);
+			};
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "lookupcompany": {
 			private _query = format ["SELECT name, description, (SELECT name FROM players WHERE uid=(SELECT boss FROM companies WHERE name='%1')) AS boss, bank, licenses FROM companies WHERE name = '%1'",_name];
 			private _return = [_query, 2] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
+		case "lookupcompvehicles": {
+			private _return = [];
+			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+		};
+
 		case "lookupaddress": {
 			private _queryUID = format["SELECT uid FROM players WHERE name='%1'",_name];
 			private _uid = ([_queryUID, 2] call Server_Database_Async) select 0;
@@ -82,6 +99,7 @@
 			_return pushBack _name;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "lookupwarehouse": {
 			private _queryUID = format["SELECT uid FROM players WHERE name='%1'",_name];
 			private _uid = ([_queryUID, 2] call Server_Database_Async) select 0;
@@ -90,6 +108,7 @@
 			_return pushBack _name;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "markstolen": {
 			private _query = format ["SELECT id,stolen FROM objects WHERE id = '%1'",_name];
 			private _return = [_query, 2] call Server_Database_Async;
@@ -97,6 +116,7 @@
 				private _output = format[localize"STR_SERVER_POLICE_MARKSTOLENALREADYMARKEDSTOLEN",_name];
 				[_name,_call,_output] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
+
 			if(count _return > 0) exitWith {
 				private _id = _return select 0;
 				private _query = format ["UPDATE objects set stolen='1' WHERE ID='%1'",_id];
@@ -107,6 +127,7 @@
 			private _output = localize"STR_SERVER_POLICE_LICENSEPLATEINVALID";
 			[_name,_call,_output] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "markfound": {
 			private _query = format ["SELECT id,stolen FROM objects WHERE id = '%1'",_name];
 			private _return = [_query, 2] call Server_Database_Async;
@@ -124,17 +145,20 @@
 			private _output = localize"STR_SERVER_POLICE_LICENSEPLATEINVALID";
 			[_name,_call,_output] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "warrantlist":
 		{
 			private _query = format ["SELECT title,time,issuedby FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='warrant')",_name];
 			private _return = [_query, 2, true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "warrantinfo": {
 			private _query = format ["SELECT time,issuedby,info FROM policedatabase WHERE uid = (SELECT UID FROM players WHERE name = '%1') AND actiontype='warrant' LIMIT 1 OFFSET %2",_name,(_this select 3)];
 			private _return = [_query, 2] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "removewarrant": {
 			private _query = format ["SELECT ID FROM policedatabase WHERE uid = (SELECT UID FROM players WHERE name = '%1') AND actiontype='warrant' LIMIT 1 OFFSET %2",_name,(_this select 3)];
 			private _return = [_query, 2] call Server_Database_Async;
@@ -148,21 +172,25 @@
 			private _output = localize"STR_SERVER_POLICE_IDINVALIDUSECOMMANDWARRANTLIST";
 			[_name,_call,_output] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "ticketlist": {
-			private _query = format ["SELECT time,info,issuedby FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='ticket')",_name];
+			private _query = format ["SELECT time,info,issuedby,amount FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='ticket')",_name];
 			private _return = [_query, 2,true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "arrestlist": {
-			private _query = format ["SELECT time,info,issuedby FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='arrest')",_name];
+			private _query = format ["SELECT time,info,issuedby,amount FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='arrest')",_name];
 			private _return = [_query, 2,true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "warninglist": {
 			private _query = format ["SELECT time,info,issuedby FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='warning')",_name];
 			private _return = [_query, 2,true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
+
 		case "insertwarrant": {
 			private _title = _name select 1;
 			private _info = _name select 2;
@@ -179,6 +207,7 @@
 				[_name,_call,format[localize"STR_SERVER_POLICE_YOUINSEREIDWITHSUCCESS",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
 		};
+
 		case "insertticket": {
 			private _amount = _name select 1;
 			private _info = _name select 2;
@@ -195,6 +224,7 @@
 				[_name,_call,format[localize"STR_SERVER_POLICE_YOUINSERETICKETWITHSUCCESS",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
 		};
+
 		case "insertwarning": {
 			private _title = _name select 1;
 			private _info = _name select 2;
@@ -211,6 +241,7 @@
 				[_name,_call,format[localize"STR_SERVER_POLICE_YOUINSEREWITHSUCCESSWARNING",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
 		};
+
 		case "insertreport": {
 			private _title = _name select 1;
 			private _info = _name select 2;
@@ -227,6 +258,7 @@
 				[_name,_call,format[localize"STR_SERVER_POLICE_YOUINSEREWITHSUCCESSRAPPORT",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
 		};
+
 		case "insertarrest": {
 			private _time = _name select 1;
 			private _info = _name select 2;
@@ -243,9 +275,99 @@
 				[_name,_call,format[localize"STR_SERVER_POLICE_YOUINSEREWITHSUCCESSARREST",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
 		};
+
 		case "darknet": {
 			private _query = "SELECT name,chatmessage FROM darknetlog ORDER BY id DESC LIMIT 10";
 			private _return = [_query, 2,true] call Server_Database_Async;
+			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+		};
+
+		case "setcaution": {
+			private _issuedBy = _name select 0;
+			private _targetName = _name select 1;
+			private _cautionDesc = _name select 2;
+
+			private _query = format ["SELECT uid FROM players WHERE name='%1'", _targetName];
+			private _return = [_query, 2, true] call Server_Database_Async;
+
+			if (count _return < 1) then {
+				[_targetName, _call, localize"STR_SERVER_POLICE_NAMEOFCITIZENINVALID"] remoteExec ["A3PL_Police_DatabaseEnterReceive", (owner _player)];
+			} else {
+				private _uid = (_return select 0) select 0;
+
+				private _query = format ["SELECT uid FROM policedatabase WHERE ActionType='caution' AND uid='%1'", _uid];
+				private _return = [_query, 2] call Server_Database_Async;
+
+				if (count _return >= 1) exitWith {[_targetName, _call, "Please clear the current caution(s) before inserting."] remoteExec ["A3PL_Police_DatabaseEnterReceive", (owner _player)];};
+
+				private _query = format ["INSERT INTO policedatabase (UID, ActionType, Info, Amount, IssuedBy, Time) VALUES ('%1', 'caution', '%2', '0', '%3', NOW())",_uid, _cautionDesc, _issuedBy];
+				[_query, 1] call Server_Database_Async;
+				
+				[_targetName, _call, "Caution updated."] remoteExec ["A3PL_Police_DatabaseEnterReceive", (owner _player)];
+			};
+		};
+
+		case "clearcautions": {
+			private _targetName = _name select 0;
+
+			private _query = format ["SELECT uid FROM players WHERE name='%1'", _targetName];
+			private _return = [_query, 2, true] call Server_Database_Async;
+
+			if (count _return < 1) then {
+				[_targetName, _call, localize"STR_SERVER_POLICE_NAMEOFCITIZENINVALID"] remoteExec ["A3PL_Police_DatabaseEnterReceive", (owner _player)];
+			} else {
+				private _uid = (_return select 0) select 0;
+
+				private _query = format ["SELECT uid FROM policedatabase WHERE ActionType='caution' AND uid='%1'", _uid];
+				private _return = [_query, 2] call Server_Database_Async;
+
+				if (count _return < 1) exitWith {[_targetName, _call, "There are no cautions to clear from this person."] remoteExec ["A3PL_Police_DatabaseEnterReceive", (owner _player)];};
+
+				private _query = format ["DELETE FROM policedatabase WHERE (uid = (SELECT uid FROM players WHERE name='%1')) AND (actiontype='caution')",_targetName];
+				[_query, 1] call Server_Database_Async;
+				
+				[_targetName, _call, "Cautions cleared."] remoteExec ["A3PL_Police_DatabaseEnterReceive", (owner _player)];
+			};
+		};
+
+		case "bololist": {
+			private _query = format ["SELECT id, info, time, issuedby FROM policedatabase WHERE (actiontype='bolo')"];
+			private _return = [_query, 2,true] call Server_Database_Async;
+			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+		};
+
+		case "insertbolo": {
+			private _issuedBy = _name select 0;
+			private _boloDesc = _name select 1;
+
+			private _query = format ["SELECT uid FROM players WHERE name='%1'", _issuedBy];
+			private _return = [_query, 2, true] call Server_Database_Async;
+			private _uid = (_return select 0) select 0;
+
+			private _query = format ["INSERT INTO policedatabase (UID, ActionType, Info, Amount, IssuedBy, Time) VALUES ('%1', 'bolo', '%2', '0', '%3', NOW())", _uid, _boloDesc, _issuedBy];
+			[_query, 1] call Server_Database_Async;
+
+			[_name, _call, "BOLO notice inserted."] remoteExec ["A3PL_Police_DatabaseEnterReceive", (owner _player)];
+		};
+
+		case "removebolo": {
+			private _boloID = _name select 0;
+
+			private _query = format ["SELECT id FROM policedatabase WHERE id='%1' AND ActionType='bolo'", _boloID];
+			private _return = [_query, 2, true] call Server_Database_Async;
+
+			if (count _return < 1) exitWith {[_name, _call, "Error: This is not a valid BOLO ID."] remoteExec ["A3PL_Police_DatabaseEnterReceive", (owner _player)];};
+			
+			private _query = format ["DELETE FROM policedatabase WHERE (ActionType='bolo') AND (id='%1')", _boloID];
+			[_query, 1] call Server_Database_Async;
+			
+			[_name, _call, "BOLO successfully removed."] remoteExec ["A3PL_Police_DatabaseEnterReceive", (owner _player)];
+		};
+		
+		case "stolenvehicles":
+		{
+			private _query = format ["SELECT objects.uid, objects.id, objects.class, players.name FROM objects INNER JOIN players on players.uid = objects.uid WHERE NOT objects.type = 'object' AND objects.stolen = '1'"];
+			private _return = [_query, 2, true] call Server_Database_Async;
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 	};
@@ -337,6 +459,7 @@
 		_storage addWeaponCargoGlobal [((_weapons select 0) select _i), ((_weapons select 1) select _i)];
 	};
 	_storage setVariable["storage",_virtual,true];
+	_storage setVariable["capacity",10000,true];
 },true] call Server_Setup_Compile;
 
 ["Server_Police_SeizureSave",

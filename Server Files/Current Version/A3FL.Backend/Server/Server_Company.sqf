@@ -305,8 +305,9 @@
 
 ["Server_Company_LoadShop",
 {
-	private _shopList = ["Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"];
+	private _shopList = ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"];
 	private _shops = ["SELECT companies_shops.cid, companies_shops.location, companies_shops.stock, companies.name FROM companies_shops, companies WHERE companies_shops.cid = companies.id", 2, true] call Server_Database_Async;
+
 	{
 		private _cid = (_x select 0);
 		private _pos = call compile (_x select 1);
@@ -350,52 +351,48 @@
 	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-["Server_Company_ShopAddItem",
-{
-	private _shop = param[0,objNull];
-	private _addItem = param[1,""];
-	private _addAmount = param[2,0];
-	private _addPrice = param[3,0];
-	private _player = param[4,objNull];
-	private _currentStock = _shop getVariable["stock",[]];
-	private _exit = false;
-	{
-		_class = (_x select 0);
-		if(_class isEqualTo _addItem) exitWith {_exit = true};
-	} foreach _currentStock;
-	if(_exit) exitWith {["This item is already available for sale, please use the refill stock option", "red"] remoteExec ["A3PL_Player_Notification",_player];};
-	_currentStock pushback [_addItem,_addAmount,_addPrice];
-	[_shop,_currentStock] call Server_Company_ShopItemsUpdate;
-},true] call Server_Setup_Compile;
-
 ["Server_Company_ShopAddStock",
 {
-	private _shop = param[0,objNull];
-	private _addItem = param[1,""];
-	private _addAmount = param[2,0];
+	params[
+		["_shop",objNull,[objNull]],
+		["_addType","",[""]],
+		["_addItem","",[""]],
+		["_addAmount",0,[0]],
+		["_addPrice",0,[0]],
+		["_inst",objNull,[objNull]]
+	];
 	private _currentStock = _shop getVariable["stock",[]];
 	private _stock = [];
+	private _found = false;
 	{
 		_type = (_x select 0);
 		_class = (_x select 1);
 		_amount = (_x select 2);
 		_price = (_x select 3);
 		if(_class isEqualTo _addItem) then {
-			if(!(_amount isEqualTo _addAmount)) then {
-				_stock pushback [_type,_class,(_amount+_addAmount),_price];
-			};
+			_stock pushback [_type,_class,(_amount+_addAmount),_addPrice];
+			_found = true;
 		} else {
 			_stock pushback [_type,_class,_amount,_price];
 		};
 	} foreach _currentStock;
+
+	if(!_found) then {
+		_stock pushback [_addType,_addItem,_addAmount,_addPrice];
+	};
 	[_shop,_stock] call Server_Company_ShopItemsUpdate;
+	[] remoteExecCall ["A3PL_Company_RefreshShopStock",_inst];
 },true] call Server_Setup_Compile;
 
 ["Server_Company_ShopRemoveStock",
 {
-	private _shop = param[0,objNull];
-	private _bItem = param[1,""];
-	private _bAmount = param[2,0];
+	params[
+		["_shop",objNull,[objNull]],
+		["_bItem","",[""]],
+		["_bAmount",0,[0]],
+		["_inst",objNull,[objNull]],
+		["_customer",false,[false]]
+	];
 	private _currentStock = _shop getVariable["stock",[]];
 	private _stock = [];
 	{
@@ -412,13 +409,21 @@
 		};
 	} foreach _currentStock;
 	[_shop,_stock] call Server_Company_ShopItemsUpdate;
+	if(_customer) then {
+		[] remoteExecCall ["A3PL_Company_RefreshShop",_inst];
+	} else {
+		[] remoteExecCall ["A3PL_Company_RefreshShopStock",_inst];
+	};
 },true] call Server_Setup_Compile;
 
 ["Server_Company_ShopResetPrice",
 {
-	private _shop = param[0,objNull];
-	private _cItem = param[1,""];
-	private _cPrice = param[2,0];
+	params[
+		["_shop",objNull,[objNull]],
+		["_cItem","",[""]],
+		["_cPrice",0,[0]],
+		["_inst",objNull,[objNull]]
+	];
 	private _currentStock = _shop getVariable["stock",[]];
 	private _stock = [];
 	{
@@ -433,4 +438,5 @@
 		};
 	} foreach _currentStock;
 	[_shop,_stock] call Server_Company_ShopItemsUpdate;
+	[] remoteExecCall ["A3PL_Company_RefreshShopStock",_inst];
 },true] call Server_Setup_Compile;

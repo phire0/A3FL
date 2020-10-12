@@ -5,16 +5,20 @@
 	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
-//deleteMarker "Server_Events_ShipWreck"; Server_Events_Current = nil; call Server_Events_Random
+
 ["Server_Events_Random",
 {
 	private _allEvents = [
-		Server_Events_ShipWreck
-		//Server_Events_PlaneCrash
+		[Server_Events_ShipWreck,{true}],
+		[Server_Events_PlaneCrash,{true}]
 	];
 	if(!isNil "Server_Events_Current") exitWith {};
 
-	[] spawn (selectRandom _allEvents);
+	_selected = selectRandom _allEvents;
+	while {!(call (_selected select 1))} do {
+		_selected = selectRandom _allEvents;
+	};
+	[] spawn (_selected select 0);
 },true] call Server_Setup_Compile;
 
 ["Server_Events_Start",
@@ -83,8 +87,8 @@
 	clearBackpackCargoGlobal _itemBox;
 
    	private _virtualItems = [];
-	private _valuableItems = [["Titanium_Ingot",20],["Iron_Ingot",40],["Coal_Ingot",40],["Aluminium_Ingot",30],["weed_100g",8],["shrooms",8],["cocaine",13]];
-	private _itemCount = 4 + round(random(6));
+	private _valuableItems = [["Titanium_Ingot",5],["Iron_Ingot",20],["Coal_Ingot",20],["Aluminium_Ingot",15],["weed_100g",3],["shrooms",4],["cocaine",8]];
+	private _itemCount = 4 + round(random(5));
 
 	for "_i" from 0 to _itemCount do {
 		_item = (selectRandom _valuableItems);

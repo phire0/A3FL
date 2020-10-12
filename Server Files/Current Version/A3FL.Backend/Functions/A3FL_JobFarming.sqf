@@ -233,15 +233,16 @@
 	private _grinder = param [0,objNull];
 	private _near = nearestObjects [_grinder, ["A3PL_Cannabis_Bud"], 3,true];
 	private _amount = 0;
-	if(_grinder setVariable["inUse",false]) exitWith {["This grinder is already grinding","red"] call A3PL_Player_Notification;};
+	if(_grinder getVariable["inUse",false]) exitWith {["This grinder is already grinding","red"] call A3PL_Player_Notification;};
 
 	{
 		if ((_x getVariable "class") isEqualTo "cannabis_bud_cured") exitWith {
-			_amount = _x getVariable["amount",0];
+			_amount = _x getVariable["amount",1];
 			deleteVehicle _x;
 		};
 	} foreach _near;
-	if(_amount isEqualTo 0) exitWith {};
+	hint str(_amount);
+	if(_amount isEqualTo 0) exitWith {["There is no cured bud nearby!","red"] call A3PL_Player_Notification;};
 	[format["%1 cured bud(s) were placed into the grinder, it will take about %2 seconds before grinding is completed!",_amount,_amount*30],"green"] call A3PL_Player_Notification;
 	[_grinder,_amount] spawn {
 		private _grinder = param [0,objNull];
@@ -249,9 +250,8 @@
 		_grinder setVariable["inUse",true,true];
 		sleep (30*_amount);
 		[format["%1 cured bud(s) finished grinding, you can collect if from the grinder.",_amount],"green"] call A3PL_Player_Notification;
-		_amount = _amount*5;
-		_grinder setVariable ["grindedweed",(_grinder getVariable ["grindedweed",0])+_amount,true];
 		_grinder setVariable["inUse",nil,true];
+		_grinder setVariable ["grindedweed",(_grinder getVariable ["grindedweed",0])+_amount,true];
 	};
 }] call Server_Setup_Compile;
 
@@ -260,12 +260,11 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _grinder = param [0,objNull];
 	private _value = _grinder getVariable ["grindedweed",0];
-	if (_value < 5) exitwith {["There is no grinded weed in this grinder to be collected","red"] call A3PL_Player_Notification;};
-	private _amount = _value / 5;
-	if (([["cannabis_grinded_5g",_amount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {[format [localize"STR_NewInventory_1",Player_MaxWeight],"red"] call A3PL_Player_Notification;};
+	if (_value < 1) exitwith {["There is no grinded weed in this grinder to be collected","red"] call A3PL_Player_Notification;};
+	if (([["cannabis_grinded_5g",_value]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {[format [localize"STR_NewInventory_1",Player_MaxWeight],"red"] call A3PL_Player_Notification;};
 	_grinder setVariable ["grindedweed",0,true];
-	[format ["You collected %1 grinded marijuana (%2 grams)",_amount,_value],"green"] call A3PL_Player_Notification;
-	["cannabis_grinded_5g",_amount] call A3PL_Inventory_Add;
+	[format ["You collected %1 grinded marijuana (%2 grams)",_value,_value*5],"green"] call A3PL_Player_Notification;
+	["cannabis_grinded_5g",_value] call A3PL_Inventory_Add;
 }] call Server_Setup_Compile;
 
 ["A3PL_JobFarming_BagOpen",
@@ -279,7 +278,6 @@
 			_allGrinded = _x getVariable["amount",1];
 		};
 	} foreach _near;
-
 	if (_allGrinded < 1) exitwith {["No grinded cannabis nearby, place grinded cannabis near the scale to bag weed!","red"] call A3PL_Player_Notification;};
 
 	createDialog "Dialog_BagWeed";

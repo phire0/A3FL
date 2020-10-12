@@ -11,7 +11,7 @@
 	_npc = param [0,objNull];
 	if(isNull(_npc)) exitWith {};
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	if ((player getVariable ["job","unemployed"]) == "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"] call A3PL_NPC_LeaveJob};
+	if ((player getVariable ["job","unemployed"]) isEqualTo "mailman") exitwith {[localize"STR_DELIVERY_WORKSTOP","red"] call A3PL_NPC_LeaveJob};
 
 	player setVariable ["job","mailman",true];
 	call A3PL_Player_SetMarkers;
@@ -29,7 +29,7 @@
 	};
 
 	uiSleep (random 2 + 2);
-	["A3PL_Mailtruck",_spawnPos,"MAILMAN",1800] spawn A3PL_Lib_JobVehicle_Assign;
+	["A3PL_Mailtruck",_spawnPos,"MAILMAN"] spawn A3PL_Lib_JobVehicle_Assign;
 
 	uiSleep (random 2 + 2);
 	call A3PL_Delivery_GenPackage;
@@ -130,7 +130,7 @@
 		[[6976.15,6633.17,0],localize"Functions_DeliveryLocation_KartWheels",localize"Functions_DeliveryLocation_Kart"],
 		[[6982.53,7128.21,0],localize"Functions_DeliveryLocation_Water",localize"Functions_DeliveryLocation_BoulderTaco"],
 		[[7107.94,7197.76,0],localize"Functions_DeliveryLocation_Water",localize"Functions_DeliveryLocation_BoulderMcFishers"],
-		[[7119.9,7249.33,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_GemStore"],
+		[[8776.13,6411.65,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_GemStore"],
 		[[6064.7,7474.21,0],localize"Functions_DeliveryLocation_WasteUniforms",localize"Functions_DeliveryLocation_Waste"],
 		[[11842.1,9252.28,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_WeaponsFactory"],
 		[[3469.14,7483.19,0],localize"Functions_DeliveryLocation_Net",localize"Functions_DeliveryLocation_FishingShop"],

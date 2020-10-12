@@ -29,19 +29,19 @@
 		//+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>TEXT_HERE.</t>"
 
 		_control = (_display displayCtrl 69);
-		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.3</t>"
+		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.4</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>New Pistols</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Pirate Ship Major Crime</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Concussion Effects</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Company Owned Vehicles</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>911 Confirmation</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Company Shops</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Quality of Life changes</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Medical System Revamp</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Drugs NPC locations</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>New Rare Ores</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Silverton Revamp</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Nissan GTR / Nissan GTR Liberty Walk</t>"
 		+ "<br/>"
 		+ "<t size='0.8' align='center'>For the full changelog visit the forum @ arma3fisherslife.net</t>";
 		_control ctrlSetStructuredText (parseText _format);
@@ -157,7 +157,6 @@
 		_format = localize "STR_A3PLS_LOADINGREQUEST_VEHICLESINITIALIZEDSUCCESFULLY";
 		_control ctrlSetStructuredText (parseText _format);
 
-		call A3PL_Medical_Init;
 		_control = (_display displayCtrl 10360);
 		_format = "<t size='2' align='center' color='#B8B8B8'>80%</t>";
 		_control ctrlSetStructuredText (parseText _format);
