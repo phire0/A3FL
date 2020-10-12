@@ -198,9 +198,7 @@
 			case (_classname IN ["A3PL_CLS63"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0,0,0];};
 			case (_classname IN ["A3PL_Urus"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
 			case (_classname isEqualTo "A3PL_JerryCan"): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.3,0,0.2];};
-			case (_classname IN ["A3PL_Taurus","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Taurus_FD"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
-			case (_classname IN ["A3FL_Mercedes_Benz_AMG_C63","A3FL_Nissan_GTR","A3FL_Nissan_GTR_LW"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0];};
-			case (_classname IN ["A3FL_BMW_M6","A3FL_Smart_Car"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.06,0,-0.04];};
+			case (_classname IN ["A3FL_Nissan_GTR","A3FL_Nissan_GTR_LW","A3PL_Taurus","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Taurus_FD"]): {_vector = [[-0.213246,-0.0863852,-0.973172],[-0.976888,0.0338489,0.211056]];_attachTo = [0.04,0,0.04];};
 			default {_vector = [[0.320857,-0.0197785,-0.946921],[0.946907,0.0282805,0.320261]];_attachTo = [-0.1,0,0];_maxlength = 7;};
 		};
 
@@ -405,7 +403,7 @@
 		_tank = _tank select 0;
 
 		_exit = false;
-		if(typeOf _car IN ["A3PL_Cessna172","A3PL_Goose_Base","A3PL_Goose_USCG","A3PL_Jayhawk","A3FL_AS_365","Heli_Medium01_H","Heli_Medium01_Luxury_H","Heli_Medium01_Medic_H","Heli_Medium01_Military_H","Heli_Medium01_Veteran_H","Heli_Medium01_Coastguard_H"]) then {
+		if(typeOf _car IN ["A3PL_Cessna172","A3PL_Goose_Base","A3PL_Goose_USCG","A3PL_Jayhawk","Heli_Medium01_H","Heli_Medium01_Luxury_H","Heli_Medium01_Medic_H","Heli_Medium01_Military_H","Heli_Medium01_Veteran_H","Heli_Medium01_Coastguard_H"]) then {
 			_required = "kerosene";
 		} else {
 			_required = "petrol";

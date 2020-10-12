@@ -161,7 +161,7 @@
 		};
 		_target setVariable ["patdown",nil,true];
 
-		_items = assignedItems _target;
+		_items = assignedItems _target + items _target;
 		_vitems = [_target] call A3PL_Inventory_Get;
 		_weps = weapons _target;
 		_mags = magazines _target;
@@ -200,7 +200,9 @@
 			_control lbSetData [_index,_backpack];
 			_control lbSetValue [_index,3];
 		};
+
 		_control lbSetCurSel 0;
+
 
 		_control = _display displayCtrl 1501;
 		{

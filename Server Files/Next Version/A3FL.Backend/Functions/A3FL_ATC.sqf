@@ -159,7 +159,6 @@
 	switch (true) do {
 		case (_veh isKindOf "A3PL_Goose_Base"): {_type = "G21";};
 		case (_veh isKindOf "A3PL_Jayhawk"): {_type = "H60";};
-		case (_veh isKindOf "A3FL_AS_365"): {_type = "MH65";};
 	};
 	_type;
 }] call Server_Setup_Compile;

@@ -127,32 +127,29 @@ class Dialog_Garage
 			w = 0.020625 * safezoneW;
 			h = 0.044 * safezoneH;
 		};
-		class RscEditRed: RscEdit
+		class slider_red: RscSlider
 		{
-			idc = 1400;
-			text = "0";
-			x = 0.115 * safezoneW + safezoneX;
-			y = 0.695 * safezoneH + safezoneY;
-			w = 0.148 * safezoneW;
-			h = 0.025 * safezoneH;
+			idc = 1900;
+			x = 0.0983334 * safezoneW + safezoneX;
+			y = 0.70263 * safezoneH + safezoneY;
+			w = 0.170156 * safezoneW;
+			h = 0.022 * safezoneH;
 		};
-		class RscEditGreen: RscEdit
+		class slider_green: RscSlider
 		{
-			idc = 1401;
-			text = "0";
-			x = 0.115 * safezoneW + safezoneX;
-			y = 0.728 * safezoneH + safezoneY;
-			w = 0.148 * safezoneW;
-			h = 0.025 * safezoneH;
+			idc = 1901;
+			x = 0.0978125 * safezoneW + safezoneX;
+			y = 0.734704 * safezoneH + safezoneY;
+			w = 0.170156 * safezoneW;
+			h = 0.022 * safezoneH;
 		};
-		class RscEditBlue: RscEdit
+		class slider_blue: RscSlider
 		{
-			idc = 1402;
-			text = "0";
-			x = 0.115 * safezoneW + safezoneX;
-			y = 0.76 * safezoneH + safezoneY;
-			w = 0.148 * safezoneW;
-			h = 0.025 * safezoneH;
+			idc = 1902;
+			x = 0.0978125 * safezoneW + safezoneX;
+			y = 0.76863 * safezoneH + safezoneY;
+			w = 0.170156 * safezoneW;
+			h = 0.022 * safezoneH;
 		};
 		class lb_materials: RscListbox
 		{

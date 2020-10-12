@@ -883,7 +883,6 @@ Config_Shops_Items = [
 	["Shop_USCG_Plane_Vendor",[
 			["plane","Heli_Medium01_Coastguard_H",10000,0,0],
 			["plane","A3PL_Jayhawk",20000,0,0],
-			["plane","A3FL_AS_365",25000,0,0],
 			["plane","A3PL_Cessna172",20000,0,0],
 			["plane","A3PL_Goose_USCG",20000,0,0]
 		],{[2462.06,5249.26,0.00144243]}
@@ -901,7 +900,7 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Mustang_PD",20000,0,0],
 			["vehicle","A3PL_Mustang_PD_Slicktop",23500,0,0],
 			["vehicle","A3PL_Silverado_PD",12000,0,0],
-			["vehicle","A3PL_Small_Boat_Trailer",5000,0,0],
+			["vehicle","A3PL_Small_Boat_Trailer",2000,0,0],
 			["vehicle","A3PL_Raptor_PD",18000,0,0],
 			["vehicle","A3PL_Raptor_PD_ST",21500,0,0],
 			["vehicle","A3PL_Taurus_PD",16000,0,0],

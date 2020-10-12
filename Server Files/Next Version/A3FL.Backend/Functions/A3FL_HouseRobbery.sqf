@@ -136,7 +136,7 @@
 	private _cops = [_faction] call A3PL_Lib_FactionPlayers;
 	private _namePos = [getPos _house] call A3PL_Housing_PosAddress;
 	[format["911: Robbery in progress at %1!",_namePos],"blue",_faction,1] call A3PL_Lib_JobMessage;
-	[_house,"Property Alarm","ColorBLUFOR","A3PL_Markers_FISD"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
+	[_house,"Property Alarm","ColorBLUFOR","A3PL_Maker_FISD"] remoteExec ["A3PL_Lib_CreateMarker",_cops];
 }] call Server_Setup_Compile;
 
 ["A3PL_HouseRobbery_Alarm", {

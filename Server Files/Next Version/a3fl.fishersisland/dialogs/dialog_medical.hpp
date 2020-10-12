@@ -53,7 +53,7 @@ class Dialog_Medical
 		class struc_patient: RscStructuredText
 		{
 			idc = 1100;
-			text = "UNKNOWN";
+			text = $STR_MEDICAL_GUITENSKWATAWADRUDGE;
 			x = 0.226718 * safezoneW + safezoneX;
 			y = 0.235074 * safezoneH + safezoneY;
 			w = 0.165 * safezoneW;

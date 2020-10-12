@@ -142,14 +142,15 @@
 		["ArmA 3 Fishers Life","trunk_key", "Open/Close Vehicle Trunk",
 		{
 			private["_veh"];
-			if((player getVariable ["Cuffed",true]) || (player getVariable ["Zipped",true]) || ((animationState player) == "a3pl_takenhostage")) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
+			if (animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			_veh = player_objintersect;
 			if(!((vehicle player) isEqualTo player)) then {_veh = vehicle player;};
-			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {};
-			if ((player distance _veh > 5)) exitWith {};
+
+			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {diag_log "exit 1";};
+			if ((player distance _veh > 5)) exitWith {diag_log "exit 2";};
 			if ((_veh getVariable["locked",false])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
-			if(isNull _veh || {isNil '_veh'}) exitWith {};
-			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && {(_veh getVariable["owner",""]) != (getPlayerUID player)}) exitWith {};
+			if(isNull _veh || {isNil '_veh'}) exitWith {diag_log "exit 3";};
+			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && {(_veh getVariable["owner",""]) != (getPlayerUID player)}) exitWith {diag_log "exit 4";};
 			if([typeOf (_veh)] call A3PL_Config_HasStorage) then {
 				[_veh] call A3PL_Vehicle_OpenStorage;
 			};
@@ -656,13 +657,13 @@
 			["_hitPoint","",[""]]
 		];
 		private _noDamage = if (_selection isEqualTo "") then {damage _unit;} else {_unit getHit _selection;};
-		private _noDamageBullets = ["B_408_Ball","A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball"];
+		private _noDamageBullets = ["B_408_Ball","A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball","A3FL_PepperSpray_Ball"];
 		private _adminMode = _unit getVariable ["pVar_RedNameOn",false];
 		private _controlDamage = false;
 		private _damageScript = false;
 		if(["ammo", _projectile] call BIS_fnc_inString) then {_damage = _damage / 5;};
 		if(!(_unit getVariable["A3PL_Medical_Alive",true])) then {_damageScript = true;};
-		if(_projectile IN ["A3FL_PepperSpray_Ball","A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver","A3FL_PepperSpray_Ball"]) then {_damageScript = true;};
+		if(_projectile IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver","A3FL_PepperSpray_Ball"]) then {_damageScript = true;};
 		if (!isNull _source) then {
 			if(_source != _unit) then {
 				if (_projectile IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie"]) then {

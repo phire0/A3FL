@@ -106,15 +106,18 @@
 
 	//what if we click one of our texture in the paint list
 	_control = _display displayCtrl 1504;
-	_control ctrlAddEventhandler ["LBSelChanged",format ["['%1','tex'] call A3PL_Garage_SetColour",_veh]];
+	_control ctrlAddEventhandler ["LBSelChanged",format ["['%1','tex'] call A3PL_Garage_SetSliderColour",_veh]];
 
 	//what happends when we move the slider
-	_control = _display displayCtrl 1400;
-	_control ctrlAddEventhandler ["KeyDown",format ["['%1'] call A3PL_Garage_SetColour",_veh]];
-	_control = _display displayCtrl 1401;
-	_control ctrlAddEventhandler ["KeyDown",format ["['%1'] call A3PL_Garage_SetColour",_veh]];
-	_control = _display displayCtrl 1402;
-	_control ctrlAddEventhandler ["KeyDown",format ["['%1'] call A3PL_Garage_SetColour",_veh]];
+	_control = _display displayCtrl 1900;
+	_control sliderSetRange [0,1];
+	_control ctrlAddEventhandler ["SliderPosChanged",format ["['%1'] call A3PL_Garage_SetSliderColour",_veh]];
+	_control = _display displayCtrl 1901;
+	_control sliderSetRange [0,1];
+	_control ctrlAddEventhandler ["SliderPosChanged",format ["['%1'] call A3PL_Garage_SetSliderColour",_veh]];
+	_control = _display displayCtrl 1902;
+	_control sliderSetRange [0,1];
+	_control ctrlAddEventhandler ["SliderPosChanged",format ["['%1'] call A3PL_Garage_SetSliderColour",_veh]];
 
 	//Set the button actions
 	_control = _display displayCtrl 1600;
@@ -388,45 +391,45 @@
 	["You have repainted your vehicle for $2,000.","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
-["A3PL_Garage_SetColour",
+["A3PL_Garage_SetSliderColour",
 {
-	private _veh = param [0,objNull];
-	private _texture = param [1,""];
-	private _display = findDisplay 62;
-	if (typeName _veh isEqualTo "STRING") then {
+	private ["_texture","_control","_display","_rSlider","_gSlider","_bSlider","_veh","_text"];
+	_veh = param [0,objNull];
+	_texture = param [1,""];
+	_display = findDisplay 62;
+
+	if (typeName _veh == "STRING") then //edited bypass used in ATC so we can send object from setButtonAction
+	{
 		_veh = [_veh] call A3PL_Lib_vehStringToObj;
 	};
 	if (isNull _veh) exitwith {};
 
+	//set a vehicle texture instead
 	if (_texture != "") exitwith
 	{
-		private _control = _display displayCtrl 1504;
-		private _id = _control lbData (lbCurSel _control);
-		private _job = player getVariable["job","unemployed"];
-		private _file = [_id,typeOf _veh,"file",_job] call A3PL_Config_GetGaragePaint;
-		if (typeName _file isEqualTo "BOOL") exitwith {};
-		if (typeName _file isEqualTo "ARRAY") then
+		private ["_id","_file"];
+		_control = _display displayCtrl 1504;
+		_id = _control lbData (lbCurSel _control);
+		_job = player getVariable["job","unemployed"];
+		_file = [_id,typeOf _veh,"file",_job] call A3PL_Config_GetGaragePaint;
+		if (typeName _file == "BOOL") exitwith {};
+		if (typeName _file == "ARRAY") then
 		{
 			_cnt = count _file;
-			if (_cnt isEqualTo 1) then {_file1 = _file select 0;_veh setObjectTextureGlobal [0,_file1]};
-			if (_cnt isEqualTo 2) then {_file1 = _file select 0;_file2 = _file select 1;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2]};
-			if (_cnt isEqualTo 3) then {_file1 = _file select 0;_file2 = _file select 1;_file3 = _file select 2;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2];_veh setObjectTextureGlobal [2,_file3]};
-			if (_cnt isEqualTo 4) then {_file1 = _file select 0;_file2 = _file select 1;_file3 = _file select 2;_file4 = _file select 3;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2];_veh setObjectTextureGlobal [2,_file3];_veh setObjectTextureGlobal [3,_file4]};
+			if (_cnt == 1) then {_file1 = _file select 0;_veh setObjectTextureGlobal [0,_file1]};
+			if (_cnt == 2) then {_file1 = _file select 0;_file2 = _file select 1;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2]};
+			if (_cnt == 3) then {_file1 = _file select 0;_file2 = _file select 1;_file3 = _file select 2;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2];_veh setObjectTextureGlobal [2,_file3]};
+			if (_cnt == 4) then {_file1 = _file select 0;_file2 = _file select 1;_file3 = _file select 2;_file4 = _file select 3;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2];_veh setObjectTextureGlobal [2,_file3];_veh setObjectTextureGlobal [3,_file4]};
 		};
 	};
 
-	_control = _display displayCtrl 1400;
-	_red = parseNumber(ctrlText _control) / 255;
-	_control = _display displayCtrl 1401;
-	_green = parseNumber(ctrlText _control) / 255;
-	_control = _display displayCtrl 1402;
-	_blue = parseNumber(ctrlText _control) / 255;
-	
-	if((_red > 1) || {_red < 0}) exitWith {["You are a confirmed retard.","red"] call A3PL_Player_Notification;};
-	if((_green > 1) || {_green < 0}) exitWith {["You are a confirmed retard.","red"] call A3PL_Player_Notification;};
-	if((_blue > 1) || {_blue < 0}) exitWith {["You are a confirmed retard.","red"] call A3PL_Player_Notification;};
-
-	_text = format ["#(argb,8,8,3)color(%1,%2,%3,1.0,CO)",_red,_green,_blue];
+	_control = _display displayCtrl 1900;
+	_rSlider = sliderPosition _control;
+	_control = _display displayCtrl 1901;
+	_gSlider = sliderPosition _control;
+	_control = _display displayCtrl 1902;
+	_bSlider = sliderPosition _control;
+	_text = format ["#(argb,8,8,3)color(%1,%2,%3,1.0,CO)",_rSlider,_gSlider,_bSlider];
 	_veh setObjectTextureGlobal [0,_text];
 }] call Server_Setup_Compile;
 
