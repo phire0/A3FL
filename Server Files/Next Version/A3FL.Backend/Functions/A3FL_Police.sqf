@@ -915,9 +915,9 @@
 				};
 
 				if(_insured isEqualTo 0) then {
-					_isInsured = "Yes";
-				} else {
 					_isInsured = "No";
+				} else {
+					_isInsured = "Yes";
 				};
 
 				_output = format["
