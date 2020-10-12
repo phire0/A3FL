@@ -419,6 +419,6 @@
 	private _uid = _this select 1;
 	sleep 300;
 	private _player = [_uid] call A3PL_Lib_UIDToObject;
-	if(isNull _player) exitwith {};
+	if(!(isNull _player)) exitwith {};
 	[_jobVeh] call A3PL_Vehicle_Despawn;
 }, true] call Server_Setup_Compile;
