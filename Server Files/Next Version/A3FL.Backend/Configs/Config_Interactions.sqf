@@ -534,7 +534,7 @@ A3PL_Interaction_Options =
 			private _veh = vehicle player;
 			if([typeOf(_veh)] call A3PL_Config_HasStorage) then {[_veh] call A3PL_Vehicle_OpenStorage;};
 		},
-		{((vehicle player) != player) && ([typeOf(vehicle player)] call A3PL_Config_HasStorage)}
+		{((vehicle player) != player) && ([typeOf(vehicle player)] call A3PL_Config_HasStorage) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true]))}
 	],
 	[
 		localize "STR_NewInventory_24",

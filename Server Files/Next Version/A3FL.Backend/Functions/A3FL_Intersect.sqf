@@ -147,7 +147,6 @@
 		if (_ins2 isEqualTo []) exitWith {
 			Player_NameIntersect = "";
 			Player_ObjIntersect = _veh;
-
 		};
 
 		_ins2 select 0 params ["_name", "_dist"];

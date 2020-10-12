@@ -9,7 +9,7 @@
 ["A3PL_Chopshop_Chop",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private _cars = nearestObjects [player, ["Car"], 10];
+	private _cars = nearestObjects [player, ["Car","Plane","Air","Tank"], 20];
 	private _car = _cars select 0;
 	private _id = (_car getVariable ["owner",0]) select 1;
 

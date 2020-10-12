@@ -478,6 +478,25 @@
 	}];
 }] call Server_Setup_Compile;
 
+['A3PL_Vehicle_Init_A3FL_AS_365', {
+	private _veh = _this;
+	_veh addEventHandler ["GetIn",
+	{
+		_veh = param [0,objNull];
+		_position = param [1,""];
+		_unit = param [2,objNull];
+		if (!local _unit) exitwith {};
+		if (_position IN ["gunner","driver"]) then {
+			[_veh] spawn A3PL_ATC_GetInAircraft;
+		};
+	}];
+	_veh addEventHandler ["Engine", {
+		if ((((_this select 0) animationPhase "ignition_Switch") < 0.5) && (player IN (_this select 0))) then {
+			(vehicle player) engineOn false;
+		};
+	}];
+}] call Server_Setup_Compile;
+
 ["A3PL_Vehicle_Init_Heli_Medium01_H",
 {
 	private ['_veh'];
