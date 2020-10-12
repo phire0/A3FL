@@ -360,6 +360,7 @@
 		_var = _unit getVariable "name";
 		if (isNil "_var") exitwith {};
 		_jobVeh = _unit getVariable ["jobVehicle",nil];
+		_deadBody = _unit getVariable["deadBody",objNull];
 
 		[] remoteExecCall ["A3PL_Lib_VerifyHunger",_unit];
 		[] remoteExecCall ["A3PL_Lib_VerifyThirst",_unit];
@@ -370,6 +371,7 @@
 		if (!isNil {_unit getVariable ["house",nil]}) then {[_unit,_uid] call Server_Housing_SaveItems;};
 		if (!isNil {_unit getVariable ["warehouse",nil]}) then {[_unit,_uid] call Server_Warehouses_SaveItems;};
 		if (!isNil {_jobVeh}) then {[_jobVeh,_uid] spawn Server_Gear_JobVehicle;};
+		if(!isNull _deadBody) then {deleteVehicle _deadBody;};
 
 		//get rid of the assigned apt, if exist
 		_var = _unit getVariable "apt";

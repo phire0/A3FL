@@ -14,6 +14,9 @@
 ["A3PL_Medical_Loop",
 {
 	private _bloodLevel = [player,"blood"] call A3PL_Medical_GetVar;
+	private _isAlive = isNull (player getVariable["deadBody",objNull]);
+	private _wounds = player getVariable ["A3PL_Wounds",[]];
+	if(!_isAlive) exitWith {};
 	if (_bloodLevel > 0) then {
 		private _bloodChange = 0; {
 			for "_i" from 1 to (count _x-1) do {
@@ -24,7 +27,7 @@
 					_bloodChange = _bloodChange - ([_wound,"bloodLoss"] call A3PL_Config_GetWound);
 				};
 			};
-		} foreach (player getVariable ["A3PL_Wounds",[]]);
+		} foreach _wounds;
 		if (_bloodChange != 0) then {[player,[_bloodChange]] call A3PL_Medical_ApplyVar;};
 	};
 	["\A3PL_Common\GUI\medical\overlay_blood.paa",1,(_bloodLevel/MAXBLOODLVL)] call A3PL_HUD_SetOverlay;
@@ -779,7 +782,6 @@
 ["A3PL_Medical_Die",
 {
 	params [["_unit",objNull,[objNull]]];
-	private _timer = 600;
 	private _lastDamage = _unit getVariable ["lastDamage",0];
 	disableSerialization;
 	
@@ -788,15 +790,14 @@
 		_unit action ["getOut", vehicle _unit];
 		_unit setPosATL [(getPosATL _unit select 0) + 3, (getPosATL _unit select 1) + 1, 0];
 	};
-	if (dialog) then {
-		closeDialog 0;
-	};
+	if (dialog) then {closeDialog 0;};
 	if(["life_alert"] call A3PL_Inventory_Has) then {call A3PL_Medical_LifeAlert;};
 
 	A3PL_Player_DeadBodyGear = getUnitLoadout _unit;
 	if((backpack _unit) isEqualTo "A3PL_LR") then {A3PL_Player_DeadRadio = (call TFAR_fnc_activeLrRadio) call TFAR_fnc_getLrSettings;};
 
 	_unit setVariable ["A3PL_Medical_Alive",false,true];
+	_unit setVariable ["A3PL_MedicalVars",[0,"120/80",37],true];
 	_unit setVariable ["TimeRemaining",_timer,true];
 	_unit setVariable ["tf_voiceVolume", 0, true];
 	_unit setVariable ["Zipped",false,true];
@@ -804,35 +805,45 @@
 	_unit setVariable ["DoubleTapped",false,true];
 	[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 
-	A3PL_deathCam  = "CAMERA" camCreate (getPosATL _unit);
+	A3PL_deathCam = "CAMERA" camCreate (getPosATL _unit);
 	showCinemaBorder true;
 	A3PL_deathCam cameraEffect ["INTERNAL","BACK"];
 	createDialog "Dialog_DeathScreen";
-	A3PL_deathCam camSetTarget _unit;
-	A3PL_deathCam camSetRelPos [0,3.5,4.5];
-	A3PL_deathCam camSetFOV .5;
-	A3PL_deathCam camSetFocus [50,0];
-	A3PL_deathCam camCommit 0;
+
 	if(pVar_AdminLevel < 3) then {
 		(findDisplay 7300) displaySetEventHandler ["KeyDown","{true}"];
 	} else {
 		(findDisplay 7300) displaySetEventHandler ["KeyDown","if ((_this select 1) isEqualTo 1) then {true}"];
 	};
+
+	A3PL_deathCam camSetTarget _unit;
+	A3PL_deathCam camSetRelPos [0,3.5,4.5];
+	A3PL_deathCam camSetFOV .5;
+	A3PL_deathCam camSetFocus [50,0];
+	A3PL_deathCam camCommit 0;
 	
-	[_unit,_lastDamage,_timer] spawn {
+	[_unit,_lastDamage,600] spawn {
 		private _unit = _this select 0;
 		private _lastDamage = _this select 1;
 		private _timer = _this select 2;
 		private _display = findDisplay 7300;
 		private _control = _display displayCtrl 1001;
 		private _exit = false;
-		private _format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CAN remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
+
+		diag_log "A3PL_Medical_Die: Step 1";
+
 		while {!(_unit getVariable ["A3PL_Medical_Alive",true]) && !(player getVariable ["A3PL_Medical_Alive",true])} do
 		{
+			private _format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CAN remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
 			if(_unit getVariable ["DoubleTapped",false]) then {
 				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CANNOT remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
 			};
-			_control ctrlSetStructuredText  parseText _format;
+			_control ctrlSetStructuredText (parseText _format);
+
+			A3PL_deathCam camSetTarget _unit;
+			A3PL_deathCam camSetRelPos [0,3.5,4.5];
+			A3PL_deathCam camCommit 0;
+
 			sleep 1;
 			_timer = _timer - 1;
 			_unit setVariable ["TimeRemaining",_timer,true];
@@ -840,16 +851,6 @@
 		};
 		if(_exit) exitWith {call A3PL_Medical_Respawn;};
 		call A3PL_Medical_Revived;
-	};
-
-	[_unit] spawn {
-		private _unit = _this select 0;
-		waitUntil {
-			A3PL_deathCam camSetTarget _unit;
-			A3PL_deathCam camSetRelPos [0,3.5,4.5];
-			A3PL_deathCam camCommit 0;
-			speed _unit isEqualTo 0
-		};
 	};
 }] call Server_Setup_Compile;
 
