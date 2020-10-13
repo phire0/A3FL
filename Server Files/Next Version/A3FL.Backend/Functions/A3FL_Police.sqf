@@ -905,6 +905,7 @@
 				_class = _return select 2;
 				_insured = _return select 3;
 				_plate = _return select 5;
+				private _isInsured = "Yes";
 
 				_vehName = getText(configFile >>  "CfgVehicles" >>  _class >> "displayName");
 
