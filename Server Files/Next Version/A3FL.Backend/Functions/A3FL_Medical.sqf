@@ -44,7 +44,6 @@
 	private _unconscious = !(player getVariable["A3PL_Medical_Alive",true]);
 	private _timeRemain = player getVariable ["TimeRemaining",600];
 	if(_unconscious  && {_timeRemain < 580}) exitWith {player setVariable ["DoubleTapped",true,true];};
-	if ((_selection IN ["spine1","spine2","spine3"]) && (_projectile isEqualTo "") && (isBurning player)) then {_projectile = "FireDamage";};
 	[_selection,_damage,_projectile] call A3PL_Medical_GenerateWounds;
 }] call Server_Setup_Compile;
 
@@ -75,7 +74,7 @@
 	};
 
 	/*
-	WORKS NEEDS DO ON THESE
+		WORKS NEEDS DO ON THESE
 	*/
 	if((_sHit isEqualTo "") && (_sBullet isEqualTo "") && (vehicle player != player)) exitWith {
 		if (_sDamage > 0.005) then
@@ -183,7 +182,7 @@
 		};
 	};
 	/*
-	END OF WORK BLOCK
+		END OF WORK BLOCK
 	*/
 
 	if(_sBullet isEqualTo "FireDamage") exitWith {
@@ -806,7 +805,6 @@
 	[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 
 	A3PL_deathCam = "CAMERA" camCreate (getPosATL _unit);
-	showCinemaBorder true;
 	A3PL_deathCam cameraEffect ["INTERNAL","BACK"];
 	createDialog "Dialog_DeathScreen";
 
@@ -823,14 +821,13 @@
 	A3PL_deathCam camCommit 0;
 	
 	[_unit,_lastDamage,600] spawn {
+		disableSerialization;
 		private _unit = _this select 0;
 		private _lastDamage = _this select 1;
 		private _timer = _this select 2;
 		private _display = findDisplay 7300;
 		private _control = _display displayCtrl 1001;
 		private _exit = false;
-
-		diag_log "A3PL_Medical_Die: Step 1";
 
 		while {!(_unit getVariable ["A3PL_Medical_Alive",true]) && !(player getVariable ["A3PL_Medical_Alive",true])} do
 		{
@@ -945,7 +942,7 @@
 		_target setVariable["reviving",false,true];
 
 		if ((vehicle player) isEqualTo player) then {player switchMove "";};
-		if(Player_ActionInterrupted) exitWith {["CPR Cancelled!", "red"] call A3PL_Player_Notification;};
+		if (Player_ActionInterrupted) exitWith {["CPR Cancelled!", "red"] call A3PL_Player_Notification;};
 
 		private _chance = random 100;
 		if(["cpr",player] call A3PL_DMV_Check) then {_chance = random 50;};

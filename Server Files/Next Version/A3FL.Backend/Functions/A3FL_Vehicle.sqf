@@ -1461,11 +1461,11 @@
 {
 	private _cutter = param [0,objNull];
 	if (typeOf _cutter != "A3PL_Cutter") exitwith {["System: Incorrect type (try again)", "red"] call A3PL_Player_Notification;};
-	private _helis = nearestObjects [_cutter, ["A3PL_Jayhawk","C_Heli_Light_01_civil_F","Heli_Medium01_Coastguard_H","Heli_Medium01_H","Heli_Medium01_Sheriff_H","Heli_Medium01_Luxury_H","Heli_Medium01_Military_H","Heli_Medium01_Medic_H","Heli_Medium01_Veteran_H"], 50];
+	private _helis = nearestObjects [_cutter, ["A3FL_AS_365","A3PL_Jayhawk","C_Heli_Light_01_civil_F","Heli_Medium01_Coastguard_H","Heli_Medium01_H","Heli_Medium01_Sheriff_H","Heli_Medium01_Luxury_H","Heli_Medium01_Military_H","Heli_Medium01_Medic_H","Heli_Medium01_Veteran_H"], 50];
 	if (count _helis < 1) exitwith {[localize"STR_NewVehicle_45", "red"] call A3PL_Player_Notification;};
 	private _heli = _helis select 0;
 	switch (typeOf _heli) do {
-		case ("A3FL_AS_365"): {_heli attachTo [_cutter,[0,-17,-5.5]];};
+		case ("A3FL_AS_365"): {_heli attachTo [_cutter,[0,-17,-4.25]];};
 		case ("A3PL_Jayhawk"): {_heli attachTo [_cutter,[0,-17,-5.5]];};
 		case ("C_Heli_Light_01_civil_F"): {_heli attachTo [_cutter,[0,-17,-7.2]];};
 		case ("Heli_Medium01_Coastguard_H"): {_heli attachTo [_cutter,[0,-17,-5]];};

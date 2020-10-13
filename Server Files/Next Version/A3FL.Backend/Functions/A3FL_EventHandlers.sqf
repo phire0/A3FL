@@ -660,9 +660,22 @@
 		private _adminMode = _unit getVariable ["pVar_RedNameOn",false];
 		private _controlDamage = false;
 		private _damageScript = false;
+		private _nearFire = count(_unit nearEntities [["A3PL_FireObject"], 8]) > 0;
+
 		if(["ammo", _projectile] call BIS_fnc_inString) then {_damage = _damage / 5;};
 		if(!(_unit getVariable["A3PL_Medical_Alive",true])) then {_damageScript = true;};
-		if(_projectile IN ["A3FL_PepperSpray_Ball","A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver","A3FL_PepperSpray_Ball"]) then {_damageScript = true;};
+		if(_projectile IN ["A3FL_PepperSpray_Ball","A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) then {_damageScript = true;};
+		if (_nearFire && {_projectile isEqualTo ""}) then {
+			_controlDamage = true;
+			[_selection,_damage] spawn {
+				if (isNil "A3PL_Medical_Burning") then {
+					A3PL_Medical_Burning = true;
+					[_this select 0,_this select 1,"FireDamage"] call A3PL_Medical_GenerateWounds;
+					sleep 1;
+					A3PL_Medical_Burning = nil;
+				};
+			};
+		};
 		if (!isNull _source) then {
 			if(_source != _unit) then {
 				if (_projectile IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie"]) then {
@@ -695,12 +708,9 @@
 					if(!isNull _x) exitWith {_controlDamage = true;};
 				} forEach attachedObjects _instigator;
 			};
-		} else {
-			_controlDamage = true;
 		};
-
 		if (!_adminMode && {!(_projectile IN _noDamageBullets)} && {!_controlDamage}) then {
-			if ((_damage > 0) && {!(_selection isEqualTo "")}) then {
+			if (_damage > 0) then {
 				if (diag_tickTime > ((missionNameSpace getVariable ["A3PL_HitTime",diag_tickTime-0.2]) + 0.1)) then {
 					A3PL_HitTime = diag_tickTime;
 					[_unit,_selection,_damage,_source,_projectile] spawn A3PL_Medical_Hit;
