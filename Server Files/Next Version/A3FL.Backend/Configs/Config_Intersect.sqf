@@ -242,7 +242,7 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TalkToUSCGOfficer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_uscg,npc_uscg_1]}],
 	["spine3",localize"STR_QuickActionsNPC_WeaponIllegalShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_illegal_eq]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessPrisonShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_farmer_1]}],
-	["spine3",localize"STR_QuickActionsNPC_TalkToTheFisherMan",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fisher,npc_farmer_2]}],
+	["spine3",localize"STR_QuickActionsNPC_TalkToTheFisherMan",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fisher,npc_fisher2,npc_farmer_2]}],
 	["spine3",localize"STR_QuickActionsNPC_GoodsFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_goodsfactory,npc_goodsfactory_n]}],
 	["spine3",localize"STR_QuickActionsNPC_VehiclesFactory",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_vehiclefactory}],
 	["spine3",localize"STR_QuickActionsNPC_AccessChemicalPlant",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect == npc_chimicalfactory}],
@@ -535,7 +535,7 @@ Config_IntersectArray =
 	["carInfo",localize"STR_INTSECT_TRSPERSGAR",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objIntersect getVariable "positionSpawn"}) && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
 
 	//aircraft paint
-	["carInfo",localize"STR_INTSECT_PAINTAIRC",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objIntersect == AircraftPaint}], //Paint Aircraft
+	["carInfo",localize"STR_INTSECT_PAINTAIRC",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objIntersect IN[AircraftPaint,AircraftPaint2,AircraftPaint3]}], //Paint Aircraft
 	["carInfo",localize"STR_INTSECT_STOREAIRC",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objIntersect == AircraftStore_1}], //Store Aircraft
 
 	["spine3",localize"STR_INTSECT_OPTREASINF",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect isEqualTo npc_government_2) && {(["fbi"] call A3PL_Government_isFactionLeader)}}],
