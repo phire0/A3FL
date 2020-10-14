@@ -371,7 +371,6 @@ Config_Factories =
 		["f_Nike_SB","","inh","inh","A3PL_Nike_SB_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Never_Fighting_Alone","","inh","inh","A3PL_Never_Fighting_Alone_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Why_So_Friendly","","inh","inh","A3PL_Why_So_Friendly_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
-		["f_SN_Polo_Shirt_Uniform","","inh","inh","A3PL_SN_Polo_Shirt_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_SuitBrwBlu_Uniform","","inh","inh","A3PL_SuitBrwBlu_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_SuitGrnOra_Uniform","","inh","inh","A3PL_SuitGrnOra_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_SuitRedTie_Uniform","","inh","inh","A3PL_SuitRedTie_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
