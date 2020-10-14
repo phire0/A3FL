@@ -257,17 +257,15 @@ Config_Vehicles_MSRP = [
 	["C_Van_02_transport_F",105000],
 	["A3PL_Silverado",170000],
 	["A3PL_Silverado_PD",170000],
-	["A3PL_E350",5000],
-	["jonzie_ambulance",10000],
-	["A3PL_GMCVandura",0],
+	["A3PL_E350",45000],
+	["jonzie_ambulance",60000],
 
-	["A3PL_Pierce_Ladder",10000],
-	["A3PL_Pierce_Heavy_Ladder",15000],
-	["A3PL_Pierce_Pumper",15000],
-	["A3PL_Pierce_Rescue",15000],
+	["A3PL_Pierce_Ladder",75000],
+	["A3PL_Pierce_Heavy_Ladder",80000],
+	["A3PL_Pierce_Pumper",80000],
+	["A3PL_Pierce_Rescue",80000],
 
 	["A3FL_T370",200000],
-
 	["A3PL_Box_Trailer",35000],
 
 	["C_Scooter_Transport_01_F",6000],
@@ -288,7 +286,7 @@ Config_Vehicles_MSRP = [
 	["A3PL_Jayhawk",50000],
 	["A3FL_AS_365",65000],
 	["A3PL_Cessna172",380000],
-	["A3PL_Goose_Base",660000],
+	["A3PL_Goose_Base",760000],
 	["A3PL_Goose_USCG",665000],
 
 	["A3FL_Nissan_GTR",310000],

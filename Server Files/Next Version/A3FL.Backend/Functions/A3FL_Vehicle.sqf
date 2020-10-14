@@ -1641,47 +1641,34 @@
 
 ["A3PL_Vehicle_Insure",
 {
-	_display = findDisplay 153;
-	_control = _display displayCtrl 1500;
-
-	_vehClass = _control lbData (lbCurSel _control);
-	_veh = nearestObject [player,_vehClass];
-	_vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
-	_price = 0;
-	if (_VehPrice < 150000) then{
-		_price = _vehPrice * 0.10;
-	}
-	else {
-		_price = _vehPrice * 0.15;
-	};
-
-	//Take cash from Player
+	private _display = findDisplay 153;
+	private _control = _display displayCtrl 1500;
+	private _vehClass = _control lbData (lbCurSel _control);
+	private _veh = nearestObject [player,_vehClass];
+	private _vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
+	private _price = if (_VehPrice < 150000) then {vehPrice * 0.10} else {_vehPrice * 0.15};
 	if (_price > (player getVariable ["Player_Bank",0])) exitwith {[format [localize"STR_NewVehicle_56"]] call A3PL_Player_notification;};
 	player setVariable ["Player_Bank",(player getVariable ["Player_Bank",0]) - _price,true];
-	//Put cash in Federal Bank
 	["Federal Reserve", _price] remoteExec["Server_Government_AddBalance", 2];
-
 	[format [localize"STR_NewVehicle_57", getText (configFile >> "CfgVehicles" >> typeOf _veh >> "displayName"), _price], "green"] call A3PL_Player_Notification;
-	//Insure
 	_veh setVariable["insurance",true,true];
 	[_veh] remoteExec ["Server_Vehicle_Insure",2];
-
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
 ['A3PL_Goose_Platform', {
-    private _veh = param [0,objNull];
-    while {local _veh} do {
-        private _overWater = !(position _veh isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
-        private _canDamage = isDamageAllowed _veh;
-        private _speed = speed _veh;
-        if (_overWater && _canDamage && (_speed < 80)) then {
-            _veh allowDamage false;
-        };
-        if (!_overWater && !_canDamage && (_speed >= 80)) then {
-            _veh allowDamage true;
-        };
-    };
+	private _veh = param [0,objNull];
+	while {local _veh} do {
+		private _overWater = !(position _veh isFlatEmpty  [-1, -1, -1, -1, 2, false] isEqualTo []);
+		private _canDamage = isDamageAllowed _veh;
+		private _speed = speed _veh;
+		if (_overWater && _canDamage && (_speed < 70)) then {
+			_veh allowDamage false;
+		};
+		if (!_overWater && !_canDamage) then {
+			_veh allowDamage true;
+		};
+	};
 }, false] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_DriverSpotlight", {

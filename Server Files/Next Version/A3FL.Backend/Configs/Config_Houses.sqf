@@ -73,10 +73,10 @@ Config_Houses = [
 	["Land_A3PL_Ranch2",135000,150,800,8],
 	["Land_A3PL_Ranch3",135000,150,800,8],
 
-	["Land_Home4w_DED_Home4w_01_F",150000,180,1000,8],
-	["Land_Home1g_DED_Home1g_01_F",150000,180,1000,8],
-	["Land_Home2b_DED_Home2b_01_F",150000,180,1000,8],
-	["Land_Home5y_DED_Home5y_01_F",150000,180,1000,8],
+	["Land_Home4w_DED_Home4w_01_F",150000,200,1000,8],
+	["Land_Home1g_DED_Home1g_01_F",150000,200,1000,8],
+	["Land_Home2b_DED_Home2b_01_F",150000,200,1000,8],
+	["Land_Home5y_DED_Home5y_01_F",150000,200,1000,8],
 
 	//One-story ranch
 	["Land_A3FL_House2_Cream",150000,100,550,9],
@@ -86,35 +86,35 @@ Config_Houses = [
 	["Land_A3FL_House2_Yellow",150000,100,550,9],
 
 	//One-story Small L-Shape
-	["Land_A3FL_House4_Cream",160000,110,625,10],
-	["Land_A3FL_House4_Green",160000,110,625,10],
-	["Land_A3FL_House4_Blue",160000,110,625,10],
-	["Land_A3FL_House4_Brown",160000,110,625,10],
-	["Land_A3FL_House4_Yellow",160000,110,625,10],
+	["Land_A3FL_House4_Cream",160000,125,625,10],
+	["Land_A3FL_House4_Green",160000,125,625,10],
+	["Land_A3FL_House4_Blue",160000,125,625,10],
+	["Land_A3FL_House4_Brown",160000,125,625,10],
+	["Land_A3FL_House4_Yellow",160000,125,625,10],
 
 	//One-story Big L-Shape
-	["Land_A3FL_House3_Cream",175000,130,700,12],
-	["Land_A3FL_House3_Green",175000,130,700,12],
-	["Land_A3FL_House3_Blue",175000,130,700,12],
-	["Land_A3FL_House3_Brown",175000,130,700,12],
-	["Land_A3FL_House3_Yellow",175000,130,700,12],
+	["Land_A3FL_House3_Cream",175000,150,700,12],
+	["Land_A3FL_House3_Green",175000,150,700,12],
+	["Land_A3FL_House3_Blue",175000,150,700,12],
+	["Land_A3FL_House3_Brown",175000,150,700,12],
+	["Land_A3FL_House3_Yellow",175000,150,700,12],
 
 	//Two-Story with garage
-	["Land_Home3r_DED_Home3r_01_F",250000,280,1200,13],
-	["Land_Home6b_DED_Home6b_01_F",250000,280,1200,13],
+	["Land_Home3r_DED_Home3r_01_F",250000,300,1200,13],
+	["Land_Home6b_DED_Home6b_01_F",250000,300,1200,13],
 
 	//Two-story without garage
-	["Land_A3FL_House1_Cream",350000,300,1100,15],
-	["Land_A3FL_House1_Green",350000,300,1100,15],
-	["Land_A3FL_House1_Blue",350000,300,1100,15],
-	["Land_A3FL_House1_Brown",350000,300,1100,15],
-	["Land_A3FL_House1_Yellow",350000,300,1100,15],
+	["Land_A3FL_House1_Cream",350000,350,1100,15],
+	["Land_A3FL_House1_Green",350000,350,1100,15],
+	["Land_A3FL_House1_Blue",350000,350,1100,15],
+	["Land_A3FL_House1_Brown",350000,350,1100,15],
+	["Land_A3FL_House1_Yellow",350000,350,1100,15],
 
 	//One-story without garage
-	["Land_A3FL_Anton_Modern_Bungalow",500000,350,900,20],
+	["Land_A3FL_Anton_Modern_Bungalow",500000,400,900,20],
 
 	//Mansions
-	["Land_Mansion01",500000,350,1700,25],
+	["Land_Mansion01",500000,400,1700,25],
 	["Land_A3PL_ModernHouse1",550000,400,1800,25],
 	["Land_A3PL_ModernHouse2",550000,400,1800,25],
 	["Land_A3PL_ModernHouse3",550000,400,1800,25],

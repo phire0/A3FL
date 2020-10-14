@@ -595,16 +595,11 @@
 	{
 		_veh = param [0,objNull];
 		_local = param [1,false];
-
-		//if this is the computer locality was changed to
 		if (_local) then
 		{
-			//_veh allowDamage false;
 			[_veh] spawn A3PL_Goose_Platform;
 		};
 	}];
-	if (getplayerUID player == "_SP_PLAYER_") then {[_veh] spawn A3PL_Goose_Platform;}; //test platform script in SP
-
 	_veh addEventHandler ["GetIn",
 	{
 		_veh = param [0,objNull];
@@ -618,7 +613,6 @@
 			[_veh] spawn A3PL_ATC_GetInAircraft;
 		};
 	}];
-
 	_veh addEventHandler ["Engine",
 	{
 		if ((((_this select 0) animationSourcePhase "Ignition") < 0.5) && (local (vehicle player))) then
