@@ -223,8 +223,9 @@
 		player setAnimSpeedCoef 1.7;
 	};
 
-	if ((player getVariable ["CoffeeSlowTime", 0]) > 0) then {
+	if (((player getVariable["CoffeeSlowTime, 0"]) > 0) && ((Player_Drugs select 3) == 0)) then {
 		player setVariable ["CoffeeSlowTime", ((player getVariable ["CoffeeSlowTime", 0]) - 1), true];
+		player setAnimSpeedCoef 0.7;
 	};
 
 	//Decrease Drug level
