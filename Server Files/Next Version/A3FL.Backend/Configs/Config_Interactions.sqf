@@ -1114,6 +1114,35 @@ A3PL_Interaction_Options =
 		"Shop Management",
 		{call A3PL_Company_OpenShopStock;},
 		{((typeOf cursorObject) isKindOf "House") && {([getPlayerUID player] call A3PL_Config_GetCompanyID) isEqualTo (cursorObject getVariable["cid",-1])}}
+	],
+
+	[
+		"Toggle Garage",
+		{
+			switch (typeOf cursorObject) do {
+				case "Land_A3FL_Warehouse": {
+					private _distanceLeft = player distance2D (cursorObject modelToWorldVisual (cursorObject selectionPosition ["door_1", "Memory"]));
+					private _distanceRight = player distance2D (cursorObject modelToWorldVisual (cursorObject selectionPosition ["door_5", "Memory"]));
+					
+					if (_distanceRight > _distanceLeft) then {
+						[cursorObject, "door_1", false] call A3PL_Lib_ToggleAnimation;
+						[cursorObject, "door_2", false] call A3PL_Lib_ToggleAnimation;
+					} else {
+						[cursorObject, "door_5", false] call A3PL_Lib_ToggleAnimation;
+						[cursorObject, "door_6", false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
+				case "Land_John_Hangar": {
+					[cursorObject, "hangardoor"] call A3PL_Lib_ToggleAnimation;
+				};
+
+				default {
+					[cursorObject, "garagedoor"] call A3PL_Lib_ToggleAnimation;
+				};
+			};
+		},
+		{((typeOf cursorObject) isKindOf "House") && (cursorObject getVariable ["unlocked", false]) && ((player distance cursorObject) < 20) && ((typeof (call A3PL_Intersect_cursorTarget)) in ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Home4w_DED_Home4w_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home6b_DED_Home6b_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_John_Hangar","Land_A3FL_Warehouse"])}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";
