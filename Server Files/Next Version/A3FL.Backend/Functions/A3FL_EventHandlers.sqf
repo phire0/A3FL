@@ -417,15 +417,7 @@
 			disableSerialization;
 			pVar_AdminPrePosition = getPosATL player;
 
-			player hideObjectGlobal true;
-			if (!isObjectHidden player) then
-			{
-				[] spawn {
-					[player] remoteExec ["A3PL_Lib_HideObject", 2];
-					uisleep 0.5;
-				};
-			};
-
+			[player,true] remoteExec ["A3PL_Lib_HideObject", 2];
 			["Initialize", [player, [], false, true, true, false, true, true, true, true]] call BIS_fnc_EGSpectator;
 			[player,"spectate",[format ["ENABLED"]]] remoteExec ["Server_AdminLoginsert", 2];
 
@@ -450,7 +442,6 @@
 			detach player;
 			player setposATL (missionNameSpace getVariable ['pVar_AdminPrePosition',getposATL player]);
 			pVar_AdminPrePosition = nil;
-			player hideObjectGlobal true;
 		};
 	};
 	if (_dikCode isEqualTo 62) exitWith {
@@ -476,7 +467,7 @@
 	true;
 	};
 	if ((_dikCode isEqualTo 79) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
-		[player_objintersect] call A3PL_Admin_AttachTo;
+		[player_objintersect] spawn A3PL_Admin_AttachTo;
 	true;
 	};
 	if ((_dikCode isEqualTo 80) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
@@ -662,10 +653,12 @@
 		private _damageScript = false;
 		private _nearFire = count(_unit nearEntities [["A3PL_FireObject"], 8]) > 0;
 
+		diag_log _this;
+
 		if(["ammo", _projectile] call BIS_fnc_inString) then {_damage = _damage / 5;};
 		if(!(_unit getVariable["A3PL_Medical_Alive",true])) then {_damageScript = true;};
 		if(_projectile IN ["A3FL_PepperSpray_Ball","A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) then {_damageScript = true;};
-		if (_nearFire && {_projectile isEqualTo ""}) then {
+		if (_nearFire && {_projectile isEqualTo ""} && {!_adminMode}) then {
 			_controlDamage = true;
 			[_selection,_damage] spawn {
 				if (isNil "A3PL_Medical_Burning") then {
@@ -708,6 +701,8 @@
 					if(!isNull _x) exitWith {_controlDamage = true;};
 				} forEach attachedObjects _instigator;
 			};
+		} else {
+			_controlDamage = true;
 		};
 		if (!_adminMode && {!(_projectile IN _noDamageBullets)} && {!_controlDamage}) then {
 			if (_damage > 0) then {

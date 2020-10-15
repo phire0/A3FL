@@ -951,6 +951,7 @@
 			[_target,[1500]] call A3PL_Medical_ApplyVar;
 			_target setVariable ["A3PL_Medical_Alive",true,true];
 			["Resuscitation performed successfully", "green"] call A3PL_Player_Notification;
+			[getPlayerUID _target,"revived",["By",player getVariable["name","unknwon"]]] remoteExec ["Server_Log_New",2];
 			[player,10] call A3PL_Level_AddXP;
 		} else {
 			["CPR Failed", "red"] call A3PL_Player_Notification;

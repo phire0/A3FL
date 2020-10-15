@@ -26,11 +26,6 @@
 	[player, 'Player_Cash', ((player getVariable 'Player_Cash')  + 10)] remoteExec ["Server_Core_ChangeVar",2];
 }] call Server_Setup_Compile;
 
-["A3PL_JobRoadWorker_Loop",
-{
-	player setVariable ["TerrainRepaired",nil,false];
-}] call Server_Setup_Compile;
-
 ["A3PL_JobRoadWorker_ToggleMark",
 {
 	private _veh = param [0,objNull];

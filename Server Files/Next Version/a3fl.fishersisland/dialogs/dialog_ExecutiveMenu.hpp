@@ -121,7 +121,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "call A3PL_AdminAddToPlayer;";
+			action = "call A3PL_Admin_AddToPlayer;";
 		};
 		class Button_AddToFactory: RscButton
 		{
@@ -132,42 +132,42 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "call A3PL_AdminAddToFactory;";
+			action = "call A3PL_Admin_AddToFactory;";
 		};
-		class Button_CreateOnPlayer: RscButton
+		class Button_RemoveItem: RscButton
 		{
 			idc = 1602;
-			text = $STR_EXECUTIVEMENU_GUICREATEONPLAYER;
+			text = "Remove Item";
 			x = 0.536094 * safezoneW + safezoneX;
 			y = 0.302 * safezoneH + safezoneY;
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "call A3PL_AdminCreateOnPlayer;";
+			action = "call A3PL_Admin_RemoveItem;";
 		};
-		class RscButton_1603: RscButton
+		class Button_FedGear: RscButton
 		{
 			idc = 1603;
-			text = "Remove";
+			text = "FBI Gear";
 			x = 0.536094 * safezoneW + safezoneX;
 			y = 0.335 * safezoneH + safezoneY;
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "call A3PL_AdminRemoveItem;";
+			action = "[true] call A3PL_Admin_TakeGear;";
 		};
-		class Button_PlayerBan: RscButton
+		class Button_SavedGear: RscButton
 		{
 			idc = 1604;
-			text = "";
+			text = "Saved Gear";
 			x = 0.536094 * safezoneW + safezoneX;
 			y = 0.368 * safezoneH + safezoneY;
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "";
+			action = "[false] call A3PL_Admin_TakeGear;";
 		};
-		class Button_PlayerKick: RscButton
+		class Button_Unassigned: RscButton
 		{
 			idc = 1605;
 			text = "";

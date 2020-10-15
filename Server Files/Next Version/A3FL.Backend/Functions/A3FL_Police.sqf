@@ -268,6 +268,7 @@
 	_weaponHolder = A3PL_Police_WeaponHolder;
 
 	_amount = 1;
+	[getPlayerUID player,"patdownTake",["Target",_target getVariable["name","unknwon"],"Item",_class,"Amount",_amount]] remoteExec ["Server_Log_New",2];
 	switch (_type) do
 	{
 		case ("item"):
@@ -364,6 +365,7 @@
 
 ['A3PL_Police_Cuff', {
 	private _obj = _this select 0;
+	[getPlayerUID player,"handcuffed"] remoteExec ["Server_Log_New",2];
 	if ((animationState _obj) IN ["amovpercmstpsnonwnondnon","amovpercmstpsraswrfldnon","amovpercmstpsraswpstdnon","amovpercmstpsraswlnrdnon"]) exitwith
 	{
 		_obj setVariable ["Cuffed",true,true];
@@ -599,10 +601,6 @@
 	//5 Kneeled -> Kneeled hands up
 	//6 Prone -> Kneeled hands up
 
-	/*if ((animationState _obj) isEqualTo "amovpercmstpsnonwnondnon") exitwith
-	{
-		[player,1] remoteExec ["A3PL_Police_SurrenderAnim",true];
-	};*/
 	[] spawn A3PL_Lib_CloseInventoryDialog;
 	if (((animationState _obj) IN ["a3pl_idletohandsup","a3pl_kneeltohandsup"]) && (_upDown)) exitwith
 	{
@@ -641,6 +639,7 @@
 				player setdir ((getDir player) + 50);
 			};
 			_civ switchmove "A3PL_IdleToHandsup";
+			[getPlayerUID player,"surrender"] remoteExec ["Server_Log_New",2];
 		};
 		case 2:
 		{

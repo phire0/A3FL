@@ -12,7 +12,7 @@
 	if (!(player inArea "CemeteryArea")) exitwith {};
 	if ((random 1) <= 0.1) then
 	{
-		[] spawn A3PL_Halloween_Angelmode;
+		if((vehicle player) isEqualTo player) then {[] spawn A3PL_Halloween_Angelmode;};
 	};
 	if (((random 1) <= 0.05) && !A3PL_Owns_Guardianscript) then
 	{
