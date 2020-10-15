@@ -418,6 +418,7 @@ class CfgRemoteExec
 		class A3PL_iPhoneX_SendSMS{allowedTargets=0;};
 		class A3PL_iPhoneX_appBills{allowedTargets=0;};
 		class A3PL_iPhoneX_appCompaniesBills{allowedTargets=0;};
+		class A3PL_iPhoneX_DeleteSMS{allowedTargets=2;};
 		class Server_iPhoneX_DeleteContact{allowedTargets=2;};
 		class Server_iPhoneX_AddPhoneNumber{allowedTargets=2;};
 		class Server_iPhoneX_NumberIsUsed{allowedTargets=2;};
@@ -437,7 +438,8 @@ class CfgRemoteExec
 		class Server_iPhoneX_GetListNumber{allowedTargets=2;};
 		class Server_iPhoneX_Get911Text{allowedTargets=2;};
 		class Server_iPhoneX_CallSwitchboard{allowedTargets=2;};
-		class Server_iPhoneX_Notify911{allowedTargets = 2;};
+		class Server_iPhoneX_Notify911{allowedTargets=2;};
+		class Server_iPhoneX_DeleteSMS{allowedTargets=2;};
 
 		class A3PL_USCG_DragReceive{allowedTargets=0;};
 	};
