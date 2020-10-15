@@ -27,6 +27,13 @@
 	Player_Item setVectorDirAndUp [[0,1,0],[0,0,1]];
 	sleep 4.5;
 
+	if (_classname in ["coffee_cup_large","coffee_cup_medium","coffee_cup_small"]) then {
+		// Coffee effects last 10 mins, drug loop is every 30s
+		[_classname, (10 * 2)] call A3PL_Drugs_Add;
+		// 3 minutes, drug loop ran every 30 seconds
+		player setVariable ["CoffeeSlowTime", (3 * 2), true];
+	};
+
 	if(_alcohol) then {
 		[_quality] call A3PL_Alcohol_Add;
 	} else {

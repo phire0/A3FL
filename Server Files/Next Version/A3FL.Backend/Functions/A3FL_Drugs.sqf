@@ -85,7 +85,7 @@
 	call A3PL_Alcohol_Verify;
 }] call Server_Setup_Compile;
 
-//Player_Drugs = [shrooms,cocaine,weed]
+//Player_Drugs = [shrooms,cocaine,weed,coffee]
 ["A3PL_Drugs_Add",
 {
 	private _type = param [0,"unknown"];
@@ -101,8 +101,13 @@
 		case(_type IN ["weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g"]): {
 			_index = 2;
 		};
+		case (_type in ["coffee_cup_large","coffee_cup_medium","coffee_cup_small"]): {
+			_index = 3;
+		};
 	};
+
 	if(_index < 0) exitwith {};
+	if ((_index == 3) && ((Player_Drugs select 3) > 0)) exitWith {};
 
 	private _new = (Player_Drugs select _index) + (_add);
 	player setVariable["drugs",true,true];
@@ -120,13 +125,14 @@
 	if((_totalDrugs <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Drugs_ResetEffects;};
 
 	//Incapacitated from too much drugs!
-	if(_totalDrugs >= 250) exitWith {
-		profileNamespace setVariable ["player_drugs",[0,0,0]];
-		Player_Drugs = [0,0,0];
+	if((_totalDrugs - (Player_Drugs select 3)) >= 250) exitWith {
+		profileNamespace setVariable ["player_drugs",[0,0,0,0]];
+		Player_Drugs = [0,0,0,0];
 		[player, "left upper arm", "drug_overdose"] call A3PL_Medical_ApplyWound;
 		[] spawn A3PL_Medical_Die;
 	};
 
+	// Shrooms
 	if((Player_Drugs select 0) > 0) then {
 		_shrooms = Player_Drugs select 0;
 
@@ -157,6 +163,7 @@
 		};
 	};
 
+	// Cocaine
 	if((Player_Drugs select 1) > 0) then {
 		_coke = Player_Drugs select 1;
 
@@ -187,6 +194,7 @@
 		};
 	};
 
+	// Weed
 	if((Player_Drugs select 2) > 0) then {
 		_weed = (Player_Drugs select 2);
 
@@ -210,6 +218,15 @@
 		};
 	};
 
+	// Coffee
+	if((Player_Drugs select 3) > 0) then {
+		player setAnimSpeedCoef 1.7;
+	};
+
+	if ((player getVariable ["CoffeeSlowTime", 0]) > 0) then {
+		player setVariable ["CoffeeSlowTime", ((player getVariable ["CoffeeSlowTime", 0]) - 1), true];
+	};
+
 	//Decrease Drug level
 	{
 		if(_x > 0) then {
@@ -221,11 +238,11 @@
 
 ["A3PL_Drugs_ResetEffects",
 {
-	Player_Drugs = [0,0,0];
+	Player_Drugs = [0,0,0,0];
 	player setVariable["drugs",false,true];
 	resetCamShake;
 	enableCamShake false;
-	if(!pVar_FastAnimationOn) then {player setAnimSpeedCoef 1;};
+	if ((!pVar_FastAnimationOn) && ((player getVariable ["CoffeeSlowTime", 0]) <= 0)) then {player setAnimSpeedCoef 1;};
 	"colorCorrections" ppEffectEnable false;
 	"ChromAberration" ppEffectEnable false;
 	"RadialBlur" ppEffectEnable false;
@@ -250,7 +267,8 @@
 		_shrooms = _drugLevel select 0;
 		_coke = _drugLevel select 1;
 		_weed = _drugLevel select 2;
-		[format["Cocaine: %1<br/>Marijuana: %2<br/>Shrooms: %3",_coke,_weed,_shrooms],"blue"] remoteExec ["A3PL_Player_Notification",_cop];
+		_coffee = _drugLevel select 3;
+		[format["Cocaine: %1<br/>Marijuana: %2<br/>Shrooms: %3<br/>Coffee: %4",_coke,_weed,_shrooms,_coffee],"blue"] remoteExec ["A3PL_Player_Notification",_cop];
 	} else {
 		_totalDrugs = 0;
 		{_totalDrugs = _totalDrugs + _x;} foreach _drugLevel;
