@@ -86,7 +86,6 @@
 			case ("A3PL_Monster"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Kx"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Urus"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
-			case ("A3PL_GMCVandura"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus_PD_ST"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
@@ -95,7 +94,6 @@
 			case ("A3PL_Charger15_FD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
-			case ("M_explorer"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor_PD_ST"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Fatboy_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus_FD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};

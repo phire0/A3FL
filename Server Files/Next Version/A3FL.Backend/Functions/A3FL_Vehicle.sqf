@@ -1627,7 +1627,7 @@
 		_vehClass = _control lbData (lbCurSel _control);
 		_veh = nearestObject [player,_vehClass];
 		_vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
-		_price if (_VehPrice < 150000) then {_vehPrice * 0.15} else {_vehPrice * 0.20};
+		_price = if (_VehPrice < 150000) then {_vehPrice * 0.15} else {_vehPrice * 0.20};
 		_control = _display displayCtrl 1100;
 		_control ctrlSetStructuredText parseText format ["$%1",_price];
 	}];

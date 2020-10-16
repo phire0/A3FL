@@ -1019,11 +1019,13 @@
 	private _FISD = count(["fisd"] call A3PL_Lib_FactionPlayers);
 	private _CG = count(["uscg"] call A3PL_Lib_FactionPlayers);
 	private _FIMS = count(["fims"] call A3PL_Lib_FactionPlayers);
+	private _ID = player getVariable["db_id",-1];
 	_control ctrlSetStructuredText parseText format ["<t align='center'>
+		<t color='#ffffff'> ID - %5 </t><br/>
 		<img image='\A3PL_Common\icons\fire.paa'/><t color='#ffffff'> %1 </t>
 		<t color='#ffffff'> %2 </t><img image='\A3PL_Common\icons\faction_sheriff.paa'/><br/>
 		<img image='\A3PL_Common\icons\faction_cg.paa'/><t color='#ffffff'> %3 </t>
-		<t color='#ffffff'> %4 </t><img image='\A3PL_Common\icons\usms.paa'/></t>",_FIFR,_FISD,_CG,_FIMS];
+		<t color='#ffffff'> %4 </t><img image='\A3PL_Common\icons\usms.paa'/></t>",_FIFR,_FISD,_CG,_FIMS, _ID];
 }] call Server_Setup_Compile;
 
 ["A3PL_iPhoneX_Home",
