@@ -112,6 +112,7 @@ Config_Factories =
 	["Illegal Weapon Factory",[3852.065,9212.537,0.168],
 		["f_P07","","inh","inh","hgun_P07_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 P07 9mm Pistol"],
 		["f_P07_khk","","inh","inh","hgun_P07_khk_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 P07 Khaki 9mm Pistol"],
+		["f_P07_blk","","inh","inh","hgun_P07_blk_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 P07 Black 9mm Pistol"],
 		["f_Pistol_heavy_01","","inh","inh","hgun_Pistol_heavy_01_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 4-Five .45 ACP Pistol"],
 		["f_ACPC2","","inh","inh","hgun_ACPC2_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 ACP-C2 .45 ACP Pistol"],
 		["f_Pistol_01","","inh","inh","hgun_Pistol_01_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 PM 9mm Pistol"],
