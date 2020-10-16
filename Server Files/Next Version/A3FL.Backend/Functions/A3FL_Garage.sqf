@@ -17,7 +17,7 @@
 	_garage = param [0,objNull];
 	_job = player getVariable["job","unemployed"];
 
-	if (_garage IN [AircraftPaint]) then {
+	if (_garage IN [AircraftPaint,AircraftPaint2,AircraftPaint3]) then {
 		_veh = (nearestObjects [player,["Helicopter","plane"],25]) select 0;
 	} else {
 		_veh = (nearestObjects [player,["Car_F","Ship_F","Tank_F"],10]) select 0;
@@ -41,7 +41,7 @@
 	_cam camCommit 0;
 	_cam cameraEffect ["internal", "BACK"];
 
-	if (_garage == AircraftPaint) then {
+	if (_garage IN [AircraftPaint,AircraftPaint2,AircraftPaint3]) then {
 		_cam camSetRelPos [7,-3,0.9];
 	} else {
 		_cam camSetRelPos GARAGE_CAM_OFFSET;

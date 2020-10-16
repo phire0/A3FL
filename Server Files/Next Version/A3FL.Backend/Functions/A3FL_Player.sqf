@@ -86,7 +86,7 @@
 	//impound retrieval objects
 	A3PL_Jobroadworker_Impounds = [Shop_ImpoundRetrieve,Shop_ImpoundRetrieve_1,Shop_ImpoundRetrieve_2,Shop_ImpoundRetrieve_3,Shop_ImpoundRetrieve_5];
 	A3PL_Chopshop_Retrivals = [Shop_Chopshop_Retrieve_1];
-	A3PL_Air_Impounds = [Shop_ImpoundRetrieve_4];
+	A3PL_Air_Impounds = [Shop_ImpoundRetrieve_4,Shop_ImpoundRetrieve_8,Shop_ImpoundRetrieve_9];
 	A3PL_Jobroadworker_MarkBypass =	["A3PL_EMS_Locker","A3PL_P362_TowTruck","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Pierce_Rescue","A3PL_Box_Trailer"];
 
 	//Check A3PL_Intersect for more info
