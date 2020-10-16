@@ -729,9 +729,7 @@
 		openMap false;
 		pVar_MapTeleportReady = false;";
 		openMap true;
-		sleep 30;
-		onMapSingleClick "";
-		pVar_MapTeleportReady = false;
+
 	} else {
 		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
 	};

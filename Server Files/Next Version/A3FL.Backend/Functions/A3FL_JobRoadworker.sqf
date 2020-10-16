@@ -29,14 +29,12 @@
 ["A3PL_JobRoadWorker_ToggleMark",
 {
 	private _veh = param [0,objNull];
-	if (isNull _veh) then
-	{
+	if (isNull _veh) then {
 		_veh = player_objintersect;
 		if (!(_veh isKindOf "LandVehicle")) then {_veh = cursorobject};
 		if (isNull _veh) exitwith {["Couldn't find a vehicle to impound, are you looking at it?", "red"] call A3PL_Player_Notification;};
 	};
-	if (_veh getVariable ["impound",false]) then
-	{
+	if (_veh getVariable ["impound",false]) then {
 		[_veh] remoteExec ["Server_JobRoadWorker_UnMark", 2];
 		["You unmarked this vehicle for impounding", "red"] call A3PL_Player_Notification;
 	} else {

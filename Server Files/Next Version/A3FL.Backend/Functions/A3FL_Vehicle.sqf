@@ -12,10 +12,10 @@
 	disableSerialization;
 	private ["_veh","_display","_control"];
 
-	if(vehicle player == player) then {
+	if((vehicle player) isEqualTo player) then {
 		_veh = param[0,vehicle player];
 	} else {
-	_veh = param [0,player_objintersect];
+		_veh = param [0,player_objintersect];
 	};
 
 	if ((isNull _veh)) exitwith {[localize"STR_NewVehicle_1"] call A3PL_Player_Notification;};
@@ -23,7 +23,7 @@
 	if (_veh getVariable ["inuse",false]) exitwith {[localize"STR_NewVehicle_2","red"] call A3PL_Player_Notification;};
 	_veh setVariable ["inuse",true,true];
 
-	if((vehicle player == player) && (!(animationState player IN ["crew"]))) then {
+	if(((vehicle player) isEqualTo player) && (!(animationState player IN ["crew"]))) then {
 		player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon';
 	};
 
@@ -1627,13 +1627,7 @@
 		_vehClass = _control lbData (lbCurSel _control);
 		_veh = nearestObject [player,_vehClass];
 		_vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
-		_price = 0;
-		if (_VehPrice < 150000) then {
-			_price = _vehPrice * 0.10;
-		} else {
-			_price = _vehPrice * 0.15;
-		};
-
+		_price if (_VehPrice < 150000) then {_vehPrice * 0.15} else {_vehPrice * 0.20};
 		_control = _display displayCtrl 1100;
 		_control ctrlSetStructuredText parseText format ["$%1",_price];
 	}];
@@ -1646,7 +1640,7 @@
 	private _vehClass = _control lbData (lbCurSel _control);
 	private _veh = nearestObject [player,_vehClass];
 	private _vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
-	private _price = if (_VehPrice < 150000) then {vehPrice * 0.10} else {_vehPrice * 0.15};
+	private _price = if (_VehPrice < 150000) then {vehPrice * 0.15} else {_vehPrice * 0.20};
 	if (_price > (player getVariable ["Player_Bank",0])) exitwith {[format [localize"STR_NewVehicle_56"]] call A3PL_Player_notification;};
 	player setVariable ["Player_Bank",(player getVariable ["Player_Bank",0]) - _price,true];
 	["Federal Reserve", _price] remoteExec["Server_Government_AddBalance", 2];

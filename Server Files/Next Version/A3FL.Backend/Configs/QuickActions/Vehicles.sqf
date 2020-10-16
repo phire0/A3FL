@@ -1355,7 +1355,7 @@
     "",
     localize"STR_INTSECT_ACCPOLDB",
     {
-    	if((typeOf player_objintersect) isEqualTo "Land_A3FL_DOC_Gate") then {
+    	if((typeOf player_objintersect) IN ["Land_A3FL_DOC_Gate","Land_A3PL_CH"]) then {
     		if (isNull (findDisplay 211) && (player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims"]) then {
 				call A3PL_Police_DatabaseOpen;
 			};

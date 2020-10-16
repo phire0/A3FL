@@ -350,13 +350,13 @@
 
 	_control = _display displayCtrl 1500;
 	{
-		_index = _control lbAdd format["F#00%1", _forEachIndex];
+		_index = _control lbAdd format["#%1", _forEachIndex];
 		_control lbSetData [_index,str(_x select 0)];
-		_control lbSetValue [_index,_x select 6];
-		if((_x select 6) == 0) then {
-			_control lbSetColor [_index, [0,0.8,0.1,1]];
-		} else {
+		_control lbSetValue [_index,str(_x select 5)];
+		if((_x select 5) isEqualTo 0) then {
 			_control lbSetColor [_index, [0.8,0,0.1,1]];
+		} else {
+			_control lbSetColor [_index, [0,0.8,0.1,1]];
 		};
 	} foreach (player getVariable["player_bills",[]]);
 
