@@ -173,7 +173,7 @@ class Dialog_Garage
 
 		class edit_licenseplate: RscEdit
 		{
-			idc = 1400;
+			idc = 1405;
 			x = 0.390687 * safezoneW + safezoneX;
 			y = 0.87114 * safezoneH + safezoneY;
 			w = 0.236198 * safezoneW;
