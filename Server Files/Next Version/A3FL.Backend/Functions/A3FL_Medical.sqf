@@ -943,15 +943,19 @@
 			_unit setVariable ["TimeRemaining",_timer,true];
 			if (_timer <= 0) exitwith {_exit = true;};
 		};
-		if(_exit) exitWith {call A3PL_Medical_Respawn;};
-		call A3PL_Medical_Revived;
+		if(_exit) then {
+			call A3PL_Medical_Respawn;
+		} else {
+			[] spawn A3PL_Medical_Revived;
+		};
 	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_Respawn",
 {
-	private _bodyPos = getPos A3PL_DeadBody;
-	deleteVehicle A3PL_DeadBody;
+	private _deadBody = player getVariable["deadBody",objNull];
+	private _bodyPos = getPos _deadBody;
+	deleteVehicle _deadBody;
 	[getPlayerUID player,"playerRespawned",[getPosATL player]] remoteExec ["Server_Log_New",2];
 
 	A3PL_deathCam cameraEffect ["TERMINATE","BACK"];
@@ -1058,23 +1062,29 @@
 
 ["A3PL_Medical_Revived",
 {
-	A3PL_deathCam cameraEffect ["TERMINATE","BACK"];
-	camDestroy A3PL_deathCam;
-	closeDialog 0;
+	private _deadBody = player getVariable["deadBody",objNull];
+	if(!isNil "A3PL_deathCam") then {
+		A3PL_deathCam cameraEffect ["TERMINATE","BACK"];
+		camDestroy A3PL_deathCam;
+	};
+	if(dialog) then {
+		closeDialog 0;
+	};
+	if(isNull _deadBody) exitWith {};
 	player setVariable ["DoubleTapped",false,true];
   	player setVariable ["Incapacitated",false,true];
 	player setVariable ["Cuffed",false,true];
 	player setVariable ["Zipped",false,true];
 	player setVariable ["A3PL_Medical_Alive",true,true];
 	player setVariable ["TimeRemaining",nil,true];
-	player setDir (getDir A3PL_DeadBody);
-	player setPosASL (visiblePositionASL A3PL_DeadBody);
+	player setDir (getDir _deadBody);
+	player setPosASL (visiblePositionASL _deadBody);
 	player setUnitLoadout A3PL_Player_DeadBodyGear;
 	if((backpack _unit) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Player_DeadRadio] call TFAR_fnc_setLrSettings;};
 	player allowDamage true;
 	player setVariable ["tf_voiceVolume", 1, true];
 	sleep 0.2;
-	deleteVehicle (A3PL_DeadBody);
+	deleteVehicle _deadBody;
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_LifeAlert",
