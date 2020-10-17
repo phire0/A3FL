@@ -34,11 +34,6 @@
 	//Do not loop if not drunk!
 	if((_CurrentAlcool <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Alcohol_ResetEffects;};
 
-	//Incapacitated from too much alcohol little matthew, do not edit the rules!
-	if(_CurrentAlcool >= 80) exitWith {
-		[] spawn A3PL_Medical_Die;
-	};
-
 	//Alcohol Effect
 	//Just a little cam shake, it's for me.
 	resetCamShake;
@@ -129,7 +124,6 @@
 		profileNamespace setVariable ["player_drugs",[0,0,0,0]];
 		Player_Drugs = [0,0,0,0];
 		[player, "left upper arm", "drug_overdose"] call A3PL_Medical_ApplyWound;
-		[] spawn A3PL_Medical_Die;
 	};
 
 	// Shrooms

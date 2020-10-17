@@ -421,8 +421,8 @@ class A3PL_iPhone_Locked
 			x = 0.70625 * safezoneW + safezoneX;
 			y = 0.6 * safezoneH + safezoneY;
 			w = 0.12375 * safezoneW;
-			h = 0.05 * safezoneH;
-			sizeEx = 0.018 * safezoneW;
+			h = 0.07 * safezoneH;
+			sizeEx = 0.017 * safezoneW;
 			style = "16";
 			colorText[] = {1,1,1,1};
 		};
