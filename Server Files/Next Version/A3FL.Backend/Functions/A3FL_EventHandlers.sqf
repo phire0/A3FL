@@ -643,32 +643,14 @@
 			["_source",objNull,[objNull]],
 			["_projectile","",[""]],
 			["_hitIndex",0,[0]],
-			["_instigator",objNull,[objNull]],
-			["_hitPoint","",[""]]
+			["_instigator",objNull,[objNull]]
 		];
 		private _noDamage = if (_selection isEqualTo "") then {damage _unit;} else {_unit getHit _selection;};
-		private _noDamageBullets = ["B_408_Ball","A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball"];
+		private _noDamageBullets = ["A3PL_3006","B_408_Ball","A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball"];
 		private _adminMode = _unit getVariable ["pVar_RedNameOn",false];
-		private _controlDamage = false;
-		private _damageScript = false;
-		private _nearFire = count(_unit nearEntities [["A3PL_FireObject"], 8]) > 0;
 
-		diag_log _this;
-
-		if(["ammo", _projectile] call BIS_fnc_inString) then {_damage = _damage / 5;};
-		if(!(_unit getVariable["A3PL_Medical_Alive",true])) then {_damageScript = true;};
-		if(_projectile IN ["A3FL_PepperSpray_Ball","A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) then {_damageScript = true;};
-		if (_nearFire && {_projectile isEqualTo ""} && {!_adminMode}) then {
-			_controlDamage = true;
-			[_selection,_damage] spawn {
-				if (isNil "A3PL_Medical_Burning") then {
-					A3PL_Medical_Burning = true;
-					[_this select 0,_this select 1,"FireDamage"] call A3PL_Medical_GenerateWounds;
-					sleep 1;
-					A3PL_Medical_Burning = nil;
-				};
-			};
-		};
+		if(_projectile IN _noDamageBullets) then {_damage = 0;};
+		diag_log _projectile;
 		if (!isNull _source) then {
 			if(_source != _unit) then {
 				if (_projectile IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie"]) then {
@@ -695,20 +677,16 @@
 				};
 			};
 		};
-		if(!isNull _instigator) then {
-			if(count(attachedObjects _instigator) > 0) then {
-				{
-					if(!isNull _x) exitWith {_controlDamage = true;};
-				} forEach attachedObjects _instigator;
-			};
-		} else {
-			_controlDamage = true;
-		};
-		if (!_adminMode && {!(_projectile IN _noDamageBullets)} && {!_controlDamage}) then {
+
+		if (!_adminMode) then {
 			if (_damage > 0) then {
-				if (diag_tickTime > ((missionNameSpace getVariable ["A3PL_HitTime",diag_tickTime-0.2]) + 0.1)) then {
-					A3PL_HitTime = diag_tickTime;
-					[_unit,_selection,_damage,_source,_projectile] spawn A3PL_Medical_Hit;
+				private _hit = _unit getVariable ["getHit",[]];
+				_hit pushback [_selection,_damage,_projectile];
+				_unit setVariable ["getHit",_hit,false];
+				if (diag_tickTime <= ((missionNameSpace getVariable ["A3PL_HitTime",diag_ticktime-0.2]) + 0.1)) then {} else
+				{
+					A3PL_HitTime = diag_ticktime;
+					[_unit] spawn A3PL_Medical_Hit;
 				};
 				if((!isNull _instigator) && {!(_instigator isEqualTo _unit)}) then {
 					_unit setVariable ["lastDamage",(_instigator getVariable["db_id","Unknown"]),true];
@@ -716,8 +694,7 @@
 				};
 			};
 		};
-		if(_projectile IN _noDamageBullets || {_adminMode} || {_controlDamage} || {_damageScript}) then {_damage = _noDamage;};
-		_damage;
+		_noDamage;
 	}];
 }] call Server_Setup_Compile;
 

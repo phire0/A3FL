@@ -4328,6 +4328,24 @@
    <Key ID="STR_ConfigMedical_21">
       <Original>Drug Overdose</Original>
    </Key>
+   <Key ID="STR_ConfigMedical_Bullet_9mm">
+      <Original>9mm Bullet Wound</Original>
+   </Key>
+   <Key ID="STR_ConfigMedical_Bullet_45">
+      <Original>.45 Bullet Wound</Original>
+   </Key>
+   <Key ID="STR_ConfigMedical_Bullet_50">
+      <Original>.50 Bullet Wound</Original>
+   </Key>
+   <Key ID="STR_ConfigMedical_Bullet_556">
+      <Original>5.56 Bullet Wound</Original>
+   </Key>
+   <Key ID="STR_ConfigMedical_Bullet_762">
+      <Original>7.62 Bullet Wound</Original>
+   </Key>
+   <Key ID="STR_ConfigMedical_Bullet_12">
+      <Original>12g Bullet Wound</Original>
+   </Key>
     </Package>
     <Package name="STR_QuickActions_Notifications_Buildings">
         <Key ID="STR_QuickActions_Notifications_Buildings_ThingsLevel5required">

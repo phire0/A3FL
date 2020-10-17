@@ -40,11 +40,64 @@
 
 ["A3PL_Medical_Hit",
 {
-	params ["_unit", "_selection", "_damage", "_source", "_projectile"];
+	params ["_unit"];
+	private ["_sHit","_sDamage","_sBullet"];
 	private _unconscious = !(player getVariable["A3PL_Medical_Alive",true]);
 	private _timeRemain = player getVariable ["TimeRemaining",600];
-	if(_unconscious  && {_timeRemain < 580}) exitWith {player setVariable ["DoubleTapped",true,true];};
-	[_selection,_damage,_projectile] call A3PL_Medical_GenerateWounds;
+	private _customDamageBullets = [];
+	if(_unconscious && {_timeRemain < 580}) exitWith {player setVariable ["DoubleTapped",true,true];};
+
+	private _getHit = _unit getVariable ["getHit",[]];
+	private _tmpDmg = 0;
+	A3PL_HitTime = nil;
+	_unit setVariable ["getHit",nil,false];
+
+	{
+		private ["_sel","_dmg","_bullet"];
+		_sel = _x select 0;
+		_dmg = _x select 1;
+		_bullet = _x select 2;
+		if (_bullet isEqualTo "") then {
+			if (_dmg > _tmpDmg) then {
+				_sHit = _sel;
+				_sDamage = _dmg;
+				_sBullet = _bullet;
+				_tmpDmg = _dmg;
+			};
+		} else {
+			if ((_dmg > _tmpDmg) && (_sel != "")) then {
+				_sHit = _sel;
+				_sDamage = _dmg;
+				_sBullet = _bullet;
+				_tmpDmg = _dmg;
+			};
+		};
+	} foreach _getHit;
+	if (isNil "_sHit") exitwith {};
+	if (_sBullet IN ["A3FL_PepperSpray_Ball","A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) then {_sDamage = 0;};
+	if ((isBurning player) && {_sBullet isEqualTo ""} && {_sHit IN ["spine1","spine2","spine3"]}) then {_sBullet = "FireDamage";};
+
+	private _handles = [_sHit,_sDamage,_sBullet] call A3PL_Medical_GenerateWounds;
+	if(_handles) then {
+		private _applyDamage = [_sHit,_sBullet,_sDamage] call A3PL_Medical_GetDamage;
+		private _curHit = 0;
+		if(_sHit isEqualTo "pelvis") then {_sHit = "legs";};
+		if (_sHit isEqualTo "") then {
+			_curHit = damage _unit;
+			if(_curHit + _applyDamage < 0.9) then {
+				_unit setDamage _applyDamage;
+			} else {
+				_unit setDamage 0.9;
+			};
+		} else {
+			_curHit = _unit getHit _sHit;
+			if(_curHit + _applyDamage < 0.9) then {
+				_unit setHit [_sHit, _applyDamage];
+			} else {
+				_unit setHit [_sHit, 0.9];
+			};
+		};
+	};
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_GenerateWounds",
@@ -57,6 +110,7 @@
 				[player,"head","pepper_spray"] call A3PL_Medical_ApplyWound;
 			};
 		};
+		false;
 	};
 	if(_sBullet IN ["A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) exitWith {
 		[player,([_sHit] call A3PL_Medical_GetHitPart),"bruise"] call A3PL_Medical_ApplyWound;
@@ -64,6 +118,7 @@
 		if(_chance > 40) then {
 			[] call A3PL_Lib_Ragdoll;
 		};
+		false;
 	};
 	if(_sBullet IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet"]) exitWith {
 		[player,([_sHit] call A3PL_Medical_GetHitPart),"cut"] call A3PL_Medical_ApplyWound;
@@ -71,11 +126,9 @@
 		if(_chance >= 40) then {
 			[] call A3PL_Lib_Ragdoll;
 		};
+		false;
 	};
 
-	/*
-		WORKS NEEDS DO ON THESE
-	*/
 	if((_sHit isEqualTo "") && (_sBullet isEqualTo "") && (vehicle player != player)) exitWith {
 		if (_sDamage > 0.005) then
 		{
@@ -120,10 +173,9 @@
 				};
 			};
 		};
+		true;
 	};
 	if((_sHit IN ["pelvis","head"]) && (_sBullet isEqualTo "") && ((vehicle player) isEqualTo player)) exitWith {
-		if ((count (nearestObjects [player,["A3PL_Goose_Default"],5])) > 0) exitwith {};
-		if ((count (nearestObjects [player,["Land_Pier_F"],50])) > 0) exitwith {};
 		if ((_sDamage >= 0.1) && (_sDamage < 0.25)) then {
 			_injuries = round (random 2);
 			for "_i" from 1 to _injuries do {
@@ -150,10 +202,9 @@
 				};
 			};
 		};
+		true;
 	};
 	if((_sHit IN ["pelvis","head"]) && (_sBullet isEqualTo "") && ((vehicle player) isEqualTo player)) exitWith {
-		if ((count (nearestObjects [player,["A3PL_Goose_Default"],5])) > 0) exitwith {};
-		if ((count (nearestObjects [player,["Land_Pier_F"],50])) > 0) exitwith {};
 		if ((_sDamage >= 0.1) && (_sDamage < 0.25)) then {
 			_injuries = round (random 2);
 			for "_i" from 1 to _injuries do {
@@ -180,10 +231,8 @@
 				};
 			};
 		};
+		true;
 	};
-	/*
-		END OF WORK BLOCK
-	*/
 
 	if(_sBullet isEqualTo "FireDamage") exitWith {
 		_part = ["torso","torso","torso","pelvis","left upper leg","left lower leg","right upper leg","chest","right lower leg","right upper arm","torso","right lower arm","left lower arm","left upper arm","right lower arm","left lower arm","head","right lower arm","head","head","head"] call A3PL_Lib_ArrayRandom;
@@ -207,15 +256,19 @@
 				[player,_part,(["burn_first","burn_second"] call A3PL_Lib_ArrayRandom)] call A3PL_Medical_ApplyWound;
 			};
 		};
+		false;
 	};
-	if(!(_sBullet isEqualTo "")) exitWith {
+	if(!(_sBullet isEqualTo "") && {!(_sHit isEqualTo "")}) exitWith {
+		_bulletWound = [_sBullet] call A3PL_Medical_GetBulletWound;
 		if(_sHit IN ["neck","spine3","body"]) then {
 			if((vest player) isEqualTo "A3PL_SuicideVest") then {[] call A3PL_Criminal_SuicideVest;};
-			[player,"chest","bullet",_sBullet] call A3PL_Medical_ApplyWound;
+			[player,"chest",_bulletWound,_sBullet] call A3PL_Medical_ApplyWound;
 		} else {
-			[player,([_sHit] call A3PL_Medical_GetHitPart),"bullet",_sBullet] call A3PL_Medical_ApplyWound;
+			[player,([_sHit] call A3PL_Medical_GetHitPart),_bulletWound,_sBullet] call A3PL_Medical_ApplyWound;
 		};
+		true;
 	};
+	false;
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_ApplyWound",
@@ -453,7 +506,6 @@
 		};
 	};
 
-
 	{
 		private ["_itemName","_itemAmount","_index"];
 		_itemName = _x select 0;
@@ -599,17 +651,62 @@
 ["A3PL_Medical_GetHitPart",
 {
     private _sHit = param [0,""];
-    private _mHit = "";
-    switch (true) do {
-        default {_mHit = "head"};
-        case (_sHit IN ["face_hub","head"]): {_mHit = "head"};
-        case (_sHit IN ["pelvis","spine1"]): {_mHit = "pelvis"};
-        case (_sHit isEqualTo "spine2"): {_mHit = "torso"};
-        case (_sHit IN ["neck","spine3","body"]): {_mHit = "chest"};
-        case (_sHit IN ["arms","hands"]): {_mHit = ["right upper arm","right lower arm","left lower arm","left upper arm"] call A3PL_Lib_ArrayRandom;};
-        case (_sHit isEqualTo "legs"): {_mHit = ["right upper leg","right lower leg","left lower leg","left upper leg"] call A3PL_Lib_ArrayRandom;};
+    private _mHit = switch (true) do {
+        default {"head"};
+        case (_sHit IN ["face_hub","head"]): {"head"};
+        case (_sHit IN ["pelvis","spine1"]): {"pelvis"};
+        case (_sHit isEqualTo "spine2"): {"torso"};
+        case (_sHit IN ["neck","spine3","body"]): {"chest"};
+        case (_sHit IN ["arms","hands"]): {["right upper arm","right lower arm","left lower arm","left upper arm"] call A3PL_Lib_ArrayRandom;};
+        case (_sHit isEqualTo "legs"): {["right upper leg","right lower leg","left lower leg","left upper leg"] call A3PL_Lib_ArrayRandom;};
     };
     _mHit;
+}] call Server_Setup_Compile;
+
+["A3PL_Medical_GetDamage",
+{
+	params [
+		["_selection","",[""]],
+		["_projectile","",[""]],
+		["_defDamage",0,[0]]
+	];
+	private _selectionDamage = switch(true) do {
+		case (_sHit IN ["face_hub","head"]): {0.4};
+		case (_sHit IN ["pelvis","spine1","spine2"]): {0.2};
+		case (_sHit IN ["neck","spine3","body"]): {0.3};
+		case (_sHit IN ["arms","hands"]): {0.1};
+		case (_sHit isEqualTo "legs"): {0.1};
+		default {0};
+	};
+	private _projectileDamage = switch(true) do {
+		case (_projectile IN ["B_9x21_Ball","A3PL_P226_Ammo","red_9x19_Ball"]): {0.1};
+		case (_projectile IN ["B_45ACP_Ball","A3FL_P227_Ammo"]): {0.2};
+		case (_projectile IN ["A3FL_DesertEagle_Ammo"]): {0.4};
+		case (_projectile IN ["A3PL_M16_Ball"]): {0.2};
+		case (_projectile IN ["B_762x39_Ball_F"]): {0.35};
+		case (_projectile IN ["A3FL_Mossberg_590K_buck","A3FL_Mossberg_590K_Breach"]): {0.4};
+		default {0};
+	};
+	if((_selectionDamage isEqualTo 0) || {_projectileDamage isEqualTo 0}) then {
+		_defDamage;
+	} else {
+		_selectionDamage + _projectileDamage;
+	};
+}] call Server_Setup_Compile;
+
+["A3PL_Medical_GetBulletWound",
+{
+	params [["_projectile","",[""]]];
+	private _bulletWound = switch(true) do {
+		case (_projectile IN ["B_9x21_Ball","A3PL_P226_Ammo","red_9x19_Ball"]): {"bullet_9"};
+		case (_projectile IN ["B_45ACP_Ball","A3FL_P227_Ammo"]): {"bullet_45"};
+		case (_projectile IN ["A3FL_DesertEagle_Ammo"]): {"bullet_50"};
+		case (_projectile IN ["A3PL_M16_Ball"]): {"bullet_556"};
+		case (_projectile IN ["B_762x39_Ball_F"]): {"bullet_762"};
+		case (_projectile IN ["A3FL_Mossberg_590K_buck","A3FL_Mossberg_590K_Breach"]): {"bullet_12"};
+		default {"bullet"};
+	};
+	_bulletWound;
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_GetVar",
