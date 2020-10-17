@@ -1356,12 +1356,12 @@
     localize"STR_INTSECT_ACCPOLDB",
     {
     	if((typeOf player_objintersect) IN ["Land_A3FL_DOC_Gate","Land_A3PL_CH"]) then {
-    		if (isNull (findDisplay 211) && (player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims"]) then {
+    		if (isNull (findDisplay 211) && (player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) then {
 				call A3PL_Police_DatabaseOpen;
 			};
     	} else {
     		if (isNull (findDisplay 211) && (player_objintersect animationPhase "Laptop_Top" > 0.5)) then {
-				if ((player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims"]) then {
+				if ((player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) then {
 					call A3PL_Police_DatabaseOpen;
 				};
 				if ((player getVariable ["job","unemployed"]) IN ["fifr"]) then {call A3PL_FD_DatabaseOpen;};

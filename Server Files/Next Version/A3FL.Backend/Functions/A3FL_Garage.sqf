@@ -191,21 +191,17 @@
 	private ["_display","_control","_veh","_newLP","_allowedChars","_validChars"];
 	_veh = A3PL_Garage_Veh;
 	_display = findDisplay 62;
-	_control = _display displayCtrl 1400;
+	_control = _display displayCtrl 1405;
 
-	//check if we have motorhead perk
 	if (!(["motorhead"] call A3PL_Lib_hasPerk)) exitwith {["You don't have the motorhead perk, for more information -> www.arma3fisherslife.net","red"] call A3PL_Player_Notification;};
-
-	//check if we own the vehicle
 	if (!(((_veh getVariable ["owner",["",""]]) select 0) == (getPlayerUID player))) exitwith {["This vehicle does not belong to you, you can only change plates on a vehicle you own!","red"] call A3PL_Player_Notification;closeDialog 0;};
 
-	// check if we have enough cash
 	_pCash = player getVariable ["player_cash",0];
 	_price = 20000;
 	if (_price > _pCash) exitwith {[format["You are missing $%1 to change the license plate!",_price-_pCash]] call A3PL_Player_notification;};
 
-	//check if new LP is 7 chars and only contains numbers and letters
 	_newLP = ctrlText _control;
+	hint str(count _newLP);
 	_allowedChars = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 	if ((count _newLP) != 7) exitwith {["Your personalized license plate must have 7 characters!","red"] call A3PL_Player_Notification;};
 	_validChars = true;
@@ -219,15 +215,12 @@
 
 	if (!(_validChars)) exitwith {["Your custom license plate contains invalid characters (allowed characters: 0 to 9 and lowercase a-z).","red"] call A3PL_Player_Notification;};
 
-
-	//Plate protection
 	_cars = nearestObjects [player, ["Car"], 10];
 	_car = _cars select 0;
 	_id = _car getVariable "owner" select 1;
 
 	if (_id IN ["WASTE","DELIVER","EXTERMINATOR","KARTING","ADMIN","ROADSIDE"]) exitWith {["You cannot change the plate of this vehicle", "red"] call A3PL_Player_Notification;};
 
-	//Tell the server that heeey we want our license plate to be changed
 	[player,_veh,_newLP] remoteExec ["Server_Vehicle_InitLPChange", 2, false];
 	[player, 15] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;

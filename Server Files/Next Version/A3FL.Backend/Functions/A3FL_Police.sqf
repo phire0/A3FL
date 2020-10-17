@@ -1209,6 +1209,7 @@
 {
 	private ["_display","_control","_edit","_edit0","_newstruct"];
 	disableSerialization;
+
 	_display = findDisplay 211;
 
 	_control = _display displayCtrl 1401;
@@ -1222,12 +1223,21 @@
 	_control = _display displayCtrl 1401;
 	_control ctrlSetText "";
 
+	private _dojCommands = ["help", "clear", "login", "lookup", "lookupvehicles", "lookuplicense", "lookupcompany", "warrantlist", "warrantinfo", "ticketlist", "warninglist", "arrestlist", "lookupaddress", "lookupwarehouse", "bololist", "stolenvehicles", "darknet", "SpecialCharacterError"];
+	private _isDoj = ((player getVariable ["job","unemployed"]) isEqualTo "doj");
+	
 	_edit0 = [_edit,0] call A3PL_Police_DatabaseArgu;
+
 	if ((!(player getVariable "PoliceDatabaseLogin")) && (!(_edit0 isEqualTo "login"))) exitwith
 	{
-		_newstruct = format["%1<br />%2",(player Getvariable "PoliceDatabaseStruc"),"Error: You do not have permission to use this command"];
+		_newstruct = format ["%1<br />%2", player getVariable ["PoliceDatabaseStruc", ""], "Error: You are not logged in!"];
 		player setVariable ["PoliceDatabaseStruc",_newstruct,false];
+		[_newstruct] call A3PL_Police_UpdateComputer;
+	};
 
+	if (_isDoj && (!(_edit0 in _dojCommands))) exitWith {
+		_newstruct = format ["%1<br />%2", player getVariable ["PoliceDatabaseStruc", ""], "Error: You do not have permission to use this command!"];
+		player setVariable ["PoliceDatabaseStruc", _newstruct, false];
 		[_newstruct] call A3PL_Police_UpdateComputer;
 	};
 
@@ -1236,36 +1246,58 @@
 	switch (_edit0) do {
 		case "help":
 		{
-			_output = "
-			<t align='center'>help - View all commands</t><br />
-			<t align='center'>clear - Clear screen</t><br />
-			<t align='center'>login [password] - Login to use the commands</t><br />
-			<t align='center'>lookup [firstname] [lastname] - View information about a person</t><br />
-			<t align='center'>lookupvehicles [firstname] [lastname] - List all registered vehicles to a person</t><br />
-			<t align='center'>lookuplicense [license plate] - View license plate information</t><br />
-			<t align='center'>lookupcompany [company name] - View company information</t><br />
-			<t align='center'>markstolen [license plate] - Mark a vehicle as stolen</t><br />
-			<t align='center'>markfound [license plate] - Mark a vehicle as found</t><br />
-			<t align='center'>warrantlist [firstname] [lastname] - List of mandates for a person</t><br />
-			<t align='center'>warrantinfo [firstname] [lastname] [number] - Mandates Information</t><br />
-			<t align='center'>removewarrant [firstname] [lastname] [number] - Remove the warrant</t><br />
-			<t align='center'>ticketlist [firstname] [lastname] - View the history of tickets</t><br />
-			<t align='center'>warninglist [firstname] [lastname] - View warning history</t><br />
-			<t align='center'>arrestlist [firstname] [lastname] - View the arrest history</t><br />
-			<t align='center'>insertwarrant [firstname] [lastname] [title] [description] - Insert a warrant</t><br />
-			<t align='center'>insertticket [firstname] [lastname] [amount] [description] - Insert a ticket</t><br />
-			<t align='center'>insertwarning [firstname] [lastname] [title] [description] - Insert a warning</t><br />
-			<t align='center'>insertarrest [firstname] [lastname] [time] [description] - Insert an arrest</t><br />
-			<t align='center'>lookupaddress [firstname] [lastname] - View house address</t><br />
-			<t align='center'>lookupwarehouse [firstname] [lastname] - View warehouse address</t><br />
-			<t align='center'>setcaution [firstname] [lastname] - Set a caution on a citizen</t><br />
-			<t align='center'>clearcautions [firstname] [lastname] - Clear the cautions for a citizen</t><br />
-			<t align='center'>insertbolo [BOLO description] - Insert a new BOLO notice</t><br />
-			<t align='center'>removebolo [BOLO ID] - Remove a BOLO notice</t><br />
-			<t align='center'>bololist - View a list of active BOLO notices</t><br />
-			<t align='center'>stolenvehicles - View a list of stolen vehicles</t><br />
-			<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t><br />
-			";
+			if (_isDoj) then {
+				_output = "
+				<t align='center'>help - View all commands</t><br />
+				<t align='center'>clear - Clear screen</t><br />
+				<t align='center'>login [password] - Login to use the commands</t><br />
+				<t align='center'>lookup [firstname] [lastname] - View information about a person</t><br />
+				<t align='center'>lookupvehicles [firstname] [lastname] - List all registered vehicles to a person</t><br />
+				<t align='center'>lookuplicense [license plate] - View license plate information</t><br />
+				<t align='center'>lookupcompany [company name] - View company information</t><br />
+				<t align='center'>warrantlist [firstname] [lastname] - List of mandates for a person</t><br />
+				<t align='center'>warrantinfo [firstname] [lastname] [number] - Mandates Information</t><br />
+				<t align='center'>ticketlist [firstname] [lastname] - View the history of tickets</t><br />
+				<t align='center'>warninglist [firstname] [lastname] - View warning history</t><br />
+				<t align='center'>arrestlist [firstname] [lastname] - View the arrest history</t><br />
+				<t align='center'>lookupaddress [firstname] [lastname] - View house address</t><br />
+				<t align='center'>lookupwarehouse [firstname] [lastname] - View warehouse address</t><br />
+				<t align='center'>bololist - View a list of active BOLO notices</t><br />
+				<t align='center'>stolenvehicles - View a list of stolen vehicles</t><br />
+				<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t><br />
+				";
+			} else {
+				_output = "
+				<t align='center'>help - View all commands</t><br />
+				<t align='center'>clear - Clear screen</t><br />
+				<t align='center'>login [password] - Login to use the commands</t><br />
+				<t align='center'>lookup [firstname] [lastname] - View information about a person</t><br />
+				<t align='center'>lookupvehicles [firstname] [lastname] - List all registered vehicles to a person</t><br />
+				<t align='center'>lookuplicense [license plate] - View license plate information</t><br />
+				<t align='center'>lookupcompany [company name] - View company information</t><br />
+				<t align='center'>markstolen [license plate] - Mark a vehicle as stolen</t><br />
+				<t align='center'>markfound [license plate] - Mark a vehicle as found</t><br />
+				<t align='center'>warrantlist [firstname] [lastname] - List of mandates for a person</t><br />
+				<t align='center'>warrantinfo [firstname] [lastname] [number] - Mandates Information</t><br />
+				<t align='center'>removewarrant [firstname] [lastname] [number] - Remove the warrant</t><br />
+				<t align='center'>ticketlist [firstname] [lastname] - View the history of tickets</t><br />
+				<t align='center'>warninglist [firstname] [lastname] - View warning history</t><br />
+				<t align='center'>arrestlist [firstname] [lastname] - View the arrest history</t><br />
+				<t align='center'>insertwarrant [firstname] [lastname] [title] [description] - Insert a warrant</t><br />
+				<t align='center'>insertticket [firstname] [lastname] [amount] [description] - Insert a ticket</t><br />
+				<t align='center'>insertwarning [firstname] [lastname] [title] [description] - Insert a warning</t><br />
+				<t align='center'>insertarrest [firstname] [lastname] [time] [description] - Insert an arrest</t><br />
+				<t align='center'>lookupaddress [firstname] [lastname] - View house address</t><br />
+				<t align='center'>lookupwarehouse [firstname] [lastname] - View warehouse address</t><br />
+				<t align='center'>setcaution [firstname] [lastname] - Set a caution on a citizen</t><br />
+				<t align='center'>clearcautions [firstname] [lastname] - Clear the cautions for a citizen</t><br />
+				<t align='center'>insertbolo [BOLO description] - Insert a new BOLO notice</t><br />
+				<t align='center'>removebolo [BOLO ID] - Remove a BOLO notice</t><br />
+				<t align='center'>bololist - View a list of active BOLO notices</t><br />
+				<t align='center'>stolenvehicles - View a list of stolen vehicles</t><br />
+				<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t><br />
+				";
+			};
 		};
 
 		case "clear": {_output = "<t align='center'>Computer Database - F.I.S.D.</t><br /><t align='center'>Enter 'help' for the list of available commands</t>";};
@@ -1454,8 +1486,6 @@
 			_info = [_array," "] call CBA_fnc_join;
 			_issuedBy = player getVariable ["name",name player];
 
-			diag_log str(_info);
-
 			[player,[_name,_amountNum,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
 			_output = format ["Inserting a fine into the database ..."];
 		};
@@ -1629,7 +1659,7 @@
 ["A3PL_Police_DatabaseOpen",
 {
 	private ["_display","_text"];
-
+	if (!(player getVariable ["job","unemployed"] in ["fisd","uscg","fims","doj"])) exitWith {["You cannot access the police MDT!", "red"] call A3PL_Player_Notification;};
 	_text = "<t align='center'>FISD Database</t><br /><t align='center'>Enter 'help' to see all the available commands</t><br />> please login";
 	player setVariable ["PoliceDatabaseStruc",_text,false];
 	player setVariable ["PoliceDatabaseLogin",false,false];
