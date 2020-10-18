@@ -9,7 +9,7 @@
 //["factory_ID","parent","inh","inh","classname","type",craftable,time,[["required",3],["components",200]],output,xpGain,levelRequired,description]
 Config_Factories =
 [
-	["Chemical Plant",[3852.065,9212.537,0.168],
+	["Chemical Plant",[9983.55,8496.61,0],
 		["f_Synthetic_Fiber","","inh","inh","Synthetic_Fibre","item",true,15,[["Crude_Oil",1]],50,5,0,"Makes 50 Synthetic Fiber"],
 		["f_Glass_Fiber","","inh","inh","Glass_Fibre","item",true,15,[["Sand",1]],50,5,0,"Makes 50 Glass Fiber"],
 		["f_Titanium_Ore","","inh","inh","Titanium_Ore","item",true,5,[["Sand",2]],8,8,0,"Makes 8 Titanium Ore"],
@@ -31,7 +31,7 @@ Config_Factories =
 		["f_Coal_Ingot","","inh","inh","Coal_Ingot","item",true,10,[["Coal_Ingot_Pellet",1]],256,20,0,"Makes 256 Coal Ingots"]
 	],
 
-	["Steel Mill",[3852.065,9212.537,0.168],
+	["Steel Mill",[4410.48,6755.92,0.15],
 		["f_Iron_Ingot","","inh","inh","Iron_Ingot","item",true,3,[["Iron_Ore",4]],1,5,0,"Makes 1 Iron Ingot"],
 		["f_Coal_Ingot","","inh","inh","Coal_Ingot","item",true,3,[["Coal_Ore",4]],1,5,0,"Makes 1 Coal Ingot"],
 		["f_Steel","","inh","inh","Steel","item",true,5,[["Iron_Ingot",4],["Coal_Ingot",2]],30,10,0,"Makes 30 Steel Sheets"],
@@ -60,7 +60,7 @@ Config_Factories =
 		["f_Amethyst_Ingot_Pallet","","inh","inh","Amethyst_Ingot_Pallet","item",true,20,[["Amethyst_Ingot",256]],1,20,0,"Makes 1 Amethyst Ingot Pallet"]
 	],
 
-	["Oil Refinery",[3852.065,9212.537,0.168],
+	["Oil Refinery",[4409.1,6678.72,0.168],
 		["f_pumpjack","","inh","inh","Pumpjack","item",true,5,[["Steel_Pellet",3]],1,25,0,"Makes 1 Pumpjack; Used for Oil Drilling"],
 		["f_Petrol","","inh","inh","Petrol","item",true,5,[["Crude_Oil",1]],3,3,0,"Makes 3 Petrol"],
 		["f_jerrycan_empty","","inh","inh","jerrycan_empty","item",true,5,[["Steel",2]],2,4,0,"Makes 2 Empty Jerry Cans"],
@@ -72,7 +72,7 @@ Config_Factories =
 		["f_CanisterOil","","inh","inh","CanisterOil","item",true,5,[["Crude_Oil",1]],20,5,0,"Makes 20 Oil Canisters"]
 	],
 
-	["Goods Factory",[3852.065,9212.537,0.168],
+	["Goods Factory",[6540.34,6670.7,0.168],
 		["f_repairwrench","","inh","inh","repairwrench","item",true,8,[["Steel",15]],3,3,0,"Makes 3 Repair Wrenches"],
 		["f_Rangefinder","","inh","inh","Rangefinder","aitem",true,8,[["Steel",2],["Glass",2],["Plastic",5]],1,1,0,"Makes 1 RangeFinder"],
 		["f_FD_Adapter","","inh","inh","FD_Adapter","item",true,8,[["Steel",5]],5,5,0,"Makes 5 Hose Adapters"],
@@ -86,7 +86,7 @@ Config_Factories =
 		["f_RocketY","","inh","inh","rocket_yellow","item",true,8,[["Plastic",3],["Gunpowder",2],["Sulphur_Powder",1]],3,3,0,"Makes 3 Yellow Fireworks"]
 	],
 
-	["Food Processing Plant",[3852.065,9212.537,0.168],
+	["Food Processing Plant",[8968.17,6391.78,0.168],
 		["f_cola","","inh","inh","coke","item",true,15,[["coca",2],["sugarcane",2],["Aluminium_Ingot",1]],6,3,0,"Makes 3 Soda; Replenishes 30% Thirst"],
 		["f_Coffee_Cup_Large","","inh","inh","coffee_cup_large","item",true,15,[["coca",6],["plastic",6]],4,5,0,"Makes 4 Large Coffee; Replenishes 50% Thirst"],
 		["f_Coffee_Cup_Medium","","inh","inh","coffee_cup_medium","item",true,15,[["coca",4],["plastic",4]],4,4,0,"Makes 4 Medium Coffee; Replenishes 40% Thirst"],
@@ -109,7 +109,7 @@ Config_Factories =
 		["f_meatpie","","inh","inh","meatpie","item",true,15,[["meat_sheep_tag",1],["meat_boar_tag",1],["meat_goat_tag",1],["bread",1]],2,20,0,"Makes 2 Meat Pies; Replenishes 100% Hunger"]
 	],
 
-	["Illegal Weapon Factory",[3852.065,9212.537,0.168],
+	["Illegal Weapon Factory",[7653.55,8482.62,1.5],
 		["f_P07","","inh","inh","hgun_P07_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 P07 9mm Pistol"],
 		["f_P07_khk","","inh","inh","hgun_P07_khk_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 P07 Khaki 9mm Pistol"],
 		["f_P07_blk","","inh","inh","hgun_P07_blk_F","weapon",true,120,[["Steel",100]],1,25,0,"Makes 1 P07 Black 9mm Pistol"],
@@ -162,7 +162,7 @@ Config_Factories =
 		["f_LuxuryYatch","","inh","inh","A3PL_Yacht","car","true",1800,[["Aluminium_Pellet",100]],1,200,0,""]
 	],
 
-	["Aircraft Factory",[2606.28,5321.7,1],
+	["Aircraft Factory",[14328.3,4.5,924.804],
 		["f_Heli_Light","","inh","inh","C_Heli_Light_01_civil_F","plane",true,1800,[["Aluminium_Pellet",50],["Steel_Pellet",50],["Titanium_Pellet",25],["Glass",10]],1,100,0,""],
 		["f_Heli","","inh","inh","Heli_Medium01_H","plane",true,1800,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
 		["f_Military_Heli","","inh","inh","Heli_Medium01_Military_H","plane",true,1800,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
@@ -172,7 +172,7 @@ Config_Factories =
 		["f_Goose","","inh","inh","A3PL_Goose_Base","plane",true,1800,[["Aluminium_Pellet",35],["Steel_Pellet",50]],1,150,0,""]
 	],
 
-	["Vehicle Factory",[3873.923,9242.35,0],
+	["Vehicle Factory",[14328.3,4.5,924.804],
 		["f_Windows","","inh","inh","Windows","item",true,5,[["Glass",2]],4,2,0,""],
 		["f_Tyres","","inh","inh","Tyres","item",true,5,[["Rubber",4]],8,2,0,""],
 		["f_C_Kart_01_F","","inh","inh","C_Kart_01_F","car",true,300,[["Steel_Pellet",3]],1,30,0,""],
@@ -230,7 +230,7 @@ Config_Factories =
 		["f_Box_Trailer","","inh","inh","A3PL_Box_Trailer","car",true,300,[["Steel_Pellet",6],["Aluminium_Pellet",1],["Tyres",6]],1,30,0,""]
 	],
 
-	["Clothing Factory",[3852.065,9212.537,1.2],
+	["Clothing Factory",[3345.15,7503.76,1.5],
 		["f_A3PL_Indelicato_Family_Uniform","","inh","inh","A3PL_Indelicato_Family_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_HF_Charter_Polo_Uniform","","inh","inh","A3PL_HF_Charter_Polo_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_RL_Polo_LBluBla_Uniform","","inh","inh","A3PL_RL_Polo_LBluBla_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
@@ -455,7 +455,7 @@ Config_Factories =
 		["f_Sorrento_Shirt_Uniform","","inh","inh","A3PL_Sorrento_Shirt_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
-	["Vest Factory",[3852.065,9212.537,1.2],
+	["Vest Factory",[3345.15,7503.76,1.5],
 		["f_A3PL_Holster_1","","inh","inh","A3PL_Holster_1","vest",true,5,[["Polyester",1]],1,1,0,""],
 		["f_BandollierB_blk","","inh","inh","V_BandollierB_blk","vest",true,5,[["Steel",5]],1,1,0,""],
 		["f_Press_F","","inh","inh","A3PL_Press_Vest_F","vest",true,5,[["Steel",5]],1,1,0,""],
@@ -476,7 +476,7 @@ Config_Factories =
 		["f_JoseConstruct_Safety_Vest","","inh","inh","A3PL_JoseConstruct_Safety_Vest","vest",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
-	["Headgear Factory",[3852.065,9212.537,1.2],
+	["Headgear Factory",[3345.15,7503.76,1.1],
 		["f_Polo_Black_Cap","","inh","inh","A3PL_Polo_Black_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Polo_LBlu_Cap","","inh","inh","A3PL_Polo_LBlu_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Polo_Navy_Cap","","inh","inh","A3PL_Polo_Navy_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
@@ -636,7 +636,7 @@ Config_Factories =
 		["f_COD3_Cap","","inh","inh","A3PL_COD3_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
-	["Goggle Factory",[3852.065,9212.537,1.2],
+	["Goggle Factory",[3345.15,7503.76,1.1],
 		["f_aviator_goggles","","inh","inh","G_Aviator","goggles",true,5,[["Glass",1]],1,1,0,""],
 		["f_square_goggles","","inh","inh","G_Squares","goggles",true,5,[["Glass",1]],1,1,0,""],
 		["f_squaretinted_goggles","","inh","inh","G_Squares_Tinted","goggles",true,5,[["Glass",1]],1,1,0,""],
