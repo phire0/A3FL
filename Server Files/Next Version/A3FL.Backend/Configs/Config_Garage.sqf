@@ -264,6 +264,8 @@ Config_Garage_Upgrade =
 	],
 	["A3FL_Mercedes_Benz_AMG_C63",
         ["Towbar_Addon","addon","Towbar_Addon","Towbar","Towbar",[1.3,3,0],[0.1,1,0.5],500,[],0],
+        ["chrome","addon","chrome","Chrome","Chrome",[1.3,3,0],[0.1,1,0.5],500,[],0],
+        ["chrome_delete","addon","chrome_delete","Chrome Delete","Chrome Delete",[1.3,3,0],[0.1,1,0.5],500,[],0],
         ["Black_Series_Wing","addon","Black_Series_Wing","Black Series Wing","Black Series Wing",[1.3,3,0],[0.1,1,0.5],500,[],0]
     ]
 ];
