@@ -638,7 +638,7 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_THROWIT",
-		{call A3PL_Inventory_Throw;},
+		{[] spawn A3PL_Inventory_Throw;},
 		{((isNull Player_Item) isEqualTo false) && ([Player_ItemClass, 'canDrop'] call A3PL_Config_GetItem)}
 	],
 	[

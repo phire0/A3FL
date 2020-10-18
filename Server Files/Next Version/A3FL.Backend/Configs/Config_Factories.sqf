@@ -253,6 +253,7 @@ Config_Factories =
 		["f_Escaroba_Security_Uniform","","inh","inh","A3PL_Escaroba_Security_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_High_Society_Uniform","","inh","inh","A3PL_High_Society_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Daniel_Uniform","","inh","inh","A3PL_Daniel_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Nike_Black_Uniform","","inh","inh","A3PL_Nike_Black_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Eatsleep_Uniform","","inh","inh","A3PL_Eatsleep_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_FartLoading_Uniform","","inh","inh","A3PL_FartLoading_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_GotGuns_Uniform","","inh","inh","A3PL_GotGuns_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],

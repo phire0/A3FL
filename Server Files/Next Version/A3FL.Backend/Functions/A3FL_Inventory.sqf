@@ -365,64 +365,49 @@
 		case "cash": {[player,_obj,_itemClass,Player_ItemAmount] remoteExec ["Server_Inventory_Drop", 2];};
 		default {[player,_obj,_itemClass,_amount] remoteExec ["Server_Inventory_Drop", 2];};
 	};
-
-	_format = format[localize"STR_NewInventory_14", _amount, [_itemClass, 'name'] call A3PL_Config_GetItem];
-	[_format, "green"] call A3PL_Player_Notification;
+	[format[localize"STR_NewInventory_14", _amount, [_itemClass, 'name'] call A3PL_Config_GetItem], "green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Pickup", {
-	private ["_obj", "_format","_exit","_attachedTo","_canPickup","_amount"];
-	_obj = param [0,objNull];
-	_moveToHand = param [1,false];
+	private _obj = param [0,objNull];
+	private _moveToHand = param [1,false];
+	private _amount = _obj getVariable ["amount",1];
+	private _exit = false;
 
 	if((player getVariable ["Cuffed",false]) || (player getVariable ["Zipped",false])) exitWith {};
-
 	if (isNull _obj) exitwith {[localize"STR_NewInventory_15", "red"] call A3PL_Player_Notification;};
 
-	_classname = _obj getVariable "class";
+	private _classname = _obj getVariable "class";
 	if (isNil "_classname") exitwith {[localize"STR_NewInventory_16", "red"] call A3PL_Player_Notification;};
+	if (!isNull Player_Item) exitwith {[format[localize"STR_NewInventory_17"], "red"] call A3PL_Player_Notification;};
 
-	if (!isNull Player_Item) exitwith {
-		_format = format[localize"STR_NewInventory_17"];
-		[_format, "red"] call A3PL_Player_Notification;
-	};
-
-	_attachedTo = attachedTo _obj;
+	private _attachedTo = attachedTo _obj;
 	if (!isNull _attachedTo) then {
 		if ((isPlayer _attachedTo) && (!(_attachedTo isKindOf "Car"))) then {
 			_exit = true;
 		};
 	};
-	if (!isNil "_exit") exitwith {
-		_format = format[localize"STR_NewInventory_18"];
-		[_format, "red"] call A3PL_Player_Notification;
-	};
-
-	_canPickup = true;
-	if (((count (_obj getVariable ["ainv",[]])) != 0) OR ((count (_obj getVariable ["finv",[]])) != 0)) exitwith {
-		[_obj] call A3PL_Placeables_Pickup;
-	};
-	_canPickup = [_classname,"canPickup"] call A3PL_Config_GetItem;
+	if (_exit) exitwith {[format[localize"STR_NewInventory_18"], "red"] call A3PL_Player_Notification;};
+	if (((count (_obj getVariable ["ainv",[]])) != 0) OR ((count (_obj getVariable ["finv",[]])) != 0)) exitwith {[_obj] call A3PL_Placeables_Pickup;};
+	
+	private _canPickup = [_classname,"canPickup"] call A3PL_Config_GetItem;
 	if (!_canPickup) exitwith {[_obj] call A3PL_Placeables_Pickup;};
-
 	if ((typeOf _obj) isEqualTo "A3PL_FD_HoseEnd1_Float") then
 	{
 		private _hydrant = (nearestObjects [_obj,["Land_A3PL_FireHydrant"], 1]) select 0;
-		if (!isNil "_hydrant") then
-		{
+		if (!isNil "_hydrant") then {
 			_hydrant animateSource ["cap_hide",0];
 		};
 	};
 
-	if (_classname isEqualTo "apple" && !simulationEnabled _obj) exitwith {[_obj] spawn A3PL_Resources_Picking;};
-	if (_classname isEqualTo "shrooms" && !simulationEnabled _obj) exitwith {[_obj] spawn A3PL_Shrooms_Pick;};
+	if ((_classname isEqualTo "apple") && {!simulationEnabled _obj}) exitwith {[_obj] spawn A3PL_Resources_Picking;};
+	if ((_classname isEqualTo "shrooms") && {!simulationEnabled _obj}) exitwith {[_obj] spawn A3PL_Shrooms_Pick;};
 
 	player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
 
 	if (player_objIntersect getVariable ["inUse",false]) exitWith {};
 	player_objIntersect setVariable ["inUse",true,true];
 
-	_amount = _obj getVariable ["amount",1];
 	switch (_classname) do {
 		case "doorkey": {[_obj, player] remoteExecCall ["Server_Housing_PickupKey", 2];};
 		case "cash": {[player, _obj] remoteExecCall ["Server_Inventory_Pickup", 2]};
@@ -430,62 +415,34 @@
 	};
 
 	if (_moveToHand) then {[_classname] call A3PL_Inventory_Use;};
-
-	_format = format[localize"STR_NewInventory_19",_amount, [_classname, "name"] call A3PL_Config_GetItem];
-	[_format, "green"] call A3PL_Player_Notification;
+	[format[localize"STR_NewInventory_19",_amount, [_classname, "name"] call A3PL_Config_GetItem], "green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_Throw", {
-	[] spawn {
-		private ['_obj', '_itemClass', '_playerVelocity', '_playerDir'];
+	private _obj = Player_Item;
+	private _itemClass = Player_ItemClass;
+	private _amount = 1;
+	if(!isNil 'Player_ItemAmount') then {_amount = Player_ItemAmount;};
+	if(_itemClass in ["A3PL_BucketFull","A3PL_Bucket","bucket_empty","bucket_full"]) exitWith {[localize"STR_NewInventory_20","red"] call A3PL_Player_Notification;};
+	if (isNull _obj) exitwith {[localize"STR_NewInventory_21","red"] call A3PL_Player_Notification;};
+	if (!isNil "Player_isEating") exitwith {[localize"STR_NewInventory_22","red"] call A3PL_Player_Notification;};
+	if (!isNil "Player_isDrinking") exitwith {[localize"STR_NewInventory_25","red"] call A3PL_Player_Notification;};
+	if (count (player nearObjects ["A3PL_Container_Ship", 100]) > 0) exitwith {[localize"STR_NewInventory_23","red"] call A3PL_Player_Notification;};
 
-		_obj = Player_Item;
-		_itemClass = Player_ItemClass;
+	player playaction "Gesture_throw";
+	sleep 0.5;
+	detach _obj;
 
-		if(_itemClass in ["A3PL_BucketFull","A3PL_Bucket","bucket_empty","bucket_full"]) exitWith {
-			[localize"STR_NewInventory_20","red"] call A3PL_Player_Notification;
-		};
-
-		if (isNull _obj) exitwith
-		{
-			[localize"STR_NewInventory_21","red"] call A3PL_Player_Notification;
-		};
-
-		if (!isNil "Player_isEating") exitwith
-		{
-			[localize"STR_NewInventory_22","red"] call A3PL_Player_Notification;
-		};
-
-		if (!isNil "Player_isDrinking") exitwith
-		{
-			[localize"STR_NewInventory_25","red"] call A3PL_Player_Notification;
-		};
-
-		if (count (player nearObjects ["A3PL_Container_Ship", 100]) > 0) exitwith
-		{
-			[localize"STR_NewInventory_23","red"] call A3PL_Player_Notification;
-		};
-
-		player playaction "Gesture_throw";
-
-		sleep 0.5;
-
-		detach _obj;
-
-		_playerVelocity = velocity player;
-		_playerDir = direction player;
-
-		_obj setVelocity [((_playerVelocity select 0) + (sin _playerDir * 7)), ((_playerVelocity select 1) + (cos _playerDir * 7)), ((_playerVelocity select 2) + 7)];
-
-		switch (_itemClass) do {
-			case "doorkey": {[_obj, player] remoteExec ['Server_Housing_dropKey', 2];};
-			case "cash": {[player,_obj,_itemClass,Player_ItemAmount] remoteExec["Server_Inventory_Drop", 2];};
-			default {[player,_obj,_itemClass] remoteExec["Server_Inventory_Drop", 2];};
-		};
-
-		Player_Item = objNull;
-		Player_ItemClass = '';
+	private _playerVelocity = velocity player;
+	private _playerDir = direction player;
+	_obj setVelocity [((_playerVelocity select 0) + (sin _playerDir * 7)), ((_playerVelocity select 1) + (cos _playerDir * 7)), ((_playerVelocity select 2) + 7)];
+	switch (_itemClass) do {
+		case "doorkey": {[_obj, player] remoteExec ['Server_Housing_dropKey', 2];};
+		case "cash": {[player,_obj,_itemClass,Player_ItemAmount] remoteExec["Server_Inventory_Drop", 2];};
+		default {[player,_obj,_itemClass,_amount] remoteExec["Server_Inventory_Drop", 2];};
 	};
+	Player_Item = objNull;
+	Player_ItemClass = '';
 }] call Server_Setup_Compile;
 
 ["A3PL_Inventory_CanTake", {

@@ -881,7 +881,7 @@
 	private _isCG = (player getVariable["faction","citizen"]) isEqualTo "uscg";
 	if(!isNull _houseObj) then {_spawnList pushback ["House",getPosATL _houseObj,1];};
 	if(!isNull _warehouseObj) then {_spawnList pushback ["Warehouse",getPosATL _warehouseObj,2];};
-	if(_isCG) then {_spawnList pushback ["CG Base",[2188.62,4991.78,0],0];};
+	if(_isCG) then {_spawnList pushback ["CG Base",[6513.87,8433.42,0],0];};
 
 	_spawnList pushback ["Silverton",[2445.83,5467.15,0],0];
 	_spawnList pushback ["Lubbock",[2286.87,12015.3,0],0];
