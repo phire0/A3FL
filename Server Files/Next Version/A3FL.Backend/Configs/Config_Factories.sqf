@@ -162,7 +162,7 @@ Config_Factories =
 		["f_LuxuryYatch","","inh","inh","A3PL_Yacht","car","true",1800,[["Aluminium_Pellet",100]],1,200,0,""]
 	],
 
-	["Aircraft Factory",[14328.3,4.5,924.804],
+	["Aircraft Factory",[2907.86,5260.62,0.4],
 		["f_Heli_Light","","inh","inh","C_Heli_Light_01_civil_F","plane",true,1800,[["Aluminium_Pellet",50],["Steel_Pellet",50],["Titanium_Pellet",25],["Glass",10]],1,100,0,""],
 		["f_Heli","","inh","inh","Heli_Medium01_H","plane",true,1800,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
 		["f_Military_Heli","","inh","inh","Heli_Medium01_Military_H","plane",true,1800,[["Aluminium_Pellet",100],["Glass",40],["Titanium_Pellet",20],["Fibreglass",40],["Steel_Pellet",75]],1,150,0,""],
@@ -172,7 +172,7 @@ Config_Factories =
 		["f_Goose","","inh","inh","A3PL_Goose_Base","plane",true,1800,[["Aluminium_Pellet",35],["Steel_Pellet",50]],1,150,0,""]
 	],
 
-	["Vehicle Factory",[14328.3,4.5,924.804],
+	["Vehicle Factory",[3000.25,5352.92,0.4],
 		["f_Windows","","inh","inh","Windows","item",true,5,[["Glass",2]],4,2,0,""],
 		["f_Tyres","","inh","inh","Tyres","item",true,5,[["Rubber",4]],8,2,0,""],
 		["f_C_Kart_01_F","","inh","inh","C_Kart_01_F","car",true,300,[["Steel_Pellet",3]],1,30,0,""],

@@ -17,7 +17,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_Taser2",2500,-1,0],
 			["magazine","A3PL_Taser2_Mag",350,-1,0],
 			["item","zipties",1500,-1,5]
-		],{[3852.065,9212.537,0.168]}
+		],{[10152.8,8775.6,0.1]}
 	],
 
 	["Shop_Clinic",[
@@ -26,19 +26,19 @@ Config_Shops_Items = [
 			["item","med_icepack",20,-1,0],
 			["item","med_splint",30,-1,0],
 			["item","med_painkillers",60,-1,0]
-		],{fifr_table modelToWorld [0,0,-0.5]}
+		],{fifr_table modelToWorld [0,0,-0.4]}
 	],
 
 	["Shop_Fuel",[
 			["item","repairwrench",750,50,0],
 			["item","jerrycan",1500,150,0]
-		],{[3852.065,9212.537,0.168]}
+		],{[4409.1,6678.72,0.1]}
 	],
 
 	["Shop_WasteManagement",[
 			["uniform","A3PL_Waste_Manage_Uni_Uniform",90,-1,0],
 			["headgear","A3PL_Waste_Manage_Cap",50,-1,0]
-		],{[3852.065,9212.537,0.168]}
+		],{[6066.64,7475.82,0.4]}
 	],
 
 	["Shop_DeliveryJob",[
@@ -60,7 +60,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_Lumberjack_Blue_Uniform",260,-1,3],
 			["uniform","A3PL_Lumberjack_Green_Uniform",260,-1,3],
 			["headgear","A3PL_Russianhat",130,-1,3]
-		],{[6464.8,5518.47,1]}
+		],{[6475.33,5517.33,0.1]}
 	],
 
 	["Shop_Paintball",[
@@ -94,7 +94,7 @@ Config_Shops_Items = [
 			["item", "coffee_cup_small",600,40,0],
 			["item", "coffee_cup_medium",900,50,0],
 			["item", "coffee_cup_large",1200,60,0]
-		],{[2597.17,5626.85,0.5]}
+		],{[2556.8,5478.85,0.2]}
 	],
 
 	["Shop_Hunting_Supplies",[
@@ -103,7 +103,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_Hunting_Uniform",220,-1,4],
 			["vest","A3PL_Clean_Safety_Vest",180,-1,4],
 			["item","tag_meat",100,-1,0]
-		],{[2612.93,5615.92,0.08]}
+		],{[6794.53,7630.69,0.08]}
 	],
 
 	["Shop_General_Supplies",[
@@ -115,14 +115,14 @@ Config_Shops_Items = [
 			["item","Camper_Light",950,-1,0],
 			["item","FD_adapter",200,-1,0],
 			["item","FD_hose",260,-1,0]
-		],{[2621.08,5610.15,0.08]}
+		],{[10044.1,8464.15,0.2]}
 	],
 
 	["Shop_MiningMike",[
 			["weapon","A3PL_Pickaxe",500,-1,0],
 			["weapon","A3PL_Shovel",480,-1,0],
 			["item","Camper_Light",950,-1,0]
-		],{[2621.08,5610.15,0.08]}
+		],{[8764.63,6360.25,0.01]}
 	],
 
 	["Shop_Hardware",[
@@ -136,7 +136,7 @@ Config_Shops_Items = [
 			["item","pavilion",825,-1,8],
 			["item","workbench",637,-1,8],
 			["item","cocaine_barrel",345,-1,8]
-		],{[3456.32,7513.2,1]}
+		],{[3456.32,7513.2,0.5]}
 	],
 
 	["Shop_ChemicalSupplies",[
@@ -146,7 +146,7 @@ Config_Shops_Items = [
 		["item","ammonium_hydroxide",50,-1,12],
 		["item","acetone",50,-1,12],
 		["item","hydrocloric_acid",50,-1,12]
-	],{[3456.32,7513.2,1]}],
+	],{[2975.32,11848,0.05]}],
 
 	["Shop_GemStone",[
 			["item","diamond_tourmaline",-1,200,0],
@@ -156,7 +156,7 @@ Config_Shops_Items = [
 			["item","diamond_ruby",-1,950,0],
 			["item","diamond_emerald",-1,1395,0],
 			["item","diamond",-1,1800,0]
-		],{[7120.54,7250.23,0.2]}
+		],{[8770.72,6418.24,0.25]}
 	],
 
 	["Shop_Seeds",[
@@ -186,7 +186,7 @@ Config_Shops_Items = [
 			["vest","A3PL_Civilian_LifeVest",80,-1,0],
 			["item","Lifebuoy",100,-1,0],
 			["aitem","tfar_anprc152",1000,-1,0]
-		],{[2605.13,5621.28,0.08]}
+		],{[3466.23,7482.09,0.5]}
 	],
 
 	["roadside_service_supplies",[
@@ -200,7 +200,7 @@ Config_Shops_Items = [
 			["uniform","U_C_ConstructionCoverall_Red_F",135,-1,0],
 			["vest","V_Safety_orange_F",80,-1,0],
 			["vest","V_Safety_yellow_F",80,-1,0]
-		],{[2362.97,5480.64,0.3]}
+		],{[2845.65,5554.26,0.3]}
 	],
 
 	["Shop_Guns_Vendor",[
@@ -224,7 +224,7 @@ Config_Shops_Items = [
 			["magazine","16Rnd_9x21_yellow_Mag",500,-1,7],
 			["magazine","6Rnd_45ACP_Cylinder",500,-1,9],
 			["aitem","acc_flashlight_pistol",500,0,0]
-		],{[6105.3,7367.8,0.2]}
+		],{[10004.95,7876.39,0.25]}
 	],
 
 	["Shop_Prison",[
@@ -238,7 +238,7 @@ Config_Shops_Items = [
 			["item","wheat",-1,10,0],
 			["item","sugarcane",-1,10,0],
 			["item","coca",-1,10,0]
-		],{[2621.08,5610.15,0.08]}
+		],{[4759.74,6207.49,0.08]}
 	],
 
 	["Shop_Buckeye",[
@@ -251,7 +251,7 @@ Config_Shops_Items = [
 
 	["Shop_Moonshine",[
 			["item","jug_moonshine",-1,4125,4]
-		],{[6975.15,5413.12,2]}
+		],{[2883.14,12539,0.5]}
 	],
 
 	["Shop_DrugsDealer",[
@@ -358,7 +358,7 @@ Config_Shops_Items = [
 			["aitem","optic_ACO_smg",5000,-1,0],
 			["aitem","optic_Holosight_smg_blk_F",5000,-1,0],
 			["aitem","optic_Holosight_blk_F",5000,-1,10]
-		],{[3852.065,9212.537,0.168]}
+		],{[7652.96,8537.93,0.5]}
 	],
 
 	["Shop_DOC",[
@@ -414,7 +414,7 @@ Config_Shops_Items = [
 			["goggles","G_Balaclava_blk",0,-1,0],
 			["goggles","G_Aviator",0,-1,0],
 			["backpack","A3PL_LR",0,-1,0]
-		],{[2466.18,5637.45,0]}
+		],{[4756.81,6154.29,0.5]}
 	],
 
 	["Shop_DOC_Weapons_Vendor",[
@@ -457,7 +457,7 @@ Config_Shops_Items = [
 			["aitem","optic_ACO_smg",150,-1,0],
 			["aitem","optic_Holosight_smg_blk_F",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
-		],{uscg_table modelToWorld [0,0,-0.5]}
+		],{[4756.81,6154.29,0.5]}
 	],
 
 	["Shop_FIFR_Supplies_Vendor",[
@@ -548,6 +548,7 @@ Config_Shops_Items = [
 			["headgear","A3PL_FireHelmet_Chief_New",0,-1,0],
 			["headgear","A3PL_FIFR_Rescue_Helmet",0,-1,0],
 			["uniform","A3PL_FIFR_Swimmer_Uniform",0,-1,0],
+			["vest","V_RebreatherB",0,-1,0],
 			["goggles","G_Diving",0,-1,0],
 			["backpack","A3PL_LR",0,-1,0]
 		],{fifr_table_1 modelToWorld [0,0,-0.5]}
@@ -668,7 +669,7 @@ Config_Shops_Items = [
 			["goggles","G_Balaclava_blk",0,-1,0],
 			["goggles","G_Aviator",0,-1,0],
 			["backpack","A3PL_LR",0,-1,0]
-        ],{[2597.15,5429.76,10]}
+        ],{uscg_table modelToWorld [0,0,-0.5]}
     ],
 
     ["Shop_SD_Weapons_Vendor",[
@@ -709,7 +710,7 @@ Config_Shops_Items = [
 			["aitem","optic_ACO_smg",150,-1,0],
 			["aitem","optic_Holosight_smg_blk_F",150,-1,0],
 			["aitem","optic_Holosight_blk_F",200,-1,0]
-        ],{[2597.15,5429.76,10]}
+        ],{uscg_table modelToWorld [0,0,-0.5]}
     ],
 
 	["Shop_USCG_Supplies_Vendor",[
@@ -735,7 +736,6 @@ Config_Shops_Items = [
 			["uniform","A3PL_USCG_Shirt_NR_Uniform",0,-1,0],
 			["uniform","A3PL_USCG_Shirt_CPO_Uniform",0,-1,0],
 			["uniform","A3PL_USCG_Shirt_MCPO_Uniform",0,-1,0],
-			["uniform","A3PL_USCG_Shirt_Ensign_Uniform",0,-1,0],
 			["uniform","A3PL_USCG_Shirt_LieutenantJ_Uniform",0,-1,0],
 			["uniform","A3PL_USCG_Shirt_Lieutenant_Uniform",0,-1,0],
 			["uniform","A3PL_USCG_Shirt_LieutenantCommander_Uniform",0,-1,0],
@@ -869,13 +869,13 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Pierce_Heavy_Ladder",15000,3750,0],
 			["vehicle","A3PL_Pierce_Pumper",15000,3750,0],
 			["vehicle","A3PL_Pierce_Rescue",15000,3750,0]
-		],{[2942.43,5891.42,-0.75]}
+		],{[5988.76,7358.04,0.05]}
 	],
 
 	["Shop_USCG_Boat_Vendor",[
 			["vehicle","A3PL_RHIB",12000,0,0],
 			["vehicle","A3PL_RBM",18000,0,0]
-		],{[1974.44,4935.32,10]}
+		],{[6457.53,8519.85,8]}
 	],
 
 	["Shop_USCG_Plane_Vendor",[
@@ -884,7 +884,7 @@ Config_Shops_Items = [
 			["plane","A3FL_AS_365",25000,6250,0],
 			["plane","A3PL_Cessna172",28000,7000,0],
 			["plane","A3PL_Goose_USCG",28000,7000,0]
-		],{[2462.06,5249.26,0.00144243]}
+		],{[6576.22,8407.68,0.3]}
 	],
 
 	["Shop_USCG_Car_Vendor",[
@@ -905,7 +905,7 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Taurus_PD",18000,4500,0],
 			["vehicle","A3PL_Taurus_PD_ST",19500,4875,0],
 			["vehicle","A3PL_Small_Boat_Trailer",6500,1625,0]
-		],{[2942.43,5891.42,-0.75]}
+		],{[6663.34,8434.79,0.2]}
 	],
 
 	["Shop_DOC_Car_Vendor",[
@@ -925,7 +925,7 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Raptor_PD_ST",21500,5375,0],
 			["vehicle","A3PL_Taurus_PD",18000,4500,0],
 			["vehicle","A3PL_Taurus_PD_ST",19500,4875,0]
-		],{[2942.43,5891.42,-0.75]}
+		],{[4782.25,6145.03,0.2]}
 	],
 
 	["Shop_SD_Car_Vendor",[
@@ -945,10 +945,10 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Raptor_PD_ST",21500,5375,0],
 			["vehicle","A3PL_Taurus_PD",18000,4500,0],
 			["vehicle","A3PL_Taurus_PD_ST",19500,4875,0]
-		],{[2942.43,5891.42,-0.75]}
+		],{[6280.46,7721.85,0.2]}
 	],
 
-	["Shop_FIFR_Plane_Vendor",[["plane","Heli_Medium01_Medic_H",20000,0,0]],{[2514.26,5272.71,1]}],
+	["Shop_FIFR_Plane_Vendor",[["plane","Heli_Medium01_Medic_H",20000,0,0]],{[3283.3,5909.68,0.1]}],
 
 	["Shop_Furniture2",[
 			["item","furn_chair1",400,-1,0],
@@ -993,7 +993,7 @@ Config_Shops_Items = [
 			["item","furn_tvtable2",800,-1,0],
 			["item","furn_tvtable3",1250,-1,0],
 			["item","furn_fridge",1600,-1,0]
-		],{[2466.18,5637.45,0]}
+		],{[2468.65,5557.58,0]}
 	],
 
 	["Shop_Furniture",[
@@ -1022,7 +1022,7 @@ Config_Shops_Items = [
 			["item","furn_grill",3500,-1,0],
 			["item","flag1",900,-1,0],
 			["item","flag2",10000,-1,0]
-		],{[2466.18,5637.45,0]}
+		],{[2468.65,5557.58,0]}
 	],
 
 	["Shop_Perk_Motorhead",[
@@ -1132,7 +1132,7 @@ Config_Shops_Items = [
 			["item","furn_winchester_wardrobe",250,-1,0],
 			["item","furn_winchester_drawers",250,-1,0],
 			["item","furn_winchester_wine",250,-1,0]
-        ],{[2466.18,5637.45,0]}
+        ],{[2468.65,5557.58,0]}
     ],
 
     ["Shop_Halloween",[
@@ -1168,7 +1168,6 @@ Config_Shops_Items = [
 			["headgear","A3PL_Elfhat",3,-1,0],
 			["headgear","A3PL_Santahatbeard",5,-1,0],
 			["headgear","A3PL_Santahat",6,-1,0],
-			["headgear","A3PL_Christmas_Hat",14,-1,0],
 			["uniform","A3PL_Xmas_Onesie_Red_Uniform",25,-1,0],
 			["uniform","A3PL_Xmas_Onesie_Grey_Uniform",25,-1,0]
 		],{[5661.34,6125.97,-0.5]}
@@ -1182,7 +1181,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_Hunting_Uniform",220,-1,4],
 			["vest","A3PL_Clean_Safety_Vest",180,-1,4],
 			["item","tag_meat",100,-1,0]
-		],{[5661.34,6125.97,-0.5]}
+		],{[2129.89,11803.2,0.05]}
 	],
 
 	["Shop_Low_End_Car_Dealer",[
@@ -1196,7 +1195,7 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Wrangler",55050,0,0],
 			["vehicle","A3PL_Ram",55050,0,0],
 			["vehicle","A3PL_Car_Trailer",15000,0,0]
-		],{[2942.43,5891.42,-0.75]}
+		],{[9830.38,7919.31,0.02]}
 	],
 
 	//New NPCS
@@ -1215,7 +1214,7 @@ Config_Shops_Items = [
 			["item","necklace",-1,5000,8],
 			["item","golden_dildo",-1,15000,8],
 			["item","turtle",-1,10000,6]
-		],{[3456.32,7513.2,1]}
+		],{npc_ill_trader modelToWorld [0,1,0]}
 	],
 	["Shop_Ill_Moonshine",[
 			["item","distillery",30000,-1,4],
@@ -1223,7 +1222,7 @@ Config_Shops_Items = [
 			["item","jug",350,-1,4],
 			["item","jug_green",400,-1,4],
 			["item","jug_moonshine",-1,4125,4]
-		],{[3456.32,7513.2,1]}
+		],{npc_ill_moonshine modelToWorld [0,1,0]}
 	],
 	["Shop_Ill_Cocaine",[
 			["item","sulphuric_acid",75,-1,12],
@@ -1234,11 +1233,11 @@ Config_Shops_Items = [
 			["item","hydrocloric_acid",75,-1,12],
 			["item","cocaine",-1,1000,12],
 			["item","cocaine_brick",-1,10000,12]
-		],{[3456.32,7513.2,1]}
+		],{npc_ill_cocaine modelToWorld [0,1,0]}
 	],
 	["Shop_Ill_Shrooms",[
 			["item","shrooms",-1,525,7]
-		],{[3456.32,7513.2,1]}
+		],{npc_ill_shrooms modelToWorld [0,1,0]}
 	],
 	["Shop_Ill_Weed",[
 			["item","seed_marijuana",300,180,8],
@@ -1262,7 +1261,7 @@ Config_Shops_Items = [
 			["item","weed_90g",-1,7965,4],
 			["item","weed_95g",-1,8407,4],
 			["item","weed_100g",-1,8850,4]
-		],{[3456.32,7513.2,1]}
+		],{npc_ill_weed modelToWorld [0,1,0]}
 	],
 
 	["Shop_Boat_Safety",[
@@ -1272,7 +1271,7 @@ Config_Shops_Items = [
 			["vest","A3PL_Civilian_LifeVest",80,-1,0],
 			["item","Lifebuoy",100,-1,0],
 			["aitem","tfar_anprc152",1000,-1,0]
-		],{[3456.32,7513.2,1]}
+		],{[3466.23,7482.09,0.5]}
 	]
 ];
 publicVariable "Config_Shops_Items";
