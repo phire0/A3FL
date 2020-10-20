@@ -1080,7 +1080,7 @@
 	player setDir (getDir _deadBody);
 	player setPosASL (visiblePositionASL _deadBody);
 	player setUnitLoadout A3PL_Player_DeadBodyGear;
-	if((backpack _unit) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Player_DeadRadio] call TFAR_fnc_setLrSettings;};
+	if((backpack player) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Player_DeadRadio] call TFAR_fnc_setLrSettings;};
 	player allowDamage true;
 	player setVariable ["tf_voiceVolume", 1, true];
 	sleep 0.2;
