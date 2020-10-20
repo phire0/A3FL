@@ -172,6 +172,10 @@
 		[_x,"chest","wound_major"] call A3PL_Medical_ApplyWound;
 	} foreach _nearP;
 	removeVest player;
+	[] spawn {
+		sleep 5;
+		call A3PL_Medical_Respawn;
+	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Criminal_Drag',
