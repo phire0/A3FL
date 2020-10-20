@@ -9,28 +9,25 @@
 ["A3PL_Warehouses_OpenBuyMenu",
 {
 	disableSerialization;
-	private ["_display","_control","_obj","_houses","_price"];
-	_obj = param [0,objNull];
+	private _obj = param [0,objNull];
 	if (isNull _obj) exitwith {};
-	_warehouses = nearestObjects [player, Config_Warehouses_List, 20];
+	private _warehouses = nearestObjects [player, Config_Warehouses_List, 20];
 	if (count _warehouses < 1) exitwith {[localize"STR_NewHousing_12","red"] call A3PL_Player_Notification;};
 	A3PL_Warehouses_Object = _warehouses select 0;
-
-	_price = [A3PL_Warehouses_Object,1] call A3PL_Warehouses_GetData;
+	private _price = [A3PL_Warehouses_Object,1] call A3PL_Warehouses_GetData;
  	createDialog "Dialog_WarehouseBuy";
-	_display = findDisplay 75;
-	_control = _display displayCtrl 1000;
+	private _display = findDisplay 75;
+	private _control = _display displayCtrl 1000;
 	_control ctrlSetText format ["%1",[_price, 1, 2, true] call CBA_fnc_formatNumber];
 }] call Server_Setup_Compile;
 
 ["A3PL_Warehouses_Buy",
 {
-	private ["_price"];
-	_warehouses = nearestObjects [player, Config_Warehouses_List, 20];
+	private _warehouses = nearestObjects [player, Config_Warehouses_List, 20];
 	if (count _warehouses < 1) exitwith {[localize"STR_NewHousing_12","red"] call A3PL_Player_Notification;};
 	A3PL_Warehouses_Object = _warehouses select 0;
-	_price = [A3PL_Warehouses_Object,1] call A3PL_Warehouses_GetData;
-	_level = [A3PL_Warehouses_Object,3] call A3PL_Warehouses_GetData;
+	private _price = [A3PL_Warehouses_Object,1] call A3PL_Warehouses_GetData;
+	private _level = [A3PL_Warehouses_Object,3] call A3PL_Warehouses_GetData;
 	if ((player getVariable ["player_bank",0]) < _price) exitwith {[localize"STR_NewHousing_13","red"] call A3PL_Player_Notification;};
 	if ((player getVariable ["player_level",0]) < _level) exitwith {[format["You need to be level %1 to purchase this warehouse!",_level],"red"] call A3PL_Player_Notification;};
 	if (!isNil {A3PL_Warehouses_Object getVariable ["doorid",nil]}) exitwith {["This warehouse is already owned!","red"] call A3PL_Player_Notification;};
@@ -43,8 +40,7 @@
 	[A3PL_Warehouses_Object] spawn
 	{
 		private _warehouse = param [0,objNull];
-		uiSleep 3;
-		_marker = createMarkerLocal [format["warehouse_%1",round (random 1000)],visiblePosition _warehouse];
+		private _marker = createMarkerLocal [format["warehouse_%1",round (random 1000)],visiblePosition _warehouse];
 		_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
 		_marker setMarkerAlphaLocal 1;
 		_marker setMarkerColorLocal "ColorGreen";
@@ -83,7 +79,6 @@
 ["A3PL_Warehouses_Init",
 {
 	private ["_keys","_doorID","_keyID","_buildings","_marker","_text","_apt","_aptNumber"];
-
 	waituntil {sleep 1; _keys = player getVariable "keys"; !isNil "_keys"};
 	_keys = ["warehouse"] call A3PL_Housing_keyFilter;
 	_buildings = nearestObjects [[5000,5000,0], Config_Warehouses_List, 5000];
@@ -101,26 +96,12 @@
 			};
 		};
 	} foreach _buildings;
-
-}] call Server_Setup_Compile;
-
-["A3PL_Warehouses_LeaveHouse",
-{
-	private _warehouse = (nearestObjects [player, Config_Warehouses_List, 20,true]) select 0;
-	if(count(_near) isEqualTo 0) exitWith {["No warehouse nearby", "red"] call A3PL_Player_Notification;};
-	private _owners = (_near select 0) getVariable ["owner",[]];
-	if(count _owners isEqualTo 0) exitwith {};
-	private _owner = _owners select 0;
-	if((getPlayerUID player) isEqualTo _owner) exitWith {["You are the owner, only roommates can leave.", "red"] call A3PL_Player_Notification;};
-	[player, _warehouse] remoteExec ["Server_Warehouses_RemoveMember",2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Warehouses_SetMarker",
 {
-	private["_warehouse","_pos"];
-	_warehouse = param [0,objNull];
-	uiSleep 3;
-	_marker = createMarkerLocal [format["warehouse_%1",round (random 1000)],visiblePosition _warehouse];
+	private _warehouse = param [0,objNull];
+	private _marker = createMarkerLocal [format["warehouse_%1",round (random 1000)],visiblePosition _warehouse];
 	_marker setMarkerTypeLocal "A3PL_Markers_TownHall";
 	_marker setMarkerAlphaLocal 1;
 	_marker setMarkerColorLocal "ColorGreen";
@@ -139,4 +120,37 @@
 		};
 	} forEach Config_Warehouses_Prices;
 	_data;
+}] call Server_Setup_Compile;
+
+["A3PL_Warehouses_SellOpen",
+{
+	disableSerialization;
+	private _sign = param[0,objNull];
+	if(isNull _sign) exitWith {};
+	private _near = nearestObjects [player, Config_Warehouses_List, 30,true];
+	if(count(_near) isEqualTo 0) exitWith {["No warehouse nearby", "red"] call A3PL_Player_Notification;};
+	private _warehouse = _near select 0;
+	private _owners = _warehouse getVariable ["owner",[]];
+	if(count _owners isEqualTo 0) exitwith {};
+	private _owner = _owners select 0;
+	if((getPlayerUID player) isEqualTo _owner) then {
+		createDialog "Dialog_EstateSell";
+		private _display = findDisplay 67;
+		private _price = ([_warehouse] call A3PL_Warehouses_GetData) * 0.75;
+		private _control = _display displayCtrl 1100;
+		_control ctrlSetStructuredText parseText format ["<t align='left'>$ %1</t>",[_price, 1, 0, true] call CBA_fnc_formatNumber];
+	} else {
+		[localize"STR_NewHousing_23", "red"] call A3PL_Player_Notification;
+	};
+}] call Server_Setup_Compile;
+
+["A3PL_Warehouses_Sell",
+{
+	closeDialog 0;
+	private _sign = (nearestObjects [player, ["Land_A3PL_BusinessSign"], 10,true]) select 0;
+	private _warehouse = (nearestObjects [player, Config_Warehouses_List, 30,true]) select 0;
+	private _whPrice = ([_warehouse,1] call A3PL_Warehouses_GetData) * 0.7;
+	[player,50] call A3PL_Level_AddXP;
+	[getPos player,_whPrice, _sign, _warehouse] remoteExec ["Server_Warehouses_Sold",2];
+	[getPlayerUID player,"warehouseSold",["Price",_whPrice]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;

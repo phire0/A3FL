@@ -148,6 +148,7 @@ class CfgRemoteExec
 		class Server_Warehouses_Initialize{allowedTargets=2;};
 		class Server_Warehouses_RemoveMember{allowedTargets=2;};
 		class Server_Warehouses_AddMember{allowedTargets=2;};
+		class Server_Warehouses_Sold{allowedTargets=2;};
 
 		//Police
 		class A3PL_Police_MirandaCard {allowedTargets = 0;};

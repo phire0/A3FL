@@ -463,6 +463,7 @@ Config_IntersectArray =
 	["sign_business",localize"STR_INTSECT_SELLBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\business_sign\business_rented_co.paa") && {[getPlayerUID player] call A3PL_Config_IsCompanyBoss}}],
 
 	["sign_business","Purchase Warehouse",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{count nearestObjects[player,Config_Warehouses_List,15] > 0}],
+	["sign_business","Sell Warehouse",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(count nearestObjects[player,Config_Warehouses_List,15] > 0) && {((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\business_sign\business_rented_co.paa"}}],
 
 	//FD interactions
 	//interactions on adapter ends
@@ -1786,6 +1787,7 @@ Config_GenArray =
 	localize"STR_INTSECT_IMPNEARVEH",
 	"Ship Ramp",
 	"Purchase Warehouse",
+	"Sell Warehouse",
 	"Chemical Dealer",
 	localize"STR_QuickActionsNPC_FakeID",
 	"Produce Cocaine Base",

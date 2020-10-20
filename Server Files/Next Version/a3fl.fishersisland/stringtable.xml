@@ -7247,6 +7247,9 @@
    <Key ID="STR_SERVER_HOUSING_SELLHOUSE">
       <Original>You sold this house for $%1</Original>
    </Key>
+   <Key ID="STR_SERVER_HOUSING_SELLWHOUSE">
+      <Original>You sold your warehouse for $%1</Original>
+   </Key>
    <Key ID="STR_SERVER_ROAD_PAY">
       <Original>You received a $%1 bonus for impounding</Original>
    </Key>
@@ -8887,7 +8890,7 @@
         <Original>You have withdrawen your house from the sale</Original>
       </Key>
       <Key ID="STR_NewHousing_23">
-        <Original>Only the first signatory of the house can put it on sale</Original>
+        <Original>Only the owner can sell a property</Original>
       </Key>
       <Key ID="STR_NewHousing_24">
         <Original>This house is now purchasable</Original>
