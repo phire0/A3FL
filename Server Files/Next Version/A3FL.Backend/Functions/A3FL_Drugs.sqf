@@ -96,7 +96,7 @@
 		case(_type IN ["weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g"]): {
 			_index = 2;
 		};
-		case (_type in ["coffee_cup_large","coffee_cup_medium","coffee_cup_small"]): {
+		case (_type in ["coffee_cup_large","coffee_cup_medium","coffee_cup_small", "coffee"]): {
 			_index = 3;
 		};
 	};

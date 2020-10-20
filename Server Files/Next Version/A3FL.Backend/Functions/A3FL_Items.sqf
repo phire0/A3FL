@@ -27,9 +27,26 @@
 	Player_Item setVectorDirAndUp [[0,1,0],[0,0,1]];
 	sleep 4.5;
 
-	if (_classname in ["coffee_cup_large","coffee_cup_medium","coffee_cup_small"]) then {
+	// Apply effects for small coffee
+	if (_classname isEqualTo "coffee_cup_small" || _classname isEqualTo "coffee") then {
+		// Coffee effects last 8 mins, drug loop is every 30s
+		[_classname, (8 * 2)] call A3PL_Drugs_Add;
+		// 3 minutes, drug loop ran every 30 seconds
+		player setVariable ["CoffeeSlowTime", (3 * 2), true];
+	};
+
+	// Apply effects for medium coffee
+	if (_classname isEqualTo "coffee_cup_medium") then {
 		// Coffee effects last 10 mins, drug loop is every 30s
 		[_classname, (10 * 2)] call A3PL_Drugs_Add;
+		// 3 minutes, drug loop ran every 30 seconds
+		player setVariable ["CoffeeSlowTime", (3 * 2), true];
+	};
+
+	// Apply effects for large coffee
+	if (_className isEqualTo "coffee_cup_large") then {
+		// Coffee effects last 12 mins, drug loop is every 30s
+		[_classname, (12 * 2)] call A3PL_Drugs_Add;
 		// 3 minutes, drug loop ran every 30 seconds
 		player setVariable ["CoffeeSlowTime", (3 * 2), true];
 	};
