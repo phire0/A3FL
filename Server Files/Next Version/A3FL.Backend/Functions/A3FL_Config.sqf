@@ -113,6 +113,7 @@
 		default { _return = _config; };
 		case "quality": { _return = _config select 1; };
 		case "alcohol": { _return = _config select 2; };
+		case "coffeeTime": { _return = _config select 3; };
 	};
 	_return;
 }] call Server_Setup_Compile;

@@ -12,6 +12,7 @@
 	private _classname = Player_ItemClass;
 	private _quality = [_classname, "quality"] call A3PL_Config_GetThirst;
 	private _alcohol = [_classname, "alcohol"] call A3PL_Config_GetThirst;
+	private _coffeeTime = [_classname, "coffeeTime"] call A3PL_Config_GetThirst;
 	if (Player_ItemClass isEqualTo "") exitwith {[localize"STR_NewItems_12","red"] call A3PL_Player_Notification;};
 	if (!isNil "Player_isDrinking") exitwith {[localize"STR_NewItems_11","red"] call A3PL_Player_Notification;};
 	Player_isDrinking = true;
@@ -27,28 +28,15 @@
 	Player_Item setVectorDirAndUp [[0,1,0],[0,0,1]];
 	sleep 4.5;
 
-	// Apply effects for small coffee
-	if (_classname isEqualTo "coffee_cup_small" || _classname isEqualTo "coffee") then {
-		// Coffee effects last 8 mins, drug loop is every 30s
-		[_classname, (8 * 2)] call A3PL_Drugs_Add;
+	if (_coffeeTime > 0) then {
+		// Apply coffee effects, time is doubled because loop is run every 30s
+		[_classname, (_coffeeTime * 2)] call A3PL_Drugs_Add;
+			
 		// 3 minutes, drug loop ran every 30 seconds
 		player setVariable ["CoffeeSlowTime", (3 * 2), true];
-	};
-
-	// Apply effects for medium coffee
-	if (_classname isEqualTo "coffee_cup_medium") then {
-		// Coffee effects last 10 mins, drug loop is every 30s
-		[_classname, (10 * 2)] call A3PL_Drugs_Add;
-		// 3 minutes, drug loop ran every 30 seconds
-		player setVariable ["CoffeeSlowTime", (3 * 2), true];
-	};
-
-	// Apply effects for large coffee
-	if (_className isEqualTo "coffee_cup_large") then {
-		// Coffee effects last 12 mins, drug loop is every 30s
-		[_classname, (12 * 2)] call A3PL_Drugs_Add;
-		// 3 minutes, drug loop ran every 30 seconds
-		player setVariable ["CoffeeSlowTime", (3 * 2), true];
+			
+		// Player notification
+		[format["This coffee has given you a stamina boost for %1 minutes, use it wisely before you start to slow down!",str(_coffeeTime)], "green"] call A3PL_Player_Notification;
 	};
 
 	if(_alcohol) then {

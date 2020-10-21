@@ -97,12 +97,15 @@
 			_index = 2;
 		};
 		case (_type in ["coffee_cup_large","coffee_cup_medium","coffee_cup_small", "coffee"]): {
+			// Coffee stacking is prevented because you cannot
+			// overdose on coffee
+			if (((Player_Drugs select 3) > 0) || ((player getVariable ["CoffeeSlowTime", "0"]) > 0)) exitWith {};
+
 			_index = 3;
 		};
 	};
 
 	if(_index < 0) exitwith {};
-	if ((_index == 3) && ((Player_Drugs select 3) > 0)) exitWith {};
 
 	private _new = (Player_Drugs select _index) + (_add);
 	player setVariable["drugs",true,true];
@@ -217,7 +220,8 @@
 		player setAnimSpeedCoef 1.7;
 	};
 
-	if (((player getVariable["CoffeeSlowTime, 0"]) > 0) && ((Player_Drugs select 3) == 0)) then {
+	if (((player getVariable ["CoffeeSlowTime", "0"]) > 0) && ((Player_Drugs select 3) == 0)) then {
+		if ((player getVariable ["CoffeeSlowTime", "0"]) isEqualTo 6) then {["Your caffeine has ran out and it has had an effect on your energy...", "red"] call A3PL_Player_Notification;};
 		player setVariable ["CoffeeSlowTime", ((player getVariable ["CoffeeSlowTime", 0]) - 1), true];
 		player setAnimSpeedCoef 0.7;
 	};

@@ -64,18 +64,18 @@ Config_Food =
 ];
 publicVariable "Config_Food";
 
-//['class',gain,isAlcohol]
+//['class', gain, isAlcohol, coffeeEffectsLength (Minutes)]
 Config_Thirst =
 [
-	["coffee",30,false],
-	["coke",30,false],
-	["waterbottle",50,false],
-	["coffee_cup_large",50,false],
-	["coffee_cup_medium",40,false],
-	["coffee_cup_small",30,false],
+	["coffee",30,false,8],
+	["coke",30,false,0],
+	["waterbottle",50,false,0],
+	["coffee_cup_large",50,false,12],
+	["coffee_cup_medium",40,false,10],
+	["coffee_cup_small",30,false,8],
 
 	//Alcohol
-	["beer",10,true],
-	["beer_gold",30,true]
+	["beer",10,true,0],
+	["beer_gold",30,true,0]
 ];
 publicVariable "Config_Thirst";
