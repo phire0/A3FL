@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-//['class',gain,isDrug]
+//['class', gain, isDrug]
 Config_Food =
 [
 	["tacoshell",2,false],
