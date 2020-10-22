@@ -89,11 +89,11 @@ Config_Shops_Items = [
 			["item","waterbottle",500,30,0],
 			["item","bread",300,30,0],
 			["item","apple",50,11,0],
-			["item", "beer", 450,50,0],
-			["item", "beer_gold", 600,50,0],
-			["item", "coffee_cup_small",600,40,0],
-			["item", "coffee_cup_medium",900,50,0],
-			["item", "coffee_cup_large",1200,60,0]
+			["item","beer", 450,50,0],
+			["item","beer_gold", 600,50,0],
+			["item","coffee_cup_small",600,40,0],
+			["item","coffee_cup_medium",900,50,0],
+			["item","coffee_cup_large",1200,60,0]
 		],{[2556.8,5478.85,0.2]}
 	],
 
@@ -630,16 +630,16 @@ Config_Shops_Items = [
 			["uniform","A3PL_SD_Sh_Tan_Uniform",0,-1,0],
 			["uniform","A3PL_ERT_Fatigues_Uniform",0,-1,0],
 			["uniform","A3PL_FISD_ESU_Green_Uniform",0,-1,0],
-			["uniform","A3PL_Detective_WhiTan_Uniform",0,-1,-],
-			["uniform","A3PL_Detective_BluBlk_Uniform",0,-1,-],
-			["uniform","A3PL_Detective_BluTan_Uniform",0,-1,-],
-			["uniform","A3PL_Detective_DBlueBlk_Uniform",0,-1,-],
-			["uniform","A3PL_Detective_DBlueTan_Uniform",0,-1,-],
-			["uniform","A3PL_Detective_DGreyTan_Uniform",0,-1,-],
-			["uniform","A3PL_Detective_DPurpleBlk_Uniform",0,-1,-],
-			["uniform","A3PL_Detective_DPurpleTan_Uniform",0,-1,-],
-			["uniform","A3PL_Detective_RedBlk_Uniform",0,-1,-],
-			["uniform","A3PL_Detective_RedTan_Uniform",0,-1,-],
+			["uniform","A3PL_Detective_WhiTan_Uniform",0,-1,0],
+			["uniform","A3PL_Detective_BluBlk_Uniform",0,-1,0],
+			["uniform","A3PL_Detective_BluTan_Uniform",0,-1,0],
+			["uniform","A3PL_Detective_DBlueBlk_Uniform",0,-1,0],
+			["uniform","A3PL_Detective_DBlueTan_Uniform",0,-1,0],
+			["uniform","A3PL_Detective_DGreyTan_Uniform",0,-1,0],
+			["uniform","A3PL_Detective_DPurpleBlk_Uniform",0,-1,0],
+			["uniform","A3PL_Detective_DPurpleTan_Uniform",0,-1,0],
+			["uniform","A3PL_Detective_RedBlk_Uniform",0,-1,0],
+			["uniform","A3PL_Detective_RedTan_Uniform",0,-1,0],
 			["uniform","A3PL_SD_Sh_White_Uniform",0,-1,0],
 			["uniform","A3PL_SD_Und_Sh_White_Uniform",0,-1,0],
 			["uniform","A3PL_SD_Capt_White_Uniform",0,-1,0],
@@ -1201,7 +1201,7 @@ Config_Shops_Items = [
 			["vehicle","A3PL_Wrangler",55050,0,0],
 			["vehicle","A3PL_Ram",55050,0,0],
 			["vehicle","A3PL_Car_Trailer",15000,0,0]
-		],{[9830.38,7919.31,0.02]}
+		],{[9837.89,7877.28,0.2]}
 	],
 
 	//New NPCS
