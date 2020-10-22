@@ -452,7 +452,18 @@ Config_Factories =
 		["f_FICS_Manager_Uniform","","inh","inh","A3PL_FICS_Manager_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_FICS_Executive_Uniform","","inh","inh","A3PL_FICS_Executive_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Watchful_Eyes_Hunter_Uniform","","inh","inh","A3PL_Watchful_Eyes_Hunter_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
-		["f_Sorrento_Shirt_Uniform","","inh","inh","A3PL_Sorrento_Shirt_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""]
+		["f_Sorrento_Shirt_Uniform","","inh","inh","A3PL_Sorrento_Shirt_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Nike_Black_Uniform","","inh","inh","A3PL_Nike_Black_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Axel_Swimmer_Uniform","","inh","inh","A3PL_Axel_Swimmer_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_AI_Polo_Uniform","","inh","inh","A3PL_AI_Polo_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Construction_Uniform","","inh","inh","A3PL_SmithCo_Construction_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Worker_Uniform","","inh","inh","A3PL_SmithCo_Worker_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Polo_Plain_Uniform","","inh","inh","A3PL_SmithCo_Polo_Plain_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Polo_Plain_Supervisor_Uniform","","inh","inh","A3PL_SmithCo_Polo_Plain_Supervisor_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Polo_Pink_Uniform","","inh","inh","A3PL_SmithCo_Polo_Pink_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Polo_Pink_Supervisor_Uniform","","inh","inh","A3PL_SmithCo_Polo_Pink_Supervisor_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Polo_Security_Uniform","","inh","inh","A3PL_SmithCo_Polo_Security_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Halstead_Uniform","","inh","inh","A3PL_Halstead_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
 	["Vest Factory",[3345.15,7503.76,1.5],
@@ -473,7 +484,12 @@ Config_Factories =
 		["f_Express_vest","","inh","inh","A3PL_Express_vest","vest",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Evergreen_Vest","","inh","inh","A3PL_Evergreen_Vest","vest",true,5,[["Polyester",1]],1,1,0,""],
 		["f_DeadwoodMC_Vest","","inh","inh","A3PL_DeadwoodMC_Vest","vest",true,5,[["Polyester",1]],1,1,0,""],
-		["f_JoseConstruct_Safety_Vest","","inh","inh","A3PL_JoseConstruct_Safety_Vest","vest",true,5,[["Polyester",1]],1,1,0,""]
+		["f_JoseConstruct_Safety_Vest","","inh","inh","A3PL_JoseConstruct_Safety_Vest","vest",true,5,[["Polyester",1]],1,1,0,""],
+		["f_AI_Safety_Vest","","inh","inh","A3PL_AI_Safety_Vest","vest",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Safety_Vest","","inh","inh","A3PL_SmithCo_Safety_Vest","vest",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Safety_Vest_Supervisor","","inh","inh","A3PL_SmithCo_Safety_Vest_Supervisor","vest",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Safety_Vest_Security","","inh","inh","A3PL_SmithCo_Safety_Vest_Security","vest",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Safety_Vest_Towing","","inh","inh","A3PL_SmithCo_Safety_Vest_Towing","vest",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
 	["Headgear Factory",[3345.15,7503.76,1.1],
@@ -633,7 +649,10 @@ Config_Factories =
 		["f_H_HeadSet_yellow_F","","inh","inh","H_HeadSet_yellow_F","headgear",true,5,[["Plastic",1]],1,1,0,""],
 		["f_H_Evergreen_Cap","","inh","inh","A3PL_Evergreen_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
 		["f_H_FRIGGUS_Cap","","inh","inh","A3PL_FRIGGUS_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
-		["f_COD3_Cap","","inh","inh","A3PL_COD3_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""]
+		["f_COD3_Cap","","inh","inh","A3PL_COD3_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
+		["f_AI_Cap","","inh","inh","A3PL_AI_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Cap","","inh","inh","A3PL_SmithCo_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""],
+		["f_SmithCo_Towing_Cap","","inh","inh","A3PL_SmithCo_Towing_Cap","headgear",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
 	["Goggle Factory",[3345.15,7503.76,1.1],
