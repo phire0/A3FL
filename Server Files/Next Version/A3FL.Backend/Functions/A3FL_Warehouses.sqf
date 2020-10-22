@@ -150,7 +150,7 @@
 	closeDialog 0;
 	private _sign = (nearestObjects [player, ["Land_A3PL_BusinessSign"], 10,true]) select 0;
 	private _warehouse = (nearestObjects [player, Config_Warehouses_List, 30,true]) select 0;
-	private _whPrice = ([_warehouse,1] call A3PL_Warehouses_GetData) * 0.7;
+	private _whPrice = ([_warehouse,1] call A3PL_Warehouses_GetData) * 0.75;
 	[player,50] call A3PL_Level_AddXP;
 	[getPos player,_whPrice, _sign, _warehouse] remoteExec ["Server_Warehouses_Sold",2];
 	[getPlayerUID player,"warehouseSold",["Price",_whPrice]] remoteExec ["Server_Log_New",2];
