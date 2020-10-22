@@ -846,10 +846,10 @@ Server_Setup_Compile = {
 		_doorid = _x select 2;
 
 		_near = nearestObjects [_pos, ["Land_John_Hangar","Land_A3FL_Warehouse"], 10,true];
-		if (count _near == 0) exitwith
+		if (count _near isEqualTo 0) exitwith
 		{
-			/*_query = format ["CALL RemovedHouse('%1');",_pos];
-			[_query,1] spawn Server_Database_Async;*/
+			_query = format ["DELETE FROM warehouses WHERE location = '%1'",_pos];
+			[_query,1] spawn Server_Database_Async;
 		};
 		_near = _near select 0;
 		if (!([_pos,(getpos _near)] call BIS_fnc_areEqual)) then
