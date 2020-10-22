@@ -163,8 +163,6 @@ Server_Setup_Compile = {
 		player setVariable ["working",false,true];
 		player setVariable ["DoubleTapped",false,true];
 
-		player setVariable ["CoffeeSlowTime", 0, true];
-
 		//okay, we are out of the loop, lets set the markers for houses
 		_control = (_display displayCtrl 11059);
 		_control progressSetPosition 0.4;

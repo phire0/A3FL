@@ -26,11 +26,11 @@
 		Player_Alcohol = 0;
 		Player_Alcohol = profileNamespace setVariable ["player_alcohol",0];
 	};
-	// [shrooms,cocaine,weed,coffee]
-	Player_Drugs = profileNamespace getVariable ["player_drugs",[0,0,0,0]];
+	// [shrooms,cocaine,weed]
+	Player_Drugs = profileNamespace getVariable ["player_drugs",[0,0,0]];
 	if (!(typeName Player_Drugs == "ARRAY")) then {
-		Player_Drugs = [0,0,0,0];
-		Player_Drugs = profileNamespace setVariable ["player_drugs",[0,0,0,0]];
+		Player_Drugs = [0,0,0];
+		Player_Drugs = profileNamespace setVariable ["player_drugs",[0,0,0]];
 	};
 	if (profilenamespace getVariable ["A3PL_ShowGrass",true]) then {
 		setTerrainGrid 25;

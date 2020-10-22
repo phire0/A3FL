@@ -28,15 +28,38 @@
 	Player_Item setVectorDirAndUp [[0,1,0],[0,0,1]];
 	sleep 4.5;
 
+	// If the associated drink has a coffee time
 	if (_coffeeTime > 0) then {
-		// Apply coffee effects, time is doubled because loop is run every 30s
-		[_classname, (_coffeeTime * 2)] call A3PL_Drugs_Add;
-			
-		// 3 minutes, drug loop ran every 30 seconds
-		player setVariable ["CoffeeSlowTime", (3 * 2), true];
-			
-		// Player notification
-		[format["This coffee has given you a stamina boost for %1 minutes, use it wisely before you start to slow down!",str(_coffeeTime)], "green"] call A3PL_Player_Notification;
+		// If you're not currently on coffee
+		if (!(player getVariable ["UsingCoffee", false])) then {
+			// You now are on coffee...
+			player setVariable ["UsingCoffee", true, true];
+
+			// Add effect handler to the scheduler
+			[_coffeeTime] spawn {
+				// Apply faster speed
+				[format["You have drank coffee and will now be faster for %1 minutes!", _coffeeTime], "green"] call A3PL_Player_Notification;
+				player setAnimSpeedCoef 1.7;
+
+				// Sleep for the coffee effect duration
+				sleep (_coffeeTime * 60);
+
+				// Slower speed
+				["You have run out of caffeine!", "amber"] call A3PL_Player_Notification;
+				player setAnimSpeedCoef 0.7;
+
+				// Sleep for the slowness length (3 minutes)
+				sleep 180;
+
+				// Back to normal
+				["Your energy is now back to normal!", "green"] call A3PL_Player_Notification;
+				player setAnimSpeedCoef 1;
+
+				player setVariable ["UsingCoffee", false, true];
+			};
+		} else {
+			["You are already experiencing a caffeine high, this coffee will not impact your speed!", "amber"] call A3PL_Player_Notification;
+		};
 	};
 
 	if(_alcohol) then {

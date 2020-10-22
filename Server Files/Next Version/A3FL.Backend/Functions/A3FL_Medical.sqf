@@ -978,7 +978,7 @@
 	Player_Hunger = 100;
 	Player_Thirst = 100;
 	Player_Alcohol = 0;
-	Player_Drugs = [0,0,0,0];
+	Player_Drugs = [0,0,0];
 	profileNamespace setVariable ["player_hunger",Player_Hunger];
 	profileNamespace setVariable ["player_thirst",Player_Thirst];
 	profileNamespace setVariable ["player_alcohol",Player_Alcohol];

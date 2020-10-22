@@ -80,7 +80,7 @@
 	call A3PL_Alcohol_Verify;
 }] call Server_Setup_Compile;
 
-//Player_Drugs = [shrooms,cocaine,weed,coffee]
+//Player_Drugs = [shrooms,cocaine,weed]
 ["A3PL_Drugs_Add",
 {
 	private _type = param [0,"unknown"];
@@ -95,13 +95,6 @@
 		};
 		case(_type IN ["weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g"]): {
 			_index = 2;
-		};
-		case (_type in ["coffee_cup_large","coffee_cup_medium","coffee_cup_small", "coffee"]): {
-			// Coffee stacking is prevented because you cannot
-			// overdose on coffee
-			if (((Player_Drugs select 3) > 0) || ((player getVariable ["CoffeeSlowTime", "0"]) > 0)) exitWith {};
-
-			_index = 3;
 		};
 	};
 
@@ -120,19 +113,12 @@
 		_totalDrugs = _totalDrugs + _x;
 	} foreach Player_Drugs;
 
-	// Reduce coffee slow time
-	if (((player getVariable ["CoffeeSlowTime", "0"]) > 0) && ((Player_Drugs select 3) == 0)) then {
-		if ((player getVariable ["CoffeeSlowTime", "0"]) isEqualTo 6) then {["Your caffeine has ran out and it has had an effect on your energy...", "red"] call A3PL_Player_Notification;};
-		player setVariable ["CoffeeSlowTime", ((player getVariable ["CoffeeSlowTime", 0]) - 1), true];
-		player setAnimSpeedCoef 0.7;
-	};
-
-	if (_totalDrugs <= 0) exitWith {call A3PL_Drugs_ResetEffects;};
+	if((_totalDrugs <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Drugs_ResetEffects;};
 
 	//Incapacitated from too much drugs!
-	if((_totalDrugs - (Player_Drugs select 3)) >= 250) exitWith {
-		profileNamespace setVariable ["player_drugs",[0,0,0,0]];
-		Player_Drugs = [0,0,0,0];
+	if((_totalDrugs >= 250) exitWith {
+		profileNamespace setVariable ["player_drugs",[0,0,0]];
+		Player_Drugs = [0,0,0];
 		[player, "left upper arm", "drug_overdose"] call A3PL_Medical_ApplyWound;
 	};
 
@@ -222,11 +208,6 @@
 		};
 	};
 
-	// Coffee
-	if((Player_Drugs select 3) > 0) then {
-		player setAnimSpeedCoef 1.7;
-	};
-
 	//Decrease Drug level
 	{
 		if(_x > 0) then {
@@ -238,11 +219,11 @@
 
 ["A3PL_Drugs_ResetEffects",
 {
-	Player_Drugs = [0,0,0,0];
+	Player_Drugs = [0,0,0];
 	player setVariable["drugs",false,true];
 	resetCamShake;
 	enableCamShake false;
-	if ((!pVar_FastAnimationOn) && ((player getVariable ["CoffeeSlowTime", 0]) <= 0)) then {player setAnimSpeedCoef 1;};
+	if(!pVar_FastAnimationOn) then {player setAnimSpeedCoef 1;};
 	"colorCorrections" ppEffectEnable false;
 	"ChromAberration" ppEffectEnable false;
 	"RadialBlur" ppEffectEnable false;
@@ -267,8 +248,7 @@
 		_shrooms = _drugLevel select 0;
 		_coke = _drugLevel select 1;
 		_weed = _drugLevel select 2;
-		_coffee = _drugLevel select 3;
-		[format["Cocaine: %1<br/>Marijuana: %2<br/>Shrooms: %3<br/>Coffee: %4",_coke,_weed,_shrooms,_coffee],"blue"] remoteExec ["A3PL_Player_Notification",_cop];
+		[format["Cocaine: %1<br/>Marijuana: %2<br/>Shrooms: %3",_coke,_weed,_shrooms],"blue"] remoteExec ["A3PL_Player_Notification",_cop];
 	} else {
 		_totalDrugs = 0;
 		{_totalDrugs = _totalDrugs + _x;} foreach _drugLevel;
