@@ -120,7 +120,14 @@
 		_totalDrugs = _totalDrugs + _x;
 	} foreach Player_Drugs;
 
-	if((_totalDrugs <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Drugs_ResetEffects;};
+	// Reduce coffee slow time
+	if (((player getVariable ["CoffeeSlowTime", "0"]) > 0) && ((Player_Drugs select 3) == 0)) then {
+		if ((player getVariable ["CoffeeSlowTime", "0"]) isEqualTo 6) then {["Your caffeine has ran out and it has had an effect on your energy...", "red"] call A3PL_Player_Notification;};
+		player setVariable ["CoffeeSlowTime", ((player getVariable ["CoffeeSlowTime", 0]) - 1), true];
+		player setAnimSpeedCoef 0.7;
+	};
+
+	if (_totalDrugs <= 0) exitWith {call A3PL_Drugs_ResetEffects;};
 
 	//Incapacitated from too much drugs!
 	if((_totalDrugs - (Player_Drugs select 3)) >= 250) exitWith {
@@ -218,12 +225,6 @@
 	// Coffee
 	if((Player_Drugs select 3) > 0) then {
 		player setAnimSpeedCoef 1.7;
-	};
-
-	if (((player getVariable ["CoffeeSlowTime", "0"]) > 0) && ((Player_Drugs select 3) == 0)) then {
-		if ((player getVariable ["CoffeeSlowTime", "0"]) isEqualTo 6) then {["Your caffeine has ran out and it has had an effect on your energy...", "red"] call A3PL_Player_Notification;};
-		player setVariable ["CoffeeSlowTime", ((player getVariable ["CoffeeSlowTime", 0]) - 1), true];
-		player setAnimSpeedCoef 0.7;
 	};
 
 	//Decrease Drug level
