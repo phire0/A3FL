@@ -393,7 +393,7 @@
 	_display = findDisplay 139;
 	_control = _display displayCtrl 1500;
 	_isPaid = _control lbValue (lbCurSel _control);
-	if(_isPaid isEqualTo 0) exitWith {[format[localize"STR_SERVER_COMPANY_ALREDAYPAID",_amount-_pBank],"red"] call A3PL_Player_Notification;};
+	if(_isPaid isEqualTo 1) exitWith {[format[localize"STR_SERVER_COMPANY_ALREDAYPAID",_amount-_pBank],"red"] call A3PL_Player_Notification;};
 
 	_control = _display displayCtrl 1001;
 	_amount = parseNumber (ctrlText _control);
@@ -419,7 +419,7 @@
 	_display = findDisplay 139;
 	_control = _display displayCtrl 1500;
 	_isPaid = _control lbValue (lbCurSel _control);
-	if(_isPaid isEqualTo 0) exitWith {[format[localize"STR_SERVER_COMPANY_ALREDAYPAID",_amount-_pBank],"red"] call A3PL_Player_Notification;};
+	if(_isPaid isEqualTo 1) exitWith {[format[localize"STR_SERVER_COMPANY_ALREDAYPAID",_amount-_pBank],"red"] call A3PL_Player_Notification;};
 
 	_control = _display displayCtrl 1001;
 	_amount = parseNumber (ctrlText _control);
