@@ -139,6 +139,7 @@
 		private _price = ([_warehouse] call A3PL_Warehouses_GetData) * 0.75;
 		private _control = _display displayCtrl 1100;
 		_control ctrlSetStructuredText parseText format ["<t align='left'>$ %1</t>",[_price, 1, 0, true] call CBA_fnc_formatNumber];
+		buttonSetAction [100, "call A3PL_Warehouses_Sell;"];		
 	} else {
 		[localize"STR_NewHousing_23", "red"] call A3PL_Player_Notification;
 	};
