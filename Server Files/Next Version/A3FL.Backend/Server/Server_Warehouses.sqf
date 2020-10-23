@@ -267,6 +267,7 @@
 	_sign setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_sale_co.paa"];
 
 	private _uids = _warehouse getVariable ["owner",[]];
+	private _id = (_warehouse getVariable ["doorid",[]]) select 1;
 	private _query = format ["DELETE FROM warehouses WHERE location ='%1'",getPos(_warehouse)];
 	[_query,1] spawn Server_Database_Async;
 
@@ -277,13 +278,15 @@
 
 	private _furnitures = nearestObjects [_pos, ["Thing"], 100];
 	{if((_x getVariable "owner") isEqualTo _uid) then {deleteVehicle _x;};} foreach _furnitures;
+	deleteMarker ([getPos _warehouse, "warehouse"] A3PL_Lib_NearestMarker);
 
 	private _player = [_uid] call A3PL_Lib_UIDToObject;
 	if(!isNull _player) then {
 		_pBank = _player getVariable["Player_Bank",0];
+		_keys = _player	getVariable["keys",[]];
 		_player setVariable["Player_Bank",_pBank + _clientPart,true];
-		_player setVariable ["keys",[],true];
-		_player setVariable ["house",nil,true];
+		_player setVariable ["keys",_keys - [_id],true];
+		_player setVariable ["warehouse",nil,true];
 		[format[localize"STR_SERVER_HOUSING_SELLWHOUSE",_clientPart], "green"] remoteExec ["A3PL_Player_Notification",_player];
 	};
 },true] call Server_Setup_Compile;
