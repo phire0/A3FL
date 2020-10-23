@@ -721,7 +721,7 @@ A3PL_Interaction_Options =
 				private _heli = (vehicle player) getVariable ["vehicle",objNull];
 				private _crew = crew _heli;
 				private _available = true;
-				if (isNull) exitwith {["Cannot find the helicopter","red"] call A3PL_Player_Notification;};
+				if (isNull _heli) exitwith {["Cannot find the helicopter","red"] call A3PL_Player_Notification;};
 				{if ((_heli getCargoIndex _x) isEqualTo 6) exitwith {_available = false;};} foreach (crew _heli);
 				if (!_available) exitwith {[localize "STR_INTER_EXITINTOHEILD","red"] call A3PL_Player_Notification;};
 				_veh lock 0;
@@ -1135,7 +1135,6 @@ A3PL_Interaction_Options =
 		{(vehicle player) animateDoor["Door_RB2",0];},
 		{((typeOf (vehicle player)) isEqualTo "A3FL_AS_365") && {(player isEqualTo ((vehicle player) turretUnit [1]))} && {((vehicle player) animationSourcePhase "Door_RB2") isEqualTo 1}}
 	],
-
 
 	[
 		"Toggle Garage",
