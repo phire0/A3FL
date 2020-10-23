@@ -52,16 +52,14 @@
 
 ["A3PL_AdminTitle", {
 	params[["_player",objNull,[objNull]]];
-	private _title = "Admin";
-	switch(_player getVariable["dbVar_AdminLevel",0]) do {
-		case(0): {_title = "";};
-		case(1): {_title = "Executive";};
-		case(2): {_title = "Exec. Supervisor";};
-		case(3): {_title = "Developer";};
-		case(4): {_title = "Lead Developer";};
-		case(5): {_title = "Chief";};
-		case(6): {_title = "Sub-Director";};
-		case(7): {_title = "Director";};
+	private _title = switch(_player getVariable["dbVar_AdminLevel",0]) do {
+		case(0): {""};
+		case(1): {"Executive"};
+		case(2): {"Exec. Supervisor";};
+		case(3): {"Developer"};
+		case(5): {"Chief"};
+		case(6): {"Sub-Director"};
+		case(7): {"Director"};
 	};
 	_title;
 }] call Server_Setup_Compile;
@@ -159,7 +157,11 @@
 
 ["A3PL_Admin_TwitterTagsCombo", {
 	private _display = findDisplay 98;
-	{lbAdd [2102, _x select 0];} foreach adminTagsList;
+	{
+		if(_forEachIndex <= pVar_AdminLevel) then {
+			lbAdd [2102, _x select 0];
+		};
+	} foreach adminTagsList;
 	(_display displayCtrl 2102) ctrlAddEventHandler ["lbSelChanged","call A3PL_Admin_SetTwitterTag;"];
 }] call Server_Setup_Compile;
 
@@ -171,6 +173,7 @@
 
 ["A3PL_Admin_FactionCombo", {
 	private _display = findDisplay 98;
+	if!("Faction" IN (player getVariable ["dbVar_AdminPerms",[]])) exitWith {};
 	{lbAdd [2103, _x select 0];} foreach factionsList;
 	(_display displayCtrl 2103) ctrlAddEventHandler ["lbSelChanged","call A3PL_Admin_SetFaction;"];
 }] call Server_Setup_Compile;

@@ -886,10 +886,10 @@ Config_Shops_Items = [
 
 	["Shop_USCG_Plane_Vendor",[
 			["plane","Heli_Medium01_Coastguard_H",15000,3750,0],
-			["plane","A3PL_Jayhawk",20000,5000,0],
-			["plane","A3FL_AS_365",25000,6250,0],
-			["plane","A3PL_Cessna172",28000,7000,0],
-			["plane","A3PL_Goose_USCG",28000,7000,0]
+			["plane","A3PL_Jayhawk",25000,5000,0],
+			//["plane","A3FL_AS_365",85000,6250,0],
+			["plane","A3PL_Cessna172",30000,7000,0],
+			["plane","A3PL_Goose_USCG",30000,7000,0]
 		],{[6576.22,8407.68,0.3]}
 	],
 
