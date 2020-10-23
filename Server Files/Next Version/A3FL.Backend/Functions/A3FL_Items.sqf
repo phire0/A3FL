@@ -38,11 +38,11 @@
 			// Add effect handler to the scheduler
 			[_coffeeTime] spawn {
 				// Apply faster speed
-				[format["You have drank coffee and will now be faster for %1 minutes!", _coffeeTime], "green"] call A3PL_Player_Notification;
+				[format["You have drank coffee and will now be faster for %1 minutes!", (_this select 0)], "green"] call A3PL_Player_Notification;
 				player setAnimSpeedCoef 1.7;
 
 				// Sleep for the coffee effect duration
-				sleep (_coffeeTime * 60);
+				sleep ((_this select 0) * 60);
 
 				// Slower speed
 				["You have run out of caffeine!", "amber"] call A3PL_Player_Notification;
