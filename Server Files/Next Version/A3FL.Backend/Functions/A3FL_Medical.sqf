@@ -296,6 +296,8 @@
 		[_player,format ["%1 sustained a %2 on the %3",(_player getVariable ["name",name _player]),([_wound,"name"] call A3PL_Config_GetWound),_part],[1, 0, 0, 1]] call A3PL_Medical_AddLog;
 		private _bloodLoss = [_wound,"bloodLossInstant"] call A3PL_Config_GetWound;
 		if (_bloodLoss > 0) then {
+			_bloodLoss = [_bloodLoss,_part,_wound] call A3PL_Medical_BloodLoss;
+			hint str _bloodLoss;
 			[_player,[-(_bloodLoss)]] call A3PL_Medical_ApplyVar;
 		};
 	};
@@ -692,6 +694,31 @@
 	} else {
 		_selectionDamage + _projectileDamage;
 	};
+}] call Server_Setup_Compile;
+
+["A3PL_Medical_BloodLoss",
+{
+	params [
+		["_bloodLoss",0,[0]],
+		["_part","",[""]],
+		["_wound","",[""]]
+	];
+	if(!(_wound IN ["bullet_9","bullet_45","bullet_50","bullet_556","bullet_762","bullet_12"])) exitWith {_bloodLoss};
+	private _partDamage = switch(true) do {
+		case ((_part IN ["face_hub","head"]) && (_wound isEqualTo "bullet_9")): {3};
+		case ((_part IN ["face_hub","head"]) && (_wound isEqualTo "bullet_45")): {2.6};
+		case ((_part IN ["face_hub","head"]) && (_wound isEqualTo "bullet_50")): {1.5};
+		case ((_part IN ["face_hub","head"]) && (_wound isEqualTo "bullet_556")): {2.5};
+		case ((_part IN ["face_hub","head"]) && (_wound isEqualTo "bullet_762")): {2.1};
+		case ((_part IN ["face_hub","head"]) && (_wound isEqualTo "bullet_12")): {1};
+
+		case (_part IN ["pelvis","spine1","spine2"]): {1};
+		case (_part IN ["neck","spine3","body"]): {1};
+		case (_part IN ["arms","hands"]): {0.8};
+		case (_part isEqualTo "legs"): {0.8};
+		default {1};
+	};
+	_bloodLoss * _partDamage;
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_GetBulletWound",

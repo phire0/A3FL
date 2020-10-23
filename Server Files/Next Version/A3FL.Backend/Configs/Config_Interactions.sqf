@@ -718,29 +718,28 @@ A3PL_Interaction_Options =
 		{
 			[] spawn {
 				private _veh = vehicle player;
-				private _heli = vehicle player getVariable "vehicle";
+				private _heli = (vehicle player) getVariable ["vehicle",objNull];
 				private _crew = crew _heli;
 				private _available = true;
-				{if ((_heli getCargoIndex _x) == 6) exitwith {_available = false;};} foreach (crew _heli);
-				if (!_available) exitwith {_veh lock 0; unassignVehicle player;player leaveVehicle _veh;player action ["GetOut", _veh]; sleep 1.5;_veh lock 0; player moveInCargo _heli; [localize "STR_INTER_EXITINTOHEILD","red"] call A3PL_Player_Notification;};
+				if (isNull) exitwith {["Cannot find the helicopter","red"] call A3PL_Player_Notification;};
+				{if ((_heli getCargoIndex _x) isEqualTo 6) exitwith {_available = false;};} foreach (crew _heli);
+				if (!_available) exitwith {[localize "STR_INTER_EXITINTOHEILD","red"] call A3PL_Player_Notification;};
 				_veh lock 0;
-				unassignVehicle player;
-				player leaveVehicle _veh;
 				player action ["GetOut", _veh];
 				sleep 1.5;
 				_veh lock 0;
 				player moveInCargo [_heli, 6];
 			};
 		},
-		{(("A3PL_rescueBasket" isEqualTo (typeOf (vehicle player))))}
+		{(("A3PL_RescueBasket" isEqualTo (typeOf (vehicle player))))}
 	],
 	[
 		localize "STR_INTER_INCREASERL",
 		{
 			private _veh = vehicle player;
-			if (typeOf _veh != "A3PL_Jayhawk") exitwith {};
-			if (count ropes _veh < 1) exitwith {};
-			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) + 5];
+			if ((typeOf _veh) != "A3PL_Jayhawk") exitwith {};
+			if ((count (ropes _veh)) < 1) exitwith {};
+			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) + 15];
 		},
 		{((typeOf (vehicle player) isEqualTo "A3PL_Jayhawk") && (local vehicle player) && ((player isEqualTo ((vehicle player) turretUnit [0])) OR (player isEqualTo ((vehicle player) turretUnit [1])) OR (player == (driver vehicle player)))) && (vehicle player animationPhase "Basket" > 0.5)}
 	],
@@ -750,7 +749,7 @@ A3PL_Interaction_Options =
 			private _veh = vehicle player;
 			if (typeOf _veh != "A3PL_Jayhawk") exitwith {};
 			if ((count (ropes _veh)) < 1) exitwith {};
-			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) - 5];
+			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) - 15];
 		},
 		{((typeOf (vehicle player) isEqualTo "A3PL_Jayhawk") && (local vehicle player) && ((player isEqualTo ((vehicle player) turretUnit [0])) OR (player isEqualTo ((vehicle player) turretUnit [1])) OR (player == (driver vehicle player)))) && (vehicle player animationPhase "Basket" > 0.5)}
 	],
@@ -1115,6 +1114,28 @@ A3PL_Interaction_Options =
 		{call A3PL_Company_OpenShopStock;},
 		{((typeOf cursorObject) isKindOf "House") && {([getPlayerUID player] call A3PL_Config_GetCompanyID) isEqualTo (cursorObject getVariable["cid",-1])}}
 	],
+
+	[
+		"Open Door",
+		{(vehicle player) animateDoor["Door_LB2",1];},
+		{((typeOf (vehicle player)) isEqualTo "A3FL_AS_365") && {(player isEqualTo ((vehicle player) turretUnit [2]))}  && {((vehicle player) animationSourcePhase "Door_LB2") isEqualTo 0}}
+	],
+	[
+		"Close Door",
+		{(vehicle player) animateDoor["Door_LB2",0];},
+		{((typeOf (vehicle player)) isEqualTo "A3FL_AS_365") && {(player isEqualTo ((vehicle player) turretUnit [2]))}  && {((vehicle player) animationSourcePhase "Door_LB2") isEqualTo 1}}
+	],
+	[
+		"Open Door",
+		{(vehicle player) animateDoor["Door_RB2",1];},
+		{((typeOf (vehicle player)) isEqualTo "A3FL_AS_365") && {(player isEqualTo ((vehicle player) turretUnit [1]))} && {((vehicle player) animationSourcePhase "Door_RB2") isEqualTo 0}}
+	],
+	[
+		"Close Door",
+		{(vehicle player) animateDoor["Door_RB2",0];},
+		{((typeOf (vehicle player)) isEqualTo "A3FL_AS_365") && {(player isEqualTo ((vehicle player) turretUnit [1]))} && {((vehicle player) animationSourcePhase "Door_RB2") isEqualTo 1}}
+	],
+
 
 	[
 		"Toggle Garage",
