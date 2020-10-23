@@ -175,7 +175,7 @@
 	if (typeOf _intersect IN ["Land_A3PL_storage"]) then {
 		[player,_intersect,_toCompany] remoteExec ["Server_Storage_StoreVehicle",2];
 	} else {
-		private _cars = nearestObjects [player, ["Car","Ship","Air","Tank","Truck"], 15];
+		private _cars = nearestObjects [player, ["Car","Ship","Air","Tank","Truck"], 30];
 		if((count _cars) isEqualTo 0) exitWith {[localize"STR_NewStorage_9", "red"] call A3PL_Player_Notification;};
 		private _car = _cars select 0;
 		if (((_car getVariable "owner") select 0) != (getPlayerUID player)) exitWith {[localize"STR_NewStorage_10", "red"] call A3PL_Player_Notification;};
