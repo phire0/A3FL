@@ -167,7 +167,7 @@
 	private _toCompany = param [0,0];
 	if (isNull _intersect) exitwith {};
 	private _types = ["Car","Ship","Tank","Truck","Plane","Helicopter","Air"];
-	private _near = nearestObjects [_intersect,_types,15];
+	private _near = nearestObjects [_intersect,_types,30];
 
 	if ((count _near) isEqualTo 0) exitwith {[7] call A3PL_Storage_CarStoreResponse;};
 	[8] call A3PL_Storage_CarStoreResponse;
@@ -182,7 +182,7 @@
 		private _atttachedObjects = attachedObjects _car;
 		private _countAttached = count(_attachedObjects);
 		if ((_countAttached > 0 || (_countAttached == 1 && (count(_attachedObjects select 0) == 0)))) exitWith {["Error: Contant a Director if you see this","red"] call A3PL_Player_Notification;};
-		//if (count (attachedObjects _car) > 0) exitWith {["There is objects attached to this vehicle, please unload everything before storing your vehicle.", "red"] call A3PL_Player_Notification;};
+		
 		[_car,player,_toCompany] remoteExec ["Server_Storage_SaveLargeVehicles",2];
 	};
 }] call Server_Setup_Compile;
