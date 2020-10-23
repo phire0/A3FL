@@ -1011,6 +1011,7 @@ Config_Factories =
 		["f_A3PL_M16","","inh","inh","A3PL_M16","weapon",true,240,[["Blueprint_srifle_LRR_SOS_F",1]],1,0,0,""],
 		["f_srifle_LRR_SOS_F","","inh","inh","srifle_LRR_SOS_F","weapon",true,240,[["Blueprint_srifle_LRR_SOS_F",1]],1,0,0,""],
 		["f_6Rnd_GreenSignal_Mag","","inh","inh","6Rnd_GreenSignal_F","magazine",true,10,[["Blueprint_6Rnd_GreenSignal_F",1]],10,0,0,""],
+		["f_Taser_Mag","","inh","inh","A3PL_Taser_Mag","magazine",true,60,[["Blueprint_A3PL_TaserMag",1]],10,0,0,""],
 		["f_Taser2_Mag","","inh","inh","A3PL_Taser2_Mag","magazine",true,60,[["Blueprint_A3PL_TaserMag",1]],10,0,0,""],
 		["f_Red_Glock_Mag","","inh","inh","A3PL_Red_Glock_Mag","magazine",true,60,[["Blueprint_A3PL_Red_Glock_Mag",1]],10,0,0,""],
 		["f_P226_Mag","","inh","inh","A3PL_P226_Mag","magazine",true,60,[["Blueprint_A3PL_P226_Mag",1]],10,0,0,""],
