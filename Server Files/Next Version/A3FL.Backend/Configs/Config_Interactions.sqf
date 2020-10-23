@@ -1137,6 +1137,30 @@ A3PL_Interaction_Options =
 	],
 
 	[
+		"Stop Towing",
+		{[player_objintersect] call A3PL_USCG_UntowBoat;},
+		{((typeOf player_objintersect) isEqualTo "A3PL_RBM") && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {(player_objintersect getVariable ["towing",false])}}
+	],
+	[
+		"Prepare Towing",
+		{
+			player_objintersect spawn {
+				A3FL_BoatTow = _this;
+				["RBM is ready for towing!","green"] call A3PL_Player_Notification;
+				sleep 300;
+				A3FL_BoatTow = nil;
+				["Boat towing cancelled.","red"] call A3PL_Player_Notification;
+			};
+		},
+		{((typeOf player_objintersect) isEqualTo "A3PL_RBM") && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {!(player_objintersect getVariable ["towing",false])}}
+	],
+	[
+		"Tow Boat",
+		{[A3FL_BoatTow,player_objintersect] call A3PL_USCG_TowBoat;},
+		{((typeOf player_objintersect) IN ["A3PL_RBM"]) && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {!isNil {A3FL_BoatTow}}}
+	],
+
+	[
 		"Toggle Garage",
 		{
 			switch (typeOf cursorObject) do {
