@@ -297,7 +297,6 @@
 		private _bloodLoss = [_wound,"bloodLossInstant"] call A3PL_Config_GetWound;
 		if (_bloodLoss > 0) then {
 			_bloodLoss = [_bloodLoss,_part,_wound] call A3PL_Medical_BloodLoss;
-			hint str _bloodLoss;
 			[_player,[-(_bloodLoss)]] call A3PL_Medical_ApplyVar;
 		};
 	};
@@ -1005,7 +1004,7 @@
 	Player_Hunger = 100;
 	Player_Thirst = 100;
 	Player_Alcohol = 0;
-	Player_Drugs = [0,0,0,0];
+	Player_Drugs = [0,0,0];
 	profileNamespace setVariable ["player_hunger",Player_Hunger];
 	profileNamespace setVariable ["player_thirst",Player_Thirst];
 	profileNamespace setVariable ["player_alcohol",Player_Alcohol];
