@@ -37,7 +37,7 @@
 		+ "<br/>"
 		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Lots of bugs</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>House Optimization (FPS Increase)</t>"
+		+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>USCG Dolphin Files</t>"
 		+ "<br/>"
 		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Addon Optimization (Reduced Size)</t>"
 		+ "<br/>"
