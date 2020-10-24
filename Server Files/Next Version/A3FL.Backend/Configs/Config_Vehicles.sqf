@@ -293,7 +293,7 @@ Config_Vehicles_MSRP = [
 
 	["A3FL_Nissan_GTR",310000],
 	["A3FL_Nissan_GTR_LW",400000],
-	["A3FL_Smart_Car",1000],
+	["A3FL_Smart_Car",45000],
 	["A3FL_BMW_M6",371000],
 	["A3FL_Mercedes_Benz_AMG_C63",310000]
 ];
