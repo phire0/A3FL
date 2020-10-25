@@ -564,3 +564,23 @@
 		[localize"STR_SERVER_HOUSING_YOUNOWEXCOLOC","yellow"] remoteExec ["A3PL_Player_Notification",owner _old];
 	};
 },true] call Server_Setup_Compile;
+
+["Server_Housing_GetRoommates",
+{
+	private _player = param[0, objNull];
+	private _house = param[1, objNull];
+	
+	if (isNull _player || isNull _house) exitWith {};
+
+	private _uids = _house getVariable ["owner", []];
+	private _names = [];
+
+	{
+		private _query = format ["SELECT name FROM players WHERE uid = '%1'", _x];
+		private _result = [_query, 2] call Server_Database_Async;
+		_names pushBack ([_x, _result select 0]);
+	} foreach _uids;
+
+	[_names] remoteExec ["A3PL_Housing_RemoveRoommateReceive", (owner _player)];
+
+}, true] call Server_Setup_Compile;

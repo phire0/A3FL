@@ -421,3 +421,62 @@
 	if((getPlayerUID player) isEqualTo _owner) exitWith {["You are the owner, only roommates can leave.", "red"] call A3PL_Player_Notification;};
 	[player, (_near select 0)] remoteExec ["Server_Housing_RemoveMember",2];
 }] call Server_Setup_Compile;
+
+
+/*{
+			private _playerLevel = player getVariable["Player_Level",0];
+			if(_playerLevel < 10) then {
+				[format[localize"STR_Inter_Notifications_Level10ThingsPerks"], "red"] call A3PL_Player_Notification;
+			} else {
+				private _house = (nearestObjects [getPos player, Config_Houses_List, 10,true]) select 0;
+				private _uids = _house getVariable ["owner",[]];
+				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
+				_uid = _uids select 0;
+				if((getPlayerUID player) isEqualTo _uid) then {
+					private _namePos = [getPos _house] call A3PL_Housing_PosAddress;
+					[cursorObject, _house] remoteExec ["Server_Housing_RemoveMember",2];
+					[format[localize"STR_Inter_Notifications_FireColloc",_namePos], "green"] call A3PL_Player_Notification;
+				} else {
+					[localize"STR_Inter_Notifications_FirstOwnerFire", "red"] call A3PL_Player_Notification;
+				};
+			};
+		},*/
+
+		/*disableSerialization;
+
+	createDialog "Dialog_Insurance";
+	_display = findDisplay 153;
+
+	private _playerHouse = player getVariable ["house", objNull];
+	if (isNull _playerHouse) exitWith {};
+
+	private _roommates = [];
+
+	{
+		_i = lbAdd [1500, str(_x)];
+		lbSetData [1500, _i, (_x)];
+		_roommates pushback _x;
+	} forEach (_playerHouse getVariable ["owner", []]);*/
+
+["A3PL_Housing_RemoveRoommateReceive",
+{
+	private _roommates = param[0, [], [[]]];
+
+	if (_roommates isEqualTo []) exitWith {hint "Roommates array is empty...";};
+
+	disableSerialization;
+
+	createDialog "Dialog_Insurance";
+	_display = findDisplay 153;
+
+	{
+		_i = lbAdd [1500, (_x select 1)];
+		lbSetData [1500, _i, (_x select 0)];
+	} forEach _roommates;
+
+}] call Server_Setup_Compile;
+
+["A3PL_Housing_RemoveRoommate",
+{
+	
+}] call Server_Setup_Compile;
