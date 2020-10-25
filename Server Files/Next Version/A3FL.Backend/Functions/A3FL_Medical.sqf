@@ -426,7 +426,6 @@
 			};
 		};
 	} foreach _wounds;
-	hint str(_wounds);
 	if(_wounds isEqualTo []) then {_player setDamage 0;};
 	[(findDisplay 73),_player] call A3PL_Medical_LoadParts;
 	[] call A3PL_Medical_SelectPart;
@@ -885,6 +884,7 @@
 	_unit setVariable ["Cuffed",false,true];
 	_unit setVariable ["DoubleTapped",false,true];
 	_unit setDamage 0.8;
+	[player,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 	_unit setDir (getDir _corspe);
 	_unit setPosASL (visiblePositionASL _corspe);
 	_unit setUnitLoadout A3PL_Player_DeadBodyGear;
