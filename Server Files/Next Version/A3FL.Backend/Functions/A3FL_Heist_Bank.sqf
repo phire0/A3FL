@@ -304,7 +304,7 @@
 	private _dMoney = (backpackContainer player) getVariable ["bankCash", 0];
 	private _newMoney = floor(_dMoney - (_dMoney * 0.1));
 
-	if (_newMoney <= 0) exitWith {["All of your money has been destroyed by the water, good job!", "red"] call A3PL_Player_Notification;};
+	if (_newMoney <= 0) exitWith {["All of your money has been destroyed by the water, get fronked!", "red"] call A3PL_Player_Notification;};
 
 	(backpackContainer player) setVariable ["bankCash", _newMoney, true];
 	[format["The water is leaking into your money bag, you now have $%1 left!", _newMoney], "yellow"] call A3PL_Player_Notification;
