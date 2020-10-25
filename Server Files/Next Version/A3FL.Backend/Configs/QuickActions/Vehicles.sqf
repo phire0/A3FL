@@ -1873,7 +1873,6 @@
 	"A3PL_PumpJack",
 	localize"STR_INTSECT_STARTJPUMP",
 	{
-		if (player getVariable ["job","unemployed"] != "oil") exitwith {[localize"STR_QuickActions_Notif_Vehicles_UseExtractor","red"] call A3PL_Player_Notification;};
 		[player_objintersect] call A3PL_JobOil_PumpStart;
 	}
 ],

@@ -4379,9 +4379,6 @@
    <Key ID="STR_QuickActions_Notif_Vehicles_DrillAnimationSourcePhase">
       <Original>You must retract the drill before you can move the position of the drill arm.</Original>
    </Key>
-   <Key ID="STR_QuickActions_Notif_Vehicles_UseExtractor">
-      <Original>You must be Oil Extractor to use the pump</Original>
-   </Key>
    <Key ID="STR_QuickActions_Notif_Vehicles_DepositSki">
       <Original>You can not pick up / drop this item because you have something in your hand</Original>
    </Key>
