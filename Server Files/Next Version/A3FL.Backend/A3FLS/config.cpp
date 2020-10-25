@@ -125,6 +125,7 @@ class CfgRemoteExec
 		class A3PL_Housing_Loaditems {allowedTargets = 0;};
 		class A3PL_Housing_AptAssignedMsg {allowedTargets = 0;};
 		class A3PL_Housing_SetMarker{allowedTargets=0;};
+		class A3PL_Housing_RemoveRoommateReceive{allowedTargets=0;};
 		class Server_Housing_Sold{allowedTargets=2;};
 		class Server_Housing_dropKey {allowedTargets = 2;};
 		class Server_Housing_PickupKey {allowedTargets = 2;};
@@ -137,6 +138,7 @@ class CfgRemoteExec
 		class Server_Housing_AddMember{allowedTargets=2;};
 		class Server_Housing_RemoveMember{allowedTargets=2;};
 		class Server_Housing_Initialize{allowedTargets=2;};
+		class Server_Housing_GetRoommates{allowedTargets=2;};
 
 		// Warehouses
 		class A3PL_Warehouses_Loaditems {allowedTargets = 0;};
