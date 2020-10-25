@@ -466,8 +466,8 @@
 
 	disableSerialization;
 
-	createDialog "Dialog_Insurance";
-	_display = findDisplay 153;
+	createDialog "Dialog_Roommates";
+	_display = findDisplay 87;
 
 	{
 		_i = lbAdd [1500, (_x select 1)];
