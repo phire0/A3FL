@@ -171,7 +171,7 @@
 	private _marker = createMarker ["planecrash", position (_plane)];
 	_marker setMarkerShape "ICON";
 	_marker setMarkerType "A3PL_Markers_Plane";
-	_marker setMarkerText " PLANE IN DESTRESS";
+	_marker setMarkerText " PLANE IN DISTRESS";
 	_marker setMarkerColor "ColorWhite";
 
 	while{alive _pilot} do {
