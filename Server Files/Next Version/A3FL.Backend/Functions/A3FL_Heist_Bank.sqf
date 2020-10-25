@@ -298,3 +298,14 @@
 	private _container = backpackContainer player;
 	[format ["There is $%1 of dirty money inside this backpack",(_container getVariable ["bankCash",0])],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
+
+["A3PL_BHeist_Loop",
+{
+	private _dMoney = (backpackContainer player) getVariable ["bankCash", 0];
+	private _newMoney = floor(_dMoney - (_dMoney * 0.1));
+
+	if (_newMoney <= 0) exitWith {["All of your money has been destroyed by the water, good job!", "red"] call A3PL_Player_Notification;};
+
+	(backpackContainer player) setVariable ["bankCash", _newMoney, true];
+	[format["The water is leaking into your money bag, you now have $%1 left!", _newMoney], "yellow"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
