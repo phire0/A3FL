@@ -1186,7 +1186,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{((typeOf cursorObject) isKindOf "House") && (cursorObject getVariable ["unlocked", false]) && ((player distance cursorObject) < 20) && ((typeof (call A3PL_Intersect_cursorTarget)) in ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Home4w_DED_Home4w_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home6b_DED_Home6b_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_John_Hangar","Land_A3FL_Warehouse"])}
+		{((typeOf cursorObject) isKindOf "House") && ((cursorObject getVariable ["unlocked", false]) || ((getPlayerUID player) in (cursorObject getVariable ["owner", []]))) && ((player distance cursorObject) < 20) && ((typeof (call A3PL_Intersect_cursorTarget)) in ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Home4w_DED_Home4w_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home6b_DED_Home6b_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_John_Hangar","Land_A3FL_Warehouse"])}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";
