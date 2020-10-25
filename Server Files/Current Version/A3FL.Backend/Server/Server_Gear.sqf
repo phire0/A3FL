@@ -64,7 +64,7 @@
 	_unit setVariable ["Cuffed",false,true];
 	_unit setVariable ["A3PL_Medical_Alive",true,true];
 	_unit setVariable ["A3PL_Wounds",[],true];
-	_unit setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+	_unit setVariable ["A3PL_Medical_Blood",5000,true];
 
 	[_unit,"burger_full_cooked",10] call Server_Inventory_Add;
 	[_unit,"coke",10] call Server_Inventory_Add;
@@ -166,7 +166,7 @@
 	//Set medical vars
 	_medStat = [(_return select 17)] call Server_Database_ToArray;
 	_unit setVariable ["A3PL_Wounds",_medStat select 0,true];
-	_unit setVariable ["A3PL_MedicalVars",_medStat select 1,true];
+	//_unit setVariable ["A3PL_Medical_Blood",_medStat select 1,true];
 
 	//Set perks - PA$$ION
 	_perks = [(_return select 20)] call Server_Database_ToArray;
@@ -315,7 +315,7 @@
 
 	//Med stats
 	_medStat = _unit getVariable ["A3PL_Wounds",[]];
-	_blood = _unit getVariable ["A3PL_MedicalVars",[5000,"120/80",37]];
+	_blood = _unit getVariable ["A3PL_Medical_Blood",5000];
 	_medStat = [_medStat,_blood];
 
 	//cash and bank, lets not check for Nil vars, see if this needs editing later
@@ -419,6 +419,6 @@
 	private _uid = _this select 1;
 	sleep 300;
 	private _player = [_uid] call A3PL_Lib_UIDToObject;
-	if(isNull _player) exitwith {};
+	if(!(isNull _player)) exitwith {};
 	[_jobVeh] call A3PL_Vehicle_Despawn;
 }, true] call Server_Setup_Compile;

@@ -142,15 +142,14 @@
 		["ArmA 3 Fishers Life","trunk_key", "Open/Close Vehicle Trunk",
 		{
 			private["_veh"];
-			if (animationState player in ["A3PL_TakenHostage","A3PL_HandsupToKneel","A3PL_HandsupKneelGetCuffed","A3PL_Cuff","A3PL_HandsupKneelCuffed","A3PL_HandsupKneelKicked","A3PL_CuffKickDown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","A3PL_HandsupKneel"]) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
+			if((player getVariable ["Cuffed",true]) || (player getVariable ["Zipped",true]) || ((animationState player) == "a3pl_takenhostage")) exitwith {[localize"STR_EVENTHANDLERS_RESTRAINACTION","red"] call A3PL_Player_Notification;};
 			_veh = player_objintersect;
 			if(!((vehicle player) isEqualTo player)) then {_veh = vehicle player;};
-
-			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {diag_log "exit 1";};
-			if ((player distance _veh > 5)) exitWith {diag_log "exit 2";};
+			if(!(_veh isKindOf "Car") && !((typeOf _veh) isEqualTo "A3PL_EMS_Locker")) exitWith {};
+			if ((player distance _veh > 5)) exitWith {};
 			if ((_veh getVariable["locked",false])) exitWith {[localize"STR_EVENTHANDLERS_UnlockCar","red"] call A3PL_Player_Notification;};
-			if(isNull _veh || {isNil '_veh'}) exitWith {diag_log "exit 3";};
-			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && {(_veh getVariable["owner",""]) != (getPlayerUID player)}) exitWith {diag_log "exit 4";};
+			if(isNull _veh || {isNil '_veh'}) exitWith {};
+			if(((typeOf _veh) isEqualTo "A3PL_EMS_Locker") && {(_veh getVariable["owner",""]) != (getPlayerUID player)}) exitWith {};
 			if([typeOf (_veh)] call A3PL_Config_HasStorage) then {
 				[_veh] call A3PL_Vehicle_OpenStorage;
 			};
@@ -418,15 +417,7 @@
 			disableSerialization;
 			pVar_AdminPrePosition = getPosATL player;
 
-			player hideObjectGlobal true;
-			if (!isObjectHidden player) then
-			{
-				[] spawn {
-					[player] remoteExec ["A3PL_Lib_HideObject", 2];
-					uisleep 0.5;
-				};
-			};
-
+			[player,true] remoteExec ["A3PL_Lib_HideObject", 2];
 			["Initialize", [player, [], false, true, true, false, true, true, true, true]] call BIS_fnc_EGSpectator;
 			[player,"spectate",[format ["ENABLED"]]] remoteExec ["Server_AdminLoginsert", 2];
 
@@ -451,7 +442,6 @@
 			detach player;
 			player setposATL (missionNameSpace getVariable ['pVar_AdminPrePosition',getposATL player]);
 			pVar_AdminPrePosition = nil;
-			player hideObjectGlobal true;
 		};
 	};
 	if (_dikCode isEqualTo 62) exitWith {
@@ -477,7 +467,7 @@
 	true;
 	};
 	if ((_dikCode isEqualTo 79) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
-		[player_objintersect] call A3PL_Admin_AttachTo;
+		[player_objintersect] spawn A3PL_Admin_AttachTo;
 	true;
 	};
 	if ((_dikCode isEqualTo 80) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
@@ -507,7 +497,7 @@
 		_target setDamage 0;
 		_target setVariable ["A3PL_Medical_Alive",true,true];
 		_target setVariable ["A3PL_Wounds",[],true];
-		_target setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+		_target setVariable ["A3PL_Medical_Blood",5000,true];
 	true;
 	};
 	if ((_dikCode isEqualTo 72) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
@@ -626,24 +616,18 @@
 
 ["A3PL_EventHandlers_Killed",
 {
-	player removeEventHandler["Killed",0];
-	player removeEventHandler["Respawn",0];
-	player addEventHandler ["Killed",{_this call A3PL_Medical_Die;}];
+	player addEventHandler ["Killed",{_this call A3PL_Medical_Killed;}];
 	player addEventHandler ["Respawn", {
-		private _unit = _this select 0;
-		private _corpse = _this select 1;
-		A3PL_DeadBody = _corpse;
-		A3PL_DeadBody setVariable["realPlayer",player,true];
-		A3PL_DeadBody setVariable["A3PL_Medical_Alive",false,true];
-		player setVariable["deadBody",A3PL_DeadBody,true];
-		player allowDamage false;
-		player playMoveNow "AmovPpneMstpSrasWrflDnon";
+		_this call A3PL_Medical_Die;
+	}];
+	player addEventHandler ["HandleRating", {
+		private _handler = 0;
+		_handler;
 	}];
 }] call Server_Setup_Compile;
 
 ["A3PL_EventHandlers_HandleDamage",
 {
-	player removeEventHandler["HandleDamage",0];
 	player addEventHandler ["HandleDamage",
 	{
 		params [
@@ -653,17 +637,14 @@
 			["_source",objNull,[objNull]],
 			["_projectile","",[""]],
 			["_hitIndex",0,[0]],
-			["_instigator",objNull,[objNull]],
-			["_hitPoint","",[""]]
+			["_instigator",objNull,[objNull]]
 		];
 		private _noDamage = if (_selection isEqualTo "") then {damage _unit;} else {_unit getHit _selection;};
-		private _noDamageBullets = ["B_408_Ball","A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball","A3FL_PepperSpray_Ball"];
+		private _noDamageBullets = ["A3PL_3006","B_408_Ball","A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie","A3PL_Paintball_Bullet","A3PL_Predator_Bullet","A3PL_Extinguisher_Water_Ball","A3PL_High_Pressure_Water_Ball","A3PL_Medium_Pressure_Water_Ball","A3PL_Low_Pressure_Water_Ball","A3PL_High_Pressure_Foam_Ball","A3PL_Medium_Pressure_Foam_Ball","A3PL_Low_Pressure_Foam_Ball"];
 		private _adminMode = _unit getVariable ["pVar_RedNameOn",false];
-		private _controlDamage = false;
-		private _damageScript = false;
-		if(["ammo", _projectile] call BIS_fnc_inString) then {_damage = _damage / 5;};
-		if(!(_unit getVariable["A3PL_Medical_Alive",true])) then {_damageScript = true;};
-		if(_projectile IN ["A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver","A3FL_PepperSpray_Ball"]) then {_damageScript = true;};
+
+		if(_projectile IN _noDamageBullets) then {_damage = 0;};
+		diag_log _projectile;
 		if (!isNull _source) then {
 			if(_source != _unit) then {
 				if (_projectile IN ["A3PL_TaserBullet","A3PL_Taser2_Ammo","A3FL_Mossberg_590K_Beanie"]) then {
@@ -690,21 +671,16 @@
 				};
 			};
 		};
-		if(!isNull _instigator) then {
-			if(count(attachedObjects _instigator) > 0) then {
-				{
-					if(!isNull _x) exitWith {_controlDamage = true;};
-				} forEach attachedObjects _instigator;
-			};
-		} else {
-			_controlDamage = true;
-		};
 
-		if (!_adminMode && {!(_projectile IN _noDamageBullets)} && {!_controlDamage}) then {
-			if ((_damage > 0) && {!(_selection isEqualTo "")}) then {
-				if (diag_tickTime > ((missionNameSpace getVariable ["A3PL_HitTime",diag_tickTime-0.2]) + 0.1)) then {
-					A3PL_HitTime = diag_tickTime;
-					[_unit,_selection,_damage,_source,_projectile] spawn A3PL_Medical_Hit;
+		if (!_adminMode) then {
+			if (_damage > 0) then {
+				private _hit = _unit getVariable ["getHit",[]];
+				_hit pushback [_selection,_damage,_projectile];
+				_unit setVariable ["getHit",_hit,false];
+				if (diag_tickTime <= ((missionNameSpace getVariable ["A3PL_HitTime",diag_ticktime-0.2]) + 0.1)) then {} else
+				{
+					A3PL_HitTime = diag_ticktime;
+					[_unit] spawn A3PL_Medical_Hit;
 				};
 				if((!isNull _instigator) && {!(_instigator isEqualTo _unit)}) then {
 					_unit setVariable ["lastDamage",(_instigator getVariable["db_id","Unknown"]),true];
@@ -712,8 +688,7 @@
 				};
 			};
 		};
-		if(_projectile IN _noDamageBullets || {_adminMode} || {_controlDamage} || {_damageScript}) then {_damage = _noDamage;};
-		_damage;
+		_noDamage;
 	}];
 }] call Server_Setup_Compile;
 
@@ -744,6 +719,10 @@
 		];
 		private _handle = false;
 		{
+			if((player getVariable["Cuffed",false]) || {player getVariable["Zipped",false]}) exitWith {
+				["Your hands are tied","red"] call A3PL_Player_Notification;
+				_handle = true;
+			};
 			if((_x isEqualTo A3FL_Seize_Storage)) exitWith  {
 				_isLead = ["fims"] call A3PL_Government_isFactionLeader;
 				_isLocked = _x getVariable["locked",true];

@@ -347,7 +347,7 @@
 			{
 				if (!([_itemClass,"canPickup"] call A3PL_Config_GetItem)) then
 				{
-					_near = nearestObjects [player, [([_itemClass,"class"] call A3PL_Config_GetItem)], 2, true];
+					_near = nearestObjects [player, [([_itemClass,"class"] call A3PL_Config_GetItem)], 20, true];
 					{
 						if ((_x getVariable "class") isEqualTo _itemClass) exitwith
 						{
@@ -598,7 +598,7 @@
 
 	if(_type IN ["headgear","goggles","uniform","vest","backpack"]) then {
 		A3PL_SHOP_ITEMPREVIEW = "C_man_p_beggar_F" createvehicleLocal [0,0,0];
-		A3PL_SHOP_ITEMPREVIEW setPosATL [3852.065,9212.537,0.168];
+		A3PL_SHOP_ITEMPREVIEW setPosATL [3852.79,9261.27,0.168];
 		A3PL_SHOP_ITEMPREVIEW enableSimulation false;
 
 		A3PL_SHOP_ITEMPREVIEW setUnitLoadout (getUnitLoadout player);

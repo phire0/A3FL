@@ -219,6 +219,7 @@
 				_pos = (getpos _player) findEmptyPosition [3,65,_id];
 			};
 			if ((count _pos) isEqualTo 0) then {_pos = getpos _player};
+			_pos = [_pos select 0,_pos select 1,(_pos select 2) + 0.5];
 			_veh = [_id,_pos,_lp,_player] call Server_Vehicle_Spawn;
 			_veh setDir 133.799;
 		};

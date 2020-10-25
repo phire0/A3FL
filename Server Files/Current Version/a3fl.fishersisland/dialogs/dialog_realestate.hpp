@@ -31,7 +31,7 @@ class Dialog_EstateSell
 		};
 		class ButtonYes: RscButtonEmpty
 		{
-			idc = -1;
+			idc = 100;
 			x = 0.381406 * safezoneW + safezoneX;
 			y = 0.61 * safezoneH + safezoneY;
 			w = 0.0773437 * safezoneW;

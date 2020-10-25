@@ -67,7 +67,7 @@
 ['A3PL_USCG_UntowBoat',
 {
 	private _towing = param[0,objNull];
-	private _rope = _towing getVariable["rope",nil];
+	private _rope = _towing getVariable["towingRope",nil];
 	if(!isNil "_rope") then {ropeDestroy _rope;};
 	_towing setVariable["towing",nil,true];
 	_towing setVariable["towingRope",nil,true];

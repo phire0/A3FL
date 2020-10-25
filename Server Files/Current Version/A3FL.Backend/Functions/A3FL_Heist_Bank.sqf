@@ -270,6 +270,7 @@
 {
 	private _NPC = param [0,objNull];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
+	if(Player_ActionDoing) exitWith {};
 	if (backpack player != "A3PL_Backpack_Money") exitwith {["You are not carrying a backpack to carry money in!","red"] call A3PL_Player_Notification;};
 	private _container = backpackContainer player;
 	private _cash = _container getVariable ["bankCash",0];
@@ -277,14 +278,13 @@
 
 	["Laundering money...",180] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
-	_success = true;
 	while {Player_ActionDoing} do {
-		if (Player_ActionInterrupted) exitWith {_success = false;};
-		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if (Player_ActionInterrupted) exitWith {Player_ActionInterrupted = false;};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {Player_ActionInterrupted = false;};
+		if (!((vehicle player) isEqualTo player)) exitwith {Player_ActionInterrupted = false;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = false;};
 	};
-	if(Player_ActionInterrupted || !_success) exitWith {["Action interupted","red"] call A3PL_Player_Notification;};
+	if(Player_ActionInterrupted) exitWith {["Action interupted","red"] call A3PL_Player_Notification;};
 
 	player setVariable ["player_cash",(player getVariable ["player_cash",0])+_cash * A3PL_Event_CrimePayout,true];
 	_container setVariable ["bankCash",nil,true];
@@ -297,4 +297,15 @@
 	if (backpack player != "A3PL_Backpack_Money") exitwith {};
 	private _container = backpackContainer player;
 	[format ["There is $%1 of dirty money inside this backpack",(_container getVariable ["bankCash",0])],"green"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
+
+["A3PL_BHeist_Loop",
+{
+	private _dMoney = (backpackContainer player) getVariable ["bankCash", 0];
+	private _newMoney = floor(_dMoney - (_dMoney * 0.1));
+
+	if (_newMoney <= 0) exitWith {["All of your money has been destroyed by the water, get fronked!", "red"] call A3PL_Player_Notification;};
+
+	(backpackContainer player) setVariable ["bankCash", _newMoney, true];
+	[format["The water is leaking into your money bag, you now have $%1 left!", _newMoney], "yellow"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

@@ -45,8 +45,6 @@
 		call A3PL_AdminToolsList;
 		call A3PL_Admin_TwitterTagsCombo;
 		call A3PL_Admin_FactionCombo;
-
-		buttonSetAction [1603, "call A3PL_AdminRemoveItem;"];
 		ctrlSetText [1000, format ["Staff Menu | %2 %1",player getVariable "name",[player] call A3PL_AdminTitle]];
 	};
 	if (!IsNull (findDisplay 98)) exitWith {(findDisplay 98) closeDisplay 1;};
@@ -54,16 +52,14 @@
 
 ["A3PL_AdminTitle", {
 	params[["_player",objNull,[objNull]]];
-	private _title = "Admin";
-	switch(_player getVariable["dbVar_AdminLevel",0]) do {
-		case(0): {_title = "";};
-		case(1): {_title = "Executive";};
-		case(2): {_title = "Exec. Supervisor";};
-		case(3): {_title = "Developer";};
-		case(4): {_title = "Lead Developer";};
-		case(5): {_title = "Chief";};
-		case(6): {_title = "Sub-Director";};
-		case(7): {_title = "Director";};
+	private _title = switch(_player getVariable["dbVar_AdminLevel",0]) do {
+		case(0): {""};
+		case(1): {"Executive"};
+		case(2): {"Exec. Supervisor";};
+		case(3): {"Developer"};
+		case(5): {"Chief"};
+		case(6): {"Sub-Director"};
+		case(7): {"Director"};
 	};
 	_title;
 }] call Server_Setup_Compile;
@@ -104,7 +100,6 @@
 		["Bank: $", ["Player_Bank",1]],
 		["Faction:", ["faction",0]],
 		["Job:", ["job",0]],
-		["Alive:", ["A3PL_Medical_Alive",2]],
 		["Level:", ["Player_Level",0]]
 	];
 	lbClear 1503;
@@ -127,7 +122,6 @@
 	_selectedInventory = lbText [2101,lbCurSel 2101];
 	_selectedPlayer = (A3PL_Admin_PlayerList select _selectedPlayerIndex);
 	_index = 999;
-
 	if (_selectedInventory isEqualTo localize"STR_ADMIN_PLAYER") then {
 		lbClear 1502;
 		{
@@ -163,7 +157,11 @@
 
 ["A3PL_Admin_TwitterTagsCombo", {
 	private _display = findDisplay 98;
-	{lbAdd [2102, _x select 0];} foreach adminTagsList;
+	{
+		if(_forEachIndex <= pVar_AdminLevel) then {
+			lbAdd [2102, _x select 0];
+		};
+	} foreach adminTagsList;
 	(_display displayCtrl 2102) ctrlAddEventHandler ["lbSelChanged","call A3PL_Admin_SetTwitterTag;"];
 }] call Server_Setup_Compile;
 
@@ -175,6 +173,7 @@
 
 ["A3PL_Admin_FactionCombo", {
 	private _display = findDisplay 98;
+	if!("Faction" IN (player getVariable ["dbVar_AdminPerms",[]])) exitWith {};
 	{lbAdd [2103, _x select 0];} foreach factionsList;
 	(_display displayCtrl 2103) ctrlAddEventHandler ["lbSelChanged","call A3PL_Admin_SetFaction;"];
 }] call Server_Setup_Compile;
@@ -205,7 +204,6 @@
 		["Pause Fire",pVar_FiresFrozen,A3PL_Admin_PauseFire],
 		["Remove Fire",false,A3PL_Admin_RemoveFire],
 		["Fast Animation",pVar_FastAnimationOn,A3PL_AdminFastAnimation],
-		["Self Heal",false,A3PL_AdminSelfHeal],
 		["Self Feed",false,A3PL_AdminSelfFeed],
 		["Freeze",false,A3PL_Admin_Freeze],
 		["Vehicle Markers",pVar_MapVehicleMarkersOn,A3PL_AdminVehicleMarkers],
@@ -251,7 +249,6 @@
 		case "Pause Fire": {call A3PL_Admin_PauseFire};
 		case "Remove Fire": {call A3PL_Admin_RemoveFire};
 		case "Fast Animation": {call A3PL_AdminFastAnimation};
-		case "Self Heal": {call A3PL_AdminSelfHeal};
 		case "Self Feed": {call A3PL_AdminSelfFeed};
 		case "Freeze": {call A3PL_Admin_Freeze};
 		case "Vehicle Markers": {call A3PL_AdminVehicleMarkers;};
@@ -360,9 +357,34 @@
 
 ["A3PL_Admin_AttachTo", {
 	params[["_veh",objNull,[objNull]]];
-	_dir = getDir _veh;
+	if(isNull _veh) exitWith {};
 	_veh attachTo [player];
-	_veh setDir (_dir + (360 - (getDir player)));
+	attachKeyDown =
+	{
+		_key = (_this select 0) select 1;
+		_veh = [_this select 1] call A3PL_Lib_vehStringToObj;
+		_return = false;
+		switch _key do
+		{
+			case 201: {
+				_return = true;
+			};
+			case 209: {
+				_return = true;
+			};
+			case 199: {
+				_return = true;
+			};
+			case 207: {
+				_return = true;
+			};
+		};
+		_return;
+	};
+	waituntil {!isNull findDisplay 46};
+	_attachKeyDown = (findDisplay 46) DisplayAddEventHandler ["keydown",format["[_this,'%1'] call attachKeyDown",_veh]];
+	waitUntil {!(_veh IN (attachedObjects player)) || (isNull _veh)};
+	(findDisplay 46) displayremoveeventhandler ["keydown",_attachKeyDown];
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_DetachAll", {
@@ -495,45 +517,7 @@
 	};
 }] call Server_Setup_Compile;
 
-["A3PL_AdminCreateOnPlayer", {
-	if ((player getVariable "dbVar_AdminLevel") >= 1) then {
-		_selectedList = lbCurSel 2100;
-		_selectedListText = lbText [2100,_selectedList];
-
-		if (_selectedListText isEqualTo "Objects") exitWith {
-			_obj = objNull;
-			_selectedIndex = lbCurSel 1500;
-			_selectedPlayer = (A3PL_Admin_PlayerList select _selectedIndex);
-			_selectedObject = lbCurSel 1501;
-			_objectClass = lbData [1501, _selectedObject];
-			_playerPos = getPos _selectedPlayer;
-
-			if(_objectClass isEqualTo "Land_A3PL_EstateSignRented") then {
-				_obj = createvehicle ["Land_A3PL_EstateSign",_playerPos, [], 0, "CAN_COLLIDE"];
-				_obj setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
-			} else {
-				_obj = createvehicle [_objectClass,_playerPos, [], 0, "CAN_COLLIDE"];
-			};
-			_obj setVariable["owner","ADMIN",true];
-			[player,"objects",[format ["Object Spawn: %1 AT %2",_objectClass,_playerPos]]] remoteExec ["Server_AdminLoginsert", 2];
-		};
-
-		if (_selectedListText isEqualTo "AdminVehicles") exitWith {
-			_selectedIndex = lbCurSel 1500;
-			_selectedPlayer = (A3PL_Admin_PlayerList select _selectedIndex);
-			_selectedObject = lbCurSel 1501;
-			_objectClass = lbData [1501, _selectedObject];
-			_playerPos = getPos _selectedPlayer;
-
-			[_objectClass,_playerPos,"ADMIN",player] remoteExec ["Server_Vehicle_Spawn",2];
-			[player,"vehicles",[format ["VehicleSpawn: %1 AT %2",_objectClass,_playerPos]]] remoteExec ["Server_AdminLoginsert", 2];
-		};
-	} else {
-		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
-	};
-}] call Server_Setup_Compile;
-
-["A3PL_AdminAddToFactory", {
+["A3PL_Admin_AddToFactory", {
 	if ((player getVariable "dbVar_AdminLevel") >= 1) then {
 		private ["_isFactory","_itemType"];
 
@@ -565,17 +549,36 @@
 	};
 }] call Server_Setup_Compile;
 
-["A3PL_AdminAddToPlayer", {
+["A3PL_Admin_AddToPlayer", {
 	if ((player getVariable "dbVar_AdminLevel") >= 1) then {
 		private ["_display","_control","_type","_player","_recipe"];
 		_display = findDisplay 98;
 
 		_selectedFactory = lbText [2100,(lbCurSel 2100)];
-		if (_selectedFactory == "") exitwith {[localize"STR_ADMIN_NOFACTORYSELECTED","red"] call A3PL_Player_Notification;};
+		if (_selectedFactory isEqualTo "") exitwith {[localize"STR_ADMIN_NOFACTORYSELECTED","red"] call A3PL_Player_Notification;};
 		_selectedAsset = lbData [1501,(lbCurSel 1501)];
 
 		if ((lbCurSel 1501) < 0) exitwith {[localize"STR_ADMIN_NOTHINGSELECTED","red"] call A3PL_Player_Notification;};
 		_selectedPlayer = A3PL_Admin_PlayerList select (lbCurSel 1500);
+
+		if (_selectedFactory isEqualTo "Objects") exitWith {
+			_obj = objNull;
+			_playerPos = getPos _selectedPlayer;
+			if(_selectedAsset isEqualTo "Land_A3PL_EstateSignRented") then {
+				_obj = createvehicle ["Land_A3PL_EstateSign",_playerPos, [], 0, "CAN_COLLIDE"];
+				_obj setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
+			} else {
+				_obj = createvehicle [_selectedAsset,_playerPos, [], 0, "CAN_COLLIDE"];
+			};
+			_obj setVariable["owner","ADMIN",true];
+			[player,"objects",[format ["Object Spawn: %1 AT %2",_selectedAsset,_playerPos]]] remoteExec ["Server_AdminLoginsert", 2];
+		};
+
+		if (_selectedFactory isEqualTo "AdminVehicles") exitWith {
+			_playerPos = getPos _selectedPlayer;
+			[_selectedAsset,_playerPos,"ADMIN",player] remoteExec ["Server_Vehicle_Spawn",2];
+			[player,"vehicles",[format ["VehicleSpawn: %1 AT %2",_selectedAsset,_playerPos]]] remoteExec ["Server_AdminLoginsert", 2];
+		};
 
 		_control = _display displayCtrl 1403;
 		_amount = parseNumber (ctrlText _control);
@@ -590,7 +593,7 @@
 	};
 }] call Server_Setup_Compile;
 
-["A3PL_AdminRemoveItem", {
+["A3PL_Admin_RemoveItem", {
 	if ((player getVariable "dbVar_AdminLevel") >= 1) then {
 		_display = findDisplay 98;
 		_selectedPlayerIndex = lbCurSel 1500;
@@ -624,11 +627,11 @@
 ["A3PL_AdminHealPlayer", {
 	if ((player getVariable "dbVar_AdminLevel") >= 1) then {
 		_target = (A3PL_Admin_PlayerList select (lbCurSel 1500));
+		if(!(_target getVariable["A3PL_Medical_Alive",true])) then {closeDialog 0;};
 		_target setVariable ["A3PL_Medical_Alive",true,true];
 		_target setVariable ["A3PL_Wounds",[],true];
-		_target setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+		_target setVariable ["A3PL_Medical_Blood",5000,true];
 		_target setDamage 0;
-		closeDialog 0;
 		[player,"admin_heal",[format ["Healing %1",name _target]]] remoteExec ["Server_AdminLoginsert", 2];
 	} else {
 		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
@@ -654,7 +657,7 @@
 		player setDamage 0;
 		player setVariable ["pVar_RedNameOn",true,true];
 		player setVariable ["A3PL_Wounds",[],true];
-		player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+		player setVariable ["A3PL_Medical_Blood",5000,true];
 		player enableStamina false;
 	};
 	[player,"admin_mode",[player getVariable ["pVar_RedNameOn",false]]] remoteExec ["Server_AdminLoginsert", 2];
@@ -670,13 +673,6 @@
 		pVar_FastAnimationOn = true;
 		lbSetColor [1504, 7, [1,.8,0,1]];
 	};
-}] call Server_Setup_Compile;
-
-["A3PL_AdminSelfHeal", {
-	player setVariable ["A3PL_Medical_Alive",true,true];
-	player setVariable ["A3PL_Wounds",[],true];
-	player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
-	player setDamage 0;
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminSelfFeed", {
@@ -736,52 +732,47 @@
 		openMap false;
 		pVar_MapTeleportReady = false;";
 		openMap true;
+
 	} else {
 		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminGlobalMessage", {
-	_display = findDisplay 69;
-	_message = ctrlText 1402;
-	_thisAdmin = player getVariable ["name",""];
-	if(_message == "") exitWith {[localize"STR_ADMIN_ENTERMESSAGE", "red"] call A3PL_Player_Notification;};
-
+	private _display = findDisplay 69;
+	private _message = ctrlText 1402;
+	private _thisAdmin = player getVariable ["name",""];
+	if(_message isEqualTo "") exitWith {[localize"STR_ADMIN_ENTERMESSAGE", "red"] call A3PL_Player_Notification;};
 	[format[localize"STR_ADMIN_GLOBALMESSAGE",_thisAdmin,_message],"yellow"] remoteExec ["A3PL_Player_Notification", -2];
 	[player,"globalmessage",[format ["GlobalMessage: %1",_message]]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminAdminMessage", {
-	_display = findDisplay 69;
-	_message = ctrlText 1402;
-	_sendTo = [];
-	_thisAdmin = player getVariable ["name",""];
-
+	private _display = findDisplay 69;
+	private _message = ctrlText 1402;
+	private _sendTo = [];
+	private _thisAdmin = player getVariable ["name",""];
 	{
 		if ((_x getVariable ["dbVar_AdminLevel",0]) > 0) then {_sendTo pushBack _x;};
 	} forEach A3PL_Admin_PlayerList;
-	if(_message == "") exitWith {[localize"STR_ADMIN_ENTERMESSAGE", "red"] call A3PL_Player_Notification;};
+	if(_message isEqualTo "") exitWith {[localize"STR_ADMIN_ENTERMESSAGE", "red"] call A3PL_Player_Notification;};
 	[format[localize"STR_ADMIN_ADMINMESSAGE",_thisAdmin,_message],"yellow"] remoteExec ["A3PL_Player_Notification", _sendTo];
 	[player,"adminmessage",[format ["AdminMessage: %1",_message]]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminDirectMessage", {
-	_display = findDisplay 69;
-	_message = ctrlText 1402;
-	_selectedIndex = lbCurSel 1500;
-	_target = (A3PL_Admin_PlayerList select _selectedIndex);
-	_thisAdmin = player getVariable ["name",""];
-
-	if(_message == "") exitWith {[localize"STR_ADMIN_ENTERMESSAGE", "red"] call A3PL_Player_Notification;};
-
+	private _display = findDisplay 69;
+	private _message = ctrlText 1402;
+	private _selectedIndex = lbCurSel 1500;
+	private _target = (A3PL_Admin_PlayerList select _selectedIndex);
+	private _thisAdmin = player getVariable ["name",""];
+	if(_message isEqualTo "") exitWith {[localize"STR_ADMIN_ENTERMESSAGE", "red"] call A3PL_Player_Notification;};
 	[format[localize"STR_ADMIN_DIRECTMESSAGE",_thisAdmin,_message],"yellow"] remoteExec ["A3PL_Player_Notification", _target];
-
 	[player,"directmessage",[format ["DirectMessage: %1",_message]]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminVehicleMarkers", {
-	if(pVar_MapVehicleMarkersOn) then
-	{
+	if(pVar_MapVehicleMarkersOn) then {
 		pVar_MapVehicleMarkersOn = false;
 		A3PL_Admin_VehMarkersEnabled = false;
 		lbSetColor [1504, 11, [1,1,1,1]];
@@ -856,10 +847,6 @@
 					{
 						private _pos = visiblePosition _x;
 						private _text = format[" (%1) %2", _x getVariable["name","ERROR"], name _x];
-						if(!(_x getVariable["A3PL_Medical_Alive",true])) then {
-							_pos = visiblePosition (_x getVariable["deadBody",_x]);
-							_text = format[" (Dead) %1", _x getVariable["name","ERROR"]];
-						};
 						_marker = createMarkerLocal [format["%1_marker",_x],_pos];
 						_marker setMarkerColorLocal "ColorYellow";
 						_marker setMarkerTypeLocal "Mil_dot";
@@ -895,8 +882,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminRessourcesMarkers", {
-	if(pVar_RessourcesMarkersOn) then
-	{
+	if(pVar_RessourcesMarkersOn) then {
 		pVar_RessourcesMarkersOn = false;
 		A3PL_Admin_RessourcesMarkersEnabled = false;
 		lbSetColor [1504, 13, [1,1,1,1]];
@@ -1105,26 +1091,19 @@
 	call compile _debugText;
 },false,true] call Server_Setup_Compile;
 
-["A3PL_Admin_PerformanceTestIntersects",{
-	{
-		_name = (_x select 1);
-		_limit = 0.01;
-		_timeTaken = ((diag_codePerformance [(_x select 3), 0, 10000]) select 0);
-		if(_timeTaken > _limit) then {
-			diag_log format ["name: %1 - time: %2",_name,_timeTaken];
-		}
-	} forEach Config_IntersectArray;
-
-}] call Server_Setup_Compile;
-
-["A3PL_Admin_PerformanceTestIntersectsTotalTime",{
-	_totalTime = 0;
-	{
-		_timeTaken = ((diag_codePerformance [(_x select 3), 0, 10000]) select 0);
-
-		_totalTime = _timeTaken + _totalTime;
-	} forEach Config_IntersectArray;
-
-	diag_log format ["Time taken: %1",_totalTime];
-
+["A3PL_Admin_TakeGear", {
+	private _mode = param [0,false];
+	private _fedGear = [[],[],[],["A3PL_FBI_Agent_Blue_Uniform",[]],["A3PL_FBI_Blue_Lite",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap","",[],["ItemMap","ItemGPS","A3PL_Cellphone_2","ItemCompass","ItemWatch",""]];
+	private _prevGear = profileNamespace getVariable ["A3FL_PrevGear",nil];
+	if(_mode) then {
+		_prevGear = getUnitLoadout player;
+		profileNamespace setVariable ["A3FL_PrevGear",_prevGear];
+		player setUnitLoadout _fedGear;
+	} else {
+		if(!isNil "_prevGear") then {
+			player setUnitLoadout _prevGear;
+		} else {
+			["Error: No previous gear saved.","pink"] call A3PL_Player_Notification;
+		};
+	};
 }] call Server_Setup_Compile;

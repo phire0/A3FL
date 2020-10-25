@@ -14,8 +14,8 @@ Config_Vehicles_Admin = [
 	["Jonzie",["Ambulance"]],
 	["A3PL_Pierce",["Ladder","Pumper","Heavy_Ladder","Rescue"]],
 	["A3PL_BMW",["X5","M3"]],
-	["A3PL",["Silverado","Silverado_PD","Silverado_PD_ST","Silverado_FD","Silverado_FD_Brush","911GT2","Charger15","Charger15_PD","Charger15_PD_ST","Charger15_FD","Charger69","VetteZR1","Mailtruck","Gallardo","Cessna172","Lowloader","Mustang","Mustang_PD","Mustang_PD_Slicktop","F150","F150_Marker","F150_Marker_PD","Ram","Wrangler","Charger","E350","Tahoe_FD","Tahoe_PD","Tahoe_PD_Slicktop","Tahoe","CVPI","CVPI_Taxi","CVPI_PD","CVPI_PD_Slicktop","Charger_PD","Charger_PD_Slicktop","P362","P362_TowTruck","P362_Garbage_Truck","Rover","Camaro","RBM","Motorboat","RHIB","Fuel_Van","MiniExcavator","CRX","Challenger_Hellcat","Car_Trailer","Yacht","Yacht_Pirate","Challenger_Hellcat","Gallardo","Suburban","CLS63","Fatboy","1100R","Knucklehead","Monster","Kx","Urus","Cessna172","Goose_Base","Goose_USCG","Jayhawk","Taurus","Taurus_PD","Taurus_PD_ST","Taurus_FD","Raptor","Raptor_PD","Raptor_PD_ST","GMCVandura"]],
-	["A3FL",["Nissan_GTR","Nissan_GTR_LW","LCM","T370"]],
+	["A3PL",["Silverado","Silverado_PD","Silverado_PD_ST","Silverado_FD","Silverado_FD_Brush","911GT2","Charger15","Charger15_PD","Charger15_PD_ST","Charger15_FD","Charger69","VetteZR1","Mailtruck","Gallardo","Cessna172","Lowloader","Mustang","Mustang_PD","Mustang_PD_Slicktop","F150","F150_Marker","F150_Marker_PD","Ram","Wrangler","Charger","E350","Tahoe_FD","Tahoe_PD","Tahoe_PD_Slicktop","Tahoe","CVPI","CVPI_Taxi","CVPI_PD","CVPI_PD_Slicktop","Charger_PD","Charger_PD_Slicktop","P362","P362_TowTruck","P362_Garbage_Truck","Rover","Camaro","RBM","Motorboat","RHIB","Fuel_Van","MiniExcavator","CRX","Challenger_Hellcat","Car_Trailer","Yacht","Yacht_Pirate","Challenger_Hellcat","Gallardo","Suburban","CLS63","Fatboy","1100R","Knucklehead","Monster","Kx","Urus","Cessna172","Goose_Base","Goose_USCG","Jayhawk","Taurus","Taurus_PD","Taurus_PD_ST","Taurus_FD","Raptor","Raptor_PD","Raptor_PD_ST"]],
+	["A3FL",["AS_365","Nissan_GTR","Nissan_GTR_LW","Smart_Car","BMW_M6","Mercedes_Benz_AMG_C63","LCM","T370"]],
 	["Heli_Medium01",["H","Luxury_H","Medic_H","Military_H","Veteran_H","Coastguard_H","Sheriff_H"]],
 	["C",["Heli_Light_01_civil_F","Van_02_transport_F"]],
 	["K",["Scooter_DarkBlue"]]
@@ -92,7 +92,6 @@ Config_Vehicles_Capacity = [
 	["A3PL_Silverado_FD_Brush",660],
 	["A3PL_E350",660],
 	["jonzie_ambulance",660],
-	["A3PL_GMCVandura",660],
 
 	["A3PL_MiniExcavator",150],
 
@@ -120,12 +119,16 @@ Config_Vehicles_Capacity = [
 	["Heli_Medium01_Medic_H",100],
 	["Heli_Medium01_Coastguard_H",100],
 	["A3PL_Jayhawk",40],
+	["A3FL_AS_365",40],
 	["A3PL_Cessna172",60],
 	["A3PL_Goose_Base",80],
 	["A3PL_Goose_USCG",80],
 
 	["A3FL_Nissan_GTR",220],
-	["A3FL_Nissan_GTR_LW",250]
+	["A3FL_Nissan_GTR_LW",250],
+	["A3FL_Smart_Car",150],
+	["A3FL_BMW_M6",250],
+	["A3FL_Mercedes_Benz_AMG_C63",250]
 ];
 publicVariable "Config_Vehicles_Capacity";
 
@@ -256,17 +259,15 @@ Config_Vehicles_MSRP = [
 	["C_Van_02_transport_F",105000],
 	["A3PL_Silverado",170000],
 	["A3PL_Silverado_PD",170000],
-	["A3PL_E350",5000],
-	["jonzie_ambulance",10000],
-	["A3PL_GMCVandura",0],
+	["A3PL_E350",45000],
+	["jonzie_ambulance",60000],
 
-	["A3PL_Pierce_Ladder",10000],
-	["A3PL_Pierce_Heavy_Ladder",15000],
-	["A3PL_Pierce_Pumper",15000],
-	["A3PL_Pierce_Rescue",15000],
+	["A3PL_Pierce_Ladder",75000],
+	["A3PL_Pierce_Heavy_Ladder",80000],
+	["A3PL_Pierce_Pumper",80000],
+	["A3PL_Pierce_Rescue",80000],
 
 	["A3FL_T370",200000],
-
 	["A3PL_Box_Trailer",35000],
 
 	["C_Scooter_Transport_01_F",6000],
@@ -285,11 +286,15 @@ Config_Vehicles_MSRP = [
 	["Heli_Medium01_Medic_H",1800000],
 	["Heli_Medium01_Coastguard_H",185000],
 	["A3PL_Jayhawk",50000],
+	["A3FL_AS_365",65000],
 	["A3PL_Cessna172",380000],
-	["A3PL_Goose_Base",660000],
+	["A3PL_Goose_Base",760000],
 	["A3PL_Goose_USCG",665000],
 
 	["A3FL_Nissan_GTR",310000],
-	["A3FL_Nissan_GTR_LW",400000]
+	["A3FL_Nissan_GTR_LW",400000],
+	["A3FL_Smart_Car",45000],
+	["A3FL_BMW_M6",371000],
+	["A3FL_Mercedes_Benz_AMG_C63",310000]
 ];
 publicVariable "Config_Vehicles_MSRP";

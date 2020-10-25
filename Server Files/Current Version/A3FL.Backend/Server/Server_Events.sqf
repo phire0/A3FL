@@ -35,8 +35,7 @@
 ["Server_Events_ShipWreck",
 {
 	["Ship Wreck"] call Server_Events_Start;
-	["ALERT! ALERT! A shipwreck has been detected in the waters of Fishers Island! Go and try to recover it's content!","yellow"] remoteExec ["A3PL_Player_Notification", -2];
-	private _eventDuration = 20*60;
+	private _eventDuration = 15*60;
 	private _wreckArray = ["Land_Boat_06_wreck_F","Land_Wreck_Traw2_F","Land_Wreck_Traw_F","Land_UWreck_FishingBoat_F"];
 	private _propsArray = ["Land_Sack_F","Land_BarrelTrash_F","Land_Sacks_goods_F","Land_CratesWooden_F","Land_Cages_F","Land_GarbagePallet_F","Land_GarbageBarrel_01_F","Land_Pallets_F","Land_Garbage_square5_F","Land_CratesShabby_F","Land_CanisterPlastic_F","Land_Garbage_line_F","Land_WoodenBox_F","Land_Sacks_heap_F","Land_PaperBox_closed_F","Land_GarbageBags_F","Land_Pallets_F","Land_GarbageBags_F"];
 	private _lootArray = ["diamond"];
@@ -46,7 +45,7 @@
 	private _marker = createMarker ["Server_Events_ShipWreck", _posArray];
 	_marker setMarkerShape "ICON";
 	_marker setMarkerType "A3PL_Markers_USCG";
-	_marker setMarkerText " SHIP WRECK LOCATED";
+	_marker setMarkerText "SHIP WRECK LOCATED";
 	_marker setMarkerColor "ColorWhite";
 
 	private _wreck = (_wreckArray call BIS_fnc_selectRandom) createVehicle _posArray;
@@ -57,6 +56,7 @@
 	private _boxPos = [(_posArray select 0) - random 15,(_posArray select 1) + random 10,_posArray select 2];
 	private _itemBox = "B_supplyCrate_F" createVehicle _boxPos;
 	_itemBox setVariable["locked",false,true];
+	_itemBox setVariable["capacity",100000,true];
 	_itemBox allowDamage false;
     _itemBox setDir (90);
     _eventObjects pushBack _itemBox;
@@ -86,16 +86,56 @@
 	clearWeaponCargoGlobal _itemBox;
 	clearBackpackCargoGlobal _itemBox;
 
-   	private _virtualItems = [];
-	private _valuableItems = [["Titanium_Ingot",5],["Iron_Ingot",20],["Coal_Ingot",20],["Aluminium_Ingot",15],["weed_100g",3],["shrooms",4],["cocaine",8]];
-	private _itemCount = 4 + round(random(5));
+	private _commonItems = [];
+	private _rareItems = [];
+	private _virtualItems = [];
+	private _uscgCount = 1 + count(["uscg"] call A3PL_Lib_FactionPlayers);
+	private _commonCount = 4 + round(_uscgCount / 2);
+	private _rareCount = 2 + round(_uscgCount / 2);
+	private _wreckMessage = "Fuckin moron";
+	private _wreckType = floor(random 4);
+	switch(_wreckType) do {
+		case(0): {
+			_wreckMessage = "SOS! SOS! A Drug Shipment has crashed and it's wreckage was spotted in the waters of Fishers Island! Go and collect the drugs before LEOs seize them!";
+			_commonItems = [["seed_marijuana",10],["seed_coca",10],["coca",10],["jug",3],["yeast",10],["malt",10],["cornmeal",10],["sulphuric_acid",10],["calcium_carbonate",10],["potassium_permangate",10],["ammonium_hydroxide",10],["acetone",10],["hydrocloric_acid",10],["kerosene_jerrycan",3]];
+			_rareItems = [["coca_paste",10],["cocaine_base",10],["cocaine_hydrochloride",10],["jug_moonshine",5],["weed_100g",3],["weed_75g",4],["weed_50g",6]];
+		};
+		case(1): {
+			_wreckMessage = "SOS! SOS! A Stolen Treasures Shipment has crashed and it's wreckage was spotted in the waters of Fishers Island! Go and collect the treasure before LEOs seize them!";
+			_commonItems = [["crown",1],["ring",2],["ringset",2],["bracelet",2],["necklace",1],["golden_dildo",1]];
+			_rareItems = [["diamond_ill",1],["diamond_emerald_ill",1],["diamond_ruby_ill",1],["diamond_sapphire_ill",1],["diamond_alex_ill",1],["diamond_aqua_ill",1],["diamond_tourmaline_ill",1]];
+			_commonCount = 3 + round(_uscgCount / 2);
+			_rareCount = 1 + round(_uscgCount / 2);
+		};
+		case(2): {
+			_wreckMessage = "SOS! SOS! A Supplies Shipment has crashed and it's wreckage was spotted in the waters of Fishers Island! Go and collect the supplies before someone else gets there first!";
+			_commonItems = [["jerrycan_empty",2],["jerrycan",1],["repairwrench",1],["coffee_cup_small",4],["coffee_cup_medium",3],["coffee_cup_large",2],["taco_cooked",3],["burger_full_cooked",3]];
+			_rareItems = [["jerrycan",3],["repairwrench",10],["popcornbucket",1],["pizzabites",10],["soupcup",10],["cookies",10],["cereal",10],["meatpie",4],["coke",5]];
+			_commonCount = 8 + round(_uscgCount / 2);
+			_rareCount = 3 + round(_uscgCount / 2);
+		};
+		case(3): {
+			_wreckMessage = "SOS! SOS! A Resource Shipment has crashed and it's wreckage was spotted in the waters of Fishers Island! Go and collect the resources before someone else gets there first!";
+			_commonItems = [["Aluminium_Ore",20],["Iron_Ore",20],["Coal_Ore",20],["Titanium_Ingot",1],["Aluminium_Ingot",5],["Iron_Ingot",5],["Coal_Ingot",5]];
+			_rareItems = [["Aluminium_Ingot",10],["Iron_Ingot",10],["Coal_Ingot",10],["Titanium_Ingot",5],["Steel",15],["Aluminium",15],["Titanium",5]];
+			_commonCount = 6 + round(_uscgCount / 2);
+			_rareCount = 3 + round(_uscgCount / 2);
+		};
+	};
 
-	for "_i" from 0 to _itemCount do {
-		_item = (selectRandom _valuableItems);
+	for "_i" from 0 to _commonCount do {
+		_item = selectRandom _commonItems;
+		_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
+	};
+
+	for "_i" from 0 to _rareCount do {
+		_item = selectRandom _rareItems;
 		_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
 	};
 
 	_itemBox setVariable["storage",_virtualItems,true];
+
+	[_wreckMessage,"yellow"] remoteExec ["A3PL_Player_Notification", -2];
 
     sleep _eventDuration;
 
@@ -109,7 +149,7 @@
 {
 	["Plane Crash"] call Server_Events_Start;
 	["ALERT! ALERT! A plane is having engines issues !","yellow"] remoteExec ["A3PL_Player_Notification", -2];
-	private _eventDuration = 20*60;
+	private _eventDuration = 15*60;
 	private _posArray = [[8130.25,6353.81,130]];
 
 	private _plane = createVehicle ["C_Plane_Civil_01_F", (_posArray call BIS_fnc_selectRandom), [], 0, "CAN_COLLIDE"];
@@ -131,7 +171,7 @@
 	private _marker = createMarker ["planecrash", position (_plane)];
 	_marker setMarkerShape "ICON";
 	_marker setMarkerType "A3PL_Markers_Plane";
-	_marker setMarkerText " PLANE IN DESTRESS";
+	_marker setMarkerText " PLANE IN DISTRESS";
 	_marker setMarkerColor "ColorWhite";
 
 	while{alive _pilot} do {

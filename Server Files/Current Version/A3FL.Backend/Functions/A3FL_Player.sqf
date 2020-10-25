@@ -26,6 +26,7 @@
 		Player_Alcohol = 0;
 		Player_Alcohol = profileNamespace setVariable ["player_alcohol",0];
 	};
+	// [shrooms,cocaine,weed]
 	Player_Drugs = profileNamespace getVariable ["player_drugs",[0,0,0]];
 	if (!(typeName Player_Drugs == "ARRAY")) then {
 		Player_Drugs = [0,0,0];
@@ -54,8 +55,8 @@
 	A3PL_Player_Vehicles = [];
 
 	//halloween vars
-	//A3PL_Halloween_AngelModeEnabled = false;
-	//A3PL_Owns_Guardianscript = false;
+	A3PL_Halloween_AngelModeEnabled = false;
+	A3PL_Owns_Guardianscript = false;
 
 	//Start defining twitter
 	A3PL_TwitterChatLog = [];
@@ -85,7 +86,7 @@
 	//impound retrieval objects
 	A3PL_Jobroadworker_Impounds = [Shop_ImpoundRetrieve,Shop_ImpoundRetrieve_1,Shop_ImpoundRetrieve_2,Shop_ImpoundRetrieve_3,Shop_ImpoundRetrieve_5];
 	A3PL_Chopshop_Retrivals = [Shop_Chopshop_Retrieve_1];
-	A3PL_Air_Impounds = [Shop_ImpoundRetrieve_4];
+	A3PL_Air_Impounds = [Shop_ImpoundRetrieve_4,Shop_ImpoundRetrieve_8,Shop_ImpoundRetrieve_9];
 	A3PL_Jobroadworker_MarkBypass =	["A3PL_EMS_Locker","A3PL_P362_TowTruck","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Pierce_Rescue","A3PL_Box_Trailer"];
 
 	//Check A3PL_Intersect for more info
@@ -142,8 +143,8 @@
 	private _players = nearestObjects [player, ["C_man_1"], 4];
 	private _players = _players - [player];
 	private _tags = [];
-	private _goggles = ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","A3PL_Horse_Mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"];
-	private _headgear = ["H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs"];
+	private _goggles = ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"];
+	private _headgear = ["H_Shemag_olive","H_Shemag_tan","H_Shemag_khk","A3PL_RacingHelmet_1","A3PL_RacingHelmet_2","A3PL_RacingHelmet_3","A3PL_RacingHelmet_4","A3PL_RacingHelmet_5","A3PL_RacingHelmet_6","A3PL_RacingHelmet_7","A3PL_RacingHelmet_8","A3PL_RacingHelmet_9","A3PL_RacingHelmet_10","A3PL_RacingHelmet_11","A3PL_Hoosier_Racing_Helmet","A3PL_SN_Race_Helmet","H_ShemagOpen_khk","H_ShemagOpen_tan","H_Shemag_olive_hs","A3PL_Horse_Mask","A3FL_Monkey_Brown"];
 	{
 		private["_uid","_saved","_savedName","_hasMaskCheck","_cansee","_id","_name"];
 		if (simulationEnabled _x) then
@@ -878,10 +879,10 @@
 	private _houseObj = player getVariable["house",objNull];
 	private _warehouseObj = player getVariable["warehouse",objNull];
 	private _isCG = (player getVariable["faction","citizen"]) isEqualTo "uscg";
-	if(_isCG) then {_spawnList pushback ["CG Base",[2188.62,4991.78,0],0];};
 	if(!isNull _houseObj) then {_spawnList pushback ["House",getPosATL _houseObj,1];};
 	if(!isNull _warehouseObj) then {_spawnList pushback ["Warehouse",getPosATL _warehouseObj,2];};
-	
+	if(_isCG) then {_spawnList pushback ["CG Base",[6513.87,8433.42,0],0];};
+
 	_spawnList pushback ["Silverton",[2445.83,5467.15,0],0];
 	_spawnList pushback ["Lubbock",[2286.87,12015.3,0],0];
 	_spawnList pushback ["Elk City",[6180.74,7365.69,0],0];

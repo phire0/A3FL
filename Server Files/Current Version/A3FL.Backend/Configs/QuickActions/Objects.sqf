@@ -315,15 +315,15 @@
 	"",
 	localize"STR_INTSECT_PLACEBURGER",
 	{
-		if (isNull player_item) exitwith {[localize"STR_INTSECT_YouHaveNothingInYourHandToPlaceHere", "red"] call A3PL_Player_Notification;};
-		private _class = player_itemclass;
+		if (isNull Player_Item) exitwith {[localize"STR_INTSECT_YouHaveNothingInYourHandToPlaceHere", "red"] call A3PL_Player_Notification;};
+		private _class = Player_ItemClass;
 		if (!(_class IN ["burger_raw","burger_burnt","burger_cooked","fish_raw","fish_cooked","fish_burned"])) exitwith {[localize"STR_INTSECT_YouCanOnlyPlaceBurgersFishOnTheGrill", "red"] call A3PL_Player_Notification;};
 		if (!isNull Player_Item) exitwith
 		{
-			private _playeritem = Player_Item;
+			private _playerItem = Player_Item;
 			call A3PL_Placeables_QuickAction;
-			if (isNull (attachedTo _playeritem)) exitwith {};
-			if ((typeOf(attachedTo _playeritem)) IN ["A3PL_Mcfisher_Grill"]) exitwith {[_playeritem] call A3PL_JobMcfisher_CookBurger;};
+			if (isNull (attachedTo _playerItem)) exitwith {};
+			if ((typeOf(attachedTo _playerItem)) IN ["A3PL_Mcfisher_Grill"]) exitwith {[_playerItem] call A3PL_JobMcfisher_CookBurger;};
 		};
 	}
 ],

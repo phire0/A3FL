@@ -1,6 +1,10 @@
-// Northern Island
-// Elk City
-// Stoney Creek
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
 
 ["A3PL_JobShipCaptain_RentVehicle",
 {
@@ -10,7 +14,6 @@
 	private _pCash = player getVariable["Player_Cash",0];
 	private _job = player getVariable["job","unemployed"];
 
-	hint str(_price);
 	if(_job != "Captain") exitWith {["You need to be a ship captain to rent a boat!", "red"] call A3PL_Player_Notification;};
 	if(_price > _pCash) exitWith {["You don't have enough cash to rent this boat!", "red"] call A3PL_Player_Notification;};
 	player setVariable["Player_Cash",_pCash-_price,true];

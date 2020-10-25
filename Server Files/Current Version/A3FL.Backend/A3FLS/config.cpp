@@ -125,6 +125,7 @@ class CfgRemoteExec
 		class A3PL_Housing_Loaditems {allowedTargets = 0;};
 		class A3PL_Housing_AptAssignedMsg {allowedTargets = 0;};
 		class A3PL_Housing_SetMarker{allowedTargets=0;};
+		class A3PL_Housing_RemoveRoommateReceive{allowedTargets=0;};
 		class Server_Housing_Sold{allowedTargets=2;};
 		class Server_Housing_dropKey {allowedTargets = 2;};
 		class Server_Housing_PickupKey {allowedTargets = 2;};
@@ -137,6 +138,7 @@ class CfgRemoteExec
 		class Server_Housing_AddMember{allowedTargets=2;};
 		class Server_Housing_RemoveMember{allowedTargets=2;};
 		class Server_Housing_Initialize{allowedTargets=2;};
+		class Server_Housing_GetRoommates{allowedTargets=2;};
 
 		// Warehouses
 		class A3PL_Warehouses_Loaditems {allowedTargets = 0;};
@@ -148,6 +150,7 @@ class CfgRemoteExec
 		class Server_Warehouses_Initialize{allowedTargets=2;};
 		class Server_Warehouses_RemoveMember{allowedTargets=2;};
 		class Server_Warehouses_AddMember{allowedTargets=2;};
+		class Server_Warehouses_Sold{allowedTargets=2;};
 
 		//Police
 		class A3PL_Police_MirandaCard {allowedTargets = 0;};
@@ -369,8 +372,6 @@ class CfgRemoteExec
 		class A3PL_Debug_ExecuteCompiled{allowedTargets=2;};
 
 		//Medical
-		class A3PL_Medical_Respawn{allowedTargets=0;};
-		class A3PL_Medical_Revived{allowedTargets=0;};
 		class A3PL_Medical_ApplyPWound{allowedTargets=0;};
 		class A3PL_Medical_Die{allowedTargets=0;};
 		class A3PL_Medical_DeadMarker{allowedTargets=0;};
@@ -418,6 +419,7 @@ class CfgRemoteExec
 		class A3PL_iPhoneX_SendSMS{allowedTargets=0;};
 		class A3PL_iPhoneX_appBills{allowedTargets=0;};
 		class A3PL_iPhoneX_appCompaniesBills{allowedTargets=0;};
+		class A3PL_iPhoneX_DeleteSMS{allowedTargets=2;};
 		class Server_iPhoneX_DeleteContact{allowedTargets=2;};
 		class Server_iPhoneX_AddPhoneNumber{allowedTargets=2;};
 		class Server_iPhoneX_NumberIsUsed{allowedTargets=2;};
@@ -437,7 +439,8 @@ class CfgRemoteExec
 		class Server_iPhoneX_GetListNumber{allowedTargets=2;};
 		class Server_iPhoneX_Get911Text{allowedTargets=2;};
 		class Server_iPhoneX_CallSwitchboard{allowedTargets=2;};
-		class Server_iPhoneX_Notify911{allowedTargets = 2;};
+		class Server_iPhoneX_Notify911{allowedTargets=2;};
+		class Server_iPhoneX_DeleteSMS{allowedTargets=2;};
 
 		class A3PL_USCG_DragReceive{allowedTargets=0;};
 	};

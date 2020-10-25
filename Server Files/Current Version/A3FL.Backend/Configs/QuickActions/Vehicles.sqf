@@ -187,7 +187,6 @@
 	localize"STR_INTSECT_APUGEN",
 	{
 		private _veh = player_objintersect;
-		if (typeOf _veh != "A3PL_Jayhawk") exitwith {};
 		if (_veh animationPhase "gen1" < 0.5) exitwith {
 			if (_veh animationPhase "battery" < 0.5) exitwith {["Battery is off","red"] call A3PL_Player_Notification;};
 			if (_veh animationPhase "ecs" < 0.5) exitwith {["ECS is not on APU Boost","red"] call A3PL_Player_Notification;};
@@ -499,16 +498,16 @@
 	localize"STR_INTSECT_TOGCOLLIGHT",
 	{
 		private _veh = player_objIntersect;
-		private _collisionLightOn = _veh getVariable ["collisionLightOn",true];
+		private _collisionLightOn = _veh getVariable ["collisionLightOn",false];
 		if (_collisionLightOn) then {
 			player action ["CollisionLightOff", _veh];
 			_veh animateSource ["collision_lights",0];
+			_veh setVariable ["collisionLightOn",false,true];
 			[localize"STR_QuickActions_Notif_Vehicles_CollisionLightsOFF", "red"] call A3PL_Player_Notification;
-			player_objIntersect setVariable ["collisionLightOn",false,true];
 		} else {
-			player_objIntersect setVariable ["collisionLightOn",true,true];
 			player action ["CollisionLightOn", _veh];
 			_veh animateSource ["collision_lights",1];
+			_veh setVariable ["collisionLightOn",true,true];
 			[localize"STR_QuickActions_Notif_Vehicles_CollisionLightsON", "green"] call A3PL_Player_Notification;
 		};
 	}
@@ -1355,13 +1354,13 @@
     "",
     localize"STR_INTSECT_ACCPOLDB",
     {
-    	if((typeOf player_objintersect) isEqualTo "Land_A3FL_DOC_Gate") then {
-    		if (isNull (findDisplay 211) && (player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims"]) then {
+    	if((typeOf player_objintersect) IN ["Land_A3FL_DOC_Gate","Land_A3PL_CH"]) then {
+    		if (isNull (findDisplay 211) && (player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) then {
 				call A3PL_Police_DatabaseOpen;
 			};
     	} else {
     		if (isNull (findDisplay 211) && (player_objintersect animationPhase "Laptop_Top" > 0.5)) then {
-				if ((player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims"]) then {
+				if ((player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) then {
 					call A3PL_Police_DatabaseOpen;
 				};
 				if ((player getVariable ["job","unemployed"]) IN ["fifr"]) then {call A3PL_FD_DatabaseOpen;};
@@ -4605,4 +4604,131 @@
     "",
     "Toggle Gooseneck",
     {[player_objintersect] call A3PL_Vehicle_Toggle_Gooseneck;}
+],
+[
+	"A3FL_AS_365",
+	localize"STR_INTSECT_SWITCHBAT",
+	{
+		private _veh = player_objintersect;
+		if (_veh animationPhase "Battery" < 0.5) exitwith {
+			_veh animate ["battery",1];
+			playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+		};
+		_veh animate ["battery",0];
+		playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+	}
+],
+[
+	"A3FL_AS_365",
+	localize"STR_INTSECT_APUGEN",
+	{
+		private _veh = player_objintersect;
+		if (_veh animationPhase "gen1" < 0.5) exitwith {
+			if (_veh animationPhase "battery" < 0.5) exitwith {["Battery is off","red"] call A3PL_Player_Notification;};
+			if (_veh animationPhase "ecs" < 0.5) exitwith {["ECS is not on APU Boost","red"] call A3PL_Player_Notification;};
+			if (_veh animationPhase "fuelpump" > 0.5) exitwith {["Fuel Pump is not on APU Boost","red"] call A3PL_Player_Notification;};
+			if (_veh animationPhase "apucontrol" < 0.5) exitwith {["APU Control is not on APU Boost","red"] call A3PL_Player_Notification;};
+			_veh animate ["gen1",1];
+			playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+		};
+		_veh animate ["gen1",0];
+		playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+	}
+],
+[
+	"A3FL_AS_365",
+	format [localize"STR_INTSECT_ENGGEN",1],
+	{
+		private _veh = player_objintersect;
+		if (_veh animationPhase "gen2" < 0.5) exitwith {
+			_veh animate ["gen2",1];
+			playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+		};
+		_veh animate ["gen2",0];
+		playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+	}
+],
+[
+	"A3FL_AS_365",
+	format [localize"STR_INTSECT_ENGGEN",2],
+	{
+		private _veh = player_objintersect;
+		if (_veh animationPhase "gen3" < 0.5) exitwith {
+			_veh animate ["gen3",1];
+			playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+		};
+		_veh animate ["gen3",0];
+		playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+	}
+],
+[
+	"A3FL_AS_365",
+	localize"STR_INTSECT_ECSSTART",
+	{
+		private _veh = player_objintersect;
+		if (_veh animationPhase "ecs" < 0.5) exitwith {
+			_veh animate ["ecs",1];
+			playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+		};
+		_veh animate ["ecs",0];
+		playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+	}
+],
+[
+	"A3FL_AS_365",
+	localize"STR_INTSECT_FUELPUMP",
+	{
+		private _veh = player_objintersect;
+		if (_veh animationPhase "fuelpump" < 0.5) exitwith {
+			_veh animate ["fuelpump",1];
+			playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+		};
+		_veh animate ["fuelpump",0];
+		playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+	}
+],
+[
+	"A3FL_AS_365",
+	localize"STR_INTSECT_APUCONT",
+	{
+		private _veh = player_objintersect;
+		if (_veh animationPhase "apucontrol" < 0.5) exitwith {
+			_veh animate ["apucontrol",1];
+			playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+		};
+		_veh animate ["apucontrol",0];
+		playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+	}
+],
+[
+	"A3FL_AS_365",
+	localize"STR_INTSECT_SWITCHIGN",
+	{
+		private _veh = player_objintersect;
+		if (_veh animationPhase "ignition_Switch" > 0.5) exitwith {
+			_veh animate ["ignition_Switch",0];
+			_veh engineOn false;
+			playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+		};
+		if (_veh animationPhase "ignition_Switch" < 0.5) exitwith {
+			if (_veh animationPhase "battery" < 0.5) exitwith {["Battery is turned off", "red"] call A3PL_Player_Notification;};
+			if (_veh animationPhase "ecs" > 0.5) exitwith {["ECS is not on Engine", "red"] call A3PL_Player_Notification;};
+			if (_veh animationPhase "fuelpump" < 0.5) exitwith {["Fuel Pump is not on Fuel Prime", "red"] call A3PL_Player_Notification;};
+			if (_veh animationPhase "apucontrol" < 0.5) exitwith {["APU Control is not on APU Boost", "red"] call A3PL_Player_Notification;};
+			if (_veh animationPhase "gen1" < 0.5) exitwith {["APU is OFF", "red"] call A3PL_Player_Notification;};
+			if (_veh animationPhase "gen2" < 0.5) exitwith {["Generator 2 is not turned on", "red"] call A3PL_Player_Notification;};
+			if (_veh animationPhase "gen3" < 0.5) exitwith {["Generator 3 is not turned on", "red"] call A3PL_Player_Notification;};
+			_veh animate ["gen1",0];
+			_veh animate ["ignition_Switch",1];
+			[_veh] spawn {
+				private ['_veh'];
+				_veh = _this select 0;
+				sleep 1;
+				_veh engineOn true;
+			};
+			playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+		};
+		_veh animate ["ignition_Switch",0];
+		playSound3D ["a3\ui_f\data\Sound\CfgCutscenes\repair.wss", player];
+	}
 ]

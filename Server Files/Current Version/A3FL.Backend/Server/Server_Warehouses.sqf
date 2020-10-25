@@ -131,10 +131,10 @@
 		_doorid = _x select 2;
 
 		_near = nearestObjects [_pos, ["Land_John_Hangar","Land_A3FL_Warehouse"], 10,true];
-		if (count _near == 0) exitwith
+		if (count _near isEqualTo 0) exitwith
 		{
-			/*_query = format ["CALL RemovedHouse('%1');",_pos];
-			[_query,1] spawn Server_Database_Async;*/
+			_query = format ["DELETE FROM warehouses WHERE location = '%1'",_pos];
+			[_query,1] spawn Server_Database_Async;
 		};
 		_near = _near select 0;
 		if (!([_pos,(getpos _near)] call BIS_fnc_areEqual)) then
@@ -253,5 +253,40 @@
 		_old setVariable ["keys",_keys,true];
 		_old setVariable ["warehouse",nil,true];
 		["You no longer have keys to this warehouse!","yellow"] remoteExec ["A3PL_Player_Notification",owner _old];
+	};
+},true] call Server_Setup_Compile;
+
+["Server_Warehouses_Sold",
+{
+	private _pos = _this select 0;
+	private _clientPart = _this select 1;
+	private _sign = _this select 2;
+	private _warehouse = _this select 3;
+
+	_sign setVariable["houseSelling",false,true];
+	_sign setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_sale_co.paa"];
+
+	private _uids = _warehouse getVariable ["owner",[]];
+	private _id = (_warehouse getVariable ["doorid",[]]) select 1;
+	private _query = format ["DELETE FROM warehouses WHERE location ='%1'",getPos(_warehouse)];
+	[_query,1] spawn Server_Database_Async;
+
+	private _uid = _uids select 0;
+
+	_warehouse setVariable ["owner",nil,true];
+	_warehouse setVariable ["doorid",nil,true];
+
+	private _furnitures = nearestObjects [_pos, ["Thing"], 100];
+	{if((_x getVariable "owner") isEqualTo _uid) then {deleteVehicle _x;};} foreach _furnitures;
+	deleteMarker ([getPos _warehouse, "warehouse"] call A3PL_Lib_NearestMarker);
+
+	private _player = [_uid] call A3PL_Lib_UIDToObject;
+	if(!isNull _player) then {
+		_pBank = _player getVariable["Player_Bank",0];
+		_keys = _player	getVariable["keys",[]];
+		_player setVariable["Player_Bank",_pBank + _clientPart,true];
+		_player setVariable ["keys",_keys - [_id],true];
+		_player setVariable ["warehouse",nil,true];
+		[format[localize"STR_SERVER_HOUSING_SELLWHOUSE",_clientPart], "green"] remoteExec ["A3PL_Player_Notification",_player];
 	};
 },true] call Server_Setup_Compile;

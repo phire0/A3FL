@@ -9,9 +9,9 @@
 Config_Objects_Bargates = [
 	//[POSITION,FACTIONS ARRAY]
 	[[6252.59,7698.81],["fisd","fifr","uscg","fims"]],		//ELK TRAINING
-	[[2168.32,5059.27],["fisd","fifr","uscg"]],				//CG BASE FRONT GATE
+	[[6480.22,8401.05],["fifr","uscg"]],					//CG BASE FRONT GATE
+	[[6507.68,8400.99],["fifr","uscg"]],					//CG BASE - BACK GATE
 	[[4445.29,7055.45],["fifr","uscg","fisd"]],				//FIFR TRAINING
-	[[2252.52,5128.71,0],["uscg"]],							//CG BASE - AIRFIELD SIDE
 	[[10662.2,8919.53,0],["uscg","fifr"]],					//NORTHDALE AIRFIELD
 	[[2601.23,5435.68,0],["fisd","uscg","fifr"]],			//SILVERTON SD
 	[[1836,11365,0],["fifr","fisd","uscg","fims"]], 		//Northern Island CG base

@@ -8,6 +8,7 @@
 
 ['A3PL_Criminal_Ziptie', {
 	private _obj = _this select 0;
+	[getPlayerUID player,"zipped"] remoteExec ["Server_Log_New",2];
 	if ((animationState _obj) IN ["amovpercmstpsnonwnondnon","amovpercmstpsraswrfldnon","amovpercmstpsraswpstdnon","amovpercmstpsraswlnrdnon"]) exitwith
 	{
 		[player,_obj,1] remoteExec ["A3PL_Police_HandleAnim",0];
@@ -171,6 +172,10 @@
 		[_x,"chest","wound_major"] call A3PL_Medical_ApplyWound;
 	} foreach _nearP;
 	removeVest player;
+	[] spawn {
+		sleep 5;
+		call A3PL_Medical_Respawn;
+	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Criminal_Drag',

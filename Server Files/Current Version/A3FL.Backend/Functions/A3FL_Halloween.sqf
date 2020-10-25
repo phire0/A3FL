@@ -12,7 +12,7 @@
 	if (!(player inArea "CemeteryArea")) exitwith {};
 	if ((random 1) <= 0.1) then
 	{
-		[] spawn A3PL_Halloween_Angelmode;
+		if((vehicle player) isEqualTo player) then {[] spawn A3PL_Halloween_Angelmode;};
 	};
 	if (((random 1) <= 0.05) && !A3PL_Owns_Guardianscript) then
 	{
@@ -253,7 +253,6 @@
 	}];
 }] call Server_Setup_Compile;
 
-
 ["A3PL_Halloween_Guardian",
 {
 	private ["_aiMonster","_walkLocations","_randomWalkLoc","_target"];
@@ -317,7 +316,7 @@
 				_aiMonster switchmove "";
 				_target setpos [5480.36,6060.6,0.00143242];
 				_target setdir 60;
-				["The Guardian of the Cemetery teleported you out.","red"] call A3PL_Player_Notification;
+				["The Guardian of the Cemetery teleported you out.","red"] remoteExec ["A3PL_Player_Notification",_target];
 			};
 		} else {
 			if ((_closestDistance < 50) && (_closestPlayer inArea "CemeteryArea")) then {

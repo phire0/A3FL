@@ -10,25 +10,25 @@
 Config_Garage_Upgrade =
 [
 	["A3PL_Pierce_Rescue",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Suburban",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_BMW_X5",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Camaro",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0]//Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0]//Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_CVPI",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_CVPI_Taxi",
 		["Taxi_Sign","addon","Taxi_Sign",localize "STR_CGAR_TSIGN1",localize "STR_CGAR_TSIGN1D",[0,0,0.7],[0,2,0],500,[],0], //taxi sign 1, Taxi Sign for the roof
 		["Taxi_Sign_Ad","addon","Taxi_Sign_Ad",localize "STR_CGAR_TSIGN2",localize "STR_CGAR_TSIGN2D",[0,0,0.7],[0,2,0],500,[],0], //taxi sign 2, Taxi Sign with advertisement for the roof
 		["Driver_Guard","addon","Driver_Guard",localize "STR_CGAR_DRIVER_GUARD",localize "STR_CGAR_DRIVER_GUARDD",[0,0,0.7],[0,2,0],500,[],0], //Driver Guard, Partition between front and rear seats
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Raptor_PD",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
@@ -42,22 +42,22 @@ Config_Garage_Upgrade =
 	["A3PL_CVPI_PD",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0],  //,"Front pushbar","Protect front from collisions",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_CVPI_PD_Slicktop",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0],  //,"Front pushbar","Protect front from collisions",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_F150",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_F150_Marker",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Gallardo",
 		["Spoiler1","addon","Spoiler1",format [localize "STR_CGAR_WINGTYPE",1],format [localize "STR_CGAR_AFTERMEWING",1],[0,-2,0],[2,0.2,1],1000,[],0], //"Racing Wing","Only cosmetic"
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Ram",
 		["Roof_Rack","addon","Roof_Rack",localize "STR_CGAR_RR",localize "STR_CGAR_RRD",[1.3,3,0],[0,1,0],500,[],0],//[0,0,0.7],[0,2,0] || "Roof Rack","Cargo rack for the roof"
@@ -83,7 +83,7 @@ Config_Garage_Upgrade =
 		["Brakelight_Guards","addon","Brakelight_Guards",localize "STR_CGAR_LIGHTP",localize "STR_CGAR_LIGHTPD","Towbar_Cam",[4,0,1.5],500,[],0] //"Tail light protectors","Protects your tail lights from those bumper cars"
 	],
 	["A3PL_VetteZR1",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Wrangler",
 		["Bull_Bar","addon","Bull_Bar",localize "STR_CGAR_BB",localize "STR_CGAR_BBD",[0.3,5.2,0.9],[0,1.2,1],500,[],0], //"Bull Bar","Protect front from collisions"
@@ -96,10 +96,10 @@ Config_Garage_Upgrade =
 		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[4,0,1.5],500,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Charger",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Charger15",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Charger15_PD",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
@@ -113,7 +113,7 @@ Config_Garage_Upgrade =
 	["A3PL_Charger_PD",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Taurus_PD_ST",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
@@ -126,39 +126,39 @@ Config_Garage_Upgrade =
 	["A3PL_Charger_PD_Slicktop",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0],  //,"Front pushbar","Protect front from collisions",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Tahoe",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Tahoe_FD",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Tahoe_PD",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0],  //,"Front pushbar","Protect front from collisions",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Tahoe_PD_Slicktop",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_BMW_M3",
-		["Towbar_Addon","addon","common",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","common",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Mustang",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Mustang_Tahoe_PD",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Mustang_PD_Slicktop",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"[["Steel",2]]]
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0], //,"Front pushbar","Protect front from collisions",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_911GT2",
 		["Stock_Bonnet","addon","Stock_Bonnet",localize "STR_CGAR_SB",localize "STR_CGAR_SBD",[0.3,5.2,0.9],[0,1.2,1],500,[],0],//"Stock Hood","Original Hood"
@@ -218,31 +218,31 @@ Config_Garage_Upgrade =
 	["A3PL_Silverado",
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0.3,5.2,0.9],[0,1,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0.3,5.2,0.9],[0,1,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_PD",
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0,0,0],[0,0,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0,0,0],[0,0,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,0,0],[0,0,0],500,[],0], //,"Front pushbar","Protect front from collisions",
 		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_PD_ST",
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0,0,0],[0,0,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0,0,0],[0,0,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,0,0],[0,0,0],500,[],0], //,"Front pushbar","Protect front from collisions",
 		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_FD",
 		["Bed_Cover","addon","Bed_Cover",localize "STR_CGAR_BC",localize "STR_CGAR_BCD",[0,0,0],[0,0,0],500,[],0],//"Bed Cover","Protect cargo in the bed"
 		["Toolbox","addon","Toolbox",localize "STR_CGAR_TB",localize "STR_CGAR_TBD",[0,0,0],[0,0,0],500,[],0],//"Toolbox","Two tool boxes in bed (Only cosmetic)"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,0,0],[0,0,0],500,[],0], //,"Front pushbar","Protect front from collisions",
 		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0], //,"Antenna","Antennas for radio",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Silverado_FD_Brush",
-		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],500,[],0] //Add towbar, Allows you to hitch trailers
+		["Towbar_Addon","addon","Towbar_Addon",localize "STR_CGAR_ADDTOWBAR",localize "STR_CGAR_ADDTOWBARDESC","Towbar_Cam",[1,0,0],1000,[],0] //Add towbar, Allows you to hitch trailers
 	],
 	["A3PL_Challenger_Hellcat",
 		["Stock_Bonnet","addon","Stock_Bonnet",localize "STR_CGAR_SB",localize "STR_CGAR_SBD",[0.3,5.2,0.9],[0,1.2,1],500,[],0],//"Stock Hood","Original Hood"
@@ -261,6 +261,12 @@ Config_Garage_Upgrade =
 	["A3PL_Raptor_PD_ST",
 		["Spotlight_Addon","addon","Spotlight_Addon",localize "STR_CGAR_SL",localize "STR_CGAR_SLD","Spotlight1",[0.89,1.5,-0.50],500,[],0], //"Spotlight","Shines light onto criminals"
 		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0]  //,"Front pushbar","Protect front from collisions",
-	]
+	],
+	["A3FL_Mercedes_Benz_AMG_C63",
+        ["Towbar_Addon","addon","Towbar_Addon","Towbar","Towbar",[1.3,3,0],[0.1,1,0.5],500,[],0],
+        ["chrome","addon","chrome","Chrome","Chrome",[1.3,3,0],[0.1,1,0.5],500,[],0],
+        ["chrome_delete","addon","chrome_delete","Chrome Delete","Chrome Delete",[1.3,3,0],[0.1,1,0.5],500,[],0],
+        ["Black_Series_Wing","addon","Black_Series_Wing","Black Series Wing","Black Series Wing",[1.3,3,0],[0.1,1,0.5],500,[],0]
+    ]
 ];
 publicVariable "Config_Garage_Upgrade";

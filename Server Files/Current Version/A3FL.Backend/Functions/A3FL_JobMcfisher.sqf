@@ -58,12 +58,9 @@
 
 ["A3PL_JobMcfisher_CookBurger",
 {
-	private ["_burger","_class","_grill"];
-	_burger = param [0,objNull];
-	_class = typeOf _burger;
-	_grill = attachedTo _burger;
-
-	//player globalChat format ["%1 - %2 - %3",_burger,_class,_grill];
+	private _burger = param [0,objNull];
+	private _class = typeOf _burger;
+	private _grill = attachedTo _burger;
 
 	if (isNull _burger) exitwith {[localize"STR_A3PL_JobMcfisher_BurgerNullReport", "red"] call a3pl_player_notification;};
 	if (isNull _grill) exitwith {[localize"STR_A3PL_JobMcfisher_GrillNullReport", "red"] call a3pl_player_notification;};
@@ -71,45 +68,35 @@
 	if (isNil "_class") exitwith {[localize"STR_A3PL_JobMcfisher_BurgerNoClass", "red"] call a3pl_player_notification;};
 
 	//first check if any cook variable already exist, or apply
-	_cookstate = _burger getVariable "cookstate";
-	if (isNil "_cookstate") then
-	{
+	private _cookstate = _burger getVariable "cookstate";
+	if (isNil "_cookstate") then {
 		_burger setVariable ["cookstate",0,true];
 	};
-
 	[_burger,_grill,_class] spawn
 	{
 		private ["_burger","_cookstate","_burger","_grill","_pos","_veh"];
 		_burger = param [0,ObjNull];
 		_grill = param [1,ObjNull];
 		_class = param [2,""];
-
-		if (_class == "") exitwith {};
-
-		while {attachedTo _burger == _grill} do
+		if (_class isEqualTo "") exitwith {};
+		while {(attachedTo _burger) == _grill} do
 		{
 			private ["_cookstate","_newcookstate"];
-			_cookstate = _burger getVariable "cookstate";//get current state
+			_cookstate = _burger getVariable "cookstate";
 			_newcookstate = _cookstate + 10;
 			_burger setVariable ["cookstate",_newcookstate,true];
-			uiSleep 10; //time between cookstates
+			uiSleep 10;
 			if (_newcookstate > 90) exitwith {};
-			if (isNull _burger) exitwith {}; //could be somebody picked it up
+			if (isNull _burger) exitwith {};
 		};
 
-		_cookstate = _burger getVariable "cookstate"; //get the cookstate again
+		_cookstate = _burger getVariable "cookstate";
 		if (isNil "_cookstate") exitwith {};
-
-		if (_cookstate > 90) then
-		{
-
-			if (_class IN ["A3PL_Burger_Raw","A3PL_Burger_Cooked","A3PL_Fish_Raw","A3PL_Fish_Cooked"]) then
-			{
-				[player,_burger] remoteExec ["Server_JobMcfisher_cookthres",2]; // let server know the cookstate on client has reached a threshold, server will now take care of changing the object etc
+		if (_cookstate > 90) then {
+			if (_class IN ["A3PL_Burger_Raw","A3PL_Burger_Cooked","A3PL_Fish_Raw","A3PL_Fish_Cooked"]) then {
+				[player,_burger] remoteExec ["Server_JobMcfisher_cookthres",2];
 			};
-
-			if (_class IN  ["A3PL_Burger_Burnt","A3PL_Fish_Burned"]) then //must be a burned burger then, we can execute fire scripts here in the future
-			{
+			if (_class IN  ["A3PL_Burger_Burnt","A3PL_Fish_Burned"]) then {
 				_burger setVariable ["cookstate",nil,true];
 			};
 		};

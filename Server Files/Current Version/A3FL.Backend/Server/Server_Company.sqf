@@ -245,6 +245,8 @@
 	private _query = format ["SELECT cid FROM companies_bills WHERE id='%1'",_id];
 	private _companyID = ([_query, 2] call Server_Database_Async) select 0;
 	[_companyID, _amount, format["Bill %1",name _player]] remoteExec ["Server_Company_SetBank",2];
+
+	sleep 2;
 	[_player] remoteExec ["Server_Company_LoadBills",2];
 },true] call Server_Setup_Compile;
 

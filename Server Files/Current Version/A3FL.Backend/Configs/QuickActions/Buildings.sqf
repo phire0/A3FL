@@ -628,6 +628,11 @@
 	{[player_objIntersect] call A3PL_Warehouses_OpenBuyMenu;}
 ],
 [
+	"Land_A3PL_BusinessSign",
+	"Sell Warehouse",
+	{[player_objIntersect] call A3PL_Warehouses_SellOpen;}
+],
+[
 	"Land_A3PL_EstateSign",
 	localize"STR_INTSECT_BUYHOUSE",
 	{

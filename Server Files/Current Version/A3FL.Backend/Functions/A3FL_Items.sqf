@@ -12,6 +12,7 @@
 	private _classname = Player_ItemClass;
 	private _quality = [_classname, "quality"] call A3PL_Config_GetThirst;
 	private _alcohol = [_classname, "alcohol"] call A3PL_Config_GetThirst;
+	private _coffeeTime = [_classname, "coffeeTime"] call A3PL_Config_GetThirst;
 	if (Player_ItemClass isEqualTo "") exitwith {[localize"STR_NewItems_12","red"] call A3PL_Player_Notification;};
 	if (!isNil "Player_isDrinking") exitwith {[localize"STR_NewItems_11","red"] call A3PL_Player_Notification;};
 	Player_isDrinking = true;
@@ -26,6 +27,40 @@
 	sleep 3;
 	Player_Item setVectorDirAndUp [[0,1,0],[0,0,1]];
 	sleep 4.5;
+
+	// If the associated drink has a coffee time
+	if (_coffeeTime > 0) then {
+		// If you're not currently on coffee
+		if (!(player getVariable ["UsingCoffee", false])) then {
+			// You now are on coffee...
+			player setVariable ["UsingCoffee", true, true];
+
+			// Add effect handler to the scheduler
+			[_coffeeTime] spawn {
+				// Apply faster speed
+				[format["You have drank coffee and will now be faster for %1 minutes!", (_this select 0)], "green"] call A3PL_Player_Notification;
+				player setAnimSpeedCoef 1.7;
+
+				// Sleep for the coffee effect duration
+				sleep ((_this select 0) * 60);
+
+				// Slower speed
+				["You have run out of caffeine!", "amber"] call A3PL_Player_Notification;
+				player setAnimSpeedCoef 0.7;
+
+				// Sleep for the slowness length (3 minutes)
+				sleep 180;
+
+				// Back to normal
+				["Your energy is now back to normal!", "green"] call A3PL_Player_Notification;
+				player setAnimSpeedCoef 1;
+
+				player setVariable ["UsingCoffee", false, true];
+			};
+		} else {
+			["You are already experiencing a caffeine high, this coffee will not impact your speed!", "amber"] call A3PL_Player_Notification;
+		};
+	};
 
 	if(_alcohol) then {
 		[_quality] call A3PL_Alcohol_Add;

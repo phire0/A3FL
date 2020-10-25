@@ -167,7 +167,7 @@
 	private _toCompany = param [0,0];
 	if (isNull _intersect) exitwith {};
 	private _types = ["Car","Ship","Tank","Truck","Plane","Helicopter","Air"];
-	private _near = nearestObjects [_intersect,_types,15];
+	private _near = nearestObjects [_intersect,_types,30];
 
 	if ((count _near) isEqualTo 0) exitwith {[7] call A3PL_Storage_CarStoreResponse;};
 	[8] call A3PL_Storage_CarStoreResponse;
@@ -175,14 +175,14 @@
 	if (typeOf _intersect IN ["Land_A3PL_storage"]) then {
 		[player,_intersect,_toCompany] remoteExec ["Server_Storage_StoreVehicle",2];
 	} else {
-		private _cars = nearestObjects [player, ["Car","Ship","Air","Tank","Truck"], 15];
+		private _cars = nearestObjects [player, ["Car","Ship","Air","Tank","Truck"], 30];
 		if((count _cars) isEqualTo 0) exitWith {[localize"STR_NewStorage_9", "red"] call A3PL_Player_Notification;};
 		private _car = _cars select 0;
 		if (((_car getVariable "owner") select 0) != (getPlayerUID player)) exitWith {[localize"STR_NewStorage_10", "red"] call A3PL_Player_Notification;};
 		private _atttachedObjects = attachedObjects _car;
 		private _countAttached = count(_attachedObjects);
 		if ((_countAttached > 0 || (_countAttached == 1 && (count(_attachedObjects select 0) == 0)))) exitWith {["Error: Contant a Director if you see this","red"] call A3PL_Player_Notification;};
-		//if (count (attachedObjects _car) > 0) exitWith {["There is objects attached to this vehicle, please unload everything before storing your vehicle.", "red"] call A3PL_Player_Notification;};
+		
 		[_car,player,_toCompany] remoteExec ["Server_Storage_SaveLargeVehicles",2];
 	};
 }] call Server_Setup_Compile;
@@ -289,11 +289,11 @@
 	private _vehicleGas = _dataSplit select 2;
 	private _vehicleInsurance = _dataSplit select 3;
 	private _control = _display displayCtrl 1501;
-	private _vehicleInsurance = "Yes";
-	if(_vehicleInsurance isEqualTo "0") then {_vehicleInsurance = "No";};
+	private _vehicleInsured = "Yes";
+	if(_vehicleInsurance isEqualTo "0") then {_vehicleInsured = "No";};
 
 	private _startingText = ["Type :","License :","Gas :","Insurance :"];
-	private _followingText = [_vehicleType,_vehiclePlate,_vehicleGas,_vehicleInsurance];
+	private _followingText = [_vehicleType,_vehiclePlate,_vehicleGas,_vehicleInsured];
 
 	lbClear 1501;
 	{

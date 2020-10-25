@@ -23,9 +23,10 @@
 	["itemAdd", ["Loop_JailMarkers", {[] spawn A3PL_Prison_Markers;}, 30, 'seconds',{ player getVariable ["job","unemployed"] isEqualTo "fims" },{ !(player getVariable ["job","unemployed"] isEqualTo "fims") && isNil "A3PL_Inmates_Markers" }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_HousingTaxes", {[] call A3PL_Loop_HousingTaxes;}, 1800, 'seconds',{!isNil {player getVariable ["house",nil]}}, {isNil {player getVariable ["house",nil]}}]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_WarehouseTaxes", {[] call A3PL_Loop_WarehouseTaxes;}, 1800, 'seconds',{!isNil {player getVariable ["warehouse",nil]}}, {isNil {player getVariable ["warehouse",nil]}}]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_MoneyBagWater", {[] call A3PL_BHeist_Loop;}, 10, 'seconds',{backpack player isEqualTo "A3PL_Backpack_Money" && surfaceIsWater position player && (((getPosASLW player) select 2) <= 0)}]] call BIS_fnc_loop;
 
-	//Events
-	//["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
+	// Events
+	["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
 }] call Server_Setup_Compile;
 
 ["A3PL_Loop_LockView",

@@ -7,17 +7,19 @@ disableChannels[] = {{0,true,true},{1,true,true},{2,true,true},{4,true,true},{5,
 enableDebugConsole[] = {};
 
 skipLobby = 1;
+joinUnassigned = 0;
 disabledAI = 1;
 forceRotorLibSimulation = 2;
 
-joinUnassigned = 0;
+corpseManagerMode = 3;
+corpseLimit=100;
+corpseRemovalMinTime=999;
+corpseRemovalMaxTime=9999;
 
-corpseManagerMode = 1;
-corpseRemovalMinTime = 30*60;
-corpseRemovalMaxTime = 30*60;
 wreckManagerMode = 1;
-wreckRemovalMinTime = 1*60;
-wreckRemovalMaxTime = 3*60;
+wreckLimit=5;
+wreckRemovalMinTime=60;
+wreckRemovalMaxTime=320;
 
 debriefing = 0;
 briefing = 0;

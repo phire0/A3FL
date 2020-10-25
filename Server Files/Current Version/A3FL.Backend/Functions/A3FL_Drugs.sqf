@@ -34,11 +34,6 @@
 	//Do not loop if not drunk!
 	if((_CurrentAlcool <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Alcohol_ResetEffects;};
 
-	//Incapacitated from too much alcohol little matthew, do not edit the rules!
-	if(_CurrentAlcool >= 80) exitWith {
-		[] spawn A3PL_Medical_Die;
-	};
-
 	//Alcohol Effect
 	//Just a little cam shake, it's for me.
 	resetCamShake;
@@ -102,6 +97,7 @@
 			_index = 2;
 		};
 	};
+
 	if(_index < 0) exitwith {};
 
 	private _new = (Player_Drugs select _index) + (_add);
@@ -120,13 +116,13 @@
 	if((_totalDrugs <= 0) || !(player getVariable["A3PL_Player_Alive",true])) exitWith {call A3PL_Drugs_ResetEffects;};
 
 	//Incapacitated from too much drugs!
-	if(_totalDrugs >= 250) exitWith {
+	if (_totalDrugs >= 250) exitWith {
 		profileNamespace setVariable ["player_drugs",[0,0,0]];
 		Player_Drugs = [0,0,0];
 		[player, "left upper arm", "drug_overdose"] call A3PL_Medical_ApplyWound;
-		[] spawn A3PL_Medical_Die;
 	};
 
+	// Shrooms
 	if((Player_Drugs select 0) > 0) then {
 		_shrooms = Player_Drugs select 0;
 
@@ -157,6 +153,7 @@
 		};
 	};
 
+	// Cocaine
 	if((Player_Drugs select 1) > 0) then {
 		_coke = Player_Drugs select 1;
 
@@ -187,6 +184,7 @@
 		};
 	};
 
+	// Weed
 	if((Player_Drugs select 2) > 0) then {
 		_weed = (Player_Drugs select 2);
 
@@ -203,7 +201,7 @@
 			// "dynamicBlur" ppEffectAdjust [0.75];	//Make it variate with alcohol level
 			// "dynamicBlur" ppEffectCommit 1;
 			player setAnimSpeedCoef 0.5;
-			_bloodLevel = [player,"blood"] call A3PL_Medical_GetVar;
+			_bloodLevel = player getVariable["A3PL_Medical_Blood",5000];
 			if(_bloodLevel < 5000) then {
 				[player,[200]] call A3PL_Medical_ApplyVar;
 			};

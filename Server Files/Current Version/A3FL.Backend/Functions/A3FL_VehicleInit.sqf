@@ -86,7 +86,6 @@
 			case ("A3PL_Monster"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Kx"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Urus"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
-			case ("A3PL_GMCVandura"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus_PD_ST"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
@@ -95,13 +94,15 @@
 			case ("A3PL_Charger15_FD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
-			case ("M_explorer"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Raptor_PD_ST"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Fatboy_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus_FD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_T370"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_Nissan_GTR"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
-			case ("A3FL_Nissan_GTR_LW"): {_veh call A3PL_Vehicle_Init_A3PL_Engine; };
+			case ("A3FL_Nissan_GTR_LW"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_Smart_Car"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_BMW_M6"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_Mercedes_Benz_AMG_C63"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 		};
 	};
 
@@ -478,6 +479,25 @@
 	}];
 }] call Server_Setup_Compile;
 
+['A3PL_Vehicle_Init_A3FL_AS_365', {
+	private _veh = _this;
+	_veh addEventHandler ["GetIn",
+	{
+		_veh = param [0,objNull];
+		_position = param [1,""];
+		_unit = param [2,objNull];
+		if (!local _unit) exitwith {};
+		if (_position IN ["gunner","driver"]) then {
+			[_veh] spawn A3PL_ATC_GetInAircraft;
+		};
+	}];
+	_veh addEventHandler ["Engine", {
+		if ((((_this select 0) animationPhase "ignition_Switch") < 0.5) && (player IN (_this select 0))) then {
+			(vehicle player) engineOn false;
+		};
+	}];
+}] call Server_Setup_Compile;
+
 ["A3PL_Vehicle_Init_Heli_Medium01_H",
 {
 	private ['_veh'];
@@ -576,16 +596,11 @@
 	{
 		_veh = param [0,objNull];
 		_local = param [1,false];
-
-		//if this is the computer locality was changed to
 		if (_local) then
 		{
-			//_veh allowDamage false;
 			[_veh] spawn A3PL_Goose_Platform;
 		};
 	}];
-	if (getplayerUID player == "_SP_PLAYER_") then {[_veh] spawn A3PL_Goose_Platform;}; //test platform script in SP
-
 	_veh addEventHandler ["GetIn",
 	{
 		_veh = param [0,objNull];
@@ -599,7 +614,6 @@
 			[_veh] spawn A3PL_ATC_GetInAircraft;
 		};
 	}];
-
 	_veh addEventHandler ["Engine",
 	{
 		if ((((_this select 0) animationSourcePhase "Ignition") < 0.5) && (local (vehicle player))) then

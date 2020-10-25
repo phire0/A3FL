@@ -534,7 +534,7 @@ A3PL_Interaction_Options =
 			private _veh = vehicle player;
 			if([typeOf(_veh)] call A3PL_Config_HasStorage) then {[_veh] call A3PL_Vehicle_OpenStorage;};
 		},
-		{((vehicle player) != player) && ([typeOf(vehicle player)] call A3PL_Config_HasStorage)}
+		{((vehicle player) != player) && ([typeOf(vehicle player)] call A3PL_Config_HasStorage) && (!(player getVariable ["Cuffed",true]) && !(player getVariable ["Zipped",true]))}
 	],
 	[
 		localize "STR_NewInventory_24",
@@ -638,7 +638,7 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_THROWIT",
-		{call A3PL_Inventory_Throw;},
+		{[] spawn A3PL_Inventory_Throw;},
 		{((isNull Player_Item) isEqualTo false) && ([Player_ItemClass, 'canDrop'] call A3PL_Config_GetItem)}
 	],
 	[
@@ -718,29 +718,28 @@ A3PL_Interaction_Options =
 		{
 			[] spawn {
 				private _veh = vehicle player;
-				private _heli = vehicle player getVariable "vehicle";
+				private _heli = (vehicle player) getVariable ["vehicle",objNull];
 				private _crew = crew _heli;
 				private _available = true;
-				{if ((_heli getCargoIndex _x) == 6) exitwith {_available = false;};} foreach (crew _heli);
-				if (!_available) exitwith {_veh lock 0; unassignVehicle player;player leaveVehicle _veh;player action ["GetOut", _veh]; sleep 1.5;_veh lock 0; player moveInCargo _heli; [localize "STR_INTER_EXITINTOHEILD","red"] call A3PL_Player_Notification;};
+				if (isNull _heli) exitwith {["Cannot find the helicopter","red"] call A3PL_Player_Notification;};
+				{if ((_heli getCargoIndex _x) isEqualTo 6) exitwith {_available = false;};} foreach (crew _heli);
+				if (!_available) exitwith {[localize "STR_INTER_EXITINTOHEILD","red"] call A3PL_Player_Notification;};
 				_veh lock 0;
-				unassignVehicle player;
-				player leaveVehicle _veh;
 				player action ["GetOut", _veh];
 				sleep 1.5;
 				_veh lock 0;
 				player moveInCargo [_heli, 6];
 			};
 		},
-		{(("A3PL_rescueBasket" isEqualTo (typeOf (vehicle player))))}
+		{(("A3PL_RescueBasket" isEqualTo (typeOf (vehicle player))))}
 	],
 	[
 		localize "STR_INTER_INCREASERL",
 		{
 			private _veh = vehicle player;
-			if (typeOf _veh != "A3PL_Jayhawk") exitwith {};
-			if (count ropes _veh < 1) exitwith {};
-			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) + 5];
+			if ((typeOf _veh) != "A3PL_Jayhawk") exitwith {};
+			if ((count (ropes _veh)) < 1) exitwith {};
+			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) + 15];
 		},
 		{((typeOf (vehicle player) isEqualTo "A3PL_Jayhawk") && (local vehicle player) && ((player isEqualTo ((vehicle player) turretUnit [0])) OR (player isEqualTo ((vehicle player) turretUnit [1])) OR (player == (driver vehicle player)))) && (vehicle player animationPhase "Basket" > 0.5)}
 	],
@@ -750,7 +749,7 @@ A3PL_Interaction_Options =
 			private _veh = vehicle player;
 			if (typeOf _veh != "A3PL_Jayhawk") exitwith {};
 			if ((count (ropes _veh)) < 1) exitwith {};
-			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) - 5];
+			ropeUnwind [(ropes _veh) select 0,2,(ropeLength ((ropes _veh) select 0)) - 15];
 		},
 		{((typeOf (vehicle player) isEqualTo "A3PL_Jayhawk") && (local vehicle player) && ((player isEqualTo ((vehicle player) turretUnit [0])) OR (player isEqualTo ((vehicle player) turretUnit [1])) OR (player == (driver vehicle player)))) && (vehicle player animationPhase "Basket" > 0.5)}
 	],
@@ -1032,7 +1031,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_OPCOMPUTER",
 		{call A3PL_Police_DatabaseOpen;},
-		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","fims"]) && (typeOf(vehicle player) IN Config_Police_Vehs)}
+		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) && (typeOf(vehicle player) IN Config_Police_Vehs - ["A3PL_P362_TowTruck"])}
 	],
 	[
 		localize "STR_INTER_RESETLOCKF",
@@ -1114,6 +1113,80 @@ A3PL_Interaction_Options =
 		"Shop Management",
 		{call A3PL_Company_OpenShopStock;},
 		{((typeOf cursorObject) isKindOf "House") && {([getPlayerUID player] call A3PL_Config_GetCompanyID) isEqualTo (cursorObject getVariable["cid",-1])}}
+	],
+
+	[
+		"Open Door",
+		{(vehicle player) animateDoor["Door_LB2",1];},
+		{((typeOf (vehicle player)) isEqualTo "A3FL_AS_365") && {(player isEqualTo ((vehicle player) turretUnit [2]))}  && {((vehicle player) animationSourcePhase "Door_LB2") isEqualTo 0}}
+	],
+	[
+		"Close Door",
+		{(vehicle player) animateDoor["Door_LB2",0];},
+		{((typeOf (vehicle player)) isEqualTo "A3FL_AS_365") && {(player isEqualTo ((vehicle player) turretUnit [2]))}  && {((vehicle player) animationSourcePhase "Door_LB2") isEqualTo 1}}
+	],
+	[
+		"Open Door",
+		{(vehicle player) animateDoor["Door_RB2",1];},
+		{((typeOf (vehicle player)) isEqualTo "A3FL_AS_365") && {(player isEqualTo ((vehicle player) turretUnit [1]))} && {((vehicle player) animationSourcePhase "Door_RB2") isEqualTo 0}}
+	],
+	[
+		"Close Door",
+		{(vehicle player) animateDoor["Door_RB2",0];},
+		{((typeOf (vehicle player)) isEqualTo "A3FL_AS_365") && {(player isEqualTo ((vehicle player) turretUnit [1]))} && {((vehicle player) animationSourcePhase "Door_RB2") isEqualTo 1}}
+	],
+
+	[
+		"Stop Towing",
+		{[player_objintersect] call A3PL_USCG_UntowBoat;},
+		{((typeOf player_objintersect) isEqualTo "A3PL_RBM") && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {(player_objintersect getVariable ["towing",false])}}
+	],
+	[
+		"Prepare Towing",
+		{
+			player_objintersect spawn {
+				A3FL_BoatTow = _this;
+				["RBM is ready for towing!","green"] call A3PL_Player_Notification;
+				sleep 300;
+				A3FL_BoatTow = nil;
+				["Boat towing cancelled.","red"] call A3PL_Player_Notification;
+			};
+		},
+		{((typeOf player_objintersect) isEqualTo "A3PL_RBM") && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {!(player_objintersect getVariable ["towing",false])}}
+	],
+	[
+		"Tow Boat",
+		{[A3FL_BoatTow,player_objintersect] call A3PL_USCG_TowBoat;},
+		{((typeOf player_objintersect) IN ["A3PL_RBM"]) && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {!isNil {A3FL_BoatTow}}}
+	],
+
+	[
+		"Toggle Garage",
+		{
+			switch (typeOf cursorObject) do {
+				case "Land_A3FL_Warehouse": {
+					private _distanceLeft = player distance2D (cursorObject modelToWorldVisual (cursorObject selectionPosition ["door_1", "Memory"]));
+					private _distanceRight = player distance2D (cursorObject modelToWorldVisual (cursorObject selectionPosition ["door_5", "Memory"]));
+					
+					if (_distanceRight > _distanceLeft) then {
+						[cursorObject, "door_1", false] call A3PL_Lib_ToggleAnimation;
+						[cursorObject, "door_2", false] call A3PL_Lib_ToggleAnimation;
+					} else {
+						[cursorObject, "door_5", false] call A3PL_Lib_ToggleAnimation;
+						[cursorObject, "door_6", false] call A3PL_Lib_ToggleAnimation;
+					};
+				};
+
+				case "Land_John_Hangar": {
+					[cursorObject, "hangardoor"] call A3PL_Lib_ToggleAnimation;
+				};
+
+				default {
+					[cursorObject, "garagedoor"] call A3PL_Lib_ToggleAnimation;
+				};
+			};
+		},
+		{((typeOf cursorObject) isKindOf "House") && ((cursorObject getVariable ["unlocked", false]) || ((getPlayerUID player) in (cursorObject getVariable ["owner", []]))) && ((player distance cursorObject) < 20) && ((typeof (call A3PL_Intersect_cursorTarget)) in ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Home4w_DED_Home4w_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home6b_DED_Home6b_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_John_Hangar","Land_A3FL_Warehouse"])}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";

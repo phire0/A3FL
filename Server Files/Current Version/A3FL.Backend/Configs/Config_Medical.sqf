@@ -10,7 +10,13 @@
 //ID, NAME, COLOR, INSTANT BLOOD LOSS, BLOOD LOSS,
 Config_Medical_Wounds =
 [
-	["bullet",localize"STR_ConfigMedical_2","red",600,60,"med_bandage",false,"med_kit"],
+	["bullet",localize"STR_ConfigMedical_2","red",800,60,"med_bandage",false,"med_kit"],
+	["bullet_9",localize"STR_ConfigMedical_Bullet_9mm","red",800,60,"med_bandage",false,"med_kit"],
+	["bullet_45",localize"STR_ConfigMedical_Bullet_45","red",900,70,"med_bandage",false,"med_kit"],
+	["bullet_50",localize"STR_ConfigMedical_Bullet_50","red",2000,90,"med_bandage",false,"med_kit"],
+	["bullet_556",localize"STR_ConfigMedical_Bullet_556","red",1000,70,"med_bandage",false,"med_kit"],
+	["bullet_762",localize"STR_ConfigMedical_Bullet_762","red",1200,90,"med_bandage",false,"med_kit"],
+	["bullet_12",localize"STR_ConfigMedical_Bullet_12","red",2100,100,"med_bandage",false,"med_kit"],
 
 	["wound_minor",localize"STR_ConfigMedical_4","orange",200,20,"med_bandage",true,""],
 	["wound_major",localize"STR_ConfigMedical_5","red",300,30,"med_bandage",false,"med_kit"],

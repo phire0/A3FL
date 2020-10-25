@@ -10,7 +10,7 @@
 {
 	private ["_tObjects","_obj","_timeLeft"];
 
-	if (!(vehicle player == player)) exitwith {["You can't be in a vehicle when repairing objects", "red"] call A3PL_Player_Notification;};
+	if (!(vehicle player isEqualTo player)) exitwith {["You can't be in a vehicle when repairing objects", "red"] call A3PL_Player_Notification;};
 	_tObjects = nearestTerrainObjects [player, [], 5];
 	if (count _tObjects < 1) exitwith {["There doesn't seem to be a terrain object nearby", "red"] call A3PL_Player_Notification;};
 	_obj = _tObjects select 0;
@@ -26,25 +26,15 @@
 	[player, 'Player_Cash', ((player getVariable 'Player_Cash')  + 10)] remoteExec ["Server_Core_ChangeVar",2];
 }] call Server_Setup_Compile;
 
-["A3PL_JobRoadWorker_Loop",
-{
-	player setVariable ["TerrainRepaired",nil,false];
-}] call Server_Setup_Compile;
-
 ["A3PL_JobRoadWorker_ToggleMark",
 {
-	private ["_veh"];
-	_veh = param [0,objNull];
-
-	if (isNull _veh) then
-	{
+	private _veh = param [0,objNull];
+	if (isNull _veh) then {
 		_veh = player_objintersect;
 		if (!(_veh isKindOf "LandVehicle")) then {_veh = cursorobject};
 		if (isNull _veh) exitwith {["Couldn't find a vehicle to impound, are you looking at it?", "red"] call A3PL_Player_Notification;};
 	};
-
-	if (_veh getVariable ["impound",false]) then
-	{
+	if (_veh getVariable ["impound",false]) then {
 		[_veh] remoteExec ["Server_JobRoadWorker_UnMark", 2];
 		["You unmarked this vehicle for impounding", "red"] call A3PL_Player_Notification;
 	} else {
@@ -55,9 +45,8 @@
 
 ["A3PL_JobRoadWorker_MarkResponse",
 {
-	private ["_veh"];
-	_veh = param [0,objNull];
-	_license = (_veh getvariable ["owner",["0","ERROR"]]) select 1;
+	private _veh = param [0,objNull];
+	private _license = (_veh getvariable ["owner",["0","ERROR"]]) select 1;
 	[format ["A new vehicle is available for impounding, it has been marked on the map (License: %1)",_license], "green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -89,13 +78,11 @@
 
 ["A3PL_JobRoadWorker_Impound",
 {
-	private ["_car","_cars"];
-
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if ((player getVariable ["job","unemployed"]) != "Roadside") exitwith {["You dont seem to be working here as a Roadside Service Worker", "red"] call A3PL_Player_Notification;};
 
-	_cars = nearestObjects [player, ["Car"], 10];
-	_car = objNull;
+	private _cars = nearestObjects [player, ["Car"], 10];
+	private _car = objNull;
 	{
 		if (_x getVariable ["impound",false]) exitwith {_car = _x;};
 	} foreach _cars;
