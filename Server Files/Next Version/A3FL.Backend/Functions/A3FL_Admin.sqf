@@ -627,11 +627,11 @@
 ["A3PL_AdminHealPlayer", {
 	if ((player getVariable "dbVar_AdminLevel") >= 1) then {
 		_target = (A3PL_Admin_PlayerList select (lbCurSel 1500));
+		if(!(_target getVariable["A3PL_Medical_Alive",true])) then {closeDialog 0;};
 		_target setVariable ["A3PL_Medical_Alive",true,true];
 		_target setVariable ["A3PL_Wounds",[],true];
-		_target setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+		_target setVariable ["A3PL_Medical_Blood",5000,true];
 		_target setDamage 0;
-		closeDialog 0;
 		[player,"admin_heal",[format ["Healing %1",name _target]]] remoteExec ["Server_AdminLoginsert", 2];
 	} else {
 		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
@@ -657,7 +657,7 @@
 		player setDamage 0;
 		player setVariable ["pVar_RedNameOn",true,true];
 		player setVariable ["A3PL_Wounds",[],true];
-		player setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+		player setVariable ["A3PL_Medical_Blood",5000,true];
 		player enableStamina false;
 	};
 	[player,"admin_mode",[player getVariable ["pVar_RedNameOn",false]]] remoteExec ["Server_AdminLoginsert", 2];
@@ -847,11 +847,6 @@
 					{
 						private _pos = visiblePosition _x;
 						private _text = format[" (%1) %2", _x getVariable["name","ERROR"], name _x];
-						private _deadBody = _x getVariable["deadBody",objNull];
-						if(!isNull _deadBody) then {
-							_pos = visiblePosition _deadBody;
-							_text = format[" (Dead) %1", _x getVariable["name","ERROR"]];
-						};
 						_marker = createMarkerLocal [format["%1_marker",_x],_pos];
 						_marker setMarkerColorLocal "ColorYellow";
 						_marker setMarkerTypeLocal "Mil_dot";

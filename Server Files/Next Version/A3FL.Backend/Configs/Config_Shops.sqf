@@ -887,7 +887,7 @@ Config_Shops_Items = [
 	["Shop_USCG_Plane_Vendor",[
 			["plane","Heli_Medium01_Coastguard_H",15000,3750,0],
 			["plane","A3PL_Jayhawk",25000,5000,0],
-			//["plane","A3FL_AS_365",85000,6250,0],
+			["plane","A3FL_AS_365",35000,6250,0],
 			["plane","A3PL_Cessna172",30000,7000,0],
 			["plane","A3PL_Goose_USCG",30000,7000,0]
 		],{[6576.22,8407.68,0.3]}
@@ -1044,12 +1044,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_Deadpool_Outfit_Uniform",0,-1,0],
 			["uniform","A3PL_Grn_Lantern_Outfit_Uniform",0,-1,0],
 			["uniform","A3PL_Donald_Duck_Uniform",0,-1,0],
-			["uniform","A3PL_Jumpsuit_Uniform",0,-1,0],
-			["uniform","A3PL_Things_Jurassic_1_Man",0,-1,0],
-			["uniform","A3PL_Things_Jurassic_2_Man",0,-1,0],
-			["uniform","A3PL_Things_Jurassic_3_Man",0,-1,0],
-			["uniform","A3PL_Things_Jurassic_4_Man",0,-1,0],
-			["uniform","A3PL_Things_Jurassic_5_Man",0,-1,0],
+			//["uniform","A3PL_Jumpsuit_Uniform",0,-1,0],
 			["uniform","A3PL_Rocket_Uniform",0,-1,0],
 			["uniform","A3PL_Six_Pack_Uniform",0,-1,0],
 			["vest","A3PL_Ghostbusters_Belt",0,-1,0],

@@ -1640,7 +1640,7 @@
 	private _vehClass = _control lbData (lbCurSel _control);
 	private _veh = nearestObject [player,_vehClass];
 	private _vehPrice = [typeOf _veh] call A3PL_Config_GetVehicleMSRP;
-	private _price = if (_VehPrice < 150000) then {vehPrice * 0.15} else {_vehPrice * 0.20};
+	private _price = if (_vehPrice < 150000) then {_vehPrice * 0.15} else {_vehPrice * 0.20};
 	if (_price > (player getVariable ["Player_Bank",0])) exitwith {[format [localize"STR_NewVehicle_56"]] call A3PL_Player_notification;};
 	player setVariable ["Player_Bank",(player getVariable ["Player_Bank",0]) - _price,true];
 	["Federal Reserve", _price] remoteExec["Server_Government_AddBalance", 2];

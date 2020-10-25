@@ -201,7 +201,7 @@
 			// "dynamicBlur" ppEffectAdjust [0.75];	//Make it variate with alcohol level
 			// "dynamicBlur" ppEffectCommit 1;
 			player setAnimSpeedCoef 0.5;
-			_bloodLevel = [player,"blood"] call A3PL_Medical_GetVar;
+			_bloodLevel = player getVariable["A3PL_Medical_Blood",5000];
 			if(_bloodLevel < 5000) then {
 				[player,[200]] call A3PL_Medical_ApplyVar;
 			};

@@ -278,7 +278,7 @@
 
 	private _furnitures = nearestObjects [_pos, ["Thing"], 100];
 	{if((_x getVariable "owner") isEqualTo _uid) then {deleteVehicle _x;};} foreach _furnitures;
-	deleteMarker ([getPos _warehouse, "warehouse"] A3PL_Lib_NearestMarker);
+	deleteMarker ([getPos _warehouse, "warehouse"] call A3PL_Lib_NearestMarker);
 
 	private _player = [_uid] call A3PL_Lib_UIDToObject;
 	if(!isNull _player) then {

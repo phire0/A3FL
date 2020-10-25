@@ -488,7 +488,7 @@
 
 	_furnitures = nearestObjects [_pos, ["Thing"], 100];
 	{if((_x getVariable "owner") isEqualTo _uid) then {deleteVehicle _x;};} foreach _furnitures;
-	deleteMarker ([getPos _house, "house"] A3PL_Lib_NearestMarker);
+	deleteMarker ([getPos _house, "house"] call A3PL_Lib_NearestMarker);
 
 	{
 		if(getPlayerUID _x isEqualTo _uid) then {

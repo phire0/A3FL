@@ -29,10 +29,16 @@
 	private _veh = param [0,objNull];
 	if (isNull _veh) exitwith {};
 	private _var = _veh getVariable ["owner",nil];
+	private _isInsured = _veh getVariable ["insurance",false];
+	private _id = _var select 1;
 	if (!isNil "_var") then {
-		private _id = _var select 1;
-		private _query = format ["DELETE FROM objects WHERE id = '%1'",_id];
-		[_query,1] spawn Server_Database_Async;
+		if(_isInsured) then {
+			private _query = format ["UPDATE objects SET plystorage = '1',impounded='3' WHERE id = '%1'",_id];
+			[_query,1] spawn Server_Database_Async;
+		} else {
+			private _query = format ["DELETE FROM objects WHERE id = '%1'",_id];
+			[_query,1] spawn Server_Database_Async;
+		};
 	};
 	[_veh] call Server_Vehicle_Despawn;
 },true] call Server_Setup_Compile;

@@ -497,7 +497,7 @@
 		_target setDamage 0;
 		_target setVariable ["A3PL_Medical_Alive",true,true];
 		_target setVariable ["A3PL_Wounds",[],true];
-		_target setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+		_target setVariable ["A3PL_Medical_Blood",5000,true];
 	true;
 	};
 	if ((_dikCode isEqualTo 72) && pVar_CursorTargetEnabled && pVar_AdminMenuGranted ) exitWith {
@@ -616,24 +616,18 @@
 
 ["A3PL_EventHandlers_Killed",
 {
-	player removeEventHandler["Killed",0];
-	player removeEventHandler["Respawn",0];
-	player addEventHandler ["Killed",{_this call A3PL_Medical_Die;}];
+	player addEventHandler ["Killed",{_this call A3PL_Medical_Killed;}];
 	player addEventHandler ["Respawn", {
-		private _unit = _this select 0;
-		private _corpse = _this select 1;
-		A3PL_DeadBody = _corpse;
-		A3PL_DeadBody setVariable["realPlayer",player,true];
-		A3PL_DeadBody setVariable["A3PL_Medical_Alive",false,true];
-		player setVariable["deadBody",A3PL_DeadBody,true];
-		player allowDamage false;
-		player playMoveNow "AmovPpneMstpSrasWrflDnon";
+		_this call A3PL_Medical_Die;
+	}];
+	player addEventHandler ["HandleRating", {
+		private _handler = 0;
+		_handler;
 	}];
 }] call Server_Setup_Compile;
 
 ["A3PL_EventHandlers_HandleDamage",
 {
-	player removeEventHandler["HandleDamage",0];
 	player addEventHandler ["HandleDamage",
 	{
 		params [
@@ -725,6 +719,10 @@
 		];
 		private _handle = false;
 		{
+			if((player getVariable["Cuffed",false]) || {player getVariable["Zipped",false]}) exitWith {
+				["Your hands are tied","red"] call A3PL_Player_Notification;
+				_handle = true;
+			};
 			if((_x isEqualTo A3FL_Seize_Storage)) exitWith  {
 				_isLead = ["fims"] call A3PL_Government_isFactionLeader;
 				_isLocked = _x getVariable["locked",true];

@@ -990,6 +990,7 @@ Config_Factories =
 		["f_mustang_PDST","","Ford Mustang (Slicktop)","inh","A3PL_Mustang_PD_Slicktop","car",true,5,[["Blueprint_mustang_PDST",1]],1,0,0,""],
 		["f_CG_Heli","","inh","inh","Heli_Medium01_Coastguard_H","plane",true,5,[["Blueprint_Jayhawk",1]],1,0,0,""],
 		["f_Jayhawk_USCG","","inh","inh","A3PL_Jayhawk","plane",true,5,[["Blueprint_Jayhawk",1]],1,0,0,""],
+		["f_AS_365","","inh","inh","A3FL_AS_365","plane",true,5,[["Blueprint_Jayhawk",1]],1,0,0,""],
 		["f_Medic_Heli","","inh","inh","Heli_Medium01_Medic_H","plane",true,5,[["Blueprint_Jayhawk",1]],1,0,0,""],
 		["f_Sheriff_Heli","","inh","inh","Heli_Medium01_Sheriff_H","plane",true,5,[["Blueprint_Jayhawk",1]],1,0,0,""],
 		["f_RBM","","inh","inh","A3PL_RBM","car",true,5,[["Blueprint_RBM",1]],1,0,0,""]

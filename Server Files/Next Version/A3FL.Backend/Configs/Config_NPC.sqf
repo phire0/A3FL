@@ -30,7 +30,7 @@ Config_NPC_Text =
 	["uscg_accepted", localize"STR_NPC_USCGALACCEPTED",[localize"STR_NPC_USCGALACCEPTED1"],[""]],
 	["uscg_service", localize"STR_NPC_USCGNSERVICE",[localize"STR_NPC_USCGNSERVICER"],[""]],
 
-	["fifr_initial", localize"STR_NPC_FIFRINIT",[localize"STR_NPC_FIFRINIT1",localize"STR_NPC_FIFRINIT2",localize"STR_NPC_FIFRINIT3", localize"str_NPC_FIFRINIT4"],["if ((str (player getvariable ['A3PL_Wounds',[]]) == '[]') && ((player getvariable ['A3PL_MedicalVars',[5000,'120/80',37]] select 0) == 5000)) exitwith {['fifr_healdenied'] call A3PL_NPC_Start;}; ['fifr_heal'] call A3PL_NPC_Start;","['fifr_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'fifr') exitwith {['fifr_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'fifr') then { ['fifr_work'] call A3PL_NPC_Start; } else {['fifr_workdenied'] call A3PL_NPC_Start;};", "['Shop_Clinic'] call A3PL_Shop_Open;"]],
+	["fifr_initial", localize"STR_NPC_FIFRINIT",[localize"STR_NPC_FIFRINIT1",localize"STR_NPC_FIFRINIT2",localize"STR_NPC_FIFRINIT3", localize"str_NPC_FIFRINIT4"],["if ((str (player getvariable ['A3PL_Wounds',[]]) == '[]') && ((player getvariable ['A3PL_Medical_Blood',5000]) isEqualTo 5000)) exitwith {['fifr_healdenied'] call A3PL_NPC_Start;}; ['fifr_heal'] call A3PL_NPC_Start;","['fifr_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'fifr') exitwith {['fifr_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'fifr') then { ['fifr_work'] call A3PL_NPC_Start; } else {['fifr_workdenied'] call A3PL_NPC_Start;};", "['Shop_Clinic'] call A3PL_Shop_Open;"]],
 	["fifr_healdenied", localize"STR_NPC_FIFRHEALD",[localize"STR_NPC_FIFRHEALD1"],[""]],
 	["fifr_howto", localize"STR_NPC_FIFRHOWTO",[localize"STR_NPC_ALRIGHTTNX"],[""]],
 	["fifr_workdenied", localize"STR_NPC_FIFRDEN",[localize"STR_NPC_FIFRDEN1"],[""]],
@@ -40,7 +40,7 @@ Config_NPC_Text =
 	["fifr_heal", localize"STR_NPC_FIFRHEAL",[localize"STR_NPC_FIFRHEAL1",localize"STR_NPC_FIFRHEAL2"],["[] spawn A3PL_Medical_Heal;"]],
 	["fifr_healdone", localize"STR_NPC_FIFRDONE",[localize"STR_NPC_FIFRDONE1"],[""]],
 
-	["fifr_initialill", localize"STR_NPC_FIFRINITILL",[localize"STR_NPC_FIFRINITILL1"],["if ((str (player getvariable ['A3PL_Wounds',[]]) == '[]') && ((player getvariable ['A3PL_MedicalVars',[5000,'120/80',37]] select 0) == 5000)) exitwith {['fifr_healdeniedill'] call A3PL_NPC_Start;}; ['fifr_healill'] call A3PL_NPC_Start;"]],
+	["fifr_initialill", localize"STR_NPC_FIFRINITILL",[localize"STR_NPC_FIFRINITILL1"],["if ((str (player getvariable ['A3PL_Wounds',[]]) == '[]') && ((player getvariable ['A3PL_Medical_Blood',5000]) isEqualTo 5000)) exitwith {['fifr_healdeniedill'] call A3PL_NPC_Start;}; ['fifr_healill'] call A3PL_NPC_Start;"]],
 	["fifr_healdeniedill", localize"STR_NPC_FIFRHEALDILL",[localize"STR_NPC_FIFRHEALD1ILL"],[""]],
 	["fifr_healill", localize"STR_NPC_FIFRHEALILL",[localize"STR_NPC_FIFRHEALILL1",localize"STR_NPC_FIFRHEALILL2"],["call A3PL_Medical_Heal_Ill;"]],
 	["fifr_healdoneill", localize"STR_NPC_FIFRDONEILL",[localize"STR_NPC_FIFRDONEILL1"],[""]],

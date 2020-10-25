@@ -64,7 +64,7 @@
 	_unit setVariable ["Cuffed",false,true];
 	_unit setVariable ["A3PL_Medical_Alive",true,true];
 	_unit setVariable ["A3PL_Wounds",[],true];
-	_unit setVariable ["A3PL_MedicalVars",[5000,"120/80",37],true];
+	_unit setVariable ["A3PL_Medical_Blood",5000,true];
 
 	[_unit,"burger_full_cooked",10] call Server_Inventory_Add;
 	[_unit,"coke",10] call Server_Inventory_Add;
@@ -166,7 +166,7 @@
 	//Set medical vars
 	_medStat = [(_return select 17)] call Server_Database_ToArray;
 	_unit setVariable ["A3PL_Wounds",_medStat select 0,true];
-	_unit setVariable ["A3PL_MedicalVars",_medStat select 1,true];
+	//_unit setVariable ["A3PL_Medical_Blood",_medStat select 1,true];
 
 	//Set perks - PA$$ION
 	_perks = [(_return select 20)] call Server_Database_ToArray;
@@ -315,7 +315,7 @@
 
 	//Med stats
 	_medStat = _unit getVariable ["A3PL_Wounds",[]];
-	_blood = _unit getVariable ["A3PL_MedicalVars",[5000,"120/80",37]];
+	_blood = _unit getVariable ["A3PL_Medical_Blood",5000];
 	_medStat = [_medStat,_blood];
 
 	//cash and bank, lets not check for Nil vars, see if this needs editing later
@@ -360,7 +360,6 @@
 		_var = _unit getVariable "name";
 		if (isNil "_var") exitwith {};
 		_jobVeh = _unit getVariable ["jobVehicle",nil];
-		_deadBody = _unit getVariable["deadBody",objNull];
 
 		[] remoteExecCall ["A3PL_Lib_VerifyHunger",_unit];
 		[] remoteExecCall ["A3PL_Lib_VerifyThirst",_unit];
@@ -371,7 +370,6 @@
 		if (!isNil {_unit getVariable ["house",nil]}) then {[_unit,_uid] call Server_Housing_SaveItems;};
 		if (!isNil {_unit getVariable ["warehouse",nil]}) then {[_unit,_uid] call Server_Warehouses_SaveItems;};
 		if (!isNil {_jobVeh}) then {[_jobVeh,_uid] spawn Server_Gear_JobVehicle;};
-		if(!isNull _deadBody) then {deleteVehicle _deadBody;};
 
 		//get rid of the assigned apt, if exist
 		_var = _unit getVariable "apt";

@@ -628,7 +628,7 @@ Server_Setup_Compile = {
 	//Set medical vars
 	_medStat = [(_return select 17)] call Server_Database_ToArray;
 	_unit setVariable ["A3PL_Wounds",_medStat select 0,true];
-	_unit setVariable ["A3PL_MedicalVars",_medStat select 1,true];
+	//_unit setVariable ["A3PL_Medical_Blood",_medStat select 1,true];
 
 	//Set perks - PA$$ION
 	_perks = [(_return select 20)] call Server_Database_ToArray;
