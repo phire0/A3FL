@@ -39,7 +39,7 @@
 			[_coffeeTime] spawn {
 				// Apply faster speed
 				[format["You have drank coffee and will now be faster for %1 minutes!", (_this select 0)], "green"] call A3PL_Player_Notification;
-				player setAnimSpeedCoef 1.7;
+				player setAnimSpeedCoef 1.2;
 
 				// Sleep for the coffee effect duration
 				sleep ((_this select 0) * 60);

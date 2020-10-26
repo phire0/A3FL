@@ -164,7 +164,7 @@
 		// "colorCorrections" ppEffectEnable true;
 		// "colorCorrections" ppEffectAdjust [0.5, 0.5, 0, [(random 10),(random 10),(random 10),0.2], [1,1,5,2], [(random 5),(random 5),(random 5),(random 5)]];
 		// "colorCorrections" ppEffectCommit 40;
-		player setAnimSpeedCoef 1.2;
+		player setAnimSpeedCoef 1.4;
 
 		//Adjusting animations speed
 		//player setAnimSpeedCoef (1+(_totalDrugs/200));
