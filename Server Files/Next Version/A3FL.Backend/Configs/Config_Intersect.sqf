@@ -541,6 +541,13 @@ Config_IntersectArray =
 
 	["spine3",localize"STR_INTSECT_OPTREASINF",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objIntersect isEqualTo npc_government_2) && {(["fbi"] call A3PL_Government_isFactionLeader)}}],
 
+	["jewelry_3_button",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]) || ((["keycard",1] call A3PL_Inventory_Has)))}],
+	["jewelry_3_button2",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]) || ((["keycard",1] call A3PL_Inventory_Has)))}],
+	["jewelry_4_button",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]) || ((["keycard",1] call A3PL_Inventory_Has)))}],
+	["jewelry_4_button2",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]) || ((["keycard",1] call A3PL_Inventory_Has)))}],
+	["jewelry_5_button",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]) || ((["keycard",1] call A3PL_Inventory_Has)))}],
+	["jewelry_5_button2",localize"STR_INTSECT_USEDOORB",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]) || ((["keycard",1] call A3PL_Inventory_Has)))}],
+
 	//Sheriff DP
 	["jailDoor_1",localize"STR_INTSECT_OPCLJAILD",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]}],
 	["jailDoor_2",localize"STR_INTSECT_OPCLJAILD",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]}],

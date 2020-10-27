@@ -276,6 +276,7 @@
 	} else {
 		Player_Item attachTo [player, _attach, 'RightHand'];
 	};
+	Player_Item setVariable["classname",_classname,true];
 
 	if (((vehicle player) isEqualTo player) && (!(animationState player IN ["crew"]))) then {player playMove 'AmovPercMstpSnonWnonDnon_AmovPercMstpSrasWpstDnon';};
 

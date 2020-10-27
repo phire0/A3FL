@@ -29,66 +29,56 @@
 }] call Server_Setup_Compile;
 
 ['A3PL_Intersect_Spikes', {
-	private ["_veh","_spike","_wheelLF","_wheelRF","_wheelLB","_wheelRB","_hit"];
-
-	_veh = vehicle player;
-	_spike = nearestObjects [player, ["A3PL_Stinger"], 3];
-	if (count _spike < 1) exitwith {};
-	_wheelLF = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [-1,1.1,-1]),AGLToASL (_veh modelToWorldVisual [-1,0,-3]),_veh];
-	_wheelRF = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [1,1.1,-1]),AGLToASL (_veh modelToWorldVisual [1,0,-3]),_veh];
-	_wheelLB = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [-1,-2.4,-1]),AGLToASL (_veh modelToWorldVisual [-1,-1.4,-3]),_veh];
-	_wheelRB = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [1,-2.4,-1]),AGLToASL (_veh modelToWorldVisual [1,-1.4,-3]),_veh];
-
-	_spike = _spike select 0;
+	private _veh = vehicle player;
+	private _spikes = nearestObjects [_veh, ["A3PL_Stinger"], 3];
+	if ((count _spikes) < 1) exitwith {};
+	private _wheelLF = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [-1,1.1,-1]),AGLToASL (_veh modelToWorldVisual [-1,0,-3]),_veh];
+	private _wheelRF = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [1,1.1,-1]),AGLToASL (_veh modelToWorldVisual [1,0,-3]),_veh];
+	private _wheelLB = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [-1,-2.4,-1]),AGLToASL (_veh modelToWorldVisual [-1,-1.4,-3]),_veh];
+	private _wheelRB = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [1,-2.4,-1]),AGLToASL (_veh modelToWorldVisual [1,-1.4,-3]),_veh];
+	private _spike = _spikes select 0;
 	if (_spike IN _wheelLF) then
 	{
-		_hit = _veh getVariable "wheelLFSpiked";
+		private _hit = _veh getVariable "wheelLFSpiked";
 		if (!isNil "_hit") exitwith {};
 		_veh setVariable ["wheelLFSpiked",true,false];
 		"wheel_1_1_steering" call A3PL_Police_SpikeHit;
-		[_veh] spawn {
-			_veh = _this select 0;
-			sleep 20;
-			_veh setVariable ["wheelLFSpiked",nil,false];
+		_veh spawn {
+			sleep 10;
+			_this setVariable ["wheelLFSpiked",nil,false];
 		};
 	};
-
 	if (_spike IN _wheelRF) then
 	{
-		_hit = _veh getVariable "wheelRFSpiked";
+		private _hit = _veh getVariable "wheelRFSpiked";
 		if (!isNil "_hit") exitwith {};
 		_veh setVariable ["wheelRFSpiked",true,false];
 		"wheel_2_1_steering" call A3PL_Police_SpikeHit;
-		[_veh] spawn {
-			_veh = _this select 0;
-			sleep 20;
-			_veh setVariable ["wheelRFSpiked",nil,false];
+		_veh spawn {
+			sleep 10;
+			_this setVariable ["wheelRFSpiked",nil,false];
 		};
 	};
-
 	if (_spike IN _wheelLB) then
 	{
-		_hit = _veh getVariable "wheelLBSpiked";
+		private _hit = _veh getVariable "wheelLBSpiked";
 		if (!isNil "_hit") exitwith {};
 		_veh setVariable ["wheelLBSpiked",true,false];
 		"wheel_1_2_steering" call A3PL_Police_SpikeHit;
-		[_veh] spawn {
-			_veh = _this select 0;
+		_veh spawn {
 			sleep 10;
-			_veh setVariable ["wheelLBSpiked",nil,false];
+			_this setVariable ["wheelLBSpiked",nil,false];
 		};
 	};
-
 	if (_spike IN _wheelRB) then
 	{
-		_hit = _veh getVariable "wheelRBSpiked";
+		private _hit = _veh getVariable "wheelRBSpiked";
 		if (!isNil "_hit") exitwith {};
 		_veh setVariable ["wheelRBSpiked",true,false];
 		"wheel_2_2_steering" call A3PL_Police_SpikeHit;
-		[_veh] spawn {
-			_veh = _this select 0;
+		_veh spawn {
 			sleep 10;
-			_veh setVariable ["wheelRBSpiked",nil,false];
+			_this setVariable ["wheelRBSpiked",nil,false];
 		};
 	};
 }] call Server_Setup_Compile;
@@ -208,9 +198,11 @@
 	private _obj = call A3PL_Intersect_cursortarget;
 	private _name = Player_NameIntersect;
 
+	if ((typeOf _obj) isEqualTo "Land_A3FL_Fishers_Jewelry") exitwith {[_obj,_name] call A3PL_Jewelry_HandleDoor;};
 	if ((typeOf _obj) isEqualTo "Land_A3PL_Prison") exitwith {[_obj,_name] call A3PL_Prison_HandleDoor;};
 	if ((typeOf _obj) isEqualTo "Land_A3FL_DOC_Gate") exitwith {[_obj,_name] call A3PL_PrisonGate_HandleDoor;};
 	if ((typeOf _obj) IN ["Land_A3FL_DOC_Wall_Tower","Land_A3FL_DOC_Wall_Tower_Corner"]) exitwith {[_obj,_name] call A3PL_PrisonTower_HandleDoor;};
+
 
 	private _split = _name splitstring "_";
 	if ((((_split select 0) find "garagedoor") != -1) || (((_split select 0) find "hangardoor") != -1)) exitwith
