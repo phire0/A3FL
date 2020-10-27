@@ -1163,26 +1163,28 @@ A3PL_Interaction_Options =
 	[
 		"Toggle Garage",
 		{
-			switch (typeOf cursorObject) do {
+			private _cursorObject = cursorObject;
+
+			switch (typeOf _cursorObject) do {
 				case "Land_A3FL_Warehouse": {
-					private _distanceLeft = player distance2D (cursorObject modelToWorldVisual (cursorObject selectionPosition ["door_1", "Memory"]));
-					private _distanceRight = player distance2D (cursorObject modelToWorldVisual (cursorObject selectionPosition ["door_5", "Memory"]));
+					private _distanceLeft = player distance2D (_cursorObject modelToWorldVisual (_cursorObject selectionPosition ["door_1", "Memory"]));
+					private _distanceRight = player distance2D (_cursorObject modelToWorldVisual (_cursorObject selectionPosition ["door_5", "Memory"]));
 					
 					if (_distanceRight > _distanceLeft) then {
-						[cursorObject, "door_1", false] call A3PL_Lib_ToggleAnimation;
-						[cursorObject, "door_2", false] call A3PL_Lib_ToggleAnimation;
+						[_cursorObject, "door_1", false] call A3PL_Lib_ToggleAnimation;
+						[_cursorObject, "door_2", false] call A3PL_Lib_ToggleAnimation;
 					} else {
-						[cursorObject, "door_5", false] call A3PL_Lib_ToggleAnimation;
-						[cursorObject, "door_6", false] call A3PL_Lib_ToggleAnimation;
+						[_cursorObject, "door_5", false] call A3PL_Lib_ToggleAnimation;
+						[_cursorObject, "door_6", false] call A3PL_Lib_ToggleAnimation;
 					};
 				};
 
 				case "Land_John_Hangar": {
-					[cursorObject, "hangardoor"] call A3PL_Lib_ToggleAnimation;
+					[_cursorObject, "hangardoor"] call A3PL_Lib_ToggleAnimation;
 				};
 
 				default {
-					[cursorObject, "garagedoor"] call A3PL_Lib_ToggleAnimation;
+					[_cursorObject, "garagedoor"] call A3PL_Lib_ToggleAnimation;
 				};
 			};
 		},
