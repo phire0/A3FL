@@ -213,7 +213,6 @@
 
 	_marker = [_obj,"Crime"] call A3PL_Lib_NearestMarker;
 	_marker setMarkerColor "ColorOrange";
-	[format["%1 has started capturing a gang hideout!",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
