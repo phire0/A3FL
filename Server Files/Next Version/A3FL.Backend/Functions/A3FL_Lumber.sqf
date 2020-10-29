@@ -15,7 +15,6 @@
 	_hp = _hp - 5;
 	if (_hp <= 0) then {
 		private _nearVeh = nearestObjects [_tree,["Car","Tank"],20,true];
-		hint str(_nearVeh);
 		{_x allowDamage false;} foreach _nearVeh;
 		_tree setDammage 1;
 		[_tree] spawn

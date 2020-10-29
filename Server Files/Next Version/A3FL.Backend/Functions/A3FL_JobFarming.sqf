@@ -241,7 +241,6 @@
 			deleteVehicle _x;
 		};
 	} foreach _near;
-	hint str(_amount);
 	if(_amount isEqualTo 0) exitWith {["There is no cured bud nearby!","red"] call A3PL_Player_Notification;};
 	[format["%1 cured bud(s) were placed into the grinder, it will take about %2 seconds before grinding is completed!",_amount,_amount*30],"green"] call A3PL_Player_Notification;
 	[_grinder,_amount] spawn {

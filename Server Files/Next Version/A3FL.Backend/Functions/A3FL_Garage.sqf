@@ -201,7 +201,6 @@
 	if (_price > _pCash) exitwith {[format["You are missing $%1 to change the license plate!",_price-_pCash]] call A3PL_Player_notification;};
 
 	_newLP = ctrlText _control;
-	hint str(count _newLP);
 	_allowedChars = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 	if ((count _newLP) != 7) exitwith {["Your personalized license plate must have 7 characters!","red"] call A3PL_Player_Notification;};
 	_validChars = true;
