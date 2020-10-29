@@ -565,22 +565,73 @@
 	};
 },true] call Server_Setup_Compile;
 
+["Server_Housing_RemoveMemberOffline",
+{
+	params[
+		["_player", objNull, [objNull]],
+		["_removedRoommate", "", [""]],
+		["_house", objNull, [objNull]]
+	];
+
+	private _members = _house getVariable ["owner", []];
+
+	// These two checks are likely redundant, only owner will be able to open display.
+
+	// Cannot remove self, combine with below...
+	if ((getPlayerUID _player) isEqualTo _removedRoommate) exitWith {
+		["You cannot remove yourself", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
+
+	// Cannot remove owner, combine with above...
+	if ((_members select 0) isEqualTo _removedRoommate) exitWith {
+		["You cannot remove the house owner", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
+
+	// If the removed roommate is actually a member of the house
+	if ((_members find _removedRoommate) != -1) then {
+		// Remove from members array
+		_members deleteAt (_members find _removedRoommate);
+		_house setVariable ["owner", _members, true];
+
+		// Prepare members array for query
+		_members = [_members] call Server_Database_Array;
+		
+		// Update in database
+		_query = format ["UPDATE houses SET uids='%1' WHERE location='%2'", _members, (getpos _house)];
+		[_query, 1] call Server_Database_Async;
+
+		["You removed a roommate!", "green"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	} else {
+		// Debug, remove...
+		[format["Error (Server_Housing_RemoveMemberOffline) (%1)", _removedRoommate], "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
+}, true] call Server_Setup_Compile;
+
 ["Server_Housing_GetRoommates",
 {
-	private _player = param[0, objNull];
-	private _house = param[1, objNull];
-	
-	if (isNull _player || isNull _house) exitWith {};
+	//private _player = param[0, objNull];
+	//private _house = param[1, objNull];
 
+	params[
+		["_player", objNull, [objNull]],
+		["_house", objNull, [objNull]]
+	];
+
+	// Debug, remove.
+	if (isNull _player || isNull _house) exitWith {["Error occurred in Server_Housing_GetRoommates", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];};
+
+	// Get the owner array, e.g. ["steamid64_1","steamid64_2",...]
 	private _uids = _house getVariable ["owner", []];
+	
 	private _names = [];
 
+	// Loop through each UID and pull their name from the DB
 	{
 		private _query = format ["SELECT name FROM players WHERE uid = '%1'", _x];
 		private _result = [_query, 2] call Server_Database_Async;
 		_names pushBack ([_x, _result select 0]);
 	} foreach _uids;
 
+	// Send the names and IDs back to the client so we can pull up the display
 	[_names] remoteExec ["A3PL_Housing_RemoveRoommateReceive", (owner _player)];
-
 }, true] call Server_Setup_Compile;
