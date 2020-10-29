@@ -14,9 +14,7 @@
 ["A3PL_Medical_Loop",
 {
 	private _bloodLevel = player getVariable ["A3PL_Medical_Blood",MAXBLOODLVL];
-	private _isAlive = isNull (player getVariable["deadBody",objNull]);
 	private _wounds = player getVariable ["A3PL_Wounds",[]];
-	if(!_isAlive) exitWith {};
 	if (_bloodLevel > 0) then {
 		private _bloodChange = 0; {
 			for "_i" from 1 to (count _x-1) do {
@@ -324,7 +322,7 @@
 		case ("right upper arm"): {"You are wounded at the right arm"};
 		case ("right lower arm"): {"You are wounded at the right forearm"};
 	};
-	[_format, "red"] call A3PL_Player_Notification;
+	[_format, "red"] remoteExecCall ["A3PL_Player_Notification",_unit];
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_ApplyVar",
