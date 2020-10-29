@@ -66,6 +66,8 @@ class CfgRemoteExec
 		class Server_Storage_ReturnVehicles {allowedTargets = 2;};
 		class Server_Storage_ChangeVehicleName{allowedTargets=2;};
 
+		class Server_Events_CreateZombies{allowedTargets=2;};
+
 		//Admin
 		class A3PL_Admin_UserInputCheck{allowedTargets=0;};
 
