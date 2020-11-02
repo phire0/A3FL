@@ -278,7 +278,7 @@
 	_utcTime = "extDB3" callExtension "9:UTC_TIME";
 	_justTime = (parseSimpleArray _utcTime) select 1;
 	_hourMin = [(_justTime select 3),(_justTime select 4)];
-	_restartTimes = [[11,00]];
+	_restartTimes = [[12,00]];
 	{
 		if(_hourMin isEqualTo _x) then {
 			[] spawn Server_Core_RestartTimer;
