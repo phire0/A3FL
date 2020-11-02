@@ -14,7 +14,6 @@
 	[_player, 'Player_Cash', ((_player getVariable 'Player_Cash') + _amount)] remoteExec ["Server_Core_ChangeVar",2];
 	[format["You received $%1 for this vehicle!",_amount], "green"] remoteExec ["A3PL_Player_Notification",_player];
 	[_veh] call Server_Chopshop_Storecar;
-	[getPlayerUID _player,"chopchoped",[typeOf _veh,(_veh getVariable"owner") select 1]] remoteExec ["Server_Log_New",2];
 },true] call Server_Setup_Compile;
 
 ["Server_Chopshop_VehValue",
@@ -32,6 +31,7 @@
 	private _isInsured = _veh getVariable ["insurance",false];
 	private _id = _var select 1;
 	if (!isNil "_var") then {
+		[((_veh getVariable"owner") select 0),"scrapped",["Class: ",typeOf _veh,"Plate: ",(_veh getVariable"owner") select 1], "Insured: ", _isInsured] remoteExec ["Server_Log_New",2];
 		if(_isInsured) then {
 			private _query = format ["UPDATE objects SET plystorage = '1',impounded='3' WHERE id = '%1'",_id];
 			[_query,1] spawn Server_Database_Async;

@@ -436,7 +436,7 @@
 	_unit setVariable ["A3PL_Wounds",_wounds,true];
 	[(findDisplay 73),_unit] call A3PL_Medical_LoadParts;
 	[] call A3PL_Medical_SelectPart;
-	[_unit] call A3PL_Medical_LimpCheck;
+	[_unit] remoteExecCall ["A3PL_Medical_LimpCheck",_unit];
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_Open",

@@ -100,7 +100,11 @@
 		["Bank: $", ["Player_Bank",1]],
 		["Faction:", ["faction",0]],
 		["Job:", ["job",0]],
-		["Level:", ["Player_Level",0]]
+		["Alive:", ["A3PL_Medical_Alive",2]],
+		["Blood:", ["A3PL_Medical_Blood",0]],
+		["Wounded:", ["A3PL_Wounds",4]],
+		["Cuffed:", ["Cuffed",2]],
+		["Zipped:", ["Zipped",2]]
 	];
 	lbClear 1503;
 	{
@@ -109,8 +113,21 @@
 		switch(_data select 1) do {
 			case 0: {lbAdd [1503, format ["%1 %2", _text, _selectedPlayer getVariable [(_data select 0),"Undefined"]]];};
 			case 1: {lbAdd [1503, format ["%1 %2", _text,(_selectedPlayer getVariable [(_data select 0),-1]) call CBA_fnc_formatNumber]];};
-			case 2: {lbAdd [1503, format ["%1 %2", _text, str(_selectedPlayer getVariable [(_data select 0),"true"])]];};
+			case 2: {
+				if((_selectedPlayer getVariable [(_data select 0),true])) then {
+					lbAdd [1503, format ["%1 %2", _text, "Yes"]];
+				} else {
+					lbAdd [1503, format ["%1 %2", _text, "No"]];
+				};
+			};
 			case 3: {lbAdd [1503, format ["%1 %2", _text, _data select 0]];};
+			case 4: {
+				if((_selectedPlayer getVariable [(_data select 0),[]]) isEqualTo []) then {
+					lbAdd [1503, format ["%1 %2", _text, "No"]];
+				} else {
+					lbAdd [1503, format ["%1 %2", _text, "Yes"]];
+				};
+			};
 		};
 	} forEach _playerInfoArray;
 }] call Server_Setup_Compile;
@@ -1081,7 +1098,7 @@
 	if(_forbidden) exitWith {};
 
 	[_debugText] remoteExec ["A3PL_Debug_ExecuteCompiled",_remoteExecType];
-	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText]]] remoteExec ["Server_AdminLoginsert", 2];
+	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText, _chosenExecType]]] remoteExec ["Server_AdminLoginsert", 2];
 },false,true] call Server_Setup_Compile;
 
 ["A3PL_Debug_ExecuteCompiled", {
