@@ -9,6 +9,7 @@ class Dialog_Roommates
 		class BackPicture: RscPicture
 		{
 			idc = -1;
+			// Fix location.
 			text = "\A3PL_Common\GUI\A3PL_Insurance.paa";
 			x = 0 * safezoneW + safezoneX;
 			y = 0 * safezoneH + safezoneY;
@@ -22,15 +23,6 @@ class Dialog_Roommates
 			y = 0.434 * safezoneH + safezoneY;
 			w = 0.2475 * safezoneW;
 			h = 0.176 * safezoneH;
-		};
-		/* TODO: Remove */
-		class PriceDisplay: RscStructuredText
-		{
-			idc = 1100;
-			x = 0.5 * safezoneW + safezoneX;
-			y = 0.632 * safezoneH + safezoneY;
-			w = 0.128906 * safezoneW;
-			h = 0.022 * safezoneH;
 		};
 		class button_remove: RscButtonEmpty
 		{

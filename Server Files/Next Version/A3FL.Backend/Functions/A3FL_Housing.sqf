@@ -461,8 +461,21 @@
 
 	private _house = _player getVariable ["house", objNull, [objNull]];
 	
+	private _allPlayers = call BIS_fnc_listPlayers;
+	private _isConnected = false;
+	{
+		if ((getPlayerUID _x) isEqualTo _removeID) exitWith {
+			_isConnected = true;
+		};
+	} forEach _allPlayers;
+
 	if (!(isNull _house)) then {
-		[_player, _removeID, _house] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
+		if (!(_isConnected)) then {
+			[_player, _removeID, _house] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
+		} else {
+			// Possibly add support in the future, need to get player object using SteamID on server...
+			["This player is currently connected to the server and cannot currently be removed using this system.","orange"] call A3PL_Player_Notification;
+		};
 	} else {
 		// Remove, debug
 		["_house was null at A3PL_Housing_RemoveRoommate", "red"] call A3PL_Player_Notification;
