@@ -65,9 +65,8 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminPlayerList", {
-	_display = findDisplay 98;
-	_control = _display displayCtrl 1500;
-	_id = lbCurSel 1500;
+	private _display = findDisplay 98;
+	private _control = _display displayCtrl 1500;
 	A3PL_Admin_PlayerList = [];
 	{
 		lbAdd [1500, format ["%1",_x getVariable["name",name _x]]];
@@ -133,14 +132,12 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_PlayerInventoryFill", {
-	_display = findDisplay 98;
-	_selectedIndex = lbCurSel 2101;
-	_selectedPlayerIndex = lbCurSel 1500;
-	_selectedInventory = lbText [2101,lbCurSel 2101];
-	_selectedPlayer = (A3PL_Admin_PlayerList select _selectedPlayerIndex);
-	_index = 999;
+	private _display = findDisplay 98;
+	private _selectedIndex = lbCurSel 2101;
+	private _selectedPlayer = (A3PL_Admin_PlayerList select (lbCurSel 1500));
+	private _selectedInventory = lbText [2101,lbCurSel 2101];
+	lbClear 1502;
 	if (_selectedInventory isEqualTo localize"STR_ADMIN_PLAYER") then {
-		lbClear 1502;
 		{
 			_i = lbAdd [1502,format ["%1 (%2)",[_x select 0,"name"] call A3PL_Config_GetItem,(_x select 1)]];
 			lbSetData [1502, _i, (_x select 0)];
@@ -1102,9 +1099,8 @@
 },false,true] call Server_Setup_Compile;
 
 ["A3PL_Debug_ExecuteCompiled", {
-	private ["_debugText"];
-	_debugText = param [0,"Nothing"];
-	if (_debugText == "Nothing") exitWith {};
+	private _debugText = param [0,"Nothing"];
+	if (_debugText isEqualTo "Nothing") exitWith {};
 	call compile _debugText;
 },false,true] call Server_Setup_Compile;
 

@@ -317,7 +317,7 @@
 {
 	private _type = param [0,""];
 	private _player = param[1,player];
-	private _storage = [_type,"items"] call A3PL_Config_GetPlayerFStorage;
+	private _storage = [_type,"items",_player] call A3PL_Config_GetPlayerFStorage;
 	if ((typeName _storage) isEqualTo "BOOL") exitwith {_storage = []; _storage;};
 	private _fact = _player getVariable ["player_factories",[]];
 	private _subtract = [];
