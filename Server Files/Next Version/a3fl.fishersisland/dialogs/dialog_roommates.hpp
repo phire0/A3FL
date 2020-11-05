@@ -10,7 +10,7 @@ class Dialog_Roommates
 		{
 			idc = -1;
 			// Fix location.
-			text = "\A3PL_Common\GUI\A3PL_Insurance.paa";
+			text = "\A3PL_Common\GUI\A3FL_Roommates.paa";
 			x = 0 * safezoneW + safezoneX;
 			y = 0 * safezoneH + safezoneY;
 			w = 1 * safezoneW;
