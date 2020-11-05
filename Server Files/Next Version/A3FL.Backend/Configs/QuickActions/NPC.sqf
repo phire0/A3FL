@@ -230,6 +230,11 @@
 ],
 [
 	"",
+	"Find an Illegal Trader",
+	{call A3PL_Criminal_FindNPC;}
+],
+[
+	"",
 	localize"STR_QuickActionsNPC_AccessShopSupply",
 	{["Shop_Furniture2"] call A3PL_Shop_Open;}
 ],

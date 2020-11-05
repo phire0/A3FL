@@ -256,3 +256,37 @@
 		};
 	};
 }] call Server_Setup_Compile;
+
+["A3PL_Criminal_FindNPC",{
+	private _cost = 50000;
+	private _playerCash = player getVariable["Player_Cash",0];
+	if(_cost > _playerCash) exitWith {["You cannot afford to find any Illegal NPC's!","red"] call A3pl_Player_Notification;};
+	private _randomNPC = "";
+	private _randomNPCName = "";
+	private _randomNumber = floor(random 5);
+	switch (_randomNumber) do {
+		case(0): {
+			_randomNPC = npc_ill_trader;
+			_randomNPCName = "Illegal Trader";
+		};
+		case(1): {
+			_randomNPC = npc_ill_moonshine;
+			_randomNPCName = "Moonshine Dealer";
+		};
+		case(2): {
+			_randomNPC = npc_ill_cocaine;
+			_randomNPCName = "Cocaine Dealer";
+		};
+		case(3): {
+			_randomNPC = npc_ill_shrooms;
+			_randomNPCName = "Mushroom Dealer";
+		};
+		case(4): {
+			_randomNPC = npc_ill_weed;
+			_randomNPCName = "Weed Dealer";
+		};
+	};
+	private _nearestCity = text ((nearestLocations [_randomNPC, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
+	player setVariable ["Player_Cash",(_playerCash - _cost),true];
+	[format ["The %1 was last spotted in %2!",_randomNPCName,_nearestCity],"green"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
