@@ -260,7 +260,7 @@
 ["A3PL_Criminal_FindNPC",{
 	private _cost = 50000;
 	private _playerCash = player getVariable["Player_Cash",0];
-	if(_cost > _playerCash) exitWith {["You cannot afford to find any Illegal NPC's!","red"] call A3pl_Player_Notification;};
+	if(_cost > _playerCash) exitWith {["You need to have $50,000 to try and find the Illegal NPC's!","red"] call A3pl_Player_Notification;};
 	private _randomNPC = "";
 	private _randomNPCName = "";
 	private _randomNumber = floor(random 5);
@@ -288,5 +288,5 @@
 	};
 	private _nearestCity = text ((nearestLocations [_randomNPC, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
 	player setVariable ["Player_Cash",(_playerCash - _cost),true];
-	[format ["The %1 was last spotted in %2!",_randomNPCName,_nearestCity],"green"] call A3PL_Player_Notification;
+	[format ["You were charged $50,000 for the following information: The %1 was last spotted in %2! Use it wisely.",_randomNPCName,_nearestCity],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
