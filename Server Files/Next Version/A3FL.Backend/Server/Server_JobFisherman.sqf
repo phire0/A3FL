@@ -94,35 +94,36 @@
 		case ((_buoy getVariable ["bait","none"]) isEqualTo "turtle"): {
 			[_player,"bucket_full",1] call Server_Inventory_Add;
 			private _random = random 10;
-			//10% - less than 3 CG on
-			if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < 3) exitWith {
-				if (_random <= 1) then {
+			private _uscgCount = count(["uscg"] call A3PL_Lib_FactionPlayers);
+			//20% - 0-2 CG on
+			if (_uscgCount < 3) exitWith {
+				if (_random <= 2) then {
 					[9] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 					[_player,"turtle",1] call Server_Inventory_Add;
 				} else {
 					[8] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 				};
 			};
-			//40% - less than 4 CG on
-			if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < 4) exitWith {
-				if (_random <= 4) then {
+			//35% - 3-4 CG on
+			if (_uscgCount < 5) exitWith {
+				if (_random <= 3.5) then {
 					[9] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 					[_player,"turtle",1] call Server_Inventory_Add;
 				} else {
 					[8] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 				};
 			};
-			//45% - less than 4 CG on
-			if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < 4) exitWith {
-				if (_random <= 4.5) then {
+			//50% - 5-6 CG on
+			if (_uscgCount < 7) exitWith {
+				if (_random <= 5) then {
 					[9] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 					[_player,"turtle",1] call Server_Inventory_Add;
 				} else {
 					[8] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 				};
 			};
-			//50% - 6 or more CG on
-			if (_random <= 5) then {
+			//60% - 7 or more CG on
+			if (_random <= 6) then {
 				[9] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 				[_player,"turtle",1] call Server_Inventory_Add;
 			} else {
