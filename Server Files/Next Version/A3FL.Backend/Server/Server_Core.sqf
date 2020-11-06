@@ -286,3 +286,34 @@
 		};
 	} forEach _restartTimes;
 },true] call Server_Setup_Compile;
+
+["Server_Core_RanksCleanup",{
+	private _expections = ["76561198070895974","76561198111737316","76561198201783651","76561198021654368","76561198050941799","76561198119637238","76561198258127426"];
+	private _curArray = [] + Server_Government_FactionRanks;
+	private _curFaction = "";
+	private _ranks = [];
+	private _members = [];
+	private _query = "";
+	private _faction = "";
+	private _rsl = [];
+	{
+		_curFaction = _x select 0;
+		_ranks = _x select 1;
+		{
+			_members = _x select 1;
+			{
+				if !(_x IN _expections) then {
+					_query = format["SELECT faction FROM players WHERE uid = '%1'",_x];
+					_rsl = [_query, 2] call Server_Database_Async;
+					if(count _rsl > 0) then {
+						_faction = _rsl select 0;
+						if !(_faction isEqualTo _curFaction) then {
+							[_curFaction,_x] call Server_Government_UnsetRank;
+							sleep 2;
+						};
+					};
+				};
+			} foreach _members;
+		} foreach _ranks;
+	} foreach _curArray;
+},true] call Server_Setup_Compile;

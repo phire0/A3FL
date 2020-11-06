@@ -10,7 +10,7 @@
 {
 	private _add = param [0,0];
 	Player_Alcohol = Player_Alcohol + (_add);
-	player setVariable["alcohol",true,true];
+	if(Player_Alcohol > 0) then {player setVariable["alcohol",true,true];};
 	profileNamespace setVariable ["player_alcohol",Player_Alcohol];
 }] call Server_Setup_Compile;
 

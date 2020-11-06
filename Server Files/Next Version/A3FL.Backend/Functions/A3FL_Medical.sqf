@@ -303,7 +303,6 @@
 			[_unit,-(_bloodLoss)] call A3PL_Medical_ApplyVar;
 		};
 	};
-
 	if(_wound isEqualTo "concussion") then {[] spawn A3PL_Medical_Concussion;};
 	if(_wound isEqualTo "pepper_spray") then {[] spawn A3PL_Medical_PepperSpray;};
 
@@ -717,14 +716,15 @@
 
 ["A3PL_Medical_HasWound",
 {
-	params [["_player",objNull,[objNull]], ["_part","",[""]], ["_woundsCheck",[],[[]]]];
+	params [["_player",objNull,[objNull]], ["_part","",[""]], ["_woundsCheck",[],[]]];
 	private _hasWound = false;
+	private _pWounds = _player getVariable ["A3PL_Wounds",[]];
 	private _wound = "";
 	if ((typeName _woundsCheck) isEqualTo "STRING") then {_woundsCheck = [_woundsCheck];};
 	{
 		_wound = _x;
 		{
-			if ((_x select 0) isEqualTo _part) exitwith {
+			if ((_x select 0) == _part) exitwith {
 				for "_i" from 1 to (count _x-1) do {
 					private _woundArr = _x select _i;
 					if ((_woundArr select 0) == _wound) exitwith {
@@ -732,7 +732,30 @@
 					};
 				};
 			};
-		} foreach (_player getVariable ["A3PL_Wounds",[]]);
+		} foreach _pWounds;
+	} foreach _woundsCheck;
+	_hasWound;
+}] call Server_Setup_Compile;
+
+["A3PL_Medical_IsWoundStable",
+{
+	params [["_player",objNull,[objNull]], ["_part","",[""]], ["_woundsCheck",[],[]]];
+	private _hasWound = false;
+	private _pWounds = _player getVariable ["A3PL_Wounds",[]];
+	private _wound = "";
+	if ((typeName _woundsCheck) isEqualTo "STRING") then {_woundsCheck = [_woundsCheck];};
+	{
+		_wound = _x;
+		{
+			if ((_x select 0) == _part) exitwith {
+				for "_i" from 1 to (count _x-1) do {
+					private _woundArr = _x select _i;
+					if ((_woundArr select 0) == _wound) exitwith {
+						_hasWound = _woundArr select 1;
+					};
+				};
+			};
+		} foreach _pWounds;
 	} foreach _woundsCheck;
 	_hasWound;
 }] call Server_Setup_Compile;
@@ -814,6 +837,9 @@
 	private _hndl = ppEffectCreate ['ColorCorrections', 50];
 	_hndl ppEffectEnable true;
 	_hndl ppEffectAdjust [1, 0.4, 0, [0, 0, 0, 0], [1, 1, 1, 0.5], [0.299, 0.587, 0.114, 0]];
+	_hndl ppEffectCommit 0;
+	waitUntil {([player,"head","concussion"] call A3PL_Medical_IsWoundStable) || !([player,"head","concussion"] call A3PL_Medical_HasWound)};
+	_hndl ppEffectAdjust [1, 0.8, 0, [0, 0, 0, 0], [1, 1, 1, 0.8], [0.299, 0.587, 0.114, 0]];
 	_hndl ppEffectCommit 0;
 	waitUntil {!([player,"head","concussion"] call A3PL_Medical_HasWound)};
 	ppEffectDestroy _hndl;
@@ -981,14 +1007,16 @@
 	private _nearestClinic = nearestObjects [_bodyPos, ["Land_A3PL_Clinic"], 10000];
 	if(count(_nearestClinic) > 0) then {
 		private _clinic = _nearestClinic select 0;
-		if(getPos _clinic isEqualTo [4743.09,6071.22,0.221574]) then {
+		private _clinicPos = getPos _clinic;
+		private _nearDOC = count(nearestObjects [_clinicPos, ["Land_A3PL_Prison"], 100]) > 0;
+		if(_nearDOC) then {
 			_clinic = _nearestClinic select 1;
 		};
 		player setPosATL (_clinic modelToWorld [-7,-7,-2.5]); 
 		player setDir ((getDir _clinic)-140);
 	} else {
-		player setPos [2616.57,5470.4,0.00143385];
-		player setdir 99;
+		player setPos [3039.39,5625.54,0.00143909];
+		player setdir 28;
 	};
 	player playAction "PlayerStand";
 	player setVariable ["tf_voiceVolume", 1, true];
@@ -1083,7 +1111,7 @@
 	A3PL_Player_DeadBodyGear = getUnitLoadout _unit;
 	if((backpack _unit) isEqualTo "A3PL_LR") then {A3PL_Player_DeadRadio = (call TFAR_fnc_activeLrRadio) call TFAR_fnc_getLrSettings;};
 
-	if(pVar_AdminLevel < 5) then {disableUserInput true;};
+	if(pVar_AdminLevel < 3) then {disableUserInput true;};
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_LimpCheck",

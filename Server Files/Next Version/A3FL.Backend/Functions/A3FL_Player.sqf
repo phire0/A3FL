@@ -55,8 +55,8 @@
 	A3PL_Player_Vehicles = [];
 
 	//halloween vars
-	A3PL_Halloween_AngelModeEnabled = false;
-	A3PL_Owns_Guardianscript = false;
+	//A3PL_Halloween_AngelModeEnabled = false;
+	//A3PL_Owns_Guardianscript = false;
 
 	//Start defining twitter
 	A3PL_TwitterChatLog = [];

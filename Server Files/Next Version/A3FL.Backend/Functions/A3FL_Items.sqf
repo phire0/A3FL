@@ -33,7 +33,7 @@
 		// If you're not currently on coffee
 		if (!(player getVariable ["UsingCoffee", false])) then {
 			// You now are on coffee...
-			player setVariable ["UsingCoffee", true, true];
+			player setVariable ["UsingCoffee", true, false];
 
 			// Add effect handler to the scheduler
 			[_coffeeTime] spawn {
@@ -55,7 +55,7 @@
 				["Your energy is now back to normal!", "green"] call A3PL_Player_Notification;
 				player setAnimSpeedCoef 1;
 
-				player setVariable ["UsingCoffee", false, true];
+				player setVariable ["UsingCoffee", false, false];
 			};
 		} else {
 			["You are already experiencing a caffeine high, this coffee will not impact your speed!", "amber"] call A3PL_Player_Notification;

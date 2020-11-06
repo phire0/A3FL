@@ -826,7 +826,7 @@
 
 	_array = _edit splitString " ";
 	_return = _array select _index;
-	_return
+	_return;
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseEnterReceive',
@@ -841,16 +841,32 @@
 			if (count _return > 0) then
 			{
 				_warrantCount = "No";
-				if ((_return select 2) > 0) then
-				{
+				if ((_return select 2) > 0) then {
 					_warrantCount = "<t color='#ff0000'>Yes</t>";
 				};
 				_cautionStr = "None";
 				if ((count(_return select 10)) >= 3) then {
 					_cautionStr = format["<t color='#ff0000'>%1</t>", _return select 10];
 				};
+				_licensesStr = if(count (_return select 8) isEqualTo 0) then {"None"} else {""};
+				{
+					_licensesStr = if(_licensesStr isEqualTo "") then {
+						format ["%1", [_x,"name"] call A3PL_Config_GetLicense]
+					} else {
+						format ["%1, %2",_licensesStr, [_x,"name"] call A3PL_Config_GetLicense]
+					};
+				} forEach (_return select 8);
 
-				_output = format ["<t align='center'>Name: %1</t><br /><t align='center'>Gender: %2</t><br /><t align='center'>DOB: %3</t><br /><t align='center'>Passport Date: %9</t><br /><t align='center'>Active warrant: %4</t><br /><t align='center'>Cautions: %13</t><br /><t align='center'>Warning History: %5</t><br /><t align='center'>Ticket History: %6</t><br /><t align='center'>Arrest History: %7</t><br /><t align='center'>Report History: %8</t><br /><t align='center'>Bank Account: $%11</t><br /><t align='center'>Licenses: %10</t><br/><t align='center'>Company: %12</t>",
+				_employment = (_return select 12);
+				if(_employment isEqualTo "none") then {
+					if((_return select 11) IN ["fisd","uscg","fifr","fims","doj"]) then {
+						_employment = toUpper(_return select 11);
+					} else {
+						_employment = "umemployed";
+					};
+				};
+
+				_output = format ["<t align='center'>Name: %1</t><br /><t align='center'>Gender: %2</t><br /><t align='center'>DOB: %3</t><br /><t align='center'>Passport Date: %9</t><br /><t align='center'>Active warrant: %4</t><br /><t align='center'>Cautions: %13</t><br /><t align='center'>Warning History: %5</t><br /><t align='center'>Ticket History: %6</t><br /><t align='center'>Arrest History: %7</t><br /><t align='center'>Report History: %8</t><br /><t align='center'>Bank Account: $%11</t><br /><t align='center'>Employment: %12</t><br/><t align='center'>Licenses: %10</t>",
 				_name,
 				(_return select 0),
 				(_return select 1),
@@ -860,9 +876,9 @@
 				(_return select 3),
 				(_return select 6),
 				(_return select 7),
-				(_return select 8),
+				_licensesStr,
 				[(_return select 9), 1, 0, true] call CBA_fnc_formatNumber,
-				(_return select 11),
+				_employment,
 				_cautionStr
 				];
 			} else
@@ -893,38 +909,27 @@
 		case "lookuplicense":
 		{
 			if(count _return > 1) then {
-				_name = _return select 0;
-				_class = _return select 2;
-				_insured = _return select 3;
-				_plate = _return select 5;
+				private _name = _return select 0;
+				private _class = _return select 2;
+				private _insured = _return select 3;
+				private _plate = _return select 6;
+				private _info = _return select 7;
 				private _isInsured = "Yes";
-
-				_vehName = getText(configFile >>  "CfgVehicles" >>  _class >> "displayName");
-
-				_stolen = "No";
-				if ((_return select 1) > 0) then
-				{
-					_stolen = "<t color='#ff0000'>Yes</t>";
-				};
-
-				if(_insured isEqualTo 0) then {
-					_isInsured = "No";
-				} else {
-					_isInsured = "Yes";
-				};
-
+				private _vehName = getText(configFile >>  "CfgVehicles" >>  _class >> "displayName");
+				private _stolen = if ((_return select 1) > 0) then {"<t color='#ff0000'>Yes</t>"} else {"No"};
+				private _insured = if(_insured isEqualTo 0) then {"No"} else {"Yes"};
 				_output = format["
 				<t align='center'>License: %1</t><br />
 				<t align='center'>Type: %3</t><br />
 				<t align='center'>Owner: %2</t><br />
 				<t align='center'>Reported stolen: %4</t><br />
-				<t align='center'>Insurance: %5</t>",_plate,_name,_vehName,_stolen,_isInsured];
-
-				if(count(_return) isEqualTo 7) then {
-					_output = _output + format["<br /><t align='center'>Company: %1</t>",_return select 6];
+				<t align='center'>Insurance: %5</t><br/>
+				<t align='center'>Additional Information: %6</t>",_plate,_name,_vehName,_stolen,_insured,_info];
+				if(count(_return) isEqualTo 9) then {
+					_output = _output + format["<br /><t align='center'>Company: %1</t>",_return select 8];
 				};
 			} else {
-				_output = format ["No information available for registration %1",_plate];
+				_output = format ["No information available for registration %1",_return select 0];
 			};
 		};
 		case "lookupcompany":
@@ -1141,7 +1146,7 @@
 	_control ctrlSetText "";
 
 	private _dojCommands = ["help", "clear", "login", "lookup", "lookupvehicles", "lookuplicense", "lookupcompany", "warrantlist", "warrantinfo", "ticketlist", "warninglist", "arrestlist", "lookupaddress", "lookupwarehouse", "bololist", "stolenvehicles", "darknet", "SpecialCharacterError"];
-	private _notCop = !((player getVariable ["job","unemployed"]) IN ["fisd","fims","uscg"]);
+	private _notCop = !((player getVariable ["faction","citizen"]) IN ["fisd","fims","uscg"]);
 	private _edit0 = [_edit,0] call A3PL_Police_DatabaseArgu;
 
 	if ((!(_veh getVariable "PoliceDatabaseLogin")) && (!(_edit0 isEqualTo "login"))) exitwith
@@ -1212,7 +1217,15 @@
 			private _pass = [_edit,1] call A3PL_Police_DatabaseArgu;
 			if (_pass isEqualTo "fisdftw") then {
 				_veh setVariable ["PoliceDatabaseLogin",true,true];
-				"You are connected";
+				private _squadnb = _veh getVariable["squadnb",nil];
+				private _rank = [(player getVariable ["faction","citizen"]),"rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;
+				if(isNil "_squadnb") then {
+					/*private _control = _display displayCtrl 1401;
+					_control ctrlSetText "setsquad ";*/
+					format["Logged in as %1 %2<br/>Please use 'setsquad' to enter your squad number..",_rank,(player getVariable["name","unknown"])];
+				} else {
+					format["Logged in as %1 %2",_rank,(player getVariable["name","unknown"])];
+				};
 			} else {
 				"Error: Incorrect password";
 			};
@@ -1238,7 +1251,7 @@
 		{
 			private _license = [_edit,1] call A3PL_Police_DatabaseArgu;
 			[player,_license,_edit0] remoteExec ["Server_Police_Database", 2];
-			format["Search for the license plate %1...",_edit];
+			format["Search for the license plate %1...",_license];
 		};
 		case "lookupcompany":
 		{
@@ -1249,25 +1262,25 @@
 		{
 			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database",2];
-			format ["Searching for Addresses in F.I.S.D Database...",_name];
+			format ["Searching for %1's house address in database...",_name];
 		};
 		case "lookupwarehouse":
 		{
 			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database",2];
-			format ["Searching for Addresses in F.I.S.D Database...",_name];
+			format ["Searching for %1's warehouse address in database...",_name];
 		};
 		case "markstolen":
 		{
 			private _license = [_edit,1] call A3PL_Police_DatabaseArgu;
 			[player,_license,_edit0] remoteExec ["Server_Police_Database", 2];
-			format["Marking the vehicle as stolen: %1...",_edit];
+			format["Marking the vehicle as stolen: %1...",_license];
 		};
 		case "markfound":
 		{
 			private _license = [_edit,1] call A3PL_Police_DatabaseArgu;
 			[player,_license,_edit0] remoteExec ["Server_Police_Database", 2];
-			format["Marking the vehicle as found: %1...",_edit];
+			format["Marking the vehicle as found: %1...",_license];
 		};
 		case "warrantlist":
 		{
@@ -1799,7 +1812,7 @@
 ["A3PL_Police_PanicMarker",
 {
 	private _player = param [0,objNull];
-	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 1, 8];
+	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 1, 15];
 	[localize"STR_NewPolice_31","red"] call A3PL_Player_Notification;
 	[_player,"Panic Button","ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
 }] call Server_Setup_Compile;
