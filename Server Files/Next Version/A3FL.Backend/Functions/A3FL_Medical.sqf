@@ -981,16 +981,14 @@
 	private _nearestClinic = nearestObjects [_bodyPos, ["Land_A3PL_Clinic"], 10000];
 	if(count(_nearestClinic) > 0) then {
 		private _clinic = _nearestClinic select 0;
-		private _clinicPos = getPos _clinic;
-		private _nearDOC = count(nearestObjects [_clinicPos, ["Land_A3PL_Prison"], 100]) > 0;
-		if(_nearDOC) then {
+		if(getPos _clinic isEqualTo [4743.09,6071.22,0.221574]) then {
 			_clinic = _nearestClinic select 1;
 		};
 		player setPosATL (_clinic modelToWorld [-7,-7,-2.5]); 
 		player setDir ((getDir _clinic)-140);
 	} else {
-		player setPos [3039.39,5625.54,0.00143909];
-		player setdir 28;
+		player setPos [2616.57,5470.4,0.00143385];
+		player setdir 99;
 	};
 	player playAction "PlayerStand";
 	player setVariable ["tf_voiceVolume", 1, true];

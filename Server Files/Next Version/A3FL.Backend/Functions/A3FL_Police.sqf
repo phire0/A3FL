@@ -1799,7 +1799,7 @@
 ["A3PL_Police_PanicMarker",
 {
 	private _player = param [0,objNull];
-	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 1, 15];
+	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 1, 8];
 	[localize"STR_NewPolice_31","red"] call A3PL_Player_Notification;
 	[_player,"Panic Button","ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
 }] call Server_Setup_Compile;
