@@ -28,6 +28,20 @@
 	[_query, 1] call Server_Database_Async;
 },true] call Server_Setup_Compile;
 
+['Server_Locker_OwnsLocker', {
+	params[
+		["_player", objNull, [objNull]]
+		["_locker", objNull, [objNull]]
+	];
+
+	if (isNull _player) exitWith {};
+
+	private _query = format ["SELECT owner FROM lockers WHERE owner = '%1'", (getPlayerUID _player)];
+	private _return = [_query, 2] call Server_Database_Async;
+	
+	[_player, _locker, ((count _return) > 0)] remoteExec ["A3PL_Locker_Rent_Receive", (owner _player)];
+}, true] call Server_Setup_Compile;
+
 ['Server_Locker_Save', {
 	private _lockers = ["SELECT locker, owner, items, objects FROM lockers", 2, true] call Server_Database_Async;
 	{
