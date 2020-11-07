@@ -598,7 +598,7 @@
 
 	if(_type IN ["headgear","goggles","uniform","vest","backpack"]) then {
 		A3PL_SHOP_ITEMPREVIEW = "C_man_p_beggar_F" createvehicleLocal [0,0,0];
-		A3PL_SHOP_ITEMPREVIEW setPosATL [3852.79,9261.27,0.168];
+		A3PL_SHOP_ITEMPREVIEW setPosASL [14321.1,15.9644,1017.32];
 		A3PL_SHOP_ITEMPREVIEW enableSimulation false;
 
 		A3PL_SHOP_ITEMPREVIEW setUnitLoadout (getUnitLoadout player);
