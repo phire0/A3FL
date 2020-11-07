@@ -1400,9 +1400,12 @@
 		{
 			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			private _license = [_edit,3] call A3PL_Police_DatabaseArgu;
-			[player,[_name,_license,_info],_edit0] remoteExec ["Server_Police_Database", 2];
-			[player,_name,_license,_edit0] remoteExec ["Server_Police_Database", 2];
-			"License revoked ...";
+			if(!([_license] call A3PL_Config_LicenseExists)) exitWith {format["Unknown license: %1",_license];};
+			private _canRevoke = [_license,"canRevoke"] call A3PL_Config_GetLicense;
+			private _pJob = player getVariable["faction","citizen"];
+			if(!(_pJob IN _canRevoke)) exitWith {format["You cannot revoke %1",_license];};
+			[player, [_name, _license], _edit0] remoteExec ["Server_Police_Database", 2];
+			"Request sent...";
 		};
 		case "darknet":
 		{

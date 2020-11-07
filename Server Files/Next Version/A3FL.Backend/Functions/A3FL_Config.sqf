@@ -58,8 +58,21 @@
 		default { _return = _config; };
 		case "name": { _return = _config select 1; };
 		case "type": { _return = _config select 2; };
-		case "issuer": { _return = _config select 3; };
+		case "canIssue": { _return = _config select 3; };
+		case "canRevoke": { _return = _config select 4; };
 	};
+	_return;
+}] call Server_Setup_Compile;
+
+["A3PL_Config_LicenseExists",
+{
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _return = false;
+
+	{
+		if((_x select 0) isEqualTo (toLower(_class))) exitWith {_return = true;};
+	} forEach Config_Licenses;
 	_return;
 }] call Server_Setup_Compile;
 

@@ -298,6 +298,30 @@
 				[_name,_call,format[localize"STR_SERVER_POLICE_YOUINSEREWITHSUCCESSARREST",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
 		};
+		
+		case "revokelicense": {
+			private _name = _name select 1;
+			private _license = _name select 2;
+			private _query = format ["SELECT uid, licenses FROM players WHERE name='%1'",_name];
+			private _return = [_query, 2, true] call Server_Database_Async;
+			if((count _return) < 1) then {
+				[_name,_call,format["Unable to find %1 in the database",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+			} else {
+				private _uid = (_return select 0) select 0;
+				private _target = [_uid] call A3PL_Lib_UIDToObject;
+				if(isNull _target) then {
+					private _licenses = [(_return select 0) select 1] call Server_Database_ToArray;
+					if(_license IN _licenses) then {
+						_licenses = _licenses - [_license];
+						private _query = format ["UPDATE players SET licenses = '%2' WHERE uid='%1'",_uid,[_licenses] call Server_Database_Array];
+						[_query, 1] call Server_Database_Async;
+					};
+				} else {
+					[_target,_license,false] remoteExec ["Server_DMV_Add",2];
+				};
+				[_name,_call,format["License revoke for %1",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+			};
+		};
 
 		case "darknet": {
 			private _query = "SELECT name,chatmessage FROM darknetlog ORDER BY id DESC LIMIT 10";
