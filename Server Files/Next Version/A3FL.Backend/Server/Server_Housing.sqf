@@ -156,48 +156,43 @@
 //This function will change/buy the ownership of a house
 ["Server_Housing_AssignHouse",
 {
-	private ["_object","_player","_uid","_keyID","_pos","_insert","_var","_signs","_takeMoney","_price"];
-	_object = param [0,objNull];
-	_player = param [1,objNull];
-	_takeMoney = param [2,true];
-	_price = param [3,0];
-	_uid = getPlayerUID _player;
+	private _object = param [0,objNull];
+	private _player = param [1,objNull];
+	private _takeMoney = param [2,true];
+	private _price = param [3,0];
+	private _uid = getPlayerUID _player;
+
+	diag_log _this;
 
 	_object setVariable ["owner",[_uid],true];
 
-	if (_takeMoney) then
-	{
+	if (_takeMoney) then {
 		_player setVariable ["player_bank",((_player getVariable ["player_bank",0]) - _price),true];
 	};
 
-	_keyID = [_player,_object,"",false,"house"] call Server_Housing_CreateKey;
-
-	if (!(_object IN Server_HouseList)) then
-	{
+	private _keyID = [_player,_object,"",false,"house"] call Server_Housing_CreateKey;
+	if (!(_object IN Server_HouseList)) then {
 		Server_HouseList pushback _object;
 	};
 
-	_pos = getpos _object;
-	_uid = [[_uid]] call Server_Database_Array;
-	_insert = format ["INSERT INTO houses (uids,classname,location,doorid,pitems) VALUES ('%1','%2','%3','%4','[]') ON DUPLICATE KEY UPDATE doorID='%3'",_uid,typeOf _object,_pos,_keyID];
+	private _pos = getpos _object;
+	private _uid = [[_uid]] call Server_Database_Array;
+	private _insert = format ["INSERT INTO houses (uids,classname,location,doorid) VALUES ('%1','%2','%3','%4') ON DUPLICATE KEY UPDATE doorID='%4'",_uid,typeOf _object,_pos,_keyID];
 	[_insert,1] spawn Server_Database_Async;
 
 	_player setVariable ["house",_object,true];
-	_var = _player getVariable ["apt",nil];
+	private _var = _player getVariable ["apt",nil];
 	if (!isNil "_var") then
 	{
 		[_player] call Server_Housing_UnAssignApt;
-
 		_player setVariable ["apt",Nil,true];
 		_player setVariable ["aptnumber",Nil,true];
 	};
 
 	_signs = nearestObjects [_object, ["Land_A3PL_EstateSign"], 20];
-	if (count _signs > 0) then
-	{
+	if (count _signs > 0) then {
 		(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
 	};
-
 },true] call Server_Setup_Compile;
 
 //This will set the position of the player to their appartment
