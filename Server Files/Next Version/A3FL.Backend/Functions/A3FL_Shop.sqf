@@ -370,25 +370,23 @@
 		};
 		case ("vehicle"):
 		{
-			private ["_vehicles","_vehicle"];
-			_vehicles = nearestObjects [player,["Car","Tank","Air","Plane","Ship"],15];
-			_vehicle = objNull;
-			if (count _vehicles < 1) exitwith {["You can not find your vehicle nearby! Thank you to bring it closer to the store to sell!"] call A3PL_Player_Notification;};
+			private _vehicles = nearestObjects [player,["Car","Tank","Air","Plane","Ship"],20];
+			private _vehicle = objNull;
+			if ((count _vehicles) < 1) exitwith {["Please bring it closer to the store!","red"] call A3PL_Player_Notification;};
 			{
-				if (((_x getVariable ["owner",[]]) select 0) isEqualTo (getPlayerUID player) && (typeOf _x) isEqualTo _itemClass) exitwith {
+				if (((typeOf _x) == _itemClass) && {((_x getVariable ["owner",[]]) select 0) isEqualTo (getPlayerUID player)}) exitwith {
 					_vehicle = _x;
 				};
 			} foreach _vehicles;
-			if (isNull _vehicle) exitwith {["You can not find your vehicle nearby! Thank you to bring it closer to the store to sell! (Only the owner of the vehicle can sell it)"] call A3PL_Player_Notification;};
+			if (isNull _vehicle) exitwith {["Please bring it closer to the store! (Only the owner of the vehicle can sell it)","red"] call A3PL_Player_Notification;};
 			[_vehicle] remoteExec ["Server_Vehicle_Sell",2];
 			_itemName = getText (configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "displayName");
 			_has = true;
 		};
 		case ("plane"):
 		{
-			private ["_vehicles","_vehicle"];
-			_vehicles = nearestObjects [player,["Car","Tank","Air","Plane","Ship"],15];
-			_vehicle = objNull;
+			private _vehicles = nearestObjects [player,["Car","Tank","Air","Plane","Ship"],20];
+			private _vehicle = objNull;
 			if (count _vehicles < 1) exitwith {["You can not find your vehicle nearby! Thank you to bring it closer to the store to sell!"] call A3PL_Player_Notification;};
 			{
 				if (((_x getVariable ["owner",[]]) select 0) isEqualTo (getPlayerUID player) && (typeOf _x) isEqualTo _itemClass) exitwith {

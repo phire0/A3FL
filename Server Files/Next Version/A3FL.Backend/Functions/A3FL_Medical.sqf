@@ -8,7 +8,6 @@
 
 #define LOGLIMIT 12
 #define MAXBLOODLVL 5000
-#define RESPAWNTIME 600
 #define BLOODPERBAG 2000
 
 ["A3PL_Medical_Loop",
@@ -790,7 +789,6 @@
 	player setVariable ["A3PL_Wounds",[],true];
 	player setVariable ["A3PL_Medical_Blood",MAXBLOODLVL,true];
 	player setVariable ["A3PL_Medical_Alive",true,true];
-	['fifr_healdone'] call A3PL_NPC_Start;
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_Heal_Ill",
@@ -817,7 +815,6 @@
 	player setVariable ["A3PL_Wounds",[],true];
 	player setVariable ["A3PL_Medical_Blood",MAXBLOODLVL,true];
 	player setVariable ["A3PL_Medical_Alive",true,true];
-	['fifr_healdoneill'] call A3PL_NPC_Start;
 }] call Server_Setup_Compile;
 
 /*
@@ -918,8 +915,7 @@
 	A3PL_deathCam camSetFocus [50,0];
 	A3PL_deathCam camCommit 0;
 	
-	if((backpack _unit) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Player_DeadRadio] call TFAR_fnc_setLrSettings;};
-	[_unit,_lastDamage,600] spawn {
+	[_unit,_lastDamage,30] spawn {
 		disableSerialization;
 		private _unit = _this select 0;
 		private _lastDamage = _this select 1;
@@ -927,16 +923,12 @@
 		private _display = findDisplay 7300;
 		private _control = _display displayCtrl 1001;
 		private _exit = false;
-
+		[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 		while {!(_unit getVariable ["A3PL_Medical_Alive",false])} do
 		{
 			private _format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CAN remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
 			if(_unit getVariable ["DoubleTapped",false]) then {
 				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CANNOT remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
-				if ((animationState _unit) != "AinjPpneMstpSnonWnonDnon") then {
-					[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
-				};
-			} else {
 				if ((animationState _unit) != "Incapacitated") then {
 					[_unit,"Incapacitated"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 				};
@@ -1081,6 +1073,7 @@
 	player setVariable ["TimeRemaining",nil,true];
 	player setVariable ["tf_voiceVolume", 1, true];
 	[player,"PlayerProne"] remoteExec ["A3PL_Lib_SyncAnim",-2];
+	if((backpack player) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Player_DeadRadio] call TFAR_fnc_setLrSettings;};
 	disableUserInput false;
 }] call Server_Setup_Compile;
 

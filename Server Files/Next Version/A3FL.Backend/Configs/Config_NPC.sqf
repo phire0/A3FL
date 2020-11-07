@@ -1,3 +1,10 @@
+/*
+	ArmA 3 Fishers Life
+	Code written by ArmA 3 Fishers Life Development Team
+	@Copyright ArmA 3 Fishers Life (https://www.arma3fisherslife.net)
+	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
+	More informations : https://www.bistudio.com/community/game-content-usage-rules
+*/
 
 Config_NPC_Text =
 [
@@ -23,28 +30,20 @@ Config_NPC_Text =
 	["bank_paycheckrefuse", localize"STR_NPC_BANKPCREF",[localize"STR_NPC_BANKPCREF1"],[""]],
 	["bank_paycheckaccepted", localize"STR_NPC_BANKPCACC",[localize"STR_NPC_BANKPCACC1",localize"STR_NPC_BANKPCACC2"],["call A3PL_Player_PickupPaycheck;",""]],
 
-	["uscg_initial",localize"STR_NPC_USCGINIT",[localize"STR_NPC_USCGINIT1"],["if (player getVariable 'job' == 'uscg') exitwith {['uscg_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'uscg') then { ['uscg_work'] call A3PL_NPC_Start; } else {['uscg_workdenied'] call A3PL_NPC_Start;};"]],
+	["uscg_initial",localize"STR_NPC_USCGINIT",[localize"STR_NPC_USCGINIT1",localize"STR_NPC_NVM"],["if (player getVariable 'job' isEqualTo 'uscg') exitwith {['uscg_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' isEqualTo 'uscg') then {['uscg'] call A3PL_NPC_TakeJob;} else {['uscg_workdenied'] call A3PL_NPC_Start;};",""]],
 	["uscg_workdenied", localize"STR_NPC_USCGDENIED",[localize"STR_NPC_SORRYILEAVE"],[""]],
-	["uscg_work", localize"STR_NPC_USCGWORK",[localize"STR_NPC_USCGWORK1",localize"STR_NPC_USCGWORK2"],["['uscg'] call A3PL_NPC_TakeJob;",""]],
 	["uscg_already", localize"STR_NPC_USCGALREADY",[localize"STR_NPC_USCGALREADY1",localize"STR_NPC_USCGALREADY2"],["call A3PL_NPC_LeaveJob;",""]],
-	["uscg_accepted", localize"STR_NPC_USCGALACCEPTED",[localize"STR_NPC_USCGALACCEPTED1"],[""]],
-	["uscg_service", localize"STR_NPC_USCGNSERVICE",[localize"STR_NPC_USCGNSERVICER"],[""]],
 
-	["fifr_initial", localize"STR_NPC_FIFRINIT",[localize"STR_NPC_FIFRINIT1",localize"STR_NPC_FIFRINIT2",localize"STR_NPC_FIFRINIT3", localize"str_NPC_FIFRINIT4"],["if ((str (player getvariable ['A3PL_Wounds',[]]) == '[]') && ((player getvariable ['A3PL_Medical_Blood',5000]) isEqualTo 5000)) exitwith {['fifr_healdenied'] call A3PL_NPC_Start;}; ['fifr_heal'] call A3PL_NPC_Start;","['fifr_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'fifr') exitwith {['fifr_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'fifr') then { ['fifr_work'] call A3PL_NPC_Start; } else {['fifr_workdenied'] call A3PL_NPC_Start;};", "['Shop_Clinic'] call A3PL_Shop_Open;"]],
+	["fifr_initial", localize"STR_NPC_FIFRINIT",[localize"STR_NPC_FIFRINIT1",localize"STR_NPC_FIFRINIT2", localize"str_NPC_FIFRINIT3"],["if (((player getvariable ['A3PL_Wounds',[]]) isEqualTo []) && ((player getvariable ['A3PL_Medical_Blood',5000]) isEqualTo 5000)) exitwith {['fifr_healdenied'] call A3PL_NPC_Start;}; ['fifr_heal'] call A3PL_NPC_Start;","if (player getVariable 'job' isEqualTo 'fifr') exitwith {['fifr_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' isEqualTo 'fifr') then {['fifr'] call A3PL_NPC_TakeJob;} else {['fifr_workdenied'] call A3PL_NPC_Start;};", "['Shop_Clinic'] call A3PL_Shop_Open;"]],
 	["fifr_healdenied", localize"STR_NPC_FIFRHEALD",[localize"STR_NPC_FIFRHEALD1"],[""]],
-	["fifr_howto", localize"STR_NPC_FIFRHOWTO",[localize"STR_NPC_ALRIGHTTNX"],[""]],
 	["fifr_workdenied", localize"STR_NPC_FIFRDEN",[localize"STR_NPC_FIFRDEN1"],[""]],
-	["fifr_work",localize"STR_NPC_FIFRWORK",[localize"STR_NPC_FIFRWORK1",localize"STR_NPC_FIFRWORK2"],["['fifr'] call A3PL_NPC_TakeJob;",""]],
 	["fifr_already", localize"STR_NPC_FIFRALREADY",[localize"STR_NPC_FIFRALREADY1",localize"STR_NPC_FIFRALREADY2"],["call A3PL_NPC_LeaveJob;",""]],
-	["fifr_accepted", localize"STR_NPC_FIFRACC",[localize"STR_NPC_FIFRACC1"],[""]],
 	["fifr_heal", localize"STR_NPC_FIFRHEAL",[localize"STR_NPC_FIFRHEAL1",localize"STR_NPC_FIFRHEAL2"],["[] spawn A3PL_Medical_Heal;"]],
-	["fifr_healdone", localize"STR_NPC_FIFRDONE",[localize"STR_NPC_FIFRDONE1"],[""]],
-
+	
 	["fifr_initialill", localize"STR_NPC_FIFRINITILL",[localize"STR_NPC_FIFRINITILL1"],["if ((str (player getvariable ['A3PL_Wounds',[]]) == '[]') && ((player getvariable ['A3PL_Medical_Blood',5000]) isEqualTo 5000)) exitwith {['fifr_healdeniedill'] call A3PL_NPC_Start;}; ['fifr_healill'] call A3PL_NPC_Start;"]],
 	["fifr_healdeniedill", localize"STR_NPC_FIFRHEALDILL",[localize"STR_NPC_FIFRHEALD1ILL"],[""]],
 	["fifr_healill", localize"STR_NPC_FIFRHEALILL",[localize"STR_NPC_FIFRHEALILL1",localize"STR_NPC_FIFRHEALILL2"],["call A3PL_Medical_Heal_Ill;"]],
-	["fifr_healdoneill", localize"STR_NPC_FIFRDONEILL",[localize"STR_NPC_FIFRDONEILL1"],[""]],
-
+	
 	["vehiclesell_initial", localize"STR_NPC_VEHICLESELLINIT",[localize"STR_NPC_VEHICLESELLINIT1",localize"STR_NPC_VEHICLESELLINIT2"],["['vehiclesell_yes'] call A3PL_NPC_Start;","['vehiclesell_no'] call A3PL_NPC_Start;"]],
 	["vehiclesell_no", localize"STR_NPC_ENIGMENO",[localize"STR_NPC_ENIGMEDSL"],[""]],
 	["vehiclesell_yes", localize"STR_NPC_VEHICLESELLYES",[localize"STR_NPC_VEHICLESELLOFF"],["call A3PL_Chopshop_Chop;"]],
@@ -100,13 +99,9 @@ Config_NPC_Text =
 	["verizon_initial",localize"STR_NPC_HELLOHOWICANHELPYOU",[localize"STR_NPC_CHOOSESUB"],["['verizon_howto'] call A3PL_NPC_Start;"]],
 	["verizon_howto",localize"STR_NPC_VERIZONCHOOSESUBSCRIPTION",[localize"STR_NPC_SECONDARYPHONE"],["['2'] spawn A3PL_iPhoneX_AddPhoneNumber;"]],
 
-	["police_initial", localize"STR_NPC_POLICEINIT",[localize"STR_NPC_POLICEINIT1",localize"STR_NPC_POLICEINIT2",localize"STR_NPC_POLICEINIT3"],["['police_howto'] call A3PL_NPC_Start;","['police_reportcrime'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'fisd') exitwith {['police_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'fisd') then { ['police_work'] call A3PL_NPC_Start; } else {['police_workdenied'] call A3PL_NPC_Start;};"]],
-	["police_howto", localize"STR_NPC_WEBSITEMOREINFO",[localize"STR_NPC_ALRIGHTTNX"],[""]],
-	["police_reportcrime", localize"STR_NPC_POLICEREPCRIME",[localize"STR_NPC_ALRIGHTTNX"],[""]],
+	["police_initial", localize"STR_NPC_POLICEINIT",[localize"STR_NPC_POLICEINIT1",localize"STR_NPC_NVM"],["if (player getVariable 'job' isEqualTo 'fisd') exitwith {['police_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' isEqualTo 'fisd') then {['fisd'] call A3PL_NPC_TakeJob;} else {['police_workdenied'] call A3PL_NPC_Start;};",""]],
 	["police_workdenied", localize"STR_NPC_POLICEDENIED",[localize"STR_NPC_SORRYILEAVE"],[""]],
-	["police_work", localize"STR_NPC_WORK",[localize"STR_NPC_WORK1",localize"STR_NPC_WORK2"],["['fisd'] call A3PL_NPC_TakeJob;",""]],
 	["police_already", localize"STR_NPC_ALREADY",[localize"STR_NPC_ALREADY1",localize"STR_NPC_ALREADY2"],["call A3PL_NPC_LeaveJob;",""]],
-	["police_accepted", localize"STR_NPC_ACCEPTED",[localize"STR_NPC_ACCEPTED1"],[""]],
 
 	["doj_initial", localize"STR_NPC_HELLOWHOWHELP",[localize"STR_NPC_FAAINIT1",localize"STR_NPC_DOJINIT2"],["['doj_howto'] call A3PL_NPC_Start;","if (player getVariable 'job' == 'doj') exitwith {['doj_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' == 'doj') then { ['doj_work'] call A3PL_NPC_Start; } else {['doj_workdenied'] call A3PL_NPC_Start;}"]],
 	["doj_howto", localize"STR_NPC_DOJHOWTO",[localize"STR_NPC_AIGHTTNX"],[""]],

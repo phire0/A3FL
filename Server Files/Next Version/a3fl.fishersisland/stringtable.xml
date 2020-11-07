@@ -4861,17 +4861,14 @@
    <Key ID="STR_NPC_BANKPCACC2">
       <Original>I will sign the check later</Original>
    </Key>
+   <Key ID="STR_NPC_NVM">
+      <Original>Nevermind, I'm good.</Original>
+   </Key>
    <Key ID="STR_NPC_POLICEINIT">
-      <Original>Howdy! &lt;br/&gt;&lt;br/&gt; How can I help you?</Original>
+      <Original>Howdy! &lt;br/&gt; Welcome to the Sheriff's Department, what can I do for you ?</Original>
    </Key>
    <Key ID="STR_NPC_POLICEINIT1">
-      <Original>Howdy! How can I become a Sheriff Deputy?</Original>
-   </Key>
-   <Key ID="STR_NPC_POLICEINIT2">
-      <Original>Hello sir, I have a crime to report</Original>
-   </Key>
-   <Key ID="STR_NPC_POLICEINIT3">
-      <Original>Howdy Sheriff! I am here to start my shift.</Original>
+      <Original>Go on duty</Original>
    </Key>
    <Key ID="STR_NPC_WEBSITEMOREINFO">
       <Original>You can find more information on our website: &lt;br/&gt; http://www.FISD.com/</Original>
@@ -4886,7 +4883,7 @@
       <Original>I am sorry! I am going to leave.</Original>
    </Key>
    <Key ID="STR_NPC_POLICEDENIED">
-      <Original>You do not seem to work here! &lt;br/&gt; To impersonate a Sheriff Deputy is a crime!</Original>
+      <Original>You do not seem to work here! &lt;br/&gt; Impersonating a Sheriff Deputy is a crime!</Original>
    </Key>
    <Key ID="STR_NPC_WORK">
       <Original>Welcome Sheriff &lt;br/&gt; Are you ready to start your service?</Original>
@@ -4894,17 +4891,14 @@
    <Key ID="STR_NPC_WORK1">
       <Original>I am ready, let's stop criminals.</Original>
    </Key>
-   <Key ID="STR_NPC_WORK2">
-      <Original>Let me take some donuts and I'll come</Original>
-   </Key>
    <Key ID="STR_NPC_ALREADY">
-      <Original>You are already in service, do you want end your service now?</Original>
+      <Original>You are already on duty, do you want to go off duty now?</Original>
    </Key>
    <Key ID="STR_NPC_ALREADY1">
       <Original>Yes, it's time to go home.</Original>
    </Key>
    <Key ID="STR_NPC_ALREADY2">
-      <Original>In fact, nothing.</Original>
+      <Original>Negative, just checking in.</Original>
    </Key>
    <Key ID="STR_NPC_ACCEPTED">
       <Original>You are now in service. Here is your radio &lt;br/&gt; Make sure to take your equipment &lt;br/&gt; Good luck Deputy</Original>
@@ -5090,7 +5084,7 @@
       <Original>Uhhh hello .. No nothing i'm leaving ..</Original>
    </Key>
    <Key ID="STR_NPC_FIFRINIT">
-      <Original>Hello! &lt;br/&gt; How can I help you?</Original>
+      <Original>Hello! &lt;br/&gt; Welcome to the clinic, what can I do for you ?</Original>
    </Key>
    <Key ID="STR_NPC_FIFRINITILL">
       <Original>Yo! &lt;br/&gt; What's happening to you, brother? Do you want me to patch you up?</Original>
@@ -5124,9 +5118,6 @@
    </Key>
    <Key ID="STR_NPC_FIFRINIT1">
       <Original>I do not feel well, can you look at me?</Original>
-   </Key>
-   <Key ID="STR_NPC_FIFRINIT2">
-      <Original>How can I join the FIFR?</Original>
    </Key>
    <Key ID="STR_NPC_DMV1">
       <Original>Hello there!&lt;br/&gt;How can I help you?</Original>
@@ -5167,10 +5158,10 @@
    <Key ID="STR_NPC_DMV13">
       <Original>1. Sorry, I'll leave</Original>
    </Key>
-   <Key ID="STR_NPC_FIFRINIT3">
+   <Key ID="STR_NPC_FIFRINIT2">
       <Original>Hello colleague, I am here to start my shift.</Original>
    </Key>
-   <Key ID="STR_NPC_FIFRINIT4">
+   <Key ID="STR_NPC_FIFRINIT3">
       <Original>Hello, I want to buy medical equipment.</Original>
    </Key>
    <Key ID="STR_NPC_FIFRHEALD">
@@ -5178,9 +5169,6 @@
    </Key>
    <Key ID="STR_NPC_FIFRHEALD1">
       <Original>Okay then, thanks anyway.</Original>
-   </Key>
-   <Key ID="STR_NPC_FIFRHOWTO">
-      <Original>You can find more information on our website: &lt;br/&gt; http://www.FIFR.com/</Original>
    </Key>
    <Key ID="STR_NPC_FIFRDEN">
       <Original>You do not seem to work here! &lt;br/&gt; Impersonating an FIFR is a crime!</Original>

@@ -83,23 +83,33 @@
 	if (_response isEqualTo -1) exitwith {[localize"STR_NPC_4", "red"] call A3PL_Player_Notification;}; 
 
 	switch (_response) do {
-		case 1: {_text = [format [localize"STR_NPC_5",toUpper(_job)],"green"];};
-		default {_text = "Unspecified response in TakeJobResponse, report this error"};
+		case 1: {_text = format [localize"STR_NPC_5",toUpper(_job)]};
 	};
 
-	if (isNil "_text") exitwith {[format [localize"STR_NPC_6"], "red"] call A3PL_Player_Notification;};
-
-	_text call A3PL_Player_Notification;
 	switch (_job) do
 	{
 		case "mcfisher": {["mcfishers_accepted"] call A3PL_NPC_Start;};
 		case "fisher": {["fisherman_accepted"] call A3PL_NPC_Start;};
-		case "fifr": {["fifr_accepted"] call A3PL_NPC_Start;};
-		case "uscg": {["uscg_accepted"] call A3PL_NPC_Start;};
 		case "farmer": {["farmer_accepted"] call A3PL_NPC_Start;};
 		case "tacohell": {["tacohell_accepted"] call A3PL_NPC_Start;};
 		case "oil": {["oil_accepted"] call A3PL_NPC_Start;};
 		case "mailman": {["mailman_accepted"] call A3PL_NPC_Start;};
+		case "fisd": {
+			private _name = player getVariable["name",""];
+			private _rank = ["fisd","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;
+			_text = format["You are now on duty %2 %1",_name,_rank];
+		};
+		case "fifr": {
+			private _name = player getVariable["name",""];
+			private _rank = ["fifr","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;
+			_text = format["You are now on duty %2 %1",_name,_rank];
+		};
+		case "uscg": {
+			private _name = player getVariable["name",""];
+			private _rank = ["uscg","rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;
+			_text = format["You are now on duty %2 %1",_name,_rank];
+		};
 	};
+	if (!isNil "_text") exitwith {[_text,"green"] call A3PL_Player_Notification;};
 	[getPlayerUID player,"ChangeJob",["New Job",_job,"Old Job",_oldJob]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;

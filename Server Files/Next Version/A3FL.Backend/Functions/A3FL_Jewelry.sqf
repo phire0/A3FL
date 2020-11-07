@@ -245,7 +245,23 @@
 {
 	private _store = param [0,objNull];
 	private _name = param [1,""];
-	if (_name IN ["door_1","door_2"]) exitwith {[_jail,_name,false] call A3PL_Lib_ToggleAnimation;};
+	if (_name IN ["door_1","door_2"]) exitwith {[_store,_name,false] call A3PL_Lib_ToggleAnimation;};
 	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && (["keycard",1] call A3PL_Inventory_Has)) exitwith {["You cannot use this button!","red"] call A3PL_Player_Notification;};
-	if (_name IN ["jewelry_3_button","jewelry_3_button2","jewelry_4_button","jewelry_4_button2","jewelry_5_button","jewelry_5_button2"]) exitwith { _name = _name select [0,(_name find "_button")]; [_jail,_name,false] call A3PL_Lib_ToggleAnimation;};
+	if (_name IN ["jewelry_3_button","jewelry_3_button2","jewelry_4_button","jewelry_4_button2","jewelry_5_button","jewelry_5_button2"]) exitwith {
+		private _anim = switch (_name) do
+		{
+			case "jewelry_3_button": {[_store,"door_3",false] call A3PL_Lib_ToggleAnimation;};
+			case "jewelry_3_button2": {[_store,"door_3",false] call A3PL_Lib_ToggleAnimation;};
+			case "jewelry_4_button": {[_store,"door_4",false] call A3PL_Lib_ToggleAnimation;};
+			case "jewelry_4_button2": {[_store,"door_4",false] call A3PL_Lib_ToggleAnimation;};
+			case "jewelry_5_button": {
+				[_store,"door_5",false] call A3PL_Lib_ToggleAnimation;
+				[_store,"door_6",false] call A3PL_Lib_ToggleAnimation;
+			};
+			case "jewelry_5_button2": {
+				[_store,"door_5",false] call A3PL_Lib_ToggleAnimation;
+				[_store,"door_6",false] call A3PL_Lib_ToggleAnimation;
+			};
+		};
+	};
 }] call Server_Setup_Compile;
