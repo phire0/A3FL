@@ -940,7 +940,6 @@
 				_boss = _return select 2;
 				_bank = _return select 3;
 				_licenses = _return select 4;
-
 				_output = format["
 				<t align='center'>Company: %1</t><br />
 				<t align='center'>Description: %2</t><br />

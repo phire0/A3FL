@@ -149,13 +149,12 @@
 ["Server_Core_Weather",
 {
 	private["_weatherArray","_nextWeather","_chance"];
-	_chance = random(100);
-	_nextweather = "";
-	switch(true) do {
-		case (_chance < 50): {_nextWeather = "sunny";};
-		case (_chance >= 50 && _chance <= 59): {_nextWeather = "thunder";};
-		case (_chance >= 60 && _chance <= 89): {_nextWeather = "rainny";};
-		case (_chance >= 90): {_nextWeather = "foggy";};
+	private _chance = random(100);
+	private _nextWeather = switch(true) do {
+		case (_chance < 50): {"sunny"};
+		case ((_chance >= 50) && {_chance <= 59}): {"thunder"};
+		case ((_chance >= 60) && {_chance <= 89}): {"rainny"};
+		case (_chance >= 90): {"foggy"};
 	};
 	switch(_nextWeather) do {
 		case('sunny'): {
@@ -171,7 +170,7 @@
 			60 setFog 0;
 			60 setOvercast 0.5;
 			60 setLightnings 0;
-			60 setRain 0.9;
+			60 setRain 0.5;
 			60 setWaves 0.3;
 			60 setGusts 0.3;
 		};
