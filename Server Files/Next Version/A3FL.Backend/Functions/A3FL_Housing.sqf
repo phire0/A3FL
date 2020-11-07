@@ -459,7 +459,7 @@
 	private _control = _display displayCtrl 1500;
 	private _removeID = _control lbData (lbCurSel _control);
 
-	private _house = _player getVariable ["house", objNull, [objNull]];
+	private _house = _player getVariable ["house", objNull];
 	
 	private _allPlayers = call BIS_fnc_listPlayers;
 	private _isConnected = false;

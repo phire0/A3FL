@@ -31,7 +31,7 @@ class Dialog_Roommates
 			y = 0.765 * safezoneH + safezoneY;
 			w = 0.0670312 * safezoneW;
 			h = 0.04 * safezoneH;
-			action = "[player] call A3PL_Housing_RemoveRoommate;";
+			action = "[player, player getVariable [""house"", objNull]] remoteExec [""Server_Housing_GetRoommates"", 2];";
 		};
 		class button_close: RscButtonEmpty
 		{
