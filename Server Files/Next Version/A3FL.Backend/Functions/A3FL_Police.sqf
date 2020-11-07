@@ -1178,17 +1178,17 @@
 				<t align='center'>lookupaddress [firstname] [lastname] - View house address</t><br />
 				<t align='center'>lookupwarehouse [firstname] [lastname] - View warehouse address</t><br />
 				<t align='center'>bololist - View a list of active BOLO notices</t><br />
-				<t align='center'>stolenvehicles - View a list of stolen vehicles</t><br />
+				<t align='center'>stolenvehicles - View a list of stolen vehicles</t>
 				";
 			} else {
 				"
 				<t align='center'>clear - Clear screen</t><br />
 				<t align='center'>lookup [firstname] [lastname] - View information about a person</t><br />
 				<t align='center'>lookupvehicles [firstname] [lastname] - List all registered vehicles to a person</t><br />
-				<t align='center'>lookuplicense [license plate] - View license plate information</t><br />
+				<t align='center'>lookuplicense [plate] - View plate information</t><br />
 				<t align='center'>lookupcompany [company name] - View company information</t><br />
-				<t align='center'>markstolen [license plate] - Mark a vehicle as stolen</t><br />
-				<t align='center'>markfound [license plate] - Mark a vehicle as found</t><br />
+				<t align='center'>markstolen [plate] - Mark a vehicle as stolen</t><br />
+				<t align='center'>markfound [plate] - Mark a vehicle as found</t><br />
 				<t align='center'>warrantlist [firstname] [lastname] - List of mandates for a person</t><br />
 				<t align='center'>warrantinfo [firstname] [lastname] [number] - Mandates Information</t><br />
 				<t align='center'>removewarrant [firstname] [lastname] [number] - Remove the warrant</t><br />
@@ -1207,7 +1207,8 @@
 				<t align='center'>removebolo [BOLO ID] - Remove a BOLO notice</t><br />
 				<t align='center'>bololist - View a list of active BOLO notices</t><br />
 				<t align='center'>stolenvehicles - View a list of stolen vehicles</t><br />
-				<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t><br />
+				<t align='center'>revokelicense [firstname] [lastname] [license code] - Revoke a license</t><br />
+				<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t>
 				";
 			};
 		};

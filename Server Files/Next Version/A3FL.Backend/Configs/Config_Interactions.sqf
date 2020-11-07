@@ -1030,8 +1030,16 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_OPCOMPUTER",
-		{call A3PL_Police_DatabaseOpen;},
-		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) && (typeOf(vehicle player) IN Config_Police_Vehs - ["A3PL_P362_TowTruck"])}
+		{
+			if (isNull (findDisplay 211) && (((vehicle player) animationPhase "Laptop_Top") > 0.5)) then {
+				if ((player getVariable ["job","unemployed"]) isEqualTo "fifr") then {
+					call A3PL_FD_DatabaseOpen;
+				} else {
+					call A3PL_Police_DatabaseOpen;
+				};
+			};
+		},
+		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","fims","doj","fifr"]) && (typeOf(vehicle player) IN (Config_Police_Vehs - ["A3PL_P362_TowTruck","A3PL_F150_Marker"]))}
 	],
 	[
 		localize "STR_INTER_RESETLOCKF",
