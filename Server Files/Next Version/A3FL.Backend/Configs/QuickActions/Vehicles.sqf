@@ -1839,6 +1839,11 @@
     {[player_objintersect] call A3PL_Locker_Rent;}
 ],
 [
+	""
+	localize"STR_INTSECT_SELLLOCKER",
+	{[player_objintersect] call A3PL_Locker_Sell;}
+],
+[
 	"A3PL_MailTruck",
 	localize"STR_INTSECT_OPCLMAILTD",
 	{

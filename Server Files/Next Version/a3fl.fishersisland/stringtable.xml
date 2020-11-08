@@ -3479,6 +3479,9 @@
    <Key ID="STR_INTSECT_BUYLOCKER">
       <Original>Buy Locker</Original>
    </Key>
+   <Key ID="STR_INTSECT_SELLLOCKER">
+      <Original>Sell Locker</Original>
+   </Key>
    <Key ID="STR_INTSECT_OCLOCKERDOOR">
       <Original>Open / Close Locker</Original>
    </Key>
@@ -3489,7 +3492,7 @@
       <Original>You are missing $%1 to buy this locker</Original>
    </Key>
    <Key ID="STR_INTSECT_LOCKERBOUGHT">
-      <Original>You have to buy a locker for $%1</Original>
+      <Original>You have purchased a locker for $%1</Original>
    </Key>
     </Package>
     <Package name="Config_Garage">

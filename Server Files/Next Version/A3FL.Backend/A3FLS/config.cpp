@@ -105,11 +105,9 @@ class CfgRemoteExec
 		class Server_Gang_ManageSetup{allowedTargets=2;};
 
 		//Locker
-		class A3PL_Locker_Rent_Receive{allowedTargets=0;};
-		class A3PL_Locker_Rent{allowedTargets=0;};
 		class Server_Locker_Save{allowedTargets=2;};
 		class Server_Locker_Insert{allowedTargets=2;};
-		class Server_Locker_OwnsLocker{allowedTargets=2;};
+		class Server_Locker_Sell{allowedTargets=2;};
 
 		//Fuel
 		class Server_Fuel_Pay{allowedTargets=2;};

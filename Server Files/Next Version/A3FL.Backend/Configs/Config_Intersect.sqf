@@ -1516,6 +1516,7 @@ Config_IntersectArray =
 	// Locker
 	["Door_1",localize"STR_INTSECT_BUYLOCKER",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo "") && (typeOf player_objintersect isEqualTo "A3PL_EMS_Locker") && (player getVariable["job","unemployed"] IN ["fifr","uscg","fisd","doj","dmv","fims"])}],
 	["Door_1",localize"STR_INTSECT_OCLOCKERDOOR",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo getPlayerUID player) && (typeOf player_objintersect isEqualTo "A3PL_EMS_Locker")}],
+	["Door_1",localize"STR_INTSECT_SELLLOCKER",_dir+"IGUI\Cfg\Actions\open_Door_ca.paa",{((player_objIntersect getVariable ["owner",""]) isEqualTo getPlayerUID player) && (typeOf player_objintersect isEqualTo "A3PL_EMS_Locker")}],
 
 	//Common Cars Doors
 	["doorL",localize"STR_INTSECT_REPVEH",_dir+"IGUI\Cfg\VehicleToggles\lightsiconon_ca.paa",{player_ItemClass == "repairwrench"}], //Repair Vehicle
@@ -2284,6 +2285,7 @@ Config_GenArray =
 	format [localize"STR_INTSECT_TAKEHOSE",5],
 	localize"STR_INTSECT_UseDistributor",
 	localize"STR_INTSECT_BUYLOCKER",
+	localize"STR_INTSECT_SELLLOCKER",
 	localize"STR_INTSECT_OPCLDOOR",
 	localize"STR_INTSECT_OCLOCKERDOOR",
 	localize"STR_INTSECT_LOCKERSTORE",

@@ -22,25 +22,59 @@
 },true] call Server_Setup_Compile;
 
 ['Server_Locker_Insert', {
-	private _locker = _this select 0;
-	private _player = _this select 1;
+	params[
+		["_locker", objNull, [objNull]],
+		["_player", objNull, [objNull]]
+	];
+
+	private _query = format ["SELECT owner FROM lockers WHERE owner = '%1'", (getPlayerUID _player)];
+	private _result = [_query, 2] call Server_Database_Async;
+
+	if ((count _result) > 0) exitWith {
+		["You already own a locker.","red"] remoteExec ["A3PL_Player_Notification",(owner _player)];
+	};
+
+	private _lockerPrice = 10000;
+	private _playerBank = _player getVariable ["Player_Bank", 0];
+
+	if(_playerBank < _lockerPrice) exitWith {
+		[format[localize "STR_INTSECT_LOCKERNEEDMONEY",(_lockerPrice-_playerBank)], "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
+
+	_player setVariable ["Player_Bank", (_playerBank - _lockerPrice), true];
+	_locker setVariable ["owner", (getPlayerUID _player), true];
+
+	[format[localize "STR_INTSECT_LOCKERBOUGHT",_lockerPrice], "green"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	["Federal Reserve", _lockerPrice] call Server_Government_AddBalance;
+	[(getPlayerUID player), "BuyLocker", []] call Server_Log_New;
+
 	private _query = format ["INSERT INTO lockers(locker, owner) VALUES ('%1','%2')",_locker, getPlayerUID _player];
 	[_query, 1] call Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-['Server_Locker_OwnsLocker', {
+['Server_Locker_Sell', {
 	params[
+		["_locker", objNull, [objNull]],
 		["_player", objNull, [objNull]]
-		["_locker", objNull, [objNull]]
 	];
 
-	if (isNull _player) exitWith {};
+	// Possibly a redundant check, just an extra one...
+	if ((_locker getVariable ["owner", ""]) isEqualTo (getPlayerUID _player)) exitWith {
+		["You do not own this locker, if this is an error please let us know.", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
 
-	private _query = format ["SELECT owner FROM lockers WHERE owner = '%1'", (getPlayerUID _player)];
-	private _return = [_query, 2] call Server_Database_Async;
-	
-	[_player, _locker, ((count _return) > 0)] remoteExec ["A3PL_Locker_Rent_Receive", (owner _player)];
-}, true] call Server_Setup_Compile;
+	private _salePrice = 5000;
+	private _playerBank = _player getVariable ["Player_Bank", 0];
+
+	_player setVariable ["Player_Bank", (_playerBank + _salePrice), true];
+	_locker setVariable ["owner", "", true];
+
+	[format["You have sold your locker and have received $%1 in your bank account.", _salePrice], "green"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	[(getPlayerUID player), "SellLocker", []] call Server_Log_New;
+
+	private _query = format ["DELETE FROM lockers WHERE locker = '%1' AND owner = '%2'", _locker, (getPlayerUID _player)];
+	[_query, 1] call Server_Database_Async;
+},true] call Server_Setup_Compile;
 
 ['Server_Locker_Save', {
 	private _lockers = ["SELECT locker, owner, items, objects FROM lockers", 2, true] call Server_Database_Async;
