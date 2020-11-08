@@ -15,7 +15,7 @@ Config_Vehicles_Admin = [
 	["A3PL_Pierce",["Ladder","Pumper","Heavy_Ladder","Rescue"]],
 	["A3PL_BMW",["X5","M3"]],
 	["A3PL",["Silverado","Silverado_PD","Silverado_PD_ST","Silverado_FD","Silverado_FD_Brush","911GT2","Charger15","Charger15_PD","Charger15_PD_ST","Charger15_FD","Charger69","VetteZR1","Mailtruck","Gallardo","Cessna172","Lowloader","Mustang","Mustang_PD","Mustang_PD_Slicktop","F150","F150_Marker","F150_Marker_PD","Ram","Wrangler","Charger","E350","Tahoe_FD","Tahoe_PD","Tahoe_PD_Slicktop","Tahoe","CVPI","CVPI_Taxi","CVPI_PD","CVPI_PD_Slicktop","Charger_PD","Charger_PD_Slicktop","P362","P362_TowTruck","P362_Garbage_Truck","Rover","Camaro","RBM","Motorboat","RHIB","Fuel_Van","MiniExcavator","CRX","Challenger_Hellcat","Car_Trailer","Yacht","Yacht_Pirate","Challenger_Hellcat","Gallardo","Suburban","CLS63","Fatboy","1100R","Knucklehead","Monster","Kx","Urus","Cessna172","Goose_Base","Goose_USCG","Jayhawk","Taurus","Taurus_PD","Taurus_PD_ST","Taurus_FD","Raptor","Raptor_PD","Raptor_PD_ST"]],
-	["A3FL",["AS_365","Nissan_GTR","Nissan_GTR_LW","Smart_Car","BMW_M6","Mercedes_Benz_AMG_C63","LCM","T370"]],
+	["A3FL",["AS_365","Nissan_GTR","Nissan_GTR_LW","Smart_Car","BMW_M6","Mercedes_Benz_AMG_C63","LCM","T370","T440","T440_Tow_Truck","T440_Cab_Chassis_Truck"]],
 	["Heli_Medium01",["H","Luxury_H","Medic_H","Military_H","Veteran_H","Coastguard_H","Sheriff_H"]],
 	["C",["Heli_Light_01_civil_F","Van_02_transport_F"]],
 	["K",["Scooter_DarkBlue"]]
@@ -101,6 +101,8 @@ Config_Vehicles_Capacity = [
 	["A3PL_Pierce_Rescue",800],
 
 	["A3FL_T370",1450],
+	["A3FL_T440",2000],
+	["A3FL_T440_Tow_Truck",1000],
 
 	["A3PL_Box_Trailer",950],
 
@@ -268,6 +270,8 @@ Config_Vehicles_MSRP = [
 	["A3PL_Pierce_Rescue",80000],
 
 	["A3FL_T370",200000],
+	["A3FL_T440",250000],
+	["A3FL_T440_Tow_Truck",155000],
 	["A3PL_Box_Trailer",35000],
 
 	["C_Scooter_Transport_01_F",6000],
