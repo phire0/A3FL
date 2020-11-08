@@ -1839,7 +1839,7 @@
     {[player_objintersect] call A3PL_Locker_Rent;}
 ],
 [
-	""
+	"",
 	localize"STR_INTSECT_SELLLOCKER",
 	{[player_objintersect] call A3PL_Locker_Sell;}
 ],
