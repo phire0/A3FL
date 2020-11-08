@@ -1108,6 +1108,9 @@ Config_IntersectArray =
 	["atego_tow",localize"STR_INTSECT_LoadVehicle",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])}],
 	["atego_tow",localize"STR_INTSECT_UnloadVehicle",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])}],
 	["Ramp_Switch",localize"STR_INTSECT_TOGGRAMP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["Ramp_Switch2",localize"STR_INTSECT_TOGGRAMP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["Ramp_Switch2",localize"STR_INTSECT_LoadVehicle",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])}],
+	["Ramp_Switch2",localize"STR_INTSECT_UnloadVehicle",_dir+"IGUI\Cfg\Actions\take_ca.paa",{!(player_objIntersect getVariable ["locked",true])}],
 	["Spotlight_Switch",localize"STR_INTSECT_TOGREARSPOTL",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 	["carinfo",localize"STR_INTSECT_IMPNEARVEH",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(vehicleVarName player_objintersect IN ["Shop_Impound","Shop_Impound_1","Shop_Impound_2","Shop_Impound_3","Shop_Impound_4","Shop_Impound_5"]) && {((player getVariable ["job","unemployed"]) isEqualTo "Roadside")}}],
 
