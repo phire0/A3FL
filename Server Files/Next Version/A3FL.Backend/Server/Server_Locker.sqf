@@ -59,7 +59,7 @@
 	];
 
 	
-	if !((_locker getVariable ["owner"]) isEqualTo (getPlayerUID _player)) exitWith {
+	if !((_locker getVariable ["owner",""]) isEqualTo (getPlayerUID _player)) exitWith {
 		["You do not own this locker, if this is an error please let us know.", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
 	};
 
