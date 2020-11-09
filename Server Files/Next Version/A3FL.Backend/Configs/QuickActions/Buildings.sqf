@@ -646,6 +646,11 @@
 ],
 [
 	"Land_A3PL_EstateSign",
+	localize"STR_INTSECT_ROOMMATEMGMT",
+	{[player] remoteExec ["Server_Housing_GetRoommates", 2];}
+],
+[
+	"Land_A3PL_EstateSign",
 	localize"STR_INTSECT_LEAVHOUSE",
 	{[] call A3PL_Housing_LeaveHouse;}
 ],

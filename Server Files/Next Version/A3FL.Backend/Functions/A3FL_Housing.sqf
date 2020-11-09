@@ -422,19 +422,15 @@
 	[player, (_near select 0)] remoteExec ["Server_Housing_RemoveMember",2];
 }] call Server_Setup_Compile;
 
-// [player, player getVariable ["house", objNull]] remoteExec ["Server_Housing_GetRoommates", 2];
-
-// Invoked by the server once the roommate array has been constructed.
-// Invoked by Server_Housing_GetRoommates
 ["A3PL_Housing_RemoveRoommateReceive",
 {
-	//private _roommates = param[0, [], [[]]];
-
 	params[
 		["_roommates", [], [[]]]
 	];
 
-	if (_roommates isEqualTo []) exitWith {hint "Roommates array is empty...";};
+	if (_roommates isEqualTo []) exitWith {
+		["There was an error while obtaining the list of roommates, please try again.", "red"] call A3PL_Player_Notification;
+	};
 
 	disableSerialization;
 
@@ -447,8 +443,6 @@
 	} forEach _roommates;
 }] call Server_Setup_Compile;
 
-// Invoked from the dialog, perform checks and then invoke server function:
-// [player, "removedSteam64ID", house] Server_Housing_RemoveMemberOffline
 ["A3PL_Housing_RemoveRoommate",
 {
 	params[
@@ -462,22 +456,21 @@
 	private _house = _player getVariable ["house", objNull];
 	
 	private _allPlayers = call BIS_fnc_listPlayers;
-	private _isConnected = false;
+	private _isConnected = [objNull, false];
 	{
 		if ((getPlayerUID _x) isEqualTo _removeID) exitWith {
-			_isConnected = true;
+			_isConnected = [_x, true];
 		};
 	} forEach _allPlayers;
 
 	if (!(isNull _house)) then {
-		if (!(_isConnected)) then {
+		if (!(_isConnected select 1)) then {
+			// Member is offline...
 			[_player, _removeID, _house] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
 		} else {
-			// Possibly add support in the future, need to get player object using SteamID on server...
-			["This player is currently connected to the server and cannot currently be removed using this system.","orange"] call A3PL_Player_Notification;
+			// Member is online...
+			["You have removed a roommate.","green"] call A3PL_Player_Notification;
+			[(_isConnected select 0), _house] remoteExec ["Server_Housing_RemoveMember", 2];
 		};
-	} else {
-		// Remove, debug
-		["_house was null at A3PL_Housing_RemoveRoommate", "red"] call A3PL_Player_Notification;
 	};
 }] call Server_Setup_Compile;

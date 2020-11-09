@@ -560,6 +560,30 @@
 	};
 },true] call Server_Setup_Compile;
 
+["Server_Housing_RemoveOfflineKey",
+{
+	params[
+		["_removalID", "", [""]],
+		["_houseID", "", [""]]
+	];
+
+	// Get keys...
+	// _keys = [(_return select 14)] call Server_Database_ToArray;
+	// _unit setVariable ["keys",_keys,true];
+	// _id = (_house getVariable ["doorid",[]]) select 1;
+	// _x setVariable ["keys",_keys - [_id],true];
+	//UPDATE players SET userkey='%1' WHERE uid ='%2'
+
+	private _query = format ["SELECT userkey FROM players WHERE uid='%1'", _removalID];
+	private _result = [_query, 2] call Server_Database_Async;
+
+	private _keys = [(([(_result select 0)] call Server_Database_ToArray) - [_houseID])] call Server_Database_Array;
+
+	private _query = format ["UPDATE players SET userkey='%1' WHERE uid='%2'", _keys, _removalID];
+	[_query, 1] call Server_Database_Async;
+
+}, true] call Server_Setup_Compile;
+
 ["Server_Housing_RemoveMemberOffline",
 {
 	params[
@@ -569,8 +593,6 @@
 	];
 
 	private _members = _house getVariable ["owner", []];
-
-	// These two checks are likely redundant, only owner will be able to open display.
 
 	// Cannot remove self, combine with below...
 	if ((getPlayerUID _player) isEqualTo _removedRoommate) exitWith {
@@ -595,6 +617,10 @@
 		_query = format ["UPDATE houses SET uids='%1' WHERE location='%2'", _members, (getpos _house)];
 		[_query, 1] call Server_Database_Async;
 
+		// Remove house key from player
+		private _houseID = ((_house getVariable ["doorid", []]) select 1);
+		[_removedRoommate, _houseID] call Server_Housing_RemoveOfflineKey;
+
 		["You removed a roommate!", "green"] remoteExec ["A3PL_Player_Notification", (owner _player)];
 	} else {
 		// Debug, remove...
@@ -608,16 +634,19 @@
 	//private _house = param[1, objNull];
 
 	params[
-		["_player", objNull, [objNull]],
-		["_house", objNull, [objNull]]
+		["_player", objNull, [objNull]]
 	];
 
-	// Debug, remove.
-	if (isNull _player || isNull _house) exitWith {["Error occurred in Server_Housing_GetRoommates", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];};
+	private _house = _player getVariable ["house", objNull];
 
 	// Get the owner array, e.g. ["steamid64_1","steamid64_2",...]
 	private _uids = _house getVariable ["owner", []];
 	
+	// Only the house owner can use this
+	if (!((getPlayerUID _player) isEqualTo (_uids select 0))) exitWith {
+		["Only the house owner can remove roommates.", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
+
 	private _names = [];
 
 	// Loop through each UID and pull their name from the DB

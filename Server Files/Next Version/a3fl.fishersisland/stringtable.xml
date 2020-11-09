@@ -5772,6 +5772,9 @@
    <Key ID="STR_INTSECT_SELLHOUSE">
       <Original>Sell House</Original>
    </Key>
+   <Key ID="STR_INTSECT_ROOMMATEMGMT">
+      <Original>Roommate Management</Original>
+   </Key>
    <Key ID="STR_INTSECT_SELLESTATE">
       <Original>Conclude Sale</Original>
    </Key>
