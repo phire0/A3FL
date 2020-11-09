@@ -567,13 +567,6 @@
 		["_houseID", "", [""]]
 	];
 
-	// Get keys...
-	// _keys = [(_return select 14)] call Server_Database_ToArray;
-	// _unit setVariable ["keys",_keys,true];
-	// _id = (_house getVariable ["doorid",[]]) select 1;
-	// _x setVariable ["keys",_keys - [_id],true];
-	//UPDATE players SET userkey='%1' WHERE uid ='%2'
-
 	private _query = format ["SELECT userkey FROM players WHERE uid='%1'", _removalID];
 	private _result = [_query, 2] call Server_Database_Async;
 
@@ -594,16 +587,6 @@
 
 	private _members = _house getVariable ["owner", []];
 
-	// Cannot remove self, combine with below...
-	if ((getPlayerUID _player) isEqualTo _removedRoommate) exitWith {
-		["You cannot remove yourself", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
-	};
-
-	// Cannot remove owner, combine with above...
-	if ((_members select 0) isEqualTo _removedRoommate) exitWith {
-		["You cannot remove the house owner", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
-	};
-
 	// If the removed roommate is actually a member of the house
 	if ((_members find _removedRoommate) != -1) then {
 		// Remove from members array
@@ -623,8 +606,7 @@
 
 		["You removed a roommate!", "green"] remoteExec ["A3PL_Player_Notification", (owner _player)];
 	} else {
-		// Debug, remove...
-		[format["Error (Server_Housing_RemoveMemberOffline) (%1)", _removedRoommate], "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+		["There was an error removing an offline roommate, please try again.", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
 	};
 }, true] call Server_Setup_Compile;
 

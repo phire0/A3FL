@@ -445,16 +445,17 @@
 
 ["A3PL_Housing_RemoveRoommate",
 {
-	params[
-		["_player", objNull, [objNull]]
-	];
-
 	private _display = findDisplay 87;
 	private _control = _display displayCtrl 1500;
 	private _removeID = _control lbData (lbCurSel _control);
 
-	private _house = _player getVariable ["house", objNull];
+	private _house = player getVariable ["house", objNull];
 	
+	// Cannot remove self
+	if ((getPlayerUID player) isEqualTo _removeID) exitWith {
+		["You cannot remove yourself from the house.", "red"] call A3PL_Player_Notification;
+	};
+
 	private _allPlayers = call BIS_fnc_listPlayers;
 	private _isConnected = [objNull, false];
 	{
@@ -466,11 +467,13 @@
 	if (!(isNull _house)) then {
 		if (!(_isConnected select 1)) then {
 			// Member is offline...
-			[_player, _removeID, _house] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
+			[player, _removeID, _house] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
 		} else {
 			// Member is online...
 			["You have removed a roommate.","green"] call A3PL_Player_Notification;
 			[(_isConnected select 0), _house] remoteExec ["Server_Housing_RemoveMember", 2];
 		};
 	};
+
+	closeDialog 0;
 }] call Server_Setup_Compile;
