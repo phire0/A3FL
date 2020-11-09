@@ -467,6 +467,8 @@
 		private _target = _x select 0;
 		private _uid = _x select 1;
 		private _time = _x select 2;
+		private _pObject = [_uid] call A3PL_Lib_UIDToObject;
+		if(!isNull _pObject) then {_target = _pObject;};
 		if(isNull _target) exitWith {
 			private _query = format ["UPDATE players SET jail=%1 WHERE uid = '%2'",_time,_uid];
 			[_query, 1] call Server_Database_Async;

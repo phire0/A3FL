@@ -1174,6 +1174,28 @@ A3PL_Interaction_Options =
 			private _cursorObject = cursorObject;
 
 			switch (typeOf _cursorObject) do {
+				case "Land_A3PL_Firestation": {
+					private _memList = ["garagedoor1_button","garagedoor2_button","door_6","door_7","door_8","door_9","door_2","door_3","door_4","door_5",""];
+					private _lastDist = 100;
+					private _nearest = "";
+					{
+						private _dist = player distance2D (_cursorObject modelToWorldVisual (_cursorObject selectionPosition [_x, "Memory"]));
+						if(_dist < _lastDist) then {
+							_lastDist = _dist;
+							_nearest = _x;
+
+						};
+					} foreach _memList;
+					if !(_nearest isEqualTo "") then {
+						private _split = _nearest splitstring "_";
+						hint str((_split select 1) isEqualTo "button");
+						if((_split select 1) isEqualTo "button") then {
+							[_cursorObject,(_split select 0)] call A3PL_Lib_ToggleAnimation;
+						} else {
+							[_cursorObject,_nearest,false] call A3PL_Lib_ToggleAnimation;
+						};
+					};
+				};
 				case "Land_A3FL_Warehouse": {
 					private _distanceLeft = player distance2D (_cursorObject modelToWorldVisual (_cursorObject selectionPosition ["door_1", "Memory"]));
 					private _distanceRight = player distance2D (_cursorObject modelToWorldVisual (_cursorObject selectionPosition ["door_5", "Memory"]));
@@ -1196,7 +1218,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{((typeOf cursorObject) isKindOf "House") && ((cursorObject getVariable ["unlocked", false]) || ((getPlayerUID player) in (cursorObject getVariable ["owner", []]))) && ((player distance cursorObject) < 20) && ((typeof (call A3PL_Intersect_cursorTarget)) in ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Home4w_DED_Home4w_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home6b_DED_Home6b_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_John_Hangar","Land_A3FL_Warehouse"])}
+		{((typeOf cursorObject) isKindOf "House") && {(cursorObject getVariable ["unlocked", false]) || ((getPlayerUID player) in (cursorObject getVariable ["owner", []])) || ((typeOf cursorObject) isEqualTo "Land_A3PL_Firestation")} && {(player distance cursorObject) < 35} && {(typeof (call A3PL_Intersect_cursorTarget)) IN ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Home4w_DED_Home4w_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home6b_DED_Home6b_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_John_Hangar","Land_A3FL_Warehouse","Land_A3PL_Firestation"]}}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";
