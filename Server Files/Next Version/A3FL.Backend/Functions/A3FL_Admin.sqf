@@ -81,7 +81,6 @@
 		A3PL_Admin_PlayerList pushBack _x;
 	} foreach allPlayers;
 	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_AdminPlayerInfoList;"];
-	_control ctrlAddEventHandler ["LBDblClick","call A3PL_AdminWatch;"];
 	_control lbSetCurSel count(A3PL_Admin_PlayerList)-1;
 }] call Server_Setup_Compile;
 
