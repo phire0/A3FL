@@ -470,7 +470,7 @@
 			[player, _removeID] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
 		} else {
 			// Member is online...
-			["You have removed a roommate.","green"] call A3PL_Player_Notification;
+			["You removed a roommate!","green"] call A3PL_Player_Notification;
 			[(_isConnected select 0), _house] remoteExec ["Server_Housing_RemoveMember", 2];
 		};
 	};
