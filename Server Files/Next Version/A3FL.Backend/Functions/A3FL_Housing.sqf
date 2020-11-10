@@ -467,7 +467,7 @@
 	if (!(isNull _house)) then {
 		if (!(_isConnected select 1)) then {
 			// Member is offline...
-			[player, _removeID, _house] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
+			[player, _removeID] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
 		} else {
 			// Member is online...
 			["You have removed a roommate.","green"] call A3PL_Player_Notification;

@@ -456,6 +456,7 @@ Config_IntersectArray =
 	["EstateSign",localize"STR_INTSECT_BUYHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_sale_co.paa")}],
 	["EstateSign",localize"STR_INTSECT_SELLHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}],
 	["EstateSign",localize"STR_INTSECT_LEAVHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{((((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")) && {(getPlayerUID player) IN (player_objintersect getVariable['roommates',[]])}}],
+	["EstateSign",localize"STR_INTSECT_ROOMMATEMGMT",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{((((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")) && {(getPlayerUID player) IN (player_objintersect getVariable['roommates',[]])}}],
 
 	//signs
 	["sign_business",localize"STR_INTSECT_RENTBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\business_sign\business_sale_co.paa")}],
@@ -2032,6 +2033,7 @@ Config_GenArray =
 	localize"STR_INTSECT_SWITCHIGN2",
 	localize"STR_INTSECT_SWITCHBAT",
 	localize"STR_INTSECT_APUGEN",
+	localize"STR_INTSECT_ROOMMATEMGMT",
 	format [localize"STR_INTSECT_ENGGEN",1],
 	format [localize"STR_INTSECT_ENGGEN",2],
 	localize"STR_INTSECT_APUCONT",

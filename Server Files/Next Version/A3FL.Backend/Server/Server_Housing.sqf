@@ -581,10 +581,10 @@
 {
 	params[
 		["_player", objNull, [objNull]],
-		["_removedRoommate", "", [""]],
-		["_house", objNull, [objNull]]
+		["_removedRoommate", "", [""]]
 	];
 
+	private _house = _player getVariable ["house", objNull];
 	private _members = _house getVariable ["owner", []];
 
 	// If the removed roommate is actually a member of the house
