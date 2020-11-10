@@ -604,7 +604,7 @@
 		private _houseID = ((_house getVariable ["doorid", []]) select 1);
 		[_removedRoommate, _houseID] call Server_Housing_RemoveOfflineKey;
 
-		["You removed a roommate!", "green"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+		["You removed an offline roommate!", "green"] remoteExec ["A3PL_Player_Notification", (owner _player)];
 	} else {
 		["There was an error removing an offline roommate, please try again.", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
 	};
@@ -620,6 +620,11 @@
 	];
 
 	private _house = _player getVariable ["house", objNull];
+
+	// If the player does not have a house
+	if (isNull _house) exitWith {
+		["You do not appear to have a house, please try again.", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
 
 	// Get the owner array, e.g. ["steamid64_1","steamid64_2",...]
 	private _uids = _house getVariable ["owner", []];
