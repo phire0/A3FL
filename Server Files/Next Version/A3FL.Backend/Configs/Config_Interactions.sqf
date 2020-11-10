@@ -1188,7 +1188,6 @@ A3PL_Interaction_Options =
 					} foreach _memList;
 					if !(_nearest isEqualTo "") then {
 						private _split = _nearest splitstring "_";
-						hint str((_split select 1) isEqualTo "button");
 						if((_split select 1) isEqualTo "button") then {
 							[_cursorObject,(_split select 0)] call A3PL_Lib_ToggleAnimation;
 						} else {
