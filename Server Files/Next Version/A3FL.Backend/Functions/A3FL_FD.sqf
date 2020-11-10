@@ -223,7 +223,7 @@
 	_TOEnd = typeOf _end;
 	_TOmyAdapter = typeOf _myAdapter;
 
-	if (!(_TOEnd IN ["A3PL_FD_HoseEnd1_Float","A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_FD_yAdapter","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush"])) exitwith {["You interact with no adapter or hose","red"] call A3PL_Player_Notification;};
+	if (!(_TOEnd IN ["A3PL_FD_HoseEnd1_Float","A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_FD_yAdapter","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush","A3FL_T440_Gas_Tanker","A3FL_T440_Water_Tanker"])) exitwith {["You interact with no adapter or hose","red"] call A3PL_Player_Notification;};
 	if (!(_TOmyAdapter IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])) exitwith {["Vous ne possédez pas le type d'adaptateur correct (signalez-le s'il s'agit d'un bug)","red"] call A3PL_Player_Notification;};
 	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd1") && _TOEnd isEqualTo "A3PL_FD_HoseEnd1_Float") exitwith {["You connect a male adapter to a male adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
 	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd1") && _TOEnd isEqualTo "A3PL_FD_HoseEnd1") exitwith {["You connect a male adapter to a male adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
@@ -685,7 +685,7 @@
 			};
 		};
 
-		if ((typeOf _attachedTo) IN ["A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush"]) exitwith
+		if ((typeOf _attachedTo) IN ["A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush","A3FL_T440_Gas_Tanker"]) exitwith
 		{
 			_latestObject = _attachedTo;
 		};
@@ -712,7 +712,7 @@
 	if (_getAdapter) exitwith {
 		_source = _otherEnd; _source;
 	};
-	if (typeOf _latestObject in ["Land_A3PL_FireHydrant","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Silverado_FD_Brush"]) then {
+	if (typeOf _latestObject in ["Land_A3PL_FireHydrant","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Silverado_FD_Brush","A3FL_T440_Gas_Tanker"]) then {
 		_source = _latestObject;
 	} else {
 		_source = objNull;

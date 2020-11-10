@@ -300,7 +300,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_CHECKTANKC",
 		{[format [localize"STR_Inter_Notifications_CheckGas",(cursorObject getVariable ["petrol",0])], "green"] call A3PL_Player_Notification;},
-		{(typeOf cursorObject isEqualTo "A3PL_Tanker_Trailer")}
+		{(typeOf cursorObject isEqualTo "A3PL_Tanker_Trailer") || (typeOf cursorObject isEqualTo "A3FL_T440_Gas_Tanker")}
 	],
 	[
 		localize"STR_INTER_CHECKTANKK",

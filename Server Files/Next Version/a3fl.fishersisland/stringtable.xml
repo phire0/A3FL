@@ -3931,7 +3931,7 @@
       <Original>Prospect For Resources</Original>
    </Key>
    <Key ID="STR_INTER_CHECKTANKC">
-      <Original>Check the contents of the barrel</Original>
+      <Original>Check the Contents</Original>
    </Key>
    <Key ID="STR_INTER_CHECKTANKK">
       <Original>Check Tank Content</Original>
@@ -5812,7 +5812,7 @@
       <Original>Connect Outlet Pipe</Original>
    </Key>
    <Key ID="STR_INTSECT_CONHOSETTANK">
-      <Original>Connect Hose to Tanker Boat</Original>
+      <Original>Connect Hose to Tanker</Original>
    </Key>
    <Key ID="STR_INTSECT_CONHOSEADAP">
       <Original>Connect Hose Adapter</Original>

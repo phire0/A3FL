@@ -111,7 +111,7 @@
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_barrel","_tanker"];
 	_barrel = param [0,objNull];
-	_tanker = (nearestObjects [player, ["A3PL_Tanker_Trailer","A3PL_Fuel_Van"], 10]) select 0;
+	_tanker = (nearestObjects [player, ["A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3FL_T440_Gas_Tanker"], 10]) select 0;
 	if (isNil "_tanker") exitwith {[localize"STR_NewHydrogen_12","red"] call A3PL_Player_Notification;};
 
 	_exit = false;

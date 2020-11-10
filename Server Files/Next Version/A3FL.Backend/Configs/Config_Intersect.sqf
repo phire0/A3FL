@@ -456,7 +456,6 @@ Config_IntersectArray =
 	["EstateSign",localize"STR_INTSECT_BUYHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_sale_co.paa")}],
 	["EstateSign",localize"STR_INTSECT_SELLHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{(((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")}],
 	["EstateSign",localize"STR_INTSECT_LEAVHOUSE",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{((((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")) && {(getPlayerUID player) IN (player_objintersect getVariable['roommates',[]])}}],
-	["EstateSign",localize"STR_INTSECT_ROOMMATEMGMT",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{((((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\estate_sign\house_rented_co.paa")) && {(getPlayerUID player) isEqualTo ((player_objintersect getVariable['roommates',[]]) select 0)}}],
 
 	//signs
 	["sign_business",localize"STR_INTSECT_RENTBUSI",_dir+"IGUI\Cfg\Actions\settimer_ca.paa",{!(count nearestObjects[player,Config_Warehouses_List,15] > 0) && (((getObjectTextures player_objintersect) select 0) isEqualTo "a3pl_objects\street\business_sign\business_sale_co.paa")}],
@@ -481,11 +480,10 @@ Config_IntersectArray =
 	["fd_yadapter_out2",localize"STR_INTSECT_CONHOSETOUT",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(typeOf player_objintersect == "A3PL_FD_yAdapter") && {((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}}], //Connect Hose To Outlet
 
 	//tanker,gas station
-	["outlet_4",localize"STR_INTSECT_CONHOSETTANK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) && {(typeOf player_objintersect == "A3PL_Tanker_Trailer")}}], //Connect Hose To Tanker
-	["outlet_3",localize"STR_INTSECT_CONHOSETTANK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) && {(typeOf player_objintersect == "A3PL_Tanker_Trailer")}}], //Connect Hose To Tanker
-	["outlet_2",localize"STR_INTSECT_CONHOSETTANK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) && {(typeOf player_objintersect == "A3PL_Tanker_Trailer")}}], //Connect Hose To Tanker
-	["outlet_1",localize"STR_INTSECT_CONHOSETTANK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) && {(typeOf player_objintersect == "A3PL_Tanker_Trailer")}}], //Connect Hose To Tanker
-	["outlet_1",localize"STR_INTSECT_CONHOSETTANK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) && {(typeOf player_objintersect == "A3PL_Fuel_Van")}}], //Connect Hose To Tanker
+	["outlet_4",localize"STR_INTSECT_CONHOSETTANK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) && {(typeOf player_objintersect IN ["A3PL_Tanker_Trailer"])}}], //Connect Hose To Tanker
+	["outlet_3",localize"STR_INTSECT_CONHOSETTANK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) && {(typeOf player_objintersect IN ["A3PL_Tanker_Trailer"])}}], //Connect Hose To Tanker
+	["outlet_2",localize"STR_INTSECT_CONHOSETTANK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) && {(typeOf player_objintersect IN ["A3PL_Tanker_Trailer","A3FL_T440_Gas_Tanker"])}}], //Connect Hose To Tanker
+	["outlet_1",localize"STR_INTSECT_CONHOSETTANK",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"]) && {(typeOf player_objintersect IN ["A3PL_Tanker_Trailer","A3FL_T440_Gas_Tanker","A3PL_Fuel_Van"])}}], //Connect Hose To Tanker
 	["gas_hoseconnect",localize"STR_INTSECT_CONHOSEADAP",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_ItemClass == "FD_adapter") && {(typeOf player_objintersect == "Land_A3PL_Gas_Station")}}], //Connect Hose Adapter
 	["gas_hoseswitch",localize"STR_INTSECT_SWITCHGASSTORSW",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //localize"STR_INTSECT_SWITCHGASSTORSW"
 

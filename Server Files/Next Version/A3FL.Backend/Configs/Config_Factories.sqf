@@ -225,6 +225,7 @@ Config_Factories =
 		["f_t370","","inh","inh","A3FL_T370","car",true,900,[["Steel_Pellet",27],["Aluminium_Pellet",10],["Windows",3],["Tyres",6]],1,90,0,""],
 		["f_t440","","inh","inh","A3FL_T440","car",true,900,[["Steel_Pellet",36],["Aluminium_Pellet",10],["Windows",3],["Tyres",10]],1,90,0,""],
 		["f_t440_Tow_Truck","","inh","inh","A3FL_T440_Tow_Truck","car",true,900,[["Steel_Pellet",28],["Aluminium_Pellet",10],["Windows",2],["Tyres",10]],1,90,0,""],
+		["f_t440_Gas_Tanker","","inh","inh","A3FL_T440_Gas_Tanker","car",true,900,[["Steel_Pellet",25],["Aluminium_Pellet",9],["Windows",3],["Tyres",10]],1,90,0,""],
 		["f_Lowloader","","inh","inh","A3PL_Lowloader","car",true,300,[["Steel_Pellet",6],["Aluminium_Pellet",1],["Tyres",6]],1,30,0,""],
 		["f_Small_boat_trailer","","inh","inh","A3PL_Small_Boat_Trailer","car",true,300,[["Steel_Pellet",4],["Aluminium_Pellet",1],["Tyres",2]],1,30,0,""],
 		["f_Drill_Trailer","","inh","inh","A3PL_Drill_Trailer","car",true,300,[["Steel_Pellet",5],["Tyres",2]],1,30,0,""],
