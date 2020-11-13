@@ -59,16 +59,16 @@
 ["A3PL_JobFarming_PlantReceive",
 {
 	private ["_r","_msg"];
-	_r = param [0,-1];
-	switch (_r) do {
-		case -1: {_msg = ["Unknown error occured while trying to plant a seed","red"];};
-		case 0: {_msg = ["You succesfully planted a seed in this field","green"];};
-		case 1: {_msg = ["This greenhouse is already owned","red"];};
-		case 2: {_msg = ["You already own a greenhouse","red"];};
-		case 3: {_msg = [format ["You succesfully rented a greenhouse for 35 minutes for $250 (keyID: %1)",param [1,"Error"]],"green"];};
-		case 4: {_msg = ["Denied harvesting, this plant doesn't seem to be grown","red"];};
-		case 5: {_msg = [format ["You succesfully harvested a plant, and you harvested %1 %2(s)",param [2,1],([param [1,""], 'name'] call A3PL_Config_GetItem)],"green"];};
-		case 6: {_msg = ["Unable to add items to your inventory, please make sure you have enough space to fit the harvested item(s)","red"];};
+	private _r = param [0,-1];
+	private _msg = switch (_r) do {
+		case -1: {["Unknown error occured while trying to plant a seed","red"];};
+		case 0: {["You succesfully planted a seed in this field","green"];};
+		case 1: {["This greenhouse is already owned","red"];};
+		case 2: {["You already own a greenhouse","red"];};
+		case 3: {[format ["You succesfully rented a greenhouse for 35 minutes for $250 (keyID: %1)",param [1,"Error"]],"green"];};
+		case 4: {["Denied harvesting, this plant doesn't seem to be grown","red"];};
+		case 5: {[format ["You succesfully harvested a plant, and you harvested %1 %2(s)",param [2,1],([param [1,""], 'name'] call A3PL_Config_GetItem)],"green"];};
+		case 6: {["Unable to add items to your inventory, please make sure you have enough space to fit the harvested item(s)","red"];};
 	};
 	if(!isNil 'Player_ItemAmount') then {
 		Player_ItemAmount = Player_ItemAmount - 1;

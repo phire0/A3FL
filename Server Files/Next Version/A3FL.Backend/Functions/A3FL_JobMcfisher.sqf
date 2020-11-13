@@ -74,10 +74,10 @@
 	};
 	[_burger,_grill,_class] spawn
 	{
-		private ["_burger","_cookstate","_burger","_grill","_pos","_veh"];
-		_burger = param [0,ObjNull];
-		_grill = param [1,ObjNull];
-		_class = param [2,""];
+		private _burger = param [0,ObjNull];
+		private _grill = param [1,ObjNull];
+		private _class = param [2,""];
+		private _amount = _burger getVariable ["amount",1];
 		if (_class isEqualTo "") exitwith {};
 		while {(attachedTo _burger) == _grill} do
 		{
@@ -90,11 +90,11 @@
 			if (isNull _burger) exitwith {};
 		};
 
-		_cookstate = _burger getVariable "cookstate";
+		private _cookstate = _burger getVariable "cookstate";
 		if (isNil "_cookstate") exitwith {};
 		if (_cookstate > 90) then {
 			if (_class IN ["A3PL_Burger_Raw","A3PL_Burger_Cooked","A3PL_Fish_Raw","A3PL_Fish_Cooked"]) then {
-				[player,_burger] remoteExec ["Server_JobMcfisher_cookthres",2];
+				[player,_burger,_amount] remoteExec ["Server_JobMcfisher_cookthres",2];
 			};
 			if (_class IN  ["A3PL_Burger_Burnt","A3PL_Fish_Burned"]) then {
 				_burger setVariable ["cookstate",nil,true];

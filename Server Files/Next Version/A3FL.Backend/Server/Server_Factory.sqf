@@ -212,9 +212,13 @@
 		{
 			private ["_lp","_pos"];
 			_lp = [_player,_id,"vehicle",false] call Server_Vehicle_Buy;
-			if (_id isKindOf "Ship") then
+			if (_id IN ["A3FL_LCM","A3PL_RHIB","A3PL_Motorboat","A3PL_Yacht","C_Scooter_Transport_01_F"]) then
 			{
-				_pos = [(getpos _player), 20, 100, 0, 2] call BIS_fnc_findSafePos;
+				if(((getpos _player) distance getMarkerPos "Boat_Factory") < 150) then {
+					_pos = [4812.61,5155.29,1];
+				} else {
+					_pos = [(getpos _player), 20, 100, 0, 2] call BIS_fnc_findSafePos;
+				};
 			} else {
 				_pos = (getpos _player) findEmptyPosition [3,65,_id];
 			};

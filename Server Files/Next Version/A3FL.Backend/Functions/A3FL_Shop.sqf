@@ -170,12 +170,6 @@
 				[format[localize "STR_SHOP_NOTENOUGHGIFT",_totalprice-(["gift"] call A3PL_Inventory_Return)],"red"] call A3PL_Player_Notification;
 			};
 		};
-		case ("dirty_cash"):
-		{
-			if (["dirty_cash",_totalPrice] call A3PL_Inventory_Has) then {_moneyCheck = true;} else {
-				[format[localize "STR_SHOP_NOTENOUGHDIRTYMONEY",_totalprice-(["dirty_cash"] call A3PL_Inventory_Return)],"red"] call A3PL_Player_Notification;
-			};
-		};
 		default
 		{
 			if ((player getVariable [_currency,0]) >= _totalPrice) then {_moneyCheck = true;} else {
@@ -227,16 +221,7 @@
 		case ("aitem"): {player addItem _itemClass; _itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName");};
 		case ("vehicle"): {[player,[_itemClass,1],"","car"] remoteExec ["Server_Factory_Create", 2]; _itemName = getText (configFile >> "CfgVehicles" >> _itemClass >> "displayName");};
 		case ("plane"): {[player,[_itemClass,1],"","plane"] remoteExec ["Server_Factory_Create", 2]; _itemName = getText (configFile >> "CfgVehicles" >> _itemClass >> "displayName");};
-		case ("weapon"): {
-			_itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName");
-			if(_itemClass isEqualTo "A3PL_FireExtinguisher") then {
-				player addWeapon _itemClass;
-				uiSleep 0.1;
-				player addMagazines["A3PL_Extinguisher_Water_Mag", 1];
-			} else {
-				player addItem _itemClass;
-			};
-		};
+		case ("weapon"): {player addItem _itemClass;_itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName");};
 		case ("weaponPrimary"): {player addWeapon _itemClass; _itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName");};
 		case ("magazine"): {player addMagazines [_itemClass, _amount];_itemName = getText (configFile >> "CfgMagazines" >> _itemClass >> "displayName");};
 		case ("goggles"): {player addGoggles _itemClass; _itemName = getText (configFile >> "CfgGlasses" >> _itemClass >> "displayName");};

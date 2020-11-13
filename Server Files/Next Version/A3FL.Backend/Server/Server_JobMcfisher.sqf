@@ -108,18 +108,20 @@
 
 ["Server_JobMcfisher_cookthres",
 {
-	private ["_cookstate","_player","_burger","_class","_newClass","_pos","_veh","_newObjclass","_offset"];
-	_player = param [0,objNull];
-	_burger = param [1,objNull];
-	_grill = attachedTo _burger;
-	_class = _burger getVariable "class";
+	private _player = param [0,objNull];
+	private _burger = param [1,objNull];
+	private _amount = param [2,1];
+	private _grill = attachedTo _burger;
+	private _class = _burger getVariable "class";
+	private _newClass = "empty";
+	private _newObjclass = "";
+
 	if (isNull _grill) exitwith {diag_log "Error: _grill is null in Server_JobMcfisher_cookthres"};
 	if ((isNull _player) OR (isNull _burger)) exitwith {diag_log "Error: _player or _burger null in Server_JobMcfisher_cookthres"};
 	if (isNil "_class") exitwith {diag_log "Error: _class is nil in Server_JobMcfisher_cookthres"};
-	_cookstate = _burger getVariable "cookstate";
+	private _cookstate = _burger getVariable "cookstate";
 	if (isNil "_cookstate") exitwith {diag_log "Error: _cookstate is nil in Server_JobMcfisher_cookthres"};
 	if (_cookstate > 90) then {
-		_newClass = "empty";
 		if (_class == "burger_raw") then {
 			_newClass = "burger_cooked";
 			_newObjclass = "A3PL_Burger_Cooked";
@@ -136,12 +138,13 @@
 			_newClass = "fish_burned";
 			_newObjclass = "A3PL_Fish_Burned";
 		};
-		if (_newClass == "empty") exitwith {diag_log "Error: _newclass has not been changed in Server_JobMcfisher_cookthres"};
-		_pos = getPosATL _burger;
+		if (_newClass isEqualTo "empty") exitwith {diag_log "Error: _newclass has not been changed in Server_JobMcfisher_cookthres"};
+		private _pos = getPosATL _burger;
 		deleteVehicle _burger;
-		_veh = createVehicle [_newObjclass, _pos, [], 0, "CAN_COLLIDE"];
+		private _veh = createVehicle [_newObjclass, _pos, [], 0, "CAN_COLLIDE"];
 		_veh attachTo [_grill];
 		[_veh, "class", _newClass] call Server_Core_ChangeVar;
+		[_veh, "amount", _amount] call Server_Core_ChangeVar;
 		[_veh] remoteExec ["A3PL_JobMcfisher_CookBurger",_player];
 	};
 },true] call Server_Setup_Compile;

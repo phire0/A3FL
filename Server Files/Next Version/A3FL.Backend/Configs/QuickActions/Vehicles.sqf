@@ -1811,6 +1811,7 @@
 		private _animationName = (_split select 0);
 		if ((_obj animationSourcePhase _animationName) < 0.5) then {
 			[_obj,true,true] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+			sleep 1.2;
 			_obj animateSource [_animationName,1];
 		} else {
 			_obj animateSource [_animationName,0];
