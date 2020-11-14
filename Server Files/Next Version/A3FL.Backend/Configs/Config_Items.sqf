@@ -187,7 +187,7 @@ Config_Items =
 	["matches",localize"STR_ConfigItems_matches",0.5,"A3PL_Seed_Corn",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["zipties",localize"STR_ConfigItems_zipties",1,"A3PL_Ziptie",0,true, true,true,true,true,"",[0,0,0],"",1],
 	["handcuffs",localize"STR_ConfigItems_handcuffs",1,"A3PL_Handcuffs",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["Lifebuoy",localize"STR_ConfigItems_Lifebuoy",1,"A3PL_Lifebuoy",0,true,true,true,true,false,"",[0,0,0],"",1],
+	["Lifebuoy",localize"STR_ConfigItems_Lifebuoy",1,"A3PL_Lifebuoy",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["doorkey",localize"STR_ConfigItems_doorkey",0.1,"A3PL_HouseKey",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["rocket_blue",localize"STR_ConfigItems_rocket_blue",2,"A3PL_Rocket",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["rocket_red",localize"STR_ConfigItems_rocket_red",2,"A3PL_Rocket",0,true,true,true,true,true,"",[0,0,0],"",1],
@@ -526,6 +526,10 @@ Config_Items =
 	["bracelet",localize"STR_ConfigItems_bracelet",1,"A3FL_Jewelry_Bracelet",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["crown",localize"STR_ConfigItems_crown",5,"A3FL_Jewelry_Crown",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["necklace",localize"STR_ConfigItems_neckless",0.5,"A3FL_Jewelry_Necklace",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["golden_dildo",localize"STR_ConfigItems_golden_dildo",5,"A3FL_Jewelry_GoldenDildo",0,true,true,true,true,true,"",[0,0,0],"",1]
+	["golden_dildo",localize"STR_ConfigItems_golden_dildo",5,"A3FL_Jewelry_GoldenDildo",0,true,true,true,true,true,"",[0,0,0],"",1],
+
+	["evidence_marker",localize"STR_ConfigItems_evidence_marker",5,"A3FL_Evidence",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["evidence_bag",localize"STR_ConfigItems_evidence_bag",5,"A3FL_Jewelry_GoldenDildo",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["powdertestkit",localize"STR_ConfigItems_powdertestkit",5,"A3FL_DrugTest",0,true,true,true,true,true,"",[0,0,0],"",1]
 ];
 publicVariable "Config_Items";

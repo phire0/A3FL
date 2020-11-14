@@ -35,11 +35,14 @@
 ["A3PL_Inventory_Add", {
 	private _class = param [0,""];
 	private _amount = param [1,0];
+	private _bypass = param [2,false];
 	private _exit = false;
-	if(_amount > 0) then {
-		if (([[_class,_amount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {
-			_exit = true;
-			[format [localize"STR_NewInventory_1",Player_MaxWeight],"red"] call A3PL_Player_Notification;
+	if(!_bypass) then {
+		if(_amount > 0) then {
+			if (([[_class,_amount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {
+				_exit = true;
+				[format [localize"STR_NewInventory_1",Player_MaxWeight],"red"] call A3PL_Player_Notification;
+			};
 		};
 	};
 	if(_exit) exitwith {};
@@ -276,6 +279,7 @@
 	} else {
 		Player_Item attachTo [player, _attach, 'RightHand'];
 	};
+	
 	Player_Item setVariable["classname",_classname,true];
 
 	if (((vehicle player) isEqualTo player) && (!(animationState player IN ["crew"]))) then {player playMove 'AmovPercMstpSnonWnonDnon_AmovPercMstpSrasWpstDnon';};
@@ -283,6 +287,8 @@
 	Player_Item setDir _itemDir;
 	Player_ItemClass = _classname;
 	if (!isNil "_display") then {[0] call A3PL_Lib_CloseDialog;};
+	if (_classname isEqualTo "Lifebuoy") then {Player_Item allowDamage false;};
+	if (_classname isEqualTo "evidence_marker") then {[Player_Item] call A3PL_Police_EvidenceMarker;};
 
 	[Player_Item,_attach] spawn A3PL_Placeable_AttachedLoop;
 	_format = format[localize'STR_NewInventory_9', Player_ItemAmount, [Player_ItemClass, 'name'] call A3PL_Config_GetItem];

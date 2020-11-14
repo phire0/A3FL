@@ -434,7 +434,7 @@
 	_unit setVariable ["A3PL_Wounds",_wounds,true];
 	[(findDisplay 73),_unit] call A3PL_Medical_LoadParts;
 	[] call A3PL_Medical_SelectPart;
-	[_unit] remoteExecCall ["A3PL_Medical_LimpCheck",_unit];
+	[] remoteExecCall ["A3PL_Medical_LimpCheck",_unit];
 }] call Server_Setup_Compile;
 
 ["A3PL_Medical_Open",
@@ -443,7 +443,7 @@
 	private _unit = param [0,player];
 	createDialog "dialog_medical";
 	private _display = findDisplay 73;
-
+	call A3PL_Medical_LimpCheck;
 	if(!([player,"head","pepper_spray"] call A3PL_Medical_HasWound)) then {
 		[] spawn {
 			_hndl = ppEffectCreate ['dynamicBlur', 505];
@@ -1058,6 +1058,34 @@
 	};
 }] call Server_Setup_Compile;
 
+["A3PL_Medical_DragBody",{
+	private _target = param [0,objNull];
+	private _dragged = _target getVariable["dragged",false];
+	private _dragging = player getVariable["dragging",false];
+
+	if(_dragged) exitWith {["Someone is already dragging this body","red"] call A3PL_Player_Notification;};
+	if(_dragging) exitWith {["You are already dragging someone body","red"] call A3PL_Player_Notification;};
+
+
+	player setVariable["dragging",true,true];
+	_target setVariable["dragged",true,true];
+	_target attachTo [player,[0,1,0]];
+
+	player playAction "grabDrag";
+	player forceWalk true;
+	while{true} do {
+		if (_target getVariable["A3PL_Medical_Alive",true]) exitWith {};
+		if !(player getVariable["A3PL_Medical_Alive",true]) exitWith {};
+		if (Player_ActionInterrupted) exitWith {};
+	};
+
+	detach _target;
+	player playAction "";
+	player forceWalk false;
+	player setVariable["dragging",nil,true];
+	_target setVariable["dragged",nil,true];
+}] call Server_Setup_Compile;
+
 ["A3PL_Medical_Revived",
 {
 	if(!isNil "A3PL_deathCam") then {
@@ -1109,10 +1137,9 @@
 
 ["A3PL_Medical_LimpCheck",
 {
-	params [["_unit",player,[player]]];
-	private _wounds = _unit getVariable["A3PL_Wounds",[]];
-	private _hitParts = (getAllHitPointsDamage _unit) select 1;
-	if(_wounds isEqualTo []) exitWith {_unit setDamage 0;};
+	private _wounds = player getVariable["A3PL_Wounds",[]];
+	private _hitParts = (getAllHitPointsDamage player) select 1;
+	if(_wounds isEqualTo []) exitWith {player setDamage 0;};
 	{
 		private _selections = switch (true) do {
 			default {[]};
@@ -1124,6 +1151,6 @@
 			case (_x isEqualTo "legs"): {["right upper leg","right lower leg","left lower leg","left upper leg"]};
 		};
 		private _isHit = ({(_x select 0) IN _selections} count _wounds) > 0;
-		if(!_isHit) then {_unit setHit [_x,0];};
+		if(!_isHit) then {player setHit [_x,0];};
 	} foreach _hitParts;
 }] call Server_Setup_Compile;

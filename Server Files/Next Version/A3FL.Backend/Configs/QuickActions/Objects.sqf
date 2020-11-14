@@ -426,6 +426,11 @@
 ],
 [
 	"",
+	localize"STR_A3PL_Medical_Drag",
+	{[player_objintersect] spawn A3PL_Medical_DragBody;}
+],
+[
+	"",
 	localize"STR_INTSECT_PickupDeliveryBox",
 	{[player_objintersect] call A3PL_Delivery_Pickup;}
 ],

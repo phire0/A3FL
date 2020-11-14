@@ -1060,6 +1060,9 @@
    <Key ID="STR_A3PL_Medical_ChestCompressions">
       <Original>Perform CPR</Original>
    </Key>
+   <Key ID="STR_A3PL_Medical_Drag">
+      <Original>Drag Body</Original>
+   </Key>
    <Key ID="STR_INTSECT_PickupDeliveryBox">
       <Original>Take a Package</Original>
    </Key>
@@ -1859,6 +1862,15 @@
    </Key>
    <Key ID="STR_ConfigItems_golden_dildo">
       <Original>Golden Dildo</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_evidence_marker">
+      <Original>Evidence Marker</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_evidence_bag">
+      <Original>Evidence Bag</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_powdertestkit">
+      <Original>Gunpowder test kit</Original>
    </Key>
    <Key ID="STR_ConfigItems_drill_bit">
       <Original>Drill Bit</Original>
@@ -9511,7 +9523,7 @@
         <Original>There is no more gas in the tank of the service station</Original>
       </Key>
       <Key ID="STR_NewHydrogen_28">
-        <Original>Refueling of your completed / discontinued vehicle, total cost: $%1</Original>
+        <Original>Refueling stopped, total cost: $%1</Original>
       </Key>
       <Key ID="STR_NewHydrogen_29">
         <Original>You are the tenant of the resort, you can take the money in the cashier</Original>

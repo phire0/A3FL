@@ -1942,3 +1942,22 @@
 	A3PL_SquadNb_Veh = nil;
 	closeDialog 0;
 }] call Server_Setup_Compile;
+
+["A3PL_Police_EvidenceMarker", {
+	private _obj = param [0,objNull];
+	createDialog "Dialog_SquadNb";
+	buttonSetAction [1600, "call A3PL_Police_EvidenceMarkerSet;"];
+	ctrlSetText [1400, "1"];
+	A3PL_EvidenceMarker = _obj;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_EvidenceMarkerSet", {
+	private _number = ctrlText 1400;
+	if !(_number IN ['1','2','3','4','5','6','7','8','9']) exitWith {["You must enter a number between 1 and 9","red"] call A3PL_Player_Notification;};
+
+	private _texture = format ["\A3FL_Objects\Police\data\EM\%1.paa", _number];
+	A3PL_EvidenceMarker setObjectTextureGlobal [0, _texture];
+
+	A3PL_EvidenceMarker = nil;
+	closeDialog 0;
+}] call Server_Setup_Compile;

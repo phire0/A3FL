@@ -236,8 +236,8 @@
 	if(_grinder getVariable["inUse",false]) exitWith {["This grinder is already grinding","red"] call A3PL_Player_Notification;};
 
 	{
-		if ((_x getVariable "class") isEqualTo "cannabis_bud_cured") exitWith {
-			_amount = _x getVariable["amount",1];
+		if ((_x getVariable "class") isEqualTo "cannabis_bud_cured") then {
+			_amount = _amount + (_x getVariable["amount",1]);
 			deleteVehicle _x;
 		};
 	} foreach _near;
@@ -246,8 +246,9 @@
 	[_grinder,_amount] spawn {
 		private _grinder = param [0,objNull];
 		private _amount = param[1,1];
+		private _timer = [(30*_amount)] call A3PL_Factory_LevelBoost;
 		_grinder setVariable["inUse",true,true];
-		sleep (30*_amount);
+		sleep _timer;
 		[format["%1 cured bud(s) finished grinding, you can collect if from the grinder.",_amount],"green"] call A3PL_Player_Notification;
 		_grinder setVariable["inUse",nil,true];
 		_grinder setVariable ["grindedweed",(_grinder getVariable ["grindedweed",0])+_amount,true];
@@ -260,10 +261,9 @@
 	private _grinder = param [0,objNull];
 	private _value = _grinder getVariable ["grindedweed",0];
 	if (_value < 1) exitwith {["There is no grinded weed in this grinder to be collected","red"] call A3PL_Player_Notification;};
-	if (([["cannabis_grinded_5g",_value]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {[format [localize"STR_NewInventory_1",Player_MaxWeight],"red"] call A3PL_Player_Notification;};
 	_grinder setVariable ["grindedweed",0,true];
 	[format ["You collected %1 grinded marijuana (%2 grams)",_value,_value*5],"green"] call A3PL_Player_Notification;
-	["cannabis_grinded_5g",_value] call A3PL_Inventory_Add;
+	["cannabis_grinded_5g",_value,true] call A3PL_Inventory_Add;
 }] call Server_Setup_Compile;
 
 ["A3PL_JobFarming_BagOpen",

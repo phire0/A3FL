@@ -12,7 +12,6 @@
 	private _isStation = param [1,false];
 	private _faction = "fisd";
 	private _weapon = currentWeapon player;
-	private _success = true;
 	private _timeElapsed = 0;
 	private _robbedTime = missionNamespace getVariable ["StoreCooldown",serverTime-300];
 	private _duration = switch(_weapon) do {
@@ -30,12 +29,7 @@
 	if (_weapon isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
 	if (_weapon IN ["A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a store with this weapon!","red"] call A3PL_Player_Notification;};
 
-	if(_store IN [npc_fuel_11,npc_fuel_12,Robbable_Shop_5]) then {
-		_faction="uscg";
-	} else {
-		_faction="fisd";
-	};
-
+	_faction = if(_store IN [npc_fuel_11,npc_fuel_12,Robbable_Shop_5]) then {"uscg"} else {"fisd"};
 	_cops = [_faction] call A3PL_Lib_FactionPlayers;
 	if((count(_cops)) < 3) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob this store!",3,_faction],"red"] call A3PL_Player_Notification;};
 
@@ -47,14 +41,14 @@
 	["Robbing the store...",_duration] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
-		if ((player distance2D _store) > 10) exitWith {["You went away from the shop, the robbery failed!", "red"] call A3PL_Player_Notification; _success = false;};
-		if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-		if ((currentWeapon player) isEqualTo "") exitWith {_success = false;Player_ActionInterrupted=true;};
+		if ((player distance2D _store) > 10) exitWith {["You went away from the shop, the robbery failed!", "red"] call A3PL_Player_Notification; Player_ActionInterrupted = true;};
+		if (!(vehicle player isEqualTo player)) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
+		if ((currentWeapon player) isEqualTo "") exitWith {Player_ActionInterrupted=true;};
 		_timeElapsed = _timeElapsed + 0.5;
 		if (_timeElapsed isEqualTo 28) then {playSound3D ["A3PL_Common\effects\burglaralarm.ogg", _store, false, getPosASL _store, 1, 1, 200];};
 	};
-	if(Player_ActionInterrupted || !_success) exitWith {["The store robbery was cancelled!", "red"] call A3PL_Player_Notification;};
+	if(Player_ActionInterrupted) exitWith {["The store robbery was cancelled!", "red"] call A3PL_Player_Notification;};
 
 	["Successful robbery!", "green"] call A3PL_Player_Notification;
 	[_isStation,_store] call A3PL_Store_Robbery_Reward;
