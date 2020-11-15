@@ -373,7 +373,7 @@
 	{
 		private _weapon = param [1,""];
 		private _ammo = param [4,""];
-		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
+		if (_weapon IN ["A3FL_Shield","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
 		{
 			player playAction "GestureSwing";
 			if(((typeOf player_objintersect) isEqualTo "Land_A3FL_Fishers_Jewelry") && {player_nameintersect IN ["case_break_1","case_break_2","case_break_3","case_break_4","case_break_5","case_break_6","case_break_7","case_break_8","case_break_9"]}) exitWith {
@@ -578,6 +578,10 @@
 			player removeMagazines "A3FL_PoliceBatonMag";
 			player addMagazine "A3FL_PoliceBatonMag";
 		};
+		if (_itemClass isEqualTo "A3FL_Shield") exitWith {
+			player removeMagazines "A3FL_ShieldMag";
+			player addMagazine "A3FL_ShieldMag";
+		};
 		if (_itemClass IN ["U_B_Protagonist_VR","U_I_Protagonist_VR","U_O_Protagonist_VR"]) exitWith {
 			if (!(["motorhead"] call A3PL_Lib_hasPerk)) then {
 				[localize"STR_EVENTHANDLERS_MotorheadPerk","red"] call A3PL_Player_Notification;
@@ -697,7 +701,7 @@
 		if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 		private _distance = param [2,100];
 		private _weaponClass = param [3,""];
-		private _except = ["A3PL_FireExtinguisher","CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
+		private _except = ["A3PL_FireExtinguisher","CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray","A3FL_Shield"];
 		if(_distance <= 25 && (!(_weaponClass IN _except))) then {
 			Player_LockView = true;
 			Player_LockView_Time = time + (2 * 60);

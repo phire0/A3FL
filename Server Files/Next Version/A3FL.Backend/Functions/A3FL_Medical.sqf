@@ -71,7 +71,7 @@
 		};
 	} foreach _getHit;
 	if (isNil "_sHit") exitwith {};
-	if (_sBullet IN ["A3FL_PepperSpray_Ball","A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) then {_sDamage = 0;};
+	if (_sBullet IN ["A3FL_PepperSpray_Ball","A3PL_PickAxe_Bullet","A3PL_Shovel_Bullet","A3PL_Fireaxe_Bullet","A3PL_Machete_Bullet","A3PL_Axe_Bullet","A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver","A3FL_Shield_Bullet"]) then {_sDamage = 0;};
 	if ((isBurning player) && {_sBullet isEqualTo ""} && {_sHit IN ["spine1","spine2","spine3"]}) then {_sBullet = "FireDamage";};
 
 	private _handles = [_sHit,_sDamage,_sBullet] call A3PL_Medical_GenerateWounds;
@@ -113,7 +113,7 @@
 		};
 		false;
 	};
-	if(_sBullet IN ["A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver"]) exitWith {
+	if(_sBullet IN ["A3FL_BaseballBat_Bullet","A3FL_PoliceBaton_Bullet","A3FL_GolfDriver","A3FL_Shield_Bullet"]) exitWith {
 		[player,([_sHit] call A3PL_Medical_GetHitPart),"bruise"] call A3PL_Medical_ApplyWound;
 		private _chance = random 100;
 		if(_chance > 40) then {
@@ -915,7 +915,7 @@
 	A3PL_deathCam camSetFocus [50,0];
 	A3PL_deathCam camCommit 0;
 	
-	[_unit,_lastDamage,30] spawn {
+	[_unit,_lastDamage,600] spawn {
 		disableSerialization;
 		private _unit = _this select 0;
 		private _lastDamage = _this select 1;
