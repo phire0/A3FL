@@ -335,6 +335,38 @@
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
+["A3PL_iPhoneX_Rebuy_Secondary",
+{
+	private _price = 150000;
+	private _xp = 50;
+
+	if (isNil "A3PL_phoneNumberSecondary") exitWith {
+		["You do not currently own a secondary number, so you cannot rebuy one.", "red"] call A3PL_Player_Notification;
+	};
+
+	private _bank = (player getVariable ["Player_Bank", 0]);
+	
+	if (_bank < _price) exitWith {
+		["You do not have enough money to rebuy your secondary phone number.", "red"] call A3PL_Player_Notification;
+	};
+
+	private _phoneNumber = [6,3];
+	for "_i" from 0 to 4 do {
+		_phoneNumber pushBack (selectRandom [0,1,2,3,4,5,6,7,8,9]);
+	};
+	_phoneNumber = _phoneNumber joinString "";
+
+	[(getPlayerUID player), _phoneNumber, "2"] remoteExec ["Server_iPhoneX_addPhoneNumber", 2];
+	sleep 3;
+	[player] remoteExec ["Server_iPhoneX_getPhoneNumber", 2];
+
+	[format ["Your new secondary phone number is %1.", _phoneNumber], "green"] call A3PL_Player_Notification;
+	["You might need to relog for your new number to be displayed everywhere properly.", "yellow"] call A3PL_Player_Notification;
+	player setVariable ["Player_Bank", (_bank - _price), true];
+	[player, _xp] call A3PL_Level_AddXP;
+	closeDialog 0;
+}] call Server_Setup_Compile;
+
 ["A3PL_iPhoneX_setPhoneNumber",
 {
 	private ["_numberSet","_type"];

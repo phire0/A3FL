@@ -5500,6 +5500,9 @@
    <Key ID="STR_NPC_SECONDARYPHONE">
       <Original>1. Secondary Number ($50000)</Original>
    </Key>
+   <Key ID="STR_NPC_REBSECONDARYPHONE">
+      <Original>2. Rebuy Secondary Number ($150000)</Original>
+   </Key>
    <Key ID="STR_NPC_COMPANYPHONE">
       <Original>3. Business Number ($30000)</Original>
    </Key>
