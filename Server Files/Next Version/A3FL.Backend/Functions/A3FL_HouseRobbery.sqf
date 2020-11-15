@@ -18,17 +18,13 @@
 	if(_robbedTime > (serverTime-300)) exitWith {["Another house robbery has taken place recently, you cannot rob this house!","red"] call A3PL_Player_Notification;};
 
 	_nearCity = text ((nearestLocations [player, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
-	if(_nearCity IN ["Lubbock","Salt Point"]) then {
-		if ((count(["uscg"] call A3PL_Lib_FactionPlayers)) < 0) exitwith {_fail=true;_faction="uscg";};
-	} else {
-		if ((count(["fisd"] call A3PL_Lib_FactionPlayers)) < 0) exitwith {_fail=true;_faction="fisd";};
-	};
-	if(_fail) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob this house!",3,_faction],"red"] call A3PL_Player_Notification;};
+	_faction = if(_nearCity IN ["Lubbock","Salt Point"]) then {"uscg"} else {"fisd"};
+	_cops = [_faction] call A3PL_Lib_FactionPlayers;
+	if(count(_cops) < 3) exitWith {[format ["There needs to be a minimum of %1 %2 online to rob this house!",3,_faction],"red"] call A3PL_Player_Notification;};
 
 	player playmove "Acts_carFixingWheel";
 	["You are attempting to lockpick this house", "yellow"] call A3PL_Player_Notification;
 	player setVariable ["picking",true,true];
-	_cops = [_faction] call A3PL_Lib_FactionPlayers;
 	_notifyChance = random 100;
 	if(_notifyChance >= 30) then {
 		[_house] spawn A3PL_HouseRobbery_Alarm;

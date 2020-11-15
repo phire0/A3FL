@@ -406,25 +406,26 @@
 			_woundArr = _x select _i;
 			if ((_woundArr select 0) isEqualTo _wound) exitwith
 			{
-				if ((_item isEqualTo ([_wound,"itemHeal"] call A3PL_Config_GetWound)) && _isEMS) exitwith {
+				if ((_item isEqualTo ([_wound,"itemHeal"] call A3PL_Config_GetWound)) && _isEMS) then {
 					["You succesfully healed a wound","green"] call A3PL_Player_Notification;
 					[format ["You succesfully healed a %1 wound",_woundName],"green"] call A3PL_Player_Notification;
 					[_unit,format ["EMS %1 healed a %2 wound",(player getVariable ["name",name player]),_woundName],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
 					_x deleteAt _i;
 					[_item,-1] call A3PL_Inventory_Add;
-				};
-				if ([_wound,"doesTreatHeal"] call A3PL_Config_GetWound) then
-				{
-					[format ["You succesfully treated a %1 wound",_woundName],"green"] call A3PL_Player_Notification;
-					[_unit,format ["%1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
-					_x deleteAt _i;
-					[_item,-1] call A3PL_Inventory_Add;
 				} else {
-					if(_woundArr select 1) exitWith {["This wound is already treated","red"] call A3PL_Player_Notification;};
-					[_unit,format ["%1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName,_part],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
-					[format ["You treated a %1 wound, you may still require medical attention",_woundName]] call A3PL_Player_Notification;
-					_woundArr set [1,true];
-					[_item,-1] call A3PL_Inventory_Add;
+					if ([_wound,"doesTreatHeal"] call A3PL_Config_GetWound) then
+					{
+						[format ["You succesfully treated a %1 wound",_woundName],"green"] call A3PL_Player_Notification;
+						[_unit,format ["%1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
+						_x deleteAt _i;
+						[_item,-1] call A3PL_Inventory_Add;
+					} else {
+						if(_woundArr select 1) exitWith {["This wound is already treated","red"] call A3PL_Player_Notification;};
+						[_unit,format ["%1 treated a %2 wound on the %3",(player getVariable ["name",name player]),_woundName,_part],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
+						[format ["You treated a %1 wound, you may still require medical attention",_woundName]] call A3PL_Player_Notification;
+						_woundArr set [1,true];
+						[_item,-1] call A3PL_Inventory_Add;
+					};
 				};
 				if ((count _x) < 2) then {_wounds deleteAt _forEachIndex;};
 			};

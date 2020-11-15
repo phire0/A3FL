@@ -310,7 +310,7 @@
 			sleep 1;
 			_t = _t + 1;
 			if (isNull _veh) exitwith {};
-			if (_t > 119) exitwith {
+			if (_t > 40) exitwith {
 				[3] remoteExec ["A3PL_Storage_CarRetrieveResponse",_player];
 				[format ["UPDATE objects SET plystorage = '1' WHERE id = '%1'",_id],1] spawn Server_Database_Async;
 				Server_Storage_ListVehicles - [_veh];

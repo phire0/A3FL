@@ -118,7 +118,6 @@
 
 ["A3PL_Criminal_PickCar", {
 	private _car = param [0,objNull];
-	if((typeOf _car) IN ["A3PL_EMS_Locker"]) exitWith {["This is not meant to be lockpicked", "red"] call A3PL_Player_Notification;};
 	if (animationstate player isEqualTo "Acts_carFixingWheel") exitwith {[localize"STR_CRIMINAL_YOUALREADYTAKEANACTION", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player isEqualTo player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_CRIMINAL_YOUALREADYPICKVEHICLE", "red"] call A3PL_Player_Notification;};
@@ -127,25 +126,24 @@
 	player setVariable ["picking",true,true];
 	["Lockpicking...",45] spawn A3PL_Lib_LoadAction;
 
-	_success = true;
 	waitUntil{Player_ActionDoing};
 	player playMoveNow 'Acts_carFixingWheel';
 	while {Player_ActionDoing} do {
-		if ((player distance2D _car) > 5) exitWith {[localize"STR_CRIMINAL_NEEDTOBENEARVEHICLE5M", "red"] call A3PL_Player_Notification; _success = false;};
-		if (!(vehicle player == player)) exitwith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-		if ((!alive _car)) exitwith {_success = false;};
-		if (!(player_itemClass == "v_lockpick")) exitwith {_success = false;};
-		if (!(["v_lockpick",1] call A3PL_Inventory_Has)) exitwith {_success = false;};
+		if ((player distance2D _car) > 5) exitWith {[localize"STR_CRIMINAL_NEEDTOBENEARVEHICLE5M", "red"] call A3PL_Player_Notification; Player_ActionInterrupted = true;};
+		if (!(vehicle player == player)) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
+		if ((!alive _car)) exitwith {Player_ActionInterrupted = true;};
+		if (!(player_itemClass isEqualTo "v_lockpick")) exitwith {Player_ActionInterrupted = true;};
+		if (!(["v_lockpick",1] call A3PL_Inventory_Has)) exitwith {Player_ActionInterrupted = true;};
 		if ((animationstate player) != "Acts_carFixingWheel") then {player playMoveNow 'Acts_carFixingWheel';};
 	};
 	player switchMove "";
-	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_CRIMINAL_PICKENDED","red"] call A3PL_Player_Notification;};
+	if(Player_ActionInterrupted) exitWith {[localize"STR_CRIMINAL_PICKENDED","red"] call A3PL_Player_Notification;};
 
 	[player_item] call A3PL_Inventory_Clear;
 	[player,"v_lockpick",-1] remoteExec ["Server_Inventory_Add",2];
 
-	_chance = random 100;
+	private _chance = random 100;
 	if(_chance >= 35) then {
 		_car setVariable ["locked",false,true];
 		[localize"STR_CRIMINAL_PICKSUCCESSFULL", "green"] call A3PL_Player_Notification;

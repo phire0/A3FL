@@ -381,6 +381,7 @@
 	private _amount = _obj getVariable ["amount",1];
 	private _exit = false;
 
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if((player getVariable ["Cuffed",false]) || (player getVariable ["Zipped",false])) exitWith {};
 	if (isNull _obj) exitwith {[localize"STR_NewInventory_15", "red"] call A3PL_Player_Notification;};
 

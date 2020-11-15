@@ -10,7 +10,7 @@
 {
 	disableSerialization;
 	private _box = param [0,player_objintersect];
-	if (isNull _box) exitwith {[localize"STR_NewHousing_1)"] call A3PL_Player_Notification;};
+	if (isNull _box) exitwith {[localize"STR_NewHousing_1"] call A3PL_Player_Notification;};
 	if (player distance _box > 5 ) exitwith {["You are too far away from this box to open it!","red"] call A3PL_Player_Notification;};
 	if (_box getVariable ["inuse",false]) exitwith {[localize"STR_NewHousing_2","red"] call A3PL_Player_Notification;};
 	_box setVariable ["inuse",true,true];

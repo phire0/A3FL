@@ -639,7 +639,6 @@
 				player setdir ((getDir player) + 50);
 			};
 			_civ switchmove "A3PL_IdleToHandsup";
-			[getPlayerUID player,"surrender"] remoteExec ["Server_Log_New",2];
 		};
 		case 2:
 		{
