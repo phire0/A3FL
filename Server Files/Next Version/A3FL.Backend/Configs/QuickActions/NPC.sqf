@@ -194,11 +194,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_StationStore",
-	{["Shop_Fuel"] call A3PL_Shop_Open;}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_ResellNearVehicle",
 	{["vehiclesell_initial"] call A3PL_NPC_Start;}
 ],

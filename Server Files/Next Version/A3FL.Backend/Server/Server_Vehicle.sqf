@@ -398,6 +398,7 @@
 ["Server_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Taurus_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Taurus_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3FL_Explorer_Platinum_PD_20",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_FD_Brush",{

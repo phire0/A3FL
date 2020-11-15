@@ -110,12 +110,11 @@
 {
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_barrel","_tanker"];
-	_barrel = param [0,objNull];
-	_tanker = (nearestObjects [player, ["A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3FL_T440_Gas_Tanker"], 10]) select 0;
+	private _barrel = param [0,objNull];
+	private _tanker = (nearestObjects [player, ["A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3FL_T440_Gas_Tanker"], 10]) select 0;
+	private _exit = false;
 	if (isNil "_tanker") exitwith {[localize"STR_NewHydrogen_12","red"] call A3PL_Player_Notification;};
-
-	_exit = false;
-	if(typeOf _tanker == "A3PL_Fuel_Van") then {
+	if((typeOf _tanker) isEqualTo "A3PL_Fuel_Van") then {
 		_gasType = _tanker getVariable["gas", nil];
 		_amount = _tanker getVariable ["petrol",0];
 		if(!isNil "_gasType") then {
@@ -133,17 +132,16 @@
 ["A3PL_Hydrogen_LoadKerosene",
 {
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_barrel","_tanker"];
-	_barrel = param [0,objNull];
-	_tanker = (nearestObjects [player, ["A3PL_Fuel_Van"], 10]) select 0;
+	private _barrel = param [0,objNull];
+	private _tanker = (nearestObjects [player, ["A3PL_Fuel_Van"], 10]) select 0;
+	private _exit = false;
 	if (isNil "_tanker") exitwith {[localize"STR_NewHydrogen_14","red"] call A3PL_Player_Notification;};
 
-	_exit = false;
-	if(typeOf _tanker == "A3PL_Fuel_Van") then {
+	if((typeOf _tanker) isEqualTo "A3PL_Fuel_Van") then {
 		_gasType = _tanker getVariable["gas", nil];
 		_amount = _tanker getVariable ["petrol",0];
 		if(!isNil "_gasType") then {
-			if((_gasType == "petrol") && (_amount > 0)) exitWith {_exit = true;};
+			if((_gasType isEqualTo "petrol") && {_amount > 0}) exitWith {_exit = true;};
 		};
 	};
 	if(_exit) exitWith {[localize"STR_NewHydrogen_51","red"] call A3PL_Player_Notification;};
@@ -245,37 +243,31 @@
 	private _pumpNumber = param [1,1];
 	private _gallons = param [2,0];
 	private _price = param [3,0];
+	private _priceCount = (str(_price)) splitString "";
+	private _gallonsCount = (str(_gallons)) splitString "";
 
-	_priceCount = (str(_price)) splitString "";
-	_gallonsCount = (str(_gallons)) splitString "";
-
-	switch (count _gallonsCount) do
-	{
-		case (1): {_gallons = format ["0000000%1",_gallons]};
-		case (2): {_gallons = format ["000000%1",_gallons]};
-		case (3): {_gallons = format ["00000%1",_gallons]};
-		case (4): {_gallons = format ["0000%1",_gallons]};
-		case (5): {_gallons = format ["000%1",_gallons]};
+	_price = switch (count _priceCount) do {
+		case (1): {format ["0000000%1",_price]};
+		case (2): {format ["000000%1",_price]};
+		case (3): {format ["00000%1",_price]};
+		case (4): {format ["0000%1",_price]};
+		case (5): {format ["000%1",_price]};
 	};
-	switch (count _priceCount) do
-	{
-		case (1): {_price = format ["0000000%1",_price]};
-		case (2): {_price = format ["000000%1",_price]};
-		case (3): {_price = format ["00000%1",_price]};
-		case (4): {_price = format ["0000%1",_price]};
-		case (5): {_price = format ["000%1",_price]};
+	_gallons = switch (count _gallonsCount) do {
+		case (1): {format ["0000000%1",_gallons]};
+		case (2): {format ["000000%1",_gallons]};
+		case (3): {format ["00000%1",_gallons]};
+		case (4): {format ["0000%1",_gallons]};
+		case (5): {format ["000%1",_gallons]};
 	};
 
-	_startSel = 2 + ((_pumpNumber - 1) * 16);
-	for "_i" from 0 to 7 do
-	{
+	private _startSel = 2 + ((_pumpNumber - 1) * 16);
+	for "_i" from 0 to 7 do {
 		_station setObjectTextureGlobal [_startSel,format ["\A3PL_Common\HydrogenNumbers\%1.paa",_price select [_i,1]]];
 		_startSel = _startSel + 1;
 	};
-
-	_startSel = 10 + ((_pumpNumber - 1) * 16);
-	for "_i" from 0 to 7 do
-	{
+	private _startSel = 10 + ((_pumpNumber - 1) * 16);
+	for "_i" from 0 to 7 do {
 		_station setObjectTextureGlobal [_startSel,format ["\A3PL_Common\HydrogenNumbers\%1.paa",_gallons select [_i,1]]];
 		_startSel = _startSel + 1;
 	};
@@ -493,9 +485,9 @@
 		_totalGallons = _totalGallons + _gallons;
 		_myPrice = round(_gallonPrice * _totalGallons);
 
-		[_station,1,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myPrice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
-		[_station,2,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myPrice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
-		[_station,3,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myPrice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
+		[_station,1,_totalGallons,_myPrice] call A3PL_Hydrogen_SetNumbers;
+		[_station,2,_totalGallons,_myPrice] call A3PL_Hydrogen_SetNumbers;
+		[_station,3,_totalGallons,_myPrice] call A3PL_Hydrogen_SetNumbers;
 		if (_totalGallons >= 5) exitwith {_full = true;};
 		_newgas = (_station getVariable ["petrol",0]) - _gallons;
 		if (_newGas < 0) then {_newGas = 0;};

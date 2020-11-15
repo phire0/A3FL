@@ -56,7 +56,6 @@ Config_IntersectArray =
 	["item_Pickup",localize"STR_INTSECT_GrindWheatIntoMalt","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
 	["item_Pickup",localize"STR_INTSECT_GrindCornIntoCornmeal","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) == "A3PL_Mixer")}],
 	["scooter_driver",localize"STR_INTSECT_USEJERRYC", "\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\fuelwarning_ca.paa", {player_itemClass == "jerrycan" && {(typeOf player_objintersect == "C_Quadbike_01_F")}}],
-	["spine3",localize"STR_QuickActionsNPC_StationStore",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fuel_1,npc_fuel_3,npc_fuel_4,npc_fuel_6,npc_fuel_8,npc_fuel_9,npc_fuel_10,npc_fuel_11,npc_fuel_12]}],
 
 	//hunting
 	["spine2",localize"STR_QuickActionsNPC_SkinAnimal",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((typeOf player_objintersect) IN ["Sheep","Sheep02","Sheep03","Goat","Goat02","Goat03","WildBoar","Cow01","Cow02","Cow03","Cow04","Cow05"]) && {!alive player_objintersect}}],
@@ -1819,7 +1818,6 @@ Config_GenArray =
 	localize"STR_INTSECT_TrashSlideRight",
 	localize"STR_INTSECT_TrashLwRight",
 	localize"STR_INTSECT_TrashClose",
-	localize"STR_QuickActionsNPC_StationStore",
 	format [localize"STR_INTSECT_TOGSTARENG",1],
 	format [localize"STR_INTSECT_TOGSTARENG",2],
 	format [localize"STR_INTSECT_THROTCL",1],

@@ -29,12 +29,6 @@ Config_Shops_Items = [
 		],{fifr_table modelToWorld [0,0,-0.4]}
 	],
 
-	["Shop_Fuel",[
-			["item","repairwrench",750,50,0],
-			["item","jerrycan",1500,150,0]
-		],{[4409.1,6678.72,0.1]}
-	],
-
 	["Shop_WasteManagement",[
 			["uniform","A3PL_Waste_Manage_Uni_Uniform",90,-1,0],
 			["headgear","A3PL_Waste_Manage_Cap",50,-1,0]
@@ -83,8 +77,6 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Supermarket",[
-			["item","repairwrench",750,50,0],
-			["item","jerrycan",1500,600,0],
 			["item","coke",300,30,0],
 			["item","waterbottle",500,30,0],
 			["item","bread",300,30,0],
