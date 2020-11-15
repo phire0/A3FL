@@ -337,6 +337,9 @@
 
 ["A3PL_iPhoneX_Rebuy_Secondary",
 {
+
+	// not currently working...
+
 	private _price = 150000;
 	private _xp = 50;
 

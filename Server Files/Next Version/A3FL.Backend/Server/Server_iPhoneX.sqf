@@ -41,8 +41,8 @@
 	private _serialNumber = [];
 	for "_i" from 0 to 14 do {_serialNumber pushBack (selectRandom ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",0,1,2,3,4,5,6,7,8,9]);};
 	_serialNumber = _serialNumber joinString "";
-	private _delQry = format ["DELETE FROM iphone_phone_numbers WHERE player_id='%1' AND type_id='%2'", _unit, _type];
-	[_delQry, 1] call Server_Database_Async;
+	// private _delQry = format ["DELETE FROM iphone_phone_numbers WHERE player_id='%1' AND type_id='%2'", _unit, _type];
+	// [_delQry, 1] call Server_Database_Async;
 	private _query = format ["INSERT INTO iphone_phone_numbers (player_id, phone_number, type_id, serial_number) VALUES ('%1', '%2', '%3', '%4')", _unit, _phoneNumber, _type, _serialNumber];
 	[_query,1] call Server_Database_Async;
 },true] call Server_Setup_Compile;
