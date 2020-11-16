@@ -1145,6 +1145,12 @@ A3PL_Interaction_Options =
 	],
 
 	[
+		"Stop Dragging",
+		{player setVariable["dragging",nil,true];},
+		{(player getVariable["dragging",false])}
+	],
+	
+	[
 		"Stop Towing",
 		{[player_objintersect] call A3PL_USCG_UntowBoat;},
 		{((typeOf player_objintersect) isEqualTo "A3PL_RBM") && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {(player_objintersect getVariable ["towing",false])}}

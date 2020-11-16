@@ -1064,9 +1064,8 @@
 	private _dragged = _target getVariable["dragged",false];
 	private _dragging = player getVariable["dragging",false];
 
-	if(_dragged) exitWith {["Someone is already dragging this body","red"] call A3PL_Player_Notification;};
-	if(_dragging) exitWith {["You are already dragging someone body","red"] call A3PL_Player_Notification;};
-
+	if (_dragged) exitWith {["Someone is already dragging this body","red"] call A3PL_Player_Notification;};
+	if (_dragging) exitWith {["You are already dragging someone body","red"] call A3PL_Player_Notification;};
 
 	player setVariable["dragging",true,true];
 	_target setVariable["dragged",true,true];
@@ -1074,14 +1073,17 @@
 
 	player playAction "grabDrag";
 	player forceWalk true;
-	while{true} do {
+	Player_ActionDoing = true;
+	while{(player getVariable["dragging",false])} do {
 		if (_target getVariable["A3PL_Medical_Alive",true]) exitWith {};
 		if !(player getVariable["A3PL_Medical_Alive",true]) exitWith {};
+		if ((player distance _target) > 5) exitWith {};
 		if (Player_ActionInterrupted) exitWith {};
 	};
-
+	Player_ActionDoing = false;
+	if(Player_ActionInterrupted) then {Player_ActionInterrupted = false};
 	detach _target;
-	player playAction "";
+	player playMove "amovpknlmstpsraswrfldnon";
 	player forceWalk false;
 	player setVariable["dragging",nil,true];
 	_target setVariable["dragged",nil,true];
