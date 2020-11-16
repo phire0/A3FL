@@ -463,7 +463,7 @@
 */
 
 #define BUSINESSOBJS ["Land_A3FL_Anton_Store","Land_A3PL_Garage","land_smallshop_ded_smallshop_02_f","land_smallshop_ded_smallshop_01_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"]
-#define BUSINESSPRICE 800000
+#define BUSINESSPRICE 500000
 
 ['A3PL_Company_OpenBuyShop', {
 	private _nearBy = nearestObjects [player, BUSINESSOBJS, 20];
