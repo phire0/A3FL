@@ -93,15 +93,20 @@
 
 	if (_storeType isEqualTo "Gas Station") then {
 		_cashRewardFinal = _baseCashReward + (round (random 10000)) * A3PL_Event_CrimePayout;
+		["repairwrench",1 + (round(random 10))] call A3PL_Inventory_Add;
+		["jerrycan",1 + (round(random 5))] call A3PL_Inventory_Add;
 	};
 	if (_storeType isEqualTo "McFishers") then {
 		_cashRewardFinal = _baseCashReward + (round (random 5000)) * A3PL_Event_CrimePayout;
+		["burger_full_cooked",1 + (round(random 10))] call A3PL_Inventory_Add;
 	};
 	if (_storeType isEqualTo "Taco Hell") then {
 		_cashRewardFinal = _baseCashReward + (round (random 7000)) * A3PL_Event_CrimePayout;
+		["taco_cooked",1 + (round(random 10))] call A3PL_Inventory_Add;
 	};
 	if (_storeType isEqualTo "Robbable Store") then {
 		_cashRewardFinal = _baseCashReward + (round (random 15000)) * A3PL_Event_CrimePayout;
+		["repairwrench",1 + (round(random 10))] call A3PL_Inventory_Add;
 	};
 
 	[format ["You earned $%1",str(_cashRewardFinal)],"green"] call A3PL_Player_Notification;
