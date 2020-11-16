@@ -231,9 +231,6 @@
         <Key ID="STR_QuickActionsNPC_TalkToInsurer">
             <Original>Talk to the Insurance Agent</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_TakeFuelStationCash">
-            <Original>Gas Station Robbery</Original>
-        </Key>
         <Key ID="STR_QuickActionsNPC_TalkToTheDealer">
             <Original>Talk to Dealer</Original>
         </Key>

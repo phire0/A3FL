@@ -181,14 +181,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_TakeFuelStationCash",
-	{
-		_station = (nearestobjects [player,["Land_A3PL_Gas_Station"],20]) select 0;
-		[_station,true] spawn A3PL_Store_Robbery_RobStore;
-	}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_TalkToExterminator",
 	{call A3PL_Exterminator_Start;}
 ],
