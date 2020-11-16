@@ -283,12 +283,10 @@
 	private _unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
 	private _from  = [_this,1,"",[""]] call BIS_fnc_param;
 	private _to = [_this,2,"",[""]] call BIS_fnc_param;
-	private _query = format ["DELETE FROM iphone_messages WHERE from_num = '%1' AND to_num = '%2'", _from, _to];
+	private _query = format ["DELETE FROM iphone_conversations WHERE player_id = '%1' AND phone_number_contact = '%2'", getPlayerUID _unit, _to];
 	[_query,1] call Server_Database_Async;
-	private _exists = [A3PL_iPhoneX_ListNumber, _to] call BIS_fnc_findNestedElement;
-	if (!(_exists isEqualTo [])) then {
-		[_from,false] remoteExec ["A3PL_iPhoneX_deleteSMS", ((A3PL_iPhoneX_ListNumber select (_exists select 0)) select 1)];
-	};
+	sleep 1.5;
+	[_unit] call Server_iPhoneX_GetConversations;
 },true] call Server_Setup_Compile;
 
 ['Server_iPhoneX_UpdatePhoneNumberActive',

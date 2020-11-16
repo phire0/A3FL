@@ -803,13 +803,6 @@
 	disableSerialization;
 	private _SMS = A3PL_SMS;
 	private _phoneNumberContact = param[0,player getVariable ["iPhoneX_CurrentConversation", ""]];
-	private _sendSrv = param[1,true];
-	{
-		if((_x select 1) isEqualTo _phoneNumbercontact) then {
-			_SMS deleteAt _forEachIndex;
-		};
-	} forEach _SMS;
-	A3PL_SMS = _SMS;
 	[player, A3PL_phoneNumberActive, _phoneNumberContact] remoteExec ["Server_iPhoneX_DeleteSMS", 2];
 	closeDialog 0;
 }] call Server_Setup_Compile;
