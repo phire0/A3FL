@@ -1666,6 +1666,8 @@
 }, false] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_ControlSpotlight", {
+	private _whitelistedCars = ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3FL_Explorer_Platinum_PD_20"];
+	if !(typeOf (vehicle player) IN _whitelistedCars) exitWith {};
 	keysEVH =
 	{
 		_key = _this select 1;
