@@ -1055,7 +1055,7 @@
 		_marker = createMarkerLocal [format ["firehydrant_%1",_hydrantID], (getpos _x)];
 		_marker setMarkerShapeLocal "ICON";
 		_marker setMarkerTypeLocal "A3PL_Markers_FIFD";
-		_marker setMarkerTextLocal format["Hydrant #%1",_hydrantID];
+		_marker setMarkerTextLocal format[" Hydrant #%1",_hydrantID];
 		_marker setMarkerColorLocal "ColorWhite";
 		_marker setMarkerAlphaLocal 0.8;
 
@@ -1154,7 +1154,7 @@
 	private _control = _display displayCtrl 1401;
 	private _edit = ctrlText _control;
 	private _veh = vehicle player;
-	private _newstruct = format["%1<br />%2",(_veh Getvariable "FDDatabaseStruc"),"> "+_edit];
+	private _newstruct = format["%1<br/>%2",(_veh getVariable "FDDatabaseStruc"),"> "+_edit];
 	_veh setVariable ["FDDatabaseStruc",_newstruct,false];
 
 	[_newstruct] call A3PL_FD_UpdateComputer;
@@ -1162,8 +1162,8 @@
 	private _control = _display displayCtrl 1401;
 	_control ctrlSetText "";
 	private _edit0 = [_edit,0] call A3PL_FD_DatabaseArgu;
-	if !(_veh getVariable ["FDDatabaseLogin",false]) exitwith {
-		_newstruct = format["%1<br />%2",(_veh Getvariable "FDDatabaseStruc"),"Error: You do not have the permission to use that command"];
+	if (!(_veh getVariable ["FDDatabaseLogin",false]) && {!(_edit0 isEqualTo "login")}) exitwith {
+		_newstruct = format["%1<br />%2",(_veh getVariable "FDDatabaseStruc"),"Error: You do not have the permission to use that command"];
 		_veh setVariable ["FDDatabaseStruc",_newstruct,false];
 		[_newstruct] call A3PL_FD_UpdateComputer;
 	};
@@ -1267,12 +1267,12 @@
 		};
 		default {"Error: Unknown command"};
 	};
-
+	hint _output;
 	_control = _display displayCtrl 1100;
 	private _newstruct = if (_edit0 isEqualTo "clear") then {
 		_output;
 	} else {
-		format["%1<br />%2",(_veh getVariable "FDDatabaseStruc"),_output];
+		format["%1<br/>%2",(_veh getVariable "FDDatabaseStruc"),_output];
 	};
 	_veh setVariable ["FDDatabaseStruc",_newstruct,false];
 	[_newstruct] call A3PL_FD_UpdateComputer;
@@ -1287,7 +1287,7 @@
 	disableSerialization;
 	createDialog "Dialog_PoliceDatabase";
 	private _display = findDisplay 211;
-	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) isEqualTo 28) then {call A3PL_Police_DatabaseEnter;}"];
+	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) isEqualTo 28) then {call A3PL_FD_DatabaseEnter;}"];
 	[_text] call A3PL_FD_UpdateComputer;
 }] call Server_Setup_Compile;
 

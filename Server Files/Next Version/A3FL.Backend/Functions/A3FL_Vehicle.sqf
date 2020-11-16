@@ -1665,36 +1665,48 @@
 	};
 }, false] call Server_Setup_Compile;
 
-["A3PL_Vehicle_DriverSpotlight", {
-	forksdokeydown =
+["A3PL_Vehicle_ControlSpotlight", {
+	keysEVH =
 	{
 		_key = _this select 1;
 		_return = false;
 		switch _key do
 		{
-			case 75:
+			case 201:
 			{
 				_val = vehicle player animationSourcePhase "Spotlight_Rotate";
-				_valu = _val + 0.02;
+				_valu = _val + 0.05;
 				if (_valu >= 1.047) then {_valu = 1.047};
 				vehicle player animateSource ["spotlight_rotate",_valu];
 				_return = true;
 			};
-			case 77:
+			case 209:
 			{
 				_val = vehicle player animationSourcePhase "Spotlight_Rotate";
-				_valu = _val - 0.02;
+				_valu = _val - 0.05;
 				if (_valu <= -1.571) then {_valu = -1.571};
 				vehicle player animateSource ["spotlight_rotate",_valu];
 				_return = true;
 			};
+			case 199:
+			{
+				private _veh = vehicle player;
+				if (_veh animationSourcePhase "Spotlight" < 0.5) then {
+					_veh animateSource ["Spotlight",1];
+					if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOn",_veh];};
+				} else {
+					_veh animateSource ["Spotlight",0];
+					if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOff",_veh];};
+				};
+				_return = true;
+			};			
 		};
 		_return;
 	};
 	waituntil {!isNull findDisplay 46};
-	_forkskeys = (findDisplay 46) DisplayAddEventHandler ["keydown","_this call forksdokeyDown"];
-	waitUntil {!((typeOf (vehicle player)) IN ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST"])};
-	(findDisplay 46) displayremoveeventhandler ["keydown",_forkskeys];
+	_keysEVH = (findDisplay 46) DisplayAddEventHandler ["keydown","_this call keysEVH"];
+	waitUntil {(vehicle player) isEqualTo player};
+	(findDisplay 46) displayremoveeventhandler ["keydown",_keysEVH];
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_LCMRamp", {

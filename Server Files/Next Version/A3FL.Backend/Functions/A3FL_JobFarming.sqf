@@ -242,11 +242,12 @@
 		};
 	} foreach _near;
 	if(_amount isEqualTo 0) exitWith {["There is no cured bud nearby!","red"] call A3PL_Player_Notification;};
-	[format["%1 cured bud(s) were placed into the grinder, it will take about %2 seconds before grinding is completed!",_amount,_amount*30],"green"] call A3PL_Player_Notification;
-	[_grinder,_amount] spawn {
+	private _timer = [(30*_amount)] call A3PL_Factory_LevelBoost;
+	[format["%1 cured bud(s) were placed into the grinder, it will take about %2 seconds before grinding is completed!",_amount,_timer],"green"] call A3PL_Player_Notification;
+	[_grinder,_amount,_timer] spawn {
 		private _grinder = param [0,objNull];
 		private _amount = param[1,1];
-		private _timer = [(30*_amount)] call A3PL_Factory_LevelBoost;
+		private _timer = param[2,30];
 		_grinder setVariable["inUse",true,true];
 		sleep _timer;
 		[format["%1 cured bud(s) finished grinding, you can collect if from the grinder.",_amount],"green"] call A3PL_Player_Notification;

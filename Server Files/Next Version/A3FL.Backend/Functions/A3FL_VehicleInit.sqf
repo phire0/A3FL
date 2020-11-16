@@ -680,20 +680,14 @@
 
 ["A3PL_Vehicle_Init_A3PL_Tahoe_PD",
 {
-	private ["_veh"];
-	_veh = _this;
-	_veh addEventHandler ["GetIn",
+	_this addEventHandler ["GetIn",
 	{
-		_veh = param [0,objNull];
-		_position = param [1,""];
-		_unit = param [2,objNull];
-
+		params ["_vehicle", "_role", "_unit", "_turret"];
 		if (!local _unit) exitwith {};
-
-		if (_position == "driver") then
+		if (_role == "driver") then
 		{
-			[_veh] spawn A3PL_Police_RadarLoop;
-			[_veh] spawn A3PL_Vehicle_DriverSpotlight;
+			[_vehicle] spawn A3PL_Police_RadarLoop;
+			[_vehicle] spawn A3PL_Vehicle_ControlSpotlight;
 		};
 	}];
 }] call Server_Setup_Compile;

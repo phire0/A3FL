@@ -1135,7 +1135,7 @@
 	private _control = _display displayCtrl 1401;
 	private _edit = ctrlText _control;
 	private _veh = vehicle player;
-	private _newstruct = format["%1<br />%2",(_veh getvariable "PoliceDatabaseStruc"),"> "+_edit];
+	private _newstruct = format["%1<br/>%2",(_veh getVariable "PoliceDatabaseStruc"),"> " + _edit];
 	_veh setVariable ["PoliceDatabaseStruc",_newstruct,true];
 
 	[_newstruct] call A3PL_Police_UpdateComputer;

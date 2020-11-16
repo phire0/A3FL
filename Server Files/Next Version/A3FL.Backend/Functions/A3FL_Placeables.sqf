@@ -279,7 +279,7 @@
 				_obj attachto [player_objintersect];
 				if (_obj == Player_Item) then
 				{
-					[false] call A3PL_Inventory_Drop;
+					[false,1] call A3PL_Inventory_Drop;
 				};
 			};
 

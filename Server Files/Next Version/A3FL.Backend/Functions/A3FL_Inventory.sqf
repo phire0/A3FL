@@ -319,11 +319,11 @@
 
 ["A3PL_Inventory_Drop", {
 	private _setPos = param [0,true];
-	private _amount = param [1,1];
+	private _amount = param [1,0];
 	private _itemClass = param [2,Player_ItemClass];;
 	private _obj = Player_Item;
 	private _droppedItems = server getVariable 'droppedObjects';
-	if(!isNil 'Player_ItemAmount') then {_amount = Player_ItemAmount;};
+	if(!isNil 'Player_ItemAmount' && {_amount isEqualTo 0}) then {_amount = Player_ItemAmount;};
 
 	if(_amount < 1) exitWith {["Please enter a valid amount","red"] call A3PL_Player_Notification;};
 	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
