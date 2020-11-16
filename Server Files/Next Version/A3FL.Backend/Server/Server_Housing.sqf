@@ -574,7 +574,6 @@
 
 	private _query = format ["UPDATE players SET userkey='%1' WHERE uid='%2'", _keys, _removalID];
 	[_query, 1] call Server_Database_Async;
-
 }, true] call Server_Setup_Compile;
 
 ["Server_Housing_RemoveMemberOffline",

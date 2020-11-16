@@ -435,10 +435,10 @@
 	disableSerialization;
 
 	createDialog "Dialog_Roommates";
-	_display = findDisplay 87;
+	private _display = findDisplay 87;
 
 	{
-		_i = lbAdd [1500, (_x select 1)];
+		private _i = lbAdd [1500, (_x select 1)];
 		lbSetData [1500, _i, (_x select 0)];
 	} forEach _roommates;
 }] call Server_Setup_Compile;
