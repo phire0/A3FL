@@ -46,26 +46,30 @@
 ["A3PL_Factory_DialogLoop",
 {
 	disableSerialization;
+	private ["_duration","_secLeft","_id","_timeEnd","_name"];
 	private _display = findDisplay 45;
 	if (isNull _display) exitwith {};
 	private _type = ctrlText (_display displayCtrl 1100);
 	private _var = player getVariable ["player_factories",[]];
+	private _craftID = nil;
 	{
 		private _id = _x select 0;
-		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) == _type) exitwith {
-			_craftID = _id;
-		};
+		if (([_id, "type"] call A3PL_Config_GetPlayerFactory) == _type) exitwith {_craftID = _id;};
 	} foreach _var;
-	if (isNil "_craftID") exitwith {(_display displayCtrl 1104) ctrlSetStructuredText "";};
+	if (isNil "_craftID") exitwith {};
 
 	private _id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
-	private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
 	private _duration = ([_id,_type,"time"] call A3PL_Config_GetFactory) * ([_craftID, "count"] call A3PL_Config_GetPlayerFactory);
 	private _timeEnd = [_craftID, "finish"] call A3PL_Config_GetPlayerFactory;
-	if (_name isEqualTo "inh") then {_name = [([_id,_type,"class"] call A3PL_Config_GetFactory),([_id,_type,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
+	private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
 	private _timeSleep = 0;
-	private _duration = [_duration] call A3PL_Factory_LevelBoost;
+	if (_name isEqualTo "inh") then {_name = [([_id,_type,"class"] call A3PL_Config_GetFactory),([_id,_type,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
+	_duration = [_duration] call A3PL_Factory_LevelBoost;
 	while {!isNull _display} do {
+		if(!isNil "Player_CraftInterrupt") exitWith {
+			(_display displayCtrl 1105) progressSetPosition 0;
+			(_display displayCtrl 1104) ctrlSetStructuredText parseText format ["<t size='0.92'>%1</t>",_name];
+		};
 		_secLeft = -(diag_ticktime) + _timeEnd;
 		(_display displayCtrl 1105) progressSetPosition (1-(_secLeft / _duration));
 		if (_secLeft < 0) then {_secLeft = 0};
@@ -132,7 +136,6 @@
 	private _display = findDisplay 45;
 	private _type = ctrlText (_display displayCtrl 1100);
 	private _toCraft = parseNumber(ctrlText (_display displayCtrl 1406));
-	private _levelRequired = [_id,_type,"level"] call A3PL_Config_GetFactory;
 	private _alreadyCrafting = false;
 	private _var = player getVariable ["player_factories",[]];
 
@@ -143,15 +146,17 @@
 
 	if (_alreadyCrafting) then {
 		{
-			if (([(_x select 0), "type"] call A3PL_Config_GetPlayerFactory) isEqualTo _type) exitwith {_var deleteAt _forEachIndex;};
+			if ((_x select 3) isEqualTo _type) exitwith {_var deleteAt _forEachIndex};
 		} foreach _var;
 		player setVariable ["player_factories",_var,false];
+		Player_CraftInterrupt = true;
 		["Crafting cancelled","red"] call A3PL_Player_Notification;
 	} else {
 		private _control = _display displayCtrl 1500;
 		if (lbCurSel _control < 0) exitwith {[localize"STR_FACTORY_NOOBJECTSELECTION","red"] call A3PL_Player_Notification;};
 		private _id = _control lbData (lbCurSel _control);
 		private _required = [_id,_type,"required"] call A3PL_Config_GetFactory;
+		private _levelRequired = [_id,_type,"level"] call A3PL_Config_GetFactory;
 		if (isNil "_required" OR (count _required < 1)) exitwith {["Unexpected error occured trying to retrieve items for recipe in _Craft","red"] call A3PL_Player_Notification;};
 
 		private _temp = [];
@@ -186,9 +191,14 @@
 			private _id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
 			private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
 			private _xpToAdd = ([_id,_type,"xp"] call A3PL_Config_GetFactory) * _toCraft;
+			private _curSleep = 0;
 			if (_name isEqualTo "inh") then {_name = [_classname,_classType,"name"] call A3PL_Factory_Inheritance;};
-
-			sleep _sec;
+			while{_curSleep < _sec} do {
+				if(!isNil "Player_CraftInterrupt") exitWith {};
+				_curSleep = _curSleep + 1;
+				sleep 1;
+			};
+			if(!isNil "Player_CraftInterrupt") exitWith {Player_CraftInterrupt = nil;};
 			[format [localize"STR_FACTORY_CRAFTEND",_name,_type,([_id,_type,"output"] call A3PL_Config_GetFactory)*_toCraft],"green"] call A3PL_Player_Notification;
 			[player,_xpToAdd] call A3PL_Level_AddXp;
 			[player,_type,_id, _required, _toCraft] remoteExec ["Server_Factory_Finalise", 2];
