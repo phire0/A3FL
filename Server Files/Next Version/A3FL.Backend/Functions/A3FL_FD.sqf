@@ -1251,9 +1251,10 @@
 		case "pausefires":
 		{
 			private _isCommand = ["fifr"] call A3PL_Government_isFactionLeader;
+			[] remoteExec ["Server_Fire_PauseCheck",2];
 			if (_isCommand) then {
 				[] remoteExec ["Server_Fire_PauseFire", 2];
-				if (pVar_FiresFrozen) then {
+				if (!pVar_FiresFrozen) then {
 					"Fires are no longer paused";
 				} else {
 					"Fires are now paused";
@@ -1267,7 +1268,6 @@
 		};
 		default {"Error: Unknown command"};
 	};
-	hint _output;
 	_control = _display displayCtrl 1100;
 	private _newstruct = if (_edit0 isEqualTo "clear") then {
 		_output;

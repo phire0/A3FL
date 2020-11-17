@@ -623,6 +623,7 @@
 		[player,6] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
 	[player,1] remoteExec ["A3PL_Police_SurrenderAnim", -2];
+	Player_ActionInterrupted = true;
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_SurrenderAnim', {

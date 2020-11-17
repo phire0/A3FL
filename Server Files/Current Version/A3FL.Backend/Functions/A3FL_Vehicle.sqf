@@ -1124,49 +1124,41 @@
 	};
 }] call Server_Setup_Compile;
 
-//toggles rope (ONLY DOWN, UP IS HANDLED BY TOW)
 ["A3PL_Vehicle_TowTruck_Unloadcar",
 {
-	private ["_truck","_towpoint","_towing","_alignment","_distance","_height","_Eheight","_angle","_shift","_roleon","_pullup","_traytilt","_unload","_pushdown","_roleoff","_Ramp_up","_Edistance","_towingmass","_truckmass","_Fuel_lvl","_Supported_Vehicles","_UnSupported_Vehicles","_wheel1","_wheel2","_type","_stablecar","_stablize"];
-	_truck = _this select 0;
-	_towing = _truck getVariable "Towed_Car";
+	private _truck = _this select 0;
+	private _towing = _truck getVariable ["Towed_Car",objNull];
 	if ((!local _truck) OR ((!isNull _towing) && (!local _towing))) exitWith {[player,_truck,_towing] remoteExec ["Server_Vehicle_AtegoHandle", 2];[localize"STR_NewVehicle_35"] call A3PL_Player_Notification;};
 	if (_truck isEqualTo _towing) exitWith {};
-	_pushdown = true;
-	_roleoff = true;
-	_distance = 0;
-	_Edistance = 0;
-	_height = 0;
-	_Eheight = 0;
-	_shift = 0;
-	_angle = 0;
-	_towingXYZ = _towing getVariable "XYZ";
-	_height = _towingXYZ select 0;
-	_Edistance = _towingXYZ select 1;
-	_distance = _towingXYZ select 2;
-	_Eheight = _towingXYZ select 3;
-	_towingdir = _towingXYZ select 4;
-	_truckmass = _towingXYZ select 5;
-	_towingmass = getMass _towing;
+	private _shift = 0;
+	private _angle = 0;
+	private _towingXYZ = _towing getVariable "XYZ";
+	private _height = _towingXYZ select 0;
+	private _Edistance = _towingXYZ select 1;
+	private _distance = _towingXYZ select 2;
+	private _Eheight = _towingXYZ select 3;
+	private _towingdir = _towingXYZ select 4;
+	private _truckmass = _towingXYZ select 5;
+	private _towingmass = getMass _towing;
 	if ((_truck animationSourcePhase "truck_flatbed") < 0.5) then {[_truck,_angle] spawn A3PL_Vehicle_TowTruck_Ramp_down;}else {_angle = -0.230112;};
-	while {_pushdown} do
-	{
-		waitUntil {_truck animationSourcePhase "truck_flatbed" == 1};
+
+	private _maxDistance = if(typeOf _truck isEqualTo "A3FL_T440_Tow_Truck") then {-5} else {-2.2};
+	while {true} do {
+		waitUntil {(_truck animationSourcePhase "truck_flatbed") isEqualTo 1};
 		_towing attachTo [_truck,[_shift,_distance,_Eheight],"flatbed_middle"];
 		_distance = _distance - 0.01;
 		_Eheight = _Eheight - 0.002346;
-		if (_distance <= -2.2) then {_pushdown = false;_height = _Eheight;};
+		if (_distance <= _maxDistance) exitWith {_height = _Eheight;};
 		sleep 0.01;
 	};
-	while {_roleoff} do
-	{
-		waitUntil {_truck animationSourcePhase "truck_flatbed" == 1};
+	while {true} do {
+		waitUntil {(_truck animationSourcePhase "truck_flatbed") isEqualTo 1};
 		_towing attachTo [_truck,[_shift,_distance,_height],"flatbed_middle"];
 		_towing setvectorUp [0,_angle,1];
 		_distance = _distance - 0.012;
 		_height = _height - 0.000846;
 		_angle = _angle + 0.000846;
-		If (_angle >= 0) then {_roleoff = false;};
+		if (_angle >= 0) exitWith {};
 		sleep 0.01;
 	};
 	detach _towing;
@@ -1181,10 +1173,12 @@
 	private ["_truck","_towpoint","_towing","_alignment","_distance","_height","_Eheight","_angle","_shift","_roleon","_pullup","_traytilt","_unload","_pushdown","_roleoff","_Ramp_up","_Edistance","_towingmass","_truckmass","_Fuel_lvl","_Supported_Vehicles","_UnSupported_Vehicles","_wheel1","_wheel2","_type","_stablecar","_stablize"];
 	_truck = _this select 0;
 	_towpoint = "Land_HelipadEmpty_F" createVehicleLocal (getpos _truck);
-	_towpoint attachTo [_truck,[0,-6.41919,-2.1209]];
+	_offset = if((typeOf _truck) isEqualTo "A3FL_T440_Tow_Truck") then {[0,-13,-0.1]} else {[0,-6.41919,-2.1209]};
+	_towpoint attachTo [_truck,_offset];
 	_towing = (getpos _towpoint) nearestObject "AllVehicles";
 	if(isPlayer _towing) exitWith{["You are not able to tow someone, this is not nice.", "red"] call A3PL_Player_Notification;};
 	_alignment = [_truck, _towing] call BIS_fnc_relativeDirTo;
+	hint str _alignment;
 	if ((_towpoint distance _towing) >= 6) exitWith {deleteVehicle _towpoint;[localize"STR_NewVehicle_36", "yellow"] call A3PL_Player_Notification;};
 	deleteVehicle _towpoint;
 	if (_alignment > 182) exitWith  {[localize"STR_NewVehicle_37", "yellow"] call A3PL_Player_Notification;};

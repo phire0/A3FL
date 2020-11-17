@@ -658,7 +658,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_UserInputCheck", {
-	if(getPlayerUID player IN ["76561198111737316","76561198343727655"]) exitWith {};
+	if(getPlayerUID player IN ["76561198111737316","76561198070895974","76561198201783651"]) exitWith {};
 	if (!userInputDisabled) then {disableUserInput true;} else {disableUserInput false;};
 }] call Server_Setup_Compile;
 

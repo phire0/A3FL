@@ -58,7 +58,6 @@
 
 ["A3PL_JobFarming_PlantReceive",
 {
-	private ["_r","_msg"];
 	private _r = param [0,-1];
 	private _msg = switch (_r) do {
 		case -1: {["Unknown error occured while trying to plant a seed","red"];};

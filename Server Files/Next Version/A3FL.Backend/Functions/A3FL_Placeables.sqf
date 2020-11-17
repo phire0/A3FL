@@ -221,7 +221,8 @@
 	_posZ;
 }] call Server_Setup_Compile;
 
-['A3PL_Placeables_QuickAction', {
+['A3PL_Placeables_QuickAction',
+{
 	private _attached = [] call A3PL_Lib_Attached;
 	if (count _attached > 0) exitwith
 	{
@@ -235,13 +236,11 @@
 			};
 		} foreach _collision;
 
-		//if we are supposedly placing an item in something we will also exclude it
 		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill"]) then
 		{
 			_collision = _collision - [player_objintersect];
 		};
 
-		//skip collision check for gear
 		if (typeOf _obj == "GroundWeaponHolder") then
 		{
 			_collision = [];
@@ -249,12 +248,7 @@
 
 		_except = ["A3PL_EMS_Stretcher","A3PL_Ladder"];
 		if ((count _collision > 0) && !((typeOf _obj) IN _except)) exitwith {[localize"STR_NewPlaceables_4", "red"] call A3PL_Player_Notification;};
-
-		//check to see if player is freelooking
-		if (freeLook) exitwith
-		{
-			[localize"STR_NewPlaceables_5", "red"] call A3PL_Player_Notification;
-		};
+		if (freeLook) exitwith {[localize"STR_NewPlaceables_5", "red"] call A3PL_Player_Notification;};
 
 		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill"]) exitwith
 		{
@@ -271,18 +265,20 @@
 					[false] call A3PL_Inventory_Drop;
 				};
 			};
-
-			//mcfisher
 			if (Player_NameIntersect IN ["mcfishertable","mcfishergrill"]) exitwith
 			{
-				detach _obj;
-				_obj attachto [player_objintersect];
-				if (_obj == Player_Item) then
-				{
-					[false,1] call A3PL_Inventory_Drop;
+				private _new = createVehicle [typeOf _obj,[0,0,0], [], 0, "CAN_COLLIDE"];
+				_new setVariable["class",Player_ItemClass,true];
+				_new setVariable["amount",1,true];
+				_new setPos (getPos _obj);
+				_new attachto [player_objintersect];
+				if(!isNil 'Player_ItemAmount') then {
+					Player_ItemAmount = Player_ItemAmount - 1;
+					[Player_ItemClass,-1] call A3PL_Inventory_Add;
+					if(Player_ItemAmount isEqualTo 0) then{[] call A3PL_Inventory_Clear;};
 				};
+				[_new] call A3PL_JobMcfisher_CookBurger;
 			};
-
 			if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11"]) exitwith
 			{
 				if ([Player_ObjIntersect,_obj] call A3PL_Placeable_CarBlacklist) exitwith {[localize"STR_NewPlaceables_6", "red"] call A3PL_Player_Notification;};
