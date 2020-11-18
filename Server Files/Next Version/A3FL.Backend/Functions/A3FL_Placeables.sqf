@@ -110,7 +110,7 @@
 
 			switch (typeOf _obj) do
 			{
-				case ("A3PL_Stinger"):
+				/*case ("A3PL_Stinger"):
 				{
 					_obj attachto [player,
 					[
@@ -118,7 +118,7 @@
 						(player worldToModel (getposATL _obj)) select 1,
 						((player worldToModelVisual _posAGL) select 2) + ([_obj,true] call A3PL_Placeable_GetZOffset)
 					]];
-				};
+				};*/
 				case default {_obj attachto [player,[(player worldToModelVisual _posAGL) select 0,(player worldToModelVisual _posAGL) select 1,((player worldToModelVisual _posAGL) select 2) + ([_obj,true] call A3PL_Placeable_GetZOffset)]];};
 			};
 
