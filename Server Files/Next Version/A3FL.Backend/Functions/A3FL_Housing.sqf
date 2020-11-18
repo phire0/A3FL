@@ -451,7 +451,7 @@
 
 	private _house = player getVariable ["house", objNull];
 	
-	// Cannot remove self
+	// Cannot remove self...
 	if ((getPlayerUID player) isEqualTo _removeID) exitWith {
 		["You cannot remove yourself from the house.", "red"] call A3PL_Player_Notification;
 	};
