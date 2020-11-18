@@ -61,7 +61,7 @@
 	if(Player_ActionInterrupted) exitWith {["The store robbery was cancelled!", "red"] call A3PL_Player_Notification;};
 
 	["Successful robbery!", "green"] call A3PL_Player_Notification;
-	[_storeType,_faction] call A3PL_Store_Robbery_Reward;
+	[_storeType,_store,_faction] call A3PL_Store_Robbery_Reward;
 
 	if (_storeType isEqualTo "Gas Station") then {
 		[getPlayerUID player,"gasStationRobberrySuccess",[]] remoteExec ["Server_Log_New",2];
@@ -84,33 +84,52 @@
 ["A3PL_Store_Robbery_Reward",
 {
 	private _storeType = param [0,"Gas Station"];
-	private _faction = param [1,"fisd"];
+	private _storeClerk = param [1,objNull];
+	private _faction = param [2,"fisd"];
 	private _leos = count([_faction] call A3PL_Lib_FactionPlayers);
 	
 	private _baseCashReward = if(_leos < 5) then {7500} else {15000};
 	private _cashRewardFinal = 0;
 	private _xpGain = if(_leos < 5) then {30} else {45};
 
+	private _stolenArray = [];
+	private _stolenString = "";
+
 	if (_storeType isEqualTo "Gas Station") then {
 		_cashRewardFinal = _baseCashReward + (round (random 10000)) * A3PL_Event_CrimePayout;
-		["repairwrench",1 + (round(random 10))] call A3PL_Inventory_Add;
-		["jerrycan",1 + (round(random 5))] call A3PL_Inventory_Add;
+		_stolenArray pushback ["repairwrench",1 + (round(random 10))];
+		_stolenArray pushback ["jerrycan",1 + (round(random 5))];
+		_stolenArray pushback ["cash",_cashRewardFinal];
 	};
 	if (_storeType isEqualTo "McFishers") then {
 		_cashRewardFinal = _baseCashReward + (round (random 5000)) * A3PL_Event_CrimePayout;
-		["burger_full_cooked",1 + (round(random 10))] call A3PL_Inventory_Add;
+		_stolenArray pushback ["burger_full_cooked",1 + (round(random 10))];
+		_stolenArray pushback ["cash",_cashRewardFinal];
 	};
 	if (_storeType isEqualTo "Taco Hell") then {
 		_cashRewardFinal = _baseCashReward + (round (random 7000)) * A3PL_Event_CrimePayout;
-		["taco_cooked",1 + (round(random 10))] call A3PL_Inventory_Add;
+		_stolenArray pushback ["taco_cooked",1 + (round(random 10))];
+		_stolenArray pushback ["cash",_cashRewardFinal];
 	};
 	if (_storeType isEqualTo "Robbable Store") then {
 		_cashRewardFinal = _baseCashReward + (round (random 15000)) * A3PL_Event_CrimePayout;
-		["repairwrench",1 + (round(random 10))] call A3PL_Inventory_Add;
+		_stolenArray pushback ["repairwrench",1 + (round(random 10))];
+		_stolenArray pushback ["cash",_cashRewardFinal];
 	};
 
-	[format ["You earned $%1",str(_cashRewardFinal)],"green"] call A3PL_Player_Notification;
-	player setVariable ["player_cash",((player getVariable ["player_cash",0]) + _cashRewardFinal),true];
+	{
+		private _class = _x select 0;
+		private _amnt = _x select 1;
+		[_class,_amnt] call A3PL_Inventory_Add;
+		if(_stolenString isEqualTo "") then {
+			_stolenString = format["%1x %2",_amnt,[_class,"name"] call A3PL_Config_GetItem];
+		} else {
+			_stolenString = _stolenString + format[", %1x %2",_amnt,[_class,"name"] call A3PL_Config_GetItem];
+		};
+	} foreach _stolenArray;
+
+	_storeClerk setVariable["stolenGoods",_stolenString,true];
+	[format ["You stole %1",_stolenString],"green"] call A3PL_Player_Notification;
 	[player, _xpGain] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
@@ -122,4 +141,11 @@
 	private _namePos = [getPos _store] call A3PL_Housing_PosAddress;
 	[format ["A store alarm at %1 has been triggered!",_namePos],"blue",_faction,1] call A3PL_Lib_JobMessage;
 	[_store,"Alarm Triggered!","ColorWhite","A3PL_Markers_FISD"] remoteExec ["A3PL_Lib_CreateMarker",_leos];
+}] call Server_Setup_Compile;
+
+["A3PL_Store_RobberyQuestion",
+{
+	private _store = param [0,objNull];
+	private _stolenGoods = _store getVariable["stolenGoods","Nothing"];
+	[format ["%1 have been stolen",_stolenGoods],"blue"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
