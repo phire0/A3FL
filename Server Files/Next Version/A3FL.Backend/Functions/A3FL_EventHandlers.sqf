@@ -373,7 +373,7 @@
 	{
 		private _weapon = param [1,""];
 		private _ammo = param [4,""];
-		if (_weapon IN ["A3FL_Shield","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
+		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
 		{
 			player playAction "GestureSwing";
 			if(((typeOf player_objintersect) isEqualTo "Land_A3FL_Fishers_Jewelry") && {player_nameintersect IN ["case_break_1","case_break_2","case_break_3","case_break_4","case_break_5","case_break_6","case_break_7","case_break_8","case_break_9"]}) exitWith {
@@ -577,10 +577,6 @@
 		if (_itemClass isEqualTo "A3FL_PoliceBaton") exitWith {
 			player removeMagazines "A3FL_PoliceBatonMag";
 			player addMagazine "A3FL_PoliceBatonMag";
-		};
-		if (_itemClass isEqualTo "A3FL_Shield") exitWith {
-			player removeMagazines "A3FL_ShieldMag";
-			player addMagazine "A3FL_ShieldMag";
 		};
 		if (_itemClass IN ["U_B_Protagonist_VR","U_I_Protagonist_VR","U_O_Protagonist_VR"]) exitWith {
 			if (!(["motorhead"] call A3PL_Lib_hasPerk)) then {
