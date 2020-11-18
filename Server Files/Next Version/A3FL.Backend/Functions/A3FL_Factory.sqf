@@ -68,7 +68,7 @@
 	while {!isNull _display} do {
 		if(!isNil "Player_CraftInterrupt") exitWith {
 			(_display displayCtrl 1105) progressSetPosition 0;
-			(_display displayCtrl 1104) ctrlSetStructuredText parseText format ["<t size='0.92'>%1</t>",_name];
+			(_display displayCtrl 1104) ctrlSetStructuredText "";
 		};
 		_secLeft = -(diag_ticktime) + _timeEnd;
 		(_display displayCtrl 1105) progressSetPosition (1-(_secLeft / _duration));
