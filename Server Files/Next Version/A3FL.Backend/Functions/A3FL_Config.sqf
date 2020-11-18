@@ -138,18 +138,18 @@
 		if((_x select 0) == _class) exitWith {
 			_return = true;
 		};
-	} forEach Config_Vehicles_Capacity;
+	} forEach Config_Vehicles_Data;
 	_return;
 }] call Server_Setup_Compile;
 
-["A3PL_Config_GetVehicleCapacity", {
+["A3PL_Config_GetVehicleCapacity", { 
 	private _class = param [0,""];
 	private _return = 0;
 	{
 		if((_x select 0) == _class) exitWith {
 			_return = _x select 1;
 		};
-	} forEach Config_Vehicles_Capacity;
+	} forEach Config_Vehicles_Data;
 	_return;
 }] call Server_Setup_Compile;
 
@@ -158,9 +158,9 @@
 	private _return = 0;
 	{
 		if ((_x select 0) == _class) exitWith {
-			_return = _x select 1;
+			_return = _x select 2;
 		};
-	} forEach Config_Vehicles_MSRP;
+	} forEach Config_Vehicles_Data;
 	_return;
 }] call Server_Setup_Compile;
 
