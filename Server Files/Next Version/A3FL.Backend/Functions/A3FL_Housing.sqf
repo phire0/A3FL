@@ -451,7 +451,7 @@
 
 	private _house = player getVariable ["house", objNull];
 	
-	// Cannot remove self...
+	// Cannot remove self
 	if ((getPlayerUID player) isEqualTo _removeID) exitWith {
 		["You cannot remove yourself from the house.", "red"] call A3PL_Player_Notification;
 	};
@@ -466,10 +466,10 @@
 
 	if (!(isNull _house)) then {
 		if (!(_isConnected select 1)) then {
-			// Member is offline...
+			// Member is offline
 			[player, _removeID] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
 		} else {
-			// Member is online...
+			// Member is online
 			["You removed a roommate!","green"] call A3PL_Player_Notification;
 			[(_isConnected select 0), _house] remoteExec ["Server_Housing_RemoveMember", 2];
 		};
