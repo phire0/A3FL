@@ -763,6 +763,7 @@ Config_Shops_Items = [
 			["headgear","A3PL_USCG_Boat_Helmet_Test",0,-1,0],
 			["headgear","A3PL_coast_guard_cgis",0,-1,0],
 			["headgear","A3PL_USCG_PublicAff_Cap",0,-1,0],
+			["headgear","A3PL_USCG_K9_Cap",0,-1,0],
 			["headgear","A3PL_CGAS_Hat",0,-1,0],
 			["headgear","A3PL_MSRT_Hat",0,-1,0],
 			["headgear","A3PL_JAG_Hat",0,-1,0],
