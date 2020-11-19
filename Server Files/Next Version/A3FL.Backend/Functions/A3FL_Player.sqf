@@ -938,8 +938,9 @@
 	ctrlMapAnimCommit _mapControl;
 }] call Server_Setup_Compile;
 
-["A3PL_Player_Tackle",{
-	private _target = param [0,objNull,[objNull]];
+["A3PL_Player_Tackle",
+{
+	private _target = param [0,objNull];
 	private _weapon = currentWeapon player;
 	if (_weapon IN ["","A3FL_Shield","A3FL_PoliceBaton","A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {};
 	if ((!isPlayer _target) || {isNull _target}) exitWith {};
@@ -951,7 +952,8 @@
 	A3PL_Tackle = nil;
 }] call Server_Setup_Compile;
 
-["A3PL_Player_Tackled",{
+["A3PL_Player_Tackled",
+{
 	A3PL_Tackled = true;
 	player playMoveNow "Incapacitated";
 	disableUserInput true;

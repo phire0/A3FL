@@ -866,7 +866,7 @@
 	params [
 		["_unit",player,[player]],
 		["_text","",[""]],
-		["_color","",[""]]
+		["_color","",[[]]]
 	];
 	private _log = _unit getVariable ["A3PL_MedicalLog",[]];
 	if ((count _log) >= LOGLIMIT) then {_log deleteAt 0;};
