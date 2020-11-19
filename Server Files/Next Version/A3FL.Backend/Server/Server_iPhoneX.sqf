@@ -54,7 +54,7 @@
 		["_newPhoneNumber", "", [""]]
 	];
 
-	if (isNull _unit || _newPhoneNumber isEqualTo "") exitWith {};
+	if (isNull _unitId || _newPhoneNumber isEqualTo "") exitWith {};
 
 	private _query = format ["UPDATE iphone_phone_numbers SET phone_number='%1' WHERE type_id='2' AND player_id='%2'", _newPhoneNumber, _unitId];
 	[_query, 1] call Server_Database_Async;
