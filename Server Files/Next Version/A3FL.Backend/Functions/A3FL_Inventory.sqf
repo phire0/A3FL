@@ -259,8 +259,7 @@
 	if (animationState player IN ["a3pl_handsuptokneel","a3pl_handsupkneelgetcuffed","a3pl_cuff","a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","a3pl_cuffkickdown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","a3pl_handsupkneel"]) exitWith {[localize"STR_NewInventory_7", "red"] call A3PL_Player_Notification;};
 	if (!(isNull Player_Item)) then {[false] call A3PL_Inventory_PutBack;};
 
-	
-	if(_amount < 1) exitWith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
+	if (_amount < 1) exitWith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 	if (!([_classname,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 
 	_maxTakeErr = false;
@@ -280,7 +279,7 @@
 		Player_Item attachTo [player, _attach, 'RightHand'];
 	};
 	
-	Player_Item setVariable["classname",_classname,true];
+	Player_Item setVariable["class",_classname,true];
 
 	if (((vehicle player) isEqualTo player) && (!(animationState player IN ["crew"]))) then {player playMove 'AmovPercMstpSnonWnonDnon_AmovPercMstpSrasWpstDnon';};
 
@@ -408,13 +407,22 @@
 		};
 	};
 
+	if ((_classname isEqualTo "evidence_bag") && {!((_obj getVariable["evidence",""]) isEqualTo "")}) exitWith {
+		_attach = [_classname, 'attach'] call A3PL_Config_GetItem;
+		Player_ItemAmount = 1;
+		Player_Item = _obj;
+		Player_Item attachTo [player, _attach, 'RightHand'];
+		Player_Item setDir 0;
+		Player_ItemClass = _classname;
+		[Player_Item,_attach] spawn A3PL_Placeable_AttachedLoop;
+	};
 	if ((_classname isEqualTo "apple") && {!simulationEnabled _obj}) exitwith {[_obj] spawn A3PL_Resources_Picking;};
 	if ((_classname isEqualTo "shrooms") && {!simulationEnabled _obj}) exitwith {[_obj] spawn A3PL_Shrooms_Pick;};
 
 	player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
 
-	if (player_objIntersect getVariable ["inUse",false]) exitWith {};
-	player_objIntersect setVariable ["inUse",true,true];
+	if (_obj getVariable ["inUse",false]) exitWith {};
+	_obj setVariable ["inUse",true,true];
 
 	switch (_classname) do {
 		case "doorkey": {[_obj, player] remoteExecCall ["Server_Housing_PickupKey", 2];};

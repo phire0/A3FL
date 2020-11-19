@@ -45,6 +45,10 @@ Config_IntersectArray =
 	["item_pickup","Remove Barrel Contents","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) isEqualTo "A3FL_PlasticBarrel")}],
 	["item_Pickup","Create Cocaine Brick","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) isEqualTo "A3PL_Scale")}],
 	["item_Pickup","Break Down Cocaine Brick","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{((typeOf player_objintersect) isEqualTo "A3PL_Scale")}],
+	
+	["bulletcasing","Put in bag",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player getVariable ["job","unemployed"]) isEqualTo "fisd"}],
+	["bulletcasing","Destroy Evidence",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+	["spine3","Analyze Evidence",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_evidence) && {(player getVariable ["job","unemployed"]) isEqualTo "fisd"}}],
 
 	//moonshine
 	["distillery_end",localize"STR_INTSECT_InstallHose",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((count (nearestObjects [player_objintersect, ["A3PL_Distillery_Hose"], 2])) > 0) && {((count ([player_objintersect] call A3PL_Lib_AttachedAll)) < 1)}}],
@@ -1349,7 +1353,7 @@ Config_IntersectArray =
 	["item_pickup",localize"STR_INTSECT_LoadKeroseneIntoTruck",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect getVariable ["class",""]) == "Kerosene"}],	//Load Petrol Into Tanker
 	["furniture",localize"STR_INTSECT_CHECKITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Check Item
 	["furniture",localize"STR_INTSECT_BUYITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!isNil {player_objintersect getVariable ["bitem",nil]})}], //Buy Item
-	["furniture",localize"STR_INTSECT_SELLITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect getVariable ["owner","0"]) == (getPlayerUID player)}], //Sell Item
+	["furniture",localize"STR_INTSECT_SELLITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(player_objintersect getVariable ["owner","0"]) == (getPlayerUID player)} && {!(player_objintersect getVariable["class",""] isEqualTo "evidence_bag")}], //Sell Item
 
 	//Items
 	["burger",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]})}], //Pickup Item
@@ -2353,7 +2357,8 @@ Config_GenArray =
 	localize"STR_INTSECT_OPCLINLET",
 	localize "STR_INTSECT_ACCCOMPGAR",
 	localize "STR_INTSECT_TRSPERSGAR",
-	localize "STR_INTSECT_TRSCOMPGAR"
+	localize "STR_INTSECT_TRSCOMPGAR",
+	"Analyze Evidence"
 ];
 publicVariable "Config_GenArray";
 

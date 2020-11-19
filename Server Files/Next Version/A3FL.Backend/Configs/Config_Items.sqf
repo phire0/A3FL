@@ -161,7 +161,7 @@ Config_Items =
 	["plastic_barrier_large",localize"STR_ConfigItems_plastic_barrier_large",3,"A3PL_PlasticBarrier_02",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["roadcones",localize"STR_ConfigItems_roadcones",10,"A3PL_RoadCone_x10",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["roadcone",localize"STR_ConfigItems_roadcone",1,"A3PL_RoadCone",0,true,true,true,false,true,"",[0,0,0],"",1],
-	["stinger",localize"STR_ConfigItems_stinger",3,"A3PL_Stinger",0,true,true,true,true,true,"",[2,0.5,0],"",1],
+	["stinger",localize"STR_ConfigItems_stinger",3,"A3FL_Stinger",0,true,true,true,true,true,"",[2,0.5,0],"",1],
 
 	//Useable Items
 	["med_stretcher",localize"STR_ConfigItems_med_stretcher",100,"A3FL_Stretcher",0.005,true,true,true,false,false,"",[0,0,0],"",1],	

@@ -379,6 +379,7 @@
 
 ["A3PL_EventHandlers_Fired",
 {
+	player removeEventhandler["Fired",0];
 	player addEventHandler ["Fired",
 	{
 		private _weapon = param [1,""];
@@ -398,7 +399,10 @@
 		};
 		if (_weapon isEqualTo "A3PL_Jaws") then {call A3PL_FD_HandleJaws;};
 		if (_ammo isEqualTo "A3FL_Mossberg_590K_Breach") then {call A3PL_Police_HandleBreach;};
-		if (_weapon IN _powderGun) then {[] spawn A3PL_Police_SetPowder;};
+		if (_weapon IN _powderGun) then {
+			[] spawn A3PL_Police_SetPowder;
+			call A3PL_Police_DropCasing;
+		};
 	}];
 }] call Server_Setup_Compile;
 

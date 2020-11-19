@@ -1970,7 +1970,59 @@
 
 ["A3PL_Police_CheckPowder", {
 	private _target = param[0,objNull];
-	private _hasPowder = _taget getVariable["hasPowder",false];
+	private _hasPowder = _target getVariable["hasPowder",false];
+	private _reference = [getPlayerUID _target] call A3PL_Police_GetGunRef;
 	private _text = if(_hasPowder) then {"The kit revealed presence of gun powder"} else {"The kit revealed no presence of gun powder"};
+	[_text,"blue"] call A3PL_Player_Notification;
+	[format["Gun powder reference: %1",_reference],"blue"] call A3PL_Player_Notification;
+	[player_item] call A3PL_Inventory_Clear;
+	[player,"powdertestkit",-1] remoteExec ["Server_Inventory_Add",2];
+}] call Server_Setup_Compile;
+
+["A3PL_Police_DropCasing", {
+	private _chance = random 100;
+	if(_chance > 10) exitWith {};
+	private _nearCasings = count(player nearEntities ["A3FL_Bullet_Casings", 10]);
+	if(_nearCasings >= 4) exitWith {};
+	private _weapon = currentWeapon player;
+	private _weaponName = getText (configFile >> "CfgWeapons" >> _weapon >> "displayName");
+	private _reference = [getPlayerUID player] call A3PL_Police_GetGunRef;
+	private _data = format["%1|%2",_weaponName,_reference];
+	private _casing = "A3FL_Bullet_Casings" createVehicle [0,0,0];
+	_casing setVariable["class","bulletcasing",true];
+	_casing setVariable["evidence_data",_data,true];
+	_casing setPosATL(getPosATL player);
+}] call Server_Setup_Compile;
+
+["A3PL_Police_BagEvidence", {
+	private _evidence = param[0,objNull];
+	if (isNull _evidence) exitWith {};
+	if !(["evidence_bag",1] call A3PL_Inventory_Has) exitWith {["You do not have any evidence bag on you","red"] call A3PL_Player_Notification;};
+	["evidence_bag"] call A3PL_Inventory_Use;
+	private _data = _evidence getVariable["evidence_data","no evidence found"];
+	Player_Item setVariable["evidence",_data,true];
+	deleteVehicle _evidence;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_GetGunRef", {
+	private _fullID = (param[0,""]) splitString "";
+	private _ref = "";
+	for "_i" from 8 to 12 do {
+		_ref = format["%1%2",_ref,(_fullID select _i)];
+	};
+	_ref;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_Analyze", {
+	private _bag = Player_Item;
+	private _type = Player_Item getVariable["evidence_type",0];
+	private _data = _bag getVariable["evidence","no evidence found"];
+	private _split = _data splitString "|";
+	private _text = switch(_type) do {
+		case 0: {
+			format["Weapon used: %1<br/>Powder reference: %2",_split select 0,_split select 1];
+		};
+		default {""};
+	};
 	[_text,"blue"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

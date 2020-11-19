@@ -751,4 +751,9 @@
 	"",
 	localize"STR_QuickActionsNPC_AccessVetementsLunettes",
 	{["Goggle Factory"] call A3PL_Factory_Open;}
+],
+[
+	"",
+	"Analyze Evidence",
+	{call A3PL_Police_Analyze;}
 ]

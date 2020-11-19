@@ -356,12 +356,11 @@
 	};
 	_phoneNumber = _phoneNumber joinString "";
 
-	[(getPlayerUID player), _phoneNumber] remoteExec ["Server_iPhoneX_RenewSecondary", 2];
+	[player, _phoneNumber] remoteExec ["Server_iPhoneX_RenewSecondary", 2];
 	sleep 3;
 	[player] remoteExec ["Server_iPhoneX_getPhoneNumber", 2];
 
 	[format ["Your new secondary phone number is %1.", _phoneNumber], "green"] call A3PL_Player_Notification;
-	["You might need to relog for your new number to be displayed everywhere properly.", "yellow"] call A3PL_Player_Notification;
 	player setVariable ["Player_Bank", (_bank - _price), true];
 	[player, _xp] call A3PL_Level_AddXP;
 	closeDialog 0;

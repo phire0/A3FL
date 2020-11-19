@@ -62,6 +62,17 @@
 	{[player_objintersect] call A3PL_Cocaine_BreakDownBrick;}
 ],
 [
+	"A3FL_Bullet_Casings",
+	"Destroy Evidence",
+	{deleteVehicle player_objintersect;}
+],
+[
+	"A3FL_Bullet_Casings",
+	"Put in bag",
+	{[player_objintersect] call A3PL_Police_BagEvidence;}
+],
+
+[
 	"",
 	localize"STR_INTSECT_FillBottle",
 	{call A3PL_Items_FillBottle;}
