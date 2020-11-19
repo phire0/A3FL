@@ -455,6 +455,10 @@ Config_Factories =
 		["f_SmithCo_Polo_Pink_Uniform","","inh","inh","A3PL_SmithCo_Polo_Pink_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_SmithCo_Polo_Pink_Supervisor_Uniform","","inh","inh","A3PL_SmithCo_Polo_Pink_Supervisor_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Polo_Security_Uniform","","inh","inh","A3PL_SmithCo_Polo_Security_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Paramount_COO_Uniform","","inh","inh","A3PL_Paramount_COO_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Paramount_CEO_Uniform","","inh","inh","A3PL_Paramount_CEO_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_BL_Polo_Uniform","","inh","inh","A3PL_BL_Polo_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Deadwood_Fatigues_Uniform","","inh","inh","A3PL_Deadwood_Fatigues_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""],
 		["f_Halstead_Uniform","","inh","inh","A3PL_Halstead_Uniform","uniform",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
@@ -479,7 +483,9 @@ Config_Factories =
 		["f_SmithCo_Safety_Vest","","inh","inh","A3PL_SmithCo_Safety_Vest","vest",true,5,[["Polyester",1]],1,1,0,""],
 		["f_SmithCo_Safety_Vest_Supervisor","","inh","inh","A3PL_SmithCo_Safety_Vest_Supervisor","vest",true,5,[["Polyester",1]],1,1,0,""],
 		["f_SmithCo_Safety_Vest_Security","","inh","inh","A3PL_SmithCo_Safety_Vest_Security","vest",true,5,[["Polyester",1]],1,1,0,""],
-		["f_SmithCo_Safety_Vest_Towing","","inh","inh","A3PL_SmithCo_Safety_Vest_Towing","vest",true,5,[["Polyester",1]],1,1,0,""]
+		["f_SmithCo_Safety_Vest_Towing","","inh","inh","A3PL_SmithCo_Safety_Vest_Towing","vest",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Deadwood_Member_Vest","","inh","inh","A3PL_Deadwood_Member_Vest","vest",true,5,[["Polyester",1]],1,1,0,""],
+		["f_Deadwood_Prospect_Vest","","inh","inh","A3PL_Deadwood_Prospect_Vest","vest",true,5,[["Polyester",1]],1,1,0,""]
 	],
 
 	["Headgear Factory",[3345.15,7503.76,1.1],
