@@ -720,7 +720,7 @@
 	private _hasWound = false;
 	private _pWounds = _player getVariable ["A3PL_Wounds",[]];
 	private _wound = "";
-	if ((_woundsCheck isEqualType "") then {_woundsCheck = [_woundsCheck];};
+	if ((_woundsCheck isEqualType "")) then {_woundsCheck = [_woundsCheck];};
 	{
 		_wound = _x;
 		{
@@ -1103,7 +1103,7 @@
 	player setVariable ["A3PL_Medical_Alive",true,true];
 	player setVariable ["TimeRemaining",nil,true];
 	player setVariable ["tf_voiceVolume", 1, true];
-	[player,"PlayerProne"] remoteExec ["A3PL_Lib_SyncAnim",-2];
+	player playActionNow "PlayerProne";
 	if((backpack player) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Player_DeadRadio] call TFAR_fnc_setLrSettings;};
 	disableUserInput false;
 }] call Server_Setup_Compile;
@@ -1124,6 +1124,7 @@
 ["A3PL_Medical_Killed",
 {
 	params [["_unit",objNull,[objNull]]];
+	_unit setVariable ["tf_voiceVolume", 0, true];
 	if !((vehicle _unit) isEqualTo _unit) then {
 		UnAssignVehicle _unit;
 		_unit action ["getOut", vehicle _unit];

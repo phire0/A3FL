@@ -6,6 +6,8 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
+#define WEAPONBLACKLIST ["","A3FL_Shield","A3FL_PoliceBaton","A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]
+
 ["A3PL_Store_Robbery_RobStore",
 {
 	private _store = param [0,objNull];
@@ -39,7 +41,7 @@
 
 	if (_weapon isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
 
-	if (_weapon IN ["A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["This weapon cannot be used to rob a store!","red"] call A3PL_Player_Notification;};
+	if (_weapon IN WEAPONBLACKLIST) exitwith {["This weapon cannot be used to rob a store!","red"] call A3PL_Player_Notification;};
 
 	if((count(_leos)) < 2) exitWith {[format ["There needs to be a minimum of 2 %1 online to rob this store!",_faction],"red"] call A3PL_Player_Notification;};
 

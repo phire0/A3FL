@@ -528,8 +528,9 @@ Config_Items =
 	["necklace",localize"STR_ConfigItems_neckless",0.5,"A3FL_Jewelry_Necklace",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["golden_dildo",localize"STR_ConfigItems_golden_dildo",5,"A3FL_Jewelry_GoldenDildo",0,true,true,true,true,true,"",[0,0,0],"",1],
 
+	["bulletcasing",localize"STR_ConfigItems_bulletcasing",5,"A3FL_Bullet_Casings",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["evidence_marker",localize"STR_ConfigItems_evidence_marker",5,"A3FL_Evidence",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["evidence_bag",localize"STR_ConfigItems_evidence_bag",5,"A3FL_Jewelry_GoldenDildo",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["evidence_bag",localize"STR_ConfigItems_evidence_bag",5,"A3FL_Evidence_Bag",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["powdertestkit",localize"STR_ConfigItems_powdertestkit",5,"A3FL_DrugTest",0,true,true,true,true,true,"",[0,0,0],"",1]
 ];
 publicVariable "Config_Items";

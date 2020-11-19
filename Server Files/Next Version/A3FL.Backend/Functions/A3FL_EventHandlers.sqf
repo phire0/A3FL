@@ -89,7 +89,7 @@
 					} else {
 						_bargate animate [_anim,0];
 					};
-				};	
+				};
 			};
 		}, "", [DIK_N, [false, false, false]]] call CBA_fnc_addKeybind;
 
@@ -194,6 +194,16 @@
 			if((speed player) > 0) exitWith {};
 			if((vehicle player) isEqualTo player) then {[player,true] call A3PL_Police_Surrender;};
 		}, "", [DIK_B, [true, false, false]]] call CBA_fnc_addKeybind;
+
+		["ArmA 3 Fishers Life","tackle", "Tackle",
+		{
+			if ((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false]) || (player getVariable["dragging",false])) exitWith {};
+			if (!isNull cursorObject && {cursorObject isKindOf "CAManBase"} && {isPlayer cursorObject} && {(cursorObject distance player) < 2} && {(speed cursorObject) < 1}) then {
+				if (((animationState cursorObject) != "Incapacitated") && {currentWeapon player != ""} && {isNil "A3PL_Tackle"} && {isNil "A3PL_Tackled"}) then {
+					[cursorObject] spawn A3PL_Player_Tackle;
+				};
+			};
+		}, "", [DIK_G, [true, false, false]]] call CBA_fnc_addKeybind;
 
 		["ArmA 3 Fishers Life","medical_menu", "Medical Menu",
 		{
@@ -373,6 +383,7 @@
 	{
 		private _weapon = param [1,""];
 		private _ammo = param [4,""];
+		private _powderGun = ["hgun_P07_F","hgun_P07_khk_F","hgun_P07_blk_F","hgun_Pistol_heavy_01_F","hgun_ACPC2_F","hgun_Pistol_01_F","hgun_Rook40_F","hgun_Pistol_heavy_02_F","A3FL_Glock17","A3FL_Glock18","A3PL_P226","A3FL_P227","A3FL_Beretta92","A3FL_DesertEagle","SMG_01_F","SMG_02_F","SMG_05_F","A3FL_Mossberg_590k","arifle_AKM_F","A3PL_M16","A3FL_M4"];
 		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
 		{
 			player playAction "GestureSwing";
@@ -387,6 +398,7 @@
 		};
 		if (_weapon isEqualTo "A3PL_Jaws") then {call A3PL_FD_HandleJaws;};
 		if (_ammo isEqualTo "A3FL_Mossberg_590K_Breach") then {call A3PL_Police_HandleBreach;};
+		if (_weapon IN _powderGun) then {[] spawn A3PL_Police_SetPowder;};
 	}];
 }] call Server_Setup_Compile;
 
@@ -396,6 +408,10 @@
 
 	if(isNil "A3PL_Manual_KeyDown") then {A3PL_Manual_KeyDown = false};
 
+	private _CommandMode = actionKeys "tacticalView";
+    if (_dikCode in _CommandMode) exitWith {
+        true;
+    };
 	if (_dikCode isEqualTo 59) exitWith {
 		if (pVar_AdminMenuGranted) exitWith {
 			call A3PL_AdminOpen;

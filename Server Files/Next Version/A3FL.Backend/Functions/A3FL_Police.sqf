@@ -1961,3 +1961,16 @@
 	A3PL_EvidenceMarker = nil;
 	closeDialog 0;
 }] call Server_Setup_Compile;
+
+["A3PL_Police_SetPowder", {
+	player setVariable["hasPowder",true,true];
+	sleep 600;
+	player setVariable["hasPowder",nil,true];
+}] call Server_Setup_Compile;
+
+["A3PL_Police_CheckPowder", {
+	private _target = param[0,objNull];
+	private _hasPowder = _taget getVariable["hasPowder",false];
+	private _text = if(_hasPowder) then {"The kit revealed presence of gun powder"} else {"The kit revealed no presence of gun powder"};
+	[_text,"blue"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;

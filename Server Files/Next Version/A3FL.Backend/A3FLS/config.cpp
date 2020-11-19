@@ -72,6 +72,7 @@ class CfgRemoteExec
 		class A3PL_Admin_UserInputCheck{allowedTargets=0;};
 
 		//Player
+		class A3PL_Player_Tackled{allowedTargets=0;};
 		class A3PL_Player_SpawnMenu{allowedTargets=0;};
 		class A3PL_Player_News{allowedTargets=0;};
 		class A3PL_Player_Notification {allowedTargets = 0;};

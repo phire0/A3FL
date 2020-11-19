@@ -1860,6 +1860,9 @@
    <Key ID="STR_ConfigItems_golden_dildo">
       <Original>Golden Dildo</Original>
    </Key>
+   <Key ID="STR_ConfigItems_bulletcasing">
+      <Original>Bullet Casing</Original>
+   </Key>
    <Key ID="STR_ConfigItems_evidence_marker">
       <Original>Evidence Marker</Original>
    </Key>
@@ -3758,6 +3761,9 @@
     </Key>
     <Key ID="STR_INTER_CHECKDRUGS">
         <Original>Perform Drug Test</Original>
+    </Key>
+    <Key ID="STR_INTER_CHECKPOWDER">
+        <Original>Perform Gun Powder Test</Original>
     </Key>
     <Key ID="STR_INTER_ACCESSSEIZURE">
         <Original>Access Seizure</Original>

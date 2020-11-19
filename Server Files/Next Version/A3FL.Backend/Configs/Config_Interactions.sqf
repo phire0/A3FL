@@ -1070,6 +1070,11 @@ A3PL_Interaction_Options =
 		{(player_ItemClass isEqualTo "drug_kit") && {isPlayer cursorObject}}
 	],
 	[
+		localize "STR_INTER_CHECKPOWDER",
+		{[cursorObject] call A3PL_Police_CheckPowder;},
+		{(player_ItemClass isEqualTo "powdertestkit") && {isPlayer cursorObject}}
+	],
+	[
 		localize"STR_INTER_LCPSEIZURE",
 		{[cursorObject] spawn A3PL_Robberies_PickSeizure;},
 		{(player_ItemClass isEqualTo "v_lockpick") && (cursorObject isEqualTo A3FL_Seize_Storage)}

@@ -937,3 +937,33 @@
 	_mapControl ctrlMapAnimAdd [1, 0.03, _spawnPos];
 	ctrlMapAnimCommit _mapControl;
 }] call Server_Setup_Compile;
+
+["A3PL_Player_Tackle",{
+	private _target = param [0,objNull,[objNull]];
+	private _weapon = currentWeapon player;
+	if (_weapon IN ["","A3FL_Shield","A3FL_PoliceBaton","A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {};
+	if ((!isPlayer _target) || {isNull _target}) exitWith {};
+	A3PL_Tackle = true;
+	[player,"AwopPercMstpSgthWrflDnon_End2"] remoteExec ["A3PL_Lib_SyncAnim",0];
+	sleep 0.08;
+	[] remoteExec ["A3PL_Player_Tackled",_target];
+	sleep 3;
+	A3PL_Tackle = nil;
+}] call Server_Setup_Compile;
+
+["A3PL_Player_Tackled",{
+	A3PL_Tackled = true;
+	player playMoveNow "Incapacitated";
+	disableUserInput true;
+	private _obj = "Land_ClutterCutter_small_F" createVehicle ASLTOATL(visiblePositionASL player);
+	_obj setPosATL ASLToATL(visiblePositionASL player);
+	player attachTo [_obj,[0,0,0]];
+	if (!([player,"head","concussion"] call A3PL_Medical_HasWound)) then {[player,"head","concussion"] call A3PL_Medical_ApplyWound;};
+	sleep 15;
+	[player,""] remoteExec ["A3PL_Lib_SyncAnim",0];
+	player playActionNow "PlayerProne";
+	disableUserInput false;
+	detach player;
+	deleteVehicle _obj;
+	A3PL_Tackled = nil;
+}] call Server_Setup_Compile;
