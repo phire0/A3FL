@@ -328,7 +328,7 @@
 	private _storage = param [1,ObjNull];
 	private _toCompany = param [2,0];
 	private _uid = getPlayerUID _player;
-	private _near = nearestObjects [_player,["Car","Ship","Air","Tank"],25];
+	private _near = _player nearEntities [["Car","Ship","Air","Tank"],25];
 	if ((count _near) isEqualTo 0) exitwith {[7] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
 
 	{
@@ -400,7 +400,7 @@
 	private _toCompany = param [2,0];	
 	private _uid = getPlayerUID _player;
 	if (_storage animationPhase "StorageDoor1" > 0.1) exitwith {[1] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
-	private _near = nearestObjects [_storage,["Car","Ship","Air"],9];
+	private _near = _storage nearEntities [["Car","Ship","Air"],9];
 	private _playerCar = nil;
 	if ((count _near) isEqualTo 0) exitwith {[7] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
 

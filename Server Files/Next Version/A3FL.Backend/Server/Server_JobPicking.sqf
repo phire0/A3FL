@@ -32,7 +32,7 @@
 			};
 		};
 
-		private _objects = nearestObjects [_pos, [_class], _radius];
+		private _objects = _pos nearEntities [[_class],_radius];
 		private _countObjects = count _objects;
 		if (_players < 1 && _countObjects > 0) then {
 			{

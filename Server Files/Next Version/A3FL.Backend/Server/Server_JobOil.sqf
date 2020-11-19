@@ -27,10 +27,10 @@
 		private _oilAmount = [_oilLocation] call A3PL_JobWildcat_CheckAmountOil;
 		if (_oilAmount <= 0) exitwith {[1] remoteExec ["A3PL_JobOil_PumpReceive", (_player)];};
 
-		private _barrelCount = (count(nearestObjects[_pump, ["A3PL_OilBarrel"],20]));
+		private _barrelCount = count (_pump nearEntities [["A3PL_OilBarrel"],20]);
 
-		private _pumpjacks = nearestObjects [_pump, ["A3PL_PumpJack"], 2];
-		private _holes = nearestObjects [_pump, ["A3PL_DrillHole"], 3];
+		private _pumpjacks = _pump nearEntities [["A3PL_PumpJack"],2];
+		private _holes = _pump nearEntities [["A3PL_DrillHole"],3];
 		if (count _holes < 1) exitwith {[2] remoteExec ["A3PL_JobOil_PumpReceive", _player];};
 		private _hole = _holes select 0;
 		if (count _pumpjacks > 1) exitwith {[3] remoteExec ["A3PL_JobOil_PumpReceive", _player];};
