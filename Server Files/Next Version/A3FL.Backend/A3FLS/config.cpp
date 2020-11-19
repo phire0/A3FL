@@ -425,6 +425,7 @@ class CfgRemoteExec
 		class A3PL_iPhoneX_DeleteSMS{allowedTargets=2;};
 		class Server_iPhoneX_DeleteContact{allowedTargets=2;};
 		class Server_iPhoneX_AddPhoneNumber{allowedTargets=2;};
+		class Server_iPhoneX_RenewSecondary{allowedTargets=2;};
 		class Server_iPhoneX_NumberIsUsed{allowedTargets=2;};
 		class Server_iPhoneX_GetContacts{allowedTargets=2;};
 		class Server_iPhoneX_GetConversations{allowedTargets=2;};

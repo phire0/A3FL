@@ -47,6 +47,19 @@
 	[_query,1] call Server_Database_Async;
 },true] call Server_Setup_Compile;
 
+["Server_iPhoneX_RenewSecondary",
+{
+	params[
+		["_unitId", objNull, [objNull]],
+		["_newPhoneNumber", "", [""]]
+	];
+
+	if (isNull _unit || _newPhoneNumber isEqualTo "") exitWith {};
+
+	private _query = format ["UPDATE iphone_phone_numbers SET phone_number='%1' WHERE type_id='2' AND player_id='%2'", _newPhoneNumber, _unitId];
+	[_query, 1] call Server_Database_Async;
+}, true] call Server_Setup_Compile;
+
 ['Server_iPhoneX_CallSwitchboard',
 {
 	private _unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;

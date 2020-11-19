@@ -96,7 +96,7 @@ Config_NPC_Text =
 	["dmv_motorcycletestfail","Unfortunatly you have failed your motorcycle test, you can retake the test at any time for $10.000",["I'm ready for a second chance","I'll come back later"],["['dmv_motorcycletest1'] call A3PL_NPC_Start;",""]],
 
 	["verizon_initial",localize"STR_NPC_HELLOHOWICANHELPYOU",[localize"STR_NPC_CHOOSESUB"],["['verizon_howto'] call A3PL_NPC_Start;"]],
-	["verizon_howto",localize"STR_NPC_VERIZONCHOOSESUBSCRIPTION",[localize"STR_NPC_SECONDARYPHONE"],["['2'] spawn A3PL_iPhoneX_AddPhoneNumber;"]],
+	["verizon_howto",localize"STR_NPC_VERIZONCHOOSESUBSCRIPTION",[localize"STR_NPC_SECONDARYPHONE",localize"STR_NPC_REBSECONDARYPHONE"],["['2'] spawn A3PL_iPhoneX_AddPhoneNumber;","[] spawn A3PL_iPhoneX_Rebuy_Secondary;"]],
 
 	["police_initial", localize"STR_NPC_POLICEINIT",[localize"STR_NPC_POLICEINIT1",localize"STR_NPC_NVM"],["if (player getVariable 'job' isEqualTo 'fisd') exitwith {['police_already'] call A3PL_NPC_Start;}; if (player getVariable 'faction' isEqualTo 'fisd') then {['fisd'] call A3PL_NPC_TakeJob;} else {['police_workdenied'] call A3PL_NPC_Start;};",""]],
 	["police_workdenied", localize"STR_NPC_POLICEDENIED",[localize"STR_NPC_SORRYILEAVE"],[""]],

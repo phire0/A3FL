@@ -337,9 +337,6 @@
 
 ["A3PL_iPhoneX_Rebuy_Secondary",
 {
-
-	// not currently working...
-
 	private _price = 150000;
 	private _xp = 50;
 
@@ -350,7 +347,7 @@
 	private _bank = (player getVariable ["Player_Bank", 0]);
 	
 	if (_bank < _price) exitWith {
-		["You do not have enough money to rebuy your secondary phone number.", "red"] call A3PL_Player_Notification;
+		["You do not have enough money to rebuy a secondary phone number.", "red"] call A3PL_Player_Notification;
 	};
 
 	private _phoneNumber = [6,3];
@@ -359,7 +356,7 @@
 	};
 	_phoneNumber = _phoneNumber joinString "";
 
-	[(getPlayerUID player), _phoneNumber, "2"] remoteExec ["Server_iPhoneX_addPhoneNumber", 2];
+	[(getPlayerUID player), _phoneNumber] remoteExec ["Server_iPhoneX_RenewSecondary", 2];
 	sleep 3;
 	[player] remoteExec ["Server_iPhoneX_getPhoneNumber", 2];
 
