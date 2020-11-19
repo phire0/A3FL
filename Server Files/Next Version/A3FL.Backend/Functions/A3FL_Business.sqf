@@ -105,7 +105,7 @@
 
 	_owner = _obj getVariable ["owner",nil];
 	if (isNil "_owner") exitwith {["System: This item isn't owned by anyone (missing owner setVar)","red"] call A3PL_Player_Notification; };
-	if (typeName _owner == "ARRAY") then
+	if (_owner isEqualType []) then
 	{
 		_owner = _owner select 0;
 	};
@@ -187,7 +187,7 @@
 	disableSerialization;
 	private ["_obj","_price","_display","_sControl","_name","_bFound","_bdist","_type","_bchecked"];
 	_obj = param [0,objNull];
-	if (typeName _obj == "STRING") then //edited bypass used in ATC so we can send object from setButtonAction
+	if (_obj isEqualType "") then //edited bypass used in ATC so we can send object from setButtonAction
 	{
 		{
 			_check = format ["%1",_x];
@@ -197,7 +197,7 @@
 			};
 		} foreach (nearestObjects [player, [], 20]);
 	};
-	if (typeName _obj == "STRING") exitwith {["System: Error occured in Business_SellItem, could not retrieve object", "red"] call A3PL_Player_Notification;};
+	if (_obj isEqualType "") exitwith {["System: Error occured in Business_SellItem, could not retrieve object", "red"] call A3PL_Player_Notification;};
 
 	_display = findDisplay 58;
 	_control = _display displayCtrl 1400;
@@ -243,7 +243,7 @@
 	disableSerialization;
 	private ["_obj","_bItem"];
 	_obj = param [0,objNull];
-	if (typeName _obj == "STRING") then //edited bypass used in ATC so we can send object from setButtonAction
+	if (_obj isEqualType "") then //edited bypass used in ATC so we can send object from setButtonAction
 	{
 		{
 			_check = format ["%1",_x];
@@ -253,7 +253,7 @@
 			};
 		} foreach (nearestObjects [player, [], 20]);
 	};
-	if (typeName _obj == "STRING") exitwith {["System: Error occured in Business_SellItem, could not retrieve object", "red"] call A3PL_Player_Notification;};
+	if (_obj isEqualType "") exitwith {["System: Error occured in Business_SellItem, could not retrieve object", "red"] call A3PL_Player_Notification;};
 	_bItem = _obj getVariable ["bitem",nil];
 	if (isNil "_bItem") exitwith {[localize"STR_BUSINESS_ITEMNOTSELL", "red"] call A3PL_Player_Notification;};
 	if ((getPlayerUID player) != (_bItem select 3)) exitwith {[localize"STR_BUSINESS_YOUARENOTTHEPERSONSELLTHISITEM", "red"] call A3PL_Player_Notification;};
@@ -307,7 +307,7 @@
 	private ["_display","_control","_obj","_bItem","_hasMoney","_businessItem","_correctLoc","_factionItem","_finv"];
 	_obj = [(param [0,""])] call A3PL_Lib_vehStringToObj;
 	_factionBuy = param [1,false];
-	if (typeName _obj == "STRING") exitwith {["System: Unable to determine object in _BuyItemBuy (report this)","red"] call A3PL_Player_Notification;};
+	if (_obj isEqualType "") exitwith {["System: Unable to determine object in _BuyItemBuy (report this)","red"] call A3PL_Player_Notification;};
 	_bItem = _obj getVariable ["bitem",nil];
 	if (isNil "_bItem") exitwith {["System: This item isn't being sold (missing setVar)", "red"] call A3PL_Player_Notification;};
 	_price = _bItem select 0;

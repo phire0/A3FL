@@ -180,7 +180,7 @@
             case "door13_button": {_anim = ["door_13","door_14"]};
             case "door13_button2": {_anim = ["door_13","door_14"]};
 		};
-		if (typeName _anim == "ARRAY") exitwith {
+		if (_anim isEqualType []) exitwith {
 			{
 				if (_inter animationPhase _x < 0.1) then {
 					_inter animate [_x,1];
@@ -216,7 +216,7 @@
 			case "door11_button": {_anim = "door11"};
 			case "door11_button2": {_anim = "door11"};
 		};
-		if (typeName _anim == "ARRAY") exitwith {
+		if (_anim isEqualType []) exitwith {
 			{
 				if (_inter animationPhase _x < 0.1) then {
 					_inter animate [_x,1];

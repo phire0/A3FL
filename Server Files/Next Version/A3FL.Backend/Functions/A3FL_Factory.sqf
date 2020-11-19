@@ -314,7 +314,7 @@
 	private _type = param [0,""];
 	private _player = param[1,player];
 	private _storage = [_type,"items",_player] call A3PL_Config_GetPlayerFStorage;
-	if ((typeName _storage) isEqualTo "BOOL") exitwith {_storage = []; _storage;};
+	if (_storage isEqualType true) exitwith {_storage = []; _storage;};
 	private _fact = _player getVariable ["player_factories",[]];
 	private _subtract = [];
 
@@ -351,7 +351,7 @@
 	private _control = _display displayCtrl 1502;
 	private _storage = [_type] call A3PL_Factory_GetStorage;
 	private _inventory = player getVariable ["player_inventory",[]];
-	if ((typeName _storage) isEqualTo "BOOL") then {_storage = []};
+	if (_storage isEqualType true) then {_storage = []};
 
 	_lbArray = [];
 	{

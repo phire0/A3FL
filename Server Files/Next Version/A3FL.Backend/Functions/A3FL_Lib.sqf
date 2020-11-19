@@ -117,8 +117,8 @@
 {
 	private _veh = param [0,objNull,[objNull,""]];
 	private _player = param [1,objNull,[objNull,""]];
-	if (typeName _veh isEqualTo "STRING") then {_veh = objectFromNetId _veh;};
-	if (typeName _player isEqualTo "STRING") then { _player = objectFromNetId _player; };
+	if (_veh isEqualType "") then {_veh = objectFromNetId _veh;};
+	if (_player isEqualType "") then { _player = objectFromNetId _player; };
 	_veh setOwner (owner _player);
 }] call Server_Setup_Compile;
 

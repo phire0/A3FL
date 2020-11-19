@@ -28,7 +28,7 @@
 	};
 	// [shrooms,cocaine,weed]
 	Player_Drugs = profileNamespace getVariable ["player_drugs",[0,0,0]];
-	if (!(typeName Player_Drugs == "ARRAY")) then {
+	if (!(Player_Drugs isEqualType [])) then {
 		Player_Drugs = [0,0,0];
 		Player_Drugs = profileNamespace setVariable ["player_drugs",[0,0,0]];
 	};

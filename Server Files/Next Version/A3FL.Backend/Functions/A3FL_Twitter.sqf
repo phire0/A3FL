@@ -194,7 +194,7 @@
 	if (isDedicated) exitWith {};
 	if (isNil "A3PL_TwitterMsg_Array") exitWith {};
 	if (!(profilenamespace getVariable ["A3PL_Twitter_Enabled",true])) exitwith {};
-	if (!(typeName _this == typeName [])) exitWith {};
+	if (!(_this isEqualType [])) exitWith {};
 
 
 	_msg = param [0,""];
@@ -209,7 +209,7 @@
 
 
 	_cancelaction = true;
-	if (typename _messageto == "ARRAY") then {
+	if (_messageto isEqualType []) then {
 		if (_messageto select 0 == "admin") then {
 			if(pVar_AdminTwitter) then {_cancelaction = false;};
 			A3PL_Twitter_ReplyArr = (missionNameSpace getVariable ["A3PL_Twitter_ReplyArr",[]]) + [(_messageto select 1)];
@@ -224,7 +224,7 @@
 		};
 	};
 
-	if (typename _messageto == "STRING") then {
+	if (_messageto isEqualType "") then {
 		if (_messageto == "") then {_cancelaction = false;};
 	};
 

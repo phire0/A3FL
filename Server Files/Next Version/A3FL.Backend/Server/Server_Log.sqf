@@ -18,7 +18,7 @@
 	//[getPlayerUID _player,"ACTION",["Data","Array"]] call Server_Log_New;
 	_dataString = "";
 	
-	if ((typeName _data) == "ARRAY") then {
+	if (_data isEqualType []) then {
 		{
 			if(_dataString == "") then {
 				_dataString = _x;

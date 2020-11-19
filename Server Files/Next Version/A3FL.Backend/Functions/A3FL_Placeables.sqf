@@ -17,7 +17,7 @@
 		_owner = _obj getVariable ["owner",nil];
 		if (!isNil "_owner") then
 		{
-			if (typeName _owner == "ARRAY") then
+			if (_owner isEqualType []) then
 			{
 				if (getPlayerUID player == (_owner select 0)) then
 				{

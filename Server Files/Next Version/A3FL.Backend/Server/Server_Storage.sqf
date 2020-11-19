@@ -122,7 +122,7 @@
 		private _texture = (_db select 1);
 		private _splitted = _texture splitString "";
 		if((_splitted select 0) isEqualTo '[') then {_texture = [_texture] call Server_Database_ToArray;};
-		if(typeName _texture isEqualTo "ARRAY") then {
+		if(_texture isEqualType []) then {
 			{
 				_veh setObjectTextureGlobal[_foreachIndex,_x];
 			} foreach _texture;
@@ -200,7 +200,7 @@
 	private _id = param [2,-1];
 	private _storage = param [3,[]];
 	private _whitelistTrailer = ["A3PL_Ski_Base"];
-	if ((typeName _storage) isEqualTo "ARRAY") exitwith {
+	if (_storage isEqualType []) exitwith {
 		[_class,_player,_id,_storage] call Server_Storage_RetrieveVehiclePos;
 	};
 

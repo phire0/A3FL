@@ -543,7 +543,7 @@
 	private _texture = param [1,""];
 	private _id = _vehicle getVariable ["owner",[]];
 	if(count(_id) isEqualTo 0) exitWith {};
-	if((typeName _texture) isEqualTo "ARRAY") then {_texture = [_texture] call Server_Database_Array;};
+	if(_texture isEqualType []) then {_texture = [_texture] call Server_Database_Array;};
 	_texture = [_texture, "\", "\\"] call CBA_fnc_replace;
 	diag_log str _texture;
 	private _query = format ["UPDATE objects SET color = '%2' WHERE id = '%1'",_id select 1,_texture];

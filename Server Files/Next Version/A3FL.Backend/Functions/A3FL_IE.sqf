@@ -127,9 +127,9 @@
 		if ([_item,"canPickup"] call A3PL_Config_GetItem) then
 		{
 			_amount = [_item] call A3PL_Inventory_Return;
-			if (typeName _deletedItem == "STRING") then
+			if (_deletedItem isEqualType "") then
 			{
-				if (_item == _deletedItem) then
+				if (_item isEqualTo _deletedItem) then
 				{
 					_amount = _amount - _deletedAmount;
 				};

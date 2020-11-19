@@ -619,7 +619,7 @@
 					case ("orange"): {_color = [0.5, 0.5, 0, 1];};
 					case ("green"): {_color = [0, 1, 0, 1];};
 				};
-				if ((typeName _color) isEqualTo "ARRAY") then {_control lbSetColor [_index,_color];};
+				if (_color isEqualType []) then {_control lbSetColor [_index,_color];};
 			};
 		};
 	} foreach (_player getVariable ["A3PL_Wounds",[]]);
@@ -720,7 +720,7 @@
 	private _hasWound = false;
 	private _pWounds = _player getVariable ["A3PL_Wounds",[]];
 	private _wound = "";
-	if ((typeName _woundsCheck) isEqualTo "STRING") then {_woundsCheck = [_woundsCheck];};
+	if ((_woundsCheck isEqualType "") then {_woundsCheck = [_woundsCheck];};
 	{
 		_wound = _x;
 		{
@@ -743,7 +743,7 @@
 	private _hasWound = false;
 	private _pWounds = _player getVariable ["A3PL_Wounds",[]];
 	private _wound = "";
-	if ((typeName _woundsCheck) isEqualTo "STRING") then {_woundsCheck = [_woundsCheck];};
+	if (_woundsCheck isEqualType "") then {_woundsCheck = [_woundsCheck];};
 	{
 		_wound = _x;
 		{
