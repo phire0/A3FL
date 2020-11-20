@@ -1972,9 +1972,12 @@
 	private _target = param[0,objNull];
 	private _hasPowder = _target getVariable["hasPowder",false];
 	private _reference = [getPlayerUID _target] call A3PL_Police_GetGunRef;
-	private _text = if(_hasPowder) then {"The kit revealed presence of gun powder"} else {"The kit revealed no presence of gun powder"};
+	private _text = if(_hasPowder) then {
+		format["The kit revealed presence of gun powder, reference: %1",_reference];
+	} else {
+		"The kit revealed no presence of gun powder";
+	};
 	[_text,"blue"] call A3PL_Player_Notification;
-	[format["Gun powder reference: %1",_reference],"blue"] call A3PL_Player_Notification;
 	[player_item] call A3PL_Inventory_Clear;
 	[player,"powdertestkit",-1] remoteExec ["Server_Inventory_Add",2];
 }] call Server_Setup_Compile;
@@ -2014,9 +2017,11 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_Analyze", {
+	if ((isNull Player_Item) || {!(Player_ItemClass isEqualTo "evidence_bag")}) exitwith {["You do not have an evidence bag to analyze","red"] call A3PL_Player_Notification;};
 	private _bag = Player_Item;
 	private _type = Player_Item getVariable["evidence_type",0];
-	private _data = _bag getVariable["evidence","no evidence found"];
+	private _data = _bag getVariable["evidence",nil];
+	if (isNil "_data") exitWith {["This evidence bag is empty","red"] call A3PL_Player_Notification;};
 	private _split = _data splitString "|";
 	private _text = switch(_type) do {
 		case 0: {

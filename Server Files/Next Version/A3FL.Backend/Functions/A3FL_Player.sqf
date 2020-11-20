@@ -954,6 +954,7 @@
 
 ["A3PL_Player_Tackled",
 {
+	if(!isNil "A3PL_Tackled") exitWith {};
 	A3PL_Tackled = true;
 	player playMoveNow "Incapacitated";
 	disableUserInput true;
