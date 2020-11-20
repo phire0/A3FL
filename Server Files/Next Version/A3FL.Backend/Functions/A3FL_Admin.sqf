@@ -1105,7 +1105,7 @@
 
 ["A3PL_Admin_TakeGear", {
 	private _mode = param [0,false];
-	private _fedGear = [[],[],[],["A3PL_FBI_Agent_Blue_Uniform",[]],["A3PL_FBI_Blue_Lite",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap","",[],["ItemMap","ItemGPS","A3PL_Cellphone_2","ItemCompass","ItemWatch",""]];
+	private _fedGear = [[],[],[],["A3PL_FBI_Agent_Tan_Uniform",[]],["A3PL_FBI_Brown_Lite",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap2","",[],["ItemMap","ItemGPS","A3PL_Cellphone_1","ItemCompass","TFAR_microdagr",""]];
 	private _prevGear = profileNamespace getVariable ["A3FL_PrevGear",nil];
 	if(_mode) then {
 		_prevGear = getUnitLoadout player;
