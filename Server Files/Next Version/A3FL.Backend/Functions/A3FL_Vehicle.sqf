@@ -1131,39 +1131,26 @@
 	private _towing = _truck getVariable ["Towed_Car",objNull];
 	if ((!local _truck) OR ((!isNull _towing) && (!local _towing))) exitWith {[player,_truck,_towing] remoteExec ["Server_Vehicle_AtegoHandle", 2];[localize"STR_NewVehicle_35"] call A3PL_Player_Notification;};
 	if (_truck isEqualTo _towing) exitWith {};
-	private _shift = 0;
 	private _angle = 0;
 	private _towingXYZ = _towing getVariable "XYZ";
 	private _height = _towingXYZ select 0;
-	private _Edistance = _towingXYZ select 1;
 	private _distance = _towingXYZ select 2;
 	private _Eheight = _towingXYZ select 3;
-	private _towingdir = _towingXYZ select 4;
-	private _truckmass = _towingXYZ select 5;
-	private _towingmass = getMass _towing;
-	if ((_truck animationSourcePhase "truck_flatbed") < 0.5) then {[_truck,_angle] spawn A3PL_Vehicle_TowTruck_Ramp_down;}else {_angle = -0.230112;};
-
-	private _maxDistance = if(typeOf _truck isEqualTo "A3FL_T440_Tow_Truck") then {-4} else {-2.2};
+	if ((_truck animationSourcePhase "truck_flatbed") < 0.5) then {
+		[_truck,_angle] spawn A3PL_Vehicle_TowTruck_Ramp_down;
+	};
+	private _maxDistance = if(typeOf _truck isEqualTo "A3FL_T440_Tow_Truck") then {-7.5} else {-5.7};
+	private _rHeight = if(typeOf _truck isEqualTo "A3FL_T440_Tow_Truck") then {0.0025} else {0.0016};
 	while {true} do {
-		waitUntil {(_truck animationSourcePhase "truck_flatbed") isEqualTo 1};
-		_towing attachTo [_truck,[_shift,_distance,_Eheight],"flatbed_middle"];
-		_distance = _distance - 0.01;
-		_Eheight = _Eheight - 0.002346;
+		waitUntil {(_truck animationSourcePhase "truck_flatbed") > 0.5};
+		_towing attachTo [_truck,[0,_distance,_Eheight],"flatbed_middle"];
+		_distance = _distance - 0.015;
+		_Eheight = _Eheight - (_rHeight);
 		if (_distance <= _maxDistance) exitWith {_height = _Eheight;};
 		sleep 0.01;
 	};
-	while {true} do {
-		waitUntil {(_truck animationSourcePhase "truck_flatbed") isEqualTo 1};
-		_towing attachTo [_truck,[_shift,_distance,_height],"flatbed_middle"];
-		_towing setvectorUp [0,_angle,1];
-		_distance = _distance - 0.012;
-		_height = _height - 0.000846;
-		_angle = _angle + 0.000846;
-		if (_angle >= 0) exitWith {};
-		sleep 0.01;
-	};
 	detach _towing;
-	_towing setPos getPos _towing;
+	_towing setPos (getPos _towing);
 	_towing setVelocity [0, 0, 1];
 	_truck setVariable ["Towing",false,true];
 	_towing setVariable ["Towed", false, true];
@@ -1174,9 +1161,10 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _truck = _this select 0;
 	private _towpoint = "Land_HelipadEmpty_F" createVehicleLocal (getpos _truck);
-	private _towpoint attachTo [_truck,[0,-6.41919,-2.1209]];
+	private _offset = if(typeOf _truck isEqualTo "A3PL_P362_TowTruck") then {[0,-6.41919,-2.1209]} else {[0,-12,0]};
+	_towpoint attachTo [_truck,_offset];
 	private _towing = (getpos _towpoint) nearestObject "AllVehicles";
-	if(isPlayer _towing) exitWith{["You are not able to tow someone, this is not nice.", "red"] call A3PL_Player_Notification;};
+	if (isPlayer _towing) exitWith{["You are not able to tow someone, this is not nice.", "red"] call A3PL_Player_Notification;};
 	private _alignment = [_truck, _towing] call BIS_fnc_relativeDirTo;
 	if ((_towpoint distance _towing) >= 6) exitWith {deleteVehicle _towpoint;[localize"STR_NewVehicle_36", "yellow"] call A3PL_Player_Notification;};
 	deleteVehicle _towpoint;
@@ -1196,30 +1184,16 @@
 	_towing setvectorUp [0,_angle,1];
 	private _towingdir = [_towing, _truck] call BIS_fnc_relativeDirTo;
 	if (_towingdir > 170 && _towingdir < 190) then  {_towingdir = 180;} else {_towingdir = 0;};
-	private _roleon = true;
-	private _pullup = true;
-	private _traytilt = true;
-	private _unload = false;
-	private _pushdown = true;
-	private _roleoff = true;
-	private _Ramp_up = true;
 	private _Edistance = 0;
-	private _towingmass = getMass _towing;
-	private _truckmass = getMass _truck;
-
-	_Supported_Vehicles = ["Jonzie_Datsun_Z432"];
-	_UnSupported_Vehicles = ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_P362_TowTruck","A3PL_Box_Trailer","A3PL_Tanker_Trailer","A3PL_Lowloader","A3PL_Boat_Trailer","A3PL_MobileCrane"];
+	private _UnSupported_Vehicles = ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_P362_TowTruck","A3PL_Box_Trailer","A3PL_Tanker_Trailer","A3PL_Lowloader","A3PL_Boat_Trailer","A3PL_MobileCrane"];
 	if ((typeOf _towing) in _UnSupported_Vehicles) exitWith {[localize"STR_NewVehicle_39", "red"] call A3PL_Player_Notification;};
-	if !((typeOf _towing) in _Supported_Vehicles) then
-	{
-		_wheel1 = _towing selectionPosition "wheel_1_1_bound";
-		_wheel2 = _towing selectionPosition "wheel_2_2_bound";
 
-		_height = -(_wheel1 select 2) - 1;
-		_Edistance = -((_wheel1 select 1)+(_wheel2 select 1))/2;
-		_distance = _Edistance - 5.5;
-		_shift = -((_wheel1 select 0)+(_wheel2 select 0))/2;
-	};
+	_wheel1 = _towing selectionPosition "wheel_1_1_bound";
+	_wheel2 = _towing selectionPosition "wheel_2_2_bound";
+	_height = -(_wheel1 select 2) - 1;
+	_Edistance = -((_wheel1 select 1)+(_wheel2 select 1))/2;
+	_distance = _Edistance - 5.5;
+	_shift = -((_wheel1 select 0)+(_wheel2 select 0))/2;
 	_type = typeOf _towing;
 	switch (_type) do
 	{
@@ -1227,9 +1201,9 @@
 		case "Jonzie_Ambulance": {_height = _height - 0.2;_Edistance = _Edistance - 0.4;};
 		case "A3PL_Small_Boat_Trailer": {_height = _height + 0.3;_Edistance = _Edistance - 1;_shift = _shift - 0.5;_towing attachTo [_truck,[_shift,_distance,_Endheight],"flatbed_middle"];};
 		case "A3PL_Drill_Trailer": {_shift = _shift - 0.4;_towing attachTo [_truck,[_shift,_distance,_Endheight],"flatbed_middle"];};
-		case "A3PL_MiniExcavator": {_towingmass = 2500;_height = _height + 0.5;_Edistance = _Edistance - 1.4;_towing attachTo [_truck,[_shift,_distance,_Endheight],"flatbed_middle"];};
+		case "A3PL_MiniExcavator": {_height = _height + 0.5;_Edistance = _Edistance - 1.4;_towing attachTo [_truck,[_shift,_distance,_Endheight],"flatbed_middle"];};
 	};
-	while {_roleon} do
+	while {true} do
 	{
 		waitUntil {_truck animationSourcePhase "truck_flatbed" isEqualTo 1};
 		_towing attachTo [_truck,[_shift,_distance,_height],"flatbed_middle"];
@@ -1237,17 +1211,17 @@
 		_towing setvectorUp [0,_angle,1];
 		_distance = _distance + 0.01;
 		_height = _height + 0.000846;
-		_angle = _angle - 0.000846;
-		if (_angle <= -0.23) then {_roleon = false;_Eheight = _height;};
-		uiSleep 0.01;
+		_angle = _angle - 0.001846;
+		if (_angle <= -0.23) exitWith {_Eheight = _height;};
+		sleep 0.01;
 	};
-	while {_pullup} do
+	while {true} do
 	{
 		waitUntil {_truck animationSourcePhase "truck_flatbed" isEqualTo 1};
 		_towing attachTo [_truck,[_shift,_distance,_Eheight],"flatbed_middle"];
-		_distance = _distance + 0.01;
+		_distance = _distance + 0.02;
 		_Eheight = _Eheight + 0.002346;
-		if (_distance >= _Edistance) then {_pullup = false;};
+		if (_distance >= _Edistance) exitWith {};
 		sleep 0.01;
 	};
 	[_truck,_angle] spawn A3PL_Vehicle_TowTruck_Ramp_up;
@@ -1270,9 +1244,8 @@
 		case "A3PL_MiniExcavator": {_Endheight = _Eheight - 0.15;_towing attachTo [_truck,[_shift,_distance,_Endheight],"flatbed_middle"];};
 		case "A3PL_P362": {_Endheight = _Eheight + 0.2;_towing attachTo [_truck,[_shift,_distance,_Endheight],"flatbed_middle"];};
 	};
-	_totalmass = _towingmass + _truckmass;
 	_towing setPos getPos _towing;
-	_towing setVariable ["XYZ", [_height,_Edistance,_distance,_Eheight,_towingdir,_truckmass,_angle], true];
+	_towing setVariable ["XYZ", [_height,_Edistance,_distance,_Eheight], true];
 	_towing setVariable ["Towed", true, true];
 	_truck setVariable ["Towed_Car",_towing,true];
 	_truck setVariable ["Towing",true,true];
@@ -1280,44 +1253,30 @@
 
 ["A3PL_Vehicle_TowTruck_Ramp_up",
 {
-	private ["_truck","_angle","_Ramp_up","_towing"];
-	_truck = _this select 0;
-	_angle = _this select 1;
-	_towing = _truck getVariable "Towed_Car";
+	private _truck = _this select 0;
+	private _angle = _this select 1;
+	private _towing = _truck getVariable ["Towed_Car",objNull];
 	_truck animateSource ["truck_flatbed",0];
 	_truck animate ["Ramp_Switch",0];
-	if (isNil {_towing}) exitWith  {};
-	_Ramp_up = true;
-	while {_Ramp_up} do
+	if (isNull _towing) exitWith {};
+	while {_angle < 0} do
 	{
 		waitUntil {_truck animationSourcePhase "truck_flatbed" < 1};
-		_angle = _angle + 0.00025567911;
-		If (_angle >= -0.00153407466) then {_angle = 0;_Ramp_up = false;};
-		_towing setvectorUp [0,_angle,1];
+		_angle = _angle + 0.00088567911;
+		_towing setVectorUp [0,_angle,1];
 		sleep 0.01;
 	};
-	_towing setPos getPos _towing;
+	_towing setVectorUp [0,0,1];
+	_towing setPos(getPos _towing);
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_TowTruck_Ramp_down",
 {
-	private ["_truck","_angle","_Ramp_down","_towing"];
-	_truck = _this select 0;
-	_angle = _this select 1;
-	_towing = _truck getVariable "Towed_Car";
+	private _truck = _this select 0;
+	private _angle = _this select 1;
+	private _towing = _truck getVariable ["Towed_Car",objNull];
 	_truck animateSource ["truck_flatbed",1];
 	_truck animate ["Ramp_Switch",1];
-	if (isNil {_towing}) exitWith  {};
-	_Ramp_down = true;
-	while {_Ramp_down} do
-	{
-		waitUntil {_truck animationSourcePhase "truck_flatbed" > 0.3};
-		_angle = _angle - 0.00025567911;
-		If (_angle <= -0.2301112) then {_angle = -0.2301112;_Ramp_down = false;};
-		_towing setvectorUp [0,_angle,1];
-		sleep 0.01;
-	};
-	_towing setPos getPos _towing;
 }] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Despawn",

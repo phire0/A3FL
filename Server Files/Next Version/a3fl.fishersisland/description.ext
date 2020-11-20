@@ -128,7 +128,7 @@ class A3PL_mapAreas {
 			$STR_Description_Others, {"apt3m_3","apt3m_2","apt3m_1","apt3m","apt11m_1","apt4m","apt5m","apt6m","apt7m","apt8m","apt9m","apt10m","apt11m","apt11m_2","apt11m_3","apt11m_4","apt8m_1","apt8m_2","apt8m_3","apt8m_4","cityhall","marker_132","Scrapyard_2","Scrapyard_1","TruckRetrieval","TruckRetrieval_2","TruckRetrieval_3","TruckRetrieval_4","apt8m_7","apt8m_6","apt8m_5"}
 		},
 		{
-			$STR_Description_RecreationalActivities, {"bowling","paintball_larry","silverton_race","SallySpeedway","ccp_wep_2"}
+			$STR_Description_RecreationalActivities, {"bowling","paintball_larry","ccp_wep_2"}
 		},
 		{
 			$STR_Description_Banks, {"bank1","bank1_1","bank1_2","bank1_3","bank1_4","bank1_8"}

@@ -707,18 +707,16 @@
 ['A3PL_Police_SpikeHit', {
 	private _veh = vehicle player;
 	private _wheel = _this;
-	[_veh,_wheel] spawn {
-		private _veh = _this select 0;
-		private _wheel = _this select 1;
-		while {(_veh getHit _wheel) < 1} do
-		{
-			waitUntil {(speed (vehicle player)) > 1};
-			_speed = (speed (vehicle player));
-			If (_speed < 30) then {_speed = _speed/5;};
-			_multiplier = _speed/5000;
-			_veh setHit [_wheel,((_veh getHit _wheel) + _multiplier)];
-			sleep 0.2;
+	while {(_veh getHit _wheel) < 1} do
+	{
+		waitUntil {(speed (vehicle player)) > 1};
+		_speed = (speed (vehicle player));
+		if (_speed > 30) then {
+			_veh setHit [_wheel,(_veh getHit _wheel) + 0.1];
+		} else {
+			_veh setHit [_wheel,(_veh getHit _wheel) + 0.05];
 		};
+		sleep 0.1;
 	};
 }] call Server_Setup_Compile;
 

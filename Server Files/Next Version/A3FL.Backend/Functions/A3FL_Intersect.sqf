@@ -30,19 +30,20 @@
 
 ['A3PL_Intersect_Spikes', {
 	private _veh = vehicle player;
-	private _spikes = nearestObjects [_veh, ["A3PL_Stinger"], 3];
+	private _spikes = _veh nearEntities ["A3FL_Stinger", 3];
 	if ((count _spikes) < 1) exitwith {};
 	private _wheelLF = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [-1,1.1,-1]),AGLToASL (_veh modelToWorldVisual [-1,0,-3]),_veh];
 	private _wheelRF = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [1,1.1,-1]),AGLToASL (_veh modelToWorldVisual [1,0,-3]),_veh];
 	private _wheelLB = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [-1,-2.4,-1]),AGLToASL (_veh modelToWorldVisual [-1,-1.4,-3]),_veh];
 	private _wheelRB = lineIntersectsWith [AGLToASL (_veh modelToWorldVisual [1,-2.4,-1]),AGLToASL (_veh modelToWorldVisual [1,-1.4,-3]),_veh];
 	private _spike = _spikes select 0;
+
 	if (_spike IN _wheelLF) then
 	{
 		private _hit = _veh getVariable "wheelLFSpiked";
 		if (!isNil "_hit") exitwith {};
 		_veh setVariable ["wheelLFSpiked",true,false];
-		"wheel_1_1_steering" call A3PL_Police_SpikeHit;
+		"wheel_1_1_steering" spawn A3PL_Police_SpikeHit;
 		_veh spawn {
 			sleep 10;
 			_this setVariable ["wheelLFSpiked",nil,false];
@@ -53,7 +54,7 @@
 		private _hit = _veh getVariable "wheelRFSpiked";
 		if (!isNil "_hit") exitwith {};
 		_veh setVariable ["wheelRFSpiked",true,false];
-		"wheel_2_1_steering" call A3PL_Police_SpikeHit;
+		"wheel_2_1_steering" spawn A3PL_Police_SpikeHit;
 		_veh spawn {
 			sleep 10;
 			_this setVariable ["wheelRFSpiked",nil,false];
@@ -64,7 +65,7 @@
 		private _hit = _veh getVariable "wheelLBSpiked";
 		if (!isNil "_hit") exitwith {};
 		_veh setVariable ["wheelLBSpiked",true,false];
-		"wheel_1_2_steering" call A3PL_Police_SpikeHit;
+		"wheel_1_2_steering" spawn A3PL_Police_SpikeHit;
 		_veh spawn {
 			sleep 10;
 			_this setVariable ["wheelLBSpiked",nil,false];
@@ -75,7 +76,7 @@
 		private _hit = _veh getVariable "wheelRBSpiked";
 		if (!isNil "_hit") exitwith {};
 		_veh setVariable ["wheelRBSpiked",true,false];
-		"wheel_2_2_steering" call A3PL_Police_SpikeHit;
+		"wheel_2_2_steering" spawn A3PL_Police_SpikeHit;
 		_veh spawn {
 			sleep 10;
 			_this setVariable ["wheelRBSpiked",nil,false];
@@ -90,7 +91,7 @@
 		private _exit = false;
 		private _veh = vehicle player;
 		if(!(_veh isEqualTo player)) then {
-			if(count(player nearEntities ["A3PL_Stinger", 3]) > 0) then {
+			if(count(player nearEntities ["A3FL_Stinger", 3]) > 0) then {
 			    call A3PL_Intersect_Spikes;
 			};
 			if(speed _veh > 1) exitWith {_exit=true;};
