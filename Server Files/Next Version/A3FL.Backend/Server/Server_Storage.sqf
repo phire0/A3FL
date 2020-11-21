@@ -40,7 +40,6 @@
 	private _whitelist = ["A3FL_Shield","srifle_LRR_F","srifle_LRR_SOS_F","A3FL_PepperSpray","A3FL_PoliceBaton","A3PL_High_Pressure","A3PL_Jaws","A3PL_FireAxe","A3PL_FireExtinguisher","A3PL_Pickaxe","A3PL_Shovel","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","hgun_Pistol_Signal_F"];
 	private _vehWeapons = [[],[]];
 	{
-		diag_log str(_x);
 		if(_x IN _whitelist) then {
 			(_vehWeapons select 0) pushback ((_oldWeapons select 0) select _foreachIndex);
 			(_vehWeapons select 1) pushback ((_oldWeapons select 1) select _foreachIndex);

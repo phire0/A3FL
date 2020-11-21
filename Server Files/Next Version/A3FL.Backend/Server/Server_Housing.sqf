@@ -162,8 +162,6 @@
 	private _price = param [3,0];
 	private _uid = getPlayerUID _player;
 
-	diag_log _this;
-
 	_object setVariable ["owner",[_uid],true];
 
 	if (_takeMoney) then {
