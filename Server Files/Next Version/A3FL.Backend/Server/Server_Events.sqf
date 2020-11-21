@@ -223,12 +223,38 @@
 		private _wreckType = floor (random 3);
 		switch(_wreckType) do {
 			case(0): {
-				_alertMessage = "ALERT! ALERT! The plane carrying ??? has crashed on water! Collect the Weapons before LEOs seize them!";
-				_wreckMessage = "???";
+				_alertMessage = "ALERT! ALERT! The plane carrying Drugs has crashed on water! Collect the Drugs before LEOs seize them!";
+				_wreckMessage = "DRUGS PLANE CRASH";
+				_commonItems = [["seed_marijuana",10],["seed_coca",10],["coca",10],["jug",3],["yeast",10],["malt",10],["cornmeal",10],["sulphuric_acid",10],["calcium_carbonate",10],["potassium_permangate",10],["ammonium_hydroxide",10],["acetone",10],["hydrocloric_acid",10],["kerosene_jerrycan",3]];
+				_rareItems = [["coca_paste",10],["cocaine_base",10],["cocaine_hydrochloride",10],["jug_moonshine",5],["weed_100g",3],["weed_75g",4],["weed_50g",6]];
+
+				for "_i" from 0 to _commonCount do {
+					_item = selectRandom _commonItems;
+					_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
+				};
+
+				for "_i" from 0 to _rareCount do {
+					_item = selectRandom _rareItems;
+					_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
+				};
 			};
 			case(1): {
-				_alertMessage = "ALERT! ALERT! The plane carrying ??? has crashed on water 2! Collect the Weapons before LEOs seize them!";
-				_wreckMessage = "???";
+				_alertMessage = "ALERT! ALERT! The plane carrying Resources has crashed on water! Collect the Resrources before anyone else does!";
+				_wreckMessage = "RESOURCES PLANE CRASH";
+				_commonItems = [["Aluminium_Ore",20],["Iron_Ore",20],["Coal_Ore",20],["Titanium_Ingot",1],["Aluminium_Ingot",5],["Iron_Ingot",5],["Coal_Ingot",5]];
+				_rareItems = [["Aluminium_Ingot",10],["Iron_Ingot",10],["Coal_Ingot",10],["Titanium_Ingot",5],["Steel",15],["Aluminium",15],["Titanium",5]];
+				_commonCount = 6 + round(_uscgCount / 2);
+				_rareCount = 3 + round(_uscgCount / 2);
+
+				for "_i" from 0 to _commonCount do {
+					_item = selectRandom _commonItems;
+					_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
+				};
+
+				for "_i" from 0 to _rareCount do {
+					_item = selectRandom _rareItems;
+					_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
+				};
 			};
 			case(2): {
 				_alertMessage = "ALERT! ALERT! The plane carrying Treasure has crashed on water! Collect the Treasure before anyone else does!";
@@ -292,8 +318,22 @@
 
 			};
 			case(2): {
-				_alertMessage = "ALERT! ALERT! The plane carrying ??? has crashed on land 3! Collect the Weapons before LEOs seize them!";
-				_wreckMessage = "???";
+				_alertMessage = "ALERT! ALERT! The plane carrying Resources has crashed on land! Collect the Resrources before anyone else does!";
+				_wreckMessage = "RESOURCES PLANE CRASH";
+				_commonItems = [["Aluminium_Ore",20],["Iron_Ore",20],["Coal_Ore",20],["Titanium_Ingot",1],["Aluminium_Ingot",5],["Iron_Ingot",5],["Coal_Ingot",5]];
+				_rareItems = [["Aluminium_Ingot",10],["Iron_Ingot",10],["Coal_Ingot",10],["Titanium_Ingot",5],["Steel",15],["Aluminium",15],["Titanium",5]];
+				_commonCount = 6 + round(_uscgCount / 2);
+				_rareCount = 3 + round(_uscgCount / 2);
+
+				for "_i" from 0 to _commonCount do {
+					_item = selectRandom _commonItems;
+					_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
+				};
+
+				for "_i" from 0 to _rareCount do {
+					_item = selectRandom _rareItems;
+					_virtualItems = [_virtualItems, _item select 0, _item select 1, true] call BIS_fnc_addToPairs;
+				};
 			};
 		};
 	};
