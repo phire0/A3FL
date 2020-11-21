@@ -1618,7 +1618,7 @@
 ["A3PL_Police_StartJailPlayer",
 {
 	params[["_target",objNull,[objNull]]];
-	private _pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"], 50];
+	private _pd = player nearEntities [["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"],50];
 	if((count _pd) < 1) exitWith {[format[localize"STR_NewPolice_23"],"red"] call A3PL_Player_Notification;};
 	createDialog "Dialog_JailPlayer";
 	A3PL_JailPlayer_Target = _target;
@@ -1826,7 +1826,7 @@
 	if(_typeOfSeize isEqualTo 0) exitWith {};
 	switch(_typeOfSeize) do {
 		case 1: {
-			_holders = nearestObjects [player,["groundWeaponHolder"],3];
+			_holder = player nearEntities [["groundWeaponHolder"],3];
 			{
 				{_addToStorage pushback ["weapon", _x, 1];} forEach (weaponCargo _x);
 				{_addToStorage pushback ["magazine", _x, 1];} forEach (magazineCargo _x);

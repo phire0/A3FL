@@ -43,7 +43,7 @@
 	[_store,"Vualt_Handle",false] call A3PL_Lib_ToggleAnimation;
 	_store setVariable ["CanOpenSafe",false,true];
 
-	{deleteVehicle _x;} foreach (nearestObjects [_store, ["A3PL_PileCash"], 20]);
+	{deleteVehicle _x;} foreach (_store nearEntities [["A3PL_PileCash"],20]);
 	[player, 50] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 

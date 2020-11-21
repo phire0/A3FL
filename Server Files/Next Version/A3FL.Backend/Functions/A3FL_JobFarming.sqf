@@ -37,10 +37,10 @@
 	private _posATL = getPosATL player;
 	if ((surfaceType _posATL) != "#cype_plowedfield") exitwith {["You are not standing on a farm field", "red"] call a3pl_player_notification;};
 
-	_nearPlants = nearestObjects [player, ["A3PL_Wheat", "A3PL_Corn","A3PL_Cannabis", "A3PL_Lettuce","A3PL_Coco_Plant", "A3PL_Sugarcane_Plant"], 0.85];
+	_nearPlants = player nearEntities [["A3PL_Wheat", "A3PL_Corn","A3PL_Cannabis", "A3PL_Lettuce","A3PL_Coco_Plant","A3PL_Sugarcane_Plant"],0.85];
 	if(count(_nearPlants) > 0) exitWith {["You cannot plant seeds on top of each other.", "red"] call a3pl_player_notification;};
 
-	_nearByPlants = nearestObjects [player, ["A3PL_Wheat","A3PL_Corn","A3PL_Cannabis","A3PL_Lettuce","A3PL_Coco_Plant","A3PL_Sugarcane_Plant"], 100];
+	_nearByPlants = player nearEntities [["A3PL_Wheat","A3PL_Corn","A3PL_Cannabis","A3PL_Lettuce","A3PL_Coco_Plant","A3PL_Sugarcane_Plant"],100];
 	if(count(_nearByPlants) > 50) exitWith {["There is too many plants in this area, please harvest some before planting more!", "red"] call a3pl_player_notification;};
 
 	player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
@@ -98,7 +98,7 @@
 	private _class = player_itemClass;
 	private _timeLeft = serverTime - (_greenHouse getVariable ["buyTime",serverTime]);
 	if (_timeLeft > 1800) exitwith {["The rent on this greenhouse has expired, please extend it"] call A3PL_Player_Notification;};
-	private _amountPlants = count (nearestObjects [player,["A3PL_Wheat","A3PL_Corn","A3PL_Cannabis","A3PL_Lettuce","A3PL_Coco_Plant","A3PL_Sugarcane_Plant"],5]);
+	private _amountPlants = count (player nearEntities [["A3PL_Wheat","A3PL_Corn","A3PL_Cannabis","A3PL_Lettuce","A3PL_Coco_Plant","A3PL_Sugarcane_Plant"],5]);
 	if (_amountPlants >= 10) exitwith {["You can only plant 10 plants in a greenhouse","red"] call A3PL_Player_Notification};
 	private _interDist = [_greenHouse, "FIRE"] intersect [positionCameraToWorld [0,0,0],positionCameraToWorld [0,0,1000]];
 	if (count _interDist < 1) exitwith {["Unable to determine where to place the seed", "red"] call a3pl_player_notification;};
@@ -116,7 +116,7 @@
 	private _planter = param [0,objNull];
 	if (isNull _planter) exitwith {["Couldn't determine planter","red"] call A3PL_Player_Notification;};
 	private _class = player_itemClass;
-	private _nearByPlants = nearestObjects [_planter, ["A3PL_Wheat", "A3PL_Corn","A3PL_Cannabis", "A3PL_Lettuce","A3PL_Coco_Plant", "A3PL_Sugarcane_Plant"], 4];
+	private _nearByPlants = _planter nearEntities [["A3PL_Wheat", "A3PL_Corn","A3PL_Cannabis", "A3PL_Lettuce","A3PL_Coco_Plant","A3PL_Sugarcane_Plant"],4];
 	if(count(_nearByPlants) >= 2) exitWith {["There is too many plants in this planter, please harvest some before planting more!", "red"] call a3pl_player_notification;};
 	private _interDist = [_planter, "FIRE"] intersect [positionCameraToWorld [0,0,0],positionCameraToWorld [0,0,1000]];
 	if (count _interDist < 1) exitwith {["Unable to determine where to place the seed", "red"] call a3pl_player_notification;};
@@ -184,7 +184,7 @@
 	private _cured = _bud getVariable ["cured",0];
 	if ((_bud getVariable ["class",""]) isEqualTo "cannabis_bud_cured") exitwith {["This bud is 100% cured! You can now use this bud in the grinder!","green"] call A3PL_Player_Notification;};
 	if ((_bud getVariable ["class",""]) isEqualTo "cannabis_grinded_5g") exitwith {["This marijuana is grinded and ready to be bagged!","green"] call A3PL_Player_Notification;};
-	_near = nearestObjects [_bud, ["A3PL_Fan"], 2,true];
+	private _near = _bud nearEntities [["A3PL_Fan"],2];
 	if ((_bud IN (missionNameSpace getVariable ["A3PL_Cannabis_Buds",[]])) && (count _near > 0)) then {
 		[format ["This bud is currently curing, right now it is %1%2 cured",_cured,"%"],"green"] call A3PL_Player_Notification;
 	} else {
@@ -211,7 +211,7 @@
 
 			{
 				if ((isNull (attachedTo _x)) OR (isNull _x)) then {_toDelete pushback _x;};
-				_near = nearestObjects [_x, ["A3PL_Fan"], 2,true];
+				_near = _x nearEntities [["A3PL_Fan"],2];
 				if ((count _near) > 0) then {
 					_x setVariable ["cured",(_x getVariable ["cured",0]) + 10,true];
 				};
@@ -230,7 +230,7 @@
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	private _grinder = param [0,objNull];
-	private _near = nearestObjects [_grinder, ["A3PL_Cannabis_Bud"], 3,true];
+	private _near = _grinder nearEntities [["A3PL_Cannabis_Bud"],3];
 	private _amount = 0;
 	if(_grinder getVariable["inUse",false]) exitWith {["This grinder is already grinding","red"] call A3PL_Player_Notification;};
 
@@ -270,7 +270,7 @@
 {
 	disableSerialization;
 	private _scale = param [0,objNull];
-	private _near = nearestObjects [_scale, ["A3PL_Cannabis_Bud"],2,true];
+	private _near = _scale nearEntities [["A3PL_Cannabis_Bud"],2];
 	private _allGrinded = 0;
 	{
 		if ((_x getVariable ["class",""]) isEqualTo "cannabis_grinded_5g") exitWith {
@@ -295,7 +295,7 @@
 	disableSerialization;
 	private _scale = missionNameSpace getVariable ["A3PL_JobFarming_Scale",objNull];
 	if (isNull _scale) exitwith { ["Unable to determine scale (report this bug)","red"] call A3PL_Player_Notification; };
-	private _near = nearestObjects [_scale, ["A3PL_Cannabis_Bud"], 2,true];
+	private _near = _scale nearEntities [["A3PL_Cannabis_Bud"],2];
 
 	private _display = findDisplay 74;
 	private _ctrl = _display displayCtrl 1400;

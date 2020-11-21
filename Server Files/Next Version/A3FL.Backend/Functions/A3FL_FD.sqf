@@ -1045,7 +1045,7 @@
 
 // FIFD COMPUTER
 ['A3PL_FD_ShowHydrant',{
-	private _FireHydrants = nearestobjects [player,["Land_A3PL_FireHydrant"], 800];
+	private _FireHydrants = player nearEntities [["Land_A3PL_FireHydrant"],800];
 	private _markersList = [];
 
 	{

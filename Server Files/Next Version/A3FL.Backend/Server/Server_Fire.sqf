@@ -21,7 +21,7 @@
 ["Server_Fire_Destroy",
 {
 	private _fireobject = param [0,objNull];
-	{deleteVehicle _x;} foreach (nearestObjects [_fireobject, Config_Placeables, 4]);
+	{deleteVehicle _x;} foreach (_fireobject nearEntities [Config_Placeables,4]);
 	{ _x hideObjectGlobal true; } foreach nearestTerrainObjects [_fireobject,["TREE", "SMALL TREE", "BUSH","FOREST"],4];
 	{
 		_x setDamage 1;

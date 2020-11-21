@@ -37,8 +37,8 @@
 
 	_eBucket = objNull;
 	{
-		if ((_x getvariable ["class",""]) == "bucket_empty") exitwith {_eBucket = _x;};
-	} foreach (nearestObjects [player, ["A3PL_Bucket"], 5]);
+		if ((_x getvariable ["class",""]) isEqualTo "bucket_empty") exitwith {_eBucket = _x;};
+	} foreach (player nearEntities [["A3PL_Bucket"],5]);
 
 	if (isNull _eBucket) exitwith {[localize"STR_NewRessources_NoBucket","red"] call A3PL_Player_Notification;};
 

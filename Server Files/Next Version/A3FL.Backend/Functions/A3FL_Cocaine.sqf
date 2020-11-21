@@ -9,14 +9,13 @@
 ["A3PL_Cocaine_AddItem",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_barrel"];
-	_barrel = param [0,objNull];
+	private _barrel = param [0,objNull];
 	if (_barrel getVariable ["running",false]) exitwith {["You can't add to a barrel with a process already started!","red"] call A3PL_Player_Notification;};
 
-	_item = Player_ItemClass;
+	private _item = Player_ItemClass;
 	[Player_ItemClass,-1] call A3PL_Inventory_Add;
 	[false] call A3PL_Inventory_PutBack;
-	if(_item == "kerosene_jerrycan") then {
+	if(_item isEqualTo "kerosene_jerrycan") then {
 		_jerrycan = Player_Item;
 		detach _jerrycan;
 		private _attachpoint = _barrel selectionPosition "item_pickup";
@@ -72,19 +71,16 @@
 ["A3PL_Cocaine_Reset",
 {
   if(!(call A3PL_Player_AntiSpam)) exitWith {};
-  private ["_barrel"];
-  _barrel = param [0,objNull];
+  private _barrel = param [0,objNull];
 
   _barrel setVariable ["items",[],true];
   ["You removed all of the items from this barrel, they were ruined in the process!","red"] call A3PL_Player_Notification;
-
 }] call Server_Setup_Compile;
 
 ["A3PL_Cocaine_Collect",
 {
   if(!(call A3PL_Player_AntiSpam)) exitWith {};
-  private ["_barrel"];
-  _barrel = param [0,objNull];
+  private _barrel = param [0,objNull];
 
 	if (_barrel getVariable ["running",false]) exitwith {["You can't add to a barrel with a process already started!","red"] call A3PL_Player_Notification;};
 
@@ -186,8 +182,8 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Cocaine_CreateBrick",{
-		private["_success"];
-		_target = param [0,player_objIntersect];
+		private _success = false;
+		private _target = param [0,player_objIntersect];
 	  if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
 		if(!(["cocaine_hydrochloride",5] call A3PL_Inventory_Has)) exitWith{["You need 5 Cocaine Hydrochloride to produce a Cocaine Brick!","red"] call A3PL_Player_Notification;};
@@ -225,11 +221,11 @@
 
 ["A3PL_Cocaine_BreakDownBrick",
 {
-	_target = param [0,player_objIntersect];
-	_near = [];
+	private _target = param [0,player_objIntersect];
+	private _near = [];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
-		_near = nearestObjects [_target, ["A3FL_DrugBag"],2,true];
+		_near = _targer nearEntities [["A3FL_DrugBag"],2];
 
 		if (count _near < 1) exitwith {["No cocaine bricks nearby, place them near the scale to break them down!","red"] call A3PL_Player_Notification;};
 

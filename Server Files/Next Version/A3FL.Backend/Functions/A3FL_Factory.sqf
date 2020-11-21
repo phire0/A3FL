@@ -399,7 +399,7 @@
 	_i = _control lbAdd format ["Cash (%1x)",(player getvariable ["player_cash",0])];
 	_control lbSetData [_i,"cash"];
 
-	_near = nearestObjects [player, ["Thing"], 20];
+	_near = player nearEntities [["Thing"],20];
 	{
 		if ((!isNil {_x getVariable ["ainv",nil]}) || (!isNil {_x getVariable ["finv",nil]}) || (isNil {_x getVariable ["class",nil]})) then
 		{

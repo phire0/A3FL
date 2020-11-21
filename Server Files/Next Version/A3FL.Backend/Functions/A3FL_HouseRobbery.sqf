@@ -148,7 +148,7 @@
 ["A3PL_HouseRobbery_Secure",
 {
 	private _house = param [0,objNull];
-	private _box = nearestObjects[_house,["Land_MetalCase_01_large_F"],20];
+	private _box = _house nearEntities [["Land_MetalCase_01_large_F"],20];
 	{deleteVehicle _x;} forEach _box;
 	_house setVariable ["unlocked",Nil,true];
 	[_house,"Door_1",false] call A3PL_Lib_ToggleAnimation;

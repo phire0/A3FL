@@ -167,7 +167,7 @@
 	private _toCompany = param [0,0];
 	if (isNull _intersect) exitwith {};
 	private _types = ["Car","Ship","Tank","Truck","Plane","Helicopter","Air"];
-	private _near = nearestObjects [_intersect,_types,30];
+	private _near = _intersect nearEntities [_types,30];
 
 	if ((count _near) isEqualTo 0) exitwith {[7] call A3PL_Storage_CarStoreResponse;};
 	[8] call A3PL_Storage_CarStoreResponse;

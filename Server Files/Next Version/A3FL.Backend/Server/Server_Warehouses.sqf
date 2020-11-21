@@ -14,7 +14,7 @@
 	private _uid = param [1,""];
 	private _delete = param [2,true];
 	private _warehouse = _player getVariable ["warehouse",objNull];
-	private _items = nearestObjects [_warehouse,[],30];
+	private _items = _warehouse nearEntities [[],30];
 	private _allMembers = _warehouse getVariable["owner",[]];
 	private _isOwner = false;
 	if((_allMembers select 0) isEqualTo _uid) then {_isOwner = true;};
@@ -43,15 +43,14 @@
 
 ["Server_Warehouses_LoadItems",
 {
-	private ["_warehouse","_player","_uid","_pitems"];
-	_player = param [0,objNull];
-	_warehouse = param [1,objNull];
-	_uid = param [2,""];
+	private _player = param [0,objNull];
+	private _warehouse = param [1,objNull];
+	private _uid = param [2,""];
 
 	if (_warehouse getVariable ["furn_loaded",false]) exitwith {};
 	_warehouse setVariable ["furn_loaded",true,false];
 
-	_pitems = [format ["SELECT pitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2] call Server_Database_Async;
+	private _pitems = [format ["SELECT pitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2] call Server_Database_Async;
 	_pitems = call compile (_pitems select 0);
 
 	[_warehouse,_pitems] remoteExec ["A3PL_Warehouses_Loaditems", (owner _player)];
@@ -66,26 +65,26 @@
 //Compile block warning
 ["Server_Warehouses_LoadBox",
 {
-	private ["_warehouse","_player","_pos","_items","_box","_weapons","_magazines","_items","_vitems","_cargoItems","_actualitems"];
-	_player = param [0,objNull];
-	_warehouse = param [1,objNull];
-	_pos = getposATL _player;
+	private _player = param [0,objNull];
+	private _warehouse = param [1,objNull];
+	private _pos = getposATL _player;
+	private _items = [[],[],[]];
 	if (!isNil {_warehouse getVariable "box_spawned"}) exitwith {};
 	_warehouse setVariable ["box_spawned",true,false];
 
 	if (isDedicated) then { _items = [format ["SELECT items,vitems FROM warehouses WHERE location = '%1'",(getpos _warehouse)], 2, true] call Server_Database_Async;} else {_items = [[],[],[]];};
-	_box = createVehicle ["Box_GEN_Equip_F",_pos, [], 0, "CAN_COLLIDE"];
+	private _box = createVehicle ["Box_GEN_Equip_F",_pos, [], 0, "CAN_COLLIDE"];
 	clearItemCargoGlobal _box;
 	clearWeaponCargoGlobal _box;
 	clearMagazineCargoGlobal _box;
 	clearBackpackCargoGlobal _box;
 
 	//According to how stuff is saved into db
-	_cargoItems = call compile ((_items select 0) select 0);
-	_vitems = call compile ((_items select 0) select 1);
-	_weapons = _cargoItems select 0;
-	_magazines = _cargoItems select 1;
-	_actualitems = _cargoItems select 2;
+	private _cargoItems = call compile ((_items select 0) select 0);
+	private _vitems = call compile ((_items select 0) select 1);
+	private _weapons = _cargoItems select 0;
+	private _magazines = _cargoItems select 1;
+	private _actualitems = _cargoItems select 2;
 	_backpacks = _cargoItems select 3;
 
 	{_box addWeaponCargoGlobal [_x,1]} foreach _weapons;
@@ -100,14 +99,13 @@
 
 ["Server_Warehouses_SaveBox",
 {
-	private ["_box","_house","_pos","_query","_items"];
-	_warehouse = param [0,objNull];
-	_box = param [1,objNull];
-	_pos = getpos _warehouse;
+	private _warehouse = param [0,objNull];
+	private _box = param [1,objNull];
+	private _pos = getpos _warehouse;
 
 	//save contents of box into db
-	_items = [weaponCargo _box,magazineCargo _box,itemCargo _box,backpackCargo _box];
-	_query = format ["UPDATE warehouses SET items='%1',vitems='%3' WHERE location ='%2'",_items,_pos,(_box getVariable ["storage",[]])];
+	private _items = [weaponCargo _box,magazineCargo _box,itemCargo _box,backpackCargo _box];
+	private _query = format ["UPDATE warehouses SET items='%1',vitems='%3' WHERE location ='%2'",_items,_pos,(_box getVariable ["storage",[]])];
 	[_query,1] spawn Server_Database_Async;
 
 	//delete box
@@ -162,12 +160,11 @@
 //This function will change/buy the ownership of a house
 ["Server_Warehouses_Assign",
 {
-	private ["_object","_player","_uid","_keyID","_pos","_insert","_var","_signs","_takeMoney","_price"];
-	_object = param [0,objNull];
-	_player = param [1,objNull];
-	_takeMoney = param [2,true];
-	_price = param [3,0];
-	_uid = getPlayerUID _player;
+=	private _object = param [0,objNull];
+	private _player = param [1,objNull];
+	private _takeMoney = param [2,true];
+	private _price = param [3,0];
+	private _uid = getPlayerUID _player;
 
 	//set owner var on object
 	_object setVariable ["owner",[_uid],true];
@@ -180,7 +177,7 @@
 
 	//Generate a new key, it will take care of assigning it to the house aswell
 	//It will also take care of saving the player keys into the DB
-	_keyID = [_player,_object,"",true,"warehouse"] call Server_Housing_CreateKey;
+	private _keyID = [_player,_object,"",true,"warehouse"] call Server_Housing_CreateKey;
 	//Insert into houses list, but only if it doesn't exist already
 	if (!(_object IN Server_WarehouseList)) then
 	{
@@ -190,15 +187,15 @@
 	//Input the new owner, or replace if exist
 	//The unique key is the location in this case (BEWARE OF THIS!!!)
 	//Also be carefull, _expireTime is in SQL style, not arma (array) style
-	_pos = getpos _object;
+	private _pos = getpos _object;
 	_uid = [[_uid]] call Server_Database_Array;
-	_insert = format ["INSERT INTO warehouses (uids,classname,location,doorid,pitems) VALUES ('%1','%2','%3','%4','[]') ON DUPLICATE KEY UPDATE doorID='%3'",_uid,typeOf _object,_pos,_keyID];
+	private _insert = format ["INSERT INTO warehouses (uids,classname,location,doorid,pitems) VALUES ('%1','%2','%3','%4','[]') ON DUPLICATE KEY UPDATE doorID='%3'",_uid,typeOf _object,_pos,_keyID];
 	[_insert,1] spawn Server_Database_Async;
 
 	_player setVariable ["warehouse",_object,true];
 
 	//sign
-	_signs = _pos nearEntities [["Land_A3PL_BusinessSign"],20]; 
+	private _signs = _pos nearEntities [["Land_A3PL_BusinessSign"],20]; 
 	if (count _signs > 0) then
 	{
 		(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];

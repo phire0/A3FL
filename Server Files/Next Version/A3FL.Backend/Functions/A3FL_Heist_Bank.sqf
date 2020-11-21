@@ -18,7 +18,7 @@
 	createDialog "Dialog_CCTV";
 	private _distance = param [0,10000];
 	private _display = findDisplay 27;
-	A3PL_CCTV_ALL = nearestObjects [player, ["A3PL_CCTV"], _distance];
+	A3PL_CCTV_ALL = player nearEntities [["A3PL_CCTV"],_distance];
 	{
 		private _control = _display displayCtrl _x;
 		{
@@ -237,7 +237,7 @@
 	for "_i" from 0 to 20 do {
 		_bank animate [format ["deposit_%1",_i],0];
 	};
-	{deleteVehicle _x;} foreach (nearestObjects [_bank, ["A3PL_PileCash"], 20]);
+	{deleteVehicle _x;} foreach (_bank nearEntities [["A3PL_PileCash"],20]);
 	[player, 50] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 

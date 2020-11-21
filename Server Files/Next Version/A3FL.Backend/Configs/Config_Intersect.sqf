@@ -1209,7 +1209,7 @@ Config_IntersectArray =
 
 	//Fire truck
 	["Ladder_action",localize"STR_INTSECT_TAKELADDER",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_objintersect animationPhase "ladder" < 0.5}], //Take Ladder
-	["Ladder_action",localize"STR_INTSECT_PUTBACKLAD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{_ladders = nearestObjects [player, ["A3PL_Ladder"], 2]; (count _ladders) > 0}], //Put Back Ladder
+	["Ladder_action",localize"STR_INTSECT_PUTBACKLAD",_dir+"IGUI\Cfg\Actions\take_ca.paa",{_ladders = player nearEntities  [["A3PL_Ladder"],2]; (count _ladders) > 0}], //Put Back Ladder
 
 	["Hose_1_action",format [localize"STR_INTSECT_PUTBACKHOSE",1],_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_ItemClass == "FD_Hose"}], //Put Back Hose %1
 	["Hose_2_action",format [localize"STR_INTSECT_PUTBACKHOSE",2],_dir+"IGUI\Cfg\Actions\take_ca.paa",{player_ItemClass == "FD_Hose"}], //Put Back Hose %1

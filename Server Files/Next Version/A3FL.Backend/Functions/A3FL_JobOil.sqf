@@ -9,16 +9,15 @@
 //Function to start the pump
 ["A3PL_JobOil_PumpStart",
 {
-	private ["_pump","_pumpjacks","_hole","_holes"];
-	_pump = param [0,objNull];
+	private _pump = param [0,objNull];
 
 	if (!local _pump) exitwith {["Only the owner of the pump can start it", "red"] call A3PL_Player_Notification;};
 
-	_pumpjacks = nearestObjects [_pump, ["A3PL_Pumpjack"], 3];
-	_holes = nearestObjects [_pump, ["A3PL_DrillHole"], 3];
+	private _pumpjacks = _pump nearEntities [["A3PL_Pumpjack"],3];
+	private _holes = nearestObjects [_pump, ["A3PL_DrillHole"],3];
 	if (count _holes < 1) exitwith {["It doesn't look like there is a hole located nearby this pumpjack", "red"] call A3PL_Player_Notification;};
 	if (count _pumpjacks > 1) exitwith {["It looks like a jack pump is already placed near this hole", "red"] call A3PL_Player_Notification;};
-	_hole = _holes select 0;
+	private _hole = _holes select 0;
 	if (((_pump modelToWorld (_pump selectionPosition "holePosition")) distance _hole) > 0.2) exitwith {["Please position the pump piece of the pumpjack closer to the hole", "red"] call A3PL_Player_Notification;};
 
 	_oil = [getpos _hole] call A3PL_JobWildcat_CheckForOil;

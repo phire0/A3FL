@@ -61,7 +61,7 @@
 			};
 		} else {
 			if(_itemType in ["vehicle","plane"]) then {
-				_objects = nearestObjects [player,[_itemClass],10,true];
+				_objects = player nearEntities [[_itemClass],10];
 				if((count _objects) > 0) then {
 					_i = _control lbAdd format ["%1 (Near: %2x)",_itemName,(count _objects)];
 				} else {
@@ -332,7 +332,7 @@
 			{
 				if (!([_itemClass,"canPickup"] call A3PL_Config_GetItem)) then
 				{
-					_near = nearestObjects [player, [([_itemClass,"class"] call A3PL_Config_GetItem)], 20, true];
+					_near = player nearEntities [[([_itemClass,"class"] call A3PL_Config_GetItem)],20];
 					{
 						if ((_x getVariable "class") isEqualTo _itemClass) exitwith
 						{
@@ -355,7 +355,7 @@
 		};
 		case ("vehicle"):
 		{
-			private _vehicles = nearestObjects [player,["Car","Tank","Air","Plane","Ship"],20];
+			private _vehicles = player nearEntities [["Car","Tank","Air","Plane","Ship"],20];
 			private _vehicle = objNull;
 			if ((count _vehicles) < 1) exitwith {["Please bring it closer to the store!","red"] call A3PL_Player_Notification;};
 			{
@@ -370,7 +370,7 @@
 		};
 		case ("plane"):
 		{
-			private _vehicles = nearestObjects [player,["Car","Tank","Air","Plane","Ship"],20];
+			private _vehicles = player nearEntities [["Car","Tank","Air","Plane","Ship"],20];
 			private _vehicle = objNull;
 			if (count _vehicles < 1) exitwith {["You can not find your vehicle nearby! Thank you to bring it closer to the store to sell!"] call A3PL_Player_Notification;};
 			{

@@ -81,7 +81,7 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if ((player getVariable ["job","unemployed"]) != "Roadside") exitwith {["You dont seem to be working here as a Roadside Service Worker", "red"] call A3PL_Player_Notification;};
 
-	private _cars = nearestObjects [player, ["Car"], 10];
+	private _cars = player nearEntities [["Car"],10];
 	private _car = objNull;
 	{
 		if (_x getVariable ["impound",false]) exitwith {_car = _x;};

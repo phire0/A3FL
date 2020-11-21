@@ -140,7 +140,7 @@
 //creates an array which drawText will use to draw player tags on the screen, we dont want to run complicated scripts onEachFrame
 ["A3PL_Player_NameTags",
 {
-	private _players = nearestObjects [player, ["C_man_1"], 4];
+	private _players = player nearEntities [["C_man_1"],4];
 	private _players = _players - [player];
 	private _tags = [];
 	private _goggles = ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"];
@@ -181,11 +181,10 @@
 //gets nearest businesses, and business items
 ["A3PL_Player_BusinessTags",
 {
-	private ["_bus","_tags","_iTags","_items"];
-	_bus = nearestObjects [player, ["Land_A3PL_Showroom","Land_A3PL_Cinema","Land_A3PL_Gas_Station","Land_A3PL_Garage","land_smallshop_ded_smallshop_01_f","land_smallshop_ded_smallshop_02_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 50];
-	_items = nearestObjects [player, [], 10];
-	_tags = [];
-	_iTags = [];
+	private _bus = player nearEntities [["Land_A3PL_Showroom","Land_A3PL_Cinema","Land_A3PL_Gas_Station","Land_A3PL_Garage","land_smallshop_ded_smallshop_01_f","land_smallshop_ded_smallshop_02_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"],50];
+	private _items = player nearEntities [[],10];
+	private _tags = [];
+	private _iTags = [];
 	{
 		_bName = _x getVariable ["bName",""];
 		if (_bName != "") then
@@ -310,17 +309,16 @@
 
 ['A3PL_Player_NewPlayer',{
 	disableSerialization;
-	private ["_display","_control","_sex","_day","_month","_year"];
 
 	waituntil {sleep 0.1; isNull(findDisplay 15)};
 	createDialog "Dialog_NewPlayer";
-	_display = findDisplay 111;
+	private _display = findDisplay 111;
 	noEscape = _display displayAddEventHandler ["KeyDown", "if ((_this select 1) == 1) then {true}"];
-	_sex = _display displayCtrl 1403;
-    _day = _display displayCtrl 1404;
-    _month = _display displayCtrl 1405;
-    _year = _display displayCtrl 1406;
-    _control = _display displayCtrl 2100;
+	private _sex = _display displayCtrl 1403;
+    private _day = _display displayCtrl 1404;
+    private _month = _display displayCtrl 1405;
+    private _year = _display displayCtrl 1406;
+    private _control = _display displayCtrl 2100;
 	_sex lbAdd "Male";
 	_sex lbSetData [(lbSize _sex) - 1, "male"];
 	_sex lbAdd "Female";
@@ -433,10 +431,8 @@
 
 //check if has enough money
 ['A3PL_Player_HasCash', {
-	private ['_amount', '_cash'];
-
-	_amount = [_this, 0, 0, [0]] call BIS_fnc_param;
-	_cash = player getVariable 'Player_Cash';
+	private _amount = [_this, 0, 0, [0]] call BIS_fnc_param;
+	private _cash = player getVariable 'Player_Cash';
 
 	//Check if player has _amount in cash
 	if (_cash >= _amount) exitWith {true};
@@ -445,10 +441,9 @@
 
 //check if has enough money
 ['A3PL_Player_HasBank', {
-	private ['_amount', '_bank'];
 
-	_amount = [_this, 0, 0, [0]] call BIS_fnc_param;
-	_bank = player getVariable 'Player_Bank';
+	private _amount = [_this, 0, 0, [0]] call BIS_fnc_param;
+	private _bank = player getVariable 'Player_Bank';
 
 	//Check if player has _amount in bank
 	if (_bank >= _amount) exitWith {true};
@@ -458,9 +453,7 @@
 
 //add paycheck money - players have to pick it up from the bank - very simple right now
 ['A3PL_Player_PickupPaycheck', {
-	private ['_paycheckAmount', '_format'];
-
-	_paycheckAmount = Player_Paycheck;
+	private _paycheckAmount = Player_Paycheck;
 
 	//make sure they have a paycheck to pickup
 	if (Player_Paycheck < 1) exitWith
@@ -476,7 +469,7 @@
 	[player, Player_Paycheck] remoteExec ["Server_Player_UpdatePaycheck",2];
 
 	//display notification
-	_format = format[localize "STR_PLAYER_SIGNEDREC", [_paycheckAmount] call A3PL_Lib_FormatNumber]; //I signed my paycheck and received $%1 into my bank account
+	private _format = format[localize "STR_PLAYER_SIGNEDREC", [_paycheckAmount] call A3PL_Lib_FormatNumber]; //I signed my paycheck and received $%1 into my bank account
 	[_format, "green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -496,13 +489,12 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Player_OpenNametag", {
-	private ["_player","_uid","_name","_saved"];
-	_player = param [0,objNull];
-	_uid = getPlayerUID _player;
+	private _player = param [0,objNull];
+	private _uid = getPlayerUID _player;
 
 	A3PL_Nametag_Uid = _uid;
-	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
-	_name = "";
+	private _saved = profileNamespace getVariable ["A3FL_NameTags",[]];
+	private _name = "";
 
 	{
 		_sUID = _x select 0;

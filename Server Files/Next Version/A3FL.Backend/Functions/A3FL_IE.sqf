@@ -137,7 +137,7 @@
 			_index = _control lbAdd (format ["%1 (Inventory: %2x)",[_item,"name"] call A3PL_Config_GetItem,_amount]);
 		} else
 		{
-			_objects = nearestObjects [player,[([_item,"class"] call A3PL_Config_GetItem)],10,true];
+			_objects = player nearEntities [[([_item,"class"] call A3PL_Config_GetItem)],10];
 			_objects = _objects - [_deletedItem];
 			_index = _control lbAdd (format ["%1 (Near: %2x)",[_item,"name"] call A3PL_Config_GetItem,count _objects]);
 		};
@@ -183,11 +183,10 @@
 			if ([_item,_amount] call A3PL_Inventory_Has) exitwith {_itemCheck = true;};
 		} else
 		{
-			private ["_class","_objects"];
 			_amount = 1;
-			_class = [_item,"class"] call A3PL_Config_GetItem;
-			_objects = nearestObjects [player,[_class],10,true];
-			if (count _objects == 0) exitwith {};
+			private _class = [_item,"class"] call A3PL_Config_GetItem;
+			private _objects = player nearEntities [[_class],10];
+			if (count _objects isEqualTo 0) exitwith {};
 			{
 				if ((local _x) && ((_x getVariable ["class",""]) == _item)) exitwith {_itemCheck = true; _objectItem = _x;};
 			} foreach _objects;

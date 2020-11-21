@@ -110,7 +110,7 @@ A3PL_Interaction_Options =
 			};
 		},
 		{
-			private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true];
+			private _warehouse = player nearEntities [Config_Warehouses_List,10];
 			private _var = cursorObject getVariable "warehouse";
 			if(((count _warehouse) > 0) && (isPlayer cursorObject) && (isNil "_var")) then {
 				true;
@@ -139,7 +139,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _house = nearestObjects [getPos player, Config_Houses_List, 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _house = nearEntities [[Config_Houses_List],10]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_UNSETCOLLOC",
@@ -161,7 +161,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _warehouse) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _warehouse = nearEntities [Config_Warehouses_List,10]; if(((count _warehouse) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_CHECKID",
@@ -369,12 +369,12 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_JAILP",
 		{[cursorObject] call A3PL_Police_StartJailPlayer},
-		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"], 50]) > 0)}
+		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(player nearEntities [["Land_A3PL_Prison","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"],50]) > 0)}
 	],
 	[
 		localize "STR_INTER_JAILP",
 		{[cursorObject] call A3PL_Police_StartJailPlayer},
-		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"], 50]) > 1)}
+		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(player nearEntities [["Land_A3PL_Prison","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"],50]) > 1)}
 	],
 	[
 		localize"STR_INTER_StartFire",
@@ -384,7 +384,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_SEIZEITEMS",
 		{[1] call A3PL_Police_SeizeItems;},
-		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count (nearestObjects [player,["weaponholder"],3] + nearestObjects [player,["groundWeaponHolder"],3]) > 0)}
+		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count ((player nearEntities [["weaponholder"],3]) + (player nearEntities [["groundWeaponHolder"],3])) > 0)}
 	],
 	[
 		localize "STR_INTER_REPAIRTEROB",
@@ -993,7 +993,7 @@ A3PL_Interaction_Options =
 	[
 		"Secure Vehicle",
 		{[cursorObject] call A3PL_Vehicle_SecureVehicle;},
-		{(vehicle player isEqualTo player) && {((player distance cursorObject) < 10)} && {(count(nearestObjects [player, ["A3FL_LCM"], 20]) > 0)} && {(typeOf cursorObject != "A3FL_LCM")}}
+		{(vehicle player isEqualTo player) && {((player distance cursorObject) < 10)} && {(count(player nearEntities [["A3FL_LCM"],20]) > 0)} && {(typeOf cursorObject != "A3FL_LCM")}}		
 	],
 	[
 		"Unsecure Vehicle",
