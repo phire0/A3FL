@@ -1142,7 +1142,7 @@
 	private _control = _display displayCtrl 1401;
 	_control ctrlSetText "";
 
-	private _dojCommands = ["help", "clear", "login", "lookup", "lookupvehicles", "lookuplicense", "lookupcompany", "warrantlist", "warrantinfo", "ticketlist", "warninglist", "arrestlist", "lookupaddress", "lookupwarehouse", "bololist", "stolenvehicles", "darknet", "SpecialCharacterError"];
+	private _dojCommands = ["help", "clear", "login", "lookup", "lookupvehicles", "lookuplicense", "lookupcompany", "warrantlist", "warrantinfo", "ticketlist", "warninglist", "arrestlist", "lookupaddress", "lookupwarehouse", "bololist", "stolenvehicles", "darknet", "SpecialCharacterError", "revokelicense"];
 	private _notCop = !((player getVariable ["faction","citizen"]) IN ["fisd","fims","uscg"]);
 	private _edit0 = [_edit,0] call A3PL_Police_DatabaseArgu;
 
@@ -1175,6 +1175,7 @@
 				<t align='center'>lookupaddress [firstname] [lastname] - View house address</t><br />
 				<t align='center'>lookupwarehouse [firstname] [lastname] - View warehouse address</t><br />
 				<t align='center'>bololist - View a list of active BOLO notices</t><br />
+				<t align='center'>revokelicense [firstname] [lastname] [license code] - Revoke a license</t><br />
 				<t align='center'>stolenvehicles - View a list of stolen vehicles</t>
 				";
 			} else {
@@ -1215,15 +1216,8 @@
 			private _pass = [_edit,1] call A3PL_Police_DatabaseArgu;
 			if (_pass isEqualTo "fisdftw") then {
 				_veh setVariable ["PoliceDatabaseLogin",true,true];
-				private _squadnb = _veh getVariable["squadnb",nil];
 				private _rank = [(player getVariable ["faction","citizen"]),"rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;
-				if(isNil "_squadnb") then {
-					/*private _control = _display displayCtrl 1401;
-					_control ctrlSetText "setsquad ";*/
-					format["Logged in as %1 %2<br/>Please use 'setsquad' to enter your squad number..",_rank,(player getVariable["name","unknown"])];
-				} else {
-					format["Logged in as %1 %2",_rank,(player getVariable["name","unknown"])];
-				};
+				format["Logged in as %1 %2",_rank,(player getVariable["name","unknown"])];
 			} else {
 				"Error: Incorrect password";
 			};

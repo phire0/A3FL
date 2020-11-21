@@ -1354,17 +1354,23 @@
     "",
     localize"STR_INTSECT_ACCPOLDB",
     {
+    	private _job = player getVariable ["job","unemployed"];
     	if((typeOf player_objintersect) IN ["Land_A3FL_DOC_Gate","Land_A3PL_CH"]) then {
-    		if (isNull (findDisplay 211) && (player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) then {
-				call A3PL_Police_DatabaseOpen;
+    		if !(_job IN ["fisd","uscg","fims","doj"]) exitWith {["Only faction members can use computers in buildings!","red"] call A3PL_Player_Notification;};
+    		if (isNull (findDisplay 211)) then {
+				if (_job isEqualTo "fifr") then {
+					call A3PL_FD_DatabaseOpen;
+				} else {
+					call A3PL_Police_DatabaseOpen;
+				};
 			};
     	} else {
     		if (isNull (findDisplay 211) && (player_objintersect animationPhase "Laptop_Top" > 0.5)) then {
-    			if ((player getVariable ["job","unemployed"]) isEqualTo "fifr") then {
-    				call A3PL_FD_DatabaseOpen;
-    			} else {
-    				call A3PL_Police_DatabaseOpen;
-    			};				
+				if (_job isEqualTo "fifr") then {
+					call A3PL_FD_DatabaseOpen;
+				} else {
+					call A3PL_Police_DatabaseOpen;
+				};
 			};
     	};
     }
