@@ -8,7 +8,7 @@
 
 ["Server_Lumber_TreeRespawn",
 {
-	private _treeCount = count(getMarkerPos "LumberJack_Rectangle") nearEntities [["Land_A3PL_Tree3"],190];
+	private _treeCount = count((getMarkerPos "LumberJack_Rectangle") nearEntities [["Land_A3PL_Tree3"],190]);
 	for "_i" from 1 to (50 - _treeCount) do {
 		private _randPos = ["LumberJack_Rectangle"] call CBA_fnc_randPosArea;
 		private _tree = createVehicle ["Land_A3PL_Tree3", _randPos, [], 0, "CAN_COLLIDE"];

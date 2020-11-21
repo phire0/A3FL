@@ -139,7 +139,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _house = nearEntities [[Config_Houses_List],10]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _house = player nearEntities [Config_Houses_List,10]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_UNSETCOLLOC",
@@ -161,7 +161,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _warehouse = nearEntities [Config_Warehouses_List,10]; if(((count _warehouse) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _warehouse = player nearEntities [Config_Warehouses_List,10]; if(((count _warehouse) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_CHECKID",
