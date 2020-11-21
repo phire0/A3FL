@@ -11,7 +11,7 @@
 	private _player = param [0,objNull];
 	private _playerUID = getPlayerUID _player;
 	private _business = param [1,objNull];
-	if ((isNull _player) OR (isNull _business)) exitwith {diag_log "exit";};
+	if ((isNull _player) OR (isNull _business)) exitwith {};
 	private _name = param [2,""];
 	private _rentTime = (param [3,1]) * 60;
 	private _rentCost = param [4,1];
