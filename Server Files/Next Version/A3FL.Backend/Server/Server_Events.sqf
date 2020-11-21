@@ -224,49 +224,11 @@
 		switch(_wreckType) do {
 			case(0): {
 				_alertMessage = "ALERT! ALERT! The plane carrying ??? has crashed on water! Collect the Weapons before LEOs seize them!";
-				_wreckMessage = "WEAPONS PLANE CRASH";
-				_weapons = [["hgun_P07_blk_F",1],["hgun_Pistol_heavy_01_F",1],["hgun_Pistol_01_F",1],["hgun_Rook40_F",1],["hgun_Pistol_heavy_02_F",1],["A3PL_P226",1],["A3FL_P227",1],["A3FL_Beretta92",1],["A3FL_DesertEagle",1],["A3FL_Glock17",1]];
-				_mags = [["16Rnd_9x21_Mag",4],["11Rnd_45ACP_Mag",4],["10Rnd_9x21_Mag",4],["16Rnd_9x21_Mag",4],["6Rnd_45ACP_Cylinder",4],["A3PL_P226_Mag",4],["A3FL_P227_Mag",4],["A3FL_Beretta92_Mag",4],["A3FL_DesertEagle_Mag",4],["A3FL_Glock17_Mag",4]];
-				_rareWeapons = [["SMG_01_F",1],["SMG_02_F",1],["SMG_05_F",1],["A3FL_Mossberg_590k",1],["arifle_AKM_F",1],["A3PL_M16",1],["A3FL_Glock18",1]];
-				_rareMags = [["30Rnd_45ACP_Mag_SMG_01",2],["30Rnd_9x21_Mag_SMG_02",2],["30Rnd_9x21_Mag_SMG_02",2],["A3FL_Mossberg_590k_8Rnd_buck",2],["30Rnd_762x39_Mag_F",2],["A3PL_M16_Mag",2],["A3FL_Glock18_Mag",2]];
-
-				for "_i" from 0 to _weaponCount do {
-					_weaponChance = floor (random 9);
-					_gun = _weapons select _weaponChance;
-					_physicalItems pushBack _gun;
-					_mag = _mags select _weaponChance;
-					_physicalItems pushBack _mag;
-				};
-				for "_i" from 0 to _rareWeaponCount do {
-					_rareWeaponChance = floor (random 6);
-					_gun = _rareWeapons select _rareWeaponChance;
-					_physicalItems pushBack _gun;
-					_mag = _rareMags select _rareWeaponChance;
-					_physicalItems pushBack _mag;
-				};
+				_wreckMessage = "???";
 			};
 			case(1): {
 				_alertMessage = "ALERT! ALERT! The plane carrying ??? has crashed on water 2! Collect the Weapons before LEOs seize them!";
-				_wreckMessage = "WEAPONS PLANE CRASH";
-				_weapons = [["hgun_P07_blk_F",1],["hgun_Pistol_heavy_01_F",1],["hgun_Pistol_01_F",1],["hgun_Rook40_F",1],["hgun_Pistol_heavy_02_F",1],["A3PL_P226",1],["A3FL_P227",1],["A3FL_Beretta92",1],["A3FL_DesertEagle",1],["A3FL_Glock17",1]];
-				_mags = [["16Rnd_9x21_Mag",4],["11Rnd_45ACP_Mag",4],["10Rnd_9x21_Mag",4],["16Rnd_9x21_Mag",4],["6Rnd_45ACP_Cylinder",4],["A3PL_P226_Mag",4],["A3FL_P227_Mag",4],["A3FL_Beretta92_Mag",4],["A3FL_DesertEagle_Mag",4],["A3FL_Glock17_Mag",4]];
-				_rareWeapons = [["SMG_01_F",1],["SMG_02_F",1],["SMG_05_F",1],["A3FL_Mossberg_590k",1],["arifle_AKM_F",1],["A3PL_M16",1],["A3FL_Glock18",1]];
-				_rareMags = [["30Rnd_45ACP_Mag_SMG_01",2],["30Rnd_9x21_Mag_SMG_02",2],["30Rnd_9x21_Mag_SMG_02",2],["A3FL_Mossberg_590k_8Rnd_buck",2],["30Rnd_762x39_Mag_F",2],["A3PL_M16_Mag",2],["A3FL_Glock18_Mag",2]];
-
-				for "_i" from 0 to _weaponCount do {
-					_weaponChance = floor (random 9);
-					_gun = _weapons select _weaponChance;
-					_physicalItems pushBack _gun;
-					_mag = _mags select _weaponChance;
-					_physicalItems pushBack _mag;
-				};
-				for "_i" from 0 to _rareWeaponCount do {
-					_rareWeaponChance = floor (random 6);
-					_gun = _rareWeapons select _rareWeaponChance;
-					_physicalItems pushBack _gun;
-					_mag = _rareMags select _rareWeaponChance;
-					_physicalItems pushBack _mag;
-				};
+				_wreckMessage = "???";
 			};
 			case(2): {
 				_alertMessage = "ALERT! ALERT! The plane carrying Treasure has crashed on water! Collect the Treasure before anyone else does!";
@@ -331,26 +293,7 @@
 			};
 			case(2): {
 				_alertMessage = "ALERT! ALERT! The plane carrying ??? has crashed on land 3! Collect the Weapons before LEOs seize them!";
-				_wreckMessage = "WEAPONS PLANE CRASH";
-				_weapons = [["hgun_P07_blk_F",1],["hgun_Pistol_heavy_01_F",1],["hgun_Pistol_01_F",1],["hgun_Rook40_F",1],["hgun_Pistol_heavy_02_F",1],["A3PL_P226",1],["A3FL_P227",1],["A3FL_Beretta92",1],["A3FL_DesertEagle",1]];
-				_mags = [["16Rnd_9x21_Mag",4],["11Rnd_45ACP_Mag",4],["10Rnd_9x21_Mag",4],["16Rnd_9x21_Mag",4],["6Rnd_45ACP_Cylinder",4],["A3PL_P226_Mag",4],["A3FL_P227_Mag",4],["A3FL_Beretta92_Mag",4],["A3FL_DesertEagle_Mag",4]];
-				_rareWeapons = [["SMG_01_F",1],["SMG_02_F",1],["SMG_05_F",1],["A3FL_Mossberg_590k",1],["arifle_AKM_F",1],["A3PL_M16",1]];
-				_rareMags = [["30Rnd_45ACP_Mag_SMG_01",2],["30Rnd_9x21_Mag_SMG_02",2],["30Rnd_9x21_Mag_SMG_02",2],["A3FL_Mossberg_590k_8Rnd_buck",2],["30Rnd_762x39_Mag_F",2],["A3PL_M16_Mag",2]];
-
-				for "_i" from 0 to _weaponCount do {
-					_weaponChance = floor (random 9);
-					_gun = _weapons select _weaponChance;
-					_physicalItems pushBack _gun;
-					_mag = _mags select _weaponChance;
-					_physicalItems pushBack _mag;
-				};
-				for "_i" from 0 to _rareWeaponCount do {
-					_rareWeaponChance = floor (random 6);
-					_gun = _rareWeapons select _rareWeaponChance;
-					_physicalItems pushBack _gun;
-					_mag = _rareMags select _rareWeaponChance;
-					_physicalItems pushBack _mag;
-				};
+				_wreckMessage = "???";
 			};
 		};
 	};
