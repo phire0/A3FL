@@ -520,9 +520,6 @@ Config_IntersectArray =
 	["outlet_bt_1",localize"STR_INTSECT_CONHOSETOENGDIS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //discharges ||Connect Hose To Engine Discharge
 	["outlet_bt_2",localize"STR_INTSECT_CONHOSETOENGDIS",_dir+"IGUI\Cfg\Actions\take_ca.paa",{((typeof (call A3PL_Lib_AttachedFirst)) IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])}], //Connect Hose To Engine Discharge
 
-	["burger",localize"STR_INTSECT_CREATEFISHB",_dir+"IGUI\Cfg\Actions\take_ca.paa",{_burgers = nearestObjects [player_objIntersect, ["A3PL_Burger_Bun"], 1]; (count _burgers) > 0}], //Create Fish Burger
-	["tacoshell",localize"STR_INTSECT_CREATEFTACO",_dir+"IGUI\Cfg\Actions\take_ca.paa",{_burgers = nearestObjects [player_objIntersect, ["A3PL_Fish_Raw","A3PL_Fish_Cooked","A3PL_Fish_Burned"], 1]; _salads= nearestObjects [player_objIntersect, ["A3PL_Salad"], 1]; ((count _burgers) > 0) && ((count _salads) > 0)}], //Create Fish Taco
-	["burgerbread",localize"STR_INTSECT_CREATEFISHB",_dir+"IGUI\Cfg\Actions\take_ca.paa",{_burgers = nearestObjects [player_objIntersect, ["A3PL_Burger_Raw","A3PL_Burger_Cooked","A3PL_Burger_Burnt"], 1]; (count _burgers) > 0}], //Create Fish Burger
 	["clothes",localize"STR_INTSECT_BUSEITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(!(isNil {player_objIntersect getVariable "stock"}))}], //Buy/Sell Item
 
 	["handcuffs",localize"STR_INTSECT_PICKUPITEM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{(isNil {player_objintersect getVariable ["bitem",nil]})}], //Pickup Item
@@ -1991,7 +1988,6 @@ Config_GenArray =
 	localize"STR_INTSECT_PICKUPITEM",
 	localize"STR_INTSECT_PickupDeliveryBox",
 	localize"STR_INTSECT_PICKITEMTOHAND",
-	localize"STR_INTSECT_CREATEFISHB",
 	localize"STR_INTSECT_OPCLJAILD",
 	localize"STR_INTSECT_USEATM",
 	localize"STR_INTSECT_BUSEITEM",

@@ -5862,12 +5862,6 @@
    <Key ID="STR_INTSECT_CONHOSETOENGDIS">
       <Original>Connect Discharge Hose</Original>
    </Key>
-   <Key ID="STR_INTSECT_CREATEFISHB">
-      <Original>Create Fish Hamburger</Original>
-   </Key>
-   <Key ID="STR_INTSECT_CREATEFTACO">
-      <Original>Create Fish Tacos</Original>
-   </Key>
    <Key ID="STR_INTSECT_BUSEITEM">
       <Original>To buy to sell</Original>
    </Key>

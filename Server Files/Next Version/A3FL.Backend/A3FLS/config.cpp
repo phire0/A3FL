@@ -254,7 +254,6 @@ class CfgRemoteExec
 
 		//Job Mcfisher
 		class A3PL_JobMcfisher_CookBurger {allowedTargets = 0;};
-		class Server_JobMcfisher_combine {allowedTargets = 2;};
 		class Server_JobMcfisher_cookthres {allowedTargets = 2;};
 
 		//Job Fisherman

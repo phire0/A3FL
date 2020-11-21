@@ -501,16 +501,6 @@
 	{call A3PL_Housing_PickupKey;}
 ],
 [
-	"",
-	localize"STR_INTSECT_CREATEFISHB",
-	{[player_objintersect] call A3PL_JobMcfisher_CombineBurger;}
-],
-[
-	"A3PL_TacoShell",
-	localize"STR_INTSECT_CREATEFTACO",
-	{[player_objintersect,"taco"] call A3PL_JobMcfisher_CombineBurger;}
-],
-[
 	"A3PL_FishingBuoy",
 	localize"STR_INTSECT_COLLNET",
 	{[player_objintersect] call A3PL_JobFisherman_RetrieveNet;}
