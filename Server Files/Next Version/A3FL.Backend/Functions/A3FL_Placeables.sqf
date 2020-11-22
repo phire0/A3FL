@@ -162,7 +162,6 @@
 					};
 					case ("stinger"):
 					{
-						hint "here";
 						Player_Item attachto [player,
 						[
 							0,

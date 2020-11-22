@@ -68,78 +68,26 @@
 {
 	private _player = param [0,objNull];
 	private _obj = param [1,objNull];
-	private _type = param [2,""];
-	private _bChecked = param [3,false];
-	private _name = param [4,""];
-	private _price = param [5,0];
-	if (isNull _player OR isNull _obj) exitwith {};
-	_obj setVariable ["bItem",[_price,_name,_bChecked,getPlayerUID _player],true];
-},true] call Server_Setup_Compile;
-
-["Server_Business_Sellitemstop",
-{
-	private _obj = param [0,objNull];
-	_obj setVariable ["bItem",nil,true];
+	private _name = param [2,""];
+	private _price = param [3,0];
+	if ((isNull _player) || {isNull _obj}) exitwith {};
+	_obj setVariable ["bItem",[_price,_name,getPlayerUID _player],true];
 },true] call Server_Setup_Compile;
 
 ["Server_Business_BuyItem",
 {
 	private _buyer = param [0,objNull];
 	private _obj = param [1,objNull];
-	private _factionBuy = param [2,false];
 	private _buyerUID = getPlayerUID _buyer;
 	private _bItem = _obj getVariable ["bItem",nil];
 	if (isNil "_bItem") exitwith {};
 	private _price = _bItem select 0;
-	private _businessItem = _bItem select 2;
-	private _owner = _bItem select 3;
+	private _owner = _bItem select 2;
 	switch (true) do {
-		case (_obj isKindOf "car"): {
+		case ((_obj isKindOf "car") || {_obj isKindOf "tank"} || {_obj isKindOf "plane"} || {_obj isKindOf "air"}): {
 			private _id = _obj getVariable ["owner",nil];
 			private _isCustomPlate = _obj getVariable ["isCustomPlate",0];
 			if (isNil "_id") exitwith {};
-			private _id = _id select 1;
-			if(_isCustomPlate isEqualTo 1) then {
-				private _newID = [7] call Server_Housing_GenerateID;
-				private _query = format ["UPDATE objects SET uid='%1' WHERE id='%2'",_buyerUID,_id];
-				[_query,1] spawn Server_Database_Async;
-				private _query2 = format ["UPDATE objects SET id = '%2',numpchange='0',iscustomplate='0' WHERE id = '%1'",_id,_newID];
-				[_query2,1] spawn Server_Database_Async;
-				_obj setVariable ["owner",[_buyerUID,_newID],true];
-				[_newID,_obj] call Server_Vehicle_Init_SetLicensePlate;
-			} else {
-				private _query = format ["UPDATE objects SET uid='%1' WHERE id='%2'",_buyerUID,_id];
-				_obj setVariable ["owner",[_buyerUID,_id],true];
-				[_query,1] spawn Server_Database_Async;
-			};
-			[_obj] remoteExec ["A3PL_Vehicle_AddKey",_buyer];
-			[_obj,false] remoteExec ["A3PL_Vehicle_AddKey",_owner];
-		};
-		case (_obj isKindOf "tank"): {
-			private _id = _obj getVariable ["owner",nil];
-			if (isNil "_id") exitwith {};
-			private _isCustomPlate = _obj getVariable ["isCustomPlate",0];
-			private _id = _id select 1;
-			if(_isCustomPlate isEqualTo 1) then {
-				private _newID = [7] call Server_Housing_GenerateID;
-				private _query = format ["UPDATE objects SET uid='%1' WHERE id='%2'",_buyerUID,_id];
-				[_query,1] spawn Server_Database_Async;
-				private _query2 = format ["UPDATE objects SET id = '%2',numpchange='0',iscustomplate='0' WHERE id = '%1'",_id,_newID];
-				[_query2,1] spawn Server_Database_Async;
-				_obj setVariable ["owner",[_buyerUID,_newID],true];
-				[_newID,_obj] call Server_Vehicle_Init_SetLicensePlate;
-			} else {
-				_query = format ["UPDATE objects SET uid='%1' WHERE id='%2'",_buyerUID,_id];
-				_obj setVariable ["owner",[_buyerUID,_id],true];
-				[_query,1] spawn Server_Database_Async;
-			};
-			[_obj] remoteExec ["A3PL_Vehicle_AddKey",_buyer];
-			[_obj,false] remoteExec ["A3PL_Vehicle_AddKey",_owner];
-		};
-		case (_obj isKindOf "ship"): {
-			private _id = _obj getVariable ["owner",nil];
-			if (isNil "_id") exitwith {};
-			private _isCustomPlate = _obj getVariable ["isCustomPlate",0];
 			private _id = _id select 1;
 			if(_isCustomPlate isEqualTo 1) then {
 				private _newID = [7] call Server_Housing_GenerateID;
@@ -167,15 +115,10 @@
 			_obj setVariable ["owner",_buyerUID,true];
 		};
 	};
-	[_obj] call Server_Business_Sellitemstop;
+	_obj setVariable ["bItem",nil,true];
 
-	if (_factionBuy) then {
-		private _balance = [_buyer,true] call A3PL_Government_MyFactionBalance;
-		[_balance,-_price] call Server_Government_AddBalance;
-	} else {
-		private _cash = _buyer getVariable ["player_cash",0];
-		_buyer setVariable ["player_cash",(_cash - _price),true];
-	};
+	private _cash = _buyer getVariable ["player_cash",0];
+	_buyer setVariable ["player_cash",(_cash - _price),true];
 	if (!isNil "_owner") then {
 		private _ownerObj = [_owner] call A3PL_Lib_UIDToObject;
 		if (!isNull _ownerObj) then {

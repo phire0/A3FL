@@ -60,18 +60,10 @@ class Dialog_ItemBuy
 		class button_buy: RscButtonEmpty
 		{
 			idc = 1601;
-			x = 0.386041 * safezoneW + safezoneX;
-			y = 0.545741 * safezoneH + safezoneY;
-			w = 0.100104 * safezoneW;
-			h = 0.0383333 * safezoneH;
-		};
-		class button_factionbuy: RscButtonEmpty
-		{
-			idc = 1602;
-			x = 0.506406 * safezoneW + safezoneX;
-			y = 0.54563 * safezoneH + safezoneY;
-			w = 0.0990623 * safezoneW;
-			h = 0.0392592 * safezoneH;
+			x = 0.386562 * safezoneW + safezoneX;
+			y = 0.544 * safezoneH + safezoneY;
+			w = 0.226875 * safezoneW;
+			h = 0.044 * safezoneH;
 		};
 	};
 };

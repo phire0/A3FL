@@ -218,17 +218,16 @@
 	Player_ActionCompleted = false;
 	["Capturing...",120] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
-	_success = true;
 	while {Player_ActionDoing} do {
-		if (Player_ActionInterrupted) exitWith {_success = false;};
-		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
-		if ((player distance _obj) > 30) exitwith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-		if ((currentWeapon player) isEqualTo "") exitWith {_success = false;Player_ActionInterrupted=true;};
+		if (Player_ActionInterrupted) exitWith {};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {Player_ActionInterrupted = true;};
+		if (!((vehicle player) isEqualTo player)) exitwith {Player_ActionInterrupted = true;};
+		if ((player distance _obj) > 30) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
+		if ((currentWeapon player) isEqualTo "") exitWith {Player_ActionInterrupted = true;};
 	};
 	Player_ActionDoing = false;
-	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification; _obj setVariable ["CaptureInProgress",false,true];};
+	if(Player_ActionInterrupted) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification; _obj setVariable ["CaptureInProgress",false,true];};
 
 	_obj setVariable["captured",_gangID,true];
 	_obj setVariable["capturedName",_gangName,true];
@@ -318,14 +317,13 @@
 	_obj setVariable ["CaptureInProgress",true,true];
 	["Securing Gang Hideout...",120] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
-	_success = true;
 	while {Player_ActionDoing} do {
-		if (Player_ActionInterrupted) exitWith {_success = false;};
-		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if (Player_ActionInterrupted) exitWith {Player_ActionInterrupted = true;};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {Player_ActionInterrupted = true;};
+		if (!(vehicle player isEqualTo player)) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
 	};
-	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;_obj setVariable ["CaptureInProgress",false,true];};
+	if(Player_ActionInterrupted) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;_obj setVariable ["CaptureInProgress",false,true];};
 
 	private _factionMark = "A3PL_Markers_FISD";
 	if(_faction isEqualTo "uscg") then {_factionMark = "A3PL_Markers_USCG";};

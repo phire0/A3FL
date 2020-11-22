@@ -160,7 +160,7 @@
 //This function will change/buy the ownership of a house
 ["Server_Warehouses_Assign",
 {
-=	private _object = param [0,objNull];
+	private _object = param [0,objNull];
 	private _player = param [1,objNull];
 	private _takeMoney = param [2,true];
 	private _price = param [3,0];

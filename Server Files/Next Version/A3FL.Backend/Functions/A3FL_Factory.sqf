@@ -62,7 +62,6 @@
 	private _duration = ([_id,_type,"time"] call A3PL_Config_GetFactory) * ([_craftID, "count"] call A3PL_Config_GetPlayerFactory);
 	private _timeEnd = [_craftID, "finish"] call A3PL_Config_GetPlayerFactory;
 	private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
-	private _timeSleep = 0;
 	if (_name isEqualTo "inh") then {_name = [([_id,_type,"class"] call A3PL_Config_GetFactory),([_id,_type,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
 	_duration = [_duration] call A3PL_Factory_LevelBoost;
 	while {!isNull _display} do {
@@ -76,16 +75,13 @@
 		if(_secLeft > 60) then {
 			_minLeft = ceil (_secLeft/60);
 			(_display displayCtrl 1104) ctrlSetStructuredText parseText format ["<t size='0.92'>%1<br/>%2 minute(s) remaining</t>",_name,_minLeft];
-			_timeSleep = 60;
 			if(_minLeft > 60) then {
 				(_display displayCtrl 1104) ctrlSetStructuredText parseText format ["<t size='0.92'>%1<br/>%2 hour(s) remaining</t>",_name,_minLeft/60];
-				_timeSleep = 3600;
 			};
 		} else {
 			(_display displayCtrl 1104) ctrlSetStructuredText parseText format ["<t size='0.92'>%1<br/>%2 second(s) remaining</t>",_name,ceil _secLeft];
-			_timeSleep = 1;
 		};
-		uiSleep _timeSleep;
+		uiSleep 1;
 		if (_secLeft <= 0) exitwith {};
 	};
 }] call Server_Setup_Compile;
@@ -198,7 +194,7 @@
 				_curSleep = _curSleep + 1;
 				sleep 1;
 			};
-			if(!isNil "Player_CraftInterrupt") exitWith {Player_CraftInterrupt = nil;};
+			if(!isNil "Player_CraftInterrupt") exitWith {sleep 3;Player_CraftInterrupt = nil;};
 			[format [localize"STR_FACTORY_CRAFTEND",_name,_type,([_id,_type,"output"] call A3PL_Config_GetFactory)*_toCraft],"green"] call A3PL_Player_Notification;
 			[player,_xpToAdd] call A3PL_Level_AddXp;
 			[player,_type,_id, _required, _toCraft] remoteExec ["Server_Factory_Finalise", 2];
@@ -654,58 +650,58 @@
 	_name;
 }] call Server_Setup_Compile;
 
-//collect item from a crate/garmant
 ["A3PL_Factory_CrateCollect",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_crate","_info","_classType","_id","_amount","_name","_mainClass","_fail"];
-	_crate = param [0,objNull];
-	_info = [_crate] call A3PL_Factory_CrateInfo;
-	_classtype = _info select 0;
-	_id = _info select 1;
-	_amount = _info select 2;
+	private _crate = param [0,objNull];
+	private _info = [_crate] call A3PL_Factory_CrateInfo;
+	private _classtype = _info select 0;
+	private _id = _info select 1;
+	private _amount = _info select 2;
+	private _owner = _crate getVariable ["owner",""];
 
-	_owner = _crate getVariable ["owner",""];
-	if (_owner != (getPlayerUID player)) exitwith {
-		[localize"STR_FACTORY_OWNERSELL","red"] call A3PL_Player_Notification;
-	};
+	if (_owner != (getPlayerUID player)) exitwith {[localize"STR_FACTORY_OWNERSELL","red"] call A3PL_Player_Notification;};
 
-	_fail = false;
-	_exit = false;
-	if(_classType isEqualTo "item") then {
-		[_id,_amount] call A3PL_Inventory_Add;
-	} else {
-		switch (_classtype) do {
-			case ("weapon"): {player addItem _id;};
-			case ("magazine"): {
-				if(player canAdd [_id, _amount]) then {
-					player addMagazines [_id,_amount];
-				} else {
-					_exit = true;
-				};
-			};
-			case ("aitem"): {
-				if(player canAdd [_id, _amount]) then {
-						for [{_i = 0}, {_i < _amount},{_i = _i + 1}] do {
-							player addItem _id;
-						};
-				} else {
-						_exit = true;
-				};
-			};
-			case ("uniform"): {player addUniform _id; };
-			case ("vest"): {player addVest _id;};
-			case ("headgear"): {player addHeadGear _id;};
-			case ("backpack"): {player addBackPack _id;};
-			case ("goggles"): {player addGoggles _id;};
-			default {_fail = true;};
+	private _fail = false;
+	private _exit = false;
+	switch (_classtype) do {
+		case ("item"): {
+			[_id,_amount] call A3PL_Inventory_Add;
 		};
+		case ("weapon"): {
+			if(player canAdd [_id, _amount]) then {
+				player addItem _id;
+			} else {
+				_exit = true;
+			};
+		};
+		case ("magazine"): {
+			if(player canAdd [_id, _amount]) then {
+				player addMagazines [_id,_amount];
+			} else {
+				_exit = true;
+			};
+		};
+		case ("aitem"): {
+			if(player canAdd [_id, _amount]) then {
+				for [{_i = 0}, {_i < _amount},{_i = _i + 1}] do {
+					player addItem _id;
+				};
+			} else {
+				_exit = true;
+			};
+		};
+		case ("uniform"): {player addUniform _id; };
+		case ("vest"): {player addVest _id;};
+		case ("headgear"): {player addHeadGear _id;};
+		case ("backpack"): {player addBackPack _id;};
+		case ("goggles"): {player addGoggles _id;};
+		default {_fail = true;};
 	};
 	if (_exit) exitwith {[format [localize"STR_FACTORY_COLLECTTHISAMOUNT"],"red"] call A3PL_Player_Notification;};
 	if (_fail) exitwith {[format ["Error: Undefined _classType in _CrateCollect (ID: %1) > report this bug",_id],"red"] call A3PL_Player_Notification;};
 	deleteVehicle _crate;
-	_name = [_id,_classType] call A3PL_Factory_CrateName;
-	[format [localize"STR_FACTORY_COLLECTOK",_amount,_name],"green"] call A3PL_Player_Notification;
+	[format [localize"STR_FACTORY_COLLECTOK",_amount,[_id,_classType] call A3PL_Factory_CrateName],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Factory_CrateCheck",

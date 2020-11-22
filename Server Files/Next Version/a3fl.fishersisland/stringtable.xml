@@ -7490,7 +7490,7 @@
       <Original>You can not sell this item because you do not have it</Original>
    </Key>
    <Key ID="STR_BUSINESS_DESCPRICEMINPRICEMAXSELLFOR">
-      <Original>&lt;t align = 'center'&gt;Description:%1 &lt;br/&gt;Min Price: $%2 &lt;br/&gt;Max Price: $%3 &lt;br/&gt;</Original>
+      <Original>&lt;t align = 'center'&gt;Description:%1 &lt;br/&gt;</Original>
    </Key>
    <Key ID="STR_BUSINESS_ENTERDESCRIPTION3MIN">
       <Original>Please enter a valid item description of at least 3 characters</Original>
@@ -7508,7 +7508,7 @@
       <Original>You are not close enough to the business to sell this item</Original>
    </Key>
    <Key ID="STR_BUSINESS_YOUSELLTHISOBJECT">
-      <Original>You have sold this item</Original>
+      <Original>You are now selling this object</Original>
    </Key>
    <Key ID="STR_BUSINESS_ITEMNOTSELL">
       <Original>This item is not sold</Original>
