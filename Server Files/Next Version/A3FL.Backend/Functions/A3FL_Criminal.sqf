@@ -256,9 +256,9 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Criminal_FindNPC",{
-	private _cost = 50000;
+	private _cost = 30000;
 	private _playerCash = player getVariable["Player_Cash",0];
-	if(_cost > _playerCash) exitWith {["You need to have $50,000 to try and find the Illegal NPC's!","red"] call A3pl_Player_Notification;};
+	if(_cost > _playerCash) exitWith {["You need to have $30,000 to try and find the Illegal NPC's!","red"] call A3pl_Player_Notification;};
 	private _randomNPC = "";
 	private _randomNPCName = "";
 	private _randomNumber = floor(random 5);
