@@ -132,7 +132,9 @@ Config_Vehicles_Data = [
 	["A3FL_Nissan_GTR_LW",250,400000],
 	["A3FL_Smart_Car",150,45000],
 	["A3FL_BMW_M6",250,371000],
-	["A3FL_Mercedes_Benz_AMG_C63",250,310000]
+	["A3FL_Mercedes_Benz_AMG_C63",250,310000].
+	["A3FL_Explorer_Platinum_20",600,385000],
+	["A3FL_Explorer_Platinum_PD_20",600,385000]
 ];
 publicVariable "Config_Vehicles_Data";
 
