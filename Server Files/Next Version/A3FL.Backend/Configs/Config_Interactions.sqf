@@ -369,12 +369,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_JAILP",
 		{[cursorObject] call A3PL_Police_StartJailPlayer},
-		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(player nearEntities [["Land_A3PL_Prison","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"],50]) > 0)}
-	],
-	[
-		localize "STR_INTER_JAILP",
-		{[cursorObject] call A3PL_Police_StartJailPlayer},
-		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(player nearEntities [["Land_A3PL_Prison","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"],50]) > 1)}
+		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(nearestObjects [player, ["Land_A3PL_Prison","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"],50]) > 0)}
 	],
 	[
 		localize"STR_INTER_StartFire",

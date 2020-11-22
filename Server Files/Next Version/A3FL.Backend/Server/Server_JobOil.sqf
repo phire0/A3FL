@@ -18,26 +18,24 @@
 	private _oilLocation = _oil select 1;
 	if (!_containsOil) exitwith {};
 
-	if ((_pump animationSourcePhase "drill") != 0) exitwith {[6] remoteExec ["A3PL_JobOil_PumpReceive", _player];};
-	if (_pump getVariable ["pumping",false]) exitwith {[7] remoteExec ["A3PL_JobOil_PumpReceive", _player];};
+	if ((_pump animationSourcePhase "drill") != 0) exitwith {["This pump is already running", "red"] remoteExec ["A3PL_Player_Notification", _player];};
+	if (_pump getVariable ["pumping",false]) exitwith {["This pump is already running", "red"] remoteExec ["A3PL_Player_Notification", _player];};
 	_pump setVariable ["pumping",true,true];
 	[_pump] remoteExec ["A3PL_JobOil_Pump_Animation", -2];
 	while {(_pump getVariable ["pumping",false])} do
 	{
 		private _oilAmount = [_oilLocation] call A3PL_JobWildcat_CheckAmountOil;
-		if (_oilAmount <= 0) exitwith {[1] remoteExec ["A3PL_JobOil_PumpReceive", (_player)];};
+		if (_oilAmount <= 0) exitwith {["The pump stopped because there is no more oil in this area", "red"] remoteExec ["A3PL_Player_Notification", _player];};
 
 		private _barrelCount = count (_pump nearEntities [["A3PL_OilBarrel"],20]);
 
 		private _pumpjacks = _pump nearEntities [["A3PL_PumpJack"],2];
-		private _holes = _pump nearEntities [["A3PL_DrillHole"],3];
-		if (count _holes < 1) exitwith {[2] remoteExec ["A3PL_JobOil_PumpReceive", _player];};
+		private _holes = nearestObjects [_pump,["A3PL_DrillHole"],3];
+		if (count _holes < 1) exitwith {["The pump stoppped because there is no hole nearby", "red"] remoteExec ["A3PL_Player_Notification", _player];};
 		private _hole = _holes select 0;
-		if (count _pumpjacks > 1) exitwith {[3] remoteExec ["A3PL_JobOil_PumpReceive", _player];};
-		if (((_pump modelToWorld (_pump selectionPosition "holePosition")) distance _hole) > 0.2) exitwith {[4] remoteExec ["A3PL_JobOil_PumpReceive", _player];}; //pump not positioned correctly
-		if(_barrelCount > 8) exitWith {
-			[8] remoteExec ["A3PL_JobOil_PumpReceive",_player];
-		};
+		if (count _pumpjacks > 1) exitwith {["The pump stopped because there is already a pump running on this hole", "red"] remoteExec ["A3PL_Player_Notification", _player];};
+		if (((_pump modelToWorld (_pump selectionPosition "holePosition")) distance _hole) > 0.2) exitwith {["The pump stopped because it is not correctly placed on the hole", "red"] remoteExec ["A3PL_Player_Notification", _player];};
+		if(_barrelCount > 8) exitWith {["You need to remove some of the barrels around this pump before drilling more oil", "red"] remoteExec ["A3PL_Player_Notification",_player];};
 		_pump setVariable ["crudeOil",(_pump getVariable ["crudeOil",0]) + 1,false];
 		if ((_pump getVariable ["crudeOil",0]) >= 42) then {
 			private _pos = (getpos _pump) findEmptyPosition [1,10,"A3PL_OilBarrel"];
@@ -54,7 +52,7 @@
 			} foreach Server_JobWildCat_Oil;
 			_pump setVariable ["crudeOil",nil,false];
 		};
-		uiSleep 0.26;
+		sleep 0.26;
 	};
 	_pump setVariable ["pumping",nil,true];
 	_pump animateSource ["pump",0,true];

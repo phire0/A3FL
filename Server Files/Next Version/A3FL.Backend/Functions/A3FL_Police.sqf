@@ -1612,8 +1612,6 @@
 ["A3PL_Police_StartJailPlayer",
 {
 	params[["_target",objNull,[objNull]]];
-	private _pd = player nearEntities [["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"],50];
-	if((count _pd) < 1) exitWith {[format[localize"STR_NewPolice_23"],"red"] call A3PL_Player_Notification;};
 	createDialog "Dialog_JailPlayer";
 	A3PL_JailPlayer_Target = _target;
 }] call Server_Setup_Compile;

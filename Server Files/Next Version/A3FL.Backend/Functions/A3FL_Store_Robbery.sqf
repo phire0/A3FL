@@ -53,7 +53,7 @@
 	["Robbing the store...",_duration] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
-		if ((player distance2D _store) > 10) exitWith {["You went away from the shop, the robbery failed!", "red"] call A3PL_Player_Notification; Player_ActionInterrupted = true;};
+		if ((player distance2D _store) > 15) exitWith {["You went away from the shop, the robbery failed!", "red"] call A3PL_Player_Notification; Player_ActionInterrupted = true;};
 		if (!(vehicle player isEqualTo player)) exitwith {Player_ActionInterrupted = true;};
 		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
 		if ((currentWeapon player) isEqualTo "") exitWith {Player_ActionInterrupted=true;};
