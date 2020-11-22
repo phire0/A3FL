@@ -203,7 +203,8 @@
 		[getposATL (_planeWreck)] spawn Server_Fire_StartFire;
     };
 
-	private _leoCount = 1 + count(["uscg"] call A3PL_Lib_FactionPlayers) + count(["fisd"] call A3PL_Lib_FactionPlayers);
+	private _uscgCount = 1 + count(["uscg"] call A3PL_Lib_FactionPlayers)
+	private _leoCount = _uscgCount + count(["fisd"] call A3PL_Lib_FactionPlayers);
 	private _commonCount = 4 + (floor(_leoCount / 2));
 	private _rareCount = 2 + (floor(_leoCount / 2));
 	private _weaponCount = 1 + (floor(_leoCount / 3));
@@ -227,6 +228,8 @@
 				_wreckMessage = "DRUGS PLANE CRASH";
 				_commonItems = [["seed_marijuana",10],["seed_coca",10],["coca",10],["jug",3],["yeast",10],["malt",10],["cornmeal",10],["sulphuric_acid",10],["calcium_carbonate",10],["potassium_permangate",10],["ammonium_hydroxide",10],["acetone",10],["hydrocloric_acid",10],["kerosene_jerrycan",3]];
 				_rareItems = [["coca_paste",10],["cocaine_base",10],["cocaine_hydrochloride",10],["jug_moonshine",5],["weed_100g",3],["weed_75g",4],["weed_50g",6]];
+				_commonCount = 4 + round(_uscgCount / 2);
+				_rareCount = 2 + round(_uscgCount / 2);
 
 				for "_i" from 0 to _commonCount do {
 					_item = selectRandom _commonItems;
@@ -261,6 +264,8 @@
 				_wreckMessage = "TREASURE PLANE CRASH";
 				_commonItems = [["diamond_tourmaline",1],["diamond_aqua",1],["diamond_alex",1],["diamond_sapphire",1],["diamond_ruby",1],["diamond_emerald",1],["diamond",1]];
 				_rareItems = [["diamond_tourmaline",4],["diamond_aqua",4],["diamond_alex",4],["diamond_sapphire",4],["diamond_ruby",4],["diamond_emerald",4],["diamond",4],["dildo",1]];
+				_commonCount = 6 + round(_uscgCount / 2);
+				_rareCount = 3 + round(_uscgCount / 2);
 
 				for "_i" from 0 to _commonCount do {
 					_item = selectRandom _commonItems;
@@ -283,7 +288,7 @@
 				_mags = [["16Rnd_9x21_Mag",4],["11Rnd_45ACP_Mag",4],["10Rnd_9x21_Mag",4],["16Rnd_9x21_Mag",4],["6Rnd_45ACP_Cylinder",4],["A3PL_P226_Mag",4],["A3FL_P227_Mag",4],["A3FL_Beretta92_Mag",4],["A3FL_DesertEagle_Mag",4],["A3FL_Glock17_Mag",4]];
 				_rareWeapons = [["SMG_01_F",1],["SMG_02_F",1],["SMG_05_F",1],["A3FL_Mossberg_590k",1],["arifle_AKM_F",1],["A3PL_M16",1],["A3FL_Glock18",1]];
 				_rareMags = [["30Rnd_45ACP_Mag_SMG_01",2],["30Rnd_9x21_Mag_SMG_02",2],["30Rnd_9x21_Mag_SMG_02",2],["A3FL_Mossberg_590k_8Rnd_buck",2],["30Rnd_762x39_Mag_F",2],["A3PL_M16_Mag",2],["A3FL_Glock18_Mag",2]];
-
+				
 				for "_i" from 0 to _weaponCount do {
 					_weaponChance = floor (random 9);
 					_gun = _weapons select _weaponChance;
@@ -305,6 +310,8 @@
 				_physicalItems = [["A3FL_Backpack_Money",2],["A3FL_Backpack_Drill",1]];
 				_commonItems = [["zipties",1],["keycard",1],["v_lockpick",1],["cash",1000]];
 				_rareItems = [["drill_bit",1],["cash",5000],["dildo",1],["golden_dildo",1]];
+				_commonCount = 3 + round(_leoCount / 3);
+				_rareCount = 1 + round(_leoCount / 3);
 
 				for "_i" from 0 to _commonCount do {
 					_item = selectRandom _commonItems;
@@ -322,8 +329,8 @@
 				_wreckMessage = "RESOURCES PLANE CRASH";
 				_commonItems = [["Aluminium_Ore",20],["Iron_Ore",20],["Coal_Ore",20],["Titanium_Ingot",1],["Aluminium_Ingot",5],["Iron_Ingot",5],["Coal_Ingot",5]];
 				_rareItems = [["Aluminium_Ingot",10],["Iron_Ingot",10],["Coal_Ingot",10],["Titanium_Ingot",5],["Steel",15],["Aluminium",15],["Titanium",5]];
-				_commonCount = 6 + round(_uscgCount / 2);
-				_rareCount = 3 + round(_uscgCount / 2);
+				_commonCount = 6 + round(_leoCount / 3);
+				_rareCount = 3 + round(_leoCount / 3);
 
 				for "_i" from 0 to _commonCount do {
 					_item = selectRandom _commonItems;
