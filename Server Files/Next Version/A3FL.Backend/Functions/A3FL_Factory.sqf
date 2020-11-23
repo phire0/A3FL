@@ -104,9 +104,8 @@
 			{
 				private ["_storageItem","_isFactory","_itemType"];
 				_storageItem = _x select 0;
-
 				_isFactory = _storageItem splitString "_";
-				if ((_isFactory select 0) == "f") then {_isFactory = true; _itemType = [_storageItem,_type,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
+				if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true; _itemType = [_storageItem,_type,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
 				if (isNil "_itemType") then {_itemType = ""};
 				if (_isFactory && (_itemType == "item")) then {_storageItem = [_storageItem,_type,"class"] call A3PL_Config_GetFactory;};
 				if (_storageItem == _item) exitwith
@@ -121,7 +120,6 @@
 			if (_found) exitwith {};
 		};
 	} foreach _storage;
-
 	_has;
 }] call Server_Setup_Compile;
 

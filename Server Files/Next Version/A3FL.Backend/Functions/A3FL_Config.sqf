@@ -215,20 +215,18 @@
 	{
 		if ((_x select 0) isEqualTo _class) exitWith {_config = _x};
 	} foreach _config;
-	switch (_search) do {
-		case "id": { _return = _config select 0; };
-		case "parent": { _return = _config select 1; };
-		case "name": { _return = _config select 2; };
-		case "img": { _return = _config select 3; };
-		case "class": { _return = _config select 4; };
-		case "type": { _return = _config select 5; };
-		case "craftable": { _return = _config select 6; };
-		case "time": { _return = _config select 7; };
-		case "required": { _return = _config select 8; };
-		case "output": { _return = _config select 9; };
-		case "xp": { _return = _config select 10; };
-		case "level": { _return = _config select 11; };
-		case "desc": { _return = _config select 12; };
+	_return = switch (_search) do {
+		case "id": { _config select 0; };
+		case "name": { _config select 1; };
+		case "img": { _config select 2; };
+		case "class": { _config select 3; };
+		case "type": { _config select 4; };
+		case "time": { _config select 5; };
+		case "required": { _config select 6; };
+		case "output": { _config select 7; };
+		case "xp": { _config select 8; };
+		case "level": { _config select 9; };
+		case "desc": { _config select 10; };
 	};
 	_return;
 }] call Server_Setup_Compile;

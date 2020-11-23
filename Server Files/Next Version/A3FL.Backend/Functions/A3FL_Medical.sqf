@@ -771,6 +771,7 @@
 	private _healPrice = 750;
 	private _pCash = player getVariable ["player_cash",0];
 	private _npc = player_objintersect;
+	private _timeTaken = if((count(["fifr"] call A3PL_Lib_FactionPlayers)) isEqualTo 0) then {60} else {120};
 	if (_healPrice > _pCash) exitwith {[format [localize"STR_NPC_FIFRHEALERROR",_healPrice-_pCash]] call A3PL_Player_notification;};
 
 	player setVariable ["player_cash",(player getVariable ["player_cash",0]) - _healPrice,true];
@@ -778,7 +779,7 @@
 
 	["You must wait 2 minutes before being fully treated, stay nearby!","orange"] call A3PL_Player_Notification;
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
-	["Patching you up...",120] spawn A3PL_Lib_LoadAction;
+	["Patching you up...",_timeTaken] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
 		if (!((vehicle player) isEqualTo player)) exitwith {Player_ActionInterrupted = true;};
