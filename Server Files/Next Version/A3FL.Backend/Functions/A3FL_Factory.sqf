@@ -67,7 +67,7 @@
 	while {!isNull _display} do {
 		if(!isNil "Player_CraftInterrupt") exitWith {
 			(_display displayCtrl 1105) progressSetPosition 0;
-			(_display displayCtrl 1104) ctrlSetStructuredText "";
+			(_display displayCtrl 1104) ctrlSetStructuredText parseText "";
 		};
 		_secLeft = -(diag_ticktime) + _timeEnd;
 		(_display displayCtrl 1105) progressSetPosition (1-(_secLeft / _duration));
@@ -225,6 +225,7 @@
 	};
 	_control = _display displayCtrl 1501;
 
+	diag_log _required;
 	_lbArray = [];
 	{
 		private ["_i","_name","_amount","_id"];
@@ -236,10 +237,8 @@
 		} else {
 			_lbArray pushback [_name,_id,false];
 		};
-
 	} foreach _required;
 
-	//quick refresh lb
 	lbClear _control;
 	{
 		_i = _control lbAdd (_x select 0);
