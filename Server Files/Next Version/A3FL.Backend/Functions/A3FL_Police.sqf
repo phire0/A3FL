@@ -1818,7 +1818,7 @@
 	if(_typeOfSeize isEqualTo 0) exitWith {};
 	switch(_typeOfSeize) do {
 		case 1: {
-			_holder = player nearEntities [["groundWeaponHolder"],3];
+			_holders = player nearEntities [["groundWeaponHolder"],3];
 			{
 				{_addToStorage pushback ["weapon", _x, 1];} forEach (weaponCargo _x);
 				{_addToStorage pushback ["magazine", _x, 1];} forEach (magazineCargo _x);

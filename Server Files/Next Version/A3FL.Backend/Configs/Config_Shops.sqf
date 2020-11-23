@@ -690,7 +690,7 @@ Config_Shops_Items = [
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_TaserMag",100,-1,0],
 			["magazine","A3PL_Taser2_Mag",100,0,0],
-			["magazine","A3FL_Glock17_Mag",150,0,0],
+			["magazine","A3FL_Glock18_Mag",150,0,0],
 			["magazine","16Rnd_9x21_Mag",150,0,0],
 			["magazine","A3PL_P226_Mag",150,-1,0],
 			["magazine","A3FL_P227_Mag",150,-1,0],
