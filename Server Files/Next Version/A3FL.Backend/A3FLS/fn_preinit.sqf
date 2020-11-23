@@ -844,7 +844,7 @@ Server_Setup_Compile = {
 		_doorid = _x select 2;
 
 
-		_near = _pos nearEntities [["Land_John_Hangar","Land_A3FL_Warehouse"],10];
+		_near = nearestObjects [_pos, ["Land_John_Hangar","Land_A3FL_Warehouse"],10];
 		if (count _near isEqualTo 0) exitwith
 		{
 			_query = format ["DELETE FROM warehouses WHERE location = '%1'",_pos];
@@ -859,7 +859,7 @@ Server_Setup_Compile = {
 		};
 
 		//look for nearest for sale sign and set the texture to sold
-		_signs = _pos nearEntities [["Land_A3PL_BusinessSign"],25];
+		_signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"],25];
 		if (count _signs > 0) then
 		{
 			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];

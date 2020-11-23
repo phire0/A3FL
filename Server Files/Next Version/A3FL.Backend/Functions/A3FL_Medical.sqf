@@ -1104,7 +1104,7 @@
 	player setVariable ["A3PL_Medical_Alive",true,true];
 	player setVariable ["TimeRemaining",nil,true];
 	player setVariable ["tf_voiceVolume", 1, true];
-	player playActionNow "PlayerProne";
+	player switchMove "AidlPpneMstpSnonWnonDnon_AI";
 	if((backpack player) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Player_DeadRadio] call TFAR_fnc_setLrSettings;};
 	disableUserInput false;
 }] call Server_Setup_Compile;

@@ -956,7 +956,7 @@
 	if (!([player,"head","concussion"] call A3PL_Medical_HasWound)) then {[player,"head","concussion"] call A3PL_Medical_ApplyWound;};
 	sleep 15;
 	[player,""] remoteExec ["A3PL_Lib_SyncAnim",0];
-	player playActionNow "PlayerProne";
+	player switchMove "AidlPpneMstpSnonWnonDnon_AI";
 	disableUserInput false;
 	detach player;
 	deleteVehicle _obj;

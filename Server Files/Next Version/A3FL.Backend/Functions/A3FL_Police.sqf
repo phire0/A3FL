@@ -1818,7 +1818,7 @@
 	if(_typeOfSeize isEqualTo 0) exitWith {};
 	switch(_typeOfSeize) do {
 		case 1: {
-			_holders = player nearEntities [["groundWeaponHolder"],3];
+			_holders = nearestObjects [player, ["groundWeaponHolder"],3];
 			{
 				{_addToStorage pushback ["weapon", _x, 1];} forEach (weaponCargo _x);
 				{_addToStorage pushback ["magazine", _x, 1];} forEach (magazineCargo _x);
@@ -1901,14 +1901,16 @@
 ["A3PL_Police_OpenSquadNb", {
 	private _veh = param [0,objNull];
 	createDialog "Dialog_SquadNb";
+	buttonSetAction [1600, "call A3PL_Police_SaveSquadNb;"];
 	ctrlSetText [1400, _veh getVariable["squadnb",((netId _veh) splitString ":") select 1]];
 	A3PL_SquadNb_Veh = _veh;
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_SaveSquadNb", {
-	private _number = param[0,ctrlText 1400];
+	private _number = param[0,""];
 	private _faction = player getVariable["job","unemployed"];
-
+	
+	if(_number isEqualTo "") then {_number = ctrlText 1400;};
 	if((count _number) > 8) exitWith {["You cannot enter more than 8 characters","red"] call A3PL_Player_Notification;};
 
 	if((typeOf A3PL_SquadNb_Veh) IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]) then {

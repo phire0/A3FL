@@ -128,7 +128,7 @@
 		_pos = call compile (_x select 1);
 		_doorid = _x select 2;
 
-		_near = _pos nearEntities [["Land_John_Hangar","Land_A3FL_Warehouse"],10];
+		_near = nearestObjects [_pos, ["Land_John_Hangar","Land_A3FL_Warehouse"],10];
 		if (count _near isEqualTo 0) exitwith
 		{
 			_query = format ["DELETE FROM warehouses WHERE location = '%1'",_pos];

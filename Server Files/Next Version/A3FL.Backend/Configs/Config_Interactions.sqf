@@ -379,7 +379,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_SEIZEITEMS",
 		{[1] call A3PL_Police_SeizeItems;},
-		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count ((player nearEntities [["weaponholder"],3]) + (player nearEntities [["groundWeaponHolder"],3])) > 0)}
+		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count ((nearestObjects [player, ["weaponholder"],3]) + (nearestObjects [player, ["groundWeaponHolder"],3])) > 0)}
 	],
 	[
 		localize "STR_INTER_REPAIRTEROB",
