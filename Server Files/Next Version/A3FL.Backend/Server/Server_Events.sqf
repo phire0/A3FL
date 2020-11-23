@@ -203,7 +203,7 @@
 		[getposATL (_planeWreck)] spawn Server_Fire_StartFire;
     };
 
-	private _uscgCount = 1 + count(["uscg"] call A3PL_Lib_FactionPlayers)
+	private _uscgCount = 1 + count(["uscg"] call A3PL_Lib_FactionPlayers);
 	private _leoCount = _uscgCount + count(["fisd"] call A3PL_Lib_FactionPlayers);
 	private _commonCount = 4 + (floor(_leoCount / 2));
 	private _rareCount = 2 + (floor(_leoCount / 2));

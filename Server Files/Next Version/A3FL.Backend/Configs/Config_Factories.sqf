@@ -222,7 +222,7 @@ Config_Factories =
 		["f_150_lb","inh","inh","A3PL_F150_Marker","car",900,[["Steel_Pellet",7],["Aluminium_Pellet",11],["Windows",4],["Tyres",4]],1,90,0,""],
 		["f_Car_Trailer","inh","inh","A3PL_Car_Trailer","car",300,[["Steel_Pellet",4],["Aluminium_Pellet",1],["Tyres",4]],1,30,0,""],
 		["f_Mini_Excavator","inh","inh","A3PL_MiniExcavator","car",900,[["Steel_Pellet",12],["Aluminium_Pellet",7],["Windows",1],["Tyres",4]],1,90,0,""],
-		["f_Fuel_van", "", "inh", "inh", "A3PL_Fuel_Van", "car", true, 900, [["Steel_Pellet",5],["Aluminium_Pellet",5],["Tyres", 4],["Windows", 2]], 1, 90,0,""],
+		["f_Fuel_van", "inh", "inh", "A3PL_Fuel_Van", "car", true, 900, [["Steel_Pellet",5],["Aluminium_Pellet",5],["Tyres", 4],["Windows", 2]], 1, 90,0,""],
 		["f_p362","inh","inh","A3PL_P362","car",900,[["Steel_Pellet",20],["Aluminium_Pellet",8],["Windows",3],["Tyres",6]],1,90,0,""],
 		["f_Tow_Truck","inh","inh","A3PL_P362_TowTruck","car",900,[["Steel_Pellet",14],["Aluminium_Pellet",5],["Windows",2],["Tyres",6]],1,90,0,""],
 		["f_t370","inh","inh","A3FL_T370","car",900,[["Steel_Pellet",27],["Aluminium_Pellet",10],["Windows",3],["Tyres",6]],1,90,0,""],
@@ -734,7 +734,6 @@ Config_Factories =
 	],
 
 	["Faction Clothing Factory",[3852.065,9212.537,0.168],
-		//USCG Headgear
 		["f_USCG_Hat_Logo_Text","inh","inh","A3PL_USCG_Hat_Logo_Text","headgear",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
 		["f_USCG_Boat_Helmet_Test","inh","inh","A3PL_USCG_Boat_Helmet_Test","headgear",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
 		["f_coast_guard_cgis","inh","inh","A3PL_coast_guard_cgis","headgear",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
@@ -753,7 +752,6 @@ Config_Factories =
 		["f_USCG_Red_White_Pilot_Helm","inh","inh","A3PL_USCG_Red_White_Pilot_Helm","headgear",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
 		["f_USCG_Grey_White_Pilot_Helm","inh","inh","A3PL_USCG_Grey_White_Pilot_Helm","headgear",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
 		["f_USCG_Crew_Helmet","inh","inh","A3PL_USCG_Crew_Helmet","headgear",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
-		//USCG Uniforms
 		["f_USCG_Seaman_Recruit_Uniform","inh","inh","A3PL_USCG_Seaman_Recruit_Uniform","uniform",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
 		["f_USCG_Seaman_Apprentice_Uniform","inh","inh","A3PL_USCG_Seaman_Apprentice_Uniform","uniform",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
 		["f_USCG_Seaman_Uniform","inh","inh","A3PL_USCG_Seaman_Uniform","uniform",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
@@ -793,7 +791,6 @@ Config_Factories =
 		["f_USCG_Aviation_Lt_Uniform","inh","inh","A3PL_USCG_Aviation_Lt_Uniform","uniform",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
 		["f_USCG_Aviation_LCDR_Uniform","inh","inh","A3PL_USCG_Aviation_LCDR_Uniform","uniform",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
 		["f_USCG_Aviation_CDR_Uniform","inh","inh","A3PL_USCG_Aviation_CDR_Uniform","uniform",5,[["Polyester",1],["Blueprint_USCG_Uniform",1]],1,0,0,""],
-		//USCG Vests
 		["f_DutyBelt","inh","inh","A3PL_DutyBelt","vest",5,[["Polyester",1],["Blueprint_USCG_Uniform"]],1,0,0,""],
 		["f_Holster_1","inh","inh","A3PL_Holster_1","vest",5,[["Polyester",1],["Blueprint_USCG_Uniform"]],1,0,0,""],
 		["f_USCG_Safety_Vest_Yellow","inh","inh","A3PL_USCG_Safety_Vest_Yellow","vest",5,[["Polyester",1],["Blueprint_USCG_Uniform"]],1,0,0,""],
@@ -808,7 +805,6 @@ Config_Factories =
 		["f_RebreatherB","inh","inh","V_RebreatherB","vest",5,[["Polyester",1],["Blueprint_USCG_Uniform"]],1,0,0,""],
 		["f_USCG_Ground_Safety_Vest","inh","inh","A3PL_USCG_Ground_Safety_Vest","vest",5,[["Polyester",1],["Blueprint_USCG_Uniform"]],1,0,0,""],
 		
-		//FIFR Headgear
 		["f_FIFR_Cap_VibrantBlue_Hat","inh","inh","A3PL_FIFR_Cap_VibrantBlue_Hat","headgear",5,[["Aramid",1],["Blueprint_FD_Helmet",1]],1,0,0,""],
 		["f_FIFR_Cap_White_Hat","inh","inh","A3PL_FIFR_Cap_White_Hat","headgear",5,[["Aramid",1],["Blueprint_FD_Helmet",1]],1,0,0,""],
 		["f_FIFR_Cap_Red_Hat","inh","inh","A3PL_FIFR_Cap_Red_Hat","headgear",5,[["Aramid",1],["Blueprint_FD_Helmet",1]],1,0,0,""],
@@ -834,7 +830,6 @@ Config_Factories =
 		["f_FireHelmet_Firefighter_New","inh","inh","A3PL_FireHelmet_Firefighter_New","headgear",5,[["Aramid",1],["Blueprint_FD_Helmet",1]],1,0,0,""],
 		["f_FireHelmet_Engineer_New","inh","inh","A3PL_FireHelmet_Engineer_New","headgear",5,[["Aramid",1],["Blueprint_FD_Helmet",1]],1,0,0,""],
 		["f_FireHelmet_Lieutenant_New","inh","inh","A3PL_FireHelmet_Lieutenant_New","headgear",5,[["Aramid",1],["Blueprint_FD_Helmet",1]],1,0,0,""],
-		//FIFR Uniforms
 		["f_FIFR_STUDENT_Uniform","inh","inh","A3PL_FIFR_STUDENT_Uniform","uniform",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
 		["f_FIFR_EMT_Uniform","inh","inh","A3PL_FIFR_EMT_Uniform","uniform",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
 		["f_FIFR_Paramedic_Uniform","inh","inh","A3PL_FIFR_Paramedic_Uniform","uniform",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
@@ -850,7 +845,6 @@ Config_Factories =
 		["f_VFD_Lieutenant_Uniform","inh","inh","A3PL_VFD_Lieutenant_Uniform","uniform",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
 		["f_VFD_Engineer_Uniform","inh","inh","A3PL_VFD_Engineer_Uniform","uniform",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
 		["f_VFD_Firefighter_Uniform","inh","inh","A3PL_VFD_Firefighter_Uniform","uniform",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
-		//FIFR Vests
 		["f_FIFR_RideAlong_Safety","inh","inh","A3PL_FIFR_RideAlong_Safety","vest",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
 		["f_FIFR_Safety","inh","inh","A3PL_FIFR_Safety","vest",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
 		["f_FIFR_Student_Safety","inh","inh","A3PL_FIFR_Student_Safety","vest",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
@@ -867,7 +861,6 @@ Config_Factories =
 		["f_VFD_Vest","inh","inh","A3PL_VFD_Vest","vest",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
 		["f_VFD_IC_Vest","inh","inh","A3PL_VFD_IC_Vest","vest",5,[["Polyester",1],["Blueprint_FIFR_Uniform",1]],1,0,0,""],
 		
-		//FISD Headgear
 		["f_Sheriff_Test_Cap","inh","inh","A3PL_Sheriff_Test_Cap","headgear",5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,0,0,""],
 		["f_Sheriff_Black_Cap","inh","inh","A3PL_Sheriff_Black_Cap","headgear",5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,0,0,""],
 		["f_Sheriff_Campaign_Hat_Grey","inh","inh","A3PL_Sheriff_Campaign_Hat_Grey","headgear",5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,0,0,""],
@@ -877,7 +870,6 @@ Config_Factories =
 		["f_SD_ERT_Green_Test_Helm","inh","inh","A3PL_SD_ERT_Green_Test_Helm","headgear",5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,0,0,""],
 		["f_FISD_Grey_Pilot_Helm","inh","inh","A3PL_FISD_Grey_Pilot_Helm","headgear",5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,0,0,""],
 		["f_FISD_White_Pilot_Helm","inh","inh","A3PL_FISD_White_Pilot_Helm","headgear",5,[["Polyester",1],["Blueprint_Sheriff_Cap",1]],1,0,0,""],
-		//FISD Uniforms
 		["f_SD_NR_Tan_Uniform","inh","inh","A3PL_SD_NR_Tan_Uniform","uniform",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
 		["f_SD_Cad_Tan_Uniform","inh","inh","A3PL_SD_Cad_Tan_Uniform","uniform",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
 		["f_SD_Dep_Tan_Uniform","inh","inh","A3PL_SD_Dep_Tan_Uniform","uniform",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
@@ -899,7 +891,6 @@ Config_Factories =
 		["f_Detective_WhiBlk_Uniform","inh","inh","A3PL_Detective_WhiBlk_Uniform","uniform",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
 		["f_SD_MCU_Swimmer_Uniform","inh","inh","A3PL_SD_MCU_Swimmer_Uniform","uniform",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
 		["f_FISD_Pilot_Uniform","inh","inh","A3PL_FISD_Pilot_Uniform","uniform",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
-		//FISD Vests
 		["f_FISD_Safety_Vest","inh","inh","A3PL_FISD_Safety_Vest","vest",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
 		["f_FISD_Safety_Traffic","inh","inh","A3PL_FISD_Safety_Traffic","vest",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
 		["f_DutyBelt","inh","inh","A3PL_DutyBelt","vest",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
@@ -915,11 +906,9 @@ Config_Factories =
 		["f_SD_Rig_Air","inh","inh","A3PL_SD_Rig_Air","vest",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
 		["f_SD_High_Threat_Lite","inh","inh","A3PL_SD_High_Threat_Lite","vest",5,[["Polyester",1],["Blueprint_Sheriff_Uniform",1]],1,0,0,""],
 		
-		//DOJ Headgear
 		["f_DOJ_Hat","inh","inh","A3PL_DOJ_Hat","headgear",5,[["Polyester",1],["Blueprint_DOJ_Uniform"]],1,0,0,""],
 		["f_DOJ_Blk_Hat","inh","inh","A3PL_DOJ_Blk_Hat","headgear",5,[["Polyester",1],["Blueprint_DOJ_Uniform"]],1,0,0,""],
 		["f_DOJ_Blu_Hat","inh","inh","A3PL_DOJ_Blu_Hat","headgear",5,[["Polyester",1],["Blueprint_DOJ_Uniform"]],1,0,0,""],
-		//DOJ Uniforms
 		["f_DOJ_DBlue_Uniform","inh","inh","A3PL_DOJ_DBlue_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_DOJ_LBlue_Uniform","inh","inh","A3PL_DOJ_LBlue_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_DOJ_Purp_Uniform","inh","inh","A3PL_DOJ_Purp_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
@@ -933,7 +922,6 @@ Config_Factories =
 		["f_DOJ_Grn_Suit_Uniform","inh","inh","A3PL_DOJ_Grn_Suit_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_DOJ_Red_Suit_Uniform","inh","inh","A3PL_DOJ_Red_Suit_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_DOJ_Yel_Suit_Uniform","inh","inh","A3PL_DOJ_Yel_Suit_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
-		//DOJ Vests
 		["f_DOJ_Black_VEST","inh","inh","A3PL_DOJ_Black_VEST","vest",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_DOJ_Black_TacVest","inh","inh","A3PL_DOJ_Black_TacVest","vest",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_DOJ_CJ_Vest","inh","inh","A3PL_DOJ_CJ_Vest","vest",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
@@ -941,12 +929,10 @@ Config_Factories =
 		["f_DOJ_J_Vest","inh","inh","A3PL_DOJ_J_Vest","vest",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_DOJ_Judy_Vest","inh","inh","A3PL_DOJ_Judy_Vest","vest",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		
-		//FIMS Headgear
 		["f_US_Marshall_Cap","inh","inh","A3PL_US_Marshall_Cap","headgear",5,[["Polyester",1],["Blueprint_DOJ_Uniform"]],1,0,0,""],
 		["f_US_Marshall_SOG_Cap","inh","inh","A3PL_US_Marshall_SOG_Cap","headgear",5,[["Polyester",1],["Blueprint_DOJ_Uniform"]],1,0,0,""],
 		["f_Back_FIMS_SOG_Cap","inh","inh","A3PL_Back_FIMS_SOG_Cap","headgear",5,[["Polyester",1],["Blueprint_DOJ_Uniform"]],1,0,0,""],
 		["f_Marshal_SOG_Helmet","inh","inh","A3PL_Marshal_SOG_Helmet","headgear",5,[["Polyester",1],["Blueprint_DOJ_Uniform"]],1,0,0,""],
-		//FIMS Uniforms
 		["f_doc_green_Uniform","inh","inh","A3PL_doc_green_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_doc_blue_Uniform","inh","inh","A3PL_doc_blue_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_doc_yellow_Uniform","inh","inh","A3PL_doc_yellow_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
@@ -971,7 +957,6 @@ Config_Factories =
 		["f_FIMS_Peach_Uniform","inh","inh","A3PL_FIMS_Peach_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_FIMS_Pink_Uniform","inh","inh","A3PL_FIMS_Pink_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_FIMS_Red_Uniform","inh","inh","A3PL_FIMS_Red_Uniform","uniform",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
-		//FIMS Vests
 		["f_DutyBelt","inh","inh","A3PL_DutyBelt","vest",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_Rangemaster_belt_blk","inh","inh","A3PL_Rangemaster_belt_blk","vest",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],
 		["f_US_Marshall_Blk_Lite","inh","inh","A3PL_US_Marshall_Blk_Lite","vest",5,[["Polyester",1],["Blueprint_DOJ_Uniform",1]],1,0,0,""],

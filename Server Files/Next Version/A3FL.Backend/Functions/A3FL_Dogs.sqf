@@ -68,6 +68,7 @@
 						case ("A3PL_Silverado_PD"): {_attachPoint = [0,0.5,-0.7]};
 						case ("A3PL_RBM"): {_attachPoint = [0,0.2,-1.1]};
 						case ("A3PL_Jayhawk"): {_attachPoint = [0,0.2,-1.1]};
+						case ("A3FL_Explorer_Platinum_PD_20"): {_attachPoint = [0,-1,-1.1]};
 					};
 					_dog attachto [vehicle player,_attachPoint];
 					_dog playMoveNow "Dog_Sit";
