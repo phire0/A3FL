@@ -1043,6 +1043,7 @@ Config_Factories =
 		["f_7Rnd_408_Mag","","inh","inh","7Rnd_408_Mag","magazine",true,60,[["Blueprint_7Rnd_408_Mag",1]],10,0,0,""],
 		["f_acc_flashlight_pistol","","inh","inh","acc_flashlight_pistol","aitem",true,30,[["Blueprint_flashlight",1]],1,0,0,""],
 		["f_acc_flashlight","","inh","inh","acc_flashlight","aitem",true,30,[["Blueprint_flashlight",1]],1,0,0,""],
+		["f_Mossberg_590K_Flashlight","","inh","inh","A3FL_Mossberg_590K_Flashlight","aitem",true,30,[["Blueprint_flashlight",1]],1,0,0,""],
 		["f_optic_aco_smg","","inh","inh","optic_aco_smg","aitem",true,30,[["Blueprint_ACO_red",1]],1,0,0,""],
 		["f_optic_Holosight_smg_blk_F","","inh","inh","optic_Holosight_smg_blk_F","aitem",true,30,[["Blueprint_Holosight",1]],1,0,0,""]
 	],

@@ -1107,6 +1107,7 @@
 	private _mode = param [0,false];
 	private _fedGear = [[],[],[],["A3PL_FBI_Agent_Tan_Uniform",[]],["A3PL_FBI_Brown_Lite",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap2","",[],["ItemMap","ItemGPS","A3PL_Cellphone_1","ItemCompass","TFAR_microdagr",""]];
 	private _prevGear = profileNamespace getVariable ["A3FL_PrevGear",nil];
+	if((backpack player) isEqualTo "A3PL_LR") then {A3PL_Admin_PrevRadio = (call TFAR_fnc_activeLrRadio) call TFAR_fnc_getLrSettings;};
 	if(_mode) then {
 		_prevGear = getUnitLoadout player;
 		profileNamespace setVariable ["A3FL_PrevGear",_prevGear];
@@ -1118,4 +1119,5 @@
 			["Error: No previous gear saved.","pink"] call A3PL_Player_Notification;
 		};
 	};
+	if((backpack player) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Admin_PrevRadio] call TFAR_fnc_setLrSettings;};
 }] call Server_Setup_Compile;
