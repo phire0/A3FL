@@ -222,7 +222,7 @@ Config_Factories =
 		["f_150_lb","inh","inh","A3PL_F150_Marker","car",900,[["Steel_Pellet",7],["Aluminium_Pellet",11],["Windows",4],["Tyres",4]],1,90,0,""],
 		["f_Car_Trailer","inh","inh","A3PL_Car_Trailer","car",300,[["Steel_Pellet",4],["Aluminium_Pellet",1],["Tyres",4]],1,30,0,""],
 		["f_Mini_Excavator","inh","inh","A3PL_MiniExcavator","car",900,[["Steel_Pellet",12],["Aluminium_Pellet",7],["Windows",1],["Tyres",4]],1,90,0,""],
-		["f_Fuel_van", "inh", "inh", "A3PL_Fuel_Van", "car", true, 900, [["Steel_Pellet",5],["Aluminium_Pellet",5],["Tyres", 4],["Windows", 2]], 1, 90,0,""],
+		["f_Fuel_van","inh","inh","A3PL_Fuel_Van","car",900,[["Steel_Pellet",5],["Aluminium_Pellet",5],["Tyres", 4],["Windows", 2]],1,90,0,""],
 		["f_p362","inh","inh","A3PL_P362","car",900,[["Steel_Pellet",20],["Aluminium_Pellet",8],["Windows",3],["Tyres",6]],1,90,0,""],
 		["f_Tow_Truck","inh","inh","A3PL_P362_TowTruck","car",900,[["Steel_Pellet",14],["Aluminium_Pellet",5],["Windows",2],["Tyres",6]],1,90,0,""],
 		["f_t370","inh","inh","A3FL_T370","car",900,[["Steel_Pellet",27],["Aluminium_Pellet",10],["Windows",3],["Tyres",6]],1,90,0,""],

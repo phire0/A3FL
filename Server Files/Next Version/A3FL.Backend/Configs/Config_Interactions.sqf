@@ -39,7 +39,7 @@ A3PL_Interaction_Options =
 	[
 		"Set Squad Number",
 		{[player_objintersect] call A3PL_Police_OpenSquadNb;},
-		{((typeOf player_objintersect) IN ["Jonzie_Ambulance","A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Pierce_Pumper","A3PL_P362_TowTruck","A3PL_RBM","A3PL_F150_Marker","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_E350","A3PL_Pierce_Rescue","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Silverado_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Charger15_FD","A3PL_Jayhawk"]) && (player distance cursorObject < 5) && ((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","fims"])}
+		{((typeOf player_objintersect) IN ["Jonzie_Ambulance","A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Pierce_Pumper","A3PL_P362_TowTruck","A3PL_RBM","A3PL_F150_Marker","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_E350","A3PL_Pierce_Rescue","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Silverado_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Charger15_FD","A3PL_Jayhawk","A3FL_Explorer_Platinum_PD_20"]) && (player distance cursorObject < 5) && ((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","fims"])}
 	],
 	[
 		localize"STR_INTER_COMPHIRE",
