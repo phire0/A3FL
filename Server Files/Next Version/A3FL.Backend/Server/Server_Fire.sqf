@@ -33,10 +33,12 @@
 {
 	private _position = param [0,[]];
 	private _dir = param [1,windDir];
+	private _posBypass = param [2,false];
 	if (count _position < 3) exitwith {};
 	private _onWater = !(_position isFlatEmpty [-1, -1, -1, -1, 2, false] isEqualTo []);
 	if(_onWater || ((_position select 3) < 0)) exitWith {};
-
+	diag_log _position;
+	if (!_posBypass) then {_position = [_position select 0, _position select 1, 0];};
 	private _fireobject = createVehicle ["A3PL_FireObject",_position, [], 0, "CAN_COLLIDE"];
 	_fireobject addEventhandler ["HandleDamage",{[param [0,objNull],param [4,""],param [6,objNull]] spawn Server_Fire_HandleDamage;}];
 	_fireObject setDir _dir;
@@ -144,8 +146,9 @@
 ["Server_Fire_FireLoop",
 {
 	if(Server_TerrainFires isEqualTo []) exitWith {};
+	if (!Server_FireLooping) exitWith {};
+	private _fifr = count(["fifr"] call A3PL_Lib_FactionPlayers);
 	{
-		if (!Server_FireLooping) exitWith {};
 		private _loopIndex = _forEachIndex;
 		private _fireArray = _x;
 		private _spreadArray = [];
@@ -183,8 +186,6 @@
 	_exploded = _veh getVariable["exploded",false];
 	if(_exploded) exitWith {};
 	_veh setVariable["exploded",true,true];
-
-	diag_log format["Server_Fire_VehicleExplode: %1",typeOf _veh];
 
 	[_veh] call A3PL_Vehicle_SoundSourceClear;
 	_sirenObj = _veh getVariable ["sirenObj",objNull];

@@ -986,7 +986,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_CreateFire", {
-	[getPosATL player] call A3PL_Fire_StartFire;
+	[getPosATL player,true] call A3PL_Fire_StartFire;
 	[player,"admin_fire",[format ["CreateFire @ %1",getpos player]]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
 

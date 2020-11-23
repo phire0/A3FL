@@ -9,8 +9,9 @@
 ["A3PL_Fire_StartFire",
 {
 	private _position = param [0,[]];
+	private _admin = param [1,false];
 	private _dir = windDir;
-	[_position,_dir] remoteExec ["Server_Fire_StartFire", 2];
+	[_position,_dir,_admin] remoteExec ["Server_Fire_StartFire", 2];
 }] call Server_Setup_Compile;
 
 ["A3PL_Fire_Matches",
