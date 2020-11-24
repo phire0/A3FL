@@ -225,9 +225,9 @@
 	private _near = [];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
-		_near = _targer nearEntities [["A3FL_DrugBag"],2];
+		_near = nearestObjects [_targer, ["A3FL_DrugBag"],2];
 
-		if (count _near < 1) exitwith {["No cocaine bricks nearby, place them near the scale to break them down!","red"] call A3PL_Player_Notification;};
+		if ((count _near) < 1) exitwith {["No cocaine bricks nearby, place them near the scale to break them down!","red"] call A3PL_Player_Notification;};
 
 		[player,"Acts_TerminalOpen"] remoteExec ["A3PL_Lib_SyncAnim",0];
 		[_target,_near] spawn

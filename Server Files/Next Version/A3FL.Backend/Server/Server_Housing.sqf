@@ -14,7 +14,7 @@
 	private _uid = param [1,""];
 	private _delete = param [2,true];
 	private _house = _player getVariable ["house",objNull];
-	private _items = _house nearEntities [[],30];
+	private _items = nearestObjects [_house, [],30];
 	private _allMembers = _house getVariable["owner",[]];
 	private _isOwner = false;
 	if((_allMembers select 0) isEqualTo _uid) then {_isOwner = true;};
@@ -479,7 +479,7 @@
 	_house setVariable ["owner",nil,true];
 	_house setVariable ["doorid",nil,true];
 
-	_furnitures = _pos nearEntities [["Thing"],100];
+	_furnitures = nearestObjects [_pos, ["Thing"],100];
 	{if((_x getVariable "owner") isEqualTo _uid) then {deleteVehicle _x;};} foreach _furnitures;
 	deleteMarker ([getPos _house, "house"] call A3PL_Lib_NearestMarker);
 

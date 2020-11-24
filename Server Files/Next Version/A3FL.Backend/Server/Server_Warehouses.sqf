@@ -14,7 +14,7 @@
 	private _uid = param [1,""];
 	private _delete = param [2,true];
 	private _warehouse = _player getVariable ["warehouse",objNull];
-	private _items = _warehouse nearEntities [[],30];
+	private _items = nearestObjects [_warehouse, [],30];
 	private _allMembers = _warehouse getVariable["owner",[]];
 	private _isOwner = false;
 	if((_allMembers select 0) isEqualTo _uid) then {_isOwner = true;};
@@ -143,7 +143,7 @@
 		};
 
 		//look for nearest for sale sign and set the texture to sold
-		_signs = _pos nearEntities [["Land_A3PL_BusinessSign"],25];
+		_signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"],25];
 		if (count _signs > 0) then
 		{
 			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];
@@ -195,7 +195,7 @@
 	_player setVariable ["warehouse",_object,true];
 
 	//sign
-	private _signs = _pos nearEntities [["Land_A3PL_BusinessSign"],20]; 
+	private _signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"],20]; 
 	if (count _signs > 0) then
 	{
 		(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];
@@ -273,7 +273,7 @@
 	_warehouse setVariable ["owner",nil,true];
 	_warehouse setVariable ["doorid",nil,true];
 
-	private _furnitures = _pos nearEntities [["Thing"],100];
+	private _furnitures = nearestObjects [_pos, ["Thing"],100];
 	{if((_x getVariable "owner") isEqualTo _uid) then {deleteVehicle _x;};} foreach _furnitures;
 	deleteMarker ([getPos _warehouse, "warehouse"] call A3PL_Lib_NearestMarker);
 
