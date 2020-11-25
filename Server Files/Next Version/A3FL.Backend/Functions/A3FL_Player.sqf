@@ -946,6 +946,8 @@
 
 ["A3PL_Player_Tackled",
 {
+	private _adminMode = player getVariable ["pVar_RedNameOn",false];
+	if(_adminMode) exitWith {};
 	if(!isNil "A3PL_Tackled") exitWith {};
 	A3PL_Tackled = true;
 	player playMoveNow "Incapacitated";

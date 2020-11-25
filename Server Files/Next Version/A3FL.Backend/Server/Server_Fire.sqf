@@ -37,7 +37,6 @@
 	if (count _position < 3) exitwith {};
 	private _onWater = !(_position isFlatEmpty [-1, -1, -1, -1, 2, false] isEqualTo []);
 	if(_onWater || ((_position select 3) < 0)) exitWith {};
-	diag_log _position;
 	if (!_posBypass) then {_position = [_position select 0, _position select 1, 0];};
 	private _fireobject = createVehicle ["A3PL_FireObject",_position, [], 0, "CAN_COLLIDE"];
 	_fireobject addEventhandler ["HandleDamage",{[param [0,objNull],param [4,""],param [6,objNull]] spawn Server_Fire_HandleDamage;}];

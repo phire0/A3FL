@@ -40,7 +40,6 @@
 	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;
 
-
 ["Server_Warehouses_LoadItems",
 {
 	private _player = param [0,objNull];
