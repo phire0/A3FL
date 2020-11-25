@@ -286,5 +286,5 @@
 	};
 	private _nearestCity = text ((nearestLocations [_randomNPC, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
 	player setVariable ["Player_Cash",(_playerCash - _cost),true];
-	[format ["You were charged $50,000 for the following information: The %1 was last spotted in %2! Use it wisely.",_randomNPCName,_nearestCity],"green"] call A3PL_Player_Notification;
+	[format ["You were charged $30,000 for the following information: The %1 was last spotted in %2! Use it wisely.",_randomNPCName,_nearestCity],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
