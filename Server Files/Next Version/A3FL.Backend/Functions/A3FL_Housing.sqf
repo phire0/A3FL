@@ -301,7 +301,7 @@
 
 	waituntil {sleep 1; _keys = player getVariable "keys"; !isNil "_keys"};
 	_keys = ["house"] call A3PL_Housing_keyFilter;
-	_buildings = [5000,5000,0] nearEntities [Config_Houses_List,5000];
+	_buildings = nearestObjects [[5000,5000,0], Config_Houses_List, 5000];
 	{
 		_doorID = _x getVariable "doorID";
 		if (!isNil "_doorID") then
