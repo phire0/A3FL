@@ -1355,7 +1355,7 @@
     localize"STR_INTSECT_ACCPOLDB",
     {
 		private _job = player getVariable ["job","unemployed"];
-		if((typeOf player_objintersect) IN ["Land_A3FL_DOC_Gate","Land_A3PL_CH"]) then {
+		if((typeOf player_objintersect) IN ["Land_A3FL_DOC_Gate","land_a3pl_ch"]) then {
 			if !(_job IN ["fisd","uscg","fims","doj","fifr"]) exitWith {["Only faction members can use computers in buildings!","red"] call A3PL_Player_Notification;};
 			if (isNull (findDisplay 211)) then {
 				if (_job isEqualTo "fifr") then {

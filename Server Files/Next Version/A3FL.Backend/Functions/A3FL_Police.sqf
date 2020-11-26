@@ -1475,8 +1475,16 @@
 
 ["A3PL_Police_DatabaseOpen",
 {
-	private _defText = "<t align='center'>Law Enforcement Database - Fishers Island</t><br /><t align='center'>Enter 'help' for the list of commands</t><br/>Please login..";
 	private _veh = vehicle player;
+	
+	private _job = (player getVariable ["job","unemployed"]);
+	private _loggedIn = (_veh getVariable ["PoliceDatabaseLogin",false]);
+
+	if ((!(_job IN ["fisd","uscg","fims","doj","fifr"])) && (!(_loggedIn))) exitWith {
+		["This laptop is not currently logged in, only faction members may log in.","red"] call A3PL_Player_Notification;
+	};
+	
+	private _defText = "<t align='center'>Law Enforcement Database - Fishers Island</t><br /><t align='center'>Enter 'help' for the list of commands</t><br/>Please login..";
 	private _text = _veh getVariable ["PoliceDatabaseStruc",nil];
 	if(isNil "_text") then {_veh setVariable ["PoliceDatabaseStruc",_defText,true];_text=_defText;};
 	disableSerialization;
