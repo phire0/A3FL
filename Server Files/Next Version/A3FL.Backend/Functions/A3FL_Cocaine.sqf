@@ -225,7 +225,7 @@
 	private _near = [];
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 
-		_near = nearestObjects [_targer, ["A3FL_DrugBag"],2];
+		_near = nearestObjects [_target, ["A3FL_DrugBag"],2];
 
 		if ((count _near) < 1) exitwith {["No cocaine bricks nearby, place them near the scale to break them down!","red"] call A3PL_Player_Notification;};
 
