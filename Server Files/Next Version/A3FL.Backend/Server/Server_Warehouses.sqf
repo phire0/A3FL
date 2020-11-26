@@ -119,7 +119,6 @@
 ["Server_Warehouses_Initialize",
 {
 	private ["_warehouses","_query","_return","_uid","_pos","_doorID","_near","_signs"];
-	//also make sure to update _obj location if it's changed (just incase we move anything slightly with terrain builder), delete it if it cannot be found nearby
 	_warehouses = ["SELECT uids,location,doorid FROM warehouses", 2, true] call Server_Database_Async;
 	{
 		private ["_pos","_uids","_doorid"];
@@ -136,19 +135,16 @@
 		_near = _near select 0;
 		if (!([_pos,(getpos _near)] call BIS_fnc_areEqual)) then
 		{
-			//Update position in DB
 			_query = format ["UPDATE warehouses SET location='%1', classname = '%3' WHERE location ='%2'",(getpos _near),_pos, (typeOf _near)];
 			[_query,1] spawn Server_Database_Async;
 		};
 
-		//look for nearest for sale sign and set the texture to sold
 		_signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"],25];
 		if (count _signs > 0) then
 		{
 			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];
 		};
 
-		//Set Variables
 		_near setVariable ["doorID",[_uids,_doorid],true];
 		_near setVariable ["owner",_uids,true];
 		Server_WarehouseList pushback _near;
