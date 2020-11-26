@@ -161,7 +161,7 @@ Config_Factories =
 		["f_Motorboat","inh","inh","A3PL_Motorboat","car",120,[["Steel_Pellet",2]],1,20,0,""],
 		["f_RHIB","inh","inh","A3PL_RHIB","car",240,[["Aluminium_Pellet",8]],1,25,0,""],
 		["f_LCM","inh","inh","A3FL_LCM","car",300,[["Steel_Pellet",2],["Aluminium_Pellet",12]],1,25,0,""],
-		["f_LuxuryYatch","inh","inh","A3PL_Yacht","car","true",1800,[["Aluminium_Pellet",100]],1,200,0,""]
+		["f_LuxuryYatch","inh","inh","A3PL_Yacht","car",1800,[["Aluminium_Pellet",100]],1,200,0,""]
 	],
 
 	["Aircraft Factory",[2907.86,5260.62,0.4],
