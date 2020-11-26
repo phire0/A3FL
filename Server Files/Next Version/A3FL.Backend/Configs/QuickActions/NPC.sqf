@@ -217,7 +217,7 @@
 ],
 [
 	"",
-	"Find an Illegal Trader for $50k",
+	"Find an Illegal Trader for $30k",
 	{call A3PL_Criminal_FindNPC;}
 ],
 [
