@@ -9448,7 +9448,7 @@
         <Original>Only the tenant can set prices</Original>
       </Key>
       <Key ID="STR_NewHydrogen_3">
-        <Original>Please enter a price above $15 / Gallon</Original>
+        <Original>Please enter a price above $25 / Gallon</Original>
       </Key>
       <Key ID="STR_NewHydrogen_4">
         <Original>Please enter a price lower than $90 / Gallon</Original>
