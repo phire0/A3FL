@@ -461,7 +461,6 @@
 					lbSetData [1501,_i,(_x select 1)];
 				} foreach ADMIN_OBJECTS;
 			};
-
 			if (_selectedFactory == "AdminVehicles") exitWith {
 				{
 					_first_X = _x;
@@ -479,7 +478,7 @@
 				_name = _x select 1;
 				_itemClass = _x select 3;
 				_itemType = _x select 4;
-				if (_name == "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
+				if (_name isEqualTo "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
 				_index = _control lbAdd _name;
 				_control lbSetData [_index,_id];
 			} foreach _recipes;
@@ -517,9 +516,9 @@
 			{
 				private ["_name","_itemType","_itemClass","_index"];
 				_id = _x select 0;
-				_name = _x select 2;
-				_itemClass = _x select 4;
-				_itemType = _x select 5;
+				_name = _x select 1;
+				_itemClass = _x select 3;
+				_itemType = _x select 4;
 				if (_name == "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
 				if ((_name find _text) != -1) then {
 					_index = _control lbAdd _name;

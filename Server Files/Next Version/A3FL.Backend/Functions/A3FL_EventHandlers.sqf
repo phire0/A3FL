@@ -391,10 +391,12 @@
 			if(((typeOf player_objintersect) isEqualTo "Land_A3FL_Fishers_Jewelry") && {player_nameintersect IN ["case_break_1","case_break_2","case_break_3","case_break_4","case_break_5","case_break_6","case_break_7","case_break_8","case_break_9"]}) exitWith {
 				call A3PL_Jewelry_GlassDamage;
 			};
-			if (player inArea "LumberJack_Rectangle") then {
-				if (_weapon isEqualTo "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
-			} else {
-				call A3PL_FD_HandleFireAxe;
+			if(_weapon isEqualTo "A3PL_FireAxe") then {
+				if (player inArea "LumberJack_Rectangle") then {
+					if (_weapon isEqualTo "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
+				} else {
+					call A3PL_FD_HandleFireAxe;
+				};
 			};
 		};
 		if (_weapon isEqualTo "A3PL_Jaws") then {call A3PL_FD_HandleJaws;};

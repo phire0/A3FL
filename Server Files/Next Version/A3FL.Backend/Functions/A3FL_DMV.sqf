@@ -93,12 +93,12 @@
 
 	private _license = _control lbData (lbCurSel _control);
 	private _unable = false;
-	private _canIssue = [_license,"canIssue"] call A3PL_Config_GetLicense;
-	private _canRevoke = [_license,"canRevoke"] call A3PL_Config_GetLicense;
+	private _canIssue = _pJob IN ([_license,"canIssue"] call A3PL_Config_GetLicense);
+	private _canRevoke = _pJob IN ([_license,"canRevoke"] call A3PL_Config_GetLicense);
 	private _pJob = player getVariable["job","unemployed"];
 	
-	if(_add && {!(_pJob IN _canIssue)}) exitWith {["You can only revoke this license","red"] call A3PL_Player_Notification;};
-	if(!_add && {_pJob IN _canIssue}) exitWith {["You can only issue this license","red"] call A3PL_Player_Notification;};
+	if(_add && {!_canIssue}) exitWith {["You cannot issue this license","red"] call A3PL_Player_Notification;};
+	if(!_add && {!_canRevoke}) exitWith {["You can only issue this license","red"] call A3PL_Player_Notification;};
 
 	if(!_isCompany) then {
 		private _licenses = _target getVariable ["licenses",[]];

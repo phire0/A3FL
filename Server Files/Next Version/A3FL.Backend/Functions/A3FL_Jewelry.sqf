@@ -246,7 +246,7 @@
 	private _store = param [0,objNull];
 	private _name = param [1,""];
 	if (_name IN ["door_1","door_2"]) exitwith {[_store,_name,false] call A3PL_Lib_ToggleAnimation;};
-	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && (["keycard",1] call A3PL_Inventory_Has)) exitwith {["You cannot use this button!","red"] call A3PL_Player_Notification;};
+	if (!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && !(["keycard",1] call A3PL_Inventory_Has)) exitwith {["You cannot use this button!","red"] call A3PL_Player_Notification;};
 	if (_name IN ["jewelry_3_button","jewelry_3_button2","jewelry_4_button","jewelry_4_button2","jewelry_5_button","jewelry_5_button2"]) exitwith {
 		private _anim = switch (_name) do
 		{
