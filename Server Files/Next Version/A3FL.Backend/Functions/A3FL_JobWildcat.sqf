@@ -296,6 +296,9 @@
 		["_npc",objNull,[objNull]]
 	];
 
+	_timeLeft = missionNameSpace getVariable ["A3PL_JobWildcat_MapTimer",(diag_ticktime-2)];
+	if (_timeLeft > diag_ticktime) exitwith {[format [localize"STR_A3PL_JobWildcat_MapCooldown",round(_timeLeft-diag_ticktime)],"red"] call A3PL_Player_Notification;};
+
 	private _chance = random 100;
 	private _mapType = "";
 	private _island = "FIMiningArea";
@@ -341,8 +344,8 @@
 	if(_possibleLocations isEqualTo []) exitWith {["Unable to locate ressource, try again!","red"] call A3PL_Player_Notification;};
 
 	private _givenLocation = (selectRandom _possibleLocations) select 1;
-
-	_pos = [((_givenLocation select 0) + (-50 + random 100)),((_givenLocation select 1) + (-50 + random 100))];
+	private _markers = [];
+	private _pos = [((_givenLocation select 0) + (-50 + random 100)),((_givenLocation select 1) + (-50 + random 100))];
 
 	_marker = createMarkerLocal [format["%1_marker",floor (random 5000)],_pos];
 	_marker setMarkerShapeLocal "ELLIPSE";
@@ -363,7 +366,7 @@
 	[_markers] spawn {
 		private _markers = param [0,[]];
 		sleep 900;
-		{deleteMarkerLocal _x;} foreach _markers
+		{deleteMarkerLocal _x;} foreach _markers;
 	};
 	[format [localize"STR_A3PL_JobWildcat_MapPurchasedInfo",_maptype],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

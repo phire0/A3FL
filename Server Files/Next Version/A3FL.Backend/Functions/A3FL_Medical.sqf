@@ -367,7 +367,7 @@
 			if (player_itemClass == _item) then {[] call A3PL_Inventory_Clear};
 			["medS_bloodbag",-1] call A3PL_Inventory_Add;
 			[_unit,BLOODPERBAG] call A3PL_Medical_ApplyVar;
-			["You administered a blood test to this patient!","green"] call A3PL_Player_Notification;
+			["You administered a blood bag to this patient!","green"] call A3PL_Player_Notification;
 			[player,format ["EMS %1 administered a blood bag",(player getVariable ["name",name player])],[0, 1, 0, 1]] call A3PL_Medical_AddLog;
 			[(findDisplay 73),_unit] call A3PL_Medical_LoadParts;
 			[player, 1] call A3PL_Level_AddXP;
@@ -895,6 +895,8 @@
 	private _lastDamage = _corspe getVariable ["lastDamage","unknown"];
 	disableSerialization;
 	
+	if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
+
 	_unit setVariable ["A3PL_Medical_Alive",false,true];
 	_unit setVariable ["TimeRemaining",_timer,true];
 	_unit setVariable ["tf_voiceVolume", 0, true];

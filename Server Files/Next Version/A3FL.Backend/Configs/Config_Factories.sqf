@@ -92,7 +92,7 @@ Config_Factories =
 		["f_Coffee_Cup_Medium","inh","inh","coffee_cup_medium","item",15,[["coca",4],["plastic",4]],4,4,0,"Makes 4 Medium Coffee; Replenishes 40% Thirst"],
 		["f_Coffee_Cup_Small","inh","inh","coffee_cup_small","item",15,[["coca",2],["plastic",2]],4,3,0,"Makes 4 Small Coffee; Replenishes 30% Thirst"],
 		["f_popcornbucket","inh","inh","popcornbucket","item",15,[["Corn",1]],10,1,0,"Makes 10 Popcorn Buckets; Prevents Hunger Loss when held in hand"],
-		["f_burgerbun","Burger bun","inh","inh","burger_bun","item",15,[["wheat",1]],10,1,0,"Makes 10 Burger Buns; Replenishes 8% Hunger"],
+		["f_burgerbun","Burger bun","inh","burger_bun","item",15,[["wheat",1]],10,1,0,"Makes 10 Burger Buns; Replenishes 8% Hunger"],
 		["f_burger_raw","inh","inh","burger_raw","item",15,[["bucket_full",1]],10,1,0,"Makes 10 Raw Fish Burgers; Causes 6% Hunger Loss"],
 		["f_tacoshell","inh","inh","tacoshell","item",15,[["Corn",1]],20,1,0,"Makes 20 Taco Shells; Replenishes 2% Hunger"],
 		["f_salad","inh","inh","salad","item",15,[["Lettuce",1]],5,1,0,"Makes 5 Salad; Replenishes 5% Hunger"],

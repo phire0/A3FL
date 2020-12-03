@@ -242,7 +242,7 @@
 				};
 			};
 			case(1): {
-				_alertMessage = "ALERT! ALERT! The plane carrying Resources has crashed on water! Collect the Resrources before anyone else does!";
+				_alertMessage = "ALERT! ALERT! The plane carrying Resources has crashed on water! Collect the Resources before anyone else does!";
 				_wreckMessage = "RESOURCES PLANE CRASH";
 				_commonItems = [["Aluminium_Ore",20],["Iron_Ore",20],["Coal_Ore",20],["Titanium_Ingot",1],["Aluminium_Ingot",5],["Iron_Ingot",5],["Coal_Ingot",5]];
 				_rareItems = [["Aluminium_Ingot",10],["Iron_Ingot",10],["Coal_Ingot",10],["Titanium_Ingot",5],["Steel",15],["Aluminium",15],["Titanium",5]];
@@ -325,7 +325,7 @@
 
 			};
 			case(2): {
-				_alertMessage = "ALERT! ALERT! The plane carrying Resources has crashed on land! Collect the Resrources before anyone else does!";
+				_alertMessage = "ALERT! ALERT! The plane carrying Resources has crashed on land! Collect the Resources before anyone else does!";
 				_wreckMessage = "RESOURCES PLANE CRASH";
 				_commonItems = [["Aluminium_Ore",20],["Iron_Ore",20],["Coal_Ore",20],["Titanium_Ingot",1],["Aluminium_Ingot",5],["Iron_Ingot",5],["Coal_Ingot",5]];
 				_rareItems = [["Aluminium_Ingot",10],["Iron_Ingot",10],["Coal_Ingot",10],["Titanium_Ingot",5],["Steel",15],["Aluminium",15],["Titanium",5]];

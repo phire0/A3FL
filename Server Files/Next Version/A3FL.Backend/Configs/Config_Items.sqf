@@ -145,7 +145,6 @@ Config_Items =
 	["furn_winchester_drawers","inh",6,"A3PL_Winchester_Drawers",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["furn_winchester_wine","inh",6,"A3PL_Winchester_WineBottles",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["table","Table",10,"A3FL_Table",0,true,true,true,false,true,"",[0,0,0],"",1],
-	["generator",localize"STR_ConfigItems_generator",15,"A3PL_Generator",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["flag1",localize"STR_ConfigItems_flag1",15,"A3PL_Flag1",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["flag2",localize"STR_ConfigItems_flag2",15,"A3PL_Flag2",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["wheat",localize"STR_ConfigItems_wheat",0.1,"A3PL_Sack",0,true,true,true, true, true,"",[0,0,0],"",1],
@@ -507,7 +506,7 @@ Config_Items =
 	["pumpkinhat_red",localize"STR_ConfigItems_pumpkinhat_red",0.1,"Land_A3PL_hw_pumpkinhat_red",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["pumpkinhat_orange",localize"STR_ConfigItems_pumpkinhat_orange",0.1,"Land_A3PL_hw_pumpkinhat_orange",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["pumpkinhat_green",localize"STR_ConfigItems_pumpkinhat_green",0.1,"Land_A3PL_hw_pumpkinhat_green",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["gift",localize"STR_ConfigItems_gift",0.1,"A3PL_hw_candybucket",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["gift",localize"STR_ConfigItems_gift",0.1,"A3PL_Ingot_Gold",0,true,true,true,true,true,"",[0,0,0],"",1],
 
 	//Misc
 	["cash",localize"STR_ConfigItems_cash",0.0005,"A3PL_Money",0,true,true,true,true,true,"",[0,0,0],"",1],

@@ -669,7 +669,7 @@
 			if(player canAdd [_id, _amount]) then {
 				player addItem _id;
 			} else {
-				_exit = true;
+				player addWeapon _id;
 			};
 		};
 		case ("magazine"): {

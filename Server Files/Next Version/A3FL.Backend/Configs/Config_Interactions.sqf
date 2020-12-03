@@ -619,7 +619,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_PUTITEMB",
 		{call A3PL_Inventory_PutBack;},
-		{((isNull Player_Item) isEqualTo false) && (!(player_itemClass isEqualTo "ticket"))}
+		{((isNull Player_Item) isEqualTo false) && (!(player_itemClass isEqualTo "ticket") && ((Player_Item getVariable["evidence",""]) isEqualTo ""))}
 	],
 	[
 		localize "STR_INTER_DESTROYT",

@@ -1963,14 +1963,12 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_SetPowder", {
-	player setVariable["hasPowder",true,true];
-	sleep 600;
-	player setVariable["hasPowder",nil,true];
+	player setVariable["hasPowder",serverTime,true];
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_CheckPowder", {
 	private _target = param[0,objNull];
-	private _hasPowder = _target getVariable["hasPowder",false];
+	private _hasPowder = (serverTime - (_target getVariable["hasPowder",false])) < 1800;
 	private _reference = [getPlayerUID _target] call A3PL_Police_GetGunRef;
 	private _text = if(_hasPowder) then {
 		format["The kit revealed presence of gun powder, reference: %1",_reference];
@@ -1983,6 +1981,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_DropCasing", {
+	if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 	private _chance = random 100;
 	if(_chance > 10) exitWith {};
 	private _nearCasings = count(player nearEntities ["A3FL_Bullet_Casings", 10]);
@@ -2018,6 +2017,7 @@
 
 ["A3PL_Police_Analyze", {
 	if ((isNull Player_Item) || {!(Player_ItemClass isEqualTo "evidence_bag")}) exitwith {["You do not have an evidence bag to analyze","red"] call A3PL_Player_Notification;};
+	if (npc_evidence getVariable["inUse",false]) exitWith {["The lab technician is already processing evidence","red"] call A3PL_Player_Notification;};
 	private _bag = Player_Item;
 	private _type = Player_Item getVariable["evidence_type",0];
 	private _data = _bag getVariable["evidence",nil];
@@ -2027,7 +2027,20 @@
 		case 0: {
 			format["Weapon used: %1<br/>Powder reference: %2",_split select 0,_split select 1];
 		};
-		default {""};
 	};
+
+	npc_evidence setVariable["inUse",true,true];
+
+	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
+	["Analizing evidence...",90] spawn A3PL_Lib_LoadAction;
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if ((player distance2D npc_evidence) > 5) exitWith {["You went away from the lab technician!", "red"] call A3PL_Player_Notification; Player_ActionInterrupted = true;};
+	};
+	if(Player_ActionInterrupted) exitWith {};
+	npc_evidence setVariable["inUse",false,true];
 	[_text,"blue"] call A3PL_Player_Notification;
+
+	["evidence_bag",-1] call A3PL_Inventory_Add;
+	[] call A3PL_Inventory_Clear;
 }] call Server_Setup_Compile;

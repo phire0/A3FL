@@ -1120,3 +1120,8 @@
 	};
 	if((backpack player) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Admin_PrevRadio] call TFAR_fnc_setLrSettings;};
 }] call Server_Setup_Compile;
+
+["A3PL_Admin_AdminIsland", {
+	player setPos [12626.7,1711.21,0.00143886];
+}] call Server_Setup_Compile;
+

@@ -192,29 +192,28 @@
 	_control = _display displayCtrl 14471;
 	_control ctrlSetText "1";
 
-	_keys = player getVariable "keys";
+	_keys = player getVariable ["keys",[]];
 	if (isNil "_keys") exitwith {};
 	{
 		_count = count _x;
-		if (count _x == 4) then {
-				_index = lbAdd [1900,format ["Greenhouse Key (%1)",_x]];
-				lbSetData [1900, _index,_x];
+		if (count _x isEqualTo 4) then {
+			_index = lbAdd [1900,format ["Greenhouse Key (%1)",_x]];
+			lbSetData [1900, _index,_x];
 		};
-		if (count _x == 5) then {
-				_index = lbAdd [1900,format ["House Key (%1)",_x]];
-				lbSetData [1900, _index,_x];
+		if (count _x isEqualTo 5) then {
+			_index = lbAdd [1900,format ["House Key (%1)",_x]];
+			lbSetData [1900, _index,_x];
 		};
-		if (count _x == 6) then
+		if (count _x isEqualTo 6) then
 		{
 			_index = lbAdd [1900,"Motel Key"];
 			lbSetData [1900, _index,_x];
 		};
-		if (count _x == 8) then {
-				_index = lbAdd [1900,format ["Warehouse Key (%1)",_x]];
-				lbSetData [1900, _index,_x];
+		if (count _x isEqualTo 8) then {
+			_index = lbAdd [1900,format ["Warehouse Key (%1)",_x]];
+			lbSetData [1900, _index,_x];
 		};
-
-	} forEach (player getVariable ["keys",[]]);
+	} forEach _keys;
 
 	if(count(player getVariable ["licenses",[]]) == 0) then {
 		lbAdd [1503,"No License"];
@@ -226,7 +225,7 @@
 
 	_cash = player getVariable "Player_Cash";
 	if (isNil "_cash") exitwith {};
-	if (_cash == 0) exitwith {};
+	if (_cash isEqualTo 0) exitwith {};
 	_index = lbAdd [14571, format["$%1", [player getVariable ["Player_Cash",0]] call A3PL_Lib_MoneyFormat]];
 	lbSetData [14571, _index, "cash"];
 }] call Server_Setup_Compile;
@@ -355,7 +354,7 @@
 				} else {
 					detach _obj;
 					_obj setPosASL (AGLtoASL (player modelToWorld [0,1,0]));
-				}
+				};
 			};
 			default {
 				detach _obj;
