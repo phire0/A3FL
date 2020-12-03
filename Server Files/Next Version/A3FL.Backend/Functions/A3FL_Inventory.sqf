@@ -377,7 +377,8 @@
 	private _obj = param [0,objNull];
 	private _moveToHand = param [1,false];
 	private _amount = _obj getVariable ["amount",1];
-	private _exit = false;
+	private _exitAP = false; // exit if attached to another player
+	private _exitAC = false; // exit if attached to a vehicle
 
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if((player getVariable ["Cuffed",false]) || (player getVariable ["Zipped",false])) exitWith {};
@@ -389,11 +390,17 @@
 
 	private _attachedTo = attachedTo _obj;
 	if (!isNull _attachedTo) then {
+		// attached to another player?
 		if ((isPlayer _attachedTo) && (!(_attachedTo isKindOf "Car"))) then {
-			_exit = true;
+			_exitAP = true;
+		};
+		// jerrycan attached to car?
+		if ((_classname isEqualTo "jerrycan") && (_attachedTo isKindOf "Car")) then {
+			_exitAC = true;
 		};
 	};
-	if (_exit) exitwith {[format[localize"STR_NewInventory_18"], "red"] call A3PL_Player_Notification;};
+	if (_exitAP) exitwith {[format[localize"STR_NewInventory_18"], "red"] call A3PL_Player_Notification;};
+	if (_exitAC) exitwith {["You cannot pick up a jerrycan which is being used.", "red"] call A3PL_Player_Notification;};
 	if (((count (_obj getVariable ["ainv",[]])) != 0) OR ((count (_obj getVariable ["finv",[]])) != 0)) exitwith {[_obj] call A3PL_Placeables_Pickup;};
 	
 	private _canPickup = [_classname,"canPickup"] call A3PL_Config_GetItem;
