@@ -125,7 +125,7 @@
 
 	deleteVehicle _barrel;
 	_tanker setVariable["gas", "petrol", true];
-	_tanker setVariable ["petrol",(_tanker getVariable ["petrol",0]) + 42,true];
+	_tanker setVariable ["petrol",(_tanker getVariable ["petrol",0]) + 60,true];
 	[format [localize"STR_NewHydrogen_13",(_tanker getVariable ["petrol",0])],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -148,7 +148,7 @@
 
 	deleteVehicle _barrel;
 	_tanker setVariable["gas", "kerosene", true];
-	_tanker setVariable ["petrol",(_tanker getVariable ["petrol",0]) + 42,true];
+	_tanker setVariable ["petrol",(_tanker getVariable ["petrol",0]) + 60,true];
 	[format [localize"STR_NewHydrogen_15",(_tanker getVariable ["petrol",0])],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 

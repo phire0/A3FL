@@ -77,9 +77,6 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Supermarket",[
-			["item","coke",300,30,0],
-			["item","waterbottle",500,30,0],
-			["item","bread",300,30,0],
 			["item","apple",50,11,0],
 			["item","beer", 450,50,0],
 			["item","beer_gold", 600,50,0],
@@ -1186,7 +1183,7 @@ Config_Shops_Items = [
 	],
 
 	["Shop_Low_End_Car_Dealer",[
-			["vehicle","K_Scooter_DarkBlue",17870,0,0],
+			/* ["vehicle","K_Scooter_DarkBlue",17870,0,0],
 			["vehicle","C_Quadbike_01_F",17870,0,0],
 			["vehicle","A3PL_CVPI_Rusty",30000,0,0],
 			["vehicle","A3PL_CVPI_Taxi",40750,0,0],
@@ -1195,7 +1192,7 @@ Config_Shops_Items = [
 			["vehicle","A3PL_MailTruck",53620,0,0],
 			["vehicle","A3PL_Wrangler",55050,0,0],
 			["vehicle","A3PL_Ram",55050,0,0],
-			["vehicle","A3PL_Car_Trailer",15000,0,0]
+			["vehicle","A3PL_Car_Trailer",15000,0,0] */
 		],{[9837.89,7877.28,0.2]}
 	],
 
