@@ -431,7 +431,10 @@ Config_IntersectArray =
 
 	//ATM
 	["ATM",localize"STR_INTSECT_USEATM",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Use ATM
-	["dogcage",localize"STR_INTSECT_OPK9MEN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]}],
+	
+	//K9 dog cage
+	["dogcage",localize"STR_INTSECT_OPK9MEN",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]}], // get dog
+	["dogcage",localize"STR_INTSECT_REMOVEK9",_dir+"IGUI\Cfg\Actions\take_ca.paa",{player getVariable ["job","unemployed"] IN ["uscg","fisd","fims"]}], // return dog
 
 	//mcfishers
 	["mcfishergrill",localize"STR_INTSECT_PLACEBURGER","\a3\ui_f\data\gui\Rsc\RscDisplayArsenal\cargoput_ca.paa",{true}], //Place Burger
@@ -2020,6 +2023,7 @@ Config_GenArray =
 	localize"STR_INTSECT_REDRARMD",
 	localize"STR_INTSECT_STARTJPUMP",
 	localize"STR_INTSECT_OPK9MEN",
+	localize"STR_INTSECT_REMOVEK9",
 	localize"STR_INTSECT_PLACEBURGER",
 	localize"STR_INTSECT_BUSENET",
 	localize"STR_INTSECT_COLLNET",

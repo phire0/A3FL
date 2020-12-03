@@ -206,6 +206,11 @@
 	{call A3PL_Dogs_OpenMenu;}
 ],
 [
+	"A3PL_DogCage",
+	localize"STR_INTSECT_REMOVEK9",
+	{call A3PL_Dogs_ReturnDog;}
+],
+[
 	"",
 	localize"STR_INTSECT_OPIMEXMENU",
 	{call A3PL_IE_Open;}

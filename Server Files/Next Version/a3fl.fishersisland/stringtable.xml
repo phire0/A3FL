@@ -5748,6 +5748,9 @@
    <Key ID="STR_INTSECT_OPK9MEN">
       <Original>Open Cage K-9</Original>
    </Key>
+   <Key ID="STR_INTSECT_REMOVEK9">
+      <Original>Return K-9 to cage</Original>
+   </Key>
    <Key ID="STR_INTSECT_PICKUPITEM">
       <Original>Pickup Item</Original>
    </Key>
