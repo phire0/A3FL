@@ -6503,7 +6503,7 @@
       <Original>The town hall could not approve your request, maybe your name is already used?</Original>
    </Key>
    <Key ID="STR_PLAYER_FIRSTN2CHAR">
-      <Original>Please enter a first name of more than 2 characters</Original>
+      <Original>Please enter a first name longer than 2 characters</Original>
    </Key>
    <Key ID="STR_PLAYER_LASTN2CHAR">
       <Original>Please enter a last name longer than 2 characters</Original>
@@ -7025,7 +7025,7 @@
             <Original>Send</Original>
         </Key>
         <Key ID="STR_NEWPLAYER_GUISEX">
-            <Original>Sex:</Original>
+            <Original>Gender:</Original>
         </Key>
         <Key ID="STR_NEWPLAYER_GUIDOB">
             <Original>DOB:</Original>
@@ -8562,16 +8562,13 @@
     </Package>
     <Package name="STR_NewPlayer">
         <Key ID="STR_NewPlayer_Welcome1">
-            <Original>Welcome to Fishers Island, New-York.</Original>
-        </Key>
-        <Key ID="STR_NewPlayer_Welcome2">
-            <Original>You can unlock perks on our forum : www.arma3fisherslife.net</Original>
+            <Original>Welcome to Fishers Island!</Original>
         </Key>
         <Key ID="STR_NewPlayer_FillGender">
-            <Original>Please indicate your gender</Original>
+            <Original>Please enter your gender</Original>
         </Key>
         <Key ID="STR_NewPlayer_FillDOB">
-            <Original>Please fill your date of birth</Original>
+            <Original>Please fill in your date of birth</Original>
         </Key>
     </Package>
     <Package name="STR_NewTwitter">

@@ -314,15 +314,19 @@
 	createDialog "Dialog_NewPlayer";
 	private _display = findDisplay 111;
 	noEscape = _display displayAddEventHandler ["KeyDown", "if ((_this select 1) == 1) then {true}"];
+	
 	private _sex = _display displayCtrl 1403;
     private _day = _display displayCtrl 1404;
     private _month = _display displayCtrl 1405;
     private _year = _display displayCtrl 1406;
     private _control = _display displayCtrl 2100;
+	
 	_sex lbAdd "Male";
 	_sex lbSetData [(lbSize _sex) - 1, "male"];
 	_sex lbAdd "Female";
 	_sex lbSetData [(lbSize _sex) - 1, "female"];
+	_sex lbAdd "Other";
+	_sex lbSetData [(lbSize _sex) - 1, "other"];
 
 	for "_i" from 1 to 31 do {
 		_day lbAdd str _i;
@@ -334,21 +338,20 @@
 		_month lbSetData [(lbSize _month)-1,str(_l)];
 	};
 
-	for "_k" from 1920 to 2001 do {
-		_value = 2001 - (_k - 1920);
+	for "_k" from 1920 to 2008 do {
+		_value = 2008 - (_k - 1920);
 		_year lbAdd str _value;
 		_year lbSetData [(lbSize _year)-1,str(_value)];
 	};
-	//Structured text
+
 	_control = _display displayCtrl 2100;
 
-	//message
 	if (isNil "A3PL_NewPlayerRequested") then
 	{
-		[localize "STR_PLAYER_PLSENTERDET", "green"] call A3PL_Player_Notification; //System: It looks like you are a new player, please enter your details
+		[localize "STR_PLAYER_PLSENTERDET", "green"] call A3PL_Player_Notification;
 	} else
 	{
-		[localize "STR_PLAYER_NAMEINUSE", "red"] call A3PL_Player_Notification; //System: Server was unable to create your character, maybe the name is already in use?
+		[localize "STR_PLAYER_NAMEINUSE", "red"] call A3PL_Player_Notification;
 	};
 	A3PL_NewPlayerRequested = true;
 }] call Server_Setup_Compile;
@@ -403,8 +406,7 @@
 
 	if (_forbiddenUsed) exitwith
 	{
-		[localize "STR_PLAYER_FORBCHAR", "red"] call A3PL_Player_Notification; //System: You used forbidden characters in your name, please resolve this
-		[localize "STR_PLAYER_CAPITALLETT", "red"] call A3PL_Player_Notification; //System: Do not use capital letters, this will be done automatically
+		["There is an issue with your name, please ensure you only use letters in your name. Additionally, do not use capital letters, we will do this automatically for you.", "red"] call A3PL_Player_Notification;
 	};
 
 	//fix capital letters
@@ -425,7 +427,6 @@
 	};
 
 	[localize"STR_NewPlayer_Welcome1", "green"] call A3PL_Player_Notification;
-	[localize"STR_NewPlayer_Welcome2","green"] call A3PL_Player_Notification;
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
