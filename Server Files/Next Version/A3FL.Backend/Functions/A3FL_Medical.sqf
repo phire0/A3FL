@@ -660,10 +660,10 @@
 		default {0};
 	};
 	private _projectileDamage = switch(true) do {
-		case (_projectile IN ["B_9x21_Ball","A3PL_P226_Ammo","red_9x19_Ball","A3FL_Glock_Ammo"]): {0.1};
-		case (_projectile IN ["B_45ACP_Ball","A3FL_P227_Ammo"]): {0.2};
+		case (_projectile IN ["B_9x21_Ball","A3PL_P226_Ammo","red_9x19_Ball","A3FL_Glock_Ammo","A3FL_MP5_Ammo","A3FL_UMP_Ammo"]): {0.1};
+		case (_projectile IN ["B_45ACP_Ball","A3FL_P227_Ammo","A3FL_Vector_Ammo"]): {0.2};
 		case (_projectile IN ["A3FL_DesertEagle_Ammo"]): {0.4};
-		case (_projectile IN ["A3PL_M16_Ball"]): {0.2};
+		case (_projectile IN ["A3PL_M16_Ball"]): {0.3};
 		case (_projectile IN ["B_762x39_Ball_F"]): {0.35};
 		case (_projectile IN ["A3FL_Mossberg_590K_buck","A3FL_Mossberg_590K_Breach"]): {0.4};
 		default {0};
@@ -704,7 +704,7 @@
 	params [["_projectile","",[""]]];
 	private _bulletWound = switch(true) do {
 		case (_projectile IN ["B_9x21_Ball","A3PL_P226_Ammo","red_9x19_Ball","A3FL_Glock_Ammo"]): {"bullet_9"};
-		case (_projectile IN ["B_45ACP_Ball","A3FL_P227_Ammo"]): {"bullet_45"};
+		case (_projectile IN ["B_45ACP_Ball","A3FL_P227_Ammo","A3FL_Vector_Ammo"]): {"bullet_45"};
 		case (_projectile IN ["A3FL_DesertEagle_Ammo"]): {"bullet_50"};
 		case (_projectile IN ["A3PL_M16_Ball"]): {"bullet_556"};
 		case (_projectile IN ["B_762x39_Ball_F"]): {"bullet_762"};
