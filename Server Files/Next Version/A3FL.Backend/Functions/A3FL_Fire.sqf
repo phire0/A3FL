@@ -35,7 +35,7 @@
 	_marker setMarkerText "FIRE";
 	_marker setMarkerColor "ColorWhite";
 	
-	[localize"STR_NewFire_AlertFire","red","fifr",3] call A3PL_Lib_JobMessage;
+	//[localize"STR_NewFire_AlertFire","red","fifr",3] call A3PL_Lib_JobMessage;
 	["A3PL_Common\effects\firecall.ogg",150,2,10] spawn A3PL_FD_FireStationAlarm;
 	
 	uiSleep 600;
