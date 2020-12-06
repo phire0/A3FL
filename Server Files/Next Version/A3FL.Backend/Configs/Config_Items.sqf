@@ -530,6 +530,7 @@ Config_Items =
 	["bulletcasing",localize"STR_ConfigItems_bulletcasing",5,"A3FL_Bullet_Casings",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["evidence_marker",localize"STR_ConfigItems_evidence_marker",5,"A3FL_Evidence",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["evidence_bag",localize"STR_ConfigItems_evidence_bag",5,"A3FL_Evidence_Bag",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["powdertestkit",localize"STR_ConfigItems_powdertestkit",5,"A3FL_DrugTest",0,true,true,true,true,true,"",[0,0,0],"",1]
+	["powdertestkit",localize"STR_ConfigItems_powdertestkit",5,"A3FL_DrugTest",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["cyanide_pills",localize"STR_ConfigItems_cyanide_pills",5,"A3PL_PainKillers",0,true,true,true,true,true,"",[0,0,0],"",1]
 ];
 publicVariable "Config_Items";

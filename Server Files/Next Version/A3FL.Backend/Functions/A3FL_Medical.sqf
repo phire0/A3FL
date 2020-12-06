@@ -972,6 +972,11 @@
 	player setVariable ["A3PL_Medical_Blood",MAXBLOODLVL,true];
 	player setVariable ["A3PL_MedicalLog",nil,true];
 	player setVariable ["TimeRemaining",nil,true];
+	player setVariable ["jail_mark",false,true];
+	player setVariable ["jailed",false,true];
+	player setVariable ["jailtime",nil,true];
+	[player] remoteExec ["Server_Criminal_RemoveJail", 2];
+
 	player allowDamage true;
 
 	Player_Hunger = 100;
@@ -995,10 +1000,6 @@
 	} else {
 		player addUniform (["woman1","woman2","woman3"] select (round (random 2)));
 	};
-
-	player setVariable ["jailed",false,true];
-	player setVariable ["jailtime",nil,true];
-	[player] remoteExec ["Server_Criminal_RemoveJail", 2];
 
 	private _nearestClinic = nearestObjects [_bodyPos, ["Land_A3PL_Clinic"], 10000];
 	if(count(_nearestClinic) > 0) then {

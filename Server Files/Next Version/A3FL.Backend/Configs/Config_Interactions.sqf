@@ -1173,7 +1173,11 @@ A3PL_Interaction_Options =
 		{[A3FL_BoatTow,player_objintersect] call A3PL_USCG_TowBoat;},
 		{((typeOf player_objintersect) IN ["A3PL_RBM"]) && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {!isNil {A3FL_BoatTow}}}
 	],
-
+	[
+		"Suicide",
+		{player setDamage 1;},
+		{(["cyanide_pills",1] call A3PL_Inventory_Has) && {count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0}}
+	],
 	[
 		"Toggle Garage",
 		{

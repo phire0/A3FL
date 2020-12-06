@@ -153,7 +153,7 @@
 	if(Player_ActionInterrupted) exitWith {["Search cancelled!", "red"] call A3PL_Player_Notification;};
 
 	_rareItems = ["v_lockpick","keycard","zipties"];
-	_commonItems = ["beer","beer_gold","seed_marijuana","cocaine","weed_10g"];
+	_commonItems = ["beer","beer_gold","seed_marijuana","cocaine","weed_10g","cyanide_pills"];
 	_pItems = ["A3PL_Pickaxe","A3PL_Shovel","A3PL_Cellphone","A3PL_TaserMag"];
 	_rarerItems = ["A3FL_BaseballBat","A3PL_Taser"];
 
