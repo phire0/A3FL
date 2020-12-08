@@ -1653,7 +1653,27 @@
 					if (_veh animationSourcePhase "Head_Lights" < 0.5) then{player action ["lightOff",_veh];};
 				};
 				_return = true;
-			};			
+			};
+			case 10: {
+				private _veh = vehicle player;
+				if (_veh animationPhase "PD_Switch_9" < 0.5) then {
+					_veh animate ["PD_Switch_9",1];
+					_veh animate ["DS_Floodlights",1];
+				} else {
+					_veh animate ["PD_Switch_9",0];
+					_veh animate ["DS_Floodlights",0];
+				};
+			};
+			case 11: {
+				private _veh = vehicle player;
+				if (_veh animationPhase "PD_Switch_10" < 0.5) then {
+					_veh animate ["PD_Switch_10",1];
+					_veh animate ["PS_Floodlights",1];
+				} else {
+					_veh animate ["PD_Switch_10",0];
+					_veh animate ["PS_Floodlights",0];
+				};
+			};
 		};
 		_return;
 	};

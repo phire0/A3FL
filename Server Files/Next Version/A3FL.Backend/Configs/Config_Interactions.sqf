@@ -1026,11 +1026,19 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_OPCOMPUTER",
 		{
-			if (isNull (findDisplay 211) && (((vehicle player) animationPhase "Laptop_Top") > 0.5)) then {
+			if(typeOf (vehicle player) IN ["A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Rescue"]) then {
 				if ((player getVariable ["job","unemployed"]) isEqualTo "fifr") then {
 					call A3PL_FD_DatabaseOpen;
 				} else {
 					call A3PL_Police_DatabaseOpen;
+				};
+			} else {
+				if (isNull (findDisplay 211) && (((vehicle player) animationPhase "Laptop_Top") > 0.5)) then {
+					if ((player getVariable ["job","unemployed"]) isEqualTo "fifr") then {
+						call A3PL_FD_DatabaseOpen;
+					} else {
+						call A3PL_Police_DatabaseOpen;
+					};
 				};
 			};
 		},

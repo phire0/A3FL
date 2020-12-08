@@ -120,6 +120,7 @@
 		profileNamespace setVariable ["player_drugs",[0,0,0]];
 		Player_Drugs = [0,0,0];
 		[player, "left upper arm", "drug_overdose"] call A3PL_Medical_ApplyWound;
+		player setDamage 1;
 	};
 
 	// Shrooms

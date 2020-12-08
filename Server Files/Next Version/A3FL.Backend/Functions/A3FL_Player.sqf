@@ -872,7 +872,13 @@
 	private _houseObj = player getVariable["house",objNull];
 	private _warehouseObj = player getVariable["warehouse",objNull];
 	private _isCG = (player getVariable["faction","citizen"]) isEqualTo "uscg";
-	if(!isNull _houseObj) then {_spawnList pushback ["House",getPosATL _houseObj,1];};
+	if(!isNull _houseObj) then {
+		_ATL = switch(typeOf _houseObj) do {
+			case "Land_Home5y_DED_Home5y_01_F": {[((getPosATL _houseObj) select 0) + 4.5,((getPosATL _houseObj) select 1) - 6,(getPosATL _houseObj) select 2]};
+			default {getPosATL _houseObj};
+		};
+		_spawnList pushback ["House",_ATL,1];
+	};
 	if(!isNull _warehouseObj) then {_spawnList pushback ["Warehouse",getPosATL _warehouseObj,2];};
 	if(_isCG) then {_spawnList pushback ["CG Base",[6513.87,8433.42,0],0];};
 

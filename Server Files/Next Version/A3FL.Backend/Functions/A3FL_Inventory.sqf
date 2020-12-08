@@ -333,7 +333,7 @@
 	if (_setPos) then
 	{
 		switch(_itemClass) do {
-			case ("FD_Mask"): {
+			case ("fd_mask"): {
 				deleteVehicle _obj;
 				_holder = createVehicle ["GroundWeaponHolder", getposATL player, [], 0, "CAN_COLLIDE"];
 				_holder addItemCargoGlobal ["A3PL_FD_Mask",1];

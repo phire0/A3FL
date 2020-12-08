@@ -1167,7 +1167,8 @@ Config_Shops_Items = [
 			["headgear","A3PL_Santahatbeard",5,-1,0],
 			["headgear","A3PL_Santahat",6,-1,0],
 			["uniform","A3PL_Xmas_Onesie_Red_Uniform",25,-1,0],
-			["uniform","A3PL_Xmas_Onesie_Grey_Uniform",25,-1,0]
+			["uniform","A3PL_Xmas_Onesie_Grey_Uniform",25,-1,0],
+			["item","A3FL_Christmas_TreeFurniture",100,-1,0]
 		],{[5661.34,6125.97,-0.5]}
 	],
 

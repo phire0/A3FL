@@ -69,7 +69,8 @@
 	private _veh = _this select 0;
 	private _type_1 = _this select 1;
 	private _TruckNumber = {(typeOf _x isEqualTo _type_1)} count vehicles;
-	private _TruckNumber1 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _TruckNumber + 6];
+	_TruckNumber = _TruckNumber + 6;
+	private _TruckNumber1 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _TruckNumber];
 	_veh setObjectTextureGlobal [8, _TruckNumber1 ];
 	_veh setVariable["squadnb", _TruckNumber,true];
 }] call Server_Setup_Compile;

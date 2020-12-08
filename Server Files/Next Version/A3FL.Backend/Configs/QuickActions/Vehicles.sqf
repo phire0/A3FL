@@ -2119,6 +2119,7 @@
 		private _veh = player_objintersect;
 		if (isEngineOn _veh) exitwith {
 			_veh engineOn false;
+			player action ["lightOff", _veh];
 			[localize"STR_QuickActions_Notif_Vehicles_EngineOFF", "red"] call A3PL_Player_Notification;
 		};
 		_veh setVariable ["Ignition",true,false];

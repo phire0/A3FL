@@ -164,7 +164,7 @@ Config_Items =
 
 	//Useable Items
 	["med_stretcher",localize"STR_ConfigItems_med_stretcher",100,"A3FL_Stretcher",0.005,true,true,true,false,false,"",[0,0,0],"",1],	
-	["life_alert",localize"STR_ConfigItems_life_alert",0.1,"A3PL_MultiMeter",0.005,true,true,true,true,true,"",[0,0,0],"",1],	
+	["life_alert",localize"STR_ConfigItems_life_alert",0.1,"A3FL_LifeAlert",0.005,true,true,true,true,true,"",[0,0,0],"",1],	
 	["v_lockpick",localize"STR_ConfigItems_v_lockpick",0.1,"A3PL_Lockpick",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["keycard",localize"STR_ConfigItems_keycard",0.1,"A3FL_Keycard",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["med_cast",localize"STR_ConfigItems_med_cast",0.1,"A3PL_Medical_Cast",0.05,true,true,true,true,true,"",[0,0,0],"",1],
@@ -531,6 +531,6 @@ Config_Items =
 	["evidence_marker",localize"STR_ConfigItems_evidence_marker",5,"A3FL_Evidence",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["evidence_bag",localize"STR_ConfigItems_evidence_bag",5,"A3FL_Evidence_Bag",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["powdertestkit",localize"STR_ConfigItems_powdertestkit",5,"A3FL_DrugTest",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["cyanide_pills",localize"STR_ConfigItems_cyanide_pills",5,"A3PL_PainKillers",0,true,true,true,true,true,"",[0,0,0],"",1]
+	["cyanide_pills",localize"STR_ConfigItems_cyanide_pills",5,"A3FL_CyanidePills",0,true,true,true,true,true,"",[0,0,0],"",1]
 ];
 publicVariable "Config_Items";

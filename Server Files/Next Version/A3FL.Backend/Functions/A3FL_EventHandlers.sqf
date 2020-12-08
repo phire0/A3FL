@@ -242,6 +242,7 @@
 			_max_height = 4.8;
 			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
 			if((speed player) < 6) exitWith {};
+			if((player getVariable ["Cuffed",true]) || (player getVariable ["Zipped",true])) exitwith {};
 			if((player isEqualTo vehicle player) && (player getvariable ["jump",true]) && (isTouchingGround player)) then  {
 				player setvariable ["jump",false];
 				_height = 6-((load player)*9);

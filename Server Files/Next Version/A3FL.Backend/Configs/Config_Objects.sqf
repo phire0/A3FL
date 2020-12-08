@@ -21,7 +21,6 @@ publicVariable "Config_Objects_Bargates";
 
 Config_Items_ZOffset =
 [
-	["John_Sofa",0,0],
 	["Land_BottlePlastic_V2_F",0.02,0],
 	["A3PL_RoadBarrier",0.5,0],
 	["A3PL_PlasticBarrier_01",0.3,0],
@@ -221,20 +220,10 @@ Config_Items_ZOffset =
 publicVariable "Config_Items_ZOffset";
 
 Config_Placeables = [
-	"GroundWeaponHolder","RoadCone_F","A3PL_Spikes_Closed","A3PL_Spikes_Open","A3PL_Ski_Base","A3PL_RoadBarrier","A3PL_PlasticBarrier_01","A3PL_PlasticBarrier_02","A3PL_WheelieBin"
+	"GroundWeaponHolder","RoadCone_F","A3PL_Spikes_Closed","A3PL_Spikes_Open","A3PL_Ski_Base","A3PL_RoadBarrier","A3PL_PlasticBarrier_01","A3PL_PlasticBarrier_02","A3PL_WheelieBin",
+	"A3FL_Christmas_TreeFurniture","A3PL_WorkBench","A3FL_Table","A3PL_Chair1","A3PL_Chair2","A3PL_Chair3","A3PL_Chair4","A3PL_Bed1","A3PL_Bed2","A3PL_Cabinet1","A3PL_Cabinet2","A3PL_Cabinet3","A3PL_coffeeTable1","A3PL_coffeeTable2","A3PL_coffeeTable3","A3PL_coffeeTable4","A3PL_CornerSova","A3PL_DryingTowel","A3PL_Flasket","A3PL_KitchenChair1","A3PL_KitchenChair2","A3PL_KitchenShelf1","A3PL_KitchenShelf2","A3PL_KitchenShelf3","A3PL_KitchenShelfCorner","A3PL_KitchenTable1","A3PL_KitchenTable2","A3PL_Lamp1","A3PL_Lamp2","A3PL_Mirror","A3PL_ModularKitchen1","A3PL_ModularKitchen2","A3PL_ModularKitchen3","A3PL_ModularKitchen4","A3PL_Pouf","A3PL_Rack1","A3PL_Rack2","A3PL_Sofa1","A3PL_Sofa2","A3PL_Sofa3","A3PL_Sofa4","A3PL_table1","A3PL_table2","A3PL_TvTable1","A3PL_TvTable2","A3PL_TvTable3","A3PL_Bed3","A3PL_Bar_Cabinet","A3PL_Bookshelf","A3PL_DiningChair","A3PL_DiningTableProps","A3PL_Kennel","A3PL_NightStand","A3PL_NightStandLamp","A3PL_Sofa1New","A3PL_Sofa3New","A3PL_Mcfisher_Grill","A3PL_CabinetDoubleTop","A3PL_CabinetSingleTop","A3PL_CabinetTopCorner","A3PL_CounterCorner","A3PL_CounterDoubleCabinet","A3PL_CounterDrawer","A3PL_CounterSingleCabinet","A3PL_CounterTop1","A3PL_CounterTop2","A3PL_CounterTop3","A3PL_SinkBigCounter","A3PL_SinkSingleCabinet"
 ];
-Config_Furniture = [
-	"A3PL_WorkBench","A3FL_Table","John_Sofa","A3PL_Chair1","A3PL_Chair2","A3PL_Chair3","A3PL_Chair4","A3PL_Bed1","A3PL_Bed2","A3PL_Cabinet1","A3PL_Cabinet2","A3PL_Cabinet3","A3PL_coffeeTable1","A3PL_coffeeTable2","A3PL_coffeeTable3","A3PL_coffeeTable4","A3PL_CornerSova","A3PL_DryingTowel","A3PL_Flasket","A3PL_KitchenChair1","A3PL_KitchenChair2","A3PL_KitchenShelf1","A3PL_KitchenShelf2","A3PL_KitchenShelf3","A3PL_KitchenShelfCorner","A3PL_KitchenTable1","A3PL_KitchenTable2","A3PL_Lamp1","A3PL_Lamp2","A3PL_Mirror","A3PL_ModularKitchen1","A3PL_ModularKitchen2","A3PL_ModularKitchen3","A3PL_ModularKitchen4","A3PL_Pouf","A3PL_Rack1","A3PL_Rack2","A3PL_Sofa1","A3PL_Sofa2","A3PL_Sofa3","A3PL_Sofa4","A3PL_table1","A3PL_table2","A3PL_TvTable1","A3PL_TvTable2","A3PL_TvTable3","A3PL_Bed3","A3PL_Bar_Cabinet","A3PL_Bookshelf","A3PL_DiningChair","A3PL_DiningTableProps","A3PL_Kennel","A3PL_NightStand","A3PL_NightStandLamp","A3PL_Sofa1New","A3PL_Sofa3New","A3PL_Mcfisher_Grill","A3PL_CabinetDoubleTop","A3PL_CabinetSingleTop","A3PL_CabinetTopCorner","A3PL_CounterCorner","A3PL_CounterDoubleCabinet","A3PL_CounterDrawer","A3PL_CounterSingleCabinet","A3PL_CounterTop1","A3PL_CounterTop2","A3PL_CounterTop3","A3PL_SinkBigCounter","A3PL_SinkSingleCabinet"
-];
-{
-	Config_Placeables pushback _x;
-} foreach Config_Furniture;
 publicVariable "Config_Placeables";
-
-Config_Furniturep3d = [
-	"John_Sofa","a3pl_box","a3pl_oilbarrel","pump","a3pl_bed1","a3pl_bed2","a3pl_brush","a3pl_cabinet1","a3pl_cabinet2","a3pl_cabinet3","a3pl_chair1","a3pl_chair2","a3pl_chair3","a3pl_chair4","a3pl_coffeetable1","a3pl_coffeetable2","a3pl_coffeetable3","a3pl_coffeetable4","a3pl_cornersova","a3pl_dryingtowel","a3pl_flasket","a3pl_kitchenchair1","a3pl_kitchenchair2","a3pl_kitchenshelf1","a3pl_kitchenshelf2","a3pl_kitchenshelf3","a3pl_kitchenshelfcorner","a3pl_kitchentable1","a3pl_kitchentable2","a3pl_lamp1","a3pl_lamp2","a3pl_mirror","a3pl_modularkitchen1","a3pl_modularkitchen2","a3pl_modularkitchen3","a3pl_modularkitchen4","a3pl_pouf","a3pl_rack1","a3pl_rack2","a3pl_sofa1","a3pl_sofa2","a3pl_sofa3","a3pl_sofa4","a3pl_table1","a3pl_table2","a3pl_tvtable1","a3pl_tvtable2","a3pl_tvtable3"
-];
-publicVariable "Config_Furniturep3d";
 
 Config_CarFurnitureBlacklist =
 [
@@ -265,10 +254,7 @@ Config_CarFurnitureBlacklist =
 		"a3pl_bed1","a3pl_bed2","a3pl_brush","a3pl_cabinet1","a3pl_cabinet2","a3pl_cabinet3","a3pl_chair1","a3pl_chair2","a3pl_chair3","a3pl_chair4","a3pl_coffeetable1","a3pl_coffeetable2","a3pl_coffeetable3","a3pl_coffeetable4","a3pl_cornersova","a3pl_modularkitchen1","a3pl_modularkitchen2","a3pl_modularkitchen3","a3pl_modularkitchen4","a3pl_pouf","a3pl_rack1","a3pl_rack2","a3pl_sofa1","a3pl_sofa2","a3pl_sofa3","a3pl_sofa4","a3pl_table1","a3pl_table2","a3pl_tvtable1","a3pl_tvtable2","a3pl_tvtable3"
 		]
 	],
-	["A3PL_F150_Marker",[
-			"a3pl_bed1","a3pl_bed2","a3pl_brush","a3pl_cabinet1","a3pl_cabinet2","a3pl_cabinet3","a3pl_chair1","a3pl_chair2","a3pl_chair3","a3pl_chair4","a3pl_coffeetable1","a3pl_coffeetable2","a3pl_coffeetable3","a3pl_coffeetable4","a3pl_cornersova","a3pl_modularkitchen1","a3pl_modularkitchen2","a3pl_modularkitchen3","a3pl_modularkitchen4","a3pl_pouf","a3pl_rack1","a3pl_rack2","a3pl_sofa1","a3pl_sofa2","a3pl_sofa3","a3pl_sofa4","a3pl_table1","a3pl_table2","a3pl_tvtable1","a3pl_tvtable2","a3pl_tvtable3"
-		]
-	],
+	["A3PL_F150_Marker",[]],
 	["A3PL_Gallardo",[
 			"a3pl_bed1","a3pl_bed2","a3pl_brush","a3pl_cabinet1","a3pl_cabinet2","a3pl_cabinet3","a3pl_chair1","a3pl_chair2","a3pl_chair3","a3pl_chair4","a3pl_coffeetable1","a3pl_coffeetable2","a3pl_coffeetable3","a3pl_coffeetable4","a3pl_cornersova","a3pl_dryingtowel","a3pl_flasket","a3pl_kitchenchair1","a3pl_kitchenchair2","a3pl_kitchenshelf1","a3pl_kitchenshelf2","a3pl_kitchenshelf3","a3pl_kitchenshelfcorner","a3pl_kitchentable1","a3pl_kitchentable2","a3pl_lamp1","a3pl_lamp2","a3pl_mirror","a3pl_modularkitchen1","a3pl_modularkitchen2","a3pl_modularkitchen3","a3pl_modularkitchen4","a3pl_pouf","a3pl_rack1","a3pl_rack2","a3pl_sofa1","a3pl_sofa2","a3pl_sofa3","a3pl_sofa4","a3pl_table1","a3pl_table2","a3pl_tvtable1","a3pl_tvtable2","a3pl_tvtable3","a3pl_steel_pellet","a3pl_aluminium_pellet","a3pl_titanium_pellet","a3pl_coal_ingot_pellet","a3pl_iron_ingot_pellet","a3pl_titanium_ingot_pellet","a3pl_oilbarrel","pump","a3pl_mcfisher_grill"
 		]
