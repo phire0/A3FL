@@ -7,6 +7,11 @@
 */
 
 [
+	"A3FL_Christmas_Tree",
+	"Take Gift",
+	{[player_objIntersect] call A3PL_Player_GetGift;}
+],
+[
 	"A3PL_Distillery",
 	localize"STR_INTSECT_InstallHose",
 	{[player_objIntersect] call A3PL_Moonshine_InstallHose;}

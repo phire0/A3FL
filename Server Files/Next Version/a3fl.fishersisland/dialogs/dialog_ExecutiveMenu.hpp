@@ -154,7 +154,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[true] call A3PL_Admin_TakeGear;";
+			action = "[true] spawn A3PL_Admin_TakeGear;";
 		};
 		class Button_SavedGear: RscButton
 		{
@@ -165,7 +165,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[false] call A3PL_Admin_TakeGear;";
+			action = "[false] spawn A3PL_Admin_TakeGear;";
 		};
 		class Button_AdminIsland: RscButton
 		{

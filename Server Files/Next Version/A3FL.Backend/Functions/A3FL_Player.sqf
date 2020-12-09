@@ -971,3 +971,14 @@
 	deleteVehicle _obj;
 	A3PL_Tackled = nil;
 }] call Server_Setup_Compile;
+
+["A3PL_Player_GetGift",
+{
+	private _tree = param[0,objNull];
+	if(isNull _tree) exitWith {};
+	private _uid = getPlayerUID player;
+	private _usedList = _tree getVariable["used",[]];
+	if(_uid IN _usedList) exitWith {["You already had a gift from this tree today!","red"] call A3PL_Player_Notification;};
+	["gift",1] call A3PL_Inventory_Add;
+	["You received 1 gift!","green"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;

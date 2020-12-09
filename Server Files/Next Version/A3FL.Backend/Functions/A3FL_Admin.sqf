@@ -1118,7 +1118,7 @@
 			["Error: No previous gear saved.","pink"] call A3PL_Player_Notification;
 		};
 	};
-	if((backpack player) isEqualTo "A3PL_LR") then {[(call TFAR_fnc_activeLrRadio), A3PL_Admin_PrevRadio] call TFAR_fnc_setLrSettings;};
+	if(((backpack player) isEqualTo "A3PL_LR") && {!isNil "A3PL_Admin_PrevRadio"}) then {[(call TFAR_fnc_activeLrRadio), A3PL_Admin_PrevRadio] call TFAR_fnc_setLrSettings;};
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_AdminIsland", {

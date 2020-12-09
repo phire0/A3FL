@@ -50,6 +50,8 @@ Config_IntersectArray =
 	["bulletcasing","Destroy Evidence",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
 	["spine3","Analyze Evidence",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_evidence) && {(player getVariable ["job","unemployed"]) isEqualTo "fisd"}}],
 
+	["takegift","Take Gift",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}],
+
 	//moonshine
 	["distillery_end",localize"STR_INTSECT_InstallHose",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{((count (nearestObjects [player_objintersect, ["A3PL_Distillery_Hose"], 2])) > 0) && {((count ([player_objintersect] call A3PL_Lib_AttachedAll)) < 1)}}],
 	["distillery_main",localize"STR_INTSECT_StartDistillery",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{true}],

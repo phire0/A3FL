@@ -152,7 +152,7 @@ Config_Items =
 	["pavilion",localize"STR_ConfigItems_pavilion",0.1,"A3PL_Pavilion",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["furn_fridge",localize"STR_ConfigItems_Fridge",15,"A3PL_Fridge",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["girlstatue",localize"STR_ConfigItems_girlstatue",0.1,"Land_A3PL_Girlstatue",0,true,true,true,false,false,"",[0,0,0],"",1],
-
+	["christmas_tree",localize"STR_ConfigItems_christmas_tree",0.1,"A3FL_Christmas_TreeFurniture",0,true,true,true,false,false,"",[0,0,0],"",1],
 
 	//Placeable Items
 	["wood_barrier",localize"STR_ConfigItems_wood_barrier",3,"A3PL_RoadBarrier",0,true,true,true,true,true,"",[0,0,0],"",1],
@@ -506,7 +506,7 @@ Config_Items =
 	["pumpkinhat_red",localize"STR_ConfigItems_pumpkinhat_red",0.1,"Land_A3PL_hw_pumpkinhat_red",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["pumpkinhat_orange",localize"STR_ConfigItems_pumpkinhat_orange",0.1,"Land_A3PL_hw_pumpkinhat_orange",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["pumpkinhat_green",localize"STR_ConfigItems_pumpkinhat_green",0.1,"Land_A3PL_hw_pumpkinhat_green",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["gift",localize"STR_ConfigItems_gift",0.1,"A3PL_Ingot_Gold",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["gift",localize"STR_ConfigItems_gift",0.1,"A3FL_Present",0,true,true,true,true,true,"",[0,0,0],"",1],
 
 	//Misc
 	["cash",localize"STR_ConfigItems_cash",0.0005,"A3PL_Money",0,true,true,true,true,true,"",[0,0,0],"",1],

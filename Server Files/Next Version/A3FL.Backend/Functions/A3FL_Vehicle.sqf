@@ -285,13 +285,11 @@
 	private ["_sirenType","_veh","_classname","_Siren","_SoundSource_1","_SoundSource_2","_SoundSource_3","_SoundSource_4"];
 	_veh = _this;
 	_classname = typeOf _veh;
-	if(_classname == "C_man_1") then {[getPlayerUID player,"SirenBugAttempt",[]] remoteExec ["Server_Log_New",2];};
-	if(_classname == "C_man_1") exitwith {[localize'STR_NewVehicle_11',"red"] call A3PL_Player_Notification;};
+	if(_classname isEqualTo "C_man_1") exitwith {[getPlayerUID player,"SirenBugAttempt",[]] remoteExec ["Server_Log_New",2];[localize'STR_NewVehicle_11',"red"] call A3PL_Player_Notification;};
 	switch (true) do
 	{
 		case (_classname IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]): {_sirenType = "fire";};
-		case (_classname IN ["A3PL_Tahoe_FD","A3PL_Taurus_FD","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Charger15_FD"]): {_sirenType = "fire_FR";};
-		case (_classname IN ["A3FL_Explorer_Platinum_PD_20","A3PL_F150_Marker_PD","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_RBM","A3PL_Motorboat_Rescue","A3PL_Motorboat_Police","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3PL_VetteZR1_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Charger15_PD","A3PL_Charger15_PD_ST"]): {_sirenType = "police";};
+		case (_classname IN ["A3FL_Explorer_Platinum_FD_20","A3PL_Tahoe_FD","A3PL_Taurus_FD","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Charger15_FD"]): {_sirenType = "fire_FR";};
 		case (_classname IN ["Jonzie_Ambulance","A3PL_E350"]): {_sirenType = "ems";};
 		case (_classname IN ["A3FL_T440_Tow_Truck","A3PL_P362_TowTruck","A3PL_F150_Marker"]): {_sirenType = "civ";};
 		case (_classname IN ["A3PL_Yacht","A3PL_Container_Ship","A3PL_Yacht_Pirate","A3PL_Cutter","A3PL_Motorboat","A3PL_RHIB","A3FL_LCM"]): {_sirenType = "Ship";};
@@ -1618,7 +1616,7 @@
 }, false] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_ControlSpotlight", {
-	private _whitelistedCars = ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3FL_Explorer_Platinum_PD_20"];
+	private _whitelistedCars = ["A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3FL_Explorer_Platinum_PD_20","A3FL_Explorer_Platinum_PD_Slicktop_20","A3FL_Explorer_Platinum_FD_20"];
 	if !(typeOf (vehicle player) IN _whitelistedCars) exitWith {};
 	keysEVH =
 	{

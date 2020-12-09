@@ -1464,6 +1464,9 @@
    <Key ID="STR_ConfigItems_girlstatue">
       <Original>Girl Statue</Original>
    </Key>
+   <Key ID="STR_ConfigItems_christmas_tree">
+      <Original>Christmas Tree</Original>
+   </Key>
    <Key ID="STR_ConfigItems_diamond">
       <Original>Diamond</Original>
    </Key>
@@ -1871,6 +1874,9 @@
    </Key>
    <Key ID="STR_ConfigItems_powdertestkit">
       <Original>Gunpowder test kit</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_cyanide_pills">
+      <Original>Cyanide Pills</Original>
    </Key>
    <Key ID="STR_ConfigItems_drill_bit">
       <Original>Drill Bit</Original>
