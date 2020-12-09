@@ -482,7 +482,7 @@
 	{
 		if (isNull _obj) exitwith {_fail = true};
 		_id = _obj getVariable ["class",nil];
-		if(_id IN ["distillery","distillery_hose","jug","jug_moonshine","jug_green","jug_green_moonshine"]) exitwith {[localize"STR_FACTORY_ILLEGAL","red"] call A3PL_Player_Notification;};
+		if(_id IN ["distillery","distillery_hose","jug","jug_moonshine","jug_green","jug_green_moonshine","cocaine_brick"]) exitwith {[localize"STR_FACTORY_ILLEGAL","red"] call A3PL_Player_Notification;};
 		if (isNil "_id") exitwith {_fail = true};
 		[player,_type,[_id,1],true,_obj] remoteExec ["Server_Factory_Add",2];
 	};
