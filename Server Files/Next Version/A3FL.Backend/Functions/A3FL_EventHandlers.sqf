@@ -385,7 +385,7 @@
 	{
 		private _weapon = param [1,""];
 		private _ammo = param [4,""];
-		private _powderGun = ["hgun_P07_F","hgun_P07_khk_F","hgun_P07_blk_F","hgun_Pistol_heavy_01_F","hgun_ACPC2_F","hgun_Pistol_01_F","hgun_Rook40_F","hgun_Pistol_heavy_02_F","A3FL_Glock17","A3FL_Glock18","A3PL_P226","A3FL_P227","A3FL_Beretta92","A3FL_DesertEagle","SMG_01_F","SMG_02_F","SMG_05_F","A3FL_Mossberg_590k","arifle_AKM_F","A3PL_M16","A3FL_M4"];
+		private _powderGun = ["hgun_P07_F","hgun_P07_khk_F","hgun_P07_blk_F","hgun_Pistol_heavy_01_F","hgun_ACPC2_F","hgun_Pistol_01_F","hgun_Rook40_F","hgun_Pistol_heavy_02_F","A3FL_Glock17","A3FL_Glock18","A3PL_P226","A3FL_P227","A3FL_Beretta92","A3FL_DesertEagle","SMG_01_F","SMG_02_F","SMG_05_F","A3FL_Mossberg_590k","arifle_AKM_F","A3PL_M16","A3FL_M4","A3FL_UMP","A3FL_Vector","A3FL_MP5K"];
 		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
 		{
 			player playAction "GestureSwing";
@@ -702,10 +702,10 @@
 				{
 					A3PL_HitTime = diag_ticktime;
 					[_unit] spawn A3PL_Medical_Hit;
-				};
-				if((!isNull _instigator) && {!(_instigator isEqualTo _unit)}) then {
-					_unit setVariable ["lastDamage",(_instigator getVariable["db_id","Unknown"]),true];
-					[getPlayerUID _unit,"hitReceived",["Shooter",_instigator getVariable["name","unknwon"],"Bullet",_projectile]] remoteExec ["Server_Log_New",2];
+					if((!isNull _instigator) && {!(_instigator isEqualTo _unit)}) then {
+						_unit setVariable ["lastDamage",(_instigator getVariable["db_id","Unknown"]),true];
+						[getPlayerUID _unit,"hitReceived",["Shooter",_instigator getVariable["name","unknwon"],"Bullet",_projectile]] remoteExec ["Server_Log_New",2];
+					};
 				};
 			};
 		};

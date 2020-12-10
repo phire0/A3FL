@@ -65,17 +65,16 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_Color", {
-	params[["_player",objNull,[objNull]]];
-	private _title = switch(_player getVariable["dbVar_AdminLevel",0]) do {
-		default {[1,1,1,1]};
-		case(1): {[0.612,0.153,0.69,1]};
-		case(2): {[0.38039215686,0.70980392156,1,1]};
-		case(3): {[1,1,1,1]};
-		case(5): {[0.012,0.663,0.957,1]};
-		case(6): {[0.90588235294,0.49411764705,0.14901960784,1]};
-		case(7): {[1,1,0,1]};
+	params[["_player",objNull,[objNull]],["_hex",false,[false]]];
+	private _color = switch(_player getVariable["dbVar_AdminLevel",0]) do {
+		default {[[1,1,1,1],"#FFFFFF"]};
+		case(1): {[[0.612,0.153,0.69,1],"#9C27AF"]};
+		case(2): {[[0.38039215686,0.70980392156,1,1],"#61B5FF"]};
+		case(5): {[[0.012,0.663,0.957,1],"#1E90FF"]};
+		case(6): {[[0.90588235294,0.49411764705,0.14901960784,1],"#E77E26"]};
+		case(7): {[[1,1,0,1],"#FFE135"]};
 	};
-	_title;
+	if(_hex) then {_color select 1;} else {_color select 0;};
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminPlayerList", {
@@ -221,7 +220,7 @@
 		["Teleport",pVar_MapTeleportReady,A3PL_AdminMapTeleport],
 		["Toggle Twitter",false,A3PL_AdminTwitterToggle],
 		["Fix Garage",false,A3PL_Admin_FixGarage],
-		["Admin Mode",player getVariable ["pVar_RedNameOn",false],A3PL_AdminRedName],
+		["Admin Mode",player getVariable ["pVar_RedNameOn",false],A3PL_Admin_RedName],
 		["Create Fire",false,A3PL_Admin_CreateFire],
 		["Pause Fire",pVar_FiresFrozen,A3PL_Admin_PauseFire],
 		["Remove Fire",false,A3PL_Admin_RemoveFire],
@@ -266,7 +265,7 @@
 		case "Teleport": {call A3PL_AdminMapTeleport};
 		case "Toggle Twitter": {call A3PL_AdminTwitterToggle};
 		case "Fix Garage": {call A3PL_Admin_FixGarage};
-		case "Admin Mode": {call A3PL_AdminRedName};
+		case "Admin Mode": {call A3PL_Admin_RedName};
 		case "Create Fire": {call A3PL_Admin_CreateFire};
 		case "Pause Fire": {call A3PL_Admin_PauseFire};
 		case "Remove Fire": {call A3PL_Admin_RemoveFire};
@@ -305,25 +304,6 @@
 ["A3PL_Admin_Camera", {
 	closeDialog 0;
 	["Init"] call BIS_fnc_camera;
-}] call Server_Setup_Compile;
-
-["A3PL_AdminWatch", {
-	_display = findDisplay 98;
-	_selectedIndex = lbCurSel 1500;
-	_selectedPlayer = (A3PL_Admin_PlayerList select _selectedIndex);
-	_uid = getPlayerUID _selectedPlayer;
-	_name = _selectedPlayer getVariable "name";
-	_adminWatch = _selectedPlayer getVariable ["adminWatch",0];
-
-	if (_adminWatch == 0) then {
-		_selectedPlayer setVariable ["adminWatch",1,true];
-		lbSetColor [1500,_selectedIndex,[1,0,0,1]];
-		[1,_uid] remoteExec ["Server_Player_AdminWatch",2];
-	} else {
-		_selectedPlayer setVariable ["adminWatch",0,true];
-		lbSetColor [1500,_selectedIndex,[1,1,1,1]];
-		[0,_uid] remoteExec ["Server_Player_AdminWatch",2];
-	};
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminFillFactoryList", {
@@ -506,30 +486,24 @@
 
 ["A3PL_Admin_AddToFactory", {
 	if ((player getVariable "dbVar_AdminLevel") >= 1) then {
-		private ["_isFactory","_itemType"];
-
-		_display = findDisplay 98;
-
-		_selectedFactory = lbText [2100,(lbCurSel 2100)];
-		if (_selectedFactory == "") exitwith {[localize"STR_ADMIN_NOFACTORYSELECTED","red"] call A3PL_Player_Notification;};
-		_selectedAsset = lbData [1501,(lbCurSel 1501)];
-
+		private _display = findDisplay 98;
+		private _selectedFactory = lbText [2100,(lbCurSel 2100)];
+		if (_selectedFactory isEqualTo "") exitwith {[localize"STR_ADMIN_NOFACTORYSELECTED","red"] call A3PL_Player_Notification;};
+		if (_selectedFactory IN ["Faction Equipment","Faction Clothing Factory","Faction Vehicles","Faction Weapons","Admin Tools"]) exitwith {["You cannot add to this factory","red"] call A3PL_Player_Notification;};
+		private _selectedAsset = lbData [1501,(lbCurSel 1501)];
 		if ((lbCurSel 1501) < 0) exitwith {[localize"STR_ADMIN_NOTHINGSELECTED","red"] call A3PL_Player_Notification;};
-		_selectedPlayer = A3PL_Admin_PlayerList select (lbCurSel 1500);
-
-		_control = _display displayCtrl 1403;
-		_amount = parseNumber (ctrlText _control);
+		private _selectedPlayer = A3PL_Admin_PlayerList select (lbCurSel 1500);
+		private _control = _display displayCtrl 1403;
+		private _amount = parseNumber (ctrlText _control);
 		if (_amount < 1) exitwith {[localize"STR_Various_INVALIDAMOUNT","red"] call A3PL_Player_Notification;};
-
-		_isFactory = _selectedAsset splitString "_";
+		private _isFactory = _selectedAsset splitString "_";
 		if ((_isFactory select 0) == "f") then {_isFactory = true; _itemType = [_selectedAsset,_selectedFactory,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
 		if (isNil "_itemType") then {_itemType = ""};
 		if (_isFactory && (_itemType == "item")) then {_selectedAsset = [_selectedAsset,_selectedFactory,"class"] call A3PL_Config_GetFactory;};
 
 		[_selectedPlayer,_selectedFactory,[_selectedAsset,_amount],false] remoteExec ["Server_Factory_Add", 2];
-		_itemName = lbText [1501,(lbCurSel 1501)];
+		private _itemName = lbText [1501,(lbCurSel 1501)];
 		[format[localize"STR_ADMIN_ADDEDTOFACTORY",_amount,_itemName,_selectedFactory,_selectedPlayer getVariable ["name","inconnu"]],"green"] call A3PL_Player_Notification;
-
 		[player,"factories",[format ["AddFactory: %5 %1(s) ADDED TO %2(%3) (%4)",_selectedAsset,_selectedPlayer getVariable ["name","Undefined"],(getPlayerUID _selectedPlayer),_selectedFactory,_amount]]] remoteExec ["Server_AdminLoginsert", 2];
 	} else {
 		[localize"STR_ADMIN_YOUDONTHAVEPERMISSIONTOEXECUTETHISCOMMAND"] call A3PL_Player_Notification;
@@ -636,7 +610,7 @@
 	if (!userInputDisabled) then {disableUserInput true;} else {disableUserInput false;};
 }] call Server_Setup_Compile;
 
-["A3PL_AdminRedName", {
+["A3PL_Admin_RedName", {
 	if (player getVariable ["pVar_RedNameOn",false]) then {
 		player setVariable ["pVar_RedNameOn",false,true];
 		player enableStamina true;
@@ -1014,24 +988,10 @@
 	createDialog "Dialog_DeveloperDebug";
 
 	call A3PL_Debug_DropDownList;
-	call A3PL_Debug_OnLoadVarCheck;
-	call A3PL_Debug_VarCheckLoop;
-
+	{lbAdd [2100,_x];} forEach ["Server","Global","All Clients","Local"];
+	ctrlSetText [1400,profileNamespace getVariable ["A3PL_Debug_Main",localize"STR_ADMIN_NOTHINGFORTHEMOMENT"]];
 	(findDisplay 155) displayAddEventHandler ["Unload","call A3PL_Debug_OnUnloadVarCheck"];
-}] call Server_Setup_Compile;
-
-["A3PL_Debug_DropDownList", {
-	private _display = findDisplay 155;
-	private _dropDownList = ["Server","Global","All Clients","Local"];
-	{lbAdd [2100,_x];} forEach _dropDownList;
-}] call Server_Setup_Compile;
-
-["A3PL_Debug_OnLoadVarCheck", {
-	private _display = findDisplay 155;
-	private _activeNamespaces = [[1400,"A3PL_Debug_Main"]];
-	{
-		ctrlSetText [_x select 0,profileNamespace getVariable [_x select 1,localize"STR_ADMIN_NOTHINGFORTHEMOMENT"]];
-	} forEach _activeNamespaces;
+	lbSetCurSel [2100, profileNamespace getVariable["A3PL_LastDebugType",3]];
 }] call Server_Setup_Compile;
 
 ["A3PL_Debug_OnUnloadVarCheck", {
@@ -1045,28 +1005,16 @@
 
 //Compile BLOCK warning
 ["A3PL_Debug_Execute", {
-
-	private _bannedText = ["profileNamespace","saveProfileNamespace","fuckedS","files"];
 	private _display = findDisplay 155;
 	private _debugText = ctrlText 1400;
 	private _chosenExecType = lbText [2100,lbCurSel 2100];
-	private _remoteExecType = clientOwner;
-	private _forbidden = false;
-
-	switch (_chosenExecType) do {
-		case "Server": {_remoteExecType = 2};
-		case "Global": {_remoteExecType = 0};
-		case "All Clients": {_remoteExecType = -2};
-		case "Local": {_remoteExecType = clientOwner};
-		default {_remoteExecType = clientOwner};
+	private _remoteExecType = switch (_chosenExecType) do {
+		case "Server": {2};
+		case "Global": {0};
+		case "All Clients": {-2};
+		default {clientOwner};
 	};
-
-	{
-		if((_debugText find _x) != -1) exitWith {_forbidden = true;};
-	} forEach _bannedText;
-
-	if(_forbidden) exitWith {};
-
+	profileNamespace setVariable["A3PL_LastDebugType",lbCurSel 2100];
 	[_debugText] remoteExec ["A3PL_Debug_ExecuteCompiled",_remoteExecType];
 	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText, _chosenExecType]]] remoteExec ["Server_AdminLoginsert", 2];
 },false,true] call Server_Setup_Compile;
@@ -1104,5 +1052,12 @@
 
 ["A3PL_Admin_AdminIsland", {
 	player setPos [12626.7,1711.21,0.00143886];
+	if !(player getVariable ["pVar_RedNameOn",false]) then {
+		player setDamage 0;
+		player setVariable ["pVar_RedNameOn",true,true];
+		player setVariable ["A3PL_Wounds",[],true];
+		player setVariable ["A3PL_Medical_Blood",5000,true];
+		player enableStamina false;
+	};
+	[player,"admin_island"] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
-

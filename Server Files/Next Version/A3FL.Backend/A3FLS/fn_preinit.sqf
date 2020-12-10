@@ -80,31 +80,18 @@ Server_Setup_Compile = {
 
 //Compile BLOCK warning
 ["A3PL_Debug_Execute", {
-
-	private ["_display","_debugText","_chosenExecType","_remoteExecType","_compileRdy"];
-	_bannedText = ["profileNamespace","saveProfileNamespace","fuckedS","files"];
-	_display = findDisplay 155;
-	_debugText = ctrlText 1400;
-	_chosenExecType = lbText [2100,lbCurSel 2100];
-	_remoteExecType = clientOwner;
-	_forbidden = false;
-
-	switch (_chosenExecType) do {
-		case "Server": {_remoteExecType = 2};
-		case "Global": {_remoteExecType = 0};
-		case "All Clients": {_remoteExecType = -2};
-		case "Local": {_remoteExecType = clientOwner};
-		default {_remoteExecType = clientOwner};
+	private _display = findDisplay 155;
+	private _debugText = ctrlText 1400;
+	private _chosenExecType = lbText [2100,lbCurSel 2100];
+	private _remoteExecType = switch (_chosenExecType) do {
+		case "Server": {2};
+		case "Global": {0};
+		case "All Clients": {-2};
+		default {clientOwner};
 	};
-
-	{
-		if((_debugText find _x) != -1) exitWith {_forbidden = true;};
-	} forEach _bannedText;
-
-	if(_forbidden) exitWith {};
-
+	profileNamespace setVariable["A3PL_LastDebugType",lbCurSel 2100];
 	[_debugText] remoteExec ["A3PL_Debug_ExecuteCompiled",_remoteExecType];
-	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText]]] remoteExec ["Server_AdminLoginsert", 2];
+	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText, _chosenExecType]]] remoteExec ["Server_AdminLoginsert", 2];
 },false,true] call Server_Setup_Compile;
 
 ["A3PL_Debug_ExecuteCompiled", {

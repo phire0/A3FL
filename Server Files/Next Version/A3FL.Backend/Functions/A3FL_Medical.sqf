@@ -895,6 +895,7 @@
 	private _lastDamage = _corspe getVariable ["lastDamage","unknown"];
 	disableSerialization;
 	
+	[getPlayerUID _unit,"died",["Killer",_unit getVariable["lastDamage","self"]]] remoteExec ["Server_Log_New",2];
 	if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 
 	_unit setVariable ["A3PL_Medical_Alive",false,true];
@@ -1060,6 +1061,8 @@
 		} else {
 			["CPR Failed", "red"] call A3PL_Player_Notification;
 		};
+		[getPlayerUID player,"CPR",["Target",_target getVariable["name","unknwon"],"Success",(_chance <= 25)]] remoteExec ["Server_Log_New",2];
+		[getPlayerUID _target,"CPR",["By",player getVariable["name","unknwon"],"Success",(_chance <= 25)]] remoteExec ["Server_Log_New",2];
 	};
 }] call Server_Setup_Compile;
 

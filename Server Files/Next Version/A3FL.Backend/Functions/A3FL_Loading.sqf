@@ -31,7 +31,7 @@
 		_control = (_display displayCtrl 69);
 		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.5.1</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>2020 Ford Explorer FD & Slicktop</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>2020 Ford Explorer FD &amp; Slicktop</t>"
 		+ "<br/>"
 		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Kriss Vector / HK UMP45</t>"
 		+ "<br/>"

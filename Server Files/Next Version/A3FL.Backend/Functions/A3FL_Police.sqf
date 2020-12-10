@@ -268,7 +268,6 @@
 	_weaponHolder = A3PL_Police_WeaponHolder;
 
 	_amount = 1;
-	[getPlayerUID player,"patdownTake",["Target",_target getVariable["name","unknwon"],"Item",_class,"Amount",_amount]] remoteExec ["Server_Log_New",2];
 	switch (_type) do
 	{
 		case ("item"):
@@ -361,6 +360,7 @@
 
 	[format [localize"STR_NewPolice_6",_itemName,_amount],"green"] call A3PL_Player_Notification;
 	[format [localize"STR_NewPolice_7",_itemName,_amount]] remoteExec ["A3PL_Player_Notification",_target];
+	[getPlayerUID player,"patdownTake",["Target",_target getVariable["name","unknwon"],"Item",_itemName,"Amount",_amount]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Cuff', {
