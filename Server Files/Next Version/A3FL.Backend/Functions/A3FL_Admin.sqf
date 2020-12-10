@@ -45,21 +45,35 @@
 		call A3PL_AdminToolsList;
 		call A3PL_Admin_TwitterTagsCombo;
 		call A3PL_Admin_FactionCombo;
-		ctrlSetText [1000, format ["Staff Menu | %2 %1",player getVariable "name",[player] call A3PL_AdminTitle]];
+		ctrlSetText [1000, format ["Staff Menu | %2 %1",player getVariable "name",[player] call A3PL_Admin_Title]];
 	};
 	if (!IsNull (findDisplay 98)) exitWith {(findDisplay 98) closeDisplay 1;};
 }] call Server_Setup_Compile;
 
-["A3PL_AdminTitle", {
+["A3PL_Admin_Title", {
 	params[["_player",objNull,[objNull]]];
 	private _title = switch(_player getVariable["dbVar_AdminLevel",0]) do {
 		case(0): {""};
 		case(1): {"Executive"};
-		case(2): {"Exec. Supervisor";};
+		case(2): {"Supervisor";};
 		case(3): {"Developer"};
 		case(5): {"Chief"};
 		case(6): {"Sub-Director"};
 		case(7): {"Director"};
+	};
+	_title;
+}] call Server_Setup_Compile;
+
+["A3PL_Admin_Color", {
+	params[["_player",objNull,[objNull]]];
+	private _title = switch(_player getVariable["dbVar_AdminLevel",0]) do {
+		default {[1,1,1,1]};
+		case(1): {[0.612,0.153,0.69,1]};
+		case(2): {[0.38039215686,0.70980392156,1,1]};
+		case(3): {[1,1,1,1]};
+		case(5): {[0.012,0.663,0.957,1]};
+		case(6): {[0.90588235294,0.49411764705,0.14901960784,1]};
+		case(7): {[1,1,0,1]};
 	};
 	_title;
 }] call Server_Setup_Compile;
@@ -69,15 +83,10 @@
 	private _control = _display displayCtrl 1500;
 	A3PL_Admin_PlayerList = [];
 	{
-		lbAdd [1500, format ["%1",_x getVariable["name",name _x]]];
-		if ((_x getVariable ["adminWatch",0]) isEqualTo 1) then {lbSetColor [1500,_forEachIndex,[1,0,0,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 1) then {lbSetColor [1500,_forEachIndex,[0.612,0.153,0.69,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 2) then {lbSetColor [1500,_forEachIndex,[0.38039215686,0.70980392156,1,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 3) then {};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 4) then {lbSetColor [1500,_forEachIndex,[0.11764705882,0.56470588235,1,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 5) then {lbSetColor [1500,_forEachIndex,[0.012,0.663,0.957,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 6) then {lbSetColor [1500,_forEachIndex,[0.90588235294,0.49411764705,0.14901960784,1]];};
-		if ((_x getVariable ["dbVar_AdminLevel",0]) isEqualTo 7) then {lbSetColor [1500,_forEachIndex,[1,1,0,1]];};
+		private _color = if ((_x getVariable ["adminWatch",0]) isEqualTo 1) then {[1,0,0,1]} else {[_x] call A3PL_Admin_Color;};
+		private _name = _x getVariable["name",name _x];
+		lbAdd [1500, format ["%1",_name]];
+		lbSetColor [1500,_forEachIndex,_color];
 		A3PL_Admin_PlayerList pushBack _x;
 	} foreach allPlayers;
 	_control ctrlAddEventHandler ["LBSelChanged","call A3PL_AdminPlayerInfoList;"];
@@ -405,127 +414,93 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminSearchPlayerList", {
-	_display = findDisplay 98;
-	_text = ctrlText 1400;
-
-	if (_text == "") then {
-		lbClear 1500;
-		A3PL_Admin_PlayerList = [];
-		{
-			lbAdd [1500, format ["%1",_x getVariable["name",name _x]]];
-			if ((_x getVariable ["adminWatch",0]) == 1) then {lbSetColor [1500,_forEachIndex,[1,0,0,1]];};
-			if ((_x getVariable ["dbVar_AdminLevel",0]) == 1) then {lbSetColor [1500,_forEachIndex,[0.612,0.153,0.69,1]];};
-			if ((_x getVariable ["dbVar_AdminLevel",0]) == 2) then {lbSetColor [1500,_forEachIndex,[0.38039215686,0.70980392156,1,1]];};
-			if ((_x getVariable ["dbVar_AdminLevel",0]) == 3) then {};
-			if ((_x getVariable ["dbVar_AdminLevel",0]) == 4) then {lbSetColor [1500,_forEachIndex,[0.11764705882,0.56470588235,1,1]];};
-			if ((_x getVariable ["dbVar_AdminLevel",0]) == 5) then {lbSetColor [1500,_forEachIndex,[0.012,0.663,0.957,1]];};
-			if ((_x getVariable ["dbVar_AdminLevel",0]) == 6) then {lbSetColor [1500,_forEachIndex,[0.90588235294,0.49411764705,0.14901960784,1]];};
-			if ((_x getVariable ["dbVar_AdminLevel",0]) == 7) then {lbSetColor [1500,_forEachIndex,[1,1,0,1]];};
+	private _display = findDisplay 98;
+	private _text = ctrlText 1400;
+	lbClear 1500;
+	A3PL_Admin_PlayerList = [];
+	{
+		private _name = _x getVariable["name",name _x];
+		private _color = if ((_x getVariable ["adminWatch",0]) isEqualTo 1) then {[1,0,0,1]} else {[_x] call A3PL_Admin_Color;};
+		if ([_text, _name] call BIS_fnc_inString) then {
+			lbAdd [1500, format ["%1",_name]];
+			lbSetColor [1500,_forEachIndex,_color];
 			A3PL_Admin_PlayerList pushBack _x;
-		} foreach allPlayers;
-	} else {
-		lbClear 1500;
-		A3PL_Admin_PlayerList = [];
-		{
-			_name = format ["%1 (%2)",_x getVariable ["name","Undefined"],name _x];
-			if ((_name find _text) != -1) then {
-				lbAdd [1500, format ["%1",_x getVariable["name",name _x]]];
-				if ((_x getVariable ["adminWatch",0]) == 1) then {lbSetColor [1500,_forEachIndex,[1,0,0,1]];};
-				if ((_x getVariable ["dbVar_AdminLevel",0]) == 1) then {lbSetColor [1500,_forEachIndex,[0.612,0.153,0.69,1]];};
-				if ((_x getVariable ["dbVar_AdminLevel",0]) == 2) then {lbSetColor [1500,_forEachIndex,[0.38039215686,0.70980392156,1,1]];};
-				if ((_x getVariable ["dbVar_AdminLevel",0]) == 3) then {};
-				if ((_x getVariable ["dbVar_AdminLevel",0]) == 4) then {lbSetColor [1500,_forEachIndex,[0.11764705882,0.56470588235,1,1]];};
-				if ((_x getVariable ["dbVar_AdminLevel",0]) == 5) then {lbSetColor [1500,_forEachIndex,[0.012,0.663,0.957,1]];};
-				if ((_x getVariable ["dbVar_AdminLevel",0]) == 6) then {lbSetColor [1500,_forEachIndex,[0.90588235294,0.49411764705,0.14901960784,1]];};
-				if ((_x getVariable ["dbVar_AdminLevel",0]) == 7) then {lbSetColor [1500,_forEachIndex,[1,1,0,1]];};
-				A3PL_Admin_PlayerList pushBack _x;
-			};
-		} foreach allPlayers;
-	};
+		};
+	} foreach allPlayers;
 }] call Server_Setup_Compile;
 
 ["A3PL_AdminSearchFactoryList", {
-	_display = findDisplay 98;
-	_text = ctrlText 1401;
-	_control = _display displayCtrl 2100;
-	_selectedFactory = _control lbText (lbCurSel _control);
+	private _display = findDisplay 98;
+	private _text = ctrlText 1401;
+	private _control = _display displayCtrl 2100;
+	private _selectedFactory = _control lbText (lbCurSel _control);
 
-	if (_text == "") then {
+	if (_text isEqualTo "") then {
 		_control = _display displayCtrl 1501;
 		lbClear _control;
-
-		if (_selectedFactory == "Objects" || _selectedFactory == "AdminVehicles") then {
-			if (_selectedFactory == "Objects") exitWith {
-				{
-					_i = lbAdd [1501,(_x select 0)];
-					lbSetData [1501,_i,(_x select 1)];
-				} foreach ADMIN_OBJECTS;
-			};
-			if (_selectedFactory == "AdminVehicles") exitWith {
-				{
-					_first_X = _x;
-					{
-						_class = format ["%1_%2",(_first_X select 0),_x];
-						_i = lbAdd [1501,_class];
-						lbSetData [1501,_i,_class];
-					} foreach (_x select 1);
-				} foreach Config_Vehicles_Admin;
-			};
-		} else {
-			_recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
+		if (_selectedFactory == "Objects") exitWith {
 			{
-				_id = _x select 0;
-				_name = _x select 1;
-				_itemClass = _x select 3;
-				_itemType = _x select 4;
-				if (_name isEqualTo "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
-				_index = _control lbAdd _name;
-				_control lbSetData [_index,_id];
-			} foreach _recipes;
+				_i = lbAdd [1501,(_x select 0)];
+				lbSetData [1501,_i,(_x select 1)];
+			} foreach ADMIN_OBJECTS;
 		};
+		if (_selectedFactory isEqualTo "AdminVehicles") exitWith {
+			{
+				_first_X = _x;
+				{
+					_class = format ["%1_%2",(_first_X select 0),_x];
+					_i = lbAdd [1501,_class];
+					lbSetData [1501,_i,_class];
+				} foreach (_x select 1);
+			} foreach Config_Vehicles_Admin;
+		};
+		private _recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
+		{
+			private _id = _x select 0;
+			private _name = _x select 1;
+			private _itemClass = _x select 3;
+			private _itemType = _x select 4;
+			if (_name isEqualTo "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
+			_index = _control lbAdd _name;
+			_control lbSetData [_index,_id];
+		} foreach _recipes;
 	} else {
 		_control = _display displayCtrl 1501;
 		lbClear _control;
-
-		if (_selectedFactory isEqualTo "Objects" || _selectedFactory isEqualTo "AdminVehicles") then {
-			if (_selectedFactory isEqualTo "Objects") exitWith {
-				{
-					_name = _x select 0;
-					if ((_name find _text) != -1) then {
-						_i = lbAdd [1501,(_x select 0)];
-						lbSetData [1501,_i,(_x select 1)];
-					};
-				} foreach ADMIN_OBJECTS;
-			};
-
-			if (_selectedFactory == "AdminVehicles") exitWith {
-				{
-					_first_X = _x;
-					{
-						_name = _x;
-						if ((_name find _text) != -1) then {
-							_class = format ["%1_%2",(_first_X select 0),_x];
-							_i = lbAdd [1501,_class];
-							lbSetData [1501,_i,_class];
-						};
-					} foreach (_x select 1);
-				} foreach Config_Vehicles_Admin;
-			};
-		} else {
-			_recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
+		if (_selectedFactory isEqualTo "Objects") exitWith {
 			{
-				private ["_name","_itemType","_itemClass","_index"];
-				_id = _x select 0;
-				_name = _x select 1;
-				_itemClass = _x select 3;
-				_itemType = _x select 4;
-				if (_name == "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
+				_name = _x select 0;
 				if ((_name find _text) != -1) then {
-					_index = _control lbAdd _name;
-					_control lbSetData [_index,_id];
+					_i = lbAdd [1501,(_x select 0)];
+					lbSetData [1501,_i,(_x select 1)];
 				};
-			} foreach _recipes;
+			} foreach ADMIN_OBJECTS;
 		};
+		if (_selectedFactory isEqualTo "AdminVehicles") exitWith {
+			{
+				_first_X = _x;
+				{
+					_name = _x;
+					if ((_name find _text) != -1) then {
+						_class = format ["%1_%2",(_first_X select 0),_x];
+						_i = lbAdd [1501,_class];
+						lbSetData [1501,_i,_class];
+					};
+				} foreach (_x select 1);
+			} foreach Config_Vehicles_Admin;
+		};
+		private _recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
+		{
+			private _id = _x select 0;
+			private _name = _x select 1;
+			private _itemClass = _x select 3;
+			private _itemType = _x select 4;
+			if (_name isEqualTo "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
+			if ([_text, _name] call BIS_fnc_inString) then {
+				_index = _control lbAdd _name;
+				_control lbSetData [_index,_id];
+			};
+		} foreach _recipes;
 	};
 }] call Server_Setup_Compile;
 
@@ -1104,7 +1079,13 @@
 
 ["A3PL_Admin_TakeGear", {
 	private _mode = param [0,false];
-	private _fedGear = [[],[],[],["A3PL_FBI_Agent_Tan_Uniform",[]],["A3PL_FBI_Brown_Lite",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap2","",[],["ItemMap","ItemGPS","A3PL_Cellphone_1","ItemCompass","TFAR_microdagr",""]];
+	private _fedGear = switch(player getVariable["dbVar_AdminLevel",0]) do {
+		default {[[],[],[],["A3PL_FBI_Agent_Tan_Uniform",[]],["A3PL_FBI_Executive",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap3","",[],["ItemMap","ItemGPS","A3PL_Cellphone_1","ItemCompass","TFAR_microdagr",""]]};
+		case(2): {[[],[],[],["A3PL_FBI_Suit_Tie_Uniform",[]],["A3PL_FBI_Supervisor",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap3","",[],["ItemMap","ItemGPS","A3PL_Cellphone_1","ItemCompass","TFAR_microdagr",""]]};
+		case(5): {[[],[],[],["A3PL_FBI_Suit_Tie_Uniform",[]],["A3PL_FBI_Chief",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap3","",[],["ItemMap","ItemGPS","A3PL_Cellphone_1","ItemCompass","TFAR_microdagr",""]]};
+		case(6): {[[],[],[],["A3PL_FBI_Suit_Tie_Uniform",[]],["A3PL_FBI_SubDirector",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap3","",[],["ItemMap","ItemGPS","A3PL_Cellphone_1","ItemCompass","TFAR_microdagr",""]]};
+		case(7): {[[],[],[],["A3PL_FBI_Suit_Tie_Uniform",[]],["A3PL_FBI_Director",[]],["A3PL_LR",[]],"A3PL_FBI_Ballcap3","",[],["ItemMap","ItemGPS","A3PL_Cellphone_1","ItemCompass","TFAR_microdagr",""]]};
+	};
 	private _prevGear = profileNamespace getVariable ["A3FL_PrevGear",nil];
 	if((backpack player) isEqualTo "A3PL_LR") then {A3PL_Admin_PrevRadio = (call TFAR_fnc_activeLrRadio) call TFAR_fnc_getLrSettings;};
 	if(_mode) then {

@@ -389,7 +389,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_MARKIMPPOL",
 		{call A3PL_Police_Impound;},
-		{(vehicle player isEqualTo player) && (player_objintersect isKindOf "Car") && ((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","fims"])}
+		{(vehicle player isEqualTo player) && (player_objintersect isKindOf "Car") && {((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","fims"]) || (player getVariable ["pVar_RedNameOn",false])}}
 	],
 	[
 		localize "STR_INTER_IMPUSC",
@@ -1184,7 +1184,7 @@ A3PL_Interaction_Options =
 	[
 		"Suicide",
 		{player setDamage 1;},
-		{(["cyanide_pills",1] call A3PL_Inventory_Has) && {count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0}}
+		{(Player_ItemClass isEqualTo "cyanide_pills") && {count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0}}
 	],
 	[
 		"Toggle Garage",

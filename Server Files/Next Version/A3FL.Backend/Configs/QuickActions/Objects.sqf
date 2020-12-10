@@ -7,7 +7,7 @@
 */
 
 [
-	"A3FL_Christmas_Tree",
+	"",
 	"Take Gift",
 	{[player_objIntersect] call A3PL_Player_GetGift;}
 ],

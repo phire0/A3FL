@@ -231,7 +231,7 @@
 			_pos = visiblePositionASL _p;
 			_pos set [2, ((_p modelToWorld [0,0,0]) select 2) + 2];
 			if (_p getVariable ["pVar_RedNameOn",false]) then {
-				drawIcon3D ["", [0.98,0,0,1],_pos, 0.2, 0.2, 45,format ["%2 %1 (OOC)",((_x select 0) getvariable["name",name (_x select 0)]), [(_x select 0)] call A3PL_AdminTitle], 1, 0.03, "EtelkaNarrowMediumPro"];
+				drawIcon3D ["", [0.98,0,0,1],_pos, 0.2, 0.2, 45,format ["%2 %1 (OOC)",((_x select 0) getvariable["name",name (_x select 0)]), [(_x select 0)] call A3PL_Admin_Title], 1, 0.03, "EtelkaNarrowMediumPro"];
 			} else {
 				drawIcon3D ["", [1, 1, 1, 1],_pos, 0.2, 0.2, 45, _x select 1, 1, 0.03, "EtelkaNarrowMediumPro"];
 			};
@@ -252,11 +252,6 @@
 	private ["_myVersion"];
 	//#include "\x\cba\addons\ui_helper\script_dikCodes.hpp"
 
-	//Whitelist
-	//[player] remoteExec ["Server_Core_WhitelistServer",2];
-
-
-	//do a version check first
 	if ((getNumber (configFile >> "CfgPatches" >> "A3PL_Common" >> "requiredVersion")) < (missionNameSpace getVariable ["Server_ModVersion",0])) exitwith
 	{
 		[] spawn {
@@ -975,10 +970,15 @@
 ["A3PL_Player_GetGift",
 {
 	private _tree = param[0,objNull];
+	hint str _tree;
 	if(isNull _tree) exitWith {};
 	private _uid = getPlayerUID player;
 	private _usedList = _tree getVariable["used",[]];
 	if(_uid IN _usedList) exitWith {["You already had a gift from this tree today!","red"] call A3PL_Player_Notification;};
+
+	_used pushback _uid;
+	_tree setVariable["used",_usedList,true];
+
 	["gift",1] call A3PL_Inventory_Add;
 	["You received 1 gift!","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

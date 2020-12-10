@@ -73,11 +73,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_WeaponIllegalShop",
-	{["Shop_IllegalWeapons"] call A3PL_Shop_Open;}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_SFPShop",
 	{
 		if((player getVariable["job","unemployed"]) != "security") exitWith {[localize"STR_QuickActionsNPC_OnlySecurity","red"] call A3PL_Player_Notification;};

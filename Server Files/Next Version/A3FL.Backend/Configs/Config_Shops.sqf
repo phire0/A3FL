@@ -298,58 +298,6 @@ Config_Shops_Items = [
 		],{[3852.065,9212.537,0.168]}
 	],
 
-	["Shop_IllegalWeapons",[
-			["item","Blueprint_Shemag",1000,-1,0,0],
-			["item","Blueprint_balaclava",1000,-1,0,0],
-			["item","Blueprint_Bandanna",1000,-1,0,0],
-			["item","Blueprint_Rangemaster_belt",1000,-1,0,0],
-			["item","v_lockpick",1350,-1,5],
-			["item","zipties",2500,-1,5],
-			["item","drill_bit",6500,-1,8],
-			["item","keycard",10000,-1,8],
-			["backpack","A3PL_Backpack_Drill",20000,-1,8],
-			["backpack","A3PL_Backpack_Money",6000,-1,8],
-			["weapon","hgun_Pistol_01_F",20000,-1,4],
-			["weapon","hgun_Pistol_heavy_02_F",20000,-1,9],
-			["weapon","hgun_Pistol_01_F",20000,-1,4],
-			["weapon","hgun_Rook40_F",20000,-1,5],
-			["weapon","hgun_P07_F",20000,-1,7],
-			["weapon","hgun_P07_khk_F",20000,-1,8],
-			["weapon","hgun_P07_blk_F",20000,-1,8],
-			["weapon","A3FL_Glock17",20000,-1,6],
-			["weapon","A3PL_P226",20000,-1,8],
-			["weapon","A3FL_P227",20000,-1,8],
-			["weapon","A3FL_Beretta92",20000,-1,8],
-			["weapon","A3FL_DesertEagle",25000,-1,8],
-			["weaponPrimary","SMG_05_F",175000,-1,0],
-			["weaponPrimary","SMG_02_F",175000,-1,0],
-			["weaponPrimary","SMG_01_F",175000,-1,0],
-			["weaponPrimary","A3FL_Mossberg_590K",125000,-1,0],
-			["weaponPrimary","A3PL_M16",250000,-1,0],
-			["weaponPrimary","arifle_AKM_F",250000,-1,0],
-			["magazine","10Rnd_9x21_Mag",100,-1,4],
-			["magazine","A3FL_Glock18_Mag",100,-1,5],
-			["magazine","A3PL_P226_Mag",100,-1,5],
-			["magazine","A3FL_P227_Mag",100,-1,5],
-			["magazine","A3FL_Beretta92_Mag",100,-1,5],
-			["magazine","A3FL_DesertEagle_Mag",150,-1,5],
-			["magazine","16Rnd_9x21_green_Mag",100,-1,7],
-			["magazine","16Rnd_9x21_yellow_Mag",100,-1,7],
-			["magazine","6Rnd_45ACP_Cylinder",100,-1,9],
-			["magazine","11Rnd_45ACP_Mag",100,-1,9],
-			["magazine","A3PL_M16_Mag",100,-1,0],
-			["magazine","30Rnd_762x39_Mag_F",100,-1,0],
-			["magazine","30Rnd_9x21_Mag_SMG_02",100,-1,0],
-			["magazine","30Rnd_45ACP_Mag_SMG_01",100,-1,0],
-			["magazine","A3FL_Mossberg_590K_8Rnd_buck",100,-1,0],
-			["aitem","optic_ACO_grn",5000,-1,10],
-			["aitem","optic_ACO_grn_smg",5000,-1,0],
-			["aitem","optic_ACO_smg",5000,-1,0],
-			["aitem","optic_Holosight_smg_blk_F",5000,-1,0],
-			["aitem","optic_Holosight_blk_F",5000,-1,10]
-		],{[7652.96,8537.93,0.5]}
-	],
-
 	["Shop_DOC",[
 			["item","breathalizer",10,-1,0],
 			["item","drug_kit",10,-1,0],
@@ -1145,7 +1093,7 @@ Config_Shops_Items = [
         ],{[2468.65,5557.58,0]}
     ],
 
-    ["Shop_Halloween",[
+    /*["Shop_Halloween",[
 			["item","lantern",15,-1,0],
 			["item","pumpkin_green",20,-1,0],
 			["item","pumpkin_orange",20,-1,0],
@@ -1172,7 +1120,7 @@ Config_Shops_Items = [
 			["weapon","A3PL_Predator",80,-1,0],
 			["magazine","A3PL_Predator_Mag",10,-1,0]
 		],{[5661.34,6125.97,-0.5]}
-	],
+	],*/
 
 	["Shop_Christmas",[
 			["headgear","A3PL_Elfhat",3,-1,0],
@@ -1195,8 +1143,8 @@ Config_Shops_Items = [
 		],{[2129.89,11803.2,0.05]}
 	],
 
-	["Shop_Low_End_Car_Dealer",[
-			/* ["vehicle","K_Scooter_DarkBlue",17870,0,0],
+	/*["Shop_Low_End_Car_Dealer",[
+			["vehicle","K_Scooter_DarkBlue",17870,0,0],
 			["vehicle","C_Quadbike_01_F",17870,0,0],
 			["vehicle","A3PL_CVPI_Rusty",30000,0,0],
 			["vehicle","A3PL_CVPI_Taxi",40750,0,0],
@@ -1205,9 +1153,9 @@ Config_Shops_Items = [
 			["vehicle","A3PL_MailTruck",53620,0,0],
 			["vehicle","A3PL_Wrangler",55050,0,0],
 			["vehicle","A3PL_Ram",55050,0,0],
-			["vehicle","A3PL_Car_Trailer",15000,0,0] */
+			["vehicle","A3PL_Car_Trailer",15000,0,0]
 		],{[9837.89,7877.28,0.2]}
-	],
+	], */
 
 	//New NPCS
 	["Shop_Ill_Trader",[

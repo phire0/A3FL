@@ -275,7 +275,6 @@
 			};
 			if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11"]) exitwith
 			{
-				if ([Player_ObjIntersect,_obj] call A3PL_Placeable_CarBlacklist) exitwith {[localize"STR_NewPlaceables_6", "red"] call A3PL_Player_Notification;};
 				_dir = getDir _obj;
 				detach _obj;
 				_obj setvelocity [0,0,0];
@@ -296,37 +295,6 @@
 	};
 	if (!(isNull player_item)) exitwith {[localize"STR_NewPlaceables_7", "red"] call A3PL_Player_Notification};
 	call A3PL_Placeables_Pickup;
-}] call Server_Setup_Compile;
-
-['A3PL_Placeable_CarBlacklist',
-{
-	private _car = typeOf (_this select 0);
-	private _obj = (getModelInfo (_this select 1)) select 0;
-	private _return = false;
-	{
-		if ((_x select 0) == _car) exitwith
-		{
-			{
-				if ((format ["%1.p3d",_x]) == _obj) then
-				{
-					_return = true;
-				};
-			} foreach (_x select 1);
-		};
-	} foreach Config_CarFurnitureBlacklist;
-	_return;
-}] call Server_Setup_Compile;
-
-['A3PL_Placeable_CarMaxObj',
-{
-	private _car = typeOf (_this select 0);
-	private _return = 1;
-	{
-		if ((_x select 0) == _car) exitwith {
-			_return = (_x select 2);
-		};
-	} foreach Config_CarFurnitureBlacklist;
-	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Placeables_PlaceCone",
