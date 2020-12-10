@@ -587,6 +587,7 @@ Config_Shops_Items = [
 			["uniform","A3PL_SD_LT_White_Uniform",0,-1,0],
 			["uniform","A3PL_SD_MCU_Swimmer_Uniform",0,-1,0],
 			["uniform","A3PL_FISD_Pilot_Uniform",0,-1,0],
+			["uniform","U_C_CBRN_Suit_01_White_F",0,-1,0],
 			["vest","A3PL_FISD_Safety_Vest",0,-1,0],
 			["vest","A3PL_FISD_Safety_Traffic",0,-1,0],
 			["vest","A3PL_DutyBelt",0,-1,0],
@@ -612,6 +613,7 @@ Config_Shops_Items = [
 			["headgear","A3PL_FISD_White_Pilot_Helm",0,-1,0],
 			["goggles","G_Balaclava_blk",0,-1,0],
 			["goggles","G_Aviator",0,-1,0],
+			["goggles","G_AirPurifyingRespirator_02_black_F",0,-1,0],
 			["backpack","A3PL_LR",0,-1,0]
         ],{uscg_table modelToWorld [0,0,-0.5]}
     ],
