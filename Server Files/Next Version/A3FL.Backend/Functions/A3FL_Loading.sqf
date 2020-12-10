@@ -29,19 +29,19 @@
 		//+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>TEXT_HERE.</t>"
 
 		_control = (_display displayCtrl 69);
-		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.5</t>"
+		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.5.1</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>2020 Ford Explorer</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Slicktop Explorer & FIFR Explorer</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Glock 17/18</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Christmas Event</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Drag dead bodies</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Cyanide Pills</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Illegal NPC Finder</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Kriss Vector / HK UMP45</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Revamp Store Robberies</t>"
+		+ "<t size='1' align='left' color='#ff8000'> Changed: </t><t size='1' align='left'>Made some systems more player-based</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff0000'> Fixed: </t><t size='1' align='left'>20+ issues</t>"
+		+ "<t size='1' align='left' color='#ff0000'> Fixed: </t><t size='1' align='left'>Lots of bugs</t>"
 		+ "<br/>"
 		+ "<t size='0.8' align='center'>For the full changelog visit the forums @ arma3fisherslife.net</t>";
 		_control ctrlSetStructuredText (parseText _format);
