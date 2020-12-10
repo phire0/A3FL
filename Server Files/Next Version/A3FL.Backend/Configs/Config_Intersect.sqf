@@ -245,7 +245,6 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_TalkToInsurer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_insurance,npc_insurance_1,npc_insurance_2]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToPort",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_port_1,npc_port_2,npc_port_3,npc_port_4,npc_port_5,npc_port_6]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToUSCGOfficer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_uscg,npc_uscg_1]}],
-	["spine3",localize"STR_QuickActionsNPC_WeaponIllegalShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_illegal_eq]}],
 	["spine3","Find an Illegal Trader for $30k",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_illegal_eq]}],
 	["spine3",localize"STR_QuickActionsNPC_AccessPrisonShop",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_farmer_1]}],
 	["spine3",localize"STR_QuickActionsNPC_TalkToTheFisherMan",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect IN [npc_fisher,npc_fisher2,npc_farmer_2]}],
@@ -2325,7 +2324,6 @@ Config_GenArray =
 	localize "STR_QuickActionsNPC_AccessFIMSSuppliesVendor",
 	localize"STR_INTSECT_OPTREASINF",
 	localize"STR_QuickActionsNPC_TalkToThePhoneOperator",
-	localize"STR_QuickActionsNPC_WeaponIllegalShop",
 	"Find an Illegal Trader for $30k",
 	localize"STR_QuickActionsNPC_FurniturePerkShop",
 	localize"STR_INTSECT_OPENMEDICALMEN",
@@ -2360,7 +2358,8 @@ Config_GenArray =
 	localize "STR_INTSECT_ACCCOMPGAR",
 	localize "STR_INTSECT_TRSPERSGAR",
 	localize "STR_INTSECT_TRSCOMPGAR",
-	"Analyze Evidence"
+	"Analyze Evidence",
+	"Take Gift"
 ];
 publicVariable "Config_GenArray";
 
