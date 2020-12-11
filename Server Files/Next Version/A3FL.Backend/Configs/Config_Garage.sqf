@@ -270,6 +270,9 @@ Config_Garage_Upgrade =
     ],
 	["A3FL_Explorer_Platinum_PD_20",
 		["Antenna","addon","Antenna",localize "STR_CGAR_ANTENNA","Radio Antennas",[0,0,0],[0,0,0],500,[],0]
+	],
+	["A3FL_Explorer_Platinum_PD_Slicktop_20",
+		["Pushbar_Addon","addon","Pushbar_Addon",localize "STR_CGAR_FRONTPUSH",localize "STR_CGAR_FRONTPUSHDESC",[0,3,-1],[0,1,0],500,[],0]
 	]
 ];
 publicVariable "Config_Garage_Upgrade";
