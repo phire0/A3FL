@@ -97,10 +97,10 @@
 	private ["_locations","_package","_packages","_jobVeh"];
 	_locations =
 	[
-		[[2185.043,5117.308,0],localize"Functions_DeliveryLocation_Shoes",localize"Functions_DeliveryLocation_USCG"],
-		[[2185.043,5117.308,0],localize"Functions_DeliveryLocation_Clothing",localize"Functions_DeliveryLocation_USCG"],
-		[[2185.043,5117.308,0],localize"Functions_DeliveryLocation_PS4",localize"Functions_DeliveryLocation_USCG"],
-		[[2185.043,5117.308,0],localize"Functions_DeliveryLocation_Shoes2",localize"Functions_DeliveryLocation_USCG"],
+		[[6478.21,8401.16,0],localize"Functions_DeliveryLocation_Shoes",localize"Functions_DeliveryLocation_USCG"],
+		[[6478.21,8401.16,0],localize"Functions_DeliveryLocation_Clothing",localize"Functions_DeliveryLocation_USCG"],
+		[[6478.21,8401.16,0],localize"Functions_DeliveryLocation_PS4",localize"Functions_DeliveryLocation_USCG"],
+		[[6478.21,8401.16,0],localize"Functions_DeliveryLocation_Shoes2",localize"Functions_DeliveryLocation_USCG"],
 		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Oxygen",localize"Functions_DeliveryLocation_Clinic"],
 		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Chair",localize"Functions_DeliveryLocation_Clinic"],
 		[[3036.68,5620.54,0.00144005],localize"Functions_DeliveryLocation_Desktop",localize"Functions_DeliveryLocation_Clinic"],
@@ -132,7 +132,6 @@
 		[[7107.94,7197.76,0],localize"Functions_DeliveryLocation_Water",localize"Functions_DeliveryLocation_BoulderMcFishers"],
 		[[8776.13,6411.65,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_GemStore"],
 		[[6064.7,7474.21,0],localize"Functions_DeliveryLocation_WasteUniforms",localize"Functions_DeliveryLocation_Waste"],
-		[[11842.1,9252.28,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_WeaponsFactory"],
 		[[3469.14,7483.19,0],localize"Functions_DeliveryLocation_Net",localize"Functions_DeliveryLocation_FishingShop"],
 		[[2452.64,5564.99,0.00143957],localize"Functions_DeliveryLocation_Tournevis",localize"Functions_DeliveryLocation_FurnStore"],
 		[[10004.7,7878.45,0],localize"Functions_DeliveryLocation_Computer",localize"Functions_DeliveryLocation_FirearmsDealer"],
