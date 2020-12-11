@@ -61,8 +61,7 @@
 	private _id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
 	private _duration = ([_id,_type,"time"] call A3PL_Config_GetFactory) * ([_craftID, "count"] call A3PL_Config_GetPlayerFactory);
 	private _timeEnd = [_craftID, "finish"] call A3PL_Config_GetPlayerFactory;
-	private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
-	if (_name isEqualTo "inh") then {_name = [([_id,_type,"class"] call A3PL_Config_GetFactory),([_id,_type,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
+	private _name = [([_id,_type,"class"] call A3PL_Config_GetFactory),([_id,_type,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;
 	_duration = [_duration] call A3PL_Factory_LevelBoost;
 	while {!isNull _display} do {
 		if(!isNil "Player_CraftInterrupt") exitWith {
@@ -107,7 +106,7 @@
 				_isFactory = _storageItem splitString "_";
 				if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true; _itemType = [_storageItem,_type,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
 				if (isNil "_itemType") then {_itemType = ""};
-				if (_isFactory && (_itemType == "item")) then {_storageItem = [_storageItem,_type,"class"] call A3PL_Config_GetFactory;};
+				if (_isFactory && (_itemType isEqualTo "item")) then {_storageItem = [_storageItem,_type,"class"] call A3PL_Config_GetFactory;};
 				if (_storageItem == _item) exitwith
 				{
 					if ((_x select 1) >= _amount) then
@@ -183,10 +182,9 @@
 			private _classtype = [_craftID, "classtype"] call A3PL_Config_GetPlayerFactory;
 			private _classname = [_craftID, "classname"] call A3PL_Config_GetPlayerFactory;
 			private _id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
-			private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
+			private _name = [_classname,_classType,"name"] call A3PL_Factory_Inheritance;
 			private _xpToAdd = ([_id,_type,"xp"] call A3PL_Config_GetFactory) * _toCraft;
 			private _curSleep = 0;
-			if (_name isEqualTo "inh") then {_name = [_classname,_classType,"name"] call A3PL_Factory_Inheritance;};
 			while{_curSleep < _sec} do {
 				if(!isNil "Player_CraftInterrupt") exitWith {};
 				_curSleep = _curSleep + 1;
@@ -286,12 +284,10 @@
 	_recipes = ["all",_type] call A3PL_Config_GetFactory;
 	{
 		private _id = _x select 0;
-		private _img = [_id,_type,"img"] call A3PL_Config_GetFactory;
+		private _img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;
 		private _class = [_id,_type,"class"] call A3PL_Config_GetFactory;
-		private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
+		private _name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;
 		private _classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
-		if (_img isEqualTo "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;};
-		if (_name isEqualTo "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;};
 		_i = _control lbAdd _name;
 		_control lbSetPicture [_i,_img];
 		_control lbSetData [_i,_id];
@@ -355,12 +351,10 @@
 		private _img = "";
 		if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true;} else {_isFactory = false;};
 		if (_isFactory) then {
-			_img = [_id,_type,"img"] call A3PL_Config_GetFactory;
-			_name = [_id,_type,"name"] call A3PL_Config_GetFactory;
+			_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;
+			_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;
 			_class = [_id,_type,"class"] call A3PL_Config_GetFactory;
 			_classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
-			if (_img isEqualTo "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;};
-			if (_name isEqualTo "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;};
 		} else {
 			_name = [_id,"name"] call A3PL_Config_GetItem;
 			_img = [_id,"icon"] call A3PL_Config_GetItem;
@@ -775,8 +769,7 @@
 	if(_craftID < 0) exitWith {""};
 
 	private _id = [_craftID, "id"] call A3PL_Config_GetPlayerFactory;
-	private _return = [_id,_factory,"name"] call A3PL_Config_GetFactory;
-	if (_return isEqualTo "inh") then {_return = [([_id,_factory,"class"] call A3PL_Config_GetFactory),([_id,_factory,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;};
+	private _return = [([_id,_factory,"class"] call A3PL_Config_GetFactory),([_id,_factory,"type"] call A3PL_Config_GetFactory),"name"] call A3PL_Factory_Inheritance;
 	_return;
 }] call Server_Setup_Compile;
 
@@ -810,13 +803,11 @@
 	private _recipes = ["all",_type] call A3PL_Config_GetFactory;
 	{
 		private _id = _x select 0;
-		private _name = [_id,_type,"name"] call A3PL_Config_GetFactory;
+		private _name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;
 		private _class = [_id,_type,"class"] call A3PL_Config_GetFactory;
 		private _classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
-		if (_name isEqualTo "inh") then {_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;};
 		if([_search, _name] call BIS_fnc_inString) then {
-			private _img = [_id,_type,"img"] call A3PL_Config_GetFactory;
-			if (_img isEqualTo "inh") then {_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;};
+			private _img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;
 			_i = _control lbAdd _name;
 			_control lbSetPicture [_i,_img];
 			_control lbSetData [_i,_id];

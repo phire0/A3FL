@@ -734,6 +734,8 @@
 ["A3PL_Vehicle_Init_A3PL_Charger15_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Charger15_FD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3FL_Explorer_Platinum_PD_20",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3FL_Explorer_Platinum_PD_Slicktop_20",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3FL_Explorer_Platinum_FD_20",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_VetteZR1_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;

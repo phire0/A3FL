@@ -334,11 +334,10 @@
 	} else {
 		_recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
 		{
-			_id = _x select 0;
-			_name = _x select 1;
-			_itemClass = _x select 3;
-			_itemType = _x select 4;
-			if (_name isEqualTo "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
+			private _id = _x select 0;
+			private _itemClass = _x select 1;
+			private _itemType = _x select 2;
+			private _name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;
 			_i = lbAdd [1501,_name];
 			lbSetData [1501,_i,_id];
 		} forEach _recipes;
@@ -437,11 +436,10 @@
 		private _recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
 		{
 			private _id = _x select 0;
-			private _name = _x select 1;
-			private _itemClass = _x select 3;
-			private _itemType = _x select 4;
-			if (_name isEqualTo "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
-			_index = _control lbAdd _name;
+			private _itemClass = _x select 1;
+			private _itemType = _x select 2;
+			private _name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;
+			private _index = _control lbAdd _name;
 			_control lbSetData [_index,_id];
 		} foreach _recipes;
 	} else {
@@ -472,10 +470,9 @@
 		private _recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
 		{
 			private _id = _x select 0;
-			private _name = _x select 1;
-			private _itemClass = _x select 3;
-			private _itemType = _x select 4;
-			if (_name isEqualTo "inh") then {_name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;};
+			private _itemClass = _x select 1;
+			private _itemType = _x select 2;
+			private _name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;
 			if ([_text, _name] call BIS_fnc_inString) then {
 				_index = _control lbAdd _name;
 				_control lbSetData [_index,_id];

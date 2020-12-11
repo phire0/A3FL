@@ -79,7 +79,7 @@
 ["A3PL_Config_GetPaycheckInfo", {
 	private _class = param [0,""];
 	private _search = param [1,""];
-	private _config = [];
+	private _config = ["",0,0];
 	private _return = "";
 
 	{
@@ -217,16 +217,14 @@
 	} foreach _config;
 	_return = switch (_search) do {
 		case "id": { _config select 0; };
-		case "name": { _config select 1; };
-		case "img": { _config select 2; };
-		case "class": { _config select 3; };
-		case "type": { _config select 4; };
-		case "time": { _config select 5; };
-		case "required": { _config select 6; };
-		case "output": { _config select 7; };
-		case "xp": { _config select 8; };
-		case "level": { _config select 9; };
-		case "desc": { _config select 10; };
+		case "class": { _config select 1; };
+		case "type": { _config select 2; };
+		case "time": { _config select 3; };
+		case "required": { _config select 4; };
+		case "output": { _config select 5; };
+		case "xp": { _config select 6; };
+		case "level": { _config select 7; };
+		case "desc": { _config select 8; };
 	};
 	_return;
 }] call Server_Setup_Compile;
