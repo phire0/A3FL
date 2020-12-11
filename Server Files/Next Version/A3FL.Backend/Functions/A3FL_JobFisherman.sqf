@@ -61,9 +61,7 @@
 
 ["A3PL_JobFisherman_DeployNetResponse",
 {
-	private ["_r"];
-	_r = param [0,1];
-
+	private _r = param [0,1];
 	switch _r do
 	{
 		case 0: {["You don't have a bucket to store the fish in","red"] call A3PL_Player_Notification;};

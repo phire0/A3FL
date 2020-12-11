@@ -447,7 +447,7 @@
 	private _return = "";
 	{
 		if((_x select 0) == _class) exitWith  {_return = _x select 1;};
-	} forEach Config_Government_Taxes;
+	} forEach (missionNameSpace getVariable ["Config_Government_Taxes",[]]);
 	_return;
 }] call Server_Setup_Compile;
 

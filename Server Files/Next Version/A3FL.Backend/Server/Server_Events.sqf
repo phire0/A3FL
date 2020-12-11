@@ -365,6 +365,7 @@
 	["The plane wreck has been recovered!","yellow"] remoteExec ["A3PL_Player_Notification", -2];
 },true] call Server_Setup_Compile;
 
+/*
 ["Server_Events_CreateZombies",
 {
 	if(isNil "A3FL_Events_Zombies") then {A3FL_Events_Zombies = [];};
@@ -410,4 +411,4 @@
 			sleep 2;
 		};
 	};
-}] call Server_Setup_Compile;
+}] call Server_Setup_Compile;*/

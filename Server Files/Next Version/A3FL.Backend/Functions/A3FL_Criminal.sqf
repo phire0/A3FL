@@ -118,10 +118,11 @@
 
 ["A3PL_Criminal_PickCar", {
 	private _car = param [0,objNull];
+	if (isNull _car) exitWith {["Error cannot find the vehicle", "red"] call A3PL_Player_Notification;};
 	if (animationstate player isEqualTo "Acts_carFixingWheel") exitwith {[localize"STR_CRIMINAL_YOUALREADYTAKEANACTION", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player isEqualTo player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_CRIMINAL_YOUALREADYPICKVEHICLE", "red"] call A3PL_Player_Notification;};
-
+	if (player distance _car > 7) exitWith {["You are too far away from the vehicle", "red"] call A3PL_Player_Notification;};
 	[localize"STR_CRIMINAL_YOUPICKVEHICLEPROGRESS", "yellow"] call A3PL_Player_Notification;
 	player setVariable ["picking",true,true];
 	["Lockpicking...",45] spawn A3PL_Lib_LoadAction;

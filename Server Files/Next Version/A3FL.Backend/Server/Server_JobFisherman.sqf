@@ -76,18 +76,16 @@
 			[5] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 		};
 		case ((_buoy getVariable ["bait","none"]) == "shark"): {
+			[_player,"bucket_full",1] call Server_Inventory_Add;
 			private _random = random 10;
-			if (_random > 7) exitwith {
-				[_player,"bucket_full",1] call Server_Inventory_Add;
-				[7] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
-			};
+			if (_random > 7) exitwith {[7] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];};
 			private _random = round (random 100);
 			switch (true) do {
 				case (_random >= 65): {[_player,"shark_2lb",1] call Server_Inventory_Add;};
 				case (_random >= 40): {[_player,"shark_4lb",1] call Server_Inventory_Add;};
 				case (_random >= 25): {[_player,"shark_5lb",1] call Server_Inventory_Add;};
 				case (_random >= 10): {[_player,"shark_7lb",1] call Server_Inventory_Add;};
-				case (_random >= 0): {[_player,"shark_10lb",1] call Server_Inventory_Add;};
+				default {[_player,"shark_10lb",1] call Server_Inventory_Add;};
 			};
 			[6] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 		};
@@ -95,7 +93,6 @@
 			[_player,"bucket_full",1] call Server_Inventory_Add;
 			private _random = random 10;
 			private _uscgCount = count(["uscg"] call A3PL_Lib_FactionPlayers);
-			//20% - 0-2 CG on
 			if (_uscgCount < 3) exitWith {
 				if (_random <= 2) then {
 					[9] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
@@ -104,7 +101,6 @@
 					[8] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 				};
 			};
-			//35% - 3-4 CG on
 			if (_uscgCount < 5) exitWith {
 				if (_random <= 3.5) then {
 					[9] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
@@ -113,7 +109,6 @@
 					[8] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 				};
 			};
-			//50% - 5-6 CG on
 			if (_uscgCount < 7) exitWith {
 				if (_random <= 5) then {
 					[9] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
@@ -122,7 +117,6 @@
 					[8] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 				};
 			};
-			//60% - 7 or more CG on
 			if (_random <= 6) then {
 				[9] remoteExec ["A3PL_JobFisherman_DeployNetResponse",_player];
 				[_player,"turtle",1] call Server_Inventory_Add;
