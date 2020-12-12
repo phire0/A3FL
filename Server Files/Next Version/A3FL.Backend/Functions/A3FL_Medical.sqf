@@ -898,14 +898,14 @@
 	[getPlayerUID _unit,"died",["Killer",_unit getVariable["lastDamage","self"]]] remoteExec ["Server_Log_New",2];
 	if(Player_ActionDoing) then {Player_ActionInterrupted = true;};
 
+	[_unit,"AinjPpneMstpSnonWrflDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 	_unit setVariable ["A3PL_Medical_Alive",false,true];
 	_unit setVariable ["TimeRemaining",_timer,true];
 	_unit setVariable ["tf_voiceVolume", 0, true];
 	_unit setVariable ["Zipped",false,true];
 	_unit setVariable ["Cuffed",false,true];
 	_unit setVariable ["DoubleTapped",false,true];
-	_unit setDamage 0.8;
-	[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
+	_unit setDamage 0;
 	_unit setDir (getDir _corspe);
 	_unit setPosASL (visiblePositionASL _corspe);
 	_unit setUnitLoadout A3PL_Player_DeadBodyGear;
@@ -928,7 +928,6 @@
 		private _display = findDisplay 7300;
 		private _control = _display displayCtrl 1001;
 		private _exit = false;
-		[_unit,"AinjPpneMstpSnonWnonDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 		while {!(_unit getVariable ["A3PL_Medical_Alive",false])} do
 		{
 			private _format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CAN remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
@@ -936,6 +935,10 @@
 				_format = format ["<t color='#ff0000' <t size='5' font='PuristaSemiBold' align='center'>Unconscious!</t><br/><t size='2' align='center'> You CANNOT remember the events leading to your death! </t><br/><t size='2'> Time Remaining: </t><t size='2'>%1</t><br/><t size='2'> Killed By: </t><t size='2'>%2</t><br/>",_timer,_lastDamage];
 				if ((animationState _unit) != "Incapacitated") then {
 					[_unit,"Incapacitated"] remoteExec ["A3PL_Lib_SyncAnim",-2];
+				};
+			} else {
+				if ((animationState _unit) != "AinjPpneMstpSnonWrflDnon") then {
+					[_unit,"AinjPpneMstpSnonWrflDnon"] remoteExec ["A3PL_Lib_SyncAnim",-2];
 				};
 			};
 			_control ctrlSetStructuredText (parseText _format);

@@ -251,7 +251,6 @@
 	_attach = [_classname, 'attach'] call A3PL_Config_GetItem;
 	_maxTake = [_classname, 'maxTake'] call A3PL_Config_GetItem;
 
-	if ((_selection isEqualTo -1) && (!isNil "_display")) exitWith {};
 	if (_canUse isEqualTo false) exitWith {[localize"STR_NewInventory_4", "red"] call A3PL_Player_Notification;};
 	if ((animationState player) isEqualTo "A3PL_TakenHostage") exitwith {[localize"STR_NewInventory_5","red"] call A3PL_Player_Notification;};
 	if (!(player isEqualTo (vehicle player))) exitwith {[localize"STR_NewInventory_6", "red"] call A3PL_Player_Notification;};
@@ -299,6 +298,7 @@
 	_displayNotification = [_this, 0, true, [true]] call BIS_fnc_param;
 
 	if (_itemClass isEqualTo "") exitwith {["There is no itemClass assigned", "red"] call A3PL_Player_Notification;};
+	if !((Player_Item getVariable["evidence",""]) isEqualTo "") exitWith {["This bag contains evidence and cannot be put back into your inventory", "red"] call A3PL_Player_Notification;};
 
 	detach Player_Item;
 	deleteVehicle Player_Item;

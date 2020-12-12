@@ -370,7 +370,6 @@ Config_IntersectArray =
 	["spine3",localize"STR_QuickActionsNPC_FISDManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_sd_elk_shop) && {(["fisd"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_DOJManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_doj) && {(["doj"] call A3PL_Government_isFactionLeader)}}],
 	["spine3",localize"STR_QuickActionsNPC_FIMSManagment",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{(player_objintersect isEqualTo npc_fimsjob) && {(["fims"] call A3PL_Government_isFactionLeader)}}],
-	["spine3","Low End Car Dealer",_dir+"IGUI\Cfg\Actions\talk_ca.paa",{player_objintersect isEqualTo Low_End_Car_Shop}],
 
 	//bank drill
 	["pilecash",localize"STR_INTSECT_STVAULTMON",_dir+"IGUI\Cfg\Actions\take_ca.paa",{true}], //Steal Vault Money --- pilecash
@@ -981,9 +980,31 @@ Config_IntersectArray =
 	["bed_1",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
 	["bed_2",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
 	["bed_3",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_4",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_5",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_6",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_7",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_8",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_9",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_10",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_11",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_12",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_13",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
+	["bed_14",localize"STR_INTSECT_LAYDOWN","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{true}], //Lay down
 	["bed_1",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
 	["bed_2",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
 	["bed_3",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_4",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_5",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_6",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_7",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_8",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_9",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_10",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_11",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_12",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_13",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
+	["bed_14",localize"STR_INTSECT_GETUP","\a3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\si_prone_down_ca.paa",{animationState player == "a3pl_bed"}], //Get Up
 	["GetIn_Driver",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) isEqualTo player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Driver
 	["GetIn_Driver2",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) isEqualTo player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Driver
 	["GetIn_Driver3",localize"STR_INTSECT_ENTERDRIVER","A3\ui_f\data\IGUI\RscIngameUI\RscUnitInfo\role_driver_ca.paa",{((vehicle player) isEqualTo player) && {(simulationEnabled player_objIntersect)} && {!(player_objIntersect getVariable ["locked",true])}}], //Enter as Driver
@@ -2351,7 +2372,6 @@ Config_GenArray =
 	localize"STR_QuickActionsNPC_AirbuyFactory",
 	localize"STR_INTSECT_TAKEBODY",
 	localize"STR_INTSECT_HIDEOUTSHOP",
-	"Low End Car Dealer",
 	localize"STR_INTSECT_CONHOSETOENGIN",
 	localize"STR_INTSECT_CONHOSETOENGDIS",
 	localize"STR_INTSECT_OPCLINLET",

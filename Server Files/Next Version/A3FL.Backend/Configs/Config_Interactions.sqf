@@ -619,7 +619,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_PUTITEMB",
 		{call A3PL_Inventory_PutBack;},
-		{((isNull Player_Item) isEqualTo false) && (!(player_itemClass isEqualTo "ticket") && ((Player_Item getVariable["evidence",""]) isEqualTo ""))}
+		{((isNull Player_Item) isEqualTo false) && (!(player_itemClass isEqualTo "ticket"))}
 	],
 	[
 		localize "STR_INTER_DESTROYT",
@@ -1183,7 +1183,7 @@ A3PL_Interaction_Options =
 	],
 	[
 		"Suicide",
-		{player setDamage 1;},
+		{[] spawn A3PL_Prison_Suicide;},
 		{(Player_ItemClass isEqualTo "cyanide_pills") && {count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0}}
 	],
 	[

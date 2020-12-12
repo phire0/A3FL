@@ -29,7 +29,7 @@
 		case ("uniform"): {"CfgWeapons"};
 		case ("vest"): {"CfgWeapons"};
 		case ("headgear"): {"CfgWeapons"};
-		case ("backpack"): {"CfgWeapons"};
+		case ("backpack"): {"CfgVehicles"};
 		case ("goggles"): {"CfgGlasses"};
 		case ("aitem"): {"CfgWeapons"};
 		default {"cfgVehicles"};
@@ -223,7 +223,6 @@
 	};
 	_control = _display displayCtrl 1501;
 
-	diag_log _required;
 	_lbArray = [];
 	{
 		private ["_i","_name","_amount","_id"];
@@ -284,10 +283,10 @@
 	_recipes = ["all",_type] call A3PL_Config_GetFactory;
 	{
 		private _id = _x select 0;
-		private _img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;
 		private _class = [_id,_type,"class"] call A3PL_Config_GetFactory;
-		private _name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;
 		private _classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
+		private _img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;
+		private _name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;
 		_i = _control lbAdd _name;
 		_control lbSetPicture [_i,_img];
 		_control lbSetData [_i,_id];
@@ -351,10 +350,10 @@
 		private _img = "";
 		if ((_isFactory select 0) isEqualTo "f") then {_isFactory = true;} else {_isFactory = false;};
 		if (_isFactory) then {
-			_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;
-			_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;
 			_class = [_id,_type,"class"] call A3PL_Config_GetFactory;
 			_classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
+			_img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;
+			_name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;
 		} else {
 			_name = [_id,"name"] call A3PL_Config_GetItem;
 			_img = [_id,"icon"] call A3PL_Config_GetItem;
@@ -803,9 +802,9 @@
 	private _recipes = ["all",_type] call A3PL_Config_GetFactory;
 	{
 		private _id = _x select 0;
-		private _name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;
 		private _class = [_id,_type,"class"] call A3PL_Config_GetFactory;
 		private _classType = [_id,_type,"type"] call A3PL_Config_GetFactory;
+		private _name = [_class,_classType,"name"] call A3PL_Factory_Inheritance;
 		if([_search, _name] call BIS_fnc_inString) then {
 			private _img = [_class,_classType,"img"] call A3PL_Factory_Inheritance;
 			_i = _control lbAdd _name;

@@ -98,7 +98,7 @@
 				[] call A3PL_Inventory_Drop;
 			};
 		};
-		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfisherstable1","mcfisherstable2","mcfishergrill"]) then
+		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfisherstable1","mcfisherstable2","mcfishergrill","mcFishersGrill1","mcFishersGrill1"]) then
 		{
 			private ["_interDist","_dist","_begPosASL","_endPosASL","_posAGL"];
 			_interDist = [player_objintersect, "FIRE"] intersect [positionCameraToWorld [0,0,0],positionCameraToWorld [0,0,1000]];
@@ -230,7 +230,7 @@
 			};
 		} foreach _collision;
 
-		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill"]) then
+		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill","mcFishersGrill1","mcFishersGrill1"]) then
 		{
 			_collision = _collision - [player_objintersect];
 		};
@@ -244,7 +244,7 @@
 		if ((count _collision > 0) && !((typeOf _obj) IN _except)) exitwith {[localize"STR_NewPlaceables_4", "red"] call A3PL_Player_Notification;};
 		if (freeLook) exitwith {[localize"STR_NewPlaceables_5", "red"] call A3PL_Player_Notification;};
 
-		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill"]) exitwith
+		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill","mcFishersGrill1","mcFishersGrill1"]) exitwith
 		{
 			if (Player_NameIntersect IN ["lockerbottom","lockertop"]) exitwith
 			{
@@ -259,12 +259,13 @@
 					[false] call A3PL_Inventory_Drop;
 				};
 			};
-			if (Player_NameIntersect IN ["mcfishertable","mcfishergrill"]) exitwith
+			if (Player_NameIntersect IN ["mcfishertable","mcfishergrill","mcFishersGrill1","mcFishersGrill1"]) exitwith
 			{
-				private _new = createVehicle [typeOf _obj,[0,0,0], [], 0, "CAN_COLLIDE"];
+				private _curPos = (getPos _obj);
+				private _position = [_curPos select 0, _curPos select 1, (_curPos select 2) + 0.025];
+				private _new = createVehicle [typeOf _obj,_position, [], 0, "CAN_COLLIDE"];
 				_new setVariable["class",Player_ItemClass,true];
 				_new setVariable["amount",1,true];
-				_new setPos (getPos _obj);
 				_new attachto [player_objintersect];
 				if(!isNil 'Player_ItemAmount') then {
 					Player_ItemAmount = Player_ItemAmount - 1;

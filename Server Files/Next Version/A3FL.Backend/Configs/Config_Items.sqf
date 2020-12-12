@@ -196,7 +196,7 @@ Config_Items =
 	["FD_Adapter",localize"STR_ConfigItems_FD_Adapter",1,"A3PL_FD_HoseEnd_Player",0,true,true,true,true,true,"",[0,0,0],"",1],
 	["FD_Hose",localize"STR_ConfigItems_FD_Hose",2,"A3PL_FD_HoseRolled",90,true,true,true,true,true,"",[0,0,0],"",1],
 	["FD_HydrantWrench",localize"STR_ConfigItems_FD_HydrantWrench",3,"A3PL_FD_HydrantWrench",0,true,true,true,true,true,"",[0,0,0],"",1],
-	["FD_Mask",localize"STR_ConfigItems_FD_Mask",6,"A3PL_FD_Mask_Obj",180,true,true,true,true,true,"",[-0.12,-0.15,-0.73],"",1],
+	["FD_Mask",localize"STR_ConfigItems_FD_Mask",0.1,"A3PL_FD_Mask_Obj",180,true,true,true,true,true,"",[-0.12,-0.15,-0.73],"",1],
 	["Pumpjack",localize"STR_ConfigItems_Pumpjack",50,"A3PL_Pumpjack",0,true,true,true,false,false,"",[0,0,0],"",1],
 
 	//Holdable Items
@@ -443,7 +443,7 @@ Config_Items =
 	["pumpkinhat_red",localize"STR_ConfigItems_pumpkinhat_red",0.1,"Land_A3PL_hw_pumpkinhat_red",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["pumpkinhat_orange",localize"STR_ConfigItems_pumpkinhat_orange",0.1,"Land_A3PL_hw_pumpkinhat_orange",0,true,true,true,false,false,"",[0,0,0],"",1],
 	["pumpkinhat_green",localize"STR_ConfigItems_pumpkinhat_green",0.1,"Land_A3PL_hw_pumpkinhat_green",0,true,true,true,false,false,"",[0,0,0],"",1],
-	["gift",localize"STR_ConfigItems_gift",0.1,"A3FL_Present",0,true,true,true,true,true,"",[0,0,0],"",1],
+	["gift",localize"STR_ConfigItems_gift",0.05,"A3FL_Present",0,true,true,true,true,true,"",[0,0,0],"",1],
 
 	//Misc
 	["cash",localize"STR_ConfigItems_cash",0.0005,"A3PL_Money",0,true,true,true,true,true,"",[0,0,0],"",1],

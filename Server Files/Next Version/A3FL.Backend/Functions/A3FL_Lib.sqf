@@ -173,7 +173,11 @@
 	if (isDedicated) exitwith {};
 	private _player = param [0,objNull];
 	private _anim = param [1,""];
-	_player switchMove _anim;
+	private _type = param [2,0];
+	switch(_type) do {
+		case 0: {_player switchMove _anim;};
+		case 1: {_player playMoveNow _anim;};
+	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Lib_Gesture',

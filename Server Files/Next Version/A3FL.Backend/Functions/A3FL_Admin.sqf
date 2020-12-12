@@ -413,78 +413,48 @@
 	private _text = ctrlText 1401;
 	private _control = _display displayCtrl 2100;
 	private _selectedFactory = _control lbText (lbCurSel _control);
-
-	if (_text isEqualTo "") then {
-		_control = _display displayCtrl 1501;
-		lbClear _control;
-		if (_selectedFactory == "Objects") exitWith {
-			{
-				_i = lbAdd [1501,(_x select 0)];
+	private _control = _display displayCtrl 1501;
+	lbClear _control;
+	if (_selectedFactory isEqualTo "Objects") exitWith {
+		{
+			_name = _x select 0;
+			if ([_text, _name] call BIS_fnc_inString) then {
+				_i = lbAdd [1501,_name];
 				lbSetData [1501,_i,(_x select 1)];
-			} foreach ADMIN_OBJECTS;
-		};
-		if (_selectedFactory isEqualTo "AdminVehicles") exitWith {
+			};
+		} foreach ADMIN_OBJECTS;
+	};
+	if (_selectedFactory isEqualTo "AdminVehicles") exitWith {
+		{
+			_first_X = _x;
 			{
-				_first_X = _x;
-				{
-					_class = format ["%1_%2",(_first_X select 0),_x];
+				_name = _x;
+				if ([_text, _name] call BIS_fnc_inString) then {
+					_class = format ["%1_%2",(_first_X select 0),_name];
 					_i = lbAdd [1501,_class];
 					lbSetData [1501,_i,_class];
-				} foreach (_x select 1);
-			} foreach Config_Vehicles_Admin;
-		};
-		private _recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
-		{
-			private _id = _x select 0;
-			private _itemClass = _x select 1;
-			private _itemType = _x select 2;
-			private _name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;
-			private _index = _control lbAdd _name;
-			_control lbSetData [_index,_id];
-		} foreach _recipes;
-	} else {
-		_control = _display displayCtrl 1501;
-		lbClear _control;
-		if (_selectedFactory isEqualTo "Objects") exitWith {
-			{
-				_name = _x select 0;
-				if ((_name find _text) != -1) then {
-					_i = lbAdd [1501,(_x select 0)];
-					lbSetData [1501,_i,(_x select 1)];
 				};
-			} foreach ADMIN_OBJECTS;
-		};
-		if (_selectedFactory isEqualTo "AdminVehicles") exitWith {
-			{
-				_first_X = _x;
-				{
-					_name = _x;
-					if ((_name find _text) != -1) then {
-						_class = format ["%1_%2",(_first_X select 0),_x];
-						_i = lbAdd [1501,_class];
-						lbSetData [1501,_i,_class];
-					};
-				} foreach (_x select 1);
-			} foreach Config_Vehicles_Admin;
-		};
-		private _recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
-		{
-			private _id = _x select 0;
-			private _itemClass = _x select 1;
-			private _itemType = _x select 2;
-			private _name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;
-			if ([_text, _name] call BIS_fnc_inString) then {
-				_index = _control lbAdd _name;
-				_control lbSetData [_index,_id];
-			};
-		} foreach _recipes;
+			} foreach (_x select 1);
+		} foreach Config_Vehicles_Admin;
 	};
+	private _recipes = ["all",_selectedFactory] call A3PL_Config_GetFactory;
+	{
+		private _id = _x select 0;
+		private _itemClass = _x select 1;
+		private _itemType = _x select 2;
+		private _name = [_itemClass,_itemType,"name"] call A3PL_Factory_Inheritance;
+		if ([_text, _name] call BIS_fnc_inString) then {
+			_index = _control lbAdd _name;
+			_control lbSetData [_index,_id];
+		};
+	} foreach _recipes;
 }] call Server_Setup_Compile;
 
 ["A3PL_Admin_AddToFactory", {
 	if ((player getVariable "dbVar_AdminLevel") >= 1) then {
 		private _display = findDisplay 98;
 		private _selectedFactory = lbText [2100,(lbCurSel 2100)];
+		private _itemType = "";
 		if (_selectedFactory isEqualTo "") exitwith {[localize"STR_ADMIN_NOFACTORYSELECTED","red"] call A3PL_Player_Notification;};
 		if (_selectedFactory IN ["Faction Equipment","Faction Clothing Factory","Faction Vehicles","Faction Weapons","Admin Tools"]) exitwith {["You cannot add to this factory","red"] call A3PL_Player_Notification;};
 		private _selectedAsset = lbData [1501,(lbCurSel 1501)];
@@ -493,11 +463,9 @@
 		private _control = _display displayCtrl 1403;
 		private _amount = parseNumber (ctrlText _control);
 		if (_amount < 1) exitwith {[localize"STR_Various_INVALIDAMOUNT","red"] call A3PL_Player_Notification;};
-		private _isFactory = _selectedAsset splitString "_";
-		if ((_isFactory select 0) == "f") then {_isFactory = true; _itemType = [_selectedAsset,_selectedFactory,"type"] call A3PL_Config_GetFactory;} else {_isFactory = false;};
-		if (isNil "_itemType") then {_itemType = ""};
-		if (_isFactory && (_itemType == "item")) then {_selectedAsset = [_selectedAsset,_selectedFactory,"class"] call A3PL_Config_GetFactory;};
-
+		private _isFactory = ((_selectedAsset splitString "_") select 0) isEqualTo "f";
+		if (_isFactory) then {_itemType = [_selectedAsset,_selectedFactory,"type"] call A3PL_Config_GetFactory;};
+		if (_isFactory && (_itemType isEqualTo "item")) then {_selectedAsset = [_selectedAsset,_selectedFactory,"class"] call A3PL_Config_GetFactory;};
 		[_selectedPlayer,_selectedFactory,[_selectedAsset,_amount],false] remoteExec ["Server_Factory_Add", 2];
 		private _itemName = lbText [1501,(lbCurSel 1501)];
 		[format[localize"STR_ADMIN_ADDEDTOFACTORY",_amount,_itemName,_selectedFactory,_selectedPlayer getVariable ["name","inconnu"]],"green"] call A3PL_Player_Notification;

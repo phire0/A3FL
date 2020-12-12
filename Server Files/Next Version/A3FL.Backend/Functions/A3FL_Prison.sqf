@@ -326,3 +326,11 @@
 		};
 	};
 }] call Server_Setup_Compile;
+
+["A3PL_Prison_Suicide",
+{
+	["cyanide_pills",-1] call A3PL_Inventory_Add;
+	[] call A3PL_Inventory_Clear;
+	sleep 5;
+	player setDamage 1;
+}] call Server_Setup_Compile;
