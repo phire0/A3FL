@@ -66,7 +66,7 @@
 			if (_x != "") then {
 				private ["_name"];
 				_name = [_x,"title"] call A3PL_Config_GetGarageRepair;
-				if (typeName _name == "BOOL") then {_name = _x};
+				if (_name isEqualType true) then {_name = _x};
 				_i = _control lbAdd _name;
 				_control lbSetData [_i,_x];
 			};
@@ -201,7 +201,6 @@
 	if (_price > _pCash) exitwith {[format["You are missing $%1 to change the license plate!",_price-_pCash]] call A3PL_Player_notification;};
 
 	_newLP = ctrlText _control;
-	hint str(count _newLP);
 	_allowedChars = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 	if ((count _newLP) != 7) exitwith {["Your personalized license plate must have 7 characters!","red"] call A3PL_Player_Notification;};
 	_validChars = true;
@@ -277,7 +276,7 @@
 	private ["_veh","_allHitPoints","_hitArray","_dmgHitArray","_display","_control","_selHit","_selHiti","_dmgValue"];
 	_veh = param [0,objNull];
 	_display = findDisplay 62;
-	if (typeName _veh == "STRING") then
+	if (_veh isEqualType "") then
 	{
 		_veh = [_veh] call A3PL_Lib_vehStringToObj;
 	};
@@ -301,7 +300,7 @@
 ["A3PL_Garage_Repair",
 {
 	private _veh = param [0,objNull];
-	if ((typeName _veh) isEqualTo "STRING") then {_veh = [_veh] call A3PL_Lib_vehStringToObj;};
+	if (_veh isEqualType "") then {_veh = [_veh] call A3PL_Lib_vehStringToObj;};
 
 	private _display = findDisplay 62;
 	private _control = _display displayCtrl 1502;
@@ -330,7 +329,7 @@
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	_texture = param [0,""];
 	_veh = param [1,objNull];
-	if ((typeName _veh) isEqualTo "STRING") then {_veh = [_veh] call A3PL_Lib_vehStringToObj;};
+	if (_veh isEqualType "") then {_veh = [_veh] call A3PL_Lib_vehStringToObj;};
 	_display = findDisplay 62;
 
 	_pCash = player getVariable["Player_Cash", 0];
@@ -343,7 +342,7 @@
 		private _id = _control lbData (lbCurSel _control);
 		private _job = player getVariable["job","unemployed"];
 		private _file = [_id,typeOf _veh,"file",_job] call A3PL_Config_GetGaragePaint;
-		if ((typeName _file) isEqualTo "ARRAY") then {
+		if (_file isEqualType []) then {
 			_cnt = count _file;
 			if (_cnt isEqualTo 1) then {_file1 = _file select 0;_veh setObjectTextureGlobal [0,_file1]};
 			if (_cnt isEqualTo 2) then {_file1 = _file select 0;_file2 = _file select 1;_veh setObjectTextureGlobal [0,_file1];_veh setObjectTextureGlobal [1,_file2]};
@@ -382,7 +381,7 @@
 	private _veh = param [0,objNull];
 	private _texture = param [1,""];
 	private _display = findDisplay 62;
-	if (typeName _veh isEqualTo "STRING") then {
+	if (_veh isEqualType "") then {
 		_veh = [_veh] call A3PL_Lib_vehStringToObj;
 	};
 	if (isNull _veh) exitwith {};
@@ -393,8 +392,8 @@
 		private _id = _control lbData (lbCurSel _control);
 		private _job = player getVariable["job","unemployed"];
 		private _file = [_id,typeOf _veh,"file",_job] call A3PL_Config_GetGaragePaint;
-		if (typeName _file isEqualTo "BOOL") exitwith {};
-		if (typeName _file isEqualTo "ARRAY") then
+		if (_file isEqualType true) exitwith {};
+		if (_file isEqualType []) then
 		{
 			_cnt = count _file;
 			if (_cnt isEqualTo 1) then {_file1 = _file select 0;_veh setObjectTextureGlobal [0,_file1]};
@@ -436,7 +435,7 @@
 	_upgradeType = [];
 	_title = [_id,_typeOf,"title"] call A3PL_Config_GetGarageUpgrade;
 	_tPos = [_id,_typeOf,"camTarget"] call A3PL_Config_GetGarageUpgrade; //new camera target
-	if (typeName _tPos == "string") then {_tPos = _veh selectionPosition [_tPos,"memory"];}; //get model position of memory point
+	if (_tPos isEqualType "") then {_tPos = _veh selectionPosition [_tPos,"memory"];}; //get model position of memory point
 	_tOffset = [_id,_typeOf,"camOffset"] call A3PL_Config_GetGarageUpgrade; //new camera offset from target
 
 	//set new cam positions
@@ -522,7 +521,7 @@
 {
 	private ["_veh","_id","_typeOf","_installed","_upgradeType"];
 	_veh = param [0,objNull,[objNull,""]];
-	if (typeName _veh == "STRING") then //edited bypass used in ATC so we can send object from setButtonAction
+	if (_veh isEqualType "") then //edited bypass used in ATC so we can send object from setButtonAction
 	{
 		_veh = [_veh] call A3PL_Lib_vehStringToObj;
 	};
@@ -556,7 +555,7 @@
 	_forceInstall = param [2,-1]; //-1 dont force, 0 no, 1 yes NOTE: will also be used as new anim value
 	_preview = param [3,true];
 
-	if (typeName _veh == "STRING") then //edited bypass used in ATC so we can send object from setButtonAction
+	if (_veh isEqualType "") then //edited bypass used in ATC so we can send object from setButtonAction
 	{
 		_veh = [_veh] call A3PL_Lib_vehStringToObj;
 	};

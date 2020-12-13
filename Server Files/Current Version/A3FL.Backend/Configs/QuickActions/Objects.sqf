@@ -7,6 +7,11 @@
 */
 
 [
+	"",
+	"Take Gift",
+	{[player_objIntersect] call A3PL_Player_GetGift;}
+],
+[
 	"A3PL_Distillery",
 	localize"STR_INTSECT_InstallHose",
 	{[player_objIntersect] call A3PL_Moonshine_InstallHose;}
@@ -61,6 +66,17 @@
 	"Break Down Cocaine Brick",
 	{[player_objintersect] call A3PL_Cocaine_BreakDownBrick;}
 ],
+[
+	"A3FL_Bullet_Casings",
+	"Destroy Evidence",
+	{deleteVehicle player_objintersect;}
+],
+[
+	"A3FL_Bullet_Casings",
+	"Put in bag",
+	{[player_objintersect] call A3PL_Police_BagEvidence;}
+],
+
 [
 	"",
 	localize"STR_INTSECT_FillBottle",
@@ -407,7 +423,7 @@
 	"A3PL_Drill_Bank",
 	localize"STR_INTSECT_STARTVDRILL",
 	{
-		if((count (nearestObjects [player, ["Land_A3PL_Bank"], 15])) > 0) then {
+		if((count(nearestObjects [player, ["Land_A3PL_Bank"],15])) > 0) then {
 			[player_objintersect] spawn A3PL_BHeist_StartDrill;
 		} else {
 			[player_objintersect] spawn A3PL_Jewelry_StartDrill;
@@ -423,6 +439,11 @@
 	"",
 	localize"STR_A3PL_Medical_ChestCompressions",
 	{[player_objintersect] spawn A3PL_Medical_ChestCompressions;}
+],
+[
+	"",
+	localize"STR_A3PL_Medical_Drag",
+	{[player_objintersect] spawn A3PL_Medical_DragBody;}
 ],
 [
 	"",
@@ -483,16 +504,6 @@
 	"",
 	localize"STR_INTSECT_PICKUPKEY",
 	{call A3PL_Housing_PickupKey;}
-],
-[
-	"",
-	localize"STR_INTSECT_CREATEFISHB",
-	{[player_objintersect] call A3PL_JobMcfisher_CombineBurger;}
-],
-[
-	"A3PL_TacoShell",
-	localize"STR_INTSECT_CREATEFTACO",
-	{[player_objintersect,"taco"] call A3PL_JobMcfisher_CombineBurger;}
 ],
 [
 	"A3PL_FishingBuoy",

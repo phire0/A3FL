@@ -63,17 +63,6 @@ class Dialog_HUD
 			sizeEx = "0.05 * safezoneH";
 			style = 0x01;
 		};*/
-		// class FactionCount: RscStructuredText
-		// {
-		// 	idc = 1001;
-		// 	text = "";
-		// 	x = 0.876406 * safezoneW + safezoneX;
-		// 	y = 0.643 * safezoneH + safezoneY;
-		// 	w = 0.113437 * safezoneW;
-		// 	h = 0.044 * safezoneH;
-		// 	sizeEx = "0.05 * safezoneH";
-		// 	style = 0x01;
-		// };
 		class HealthIcon: RscPicture
 		{
 			idc = 1200;
@@ -157,14 +146,6 @@ class Dialog_HUD
 			y = 0.8 * safezoneH + safezoneY;
 			w = 0.0309375 * safezoneW;
 			h = 0.055 * safezoneH;
-		};
-		class A3PL_TaskForceRadio: RscStructuredText {
-			idc = 1206;
-			text="";
-			x = 0.958906 * safezoneW + safezoneX;
-			y = 0.368 * safezoneH + safezoneY;
-			w = 0.407344;
-			h = 0.429 * safezoneH;
 		};
 		class background_stats: RscPicture
 		{

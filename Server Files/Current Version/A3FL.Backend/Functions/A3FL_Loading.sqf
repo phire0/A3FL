@@ -29,21 +29,21 @@
 		//+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>TEXT_HERE.</t>"
 
 		_control = (_display displayCtrl 69);
-		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.4.1</t>"
+		_format = "<t size='3' font='PuristaSemiBold' align='center' color='#B8B8B8'>VERSION 3.5.1</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Halloween Event</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>2020 Ford Explorer FD &amp; Slicktop</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>More NPCs to Northern Island</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Kriss Vector / HK UMP45</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Lots of bugs</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Christmas Event</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff0000'> Deleted: </t><t size='1' align='left'>USCG Dolphin Files</t>"
+		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Evidence System Improvements</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#ff8000'> Fixed: </t><t size='1' align='left'>Addon Optimization (Reduced Size)</t>"
+		+ "<t size='1' align='left' color='#ff0000'> Removed: </t><t size='1' align='left'>Car dealership</t>"
 		+ "<br/>"
-		+ "<t size='1' align='left' color='#00ff00'> Added: </t><t size='1' align='left'>Smart Car / BMW M6 / Mercedes Benz C63 AMG</t>"
+		+ "<t size='1' align='left' color='#ff0000'> Fixed: </t><t size='1' align='left'>17+ issues</t>"
 		+ "<br/>"
-		+ "<t size='0.8' align='center'>For the full changelog visit the forum @ arma3fisherslife.net</t>";
+		+ "<t size='0.8' align='center'>For the full changelog visit the forums @ arma3fisherslife.net</t>";
 		_control ctrlSetStructuredText (parseText _format);
 
 		_control = (_display displayCtrl 10360);

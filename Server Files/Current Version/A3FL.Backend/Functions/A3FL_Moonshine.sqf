@@ -17,7 +17,7 @@
 		case ("malt"):
 		{			
 			_input = objNull;
-			_nearby = nearestObjects [_mixer, ["A3PL_Sack"], 2];
+			_nearby = _mixer nearEntities [["A3PL_Sack"],2];
 			{
 				if (_x getVariable "class" isEqualTo "wheat") exitwith {_input = _x;};
 			} foreach _nearby;
@@ -44,7 +44,7 @@
 		case ("yeast"):
 		{
 			_input = objNull;
-			_nearby = nearestObjects [_mixer, ["A3PL_Sack"], 2];
+			_nearby = _mixer nearEntities [["A3PL_Sack"],2];
 			{
 				if (_x getVariable "class" isEqualTo "wheat") exitwith {_input = _x;};
 			} foreach _nearby;
@@ -71,7 +71,7 @@
 		case ("cornmeal"):
 		{
 			_input = objNull;
-			_nearby = nearestObjects [_mixer, ["A3PL_CornCob"], 2];
+			_nearby = _mixer nearEntities [["A3Pl_CornCob"],2];
 			{
 				if (_x getVariable "class" isEqualTo "corn") exitwith {_input = _x;};
 			} foreach _nearby;

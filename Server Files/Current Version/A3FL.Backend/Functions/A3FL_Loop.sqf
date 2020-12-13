@@ -8,7 +8,7 @@
 
 ['A3PL_Loop_Setup', {
 	["itemAdd", ["Loop_LockView", {[] spawn A3PL_Loop_LockView;}, 1, 'seconds']] call BIS_fnc_loop;
-	["itemAdd", ["Loop_RoadSigns", {[] spawn A3PL_Loop_RoadSigns;}, 3, 'seconds']] call BIS_fnc_loop;
+	["itemAdd", ["Loop_RoadSigns", {call A3PL_Loop_RoadSigns;}, 1, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Paycheck", {[] spawn A3PL_Loop_Paycheck;}, 60, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_HUD", {[] spawn A3PL_HUD_Loop;}, 2, 'seconds']] call BIS_fnc_loop;
 	["itemAdd", ["Loop_Hunger", {[] spawn A3PL_Loop_Hunger;}, 310, 'seconds']] call BIS_fnc_loop;
@@ -23,10 +23,9 @@
 	["itemAdd", ["Loop_JailMarkers", {[] spawn A3PL_Prison_Markers;}, 30, 'seconds',{ player getVariable ["job","unemployed"] isEqualTo "fims" },{ !(player getVariable ["job","unemployed"] isEqualTo "fims") && isNil "A3PL_Inmates_Markers" }]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_HousingTaxes", {[] call A3PL_Loop_HousingTaxes;}, 1800, 'seconds',{!isNil {player getVariable ["house",nil]}}, {isNil {player getVariable ["house",nil]}}]] call BIS_fnc_loop;
 	["itemAdd", ["Loop_WarehouseTaxes", {[] call A3PL_Loop_WarehouseTaxes;}, 1800, 'seconds',{!isNil {player getVariable ["warehouse",nil]}}, {isNil {player getVariable ["warehouse",nil]}}]] call BIS_fnc_loop;
-	["itemAdd", ["Loop_MoneyBagWater", {[] call A3PL_BHeist_Loop;}, 10, 'seconds',{backpack player isEqualTo "A3PL_Backpack_Money" && surfaceIsWater position player && (((getPosASLW player) select 2) <= 0)}]] call BIS_fnc_loop;
+	["itemAdd", ["Loop_MoneyBagWater", {[] call A3PL_BHeist_Loop;}, 10, 'seconds',{backpack player isEqualTo "A3PL_Backpack_Money" && surfaceIsWater position player && (((getPosASLW player) select 2) <= 0)}, {!(backpack player isEqualTo "A3PL_Backpack_Money" || surfaceIsWater position player || (((getPosASLW player) select 2) <= 0))}]] call BIS_fnc_loop;
 
-	// Events
-	["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
+	//["itemAdd", ["Hw_angel_loop", {[] spawn A3PL_Halloween_Randomiser;}, 30, 'seconds']] call BIS_fnc_loop;
 }] call Server_Setup_Compile;
 
 ["A3PL_Loop_LockView",
@@ -45,45 +44,42 @@
 
 	private _roadObject = str(roadAt(vehicle player));
 	private _roadID = parseNumber((_roadObject splitString ":") select 0);
+	private _title = "";
 
 	if(A3PL_Last_RoadID != _roadID) then {
 		A3PL_Last_RoadID = _roadID;
-		_title = "";
 		{
 			_a = _x select 0;
 			_b = _x select 1;
 
 			if(_a < _b) then {
-				if(_roadID >= _a && _roadID <= _b) exitWith {
+				if((_roadID >= _a) && {_roadID <= _b}) exitWith {
 					_title = _x select 2;
 				};
 			} else {
-				if(_roadID >= _b && _roadID <= _a) exitWith {
+				if((_roadID >= _b) && {_roadID <= _a}) exitWith {
 					_title = _x select 2;
 				};
 			};
 		} forEach Server_Addresses_Roads;
-		if(_title != "") then {
+		if !(_title isEqualTo "") then {
 			if(_title != A3PL_Last_Road) then {
 				A3PL_Last_Road = _title;
 				[] spawn {
 					disableSerialization;
-					_road = A3PL_Last_Road;
-
-					_display = uiNamespace getVariable ["A3PL_HUDDisplay",nil];
+					private _road = A3PL_Last_Road;
+					private _display = uiNamespace getVariable ["A3PL_HUDDisplay",nil];
 					if(isNil "_display") exitWith {};
-					_ctrl = _display displayCtrl 9520;
-					_ctrlBack = _display displayCtrl 9521;
+					private _ctrl = _display displayCtrl 9520;
+					private _ctrlBack = _display displayCtrl 9521;
 
 					_ctrl ctrlSetStructuredText parseText format ["<t font='PuristaMedium' align='center' size='2' >%1</t>",_road];
 					_ctrl ctrlSetFade 0;
 					_ctrl ctrlCommit 0.5;
-
 					_ctrlBack ctrlSetFade 0;
 					_ctrlBack ctrlCommit 0.5;
 
-					uiSleep 3.5;
-
+					sleep 3;
 					if(_road != A3PL_Last_Road) exitWith {};
 
 					_ctrl ctrlSetFade 1;

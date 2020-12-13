@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-#define DEFGALLONPRICE 20
+#define DEFGALLONPRICE 25
 
 ["A3PL_Hydrogen_SetPrice",
 {
@@ -22,7 +22,7 @@
 
 	_newPrice = parseNumber (ctrlText (_display displayCtrl 1400));
 
-	if (_newPrice < 15) exitwith {[format [localize"STR_NewHydrogen_3"],"red"] call A3PL_Player_Notification};
+	if (_newPrice < 25) exitwith {[format [localize"STR_NewHydrogen_3"],"red"] call A3PL_Player_Notification};
 	if (_newPrice > 90) exitwith {[format [localize"STR_NewHydrogen_4"],"red"] call A3PL_Player_Notification};
 
 	(_display displayCtrl 1400) ctrlSetText format ["%1",_newPrice];
@@ -37,7 +37,7 @@
 		_gp = parseNumber(format["%1%3%2",((str(_newPrice) splitstring "") select 0),((str(_newPrice) splitstring "") select 1),((str(_newPrice) splitstring "") select 2)])*100;
 	};
 
-	[_station,4,([_gp,1,2] call CBA_fnc_formatNumber),([_gp,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
+	[_station,4,_gp,_gp] call A3PL_Hydrogen_SetNumbers;
 	[localize"STR_NewHydrogen_5","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -110,12 +110,11 @@
 {
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
 	private ["_barrel","_tanker"];
-	_barrel = param [0,objNull];
-	_tanker = (nearestObjects [player, ["A3PL_Tanker_Trailer","A3PL_Fuel_Van"], 10]) select 0;
+	private _barrel = param [0,objNull];
+	private _tanker = (nearestObjects [player, ["A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3FL_T440_Gas_Tanker"], 10]) select 0;
+	private _exit = false;
 	if (isNil "_tanker") exitwith {[localize"STR_NewHydrogen_12","red"] call A3PL_Player_Notification;};
-
-	_exit = false;
-	if(typeOf _tanker == "A3PL_Fuel_Van") then {
+	if((typeOf _tanker) isEqualTo "A3PL_Fuel_Van") then {
 		_gasType = _tanker getVariable["gas", nil];
 		_amount = _tanker getVariable ["petrol",0];
 		if(!isNil "_gasType") then {
@@ -126,31 +125,30 @@
 
 	deleteVehicle _barrel;
 	_tanker setVariable["gas", "petrol", true];
-	_tanker setVariable ["petrol",(_tanker getVariable ["petrol",0]) + 42,true];
+	_tanker setVariable ["petrol",(_tanker getVariable ["petrol",0]) + 60,true];
 	[format [localize"STR_NewHydrogen_13",(_tanker getVariable ["petrol",0])],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Hydrogen_LoadKerosene",
 {
 	if(!([] call A3PL_Player_AntiSpam)) exitWith {};
-	private ["_barrel","_tanker"];
-	_barrel = param [0,objNull];
-	_tanker = (nearestObjects [player, ["A3PL_Fuel_Van"], 10]) select 0;
+	private _barrel = param [0,objNull];
+	private _tanker = (nearestObjects [player, ["A3PL_Fuel_Van"], 10]) select 0;
+	private _exit = false;
 	if (isNil "_tanker") exitwith {[localize"STR_NewHydrogen_14","red"] call A3PL_Player_Notification;};
 
-	_exit = false;
-	if(typeOf _tanker == "A3PL_Fuel_Van") then {
+	if((typeOf _tanker) isEqualTo "A3PL_Fuel_Van") then {
 		_gasType = _tanker getVariable["gas", nil];
 		_amount = _tanker getVariable ["petrol",0];
 		if(!isNil "_gasType") then {
-			if((_gasType == "petrol") && (_amount > 0)) exitWith {_exit = true;};
+			if((_gasType isEqualTo "petrol") && {_amount > 0}) exitWith {_exit = true;};
 		};
 	};
 	if(_exit) exitWith {[localize"STR_NewHydrogen_51","red"] call A3PL_Player_Notification;};
 
 	deleteVehicle _barrel;
 	_tanker setVariable["gas", "kerosene", true];
-	_tanker setVariable ["petrol",(_tanker getVariable ["petrol",0]) + 42,true];
+	_tanker setVariable ["petrol",(_tanker getVariable ["petrol",0]) + 60,true];
 	[format [localize"STR_NewHydrogen_15",(_tanker getVariable ["petrol",0])],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -241,54 +239,36 @@
 
 ["A3PL_Hydrogen_SetNumbers",
 {
-	private ["_station","_pumpNumber","_gallons","_price","_gallonAD","_gallonBD","_priceAD","_priceBD"];
-	_station = param [0,objNull];
-	_pumpNumber = param [1,1];
-	_gallons = param [2,"0.00"];
-	_price = param [3,"0.00"];
-
-	_gallonBD = (_gallons splitstring ".") select 0;
-	_gallonAD = (_gallons splitstring ".") select 1;
-	_priceBD = (_price splitstring ".") select 0;
-	_priceAD = (_price splitstring ".") select 1;
-
-	switch (count _gallonBD) do
-	{
-		case (1): {_gallonBD = format ["0000%1",_gallonBD]};
-		case (2): {_gallonBD = format ["000%1",_gallonBD]};
-		case (3): {_gallonBD = format ["00%1",_gallonBD]};
-		case (4): {_gallonBD = format ["0%1",_gallonBD]};
-		case (5): {_gallonBD = format ["%1",_gallonBD]};
+	private _station = param [0,objNull];
+	private _pumpNumber = param [1,1];
+	private _gallons = param [2,0];
+	private _price = param [3,0];
+	private _priceCount = (str _price) splitString "";
+	private _gallonsCount = (str _gallons) splitString "";
+	private _priceFormat = switch (count _priceCount) do {
+		case (1): {format ["0000000%1",_price]};
+		case (2): {format ["000000%1",_price]};
+		case (3): {format ["00000%1",_price]};
+		case (4): {format ["0000%1",_price]};
+		case (5): {format ["000%1",_price]};
 	};
-
-	switch (count _priceBD) do
-	{
-		case (1): {_priceBD = format ["0000%1",_priceBD]};
-		case (2): {_priceBD = format ["000%1",_priceBD]};
-		case (3): {_priceBD = format ["00%1",_priceBD]};
-		case (4): {_priceBD = format ["0%1",_priceBD]};
-		case (5): {_priceBD = format ["%1",_priceBD]};
+	private _gallonsFormat = switch (count _gallonsCount) do {
+		case (1): {format ["0000000%1",_gallons]};
+		case (2): {format ["000000%1",_gallons]};
+		case (3): {format ["00000%1",_gallons]};
+		case (4): {format ["0000%1",_gallons]};
+		case (5): {format ["000%1",_gallons]};
 	};
-
-
-	_startSel = 2 + ((_pumpNumber - 1) * 16);
-	for "_i" from 0 to 7 do
-	{
-		if (_i == 5) then {_station setObjectTextureGlobal [_startSel,""]};
-		if (_i < 5) then { _station setObjectTextureGlobal [_startSel,format ["\A3PL_Common\HydrogenNumbers\%1.paa",_priceBD select [_i,1]]];};
-		if (_i > 5) then { _station setObjectTextureGlobal [_startSel,format ["\A3PL_Common\HydrogenNumbers\%1.paa",_priceAD select [(_i-6),1]]];};
+	private _startSel = 2 + ((_pumpNumber - 1) * 16);
+	for "_i" from 0 to 7 do {
+		_station setObjectTextureGlobal [_startSel,format ["\A3PL_Common\HydrogenNumbers\%1.paa",_priceFormat select [_i,1]]];
 		_startSel = _startSel + 1;
 	};
-
-	_startSel = 10 + ((_pumpNumber - 1) * 16);
-	for "_i" from 0 to 7 do
-	{
-		if (_i == 5) then {_station setObjectTextureGlobal [_startSel,""]};
-		if (_i < 5) then { _station setObjectTextureGlobal [_startSel,format ["\A3PL_Common\HydrogenNumbers\%1.paa",_gallonBD select [_i,1]]] };
-		if (_i > 5) then { _station setObjectTextureGlobal [_startSel,format ["\A3PL_Common\HydrogenNumbers\%1.paa",_gallonAD select [(_i-6),1]]] };
+	private _startSel = 10 + ((_pumpNumber - 1) * 16);
+	for "_i" from 0 to 7 do {
+		_station setObjectTextureGlobal [_startSel,format ["\A3PL_Common\HydrogenNumbers\%1.paa",_gallonsFormat select [_i,1]]];
 		_startSel = _startSel + 1;
 	};
-
 }] call Server_Setup_Compile;
 
 ["A3PL_Hydrogen_SwitchFuel",
@@ -308,8 +288,7 @@
 		{
 			_intersect animate ["gasTurn",0];
 			{
-				_type = format["%1",typeOf _x];
-				if(_type == "#dynamicsound") then {
+				if((typeOf _x) == "#dynamicsound") then {
 					deleteVehicle _x;
 				};
 			} foreach nearestObjects [_tank,[],5];
@@ -335,47 +314,34 @@
 		_i = 0;
 		waitUntil {sleep 0.1; _i = _i + 0.1; if (_i > 5) exitwith {true}; (_intersect animationPhase "gasTurn" > 0)};
 
-		_gallonPrice = _station getVariable ["gallonprice",DEFGALLONPRICE];
-		_myPrice = 0;
-		_totalGallons = 0;
-		_pumpNumber = 1;
-		switch (format ["%1",_tank]) do
-		{
-			case ("A3PL_GasBox1"): {_pumpNumber = 1;};
-			case ("A3PL_GasBox2"): {_pumpNumber = 1;};
-			case ("A3PL_GasBox3"): {_pumpNumber = 1;};
-			case ("A3PL_GasBox4"): {_pumpNumber = 1;};
-			case ("A3PL_GasBox5"): {_pumpNumber = 1;};
-			case ("A3PL_GasBox6"): {_pumpNumber = 1;};
-			case ("A3PL_GasBox7"): {_pumpNumber = 1;};
-		};
+		private _gallonPrice = _station getVariable ["gallonprice",DEFGALLONPRICE];
+		private _totalGallons = 0;
 		while {(_intersect animationPhase "gasTurn" > 0) && (attachedTo _intersect == _car) && ((_station getVariable ["petrol",0]) > 0)} do
 		{
-			_gallons = 0.25 + random 0.15;
-			_totalgallons = _totalGallons + _gallons;
+			_gallons = 0.3;
+			_totalGallons = _totalGallons + _gallons;
 			_myPrice = round(_gallonPrice * _totalGallons);
 
-			[_station,1,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myprice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
-			[_station,2,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myprice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
-			[_station,3,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myprice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
+			[_station,1,round (_totalGallons),_myPrice] call A3PL_Hydrogen_SetNumbers;
+			[_station,2,round (_totalGallons),_myPrice] call A3PL_Hydrogen_SetNumbers;
+			[_station,3,round (_totalGallons),_myPrice] call A3PL_Hydrogen_SetNumbers;
 
 			_car setFuel ((fuel _car) + (_totalGallons / 350));
 			if ((fuel _car) >= 1) exitwith {};
-			_newgas = (_station getVariable ["petrol",0]) - _gallons;
+			_newGas = (_station getVariable ["petrol",0]) - _gallons;
 			if (_newGas < 0) then {_newGas = 0;};
 			_station setVariable ["petrol",_newGas,true];
-			uiSleep 1;
+			sleep 1;
 		};
 		if ((_station getVariable ["petrol",0]) <= 0) then {[localize"STR_NewHydrogen_27","red"] call A3PL_Player_Notification;};
-		[format [localize"STR_NewHydrogen_28",_myprice], "green"] call A3PL_Player_Notification;
-		_station setVariable [format ["pump%1",_pumpNumber],[[_totalGallons,1,2] call CBA_fnc_formatNumber,[_myprice,1,2] call CBA_fnc_formatNumber],true];
+		[format [localize"STR_NewHydrogen_28",_myPrice], "green"] call A3PL_Player_Notification;
+		_station setVariable [format ["pump%1",1],[[_totalGallons,1,2] call CBA_fnc_formatNumber,[_myPrice,1,2] call CBA_fnc_formatNumber],true];
 		_sOUID = _station getVariable ["bOwner","0"];
 		_sOwner = nil;
 		_sValidOwner = false;
-
 		if(_sOUID != "0") then {
 			{
-				if((getPlayerUID _x) == _sOUID) exitwith {_sOwner = _x; _sValidOwner = true;};
+				if((getPlayerUID _x) isEqualTo _sOUID) exitwith {_sOwner = _x; _sValidOwner = true;};
 			} forEach allPlayers;
 		};
 
@@ -385,14 +351,11 @@
 			} else {
 				[player,objNull,_myprice,_station,false] remoteExec ["Server_Fuel_Pay", 2];
 			};
-		} else {
-			[localize"STR_NewHydrogen_29", "yellow"] call A3PL_Player_Notification;
 		};
 
 		_intersect animate ["gasTurn",0];
 		{
-			_type = format["%1",typeOf _x];
-			if(_type == "#dynamicsound") then {
+			if((typeOf _x) == "#dynamicsound") then {
 				deleteVehicle _x;
 			};
 		} foreach nearestObjects [_tank,[],5];
@@ -481,6 +444,7 @@
 
 	private _jerry = attachedTo _intersect;
 	if((_jerry getVariable["class",""]) isEqualTo "jerrycan") exitwith {["This jerrycan is already full", "red"] call A3PL_Player_Notification;};
+	if((_jerry getVariable["amount",0]) > 1) exitWith {["You can only refuel jerrycans one by one", "red"] call A3PL_Player_Notification;};
 	private _station = nearestObjects [_tank,["Land_A3PL_Gas_Station"],10];
 	if ((count _station) < 1) exitwith {[localize"STR_NewHydrogen_24", "red"] call A3PL_Player_Notification;};
 	_station = _station select 0;
@@ -500,13 +464,13 @@
 	private _full = false;
 	while {(_intersect animationPhase "gasTurn" > 0) && ((attachedTo _intersect) isEqualTo _jerry) && ((_station getVariable ["petrol",0]) > 0)} do
 	{
-		_gallons = 0.25 + random 0.15;
+		_gallons = 0.2;
 		_totalGallons = _totalGallons + _gallons;
 		_myPrice = round(_gallonPrice * _totalGallons);
 
-		[_station,1,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myPrice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
-		[_station,2,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myPrice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
-		[_station,3,([_totalGallons,1,2] call CBA_fnc_formatNumber),([_myPrice,1,2] call CBA_fnc_formatNumber)] call A3PL_Hydrogen_SetNumbers;
+		[_station,1,round(_totalGallons),_myPrice] call A3PL_Hydrogen_SetNumbers;
+		[_station,2,round(_totalGallons),_myPrice] call A3PL_Hydrogen_SetNumbers;
+		[_station,3,round(_totalGallons),_myPrice] call A3PL_Hydrogen_SetNumbers;
 		if (_totalGallons >= 5) exitwith {_full = true;};
 		_newgas = (_station getVariable ["petrol",0]) - _gallons;
 		if (_newGas < 0) then {_newGas = 0;};

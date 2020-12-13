@@ -98,11 +98,18 @@
 			case ("A3PL_Fatboy_PD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3PL_Taurus_FD"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_T370"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_T440"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_T440_Tow_Truck"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_T440_Gas_Tanker"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_Nissan_GTR"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_Nissan_GTR_LW"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_Smart_Car"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_BMW_M6"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 			case ("A3FL_Mercedes_Benz_AMG_C63"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_Explorer_Platinum_20"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_Explorer_Platinum_PD_20"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_Explorer_Platinum_PD_Slicktop_20"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
+			case ("A3FL_Explorer_Platinum_FD_20"): {_veh call A3PL_Vehicle_Init_A3PL_Engine;};
 		};
 	};
 
@@ -675,20 +682,14 @@
 
 ["A3PL_Vehicle_Init_A3PL_Tahoe_PD",
 {
-	private ["_veh"];
-	_veh = _this;
-	_veh addEventHandler ["GetIn",
+	_this addEventHandler ["GetIn",
 	{
-		_veh = param [0,objNull];
-		_position = param [1,""];
-		_unit = param [2,objNull];
-
+		params ["_vehicle", "_role", "_unit", "_turret"];
 		if (!local _unit) exitwith {};
-
-		if (_position == "driver") then
+		if (_role == "driver") then
 		{
-			[_veh] spawn A3PL_Police_RadarLoop;
-			[_veh] spawn A3PL_Vehicle_DriverSpotlight;
+			[_vehicle] spawn A3PL_Police_RadarLoop;
+			[_vehicle] spawn A3PL_Vehicle_ControlSpotlight;
 		};
 	}];
 }] call Server_Setup_Compile;
@@ -732,6 +733,9 @@
 ["A3PL_Vehicle_Init_A3PL_Charger15_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Charger15_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_Charger15_FD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3FL_Explorer_Platinum_PD_20",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3FL_Explorer_Platinum_PD_Slicktop_20",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
+["A3PL_Vehicle_Init_A3FL_Explorer_Platinum_FD_20",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 
 ["A3PL_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;
 ["A3PL_Vehicle_Init_A3PL_VetteZR1_PD",{_this call A3PL_Vehicle_Init_A3PL_Tahoe_PD;}] call Server_Setup_Compile;

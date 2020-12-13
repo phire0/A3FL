@@ -61,7 +61,7 @@
 			};
 		} else {
 			if(_itemType in ["vehicle","plane"]) then {
-				_objects = nearestObjects [player,[_itemClass],10,true];
+				_objects = player nearEntities [[_itemClass],10];
 				if((count _objects) > 0) then {
 					_i = _control lbAdd format ["%1 (Near: %2x)",_itemName,(count _objects)];
 				} else {
@@ -170,12 +170,6 @@
 				[format[localize "STR_SHOP_NOTENOUGHGIFT",_totalprice-(["gift"] call A3PL_Inventory_Return)],"red"] call A3PL_Player_Notification;
 			};
 		};
-		case ("dirty_cash"):
-		{
-			if (["dirty_cash",_totalPrice] call A3PL_Inventory_Has) then {_moneyCheck = true;} else {
-				[format[localize "STR_SHOP_NOTENOUGHDIRTYMONEY",_totalprice-(["dirty_cash"] call A3PL_Inventory_Return)],"red"] call A3PL_Player_Notification;
-			};
-		};
 		default
 		{
 			if ((player getVariable [_currency,0]) >= _totalPrice) then {_moneyCheck = true;} else {
@@ -227,16 +221,7 @@
 		case ("aitem"): {player addItem _itemClass; _itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName");};
 		case ("vehicle"): {[player,[_itemClass,1],"","car"] remoteExec ["Server_Factory_Create", 2]; _itemName = getText (configFile >> "CfgVehicles" >> _itemClass >> "displayName");};
 		case ("plane"): {[player,[_itemClass,1],"","plane"] remoteExec ["Server_Factory_Create", 2]; _itemName = getText (configFile >> "CfgVehicles" >> _itemClass >> "displayName");};
-		case ("weapon"): {
-			_itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName");
-			if(_itemClass isEqualTo "A3PL_FireExtinguisher") then {
-				player addWeapon _itemClass;
-				uiSleep 0.1;
-				player addMagazines["A3PL_Extinguisher_Water_Mag", 1];
-			} else {
-				player addItem _itemClass;
-			};
-		};
+		case ("weapon"): {player addItem _itemClass;_itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName");};
 		case ("weaponPrimary"): {player addWeapon _itemClass; _itemName = getText (configFile >> "CfgWeapons" >> _itemClass >> "displayName");};
 		case ("magazine"): {player addMagazines [_itemClass, _amount];_itemName = getText (configFile >> "CfgMagazines" >> _itemClass >> "displayName");};
 		case ("goggles"): {player addGoggles _itemClass; _itemName = getText (configFile >> "CfgGlasses" >> _itemClass >> "displayName");};
@@ -347,7 +332,7 @@
 			{
 				if (!([_itemClass,"canPickup"] call A3PL_Config_GetItem)) then
 				{
-					_near = nearestObjects [player, [([_itemClass,"class"] call A3PL_Config_GetItem)], 20, true];
+					_near = player nearEntities [[([_itemClass,"class"] call A3PL_Config_GetItem)],20];
 					{
 						if ((_x getVariable "class") isEqualTo _itemClass) exitwith
 						{
@@ -370,25 +355,23 @@
 		};
 		case ("vehicle"):
 		{
-			private ["_vehicles","_vehicle"];
-			_vehicles = nearestObjects [player,["Car","Tank","Air","Plane","Ship"],15];
-			_vehicle = objNull;
-			if (count _vehicles < 1) exitwith {["You can not find your vehicle nearby! Thank you to bring it closer to the store to sell!"] call A3PL_Player_Notification;};
+			private _vehicles = player nearEntities [["Car","Tank","Air","Plane","Ship"],20];
+			private _vehicle = objNull;
+			if ((count _vehicles) < 1) exitwith {["Please bring it closer to the store!","red"] call A3PL_Player_Notification;};
 			{
-				if (((_x getVariable ["owner",[]]) select 0) isEqualTo (getPlayerUID player) && (typeOf _x) isEqualTo _itemClass) exitwith {
+				if (((typeOf _x) == _itemClass) && {((_x getVariable ["owner",[]]) select 0) isEqualTo (getPlayerUID player)}) exitwith {
 					_vehicle = _x;
 				};
 			} foreach _vehicles;
-			if (isNull _vehicle) exitwith {["You can not find your vehicle nearby! Thank you to bring it closer to the store to sell! (Only the owner of the vehicle can sell it)"] call A3PL_Player_Notification;};
+			if (isNull _vehicle) exitwith {["Please bring it closer to the store! (Only the owner of the vehicle can sell it)","red"] call A3PL_Player_Notification;};
 			[_vehicle] remoteExec ["Server_Vehicle_Sell",2];
 			_itemName = getText (configFile >> "CfgVehicles" >> (typeOf _vehicle) >> "displayName");
 			_has = true;
 		};
 		case ("plane"):
 		{
-			private ["_vehicles","_vehicle"];
-			_vehicles = nearestObjects [player,["Car","Tank","Air","Plane","Ship"],15];
-			_vehicle = objNull;
+			private _vehicles = player nearEntities [["Car","Tank","Air","Plane","Ship"],20];
+			private _vehicle = objNull;
 			if (count _vehicles < 1) exitwith {["You can not find your vehicle nearby! Thank you to bring it closer to the store to sell!"] call A3PL_Player_Notification;};
 			{
 				if (((_x getVariable ["owner",[]]) select 0) isEqualTo (getPlayerUID player) && (typeOf _x) isEqualTo _itemClass) exitwith {
@@ -598,7 +581,7 @@
 
 	if(_type IN ["headgear","goggles","uniform","vest","backpack"]) then {
 		A3PL_SHOP_ITEMPREVIEW = "C_man_p_beggar_F" createvehicleLocal [0,0,0];
-		A3PL_SHOP_ITEMPREVIEW setPosATL [3852.79,9261.27,0.168];
+		A3PL_SHOP_ITEMPREVIEW setPosASL [14321.1,15.9644,1017.32];
 		A3PL_SHOP_ITEMPREVIEW enableSimulation false;
 
 		A3PL_SHOP_ITEMPREVIEW setUnitLoadout (getUnitLoadout player);

@@ -104,10 +104,6 @@
 {
 	private _cellDoor = param [0,objNull];
 	private _prison = param [1, objNull];
-	private _factionReq = !(((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 3) || (((count(["fims"] call A3PL_Lib_FactionPlayers)) >= 1) && ((count(["fisd"] call A3PL_Lib_FactionPlayers)) >= 3)));
-	if(!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && _factionReq) exitwith {
-		["There needs to be 3 FIMS or 1 FIMS + 3 FISD on-duty to lockpick your cell!","red"] call A3PL_Player_Notification;
-	};
 
 	player playmove "Acts_carFixingWheel";
 	["You are attempting to lockpick this cell door", "yellow"] call A3PL_Player_Notification;
@@ -117,10 +113,10 @@
 	["Lockpicking...",25] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
-		if (!(vehicle player isEqualTo player)) exitwith {Player_ActionInterrupted = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = false;};
-		if (!(player_itemClass isEqualTo "v_lockpick")) exitwith {Player_ActionInterrupted = false;};
-		if (!(["v_lockpick",1] call A3PL_Inventory_Has)) exitwith {Player_ActionInterrupted = false;};
+		if (!(vehicle player isEqualTo player)) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
+		if (!(player_itemClass isEqualTo "v_lockpick")) exitwith {Player_ActionInterrupted = true;};
+		if (!(["v_lockpick",1] call A3PL_Inventory_Has)) exitwith {Player_ActionInterrupted = true;};
 		if ((animationState player) != "Acts_carFixingWheel") then {player playmove "Acts_carFixingWheel";}
 	};
 	if ((vehicle player) isEqualTo player) then {player switchMove "";};
@@ -130,7 +126,7 @@
 	[player,"v_lockpick",-1] remoteExec ["Server_Inventory_Add",2];
 
 	_chance = random 100;
-	if(_chance >= 70) exitWith {["Failed to lockpick cell door!", "red"] call A3PL_Player_Notification;};
+	if(_chance >= 75) exitWith {["Failed to lockpick cell door!", "red"] call A3PL_Player_Notification;};
 	["Successfully lockpicked cell door!", "green"] call A3PL_Player_Notification;
 	_prison animate [_cellDoor,1];
 }] call Server_Setup_Compile;
@@ -145,51 +141,32 @@
 	["Searching Trash...",30] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
-		if (!(vehicle player isEqualTo player)) exitwith {Player_ActionInterrupted = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = false;};
 		if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
 	};
-	if ((vehicle player) isEqualTo player) then {player switchMove "";};
+	player switchMove "";
 	if(Player_ActionInterrupted) exitWith {["Search cancelled!", "red"] call A3PL_Player_Notification;};
 
-	_rareItems = ["v_lockpick","keycard","zipties"];
-	_commonItems = ["beer","beer_gold","seed_marijuana","cocaine","weed_10g"];
-	_pItems = ["A3PL_Pickaxe","A3PL_Shovel","A3PL_Cellphone","A3PL_TaserMag"];
-	_rarerItems = ["A3FL_BaseballBat","A3PL_Taser"];
+	private _rareItems = ["v_lockpick","keycard","zipties"];
+	private _commonItems = ["seed_marijuana","cocaine","weed_10g","cyanide_pills"];
+	private _pItems = ["A3PL_Pickaxe","A3PL_Shovel","A3PL_Cellphone"];
+	private _rarerItems = ["A3FL_BaseballBat"];
+	private _chance = random 100;
 
-	_foundRare = false;
-	_chance = random 100;
-	if(_chance > 85) then {
-		[(selectRandom _rareItems),1] call A3PL_Inventory_Add;
-		["You found a rare item!", "green"] call A3PL_Player_Notification;
-		_foundRare = true;
-	};
-
-	_foundCommon = false;
-	_chance = random 100;
-	if(_chance > 55) then {
-		[(selectRandom _commonItems),1] call A3PL_Inventory_Add;
-		["You found an illegal item!", "green"] call A3PL_Player_Notification;
-		_foundRare = true;
-	};
-
-	_foundItem = false;
-	_chance = random 100;
-	if(_chance >= 75) then {
-		player addItem (selectRandom _pItems);
-		["You found an item!", "green"] call A3PL_Player_Notification;
-		_foundItem = true;
-	};
-
-	_foundRarer = false;
-	_chance = random 100;
-	if (_chance > 90) then {
+	if (_chance > 90) exitWith {
 		[(selectRandom _rarerItems),1] call A3PL_Inventory_Add;
 		["You found a very rare item!", "green"] call A3PL_Player_Notification;
-		_foundRarer = true;
 	};
+	if(_chance > 85) exitWith {
+		[(selectRandom _rareItems),1] call A3PL_Inventory_Add;
+		["You found a rare item!", "green"] call A3PL_Player_Notification;
+	};
+	if(_chance >= 75) exitWith {
+		player addItem (selectRandom _pItems);
+		["You found an item!", "green"] call A3PL_Player_Notification;
+	};	
 
-	if(!_foundRare && !_foundItem && !_foundRarer) then {["You didn't find anything!", "red"] call A3PL_Player_Notification;};
+	[(selectRandom _commonItems),1] call A3PL_Inventory_Add;
+	["You found an item!", "green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
 ["A3PL_Prison_DigOut",
@@ -348,4 +325,12 @@
 			[_obj,_anim,false,0] call A3PL_Lib_ToggleAnimation;
 		};
 	};
+}] call Server_Setup_Compile;
+
+["A3PL_Prison_Suicide",
+{
+	["cyanide_pills",-1] call A3PL_Inventory_Add;
+	[] call A3PL_Inventory_Clear;
+	sleep 5;
+	player setDamage 1;
 }] call Server_Setup_Compile;

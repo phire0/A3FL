@@ -10,8 +10,9 @@
 {
 	disableSerialization;
 	private _box = param [0,player_objintersect];
-	if (isNull _box) exitwith {[localize"STR_NewHousing_1)"] call A3PL_Player_Notification;};
+	if (isNull _box) exitwith {[localize"STR_NewHousing_1"] call A3PL_Player_Notification;};
 	if (player distance _box > 5 ) exitwith {["You are too far away from this box to open it!","red"] call A3PL_Player_Notification;};
+	if (player getVariable ["patdown",false]) exitwith {["Someone is patting you down.","red"] call A3PL_Player_Notification;};
 	if (_box getVariable ["inuse",false]) exitwith {[localize"STR_NewHousing_2","red"] call A3PL_Player_Notification;};
 	_box setVariable ["inuse",true,true];
 
@@ -422,61 +423,58 @@
 	[player, (_near select 0)] remoteExec ["Server_Housing_RemoveMember",2];
 }] call Server_Setup_Compile;
 
-
-/*{
-			private _playerLevel = player getVariable["Player_Level",0];
-			if(_playerLevel < 10) then {
-				[format[localize"STR_Inter_Notifications_Level10ThingsPerks"], "red"] call A3PL_Player_Notification;
-			} else {
-				private _house = (nearestObjects [getPos player, Config_Houses_List, 10,true]) select 0;
-				private _uids = _house getVariable ["owner",[]];
-				if(count _uids isEqualTo 0) exitwith {[localize"STR_Inter_Notifications_HouseNotRent", "red"] call A3PL_Player_Notification;};
-				_uid = _uids select 0;
-				if((getPlayerUID player) isEqualTo _uid) then {
-					private _namePos = [getPos _house] call A3PL_Housing_PosAddress;
-					[cursorObject, _house] remoteExec ["Server_Housing_RemoveMember",2];
-					[format[localize"STR_Inter_Notifications_FireColloc",_namePos], "green"] call A3PL_Player_Notification;
-				} else {
-					[localize"STR_Inter_Notifications_FirstOwnerFire", "red"] call A3PL_Player_Notification;
-				};
-			};
-		},*/
-
-		/*disableSerialization;
-
-	createDialog "Dialog_Insurance";
-	_display = findDisplay 153;
-
-	private _playerHouse = player getVariable ["house", objNull];
-	if (isNull _playerHouse) exitWith {};
-
-	private _roommates = [];
-
-	{
-		_i = lbAdd [1500, str(_x)];
-		lbSetData [1500, _i, (_x)];
-		_roommates pushback _x;
-	} forEach (_playerHouse getVariable ["owner", []]);*/
-
 ["A3PL_Housing_RemoveRoommateReceive",
 {
-	private _roommates = param[0, [], [[]]];
+	params[
+		["_roommates", [], [[]]]
+	];
 
-	if (_roommates isEqualTo []) exitWith {hint "Roommates array is empty...";};
+	if (_roommates isEqualTo []) exitWith {
+		["There was an error while obtaining the list of roommates, please try again.", "red"] call A3PL_Player_Notification;
+	};
 
 	disableSerialization;
 
 	createDialog "Dialog_Roommates";
-	_display = findDisplay 87;
+	private _display = findDisplay 87;
 
 	{
-		_i = lbAdd [1500, (_x select 1)];
+		private _i = lbAdd [1500, (_x select 1)];
 		lbSetData [1500, _i, (_x select 0)];
 	} forEach _roommates;
-
 }] call Server_Setup_Compile;
 
 ["A3PL_Housing_RemoveRoommate",
 {
+	private _display = findDisplay 87;
+	private _control = _display displayCtrl 1500;
+	private _removeID = _control lbData (lbCurSel _control);
+
+	private _house = player getVariable ["house", objNull];
 	
+	// Cannot remove self
+	if ((getPlayerUID player) isEqualTo _removeID) exitWith {
+		["You cannot remove yourself from the house.", "red"] call A3PL_Player_Notification;
+	};
+
+	private _allPlayers = call BIS_fnc_listPlayers;
+	private _isConnected = [objNull, false];
+	{
+		if ((getPlayerUID _x) isEqualTo _removeID) exitWith {
+			_isConnected = [_x, true];
+		};
+	} forEach _allPlayers;
+
+	if (!(isNull _house)) then {
+		if (!(_isConnected select 1)) then {
+			// Member is offline
+			[player, _removeID] remoteExec ["Server_Housing_RemoveMemberOffline", 2];
+		} else {
+			// Member is online
+			["You removed a roommate!","green"] call A3PL_Player_Notification;
+			[(_isConnected select 0), _house] remoteExec ["Server_Housing_RemoveMember", 2];
+		};
+	};
+
+	closeDialog 0;
 }] call Server_Setup_Compile;

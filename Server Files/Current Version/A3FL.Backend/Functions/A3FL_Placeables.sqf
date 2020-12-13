@@ -17,7 +17,7 @@
 		_owner = _obj getVariable ["owner",nil];
 		if (!isNil "_owner") then
 		{
-			if (typeName _owner == "ARRAY") then
+			if (_owner isEqualType []) then
 			{
 				if (getPlayerUID player == (_owner select 0)) then
 				{
@@ -98,7 +98,7 @@
 				[] call A3PL_Inventory_Drop;
 			};
 		};
-		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfisherstable1","mcfisherstable2","mcfishergrill"]) then
+		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfisherstable1","mcfisherstable2","mcfishergrill","mcFishersGrill1","mcFishersGrill1"]) then
 		{
 			private ["_interDist","_dist","_begPosASL","_endPosASL","_posAGL"];
 			_interDist = [player_objintersect, "FIRE"] intersect [positionCameraToWorld [0,0,0],positionCameraToWorld [0,0,1000]];
@@ -107,23 +107,8 @@
 			_begPosASL = AGLToASL positionCameraToWorld [0,0,0];
 			_endPosASL = AGLToASL positionCameraToWorld [0,0,1000];
 			_posAGL = ASLToAGL (_begPosASL vectorAdd ((_begPosASL vectorFromTo _endPosASL) vectorMultiply _dist));
-
-			switch (typeOf _obj) do
-			{
-				case ("A3PL_Stinger"):
-				{
-					_obj attachto [player,
-					[
-						(player worldToModel (getposATL _obj)) select 0,
-						(player worldToModel (getposATL _obj)) select 1,
-						((player worldToModelVisual _posAGL) select 2) + ([_obj,true] call A3PL_Placeable_GetZOffset)
-					]];
-				};
-				case default {_obj attachto [player,[(player worldToModelVisual _posAGL) select 0,(player worldToModelVisual _posAGL) select 1,((player worldToModelVisual _posAGL) select 2) + ([_obj,true] call A3PL_Placeable_GetZOffset)]];};
-			};
-
+			_obj attachto [player,[(player worldToModelVisual _posAGL) select 0,(player worldToModelVisual _posAGL) select 1,((player worldToModelVisual _posAGL) select 2) + ([_obj,true] call A3PL_Placeable_GetZOffset)]];
 			_sleep = 0.1;
-
 			if (_type == "GroundWeaponHolder") exitwith
 			{
 				detach _obj;
@@ -175,6 +160,15 @@
 					{
 						Player_Item attachTo [player, [0,0,0], 'LeftHand'];
 					};
+					case ("stinger"):
+					{
+						Player_Item attachto [player,
+						[
+							0,
+							(player worldToModel (getposATL Player_Item)) select 1,
+							0.1
+						]];
+					};
 					case default {Player_Item attachTo [player, _attach, 'RightHand'];};
 				};
 			};
@@ -203,12 +197,10 @@
 
 ['A3PL_Placeable_ObjectZFix',
 {
-	private ["_obj","_posZ"];
-	_obj = _this select 0;
-	_posZ = (boundingboxReal _obj) select 0; // Okay now we have a x,y,z model coordinate relative to model center
+	private _obj = _this select 0;
+	private _posZ = (boundingboxReal _obj) select 0; // Okay now we have a x,y,z model coordinate relative to model center
 	_posZ = _obj modelToWorld _posZ; // lets convert this to world coordinates
 	_posZ = (_posZ select 2); //Okay we have world coordinates, lets get rid of X and Y, we will now end up with the difference between terrain and object
-
 	_posZ = _posZ - ((getposATL player) select 2); // Okay now we add the Z of the player on top of that
 	_posZ;
 }] call Server_Setup_Compile;
@@ -223,7 +215,8 @@
 	_posZ;
 }] call Server_Setup_Compile;
 
-['A3PL_Placeables_QuickAction', {
+['A3PL_Placeables_QuickAction',
+{
 	private _attached = [] call A3PL_Lib_Attached;
 	if (count _attached > 0) exitwith
 	{
@@ -237,13 +230,11 @@
 			};
 		} foreach _collision;
 
-		//if we are supposedly placing an item in something we will also exclude it
-		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill"]) then
+		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill","mcFishersGrill1","mcFishersGrill1"]) then
 		{
 			_collision = _collision - [player_objintersect];
 		};
 
-		//skip collision check for gear
 		if (typeOf _obj == "GroundWeaponHolder") then
 		{
 			_collision = [];
@@ -251,14 +242,9 @@
 
 		_except = ["A3PL_EMS_Stretcher","A3PL_Ladder"];
 		if ((count _collision > 0) && !((typeOf _obj) IN _except)) exitwith {[localize"STR_NewPlaceables_4", "red"] call A3PL_Player_Notification;};
+		if (freeLook) exitwith {[localize"STR_NewPlaceables_5", "red"] call A3PL_Player_Notification;};
 
-		//check to see if player is freelooking
-		if (freeLook) exitwith
-		{
-			[localize"STR_NewPlaceables_5", "red"] call A3PL_Player_Notification;
-		};
-
-		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill"]) exitwith
+		if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11","lockerbottom","lockertop","mcfishertable","mcfishergrill","mcFishersGrill1","mcFishersGrill1"]) exitwith
 		{
 			if (Player_NameIntersect IN ["lockerbottom","lockertop"]) exitwith
 			{
@@ -273,26 +259,28 @@
 					[false] call A3PL_Inventory_Drop;
 				};
 			};
-
-			//mcfisher
-			if (Player_NameIntersect IN ["mcfishertable","mcfishergrill"]) exitwith
+			if (Player_NameIntersect IN ["mcfishertable","mcfishergrill","mcFishersGrill1","mcFishersGrill1"]) exitwith
 			{
-				detach _obj;
-				_obj attachto [player_objintersect];
-				if (_obj == Player_Item) then
-				{
-					[false] call A3PL_Inventory_Drop;
+				private _curPos = (getPos _obj);
+				private _position = [_curPos select 0, _curPos select 1, (_curPos select 2) + 0.025];
+				private _new = createVehicle [typeOf _obj,_position, [], 0, "CAN_COLLIDE"];
+				_new setVariable["class",Player_ItemClass,true];
+				_new setVariable["amount",1,true];
+				_new attachto [player_objintersect];
+				if(!isNil 'Player_ItemAmount') then {
+					Player_ItemAmount = Player_ItemAmount - 1;
+					[Player_ItemClass,-1] call A3PL_Inventory_Add;
+					if(Player_ItemAmount isEqualTo 0) then{[] call A3PL_Inventory_Clear;};
 				};
+				[_new] call A3PL_JobMcfisher_CookBurger;
 			};
-
 			if (Player_NameIntersect IN ["trunkinside","trunkinside1","trunkinside2","trunkinside3","trunkinside4","trunkinside5","trunkinside6","trunkinside7","trunkinside8","trunkinside9","trunkinside10","trunkinside11"]) exitwith
 			{
-				if ([Player_ObjIntersect,_obj] call A3PL_Placeable_CarBlacklist) exitwith {[localize"STR_NewPlaceables_6", "red"] call A3PL_Player_Notification;};
 				_dir = getDir _obj;
 				detach _obj;
 				_obj setvelocity [0,0,0];
 				_obj attachto [(call A3PL_Intersect_Cursortarget)];
-				_obj setDir (_dir + (360 - (getDir player_objintersect))); //Add direction and add (360-direction player)
+				_obj setDir (_dir + (360 - (getDir player_objintersect)));
 				_obj setpos (getpos _obj);
 
 				if (_obj == Player_Item) then
@@ -310,69 +298,16 @@
 	call A3PL_Placeables_Pickup;
 }] call Server_Setup_Compile;
 
-['A3PL_Placeable_CarBlacklist',
-{
-	private ["_car","_obj","_return"];
-	_car = typeOf (_this select 0);
-	_obj = (getModelInfo (_this select 1)) select 0;
-	_return = false;
-	{
-		if (_x select 0 == _car) exitwith
-		{
-			{
-				if ((format ["%1.p3d",_x]) == _obj) then
-				{
-					_return = true;
-				};
-			} foreach (_x select 1);
-		};
-	} foreach Config_CarFurnitureBlacklist;
-	_return;
-}] call Server_Setup_Compile;
-
-['A3PL_Placeable_CarMaxObj',
-{
-	private ["_car","_return"];
-	_car = typeOf (_this select 0);
-	_return = 1;
-	{
-		if (_x select 0 == _car) exitwith
-		{
-			_return = (_x select 2);
-		};
-	} foreach Config_CarFurnitureBlacklist;
-	_return;
-}] call Server_Setup_Compile;
-
-//This function is in charge for setting additional text to locker door1 intersection
-['A3PL_Placeables_Return', {
-	private ["_return"];
-	_return = "";
-	if ((typeOf (call A3PL_Intersect_Cursortarget)) == "Land_A3PL_Locker") exitwith
-	{
-		_return = (call A3PL_Intersect_Cursortarget) getVariable "Owner";
-		_return
-	};
-	_return
-}] call Server_Setup_Compile;
-
 ["A3PL_Placeables_PlaceCone",
 {
-	private ["_cones","_cone"];
-	_cones = ([] call A3PL_Lib_Attached) select 0;
+	private _cones = ([] call A3PL_Lib_Attached) select 0;
 	if (isNil "_cones") then {_cones = objNull;};
 	if ((typeOf _cones) != "A3PL_RoadCone_x10") exitwith {[localize"STR_NewPlaceables_8","red"] call A3PL_Player_Notification;};
-
-	//animate the cones
-	_sourcePhase = _cones animationSourcePhase "cone_hide";
-	if (_sourcePhase >= 9) exitwith {detach _cones;}; //drop the cones if this is the last one we're placing
+	private _sourcePhase = _cones animationSourcePhase "cone_hide";
+	if (_sourcePhase >= 9) exitwith {detach _cones;};
 	_cones animateSource ["cone_hide",_sourcePhase + 1];
-
-	//create a cone
-	_cone = createVehicle ["A3PL_RoadCone", (getPosATL _cones), [], 0, "CAN_COLLIDE"];
+	private _cone = createVehicle ["A3PL_RoadCone", (getPosATL _cones), [], 0, "CAN_COLLIDE"];
 	_cone setVariable ["class","roadcone",true];
-
-	//msg
 	[localize"STR_NewPlaceables_9","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -387,7 +322,6 @@
 	_nearCone = _nearCone select 0;
 
 	if ((((_cone animationSourcePhase "cone_hide") <= 0) && (typeOf _cone == "A3PL_RoadCone_x10")) OR (((_nearcone animationSourcePhase "cone_hide") <= 0) && (typeOf _nearcone == "A3PL_RoadCone_x10"))) exitwith {[localize"STR_NewPlaceables_11","red"] call A3PL_Player_Notification;};
-
 	if ((typeOf _nearCone == "A3PL_RoadCone_x10") && (typeOf _cone == "A3PL_RoadCone_x10")) exitwith
 	{
 		_animPhase = 10 - (_nearCone animationSourcePhase "cone_hide");
@@ -397,7 +331,6 @@
 			_cone setVariable ["class","roadcones",true];
 		};
 	};
-
 	if ((typeOf _nearCone == "A3PL_RoadCone_x10") OR (typeOf _cone == "A3PL_RoadCone_x10")) exitwith
 	{
 		if (typeOf _nearCone == "A3PL_RoadCone_x10") then

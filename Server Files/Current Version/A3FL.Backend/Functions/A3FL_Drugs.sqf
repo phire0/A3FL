@@ -10,7 +10,7 @@
 {
 	private _add = param [0,0];
 	Player_Alcohol = Player_Alcohol + (_add);
-	player setVariable["alcohol",true,true];
+	if(Player_Alcohol > 0) then {player setVariable["alcohol",true,true];};
 	profileNamespace setVariable ["player_alcohol",Player_Alcohol];
 }] call Server_Setup_Compile;
 
@@ -120,6 +120,7 @@
 		profileNamespace setVariable ["player_drugs",[0,0,0]];
 		Player_Drugs = [0,0,0];
 		[player, "left upper arm", "drug_overdose"] call A3PL_Medical_ApplyWound;
+		player setDamage 1;
 	};
 
 	// Shrooms
@@ -164,7 +165,7 @@
 		// "colorCorrections" ppEffectEnable true;
 		// "colorCorrections" ppEffectAdjust [0.5, 0.5, 0, [(random 10),(random 10),(random 10),0.2], [1,1,5,2], [(random 5),(random 5),(random 5),(random 5)]];
 		// "colorCorrections" ppEffectCommit 40;
-		player setAnimSpeedCoef 1.2;
+		player setAnimSpeedCoef 1.4;
 
 		//Adjusting animations speed
 		//player setAnimSpeedCoef (1+(_totalDrugs/200));

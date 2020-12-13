@@ -100,7 +100,7 @@
 	_craneleft setDir 232.025;
 	_craneleft setFuel 0;
 
-	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 3600]] call BIS_fnc_loop;
+	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 7200]] call BIS_fnc_loop;
 
 	["itemAdd", ["Server_PoliceLoop", { call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_Fishing", {call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
@@ -185,5 +185,5 @@
 	A3PL_Event_CrimePayout = 1;
 	publicVariable "A3PL_Event_CrimePayout";
 
-	Server_AllBusStops = nearestObjects [[6420.21,7001.08,0], ["Land_A3PL_BusStop"], 5000, false];
+	Server_AllBusStops = [6420.21,7001.08,0] nearEntities [["Land_A3PL_BusStop"],5000];
 },true,true] call Server_Setup_Compile;

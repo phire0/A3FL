@@ -43,7 +43,7 @@
 	[_store,"Vualt_Handle",false] call A3PL_Lib_ToggleAnimation;
 	_store setVariable ["CanOpenSafe",false,true];
 
-	{deleteVehicle _x;} foreach (nearestObjects [_store, ["A3PL_PileCash"], 20]);
+	{deleteVehicle _x;} foreach (_store nearEntities [["A3PL_PileCash"],20]);
 	[player, 50] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
@@ -147,7 +147,7 @@
 	_object setVariable[_name,true,true];
 	switch(_name) do {
 		case("jewlery_case_1"): {
-			_time = 30;
+			_time = 45;
 			_items = [
 				["ringset",4],
 				["ring",2],
@@ -155,7 +155,7 @@
 			];
 		};
 		case("jewlery_case_2"): {
-			_time = 30;
+			_time = 45;
 			_items = [
 				["ringset",4],
 				["ring",2],
@@ -163,7 +163,7 @@
 			];
 		};
 		case("jewlery_case_3"): {
-			_time = 30;
+			_time = 45;
 			_items = [
 				["ringset",4],
 				["ring",2],
@@ -171,25 +171,25 @@
 			];
 		};
 		case("jewlery_case_4"): {
-			_time = 15;
+			_time = 30;
 			_items = [
 				["crown",1]
 			];
 		};
 		case("jewlery_case_5"): {
-			_time = 15;
+			_time = 30;
 			_items = [
 				["necklace",1]
 			];
 		};
 		case("jewlery_case_6"): {
-			_time = 15;
+			_time = 30;
 			_items = [
 				["golden_dildo",1]
 			];
 		};
 		case("jewlery_case_7"): {
-			_time = 45;
+			_time = 60;
 			_items = [
 				["ringset",9],
 				["ring",6],
@@ -197,7 +197,7 @@
 			];
 		};
 		case("jewlery_case_8"): {
-			_time = 45;
+			_time = 60;
 			_items = [
 				["ringset",9],
 				["ring",6],
@@ -205,7 +205,7 @@
 			];
 		};
 		case("jewlery_case_9"): {
-			_time = 45;
+			_time = 60;
 			_items = [
 				["ringset",9],
 				["ring",6],
@@ -221,16 +221,15 @@
 	};
 
 	["Stealing Jewelry...",_time] spawn A3PL_Lib_LoadAction;
-	_success = true;
 	waitUntil{Player_ActionDoing};
 	while {Player_ActionDoing} do {
-		if ((player distance2D (_object modelToWorldVisual (_object selectionPosition [_name,"Memory"]))) > 3) exitwith {_success = false};
-		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if ((player distance2D (_object modelToWorldVisual (_object selectionPosition [_name,"Memory"]))) > 3) exitwith {Player_ActionInterrupted = true};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
 		if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
 	};
 	player playMoveNow "";
-	if(Player_ActionInterrupted || !_success) exitWith {["Action cancelled","red"] call A3PL_Player_Notification;_object setVariable[_name,nil,true];};
+	if(Player_ActionInterrupted) exitWith {["Action cancelled","red"] call A3PL_Player_Notification;_object setVariable[_name,nil,true];};
 
 	{
 		private _class = _x select 0;
@@ -240,4 +239,29 @@
 	_object animate [_name,1];
 	_object setVariable[_name,nil,true];
 	["You stole the jewelry!","green"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
+
+["A3PL_Jewelry_HandleDoor",
+{
+	private _store = param [0,objNull];
+	private _name = param [1,""];
+	if (_name IN ["door_1","door_2"]) exitwith {[_store,_name,false] call A3PL_Lib_ToggleAnimation;};
+	if (!(player getVariable["job","unemployed"] IN ["fims","fisd","uscg"]) && !(["keycard",1] call A3PL_Inventory_Has)) exitwith {["You cannot use this button!","red"] call A3PL_Player_Notification;};
+	if (_name IN ["jewelry_3_button","jewelry_3_button2","jewelry_4_button","jewelry_4_button2","jewelry_5_button","jewelry_5_button2"]) exitwith {
+		private _anim = switch (_name) do
+		{
+			case "jewelry_3_button": {[_store,"door_3",false] call A3PL_Lib_ToggleAnimation;};
+			case "jewelry_3_button2": {[_store,"door_3",false] call A3PL_Lib_ToggleAnimation;};
+			case "jewelry_4_button": {[_store,"door_4",false] call A3PL_Lib_ToggleAnimation;};
+			case "jewelry_4_button2": {[_store,"door_4",false] call A3PL_Lib_ToggleAnimation;};
+			case "jewelry_5_button": {
+				[_store,"door_5",false] call A3PL_Lib_ToggleAnimation;
+				[_store,"door_6",false] call A3PL_Lib_ToggleAnimation;
+			};
+			case "jewelry_5_button2": {
+				[_store,"door_5",false] call A3PL_Lib_ToggleAnimation;
+				[_store,"door_6",false] call A3PL_Lib_ToggleAnimation;
+			};
+		};
+	};
 }] call Server_Setup_Compile;

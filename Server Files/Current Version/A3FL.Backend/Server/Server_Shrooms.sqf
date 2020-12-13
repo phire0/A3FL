@@ -8,8 +8,8 @@
 
 ["Server_Shrooms_Loop",
 {
-	private _shrooms = nearestObjects [(getMarkerPos "Shroom_Picking"), ["A3FL_Mushroom"], 40, true];
-	private _shroomsCount = count nearestObjects [(getMarkerPos "Shroom_Picking"), ["A3FL_Mushroom"], 40, true];
+	private _shrooms = (getMarkerPos "ShroomPicking") nearEntities [["A3FL_Mushroom"],40];
+	private _shroomsCount = count (_shrooms);
 	private _players = count ((getMarkerPos "Shroom_Picking") nearEntities ["Man", 50]);
 	if (_players < 1 && _shroomsCount > 0) then {
 		{

@@ -88,7 +88,7 @@ Server_Setup_Files = [
 	['Functions', 'A3FL_Jewelry'],
 
 	//Events Functions
-	['Functions', 'A3FL_Halloween'],
+	//['Functions', 'A3FL_Halloween'],
 
 	//Server Files
 	['Server', 'Server_Addresses'],

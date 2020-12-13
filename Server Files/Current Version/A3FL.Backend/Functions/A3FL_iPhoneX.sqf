@@ -335,6 +335,37 @@
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
+["A3PL_iPhoneX_Rebuy_Secondary",
+{
+	private _price = 150000;
+	private _xp = 50;
+
+	if (isNil "A3PL_phoneNumberSecondary") exitWith {
+		["You do not currently own a secondary number, so you cannot rebuy one.", "red"] call A3PL_Player_Notification;
+	};
+
+	private _bank = (player getVariable ["Player_Bank", 0]);
+	
+	if (_bank < _price) exitWith {
+		["You do not have enough money to rebuy a secondary phone number.", "red"] call A3PL_Player_Notification;
+	};
+
+	private _phoneNumber = [6,3];
+	for "_i" from 0 to 4 do {
+		_phoneNumber pushBack (selectRandom [0,1,2,3,4,5,6,7,8,9]);
+	};
+	_phoneNumber = _phoneNumber joinString "";
+
+	[player, _phoneNumber] remoteExec ["Server_iPhoneX_RenewSecondary", 2];
+	sleep 3;
+	[player] remoteExec ["Server_iPhoneX_getPhoneNumber", 2];
+
+	[format ["Your new secondary phone number is %1.", _phoneNumber], "green"] call A3PL_Player_Notification;
+	player setVariable ["Player_Bank", (_bank - _price), true];
+	[player, _xp] call A3PL_Level_AddXP;
+	closeDialog 0;
+}] call Server_Setup_Compile;
+
 ["A3PL_iPhoneX_setPhoneNumber",
 {
 	private ["_numberSet","_type"];
@@ -768,13 +799,6 @@
 	disableSerialization;
 	private _SMS = A3PL_SMS;
 	private _phoneNumberContact = param[0,player getVariable ["iPhoneX_CurrentConversation", ""]];
-	private _sendSrv = param[1,true];
-	{
-		if((_x select 1) isEqualTo _phoneNumbercontact) then {
-			_SMS deleteAt _forEachIndex;
-		};
-	} forEach _SMS;
-	A3PL_SMS = _SMS;
 	[player, A3PL_phoneNumberActive, _phoneNumberContact] remoteExec ["Server_iPhoneX_DeleteSMS", 2];
 	closeDialog 0;
 }] call Server_Setup_Compile;

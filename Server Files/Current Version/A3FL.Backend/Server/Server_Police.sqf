@@ -41,7 +41,8 @@
 			(SELECT pasportdate FROM players WHERE name = '%1') AS pasportDate,
 			(SELECT licenses FROM players WHERE name = '%1') AS licenses,
 			(SELECT bank FROM players WHERE name = '%1') AS bank,
-			(SELECT info FROM policedatabase WHERE ActionType='caution' AND uid = (SELECT uid FROM players WHERE name='%1')) AS cautionRes
+			(SELECT info FROM policedatabase WHERE ActionType='caution' AND uid = (SELECT uid FROM players WHERE name='%1')) AS cautionRes,
+			(SELECT faction FROM players WHERE name = '%1') AS faction
 			FROM players
 			WHERE uid = (SELECT uid FROM players WHERE name='%1')
 			LIMIT 1", _name];
@@ -52,12 +53,13 @@
 				private _uid = ([_query, 2] call Server_Database_Async) select 0;
 				private _query = format ["SELECT name FROM companies WHERE employees LIKE '%2%1%2'", _uid, "%"];
 				private _company = [_query, 2] call Server_Database_Async;
-				if(count(_company) == 0) then {
+				if(count(_company) isEqualTo 0) then {
 					_return pushBack "none";
 				} else {
 					_return pushBack(_company select 0);
 				};
 			};
+			_return set[8,[(_return select 8)] call Server_Database_ToArray];
 			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 		
@@ -68,16 +70,37 @@
 		};
 
 		case "lookuplicense": {
-			private _query = format ["SELECT name, (SELECT stolen FROM objects WHERE id='%1') AS stolen, (SELECT class FROM objects WHERE id = '%1') AS class, (SELECT insurance FROM objects WHERE id = '%1') AS insured, (SELECT cid FROM objects WHERE id='%1') AS cid FROM players WHERE uid = (SELECT uid FROM objects WHERE (type='vehicle' OR type='plane') AND id='%1')",_name];
+			private _query = format ["SELECT name, (SELECT stolen FROM objects WHERE id='%1') AS stolen, (SELECT class FROM objects WHERE id = '%1') AS class, (SELECT insurance FROM objects WHERE id = '%1') AS insured, (SELECT cid FROM objects WHERE id='%1') AS cid, (SELECT uid FROM objects WHERE id = '%1') AS pid FROM players WHERE uid = (SELECT uid FROM objects WHERE id='%1')",_name];
 			private _return = [_query, 2] call Server_Database_Async;
-			_return pushBack _name;
 
-			if(!((_return select 4) isEqualTo 0)) then {
-				private _query = format ["SELECT name FROM companies WHERE id = '%1'",(_return select 4)];
-				private _creturn = [_query, 2] call Server_Database_Async;
-				_return pushBack (_creturn select 0);
+			if(count (_return) > 0) then {
+				_return pushBack _name;
+				private _licenseType = "driver";
+				private _licenseWarning = "<br/>";
+				if((_return select 2) IN ["A3PL_P362","A3PL_P362_TowTruck","A3FL_T370"]) then {_licenseType = "cdl";};
+				if((_return select 2) IN ["A3PL_Kx","A3PL_Fatboy","A3PL_Knucklehead","A3PL_1100R"]) then {_licenseType = "motorcycle";};
+
+				private _query = format ["SELECT id FROM players WHERE uid = '%1' AND licenses LIKE '%2%3%2'",(_return select 5),"%",_licenseType];
+				private _lreturn = [_query, 2] call Server_Database_Async;
+				if((count (_lreturn)) isEqualTo 0) then {
+					_licenseWarning = format["<br/><t color='#ff0000'>No %1</t>",[_licenseType,"name"] call A3PL_Config_GetLicense];
+				};
+				private _query = format["SELECT info FROM policedatabase WHERE ActionType='caution' AND uid = '%1'",(_return select 5)];
+				private _cquery = [_query, 2] call Server_Database_Async;
+				if((count _cquery) > 0) then {
+					_licenseWarning = format["%1<br/><t color='#ff0000'>Caution: %2</t>",_licenseWarning,_cquery select 0];
+				};
+				_return pushBack _licenseWarning;
+
+				if(!((_return select 4) isEqualTo 0)) then {
+					private _query = format ["SELECT name FROM companies WHERE id = '%1'",(_return select 4)];
+					private _creturn = [_query, 2] call Server_Database_Async;
+					_return pushBack (_creturn select 0);
+				};
+				[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+			} else {
+				[_name,_call,[_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
-			[_name,_call,_return] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 		};
 
 		case "lookupcompany": {
@@ -275,6 +298,30 @@
 				[_name,_call,format[localize"STR_SERVER_POLICE_YOUINSEREWITHSUCCESSARREST",_name]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
 			};
 		};
+		
+		case "revokelicense": {
+			private _pname = _name select 1;
+			private _license = _name select 2;
+			private _query = format ["SELECT uid, licenses FROM players WHERE name='%1'",_pname];
+			private _return = [_query, 2, true] call Server_Database_Async;
+			if((count _return) < 1) then {
+				[_pname,_call,format["Unable to find %1 in the database",_pname]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+			} else {
+				private _uid = (_return select 0) select 0;
+				private _target = [_uid] call A3PL_Lib_UIDToObject;
+				if(isNull _target) then {
+					private _licenses = [(_return select 0) select 1] call Server_Database_ToArray;
+					if(_license IN _licenses) then {
+						_licenses = _licenses - [_license];
+						private _query = format ["UPDATE players SET licenses = '%2' WHERE uid='%1'",_uid,[_licenses] call Server_Database_Array];
+						[_query, 1] call Server_Database_Async;
+					};
+				} else {
+					[_target,_license,false] remoteExec ["Server_DMV_Add",2];
+				};
+				[_pname,_call,format["License revoke for %1",_pname]] remoteExec ["A3PL_Police_DatabaseEnterReceive",(owner _player)];
+			};
+		};
 
 		case "darknet": {
 			private _query = "SELECT name,chatmessage FROM darknetlog ORDER BY id DESC LIMIT 10";
@@ -420,6 +467,8 @@
 		private _target = _x select 0;
 		private _uid = _x select 1;
 		private _time = _x select 2;
+		private _pObject = [_uid] call A3PL_Lib_UIDToObject;
+		if(!isNull _pObject) then {_target = _pObject;};
 		if(isNull _target) exitWith {
 			private _query = format ["UPDATE players SET jail=%1 WHERE uid = '%2'",_time,_uid];
 			[_query, 1] call Server_Database_Async;

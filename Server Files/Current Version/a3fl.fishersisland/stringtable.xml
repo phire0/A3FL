@@ -231,9 +231,6 @@
         <Key ID="STR_QuickActionsNPC_TalkToInsurer">
             <Original>Talk to the Insurance Agent</Original>
         </Key>
-        <Key ID="STR_QuickActionsNPC_TakeFuelStationCash">
-            <Original>Gas Station Robbery</Original>
-        </Key>
         <Key ID="STR_QuickActionsNPC_TalkToTheDealer">
             <Original>Talk to Dealer</Original>
         </Key>
@@ -1060,6 +1057,9 @@
    <Key ID="STR_A3PL_Medical_ChestCompressions">
       <Original>Perform CPR</Original>
    </Key>
+   <Key ID="STR_A3PL_Medical_Drag">
+      <Original>Drag Body</Original>
+   </Key>
    <Key ID="STR_INTSECT_PickupDeliveryBox">
       <Original>Take a Package</Original>
    </Key>
@@ -1464,6 +1464,9 @@
    <Key ID="STR_ConfigItems_girlstatue">
       <Original>Girl Statue</Original>
    </Key>
+   <Key ID="STR_ConfigItems_christmas_tree">
+      <Original>Christmas Tree</Original>
+   </Key>
    <Key ID="STR_ConfigItems_diamond">
       <Original>Diamond</Original>
    </Key>
@@ -1859,6 +1862,21 @@
    </Key>
    <Key ID="STR_ConfigItems_golden_dildo">
       <Original>Golden Dildo</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_bulletcasing">
+      <Original>Bullet Casing</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_evidence_marker">
+      <Original>Evidence Marker</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_evidence_bag">
+      <Original>Evidence Bag</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_powdertestkit">
+      <Original>Gunpowder test kit</Original>
+   </Key>
+   <Key ID="STR_ConfigItems_cyanide_pills">
+      <Original>Cyanide Pill</Original>
    </Key>
    <Key ID="STR_ConfigItems_drill_bit">
       <Original>Drill Bit</Original>
@@ -3479,6 +3497,9 @@
    <Key ID="STR_INTSECT_BUYLOCKER">
       <Original>Buy Locker</Original>
    </Key>
+   <Key ID="STR_INTSECT_SELLLOCKER">
+      <Original>Sell Locker</Original>
+   </Key>
    <Key ID="STR_INTSECT_OCLOCKERDOOR">
       <Original>Open / Close Locker</Original>
    </Key>
@@ -3489,7 +3510,7 @@
       <Original>You are missing $%1 to buy this locker</Original>
    </Key>
    <Key ID="STR_INTSECT_LOCKERBOUGHT">
-      <Original>You have to buy a locker for $%1</Original>
+      <Original>You have purchased a locker for $%1</Original>
    </Key>
     </Package>
     <Package name="Config_Garage">
@@ -3747,6 +3768,9 @@
     <Key ID="STR_INTER_CHECKDRUGS">
         <Original>Perform Drug Test</Original>
     </Key>
+    <Key ID="STR_INTER_CHECKPOWDER">
+        <Original>Perform Gun Powder Test</Original>
+    </Key>
     <Key ID="STR_INTER_ACCESSSEIZURE">
         <Original>Access Seizure</Original>
     </Key>
@@ -3928,7 +3952,7 @@
       <Original>Prospect For Resources</Original>
    </Key>
    <Key ID="STR_INTER_CHECKTANKC">
-      <Original>Check the contents of the barrel</Original>
+      <Original>Check the Contents</Original>
    </Key>
    <Key ID="STR_INTER_CHECKTANKK">
       <Original>Check Tank Content</Original>
@@ -4378,9 +4402,6 @@
    </Key>
    <Key ID="STR_QuickActions_Notif_Vehicles_DrillAnimationSourcePhase">
       <Original>You must retract the drill before you can move the position of the drill arm.</Original>
-   </Key>
-   <Key ID="STR_QuickActions_Notif_Vehicles_UseExtractor">
-      <Original>You must be Oil Extractor to use the pump</Original>
    </Key>
    <Key ID="STR_QuickActions_Notif_Vehicles_DepositSki">
       <Original>You can not pick up / drop this item because you have something in your hand</Original>
@@ -4864,17 +4885,14 @@
    <Key ID="STR_NPC_BANKPCACC2">
       <Original>I will sign the check later</Original>
    </Key>
+   <Key ID="STR_NPC_NVM">
+      <Original>Nevermind, I'm good.</Original>
+   </Key>
    <Key ID="STR_NPC_POLICEINIT">
-      <Original>Howdy! &lt;br/&gt;&lt;br/&gt; How can I help you?</Original>
+      <Original>Howdy! &lt;br/&gt; Welcome to the Sheriff's Department, what can I do for you ?</Original>
    </Key>
    <Key ID="STR_NPC_POLICEINIT1">
-      <Original>Howdy! How can I become a Sheriff Deputy?</Original>
-   </Key>
-   <Key ID="STR_NPC_POLICEINIT2">
-      <Original>Hello sir, I have a crime to report</Original>
-   </Key>
-   <Key ID="STR_NPC_POLICEINIT3">
-      <Original>Howdy Sheriff! I am here to start my shift.</Original>
+      <Original>Go on duty</Original>
    </Key>
    <Key ID="STR_NPC_WEBSITEMOREINFO">
       <Original>You can find more information on our website: &lt;br/&gt; http://www.FISD.com/</Original>
@@ -4889,7 +4907,7 @@
       <Original>I am sorry! I am going to leave.</Original>
    </Key>
    <Key ID="STR_NPC_POLICEDENIED">
-      <Original>You do not seem to work here! &lt;br/&gt; To impersonate a Sheriff Deputy is a crime!</Original>
+      <Original>You do not seem to work here! &lt;br/&gt; Impersonating a Sheriff Deputy is a crime!</Original>
    </Key>
    <Key ID="STR_NPC_WORK">
       <Original>Welcome Sheriff &lt;br/&gt; Are you ready to start your service?</Original>
@@ -4897,17 +4915,14 @@
    <Key ID="STR_NPC_WORK1">
       <Original>I am ready, let's stop criminals.</Original>
    </Key>
-   <Key ID="STR_NPC_WORK2">
-      <Original>Let me take some donuts and I'll come</Original>
-   </Key>
    <Key ID="STR_NPC_ALREADY">
-      <Original>You are already in service, do you want end your service now?</Original>
+      <Original>You are already on duty, do you want to go off duty now?</Original>
    </Key>
    <Key ID="STR_NPC_ALREADY1">
       <Original>Yes, it's time to go home.</Original>
    </Key>
    <Key ID="STR_NPC_ALREADY2">
-      <Original>In fact, nothing.</Original>
+      <Original>Negative, just checking in.</Original>
    </Key>
    <Key ID="STR_NPC_ACCEPTED">
       <Original>You are now in service. Here is your radio &lt;br/&gt; Make sure to take your equipment &lt;br/&gt; Good luck Deputy</Original>
@@ -5093,7 +5108,7 @@
       <Original>Uhhh hello .. No nothing i'm leaving ..</Original>
    </Key>
    <Key ID="STR_NPC_FIFRINIT">
-      <Original>Hello! &lt;br/&gt; How can I help you?</Original>
+      <Original>Hello! &lt;br/&gt; Welcome to the clinic, what can I do for you ?</Original>
    </Key>
    <Key ID="STR_NPC_FIFRINITILL">
       <Original>Yo! &lt;br/&gt; What's happening to you, brother? Do you want me to patch you up?</Original>
@@ -5127,9 +5142,6 @@
    </Key>
    <Key ID="STR_NPC_FIFRINIT1">
       <Original>I do not feel well, can you look at me?</Original>
-   </Key>
-   <Key ID="STR_NPC_FIFRINIT2">
-      <Original>How can I join the FIFR?</Original>
    </Key>
    <Key ID="STR_NPC_DMV1">
       <Original>Hello there!&lt;br/&gt;How can I help you?</Original>
@@ -5170,10 +5182,10 @@
    <Key ID="STR_NPC_DMV13">
       <Original>1. Sorry, I'll leave</Original>
    </Key>
-   <Key ID="STR_NPC_FIFRINIT3">
+   <Key ID="STR_NPC_FIFRINIT2">
       <Original>Hello colleague, I am here to start my shift.</Original>
    </Key>
-   <Key ID="STR_NPC_FIFRINIT4">
+   <Key ID="STR_NPC_FIFRINIT3">
       <Original>Hello, I want to buy medical equipment.</Original>
    </Key>
    <Key ID="STR_NPC_FIFRHEALD">
@@ -5181,9 +5193,6 @@
    </Key>
    <Key ID="STR_NPC_FIFRHEALD1">
       <Original>Okay then, thanks anyway.</Original>
-   </Key>
-   <Key ID="STR_NPC_FIFRHOWTO">
-      <Original>You can find more information on our website: &lt;br/&gt; http://www.FIFR.com/</Original>
    </Key>
    <Key ID="STR_NPC_FIFRDEN">
       <Original>You do not seem to work here! &lt;br/&gt; Impersonating an FIFR is a crime!</Original>
@@ -5500,6 +5509,9 @@
    <Key ID="STR_NPC_SECONDARYPHONE">
       <Original>1. Secondary Number ($50000)</Original>
    </Key>
+   <Key ID="STR_NPC_REBSECONDARYPHONE">
+      <Original>2. Rebuy Secondary Number ($150000)</Original>
+   </Key>
    <Key ID="STR_NPC_COMPANYPHONE">
       <Original>3. Business Number ($30000)</Original>
    </Key>
@@ -5742,6 +5754,9 @@
    <Key ID="STR_INTSECT_OPK9MEN">
       <Original>Open Cage K-9</Original>
    </Key>
+   <Key ID="STR_INTSECT_REMOVEK9">
+      <Original>Return K-9 to cage</Original>
+   </Key>
    <Key ID="STR_INTSECT_PICKUPITEM">
       <Original>Pickup Item</Original>
    </Key>
@@ -5784,6 +5799,9 @@
    <Key ID="STR_INTSECT_SELLHOUSE">
       <Original>Sell House</Original>
    </Key>
+   <Key ID="STR_INTSECT_ROOMMATEMGMT">
+      <Original>Roommate Management</Original>
+   </Key>
    <Key ID="STR_INTSECT_SELLESTATE">
       <Original>Conclude Sale</Original>
    </Key>
@@ -5821,7 +5839,7 @@
       <Original>Connect Outlet Pipe</Original>
    </Key>
    <Key ID="STR_INTSECT_CONHOSETTANK">
-      <Original>Connect Hose to Tanker Boat</Original>
+      <Original>Connect Hose to Tanker</Original>
    </Key>
    <Key ID="STR_INTSECT_CONHOSEADAP">
       <Original>Connect Hose Adapter</Original>
@@ -5852,12 +5870,6 @@
    </Key>
    <Key ID="STR_INTSECT_CONHOSETOENGDIS">
       <Original>Connect Discharge Hose</Original>
-   </Key>
-   <Key ID="STR_INTSECT_CREATEFISHB">
-      <Original>Create Fish Hamburger</Original>
-   </Key>
-   <Key ID="STR_INTSECT_CREATEFTACO">
-      <Original>Create Fish Tacos</Original>
    </Key>
    <Key ID="STR_INTSECT_BUSEITEM">
       <Original>To buy to sell</Original>
@@ -6340,7 +6352,7 @@
       <Original>Power On / Off Laptop</Original>
    </Key>
    <Key ID="STR_INTSECT_ACCPOLDB">
-      <Original>Database</Original>
+      <Original>Access Computer</Original>
    </Key>
    <Key ID="STR_INTSECT_SWIVELLAP">
       <Original>Rotate Laptop</Original>
@@ -6497,7 +6509,7 @@
       <Original>The town hall could not approve your request, maybe your name is already used?</Original>
    </Key>
    <Key ID="STR_PLAYER_FIRSTN2CHAR">
-      <Original>Please enter a first name of more than 2 characters</Original>
+      <Original>Please enter a first name longer than 2 characters</Original>
    </Key>
    <Key ID="STR_PLAYER_LASTN2CHAR">
       <Original>Please enter a last name longer than 2 characters</Original>
@@ -7019,7 +7031,7 @@
             <Original>Send</Original>
         </Key>
         <Key ID="STR_NEWPLAYER_GUISEX">
-            <Original>Sex:</Original>
+            <Original>Gender:</Original>
         </Key>
         <Key ID="STR_NEWPLAYER_GUIDOB">
             <Original>DOB:</Original>
@@ -7487,7 +7499,7 @@
       <Original>You can not sell this item because you do not have it</Original>
    </Key>
    <Key ID="STR_BUSINESS_DESCPRICEMINPRICEMAXSELLFOR">
-      <Original>&lt;t align = 'center'&gt;Description:%1 &lt;br/&gt;Min Price: $%2 &lt;br/&gt;Max Price: $%3 &lt;br/&gt;</Original>
+      <Original>&lt;t align = 'center'&gt;Description:%1 &lt;br/&gt;</Original>
    </Key>
    <Key ID="STR_BUSINESS_ENTERDESCRIPTION3MIN">
       <Original>Please enter a valid item description of at least 3 characters</Original>
@@ -7505,7 +7517,7 @@
       <Original>You are not close enough to the business to sell this item</Original>
    </Key>
    <Key ID="STR_BUSINESS_YOUSELLTHISOBJECT">
-      <Original>You have sold this item</Original>
+      <Original>You are now selling this object</Original>
    </Key>
    <Key ID="STR_BUSINESS_ITEMNOTSELL">
       <Original>This item is not sold</Original>
@@ -7580,7 +7592,7 @@
       <Original>Shoe</Original>
    </Key>
    <Key ID="Functions_DeliveryLocation_USCG">
-      <Original>Coast Guard Base</Original>
+      <Original>Coast Guard Base - Front Gate</Original>
    </Key>
    <Key ID="Functions_DeliveryLocation_Clinic">
       <Original>Silverton Clinic</Original>
@@ -8556,16 +8568,13 @@
     </Package>
     <Package name="STR_NewPlayer">
         <Key ID="STR_NewPlayer_Welcome1">
-            <Original>Welcome to Fishers Island, New-York.</Original>
-        </Key>
-        <Key ID="STR_NewPlayer_Welcome2">
-            <Original>You can unlock perks on our forum : www.arma3fisherslife.net</Original>
+            <Original>Welcome to Fishers Island!</Original>
         </Key>
         <Key ID="STR_NewPlayer_FillGender">
-            <Original>Please indicate your gender</Original>
+            <Original>Please enter your gender</Original>
         </Key>
         <Key ID="STR_NewPlayer_FillDOB">
-            <Original>Please fill your date of birth</Original>
+            <Original>Please fill in your date of birth</Original>
         </Key>
     </Package>
     <Package name="STR_NewTwitter">
@@ -8692,7 +8701,7 @@
         <Original>Action canceled</Original>
       </Key>
       <Key ID="STR_NewGang_22">
-        <Original>The capture of this hideout has given $5,000 to your gang</Original>
+        <Original>The capture of this hideout has given $1,000 to your gang</Original>
       </Key>
       <Key ID="STR_NewGang_23">
         <Original>You can not capture this hideout with this item</Original>
@@ -9445,7 +9454,7 @@
         <Original>Only the tenant can set prices</Original>
       </Key>
       <Key ID="STR_NewHydrogen_3">
-        <Original>Please enter a price above $15 / Gallon</Original>
+        <Original>Please enter a price above $25 / Gallon</Original>
       </Key>
       <Key ID="STR_NewHydrogen_4">
         <Original>Please enter a price lower than $90 / Gallon</Original>
@@ -9520,7 +9529,7 @@
         <Original>There is no more gas in the tank of the service station</Original>
       </Key>
       <Key ID="STR_NewHydrogen_28">
-        <Original>Refueling of your completed / discontinued vehicle, total cost: $%1</Original>
+        <Original>Refueling stopped, total cost: $%1</Original>
       </Key>
       <Key ID="STR_NewHydrogen_29">
         <Original>You are the tenant of the resort, you can take the money in the cashier</Original>

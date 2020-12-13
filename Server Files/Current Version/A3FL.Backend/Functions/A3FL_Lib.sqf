@@ -117,8 +117,8 @@
 {
 	private _veh = param [0,objNull,[objNull,""]];
 	private _player = param [1,objNull,[objNull,""]];
-	if (typeName _veh isEqualTo "STRING") then {_veh = objectFromNetId _veh;};
-	if (typeName _player isEqualTo "STRING") then { _player = objectFromNetId _player; };
+	if (_veh isEqualType "") then {_veh = objectFromNetId _veh;};
+	if (_player isEqualType "") then { _player = objectFromNetId _player; };
 	_veh setOwner (owner _player);
 }] call Server_Setup_Compile;
 
@@ -173,7 +173,11 @@
 	if (isDedicated) exitwith {};
 	private _player = param [0,objNull];
 	private _anim = param [1,""];
-	_player switchMove _anim;
+	private _type = param [2,0];
+	switch(_type) do {
+		case 0: {_player switchMove _anim;};
+		case 1: {_player playMoveNow _anim;};
+	};
 }] call Server_Setup_Compile;
 
 ['A3PL_Lib_Gesture',

@@ -111,9 +111,6 @@
 				_itemClass = _obj getVariable ["smallOreItemClass","ore_metal"];
 				_amount = 1 * A3PL_Event_DblHarvest;
 				[_itemClass,_amount] remoteExec ["A3PL_Inventory_Add", (owner _ins)];
-
-				diag_log str (_obj getVariable ["smallOreItemClass","Jamie Sexy"]);
-				diag_log str (_obj getVariable ["smallOreAmount","Jamie Sexy"]);
 				[format["You succesfully mined %1 ore",_amount], "green"] remoteExec ["A3PL_Player_Notification", (owner _ins)];
 			};
 			_obj setVariable ["dmg",_dmg,false];

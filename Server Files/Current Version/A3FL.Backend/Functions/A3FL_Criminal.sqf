@@ -118,34 +118,33 @@
 
 ["A3PL_Criminal_PickCar", {
 	private _car = param [0,objNull];
-	if((typeOf _car) IN ["A3PL_EMS_Locker"]) exitWith {["This is not meant to be lockpicked", "red"] call A3PL_Player_Notification;};
+	if (isNull _car) exitWith {["Error cannot find the vehicle", "red"] call A3PL_Player_Notification;};
 	if (animationstate player isEqualTo "Acts_carFixingWheel") exitwith {[localize"STR_CRIMINAL_YOUALREADYTAKEANACTION", "red"] call A3PL_Player_Notification;};
 	if (!(vehicle player isEqualTo player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_CRIMINAL_YOUALREADYPICKVEHICLE", "red"] call A3PL_Player_Notification;};
-
+	if (player distance _car > 7) exitWith {["You are too far away from the vehicle", "red"] call A3PL_Player_Notification;};
 	[localize"STR_CRIMINAL_YOUPICKVEHICLEPROGRESS", "yellow"] call A3PL_Player_Notification;
 	player setVariable ["picking",true,true];
 	["Lockpicking...",45] spawn A3PL_Lib_LoadAction;
 
-	_success = true;
 	waitUntil{Player_ActionDoing};
 	player playMoveNow 'Acts_carFixingWheel';
 	while {Player_ActionDoing} do {
-		if ((player distance2D _car) > 5) exitWith {[localize"STR_CRIMINAL_NEEDTOBENEARVEHICLE5M", "red"] call A3PL_Player_Notification; _success = false;};
-		if (!(vehicle player == player)) exitwith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-		if ((!alive _car)) exitwith {_success = false;};
-		if (!(player_itemClass == "v_lockpick")) exitwith {_success = false;};
-		if (!(["v_lockpick",1] call A3PL_Inventory_Has)) exitwith {_success = false;};
+		if ((player distance2D _car) > 5) exitWith {[localize"STR_CRIMINAL_NEEDTOBENEARVEHICLE5M", "red"] call A3PL_Player_Notification; Player_ActionInterrupted = true;};
+		if (!(vehicle player == player)) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
+		if ((!alive _car)) exitwith {Player_ActionInterrupted = true;};
+		if (!(player_itemClass isEqualTo "v_lockpick")) exitwith {Player_ActionInterrupted = true;};
+		if (!(["v_lockpick",1] call A3PL_Inventory_Has)) exitwith {Player_ActionInterrupted = true;};
 		if ((animationstate player) != "Acts_carFixingWheel") then {player playMoveNow 'Acts_carFixingWheel';};
 	};
 	player switchMove "";
-	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_CRIMINAL_PICKENDED","red"] call A3PL_Player_Notification;};
+	if(Player_ActionInterrupted) exitWith {[localize"STR_CRIMINAL_PICKENDED","red"] call A3PL_Player_Notification;};
 
 	[player_item] call A3PL_Inventory_Clear;
 	[player,"v_lockpick",-1] remoteExec ["Server_Inventory_Add",2];
 
-	_chance = random 100;
+	private _chance = random 100;
 	if(_chance >= 35) then {
 		_car setVariable ["locked",false,true];
 		[localize"STR_CRIMINAL_PICKSUCCESSFULL", "green"] call A3PL_Player_Notification;
@@ -255,4 +254,38 @@
 			[localize"STR_CRIMINAL_YOUCANNOTPICKTHISVEHICLEHC", "red"] call A3PL_Player_Notification;
 		};
 	};
+}] call Server_Setup_Compile;
+
+["A3PL_Criminal_FindNPC",{
+	private _cost = 30000;
+	private _playerCash = player getVariable["Player_Cash",0];
+	if(_cost > _playerCash) exitWith {["You need to have $30,000 to try and find the Illegal NPC's!","red"] call A3pl_Player_Notification;};
+	private _randomNPC = "";
+	private _randomNPCName = "";
+	private _randomNumber = floor(random 5);
+	switch (_randomNumber) do {
+		case(0): {
+			_randomNPC = npc_ill_trader;
+			_randomNPCName = "Illegal Trader";
+		};
+		case(1): {
+			_randomNPC = npc_ill_moonshine;
+			_randomNPCName = "Moonshine Dealer";
+		};
+		case(2): {
+			_randomNPC = npc_ill_cocaine;
+			_randomNPCName = "Cocaine Dealer";
+		};
+		case(3): {
+			_randomNPC = npc_ill_shrooms;
+			_randomNPCName = "Mushroom Dealer";
+		};
+		case(4): {
+			_randomNPC = npc_ill_weed;
+			_randomNPCName = "Weed Dealer";
+		};
+	};
+	private _nearestCity = text ((nearestLocations [_randomNPC, ["NameCityCapital","NameCity","NameVillage"], 5000]) select 0);
+	player setVariable ["Player_Cash",(_playerCash - _cost),true];
+	[format ["You were charged $30,000 for the following information: The %1 was last spotted in %2! Use it wisely.",_randomNPCName,_nearestCity],"green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

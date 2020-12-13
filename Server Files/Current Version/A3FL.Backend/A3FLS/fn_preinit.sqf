@@ -80,31 +80,17 @@ Server_Setup_Compile = {
 
 //Compile BLOCK warning
 ["A3PL_Debug_Execute", {
-
-	private ["_display","_debugText","_chosenExecType","_remoteExecType","_compileRdy"];
-	_bannedText = ["profileNamespace","saveProfileNamespace","fuckedS","files"];
-	_display = findDisplay 155;
-	_debugText = ctrlText 1400;
-	_chosenExecType = lbText [2100,lbCurSel 2100];
-	_remoteExecType = clientOwner;
-	_forbidden = false;
-
-	switch (_chosenExecType) do {
-		case "Server": {_remoteExecType = 2};
-		case "Global": {_remoteExecType = 0};
-		case "All Clients": {_remoteExecType = -2};
-		case "Local": {_remoteExecType = clientOwner};
-		default {_remoteExecType = clientOwner};
+	private _chosenExecType = param[0,""];
+	private _debugText = ctrlText 1400;
+	private _remoteExecType = switch (_chosenExecType) do {
+		case "Server": {2};
+		case "Global": {0};
+		case "All Clients": {-2};
+		default {clientOwner};
 	};
-
-	{
-		if((_debugText find _x) != -1) exitWith {_forbidden = true;};
-	} forEach _bannedText;
-
-	if(_forbidden) exitWith {};
-
+	profileNamespace setVariable["A3PL_LastDebugType",lbCurSel 2100];
 	[_debugText] remoteExec ["A3PL_Debug_ExecuteCompiled",_remoteExecType];
-	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText]]] remoteExec ["Server_AdminLoginsert", 2];
+	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText, _remoteExecType]]] remoteExec ["Server_AdminLoginsert", 2];
 },false,true] call Server_Setup_Compile;
 
 ["A3PL_Debug_ExecuteCompiled", {
@@ -330,7 +316,7 @@ Server_Setup_Compile = {
 	_craneleft setDir 232.025;
 	_craneleft setFuel 0;
 
-	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 3600]] call BIS_fnc_loop;
+	["itemAdd", ["Server_EventsLoop", { call Server_Events_Random; }, 7200]] call BIS_fnc_loop;
 	
 	["itemAdd", ["Server_PoliceLoop", { call Server_Police_JailLoop; }, 60]] call BIS_fnc_loop;
 	["itemAdd", ["Server_Loop_Fishing", {call Server_fisherman_loop;}, 45]] call BIS_fnc_loop;
@@ -415,7 +401,7 @@ Server_Setup_Compile = {
 	A3PL_Event_CrimePayout = 1;
 	publicVariable "A3PL_Event_CrimePayout";
 
-	Server_AllBusStops = nearestObjects [[6420.21,7001.08,0], ["Land_A3PL_BusStop"], 5000, false];
+	Server_AllBusStops = [6420.21,7001.08,0] nearEntities [["Land_A3PL_BusStop"],5000];
 },true,true] call Server_Setup_Compile;
 
 ['Server_Database_ToArray', {
@@ -756,7 +742,7 @@ Server_Setup_Compile = {
 		_pos = call compile (_x select 1);
 		_doorid = _x select 2;
 
-		_near = nearestObjects [_pos, HOUSESLIST, 10,true];
+		_near = _pos nearEntities [HOUSESLIST,10];
 		if (count _near == 0) then
 		{
 			_query = format ["CALL RemovedHouse('%1');",_pos];
@@ -769,7 +755,7 @@ Server_Setup_Compile = {
 			[_query,1] spawn Server_Database_Async;
 		};
 
-		_signs = nearestObjects [_pos, ["Land_A3PL_EstateSign"], 25,true];
+		_signs = _pos nearEntities [["Land_A3PL_EstateSign"],25];
 		if (count _signs > 0) then
 		{
 		    (_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
@@ -843,7 +829,8 @@ Server_Setup_Compile = {
 		_pos = call compile (_x select 1);
 		_doorid = _x select 2;
 
-		_near = nearestObjects [_pos, ["Land_John_Hangar","Land_A3FL_Warehouse"], 10,true];
+
+		_near = nearestObjects [_pos, ["Land_John_Hangar","Land_A3FL_Warehouse"],10];
 		if (count _near isEqualTo 0) exitwith
 		{
 			_query = format ["DELETE FROM warehouses WHERE location = '%1'",_pos];
@@ -858,7 +845,7 @@ Server_Setup_Compile = {
 		};
 
 		//look for nearest for sale sign and set the texture to sold
-		_signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"], 25,true];
+		_signs = nearestObjects [_pos, ["Land_A3PL_BusinessSign"],25];
 		if (count _signs > 0) then
 		{
 			(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\business_sign\business_rented_co.paa"];

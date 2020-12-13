@@ -80,8 +80,8 @@
 	private ["_control","_display","_deletedItem","_deletedAmount","_amount"];
 	_display = findDisplay 48;
 	_control = _display displayCtrl 1501;
-	_deletedItem = param [0,objNull]; //Delete a deleted item from the near list
-	_deletedAmount = param [1,0]; //the amount of the deleted item
+	_deletedItem = param [0,objNull];
+	_deletedAmount = param [1,0];
 
 	lbClear _control;
 	{
@@ -116,10 +116,7 @@
 		};
 	} foreach (player getVariable ["player_exporting",[]]);
 
-	//refresh items list
 	_control = _display displayCtrl 1500;
-
-	//fill items list
 	lbClear _control;
 	{
 		private ["_item","_index","_objects","_amount"];
@@ -127,9 +124,9 @@
 		if ([_item,"canPickup"] call A3PL_Config_GetItem) then
 		{
 			_amount = [_item] call A3PL_Inventory_Return;
-			if (typeName _deletedItem == "STRING") then
+			if (_deletedItem isEqualType "") then
 			{
-				if (_item == _deletedItem) then
+				if (_item isEqualTo _deletedItem) then
 				{
 					_amount = _amount - _deletedAmount;
 				};
@@ -137,9 +134,11 @@
 			_index = _control lbAdd (format ["%1 (Inventory: %2x)",[_item,"name"] call A3PL_Config_GetItem,_amount]);
 		} else
 		{
-			_objects = nearestObjects [player,[([_item,"class"] call A3PL_Config_GetItem)],10,true];
+			_objects = player nearObjects 20;
 			_objects = _objects - [_deletedItem];
-			_index = _control lbAdd (format ["%1 (Near: %2x)",[_item,"name"] call A3PL_Config_GetItem,count _objects]);
+			_class = [_item,"class"] call A3PL_Config_GetItem;
+			_amount = {((typeOf _x) == _class)} count _objects;
+			_index = _control lbAdd (format ["%1 (Near: %2x)",[_item,"name"] call A3PL_Config_GetItem,_amount]);
 		};
 		_control lbSetData [_index,_item];
 	} foreach Server_IE_Prices;
@@ -183,11 +182,10 @@
 			if ([_item,_amount] call A3PL_Inventory_Has) exitwith {_itemCheck = true;};
 		} else
 		{
-			private ["_class","_objects"];
 			_amount = 1;
-			_class = [_item,"class"] call A3PL_Config_GetItem;
-			_objects = nearestObjects [player,[_class],10,true];
-			if (count _objects == 0) exitwith {};
+			private _class = [_item,"class"] call A3PL_Config_GetItem;
+			private _objects = nearestObjects [player, [_class],10];
+			if (count _objects isEqualTo 0) exitwith {};
 			{
 				if ((local _x) && ((_x getVariable ["class",""]) == _item)) exitwith {_itemCheck = true; _objectItem = _x;};
 			} foreach _objects;

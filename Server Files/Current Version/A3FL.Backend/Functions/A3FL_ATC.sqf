@@ -178,7 +178,7 @@
 	private ["_veh","_control","_display"];
 	_veh = param [0,""];
 	
-	if (typeName _veh == "STRING") then
+	if (_veh isEqualType "") then
 	{
 		{
 			_check = format ["%1",_x];
@@ -190,7 +190,7 @@
 		} foreach vehicles;
 	};
 	
-	if (typeName _veh == "STRING") exitwith {["ATC System: Error occured trying to retrieve object name", "red"] call A3PL_Player_Notification;};
+	if (_veh isEqualType "") exitwith {["ATC System: Error occured trying to retrieve object name", "red"] call A3PL_Player_Notification;};
 	
 	A3PL_ATC_VAR_Selected = _veh;
 	

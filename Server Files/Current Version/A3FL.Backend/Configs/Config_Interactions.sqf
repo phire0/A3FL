@@ -39,7 +39,7 @@ A3PL_Interaction_Options =
 	[
 		"Set Squad Number",
 		{[player_objintersect] call A3PL_Police_OpenSquadNb;},
-		{((typeOf player_objintersect) IN ["Jonzie_Ambulance","A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Pierce_Pumper","A3PL_P362_TowTruck","A3PL_RBM","A3PL_F150_Marker","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_E350","A3PL_Pierce_Rescue","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Silverado_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Charger15_FD","A3PL_Jayhawk"]) && (player distance cursorObject < 5) && ((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","fims"])}
+		{((typeOf player_objintersect) IN ["Jonzie_Ambulance","A3PL_CVPI_PD","A3PL_CVPI_PD_Slicktop","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Tahoe_FD","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Pierce_Pumper","A3PL_P362_TowTruck","A3PL_RBM","A3PL_F150_Marker","A3PL_Silverado_PD","A3PL_VetteZR1_PD","A3PL_E350","A3PL_Pierce_Rescue","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Silverado_FD","A3PL_Silverado_FD_Brush","A3PL_Silverado_PD_ST","A3PL_Taurus_FD","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Charger15_FD","A3PL_Jayhawk","A3FL_Explorer_Platinum_PD_20"]) && (player distance cursorObject < 5) && ((player getVariable["faction","citizen"]) IN ["fifr","uscg","fisd","fims"])}
 	],
 	[
 		localize"STR_INTER_COMPHIRE",
@@ -110,7 +110,7 @@ A3PL_Interaction_Options =
 			};
 		},
 		{
-			private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true];
+			private _warehouse = player nearEntities [Config_Warehouses_List,10];
 			private _var = cursorObject getVariable "warehouse";
 			if(((count _warehouse) > 0) && (isPlayer cursorObject) && (isNil "_var")) then {
 				true;
@@ -139,7 +139,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _house = nearestObjects [getPos player, Config_Houses_List, 10,true]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _house = player nearEntities [Config_Houses_List,10]; if(((count _house) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_UNSETCOLLOC",
@@ -161,7 +161,7 @@ A3PL_Interaction_Options =
 				};
 			};
 		},
-		{private _warehouse = nearestObjects [getPos player, Config_Warehouses_List, 10,true]; if(((count _warehouse) > 0) && (isPlayer cursorObject)) exitWith {true;};}
+		{private _warehouse = player nearEntities [Config_Warehouses_List,10]; if(((count _warehouse) > 0) && (isPlayer cursorObject)) exitWith {true;};}
 	],
 	[
 		localize"STR_INTER_CHECKID",
@@ -200,7 +200,7 @@ A3PL_Interaction_Options =
 		{
 			private _intersect = player_objintersect;
 			if (isNull _intersect) exitwith {};
-			if ((typeOf _intersect) IN ["A3PL_Jayhawk","A3PL_Cutter","B_supplyCrate_F","C_IDAP_supplyCrate_F"]) exitWith {["You cannot lockpick this vehicle", "red"] call A3PL_Player_Notification;};
+			if ((typeOf _intersect) IN ["A3PL_Jayhawk","A3PL_Cutter","B_supplyCrate_F","C_IDAP_supplyCrate_F","A3PL_EMS_Locker"]) exitWith {["You cannot lockpick this vehicle", "red"] call A3PL_Player_Notification;};
 			[_intersect] spawn A3PL_Criminal_PickCar;
 		},
 		{((vehicle player) isEqualTo player) && {(player distance player_objintersect < 7)} && {(player_ItemClass isEqualTo "v_lockpick")}}
@@ -300,7 +300,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_CHECKTANKC",
 		{[format [localize"STR_Inter_Notifications_CheckGas",(cursorObject getVariable ["petrol",0])], "green"] call A3PL_Player_Notification;},
-		{(typeOf cursorObject isEqualTo "A3PL_Tanker_Trailer")}
+		{(typeOf cursorObject isEqualTo "A3PL_Tanker_Trailer") || (typeOf cursorObject isEqualTo "A3FL_T440_Gas_Tanker")}
 	],
 	[
 		localize"STR_INTER_CHECKTANKK",
@@ -369,12 +369,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_JAILP",
 		{[cursorObject] call A3PL_Police_StartJailPlayer},
-		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"], 50]) > 0)}
-	],
-	[
-		localize "STR_INTER_JAILP",
-		{[cursorObject] call A3PL_Police_StartJailPlayer},
-		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"], 50]) > 1)}
+		{(vehicle player isEqualTo player) && (isPlayer cursorObject) && ((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count(nearestObjects [player, ["Land_A3PL_Prison","Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"],50]) > 0)}
 	],
 	[
 		localize"STR_INTER_StartFire",
@@ -384,7 +379,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_SEIZEITEMS",
 		{[1] call A3PL_Police_SeizeItems;},
-		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count (nearestObjects [player,["weaponholder"],3] + nearestObjects [player,["groundWeaponHolder"],3]) > 0)}
+		{((player getVariable ["job","unemployed"]) IN ["uscg","fisd","fims"]) && (count ((nearestObjects [player, ["weaponholder"],3]) + (nearestObjects [player, ["groundWeaponHolder"],3])) > 0)}
 	],
 	[
 		localize "STR_INTER_REPAIRTEROB",
@@ -394,7 +389,7 @@ A3PL_Interaction_Options =
 	[
 		localize "STR_INTER_MARKIMPPOL",
 		{call A3PL_Police_Impound;},
-		{(vehicle player isEqualTo player) && (player_objintersect isKindOf "Car") && ((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","fims"])}
+		{(vehicle player isEqualTo player) && (player_objintersect isKindOf "Car") && {((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","fims"]) || (player getVariable ["pVar_RedNameOn",false])}}
 	],
 	[
 		localize "STR_INTER_IMPUSC",
@@ -993,7 +988,7 @@ A3PL_Interaction_Options =
 	[
 		"Secure Vehicle",
 		{[cursorObject] call A3PL_Vehicle_SecureVehicle;},
-		{(vehicle player isEqualTo player) && {((player distance cursorObject) < 10)} && {(count(nearestObjects [player, ["A3FL_LCM"], 20]) > 0)} && {(typeOf cursorObject != "A3FL_LCM")}}
+		{(vehicle player isEqualTo player) && {((player distance cursorObject) < 10)} && {(count(player nearEntities [["A3FL_LCM"],20]) > 0)} && {(typeOf cursorObject != "A3FL_LCM")}}		
 	],
 	[
 		"Unsecure Vehicle",
@@ -1030,8 +1025,24 @@ A3PL_Interaction_Options =
 	],
 	[
 		localize "STR_INTER_OPCOMPUTER",
-		{call A3PL_Police_DatabaseOpen;},
-		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) && (typeOf(vehicle player) IN Config_Police_Vehs - ["A3PL_P362_TowTruck"])}
+		{
+			if(typeOf (vehicle player) IN ["A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Rescue"]) then {
+				if ((player getVariable ["job","unemployed"]) isEqualTo "fifr") then {
+					call A3PL_FD_DatabaseOpen;
+				} else {
+					call A3PL_Police_DatabaseOpen;
+				};
+			} else {
+				if (isNull (findDisplay 211) && (((vehicle player) animationPhase "Laptop_Top") > 0.5)) then {
+					if ((player getVariable ["job","unemployed"]) isEqualTo "fifr") then {
+						call A3PL_FD_DatabaseOpen;
+					} else {
+						call A3PL_Police_DatabaseOpen;
+					};
+				};
+			};
+		},
+		{((player getVariable["job","unemployed"]) IN ["fisd","uscg","fims","doj","fifr"]) && (typeOf(vehicle player) IN (Config_Police_Vehs - ["A3PL_P362_TowTruck","A3PL_F150_Marker"]))}
 	],
 	[
 		localize "STR_INTER_RESETLOCKF",
@@ -1049,7 +1060,7 @@ A3PL_Interaction_Options =
 				[_veh,"locktarget",0] call A3PL_Police_RadarSet;
 			};
 		},
-		{(typeOf (vehicle player) IN ["A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Silverado_PD","A3PL_Silverado_PD_ST"])}
+		{(typeOf (vehicle player) IN ["A3PL_Charger_PD","A3PL_Charger_PD_Slicktop","A3PL_Mustang_PD","A3PL_Mustang_PD_Slicktop","A3PL_CVPI_PD_Slicktop","A3PL_Tahoe_PD","A3PL_Tahoe_PD_Slicktop","A3PL_CVPI_PD","A3PL_Raptor_PD","A3PL_Raptor_PD_ST","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Charger15_PD","A3PL_Charger15_PD_ST","A3PL_Silverado_PD","A3PL_Silverado_PD_ST","A3FL_Explorer_Platinum_PD_20"])}
 	],
 	[
 		localize "STR_INTER_CHECKALCOHOL",
@@ -1060,6 +1071,11 @@ A3PL_Interaction_Options =
 		localize "STR_INTER_CHECKDRUGS",
 		{[cursorObject] call A3PL_Drugs_DrugTest;},
 		{(player_ItemClass isEqualTo "drug_kit") && {isPlayer cursorObject}}
+	],
+	[
+		localize "STR_INTER_CHECKPOWDER",
+		{[cursorObject] call A3PL_Police_CheckPowder;},
+		{(player_ItemClass isEqualTo "powdertestkit") && {isPlayer cursorObject}}
 	],
 	[
 		localize"STR_INTER_LCPSEIZURE",
@@ -1137,6 +1153,12 @@ A3PL_Interaction_Options =
 	],
 
 	[
+		"Stop Dragging",
+		{player setVariable["dragging",nil,true];},
+		{(player getVariable["dragging",false])}
+	],
+	
+	[
 		"Stop Towing",
 		{[player_objintersect] call A3PL_USCG_UntowBoat;},
 		{((typeOf player_objintersect) isEqualTo "A3PL_RBM") && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {(player_objintersect getVariable ["towing",false])}}
@@ -1159,34 +1181,63 @@ A3PL_Interaction_Options =
 		{[A3FL_BoatTow,player_objintersect] call A3PL_USCG_TowBoat;},
 		{((typeOf player_objintersect) IN ["A3PL_RBM"]) && {(player getVariable["job","unemployed"]) isEqualTo "uscg"} && {!isNil {A3FL_BoatTow}}}
 	],
-
+	[
+		"Suicide",
+		{[] spawn A3PL_Prison_Suicide;},
+		{(Player_ItemClass isEqualTo "cyanide_pills") && {count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0}}
+	],
 	[
 		"Toggle Garage",
 		{
-			switch (typeOf cursorObject) do {
+			private _cursorObject = cursorObject;
+
+			switch (typeOf _cursorObject) do {
+				case "Land_A3PL_Firestation": {
+					private _job = player getVariable["job","unemployed"];
+					if !(_job isEqualTo "fifr") exitWith {["Only FIFR can use the firestation doors","red"] call A3PL_Player_Notification;};
+					private _memList = ["garagedoor1_button","garagedoor2_button","door_6","door_7","door_8","door_9","door_2","door_3","door_4","door_5",""];
+					private _lastDist = 100;
+					private _nearest = "";
+					{
+						private _dist = player distance2D (_cursorObject modelToWorldVisual (_cursorObject selectionPosition [_x, "Memory"]));
+						if(_dist < _lastDist) then {
+							_lastDist = _dist;
+							_nearest = _x;
+
+						};
+					} foreach _memList;
+					if !(_nearest isEqualTo "") then {
+						private _split = _nearest splitstring "_";
+						if((_split select 1) isEqualTo "button") then {
+							[_cursorObject,(_split select 0)] call A3PL_Lib_ToggleAnimation;
+						} else {
+							[_cursorObject,_nearest,false] call A3PL_Lib_ToggleAnimation;
+						};
+					};
+				};
 				case "Land_A3FL_Warehouse": {
-					private _distanceLeft = player distance2D (cursorObject modelToWorldVisual (cursorObject selectionPosition ["door_1", "Memory"]));
-					private _distanceRight = player distance2D (cursorObject modelToWorldVisual (cursorObject selectionPosition ["door_5", "Memory"]));
+					private _distanceLeft = player distance2D (_cursorObject modelToWorldVisual (_cursorObject selectionPosition ["door_1", "Memory"]));
+					private _distanceRight = player distance2D (_cursorObject modelToWorldVisual (_cursorObject selectionPosition ["door_5", "Memory"]));
 					
 					if (_distanceRight > _distanceLeft) then {
-						[cursorObject, "door_1", false] call A3PL_Lib_ToggleAnimation;
-						[cursorObject, "door_2", false] call A3PL_Lib_ToggleAnimation;
+						[_cursorObject, "door_1", false] call A3PL_Lib_ToggleAnimation;
+						[_cursorObject, "door_2", false] call A3PL_Lib_ToggleAnimation;
 					} else {
-						[cursorObject, "door_5", false] call A3PL_Lib_ToggleAnimation;
-						[cursorObject, "door_6", false] call A3PL_Lib_ToggleAnimation;
+						[_cursorObject, "door_5", false] call A3PL_Lib_ToggleAnimation;
+						[_cursorObject, "door_6", false] call A3PL_Lib_ToggleAnimation;
 					};
 				};
 
 				case "Land_John_Hangar": {
-					[cursorObject, "hangardoor"] call A3PL_Lib_ToggleAnimation;
+					[_cursorObject, "hangardoor"] call A3PL_Lib_ToggleAnimation;
 				};
 
 				default {
-					[cursorObject, "garagedoor"] call A3PL_Lib_ToggleAnimation;
+					[_cursorObject, "garagedoor"] call A3PL_Lib_ToggleAnimation;
 				};
 			};
 		},
-		{((typeOf cursorObject) isKindOf "House") && ((cursorObject getVariable ["unlocked", false]) || ((getPlayerUID player) in (cursorObject getVariable ["owner", []]))) && ((player distance cursorObject) < 20) && ((typeof (call A3PL_Intersect_cursorTarget)) in ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Home4w_DED_Home4w_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home6b_DED_Home6b_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_John_Hangar","Land_A3FL_Warehouse"])}
+		{((typeOf cursorObject) isKindOf "House") && {(cursorObject getVariable ["unlocked", false]) || ((getPlayerUID player) in (cursorObject getVariable ["owner", []])) || ((typeOf cursorObject) isEqualTo "Land_A3PL_Firestation")} && {(player distance cursorObject) < 35} && {(typeof (call A3PL_Intersect_cursorTarget)) IN ["Land_A3PL_Ranch3","Land_A3PL_Ranch2","Land_A3PL_Ranch1","Land_Home4w_DED_Home4w_01_F","Land_Home3r_DED_Home3r_01_F","Land_Home6b_DED_Home6b_01_F","Land_Home5y_DED_Home5y_01_F","Land_Home1g_DED_Home1g_01_F","Land_Home2b_DED_Home2b_01_F","Land_John_Hangar","Land_A3FL_Warehouse","Land_A3PL_Firestation"]}}
 	]
 ];
 publicVariable "A3PL_Interaction_Options";

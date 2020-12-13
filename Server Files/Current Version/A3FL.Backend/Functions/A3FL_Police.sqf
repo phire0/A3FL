@@ -268,7 +268,6 @@
 	_weaponHolder = A3PL_Police_WeaponHolder;
 
 	_amount = 1;
-	[getPlayerUID player,"patdownTake",["Target",_target getVariable["name","unknwon"],"Item",_class,"Amount",_amount]] remoteExec ["Server_Log_New",2];
 	switch (_type) do
 	{
 		case ("item"):
@@ -361,6 +360,7 @@
 
 	[format [localize"STR_NewPolice_6",_itemName,_amount],"green"] call A3PL_Player_Notification;
 	[format [localize"STR_NewPolice_7",_itemName,_amount]] remoteExec ["A3PL_Player_Notification",_target];
+	[getPlayerUID player,"patdownTake",["Target",_target getVariable["name","unknwon"],"Item",_itemName,"Amount",_amount]] remoteExec ["Server_Log_New",2];
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_Cuff', {
@@ -623,6 +623,7 @@
 		[player,6] remoteExec ["A3PL_Police_SurrenderAnim", -2];
 	};
 	[player,1] remoteExec ["A3PL_Police_SurrenderAnim", -2];
+	Player_ActionInterrupted = true;
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_SurrenderAnim', {
@@ -639,7 +640,6 @@
 				player setdir ((getDir player) + 50);
 			};
 			_civ switchmove "A3PL_IdleToHandsup";
-			[getPlayerUID player,"surrender"] remoteExec ["Server_Log_New",2];
 		};
 		case 2:
 		{
@@ -707,18 +707,16 @@
 ['A3PL_Police_SpikeHit', {
 	private _veh = vehicle player;
 	private _wheel = _this;
-	[_veh,_wheel] spawn {
-		private _veh = _this select 0;
-		private _wheel = _this select 1;
-		while {(_veh getHit _wheel) < 1} do
-		{
-			waitUntil {(speed (vehicle player)) > 1};
-			_speed = (speed (vehicle player));
-			If (_speed < 30) then {_speed = _speed/5;};
-			_multiplier = _speed/5000;
-			_veh setHit [_wheel,((_veh getHit _wheel) + _multiplier)];
-			sleep 0.2;
+	while {(_veh getHit _wheel) < 1} do
+	{
+		waitUntil {(speed (vehicle player)) > 1};
+		_speed = (speed (vehicle player));
+		if (_speed > 30) then {
+			_veh setHit [_wheel,(_veh getHit _wheel) + 0.1];
+		} else {
+			_veh setHit [_wheel,(_veh getHit _wheel) + 0.05];
 		};
+		sleep 0.1;
 	};
 }] call Server_Setup_Compile;
 
@@ -813,7 +811,6 @@
 
 ['A3PL_Police_DatabaseArgu',{
 	params[["_edit","",[""]],["_index",0,[0]]];
-
 	private _allowedChars = toArray "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ,";
 	private _checkEdit = toArray _edit;
 	private _forbiddenUsed = false;
@@ -823,39 +820,51 @@
 			_forbiddenUsed = true;
 		};
 	} forEach _checkEdit;
-
-	if (_forbiddenUsed) exitWith {
-		"SpecialCharacterError";
-	};
+	if (_forbiddenUsed) exitWith {"SpecialCharacterError";};
 
 	_array = _edit splitString " ";
 	_return = _array select _index;
-	_return
+	_return;
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseEnterReceive',
 {
 	disableSerialization;
-	private ["_newstruct","_display","_control"];
 	params["_name","_command",["_return",""]];
-	_output = "";
+	private _output = "Unknown command, use help to get the list of commands";
+	private _veh = vehicle player;
 	switch (_command) do {
 		case "lookup":
 		{
 			if (count _return > 0) then
 			{
 				_warrantCount = "No";
-				if ((_return select 2) > 0) then
-				{
+				if ((_return select 2) > 0) then {
 					_warrantCount = "<t color='#ff0000'>Yes</t>";
 				};
-
 				_cautionStr = "None";
 				if ((count(_return select 10)) >= 3) then {
 					_cautionStr = format["<t color='#ff0000'>%1</t>", _return select 10];
 				};
+				_licensesStr = if(count (_return select 8) isEqualTo 0) then {"None"} else {""};
+				{
+					_licensesStr = if(_licensesStr isEqualTo "") then {
+						format ["%1", [_x,"name"] call A3PL_Config_GetLicense]
+					} else {
+						format ["%1, %2",_licensesStr, [_x,"name"] call A3PL_Config_GetLicense]
+					};
+				} forEach (_return select 8);
 
-				_output = format ["<t align='center'>Name: %1</t><br /><t align='center'>Sex: %2</t><br /><t align='center'>DOB: %3</t><br /><t align='center'>Passport Date: %9</t><br /><t align='center'>Active warrant: %4</t><br /><t align='center'>Cautions: %13</t><br /><t align='center'>Warning History: %5</t><br /><t align='center'>Ticket History: %6</t><br /><t align='center'>Arrest History: %7</t><br /><t align='center'>Report History: %8</t><br /><t align='center'>Bank Account: $%11</t><br /><t align='center'>Licenses: %10</t><br/><t align='center'>Company: %12</t>",
+				_employment = (_return select 12);
+				if(_employment isEqualTo "none") then {
+					if((_return select 11) IN ["fisd","uscg","fifr","fims","doj"]) then {
+						_employment = toUpper(_return select 11);
+					} else {
+						_employment = "umemployed";
+					};
+				};
+
+				_output = format ["<t align='center'>Name: %1</t><br /><t align='center'>Gender: %2</t><br /><t align='center'>DOB: %3</t><br /><t align='center'>Passport Date: %9</t><br /><t align='center'>Active warrant: %4</t><br /><t align='center'>Cautions: %13</t><br /><t align='center'>Warning History: %5</t><br /><t align='center'>Ticket History: %6</t><br /><t align='center'>Arrest History: %7</t><br /><t align='center'>Report History: %8</t><br /><t align='center'>Bank Account: $%11</t><br /><t align='center'>Employment: %12</t><br/><t align='center'>Licenses: %10</t>",
 				_name,
 				(_return select 0),
 				(_return select 1),
@@ -865,9 +874,9 @@
 				(_return select 3),
 				(_return select 6),
 				(_return select 7),
-				(_return select 8),
+				_licensesStr,
 				[(_return select 9), 1, 0, true] call CBA_fnc_formatNumber,
-				(_return select 11),
+				_employment,
 				_cautionStr
 				];
 			} else
@@ -875,7 +884,6 @@
 				_output = format ["Can not find %1 in the criminals database.",_name];
 			};
 		};
-
 		case "lookupvehicles":
 		{
 			if (count _return > 0) then
@@ -896,45 +904,32 @@
 				_output = format ["<t align='center'>No vehicles found!</t>"];
 			};
 		};
-
 		case "lookuplicense":
 		{
 			if(count _return > 1) then {
-				_name = _return select 0;
-				_class = _return select 2;
-				_insured = _return select 3;
-				_plate = _return select 5;
+				private _name = _return select 0;
+				private _class = _return select 2;
+				private _insured = _return select 3;
+				private _plate = _return select 6;
+				private _info = _return select 7;
 				private _isInsured = "Yes";
-
-				_vehName = getText(configFile >>  "CfgVehicles" >>  _class >> "displayName");
-
-				_stolen = "No";
-				if ((_return select 1) > 0) then
-				{
-					_stolen = "<t color='#ff0000'>Yes</t>";
-				};
-
-				if(_insured isEqualTo 0) then {
-					_isInsured = "No";
-				} else {
-					_isInsured = "Yes";
-				};
-
+				private _vehName = getText(configFile >>  "CfgVehicles" >>  _class >> "displayName");
+				private _stolen = if ((_return select 1) > 0) then {"<t color='#ff0000'>Yes</t>"} else {"No"};
+				private _insured = if(_insured isEqualTo 0) then {"No"} else {"Yes"};
 				_output = format["
 				<t align='center'>License: %1</t><br />
 				<t align='center'>Type: %3</t><br />
 				<t align='center'>Owner: %2</t><br />
 				<t align='center'>Reported stolen: %4</t><br />
-				<t align='center'>Insurance: %5</t>",_plate,_name,_vehName,_stolen,_isInsured];
-
-				if(count(_return) isEqualTo 7) then {
-					_output = _output + format["<br /><t align='center'>Company: %1</t>",_return select 6];
+				<t align='center'>Insurance: %5</t><br/>
+				<t align='center'>Additional Information: %6</t>",_plate,_name,_vehName,_stolen,_insured,_info];
+				if(count(_return) isEqualTo 9) then {
+					_output = _output + format["<br /><t align='center'>Company: %1</t>",_return select 8];
 				};
 			} else {
-				_output = format ["No information available for registration %1",_plate];
+				_output = format ["No information available for registration %1",_return select 0];
 			};
 		};
-
 		case "lookupcompany":
 		{
 			if(count _return > 1) then {
@@ -943,7 +938,6 @@
 				_boss = _return select 2;
 				_bank = _return select 3;
 				_licenses = _return select 4;
-
 				_output = format["
 				<t align='center'>Company: %1</t><br />
 				<t align='center'>Description: %2</t><br />
@@ -954,11 +948,10 @@
 				_output = format ["No information available for company : %1",_name];
 			};
 		};
-
 		case "lookupaddress":
 		{
-			_house = _return select 0;
-			_name = _return select 1;
+			private _house = _return select 0;
+			private _name = _return select 1;
 			if(!isNil "_house") then {
 				[_house, _name] spawn A3PL_Police_MarkHouse;
 				_output = format["%2 resides at %1",[parseSimpleArray(_house)] call A3PL_Housing_PosAddress, _name];
@@ -968,8 +961,8 @@
 		};
 		case "lookupwarehouse":
 		{
-			_warehouse = _return select 0;
-			_name = _return select 1;
+			private _warehouse = _return select 0;
+			private _name = _return select 1;
 			if(!isNil "_warehouse") then {
 				[_warehouse, _name,true] spawn A3PL_Police_MarkHouse;
 				_output = format["%2 resides at %1",[parseSimpleArray(_warehouse)] call A3PL_Housing_PosAddress, _name];
@@ -977,20 +970,10 @@
 				_output = "No registered warehouses found for this citizen!";
 			};
 		};
-
-		case "markstolen":
-		{
-			_output = _return;
-		};
-
-		case "markfound":
-		{
-			_output = _return;
-		};
-
+		case "markstolen": {_output = _return;};
+		case "markfound": {_output = _return;};
 		case "warrantlist":
 		{
-
 			if (count _return > 0) then
 			{
 				{
@@ -1002,51 +985,37 @@
 				_output = format ["Can not find active mandates for %1",_name];
 			};
 		};
-
 		case "warrantinfo":
 		{
-			if (count _return > 0) then
-			{
+			if (count _return > 0) then {
 				_output = format ["<t align='center'>Warrant: %1</t><br /><t align='center'>Date: %2</t><br /><t align='center'>Issued by: %3</t><br /><t align='center'>Info:</t><br /><t align='center'>%4</t><br />",_name,_return select 0,_return select 1,_return select 2];
-			} else
-			{
+			} else {
 				_output = format ["No warrant exists",_name];
 			};
 		};
-
-		case "removewarrant":
-		{
-			_output = _return;
-		};
-
+		case "removewarrant": {_output = _return;};
 		case "ticketlist":
 		{
-			if (count _return > 0) then
-			{
+			if (count _return > 0) then {
 				{
 					_output = _output + (format ["<t align='center'>%1 - $%4 - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2,_x select 3]);
 				} foreach _return;
 				_output = _output;
-			} else
-			{
+			} else {
 				_output = format ["No history of fines is available for %1",_name];
 			};
 		};
-
 		case "arrestlist":
 		{
-			if (count _return > 0) then
-			{
+			if (count _return > 0) then {
 				{
 					_output = _output + (format ["<t align='center'>%1 - %4 Month(s) - %2 - Issued by: %3</t><br />",_x select 0,_x select 1,_x select 2,_x select 3]);
 				} foreach _return;
 				_output = _output;
-			} else
-			{
+			} else {
 				_output = format ["No arrest available for %1",_name];
 			};
 		};
-
 		case "warninglist":
 		{
 			if (count _return > 0) then
@@ -1060,48 +1029,23 @@
 				_output = format ["No warning history is available for %1",_name];
 			};
 		};
-
-		case "insertwarrant":
-		{
-			_output = _return;
-		};
-
-		case "insertticket":
-		{
-			_output = _return;
-		};
-
-		case "insertwarning":
-		{
-			_output = _return;
-		};
-
-		case "insertreport":
-		{
-			_output = _return;
-		};
-
-		case "insertarrest":
-		{
-			_output = _return;
-		};
-
+		case "insertwarrant": {_output = _return;};
+		case "insertticket": {_output = _return;};
+		case "insertwarning": {_output = _return;};
+		case "insertreport": {_output = _return;};
+		case "insertarrest": {_output = _return;};
 		case "lookupvehicles":
 		{
-
-			if (count _return > 0) then
-			{
+			if (count _return > 0) then {
 				{
 
 					_output = _output + (format ["<t align='center'>%1. License: %2 - Model: %3 - Stolen: %4</t><br />",_forEachIndex+1,_x select 0,_vehName,_stolen]);
 				} foreach _return;
 				_output = (_output + "<t align='center'>End of the list of vehicles</t>");
-			} else
-			{
+			} else {
 				_output = format ["<t align='center'>No vehicles found!</t>"];
 			};
 		};
-
 		case "darknet":
 		{
 			if (count _return > 0) then
@@ -1109,46 +1053,25 @@
 				{
 					_output = _output + (format ["<t align='center'>User: %1 - Message: %2</t><br />",_x select 0,_x select 1]);
 				} foreach _return;
-			} else
-			{
+			} else {
 				_output = "No Dark Net messages found!";
 			};
 		};
-
-		case "setcaution":
-		{
-			_output = _return;
-		};
-
-		case "clearcautions":
-		{
-			_output = _return;
-		};
-
+		case "setcaution": {_output = _return;};
+		case "clearcautions": {_output = _return;};
 		case "bololist":
 		{
-			if (count _return > 0) then
-			{
+			if (count _return > 0) then {
 				{
 					_output = _output + (format ["<t align='center'>%1 - %2 - %3 - Inserted by: %4</t><br />", _x select 0, _x select 2, _x select 1, _x select 3]);
 				} foreach _return;
 				_output = _output;
-			} else
-			{
+			} else {
 				_output = format ["No BOLO notices found."];
 			};
 		};
-
-		case "insertbolo":
-		{
-			_output = _return;
-		};
-
-		case "removebolo":
-		{
-			_output = _return;
-		};
-
+		case "insertbolo": {_output = _return;};
+		case "removebolo": {_output = _return;};
 		case "stolenvehicles":
 		{
 			if (count _return > 0) then
@@ -1163,94 +1086,83 @@
 				_output = format ["<t align='center'>No vehicles are currently marked as stolen!</t>"];
 			};
 		};
-
-		default {_output = "Unknown error - Contact the developer"};
 	};
-
-	_newstruct = format["%1<br />%2",(player getVariable "PoliceDatabaseStruc"),_output];
-	player setVariable ["PoliceDatabaseStruc",_newstruct,false];
+	private _newstruct = format["%1<br />%2",(_veh getVariable "PoliceDatabaseStruc"),_output];
+	_veh setVariable ["PoliceDatabaseStruc",_newstruct,true];
 	[_newstruct] call A3PL_Police_UpdateComputer;
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_UpdateComputer',
 {
-	params[["_input","",[""]],["_new",false,[false]]];
-
-	_display = findDisplay 211;
-	_control = _display displayCtrl 1100;
-	_array = [_input, "<br />"] call CBA_fnc_split;
-
-	if(count _array > 21) then {
-		_remove = (count _array) - 21;
-
+	params[["_input","",[""]]];
+	private _display = findDisplay 211;
+	private _control = _display displayCtrl 1100;
+	private _controlPos = ctrlPosition _control;
+	private _veh = vehicle player;
+	private _array = [_input, "<br />"] call CBA_fnc_split;
+	if(count _array > 50) then {
+		private _remove = (count _array) - 50;
 		for "_i" from 0 to _remove-1 do {
 			_array deleteAt 0;
 		};
 	};
-
-	_text = [_array, "<br />"] call CBA_fnc_join;
-
-	player setVariable ["PoliceDatabaseStruc",_text,false];
-
+	private _text = [_array, "<br />"] call CBA_fnc_join;
+	_veh setVariable ["PoliceDatabaseStruc",_text,true];
 	_control ctrlSetStructuredText parseText _text;
+
+	_newH = ctrlTextHeight _control;
+	_control ctrlSetPosition [_controlPos select 0, _controlPos select 1, _controlPos select 2, _newH];
+	_control ctrlCommit 0;
+
+	private _ctrlGrp = _display displayCtrl 1001;
+	_ctrlGrp ctrlSetAutoScrollSpeed 0.000001;
+	_ctrlGrp ctrlSetAutoScrollDelay 0.000001;
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_IsStringNumber',
 {
 	params[["_str","0"]];
-
 	{
 		if (!(_x isEqualTo "0") && (parseNumber _x isEqualTo 0)) exitWith {true};
 	} count (_str splitString "") isEqualTo 0;
-
 }] call Server_Setup_Compile;
 
 ['A3PL_Police_DatabaseEnter',
 {
-	private ["_display","_control","_edit","_edit0","_newstruct"];
 	disableSerialization;
-
-	_display = findDisplay 211;
-
-	_control = _display displayCtrl 1401;
-	_edit = ctrlText _control;
-
-	_newstruct = format["%1<br />%2",(player Getvariable "PoliceDatabaseStruc"),"> "+_edit];
-	player setVariable ["PoliceDatabaseStruc",_newstruct,false];
+	private _display = findDisplay 211;
+	private _control = _display displayCtrl 1401;
+	private _edit = ctrlText _control;
+	private _veh = vehicle player;
+	private _newstruct = format["%1<br/>%2",(_veh getVariable "PoliceDatabaseStruc"),"> " + _edit];
+	_veh setVariable ["PoliceDatabaseStruc",_newstruct,true];
 
 	[_newstruct] call A3PL_Police_UpdateComputer;
 
-	_control = _display displayCtrl 1401;
+	private _control = _display displayCtrl 1401;
 	_control ctrlSetText "";
 
-	private _dojCommands = ["help", "clear", "login", "lookup", "lookupvehicles", "lookuplicense", "lookupcompany", "warrantlist", "warrantinfo", "ticketlist", "warninglist", "arrestlist", "lookupaddress", "lookupwarehouse", "bololist", "stolenvehicles", "darknet", "SpecialCharacterError"];
-	private _isDoj = ((player getVariable ["job","unemployed"]) isEqualTo "doj");
-	
-	_edit0 = [_edit,0] call A3PL_Police_DatabaseArgu;
+	private _dojCommands = ["help", "clear", "login", "lookup", "lookupvehicles", "lookuplicense", "lookupcompany", "warrantlist", "warrantinfo", "ticketlist", "warninglist", "arrestlist", "lookupaddress", "lookupwarehouse", "bololist", "stolenvehicles", "darknet", "SpecialCharacterError", "revokelicense"];
+	private _notCop = !((player getVariable ["faction","citizen"]) IN ["fisd","fims","uscg"]);
+	private _edit0 = [_edit,0] call A3PL_Police_DatabaseArgu;
 
-	if ((!(player getVariable "PoliceDatabaseLogin")) && (!(_edit0 isEqualTo "login"))) exitwith
+	if ((!(_veh getVariable "PoliceDatabaseLogin")) && (!(_edit0 isEqualTo "login"))) exitwith
 	{
-		_newstruct = format ["%1<br />%2", player getVariable ["PoliceDatabaseStruc", ""], "Error: You are not logged in!"];
-		player setVariable ["PoliceDatabaseStruc",_newstruct,false];
+		_newstruct = format ["%1<br />%2", _veh getVariable ["PoliceDatabaseStruc", ""], "Error: You are not logged in!"];
+		_veh setVariable ["PoliceDatabaseStruc",_newstruct,true];
 		[_newstruct] call A3PL_Police_UpdateComputer;
 	};
-
-	if (_isDoj && (!(_edit0 in _dojCommands))) exitWith {
-		_newstruct = format ["%1<br />%2", player getVariable ["PoliceDatabaseStruc", ""], "Error: You do not have permission to use this command!"];
-		player setVariable ["PoliceDatabaseStruc", _newstruct, false];
+	if (_notCop && (!(_edit0 in _dojCommands))) exitWith {
+		_newstruct = format ["%1<br />%2", _veh getVariable ["PoliceDatabaseStruc", ""], "Error: You do not have permission to use this command!"];
+		_veh setVariable ["PoliceDatabaseStruc", _newstruct, true];
 		[_newstruct] call A3PL_Police_UpdateComputer;
 	};
-
-	_output = "";
-	
-	switch (_edit0) do {
+	private _output = switch (_edit0) do {
 		case "help":
 		{
-			if (_isDoj) then {
-				_output = "
-				<t align='center'>help - View all commands</t><br />
+			if (_notCop) then {
+				"
 				<t align='center'>clear - Clear screen</t><br />
-				<t align='center'>login [password] - Login to use the commands</t><br />
 				<t align='center'>lookup [firstname] [lastname] - View information about a person</t><br />
 				<t align='center'>lookupvehicles [firstname] [lastname] - List all registered vehicles to a person</t><br />
 				<t align='center'>lookuplicense [license plate] - View license plate information</t><br />
@@ -1263,20 +1175,18 @@
 				<t align='center'>lookupaddress [firstname] [lastname] - View house address</t><br />
 				<t align='center'>lookupwarehouse [firstname] [lastname] - View warehouse address</t><br />
 				<t align='center'>bololist - View a list of active BOLO notices</t><br />
-				<t align='center'>stolenvehicles - View a list of stolen vehicles</t><br />
-				<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t><br />
+				<t align='center'>revokelicense [firstname] [lastname] [license code] - Revoke a license</t><br />
+				<t align='center'>stolenvehicles - View a list of stolen vehicles</t>
 				";
 			} else {
-				_output = "
-				<t align='center'>help - View all commands</t><br />
+				"
 				<t align='center'>clear - Clear screen</t><br />
-				<t align='center'>login [password] - Login to use the commands</t><br />
 				<t align='center'>lookup [firstname] [lastname] - View information about a person</t><br />
 				<t align='center'>lookupvehicles [firstname] [lastname] - List all registered vehicles to a person</t><br />
-				<t align='center'>lookuplicense [license plate] - View license plate information</t><br />
+				<t align='center'>lookuplicense [plate] - View plate information</t><br />
 				<t align='center'>lookupcompany [company name] - View company information</t><br />
-				<t align='center'>markstolen [license plate] - Mark a vehicle as stolen</t><br />
-				<t align='center'>markfound [license plate] - Mark a vehicle as found</t><br />
+				<t align='center'>markstolen [plate] - Mark a vehicle as stolen</t><br />
+				<t align='center'>markfound [plate] - Mark a vehicle as found</t><br />
 				<t align='center'>warrantlist [firstname] [lastname] - List of mandates for a person</t><br />
 				<t align='center'>warrantinfo [firstname] [lastname] [number] - Mandates Information</t><br />
 				<t align='center'>removewarrant [firstname] [lastname] [number] - Remove the warrant</t><br />
@@ -1295,379 +1205,292 @@
 				<t align='center'>removebolo [BOLO ID] - Remove a BOLO notice</t><br />
 				<t align='center'>bololist - View a list of active BOLO notices</t><br />
 				<t align='center'>stolenvehicles - View a list of stolen vehicles</t><br />
-				<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t><br />
+				<t align='center'>revokelicense [firstname] [lastname] [license code] - Revoke a license</t><br />
+				<t align='center'>darknet - View the last 10 messages on the encrypted Dark Net</t>
 				";
 			};
 		};
-
-		case "clear": {_output = "<t align='center'>Computer Database - F.I.S.D.</t><br /><t align='center'>Enter 'help' for the list of available commands</t>";};
-		
+		case "clear": {"<t align='center'>Law Enforcement Database - Fishers Island</t><br /><t align='center'>Enter 'help' for the list of commands</t>";};
 		case "login":
 		{
-			private ["_pass"];
-			_pass = [_edit,1] call A3PL_Police_DatabaseArgu;
-			if (_pass == "fisdftw") then
-			{
-				player setVariable ["PoliceDatabaseLogin",true,false];
-				_output = "You are connected";
-			} else
-			{
-				_output = "Error: Incorrect password";
+			private _pass = [_edit,1] call A3PL_Police_DatabaseArgu;
+			if (_pass isEqualTo "fisdftw") then {
+				_veh setVariable ["PoliceDatabaseLogin",true,true];
+				private _rank = [(player getVariable ["faction","citizen"]),"rank", getPlayerUID player] call A3PL_Config_GetFactionRankData;
+				format["Logged in as %1 %2",_rank,(player getVariable["name","unknown"])];
+			} else {
+				"Error: Incorrect password";
 			};
 		};
-
+		case "logout":
+		{
+			_veh setVariable ["PoliceDatabaseLogin",false,true];
+			"<t align='center'>Law Enforcement Database - Fishers Island</t><br /><t align='center'>Enter 'help' for the list of commands</t><br/> Please login..";
+		};
 		case "lookup":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
-
-			_output = format ["Searching for a citizen in the database ...",_name];
+			format ["Searching for a citizen in the database ...",_name];
 		};
-
 		case "lookupvehicles":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
-
-			_output = format ["Searching for a citizen's vehicles in the database ...",_name];
+			format ["Searching for a citizen's vehicles in the database ...",_name];
 		};
-
 		case "lookuplicense":
 		{
-			private ["_license"];
-			_license = [_edit,1] call A3PL_Police_DatabaseArgu;
-
+			private _license = [_edit,1] call A3PL_Police_DatabaseArgu;
 			[player,_license,_edit0] remoteExec ["Server_Police_Database", 2];
-			_ouput = format["Search for the license plate %1...",_edit];
+			format["Search for the license plate %1...",_license];
 		};
-
 		case "lookupcompany":
 		{
 			[player,_edit,_edit0] remoteExec ["Server_Police_Database", 2];
-			_ouput = format["Seaching %1 into the companies database...",_edit];
+			format["Seaching %1 into the companies database...",_edit];
 		};
-
 		case "lookupaddress":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database",2];
-
-			_output = format ["Searching for Addresses in F.I.S.D Database...",_name];
+			format ["Searching for %1's house address in database...",_name];
 		};
-
 		case "lookupwarehouse":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database",2];
-
-			_output = format ["Searching for Addresses in F.I.S.D Database...",_name];
+			format ["Searching for %1's warehouse address in database...",_name];
 		};
-
 		case "markstolen":
 		{
-			private ["_license"];
-			_license = [_edit,1] call A3PL_Police_DatabaseArgu;
-
+			private _license = [_edit,1] call A3PL_Police_DatabaseArgu;
 			[player,_license,_edit0] remoteExec ["Server_Police_Database", 2];
-			_ouput = format["Marking the vehicle as stolen: %1...",_edit];
+			format["Marking the vehicle as stolen: %1...",_license];
 		};
-
 		case "markfound":
 		{
-			private ["_license"];
-			_license = [_edit,1] call A3PL_Police_DatabaseArgu;
-
+			private _license = [_edit,1] call A3PL_Police_DatabaseArgu;
 			[player,_license,_edit0] remoteExec ["Server_Police_Database", 2];
-			_ouput = format["Marking the vehicle as found: %1...",_edit];
+			format["Marking the vehicle as found: %1...",_license];
 		};
-
 		case "warrantlist":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
-
-			_output = format ["Search the database for active mandates ..",_name];
+			format ["Search the database for active mandates ..",_name];
 		};
-
 		case "warrantinfo":
 		{
-			private ["_name","_offset"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_offset = (parseNumber ([_edit,3] call A3PL_Police_DatabaseArgu)) - 1;
-
-			if (_offset < 0) exitwith {
-				_output = format ["Incorrect Syntax, refer to F.I.S.D operation manual",_name];
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _offset = (parseNumber ([_edit,3] call A3PL_Police_DatabaseArgu)) - 1;
+			if (_offset < 0) then {
+				format ["Error: Incorrect Syntax",_name];
+			} else {
+				[player,_name,_edit0,_offset] remoteExec ["Server_Police_Database", 2];
+				format ["Search the database for this mandate number ...",_name];
 			};
-
-			[player,_name,_edit0,_offset] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Search the database for this mandate number ...",_name];
 		};
-
 		case "removewarrant":
 		{
-			private ["_name","_offset"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_offset = (parseNumber ([_edit,3] call A3PL_Police_DatabaseArgu)) - 1;
-
-			if (_offset < 0) exitwith
-			{
-				_output = format ["Incorrect Syntax, refer to F.I.S.D operation manual",_name];
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _offset = (parseNumber ([_edit,3] call A3PL_Police_DatabaseArgu)) - 1;
+			if (_offset < 0) then {
+				format ["Incorrect Syntax, refer to F.I.S.D operation manual",_name];
+			} else {
+				[player,_name,_edit0,_offset] remoteExec ["Server_Police_Database", 2];
+				format ["Search the database for this mandate number ...",_name];
 			};
-
-			[player,_name,_edit0,_offset] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Search the database for this mandate number ...",_name];
 		};
-
 		case "ticketlist":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Search the database for the history of fines ...",_name];
+			format ["Search the database for the history of fines ...",_name];
 		};
-
 		case "arrestlist":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Search in the database for the history of arrests ...",_name];
+			format ["Search in the database for the history of arrests ...",_name];
 		};
-
 		case "warninglist":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Search the database for warning history ...",_name];
+			format ["Search the database for warning history ...",_name];
 		};
-
 		case "insertwarrant":
 		{
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_title = ([_edit,3] call A3PL_Police_DatabaseArgu);
-
-			_array = _edit splitString " ";
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _title = ([_edit,3] call A3PL_Police_DatabaseArgu);
+			private _array = _edit splitString " ";
 			for "_i" from 1 to 4 do {
 				_array deleteAt 0;
 			};
-
-			_info = [_array," "] call CBA_fnc_join;
-			_issuedBy = player getVariable ["name",name player];
-
+			private _info = [_array," "] call CBA_fnc_join;
+			private _issuedBy = player getVariable ["name",name player];
 			[player,[_name,_title,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Inserting a mandate into the database ..."];
+			"Inserting a mandate into the database ...";
 		};
-
 		case "insertticket":
 		{
-
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_amount = [_edit,3] call A3PL_Police_DatabaseArgu;
-			_amountNum = parseNumber _amount;
-			
-			if (!([_amount] call A3PL_Police_IsStringNumber)) exitWith {_output = format ["Error: You must follow the correct syntax..."];};
-
-			_array = _edit splitString " ";
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _amount = [_edit,3] call A3PL_Police_DatabaseArgu;
+			private _amountNum = parseNumber _amount;
+			if (!([_amount] call A3PL_Police_IsStringNumber)) exitWith {format ["Error: You must follow the correct syntax..."];};
+			private _array = _edit splitString " ";
 			for "_i" from 1 to 4 do {
 				_array deleteAt 0;
 			};
-
-			_info = [_array," "] call CBA_fnc_join;
-			_issuedBy = player getVariable ["name",name player];
-
+			private _info = [_array," "] call CBA_fnc_join;
+			private _issuedBy = player getVariable ["name",name player];
 			[player,[_name,_amountNum,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Inserting a fine into the database ..."];
+			"Inserting a fine into the database ...";
 		};
-
 		case "insertwarning":
 		{
-
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_title = ([_edit,3] call A3PL_Police_DatabaseArgu);
-
-			_array = _edit splitString " ";
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _title = ([_edit,3] call A3PL_Police_DatabaseArgu);
+			private _array = _edit splitString " ";
 			for "_i" from 1 to 4 do {
 				_array deleteAt 0;
 			};
-
-			_info = [_array," "] call CBA_fnc_join;
-			_issuedBy = player getVariable ["name",name player];
-
+			private _info = [_array," "] call CBA_fnc_join;
+			private _issuedBy = player getVariable ["name",name player];
 			[player,[_name,_title,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Inserting a warning into the database ..."];
+			"Inserting a warning into the database ...";
 		};
-
 		case "insertreport":
 		{
-
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_title = ([_edit,3] call A3PL_Police_DatabaseArgu);
-
-			_array = _edit splitString " ";
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _title = ([_edit,3] call A3PL_Police_DatabaseArgu);
+			private _array = _edit splitString " ";
 			for "_i" from 1 to 4 do {
 				_array deleteAt 0;
 			};
-
-			_info = [_array," "] call CBA_fnc_join;
-			_issuedBy = player getVariable ["name",name player];
-
+			private _info = [_array," "] call CBA_fnc_join;
+			private _issuedBy = player getVariable ["name",name player];
 			[player,[_name,_title,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Adding a report to the database ..."];
+			"Adding a report to the database ...";
 		};
-
 		case "insertarrest":
 		{
-
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_time = ([_edit,3] call A3PL_Police_DatabaseArgu);
-
-			if (!([_time] call A3PL_Police_IsStringNumber)) exitWith {
-				_output = format ["Error: You must follow the correct syntax..."];
-			};
-
-			_array = _edit splitString " ";
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _time = ([_edit,3] call A3PL_Police_DatabaseArgu);
+			if (!([_time] call A3PL_Police_IsStringNumber)) exitWith {format ["Error: You must follow the correct syntax..."];};
+			private _array = _edit splitString " ";
 			for "_i" from 1 to 4 do {
 				_array deleteAt 0;
 			};
-
-			_info = [_array," "] call CBA_fnc_join;
-			_issuedBy = player getVariable ["name",name player];
-
+			private _info = [_array," "] call CBA_fnc_join;
+			private _issuedBy = player getVariable ["name",name player];
 			[player,[_name,_time,_info,_issuedBy],_edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Inserting an arrest in the database ..."];
+			"Inserting an arrest in the database ...";
 		};
-
 		case "revokelicense":
 		{
-			private ["_license, _name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-			_license = [_edit,3] call A3PL_Police_DatabaseArgu;
-
-			[player,[_name,_license,_info],_edit0] remoteExec ["Server_Police_Database", 2];
-
-			[player,_name,_license,_edit0] remoteExec ["Server_Police_Database", 2];
-			_ouput = format["License revoked ..."];
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
+			private _license = [_edit,3] call A3PL_Police_DatabaseArgu;
+			if(!([_license] call A3PL_Config_LicenseExists)) exitWith {format["Unknown license: %1",_license];};
+			private _canRevoke = [_license,"canRevoke"] call A3PL_Config_GetLicense;
+			private _pJob = player getVariable["faction","citizen"];
+			if(!(_pJob IN _canRevoke)) exitWith {format["You cannot revoke %1",_license];};
+			[player, [_name, _license], _edit0] remoteExec ["Server_Police_Database", 2];
+			"Request sent...";
 		};
-
 		case "darknet":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
-
+			private _name = ([_edit,1] call A3PL_Police_DatabaseArgu) + " " + ([_edit,2] call A3PL_Police_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_Police_Database", 2];
-
-			_output = format ["Searching the darknet for hidden messages ...",_name];
+			format ["Searching the darknet for hidden messages ...",_name];
 		};
-
 		case "setcaution":
 		{
 			private _name = ([_edit, 1] call A3PL_Police_DatabaseArgu) + " " + ([_edit, 2] call A3PL_Police_DatabaseArgu);
-
-			_array = _edit splitString " ";
+			private _array = _edit splitString " ";
 			for "_i" from 1 to 3 do {
 				_array deleteAt 0;
 			};
-
-			_cautionDesc = [_array, " "] call CBA_fnc_join;
-			_issuedBy = player getVariable ["name", name player];
-
-			if (count(_cautionDesc) <= 3) exitWith {_output = "You must enter a valid caution description.";};
-
+			private _cautionDesc = [_array, " "] call CBA_fnc_join;
+			private _issuedBy = player getVariable ["name", name player];
+			if (count(_cautionDesc) <= 3) exitWith {"You must enter a valid caution description.";};
 			[player, [_issuedBy, _name, _cautionDesc], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Attempting to update cautions for %1 ...", _name];
-			
+			format ["Attempting to update cautions for %1 ...", _name];
 		};
-
 		case "clearcautions":
 		{
 			private _name = ([_edit, 1] call A3PL_Police_DatabaseArgu) + " " + ([_edit, 2] call A3PL_Police_DatabaseArgu);
-
 			[player, [_name], _edit0] remoteExec ["Server_Police_Database", 2];
-
-			_output = format ["Attempting to clear cautions for %1 ...", _name];
+			format ["Attempting to clear cautions for %1 ...", _name];
 		};
-
 		case "bololist":
 		{
 			[player, [_name], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Loading BOLO List ..."];
+			"Loading BOLO List ...";
 		};
-
 		case "insertbolo":
 		{
-			_array = _edit splitString " ";
-			_array deleteAt 0;
-			_boloDesc = [_array, " "] call CBA_fnc_join;
-			
-			if (count(_boloDesc) <= 8) exitWith {_output = "Please enter a descriptive BOLO notice.";};
-
-			_issuedBy = player getVariable ["name", name player];
-
+			private _array = _edit splitString " ";
+			private _array deleteAt 0;
+			private _boloDesc = [_array, " "] call CBA_fnc_join;
+			if (count(_boloDesc) <= 8) exitWith {"Please enter a descriptive BOLO notice.";};
+			private _issuedBy = player getVariable ["name", name player];
 			[player, [_issuedBy, _boloDesc], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Attempting to insert BOLO notice ..."];
+			format ["Attempting to insert BOLO notice ..."];
 		};
-
 		case "removebolo":
 		{
 			private _boloID = [_edit, 1] call A3PL_Police_DatabaseArgu;
 			private _boloIDNum = parseNumber _boloID;
-
-			if (!([_boloID] call A3PL_Police_IsStringNumber)) exitWith {
-				_output = format ["Error: Please insert a valid BOLO ID..."];
-			};
-
+			if (!([_boloID] call A3PL_Police_IsStringNumber)) exitWith {"Error: Please insert a valid BOLO ID...";};
 			[player, [_boloIDNum], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Attempting to remove BOLO notice '%1' ...", _boloID];
+			format ["Attempting to remove BOLO notice '%1' ...", _boloID];
 		};
-
 		case "stolenvehicles":
 		{
 			[player, [""], _edit0] remoteExec ["Server_Police_Database", 2];
-			_output = format ["Retrieving list of stolen vehicles ..."];
+			"Retrieving list of stolen vehicles ...";
 		};
-
-		case "SpecialCharacterError":
+		case "setsquad":
 		{
-			_output = "You cannot enter special characters into the MDT!";
+			private _number = [_edit, 1] call A3PL_Police_DatabaseArgu;
+			A3PL_SquadNb_Veh = _veh;
+			[_number] call A3PL_Police_SaveSquadNb;
+			format["Squad number changed to %1",_number];
 		};
-
-		default {_output = "Error: Unknown Command"};
+		case "SpecialCharacterError": {"You cannot enter special characters into the MDT!"};
+		default {"Error: Unknown Command"};
 	};
 
-	_control = _display displayCtrl 1100;
-	if (_edit0 == "clear") then {
-		_newstruct = _output;
+	private _control = _display displayCtrl 1100;
+	_newstruct = if (_edit0 IN ["clear","logout"]) then {
+		_output;
 	} else {
-		_newstruct = format["%1<br />%2",(player getVariable "PoliceDatabaseStruc"),_output];
+		format["%1<br />%2",(_veh getVariable "PoliceDatabaseStruc"),_output];
 	};
-	player setVariable ["PoliceDatabaseStruc",_newstruct,false];
-
+	_veh setVariable ["PoliceDatabaseStruc",_newstruct,true];
 	[_newstruct] call A3PL_Police_UpdateComputer;
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_DatabaseOpen",
 {
-	private ["_display","_text"];
-	if (!(player getVariable ["job","unemployed"] in ["fisd","uscg","fims","doj"])) exitWith {["You cannot access the police MDT!", "red"] call A3PL_Player_Notification;};
-	_text = "<t align='center'>FISD Database</t><br /><t align='center'>Enter 'help' to see all the available commands</t><br />> please login";
-	player setVariable ["PoliceDatabaseStruc",_text,false];
-	player setVariable ["PoliceDatabaseLogin",false,false];
+	private _veh = vehicle player;
+	
+	private _job = (player getVariable ["job","unemployed"]);
+	private _loggedIn = (_veh getVariable ["PoliceDatabaseLogin",false]);
+
+	if ((!(_job IN ["fisd","uscg","fims","doj","fifr"])) && (!(_loggedIn))) exitWith {
+		["This laptop is not currently logged in, only faction members may log in.","red"] call A3PL_Player_Notification;
+	};
+	
+	private _defText = "<t align='center'>Law Enforcement Database - Fishers Island</t><br /><t align='center'>Enter 'help' for the list of commands</t><br/>Please login..";
+	private _text = _veh getVariable ["PoliceDatabaseStruc",nil];
+	if(isNil "_text") then {_veh setVariable ["PoliceDatabaseStruc",_defText,true];_text=_defText;};
 	disableSerialization;
 	createDialog "Dialog_PoliceDatabase";
-	_display = findDisplay 211;
-	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) == 28) then {call A3PL_Police_DatabaseEnter;}"];
-
+	private _display = findDisplay 211;
+	_display displayAddEventHandler ["KeyDown", "if ((_this select 1) isEqualTo 28) then {call A3PL_Police_DatabaseEnter;}"];
 	[_text] call A3PL_Police_UpdateComputer;
 }] call Server_Setup_Compile;
 
@@ -1680,17 +1503,12 @@
 
 ["A3PL_Police_CreateTicket",
 {
-	private ["_display","_control","_ticketAmount"];
 	disableSerialization;
-	_display = findDisplay 38;
-	_control = _display displayCtrl 1400;
-	_ticketAmount = parseNumber (ctrlText _control);
+	private _display = findDisplay 38;
+	private _control = _display displayCtrl 1400;
+	private _ticketAmount = parseNumber (ctrlText _control);
 	closeDialog 0;
-	if (_ticketAmount < 1) exitwith
-	{
-		["Please enter a valid amount", "red"] call A3PL_Player_Notification;
-	};
-
+	if (_ticketAmount < 1) exitwith {["Please enter a valid amount", "red"] call A3PL_Player_Notification;};
 	Player_Item = "A3PL_Ticket" createVehicle (getPos player);
 	Player_Item attachTo [player, [0,0,0], "RightHand"];
 	Player_ItemClass = "ticket";
@@ -1700,7 +1518,7 @@
 
 ["A3PL_Police_GiveTicket",
 {
-	_player = param [0,objNull];
+	private _player = param [0,objNull];
 	if (!isPlayer _player) exitwith {["You do not look at any player", "red"] call A3PL_Player_Notification;};
 	if (isNil "Player_TicketAmount") exitwith {["Impossible to give this ticket, the amount is not registered", "red"] call A3PL_Player_Notification;};
 	[Player_Item] call A3PL_Inventory_Clear;
@@ -1712,35 +1530,23 @@
 
 ["A3PL_Police_GiveTicketResponse",
 {
-	_r = param [0,1];
-	_amount = param [1,0];
-
-	_text = ["Error while answering the ticket","red"];
-	switch (_r) do
-	{
-		case 1: {_text = ["The citizen refused to pay this ticket","red"];};
-		case 2: {_text = ["The citizen agreed to pay this ticket","green"];[player,5] call A3PL_Level_AddXP;};
-		case 3: {_text = ["The citizen does not have enough money to pay this ticket","red"];};
+	private _r = param [0,1];
+	private _amount = param [1,0];
+	private _text = switch (_r) do {
+		case 1: {["The citizen refused to pay this ticket","red"];};
+		case 2: {["The citizen agreed to pay this ticket","green"];[player,5] call A3PL_Level_AddXP;};
+		case 3: {["The citizen does not have enough money to pay this ticket","red"];};
+		default {["Error while answering the ticket","red"]};
 	};
-
 	_text call A3PL_Player_Notification;
-
-	if((_r isEqualTo 2) && (_amount != 0)) then {[_amount] spawn A3PL_Police_SendTicketMoney;};
-}] call Server_Setup_Compile;
-
-["A3PL_Police_SendTicketMoney",
-{
-	_amount = param [0,0];
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_ReceiveTicket",
 {
 	disableSerialization;
-	private ["_ticketAmount"];
 	Player_TicketCop = Nil;
 	Player_TicketAmount = Nil;
 	closeDialog 0;
-
 	Player_TicketAmount = param [0,1];
 	Player_TicketCop = param [1,objNull];
 	createDialog "Dialog_ReceiveTicket";
@@ -1760,23 +1566,16 @@
 ["A3PL_Police_PayTicket",
 {
 	closeDialog 0;
-
-	if (isNil "Player_TicketAmount") exitwith
-	{
-		[localize"STR_NewPolice_19","red"] call A3PL_Player_Notification;
-	};
-
-	_cash = player getVariable ["player_cash",0];
-	_bank = player getVariable ["player_bank",0];
+	if (isNil "Player_TicketAmount") exitwith {[localize"STR_NewPolice_19","red"] call A3PL_Player_Notification;};
+	private _cash = player getVariable ["player_cash",0];
+	private _bank = player getVariable ["player_bank",0];
 	if ((Player_TicketAmount > _cash) && (Player_TicketAmount > _bank)) exitwith
 	{
 		[3] remoteExec ["A3PL_Police_GiveTicketResponse",Player_TicketCop];
 		[localize"STR_NewPolice_20","red"] call A3PL_Player_Notification;
 	};
-
 	[Player_TicketAmount,player,Player_TicketCop] remoteExec ["Server_Police_PayTicket", 2];
 	[2, Player_TicketAmount] remoteExec ["A3PL_Police_GiveTicketResponse",Player_TicketCop];
-
 	[format[localize"STR_NewPolice_21",Player_TicketAmount],"green"] call A3PL_Player_Notification;
 
 	Player_TicketAmount = Nil;
@@ -1785,43 +1584,35 @@
 
 ["A3PL_Police_SeizeVirtualItems",
 {
-	_target = param [0,player_objintersect];
-	_class = _target getVariable["class",""];
-	_amount = _target getVariable["amount",1];
-
+	private _target = param [0,player_objintersect];
+	private _class = _target getVariable["class",""];
+	private _amount = _target getVariable["amount",1];
+	private _name = [_class, 'name'] call A3PL_Config_GetItem;
 	[2, [_class, _amount]] call A3PL_Police_SeizeItems;
 	deleteVehicle _target;
-
-
-	_name = [_class, 'name'] call A3PL_Config_GetItem;
 	[format["You have seized %1 %2",_amount,_name],"red"] call A3PL_Player_Notification;
 	[player, 5] call A3PL_Level_AddXP;
-
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_SeizePhysicalItems",
 {
-	_target = param [0,player_objintersect];
-	_class = _target getVariable["class",""];
-	_amount = _target getVariable["amount",1];
+	private _target = param [0,player_objintersect];
+	private _class = _target getVariable["class",""];
+	private _amount = _target getVariable["amount",1];
+	private _name = [_class, 'name'] call A3PL_Config_GetItem;
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
 	["Seizing item...",15] spawn A3PL_Lib_LoadAction;
-	_success = true;
 	waitUntil{Player_ActionDoing};
 	[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];
 	while {Player_ActionDoing} do {
-		if ((player distance2D _target) > 5) exitWith {_success = false;};
+		if ((player distance2D _target) > 5) exitWith {Player_ActionInterrupted = true;};
 		if ((animationState player) isEqualTo "amovpercmstpsnonwnondnon") then {[player,"AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown"] remoteExec ["A3PL_Lib_SyncAnim",0];};
 	};
-	player switchMove "";
-	if(Player_ActionInterrupted || !_success) exitWith {
-		["Item seizure cancelled!","red"] call A3PL_Player_Notification;
-		if ((vehicle player) isEqualTo player) then {player switchMove "";};
-	};
+	if ((vehicle player) isEqualTo player) then {player switchMove "";};
+	if (Player_ActionInterrupted) exitWith {["Item seizure cancelled!","red"] call A3PL_Player_Notification;};
 
 	deleteVehicle _target;
-	_name = [_class, 'name'] call A3PL_Config_GetItem;
 	[player, 5] call A3PL_Level_AddXP;
 	[format["You have seized %1 %2",_amount,_name],"red"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
@@ -1829,11 +1620,6 @@
 ["A3PL_Police_StartJailPlayer",
 {
 	params[["_target",objNull,[objNull]]];
-
-	_pd = nearestObjects [player, ["Land_A3PL_Prison", "Land_A3PL_Sheriffpd", "Land_A3FL_SheriffPD"], 50];
-
-	if(count _pd < 1) exitWith {[format[localize"STR_NewPolice_23"],"red"] call A3PL_Player_Notification;};
-
 	createDialog "Dialog_JailPlayer";
 	A3PL_JailPlayer_Target = _target;
 }] call Server_Setup_Compile;
@@ -1859,7 +1645,6 @@
 	private _atSD = nearestObjects [player, ["Land_A3PL_Sheriffpd","Land_A3FL_SheriffPD"], 50];
 	private _atDOC = count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0;
 	private _FIMS = ["fims"] call A3PL_Lib_FactionPlayers;
-
 	if(_atDOC) then {
 		if(count(_FIMS) > 0) then {
 			["You have served your jail sentence, the Marshal Services will escort you out of jail soon.","green"] call A3PL_Player_Notification;
@@ -1882,23 +1667,20 @@
 
 ["A3PL_Police_RadarLoop",
 {
-	private ["_Beam","_Beam2","_radardir","_veh"];
-	_veh = param [0,objNull];
-	[_veh] spawn A3PL_Police_RadarLoopSync; //seperate loop to handle sync
-	_Beam = "Land_HelipadEmpty_F" createVehicleLocal getpos _veh;
-	_Beam attachTo [ _veh, [ 0.0, 50.0, 0.75 ] ];
-	_Beam2 = "Land_HelipadEmpty_F" createVehicleLocal getpos _veh;
-	_Beam2 attachTo [ _veh, [ 0.0, 150.0, 0.75 ] ];
-	_radardir = "Front";
+	private _veh = param [0,objNull];
+	private _radardir = "Front";
+	private _Beam = "Land_HelipadEmpty_F" createVehicleLocal getpos _veh;
+	private _Beam2 = "Land_HelipadEmpty_F" createVehicleLocal getpos _veh;
+	_Beam attachTo [ _veh, [0.0, 50.0, 0.75]];
+	_Beam2 attachTo [ _veh, [0.0, 150.0, 0.75]];
+	
+	[_veh] spawn A3PL_Police_RadarLoopSync;
 	while {player IN _veh} do
 	{
 		if (_veh animationPhase "Radar_Master" > 0.5) then
 		{
-			//set target speed
 			private ["_inter","_target","_speed","_forward","_dist"];
-			_forward = _veh getVariable ["forward",true]; //defaults to true
-			//if (_forward) then {_dist = 200} else {_dist = -200}; //-200 backwards, 200 forwards
-			//_inter = lineIntersectsObjs [AGLtoASL(_veh modelToWorldVisual [0,0,-0.5]), AGLtoASL(_veh modelToWorldVisual [0,_dist,-0.5]), objNull, _veh, true, 16]; //16 means first contact
+			_forward = _veh getVariable ["forward",true];
 			if (_veh animationPhase "Radar_Front" >= 0.5) then
 			{
 				_Beam attachTo [ _veh, [ 0.0, 50.0, 0.75 ] ];
@@ -1916,11 +1698,9 @@
 			if(isNull _tag2) then {_tag2 = _tag};
 			if (!(isNull _tag)) then
 			{
-				private ["_target","_speed"];
-				_target = _tag;
-				//if (!(_target isKindOf "Car")) exitwith {};
-				_speed = (speed _target) * 0.621371; //get mph
-				[_veh,"target",_speed] call A3PL_Police_RadarSet; //set target speed
+				private _target = _tag;
+				private _speed = (speed _target) * 0.621371;
+				[_veh,"target",_speed] call A3PL_Police_RadarSet;
 				if ((_speed > (_veh getVariable ["lockfast",-1000])) && (_veh getVariable ["locktarget",_target] == _target)) then //set new lockfast if higher than previous
 				{
 					[_veh,"lockfast",_speed] call A3PL_Police_RadarSet;
@@ -1937,73 +1717,61 @@
 	deleteVehicle _Beam2;
 }] call Server_Setup_Compile;
 
-//seperate loop to handle MP sync of variables
 ["A3PL_Police_RadarLoopSync",
 {
-	private ["_veh","_tempVar"];
-	_veh = param [0,objNull];
-	_tempVar = _veh getVariable ["radar_prev",["","","","","","","","",""]];
+	private _veh = param [0,objNull];
+	private _tempVar = _veh getVariable ["radar_prev",["","","","","","","","",""]];
 	if (!isNil "RadarLoopSyncRunning") exitwith {["Debug: RadarLoopSync not started, already running","red"] call A3PL_Player_Notification;};
 	RadarLoopSyncRunning = true;
 	while {player IN _veh} do
 	{
 		if (_veh animationPhase "Radar_Master" > 0.5) then
 		{
-			private ["_tex"];
-			_tex = getObjectTextures _veh;
+			private _tex = getObjectTextures _veh;
 			for "_i" from 8 to 16 do
 			{
 				private ["_newTex"];
 				_newTex = _tex select _i;
-				if ((_tempVar select (_i-8)) != _newTex) then //if the texture is different from the one we synced last time
+				if ((_tempVar select (_i-8)) != _newTex) then
 				{
-					_veh setObjectTextureGlobal [_i,_newTex]; //sync the texture globally
+					_veh setObjectTextureGlobal [_i,_newTex];
 					_tempVar set [_i,_newTex];
 				};
 			};
 			_veh setVariable ["radar_prev",_tempVar,false];
 		};
-		uiSleep 1.5; //sync every 1.5sec, change this to quicker/slower
+		sleep 1.5;
 	};
 	RadarLoopSyncRunning = nil;
 }] call Server_Setup_Compile;
 
-//set a number to radar
 ["A3PL_Police_RadarSet",
 {
-	private ["_selStart"];
-	_veh = param [0,objNull];
-	_type = param [1,"target"];
-	_number = param [2,0];
-	_global = param [3,false];
-
-	switch (_type) do
-	{
-		case ("target"): {_selStart = 8};
-		case ("lockfast"): {_selStart = 11};
-		case ("patrol"): {_selStart = 14};
-		case default {_selStart = 8};
+	private _veh = param [0,objNull];
+	private _type = param [1,"target"];
+	private _number = param [2,0];
+	private _global = param [3,false];
+	private _selStart = switch (_type) do {
+		case ("target"): {8};
+		case ("lockfast"): {11};
+		case ("patrol"): {14};
+		case default {8};
 	};
 
-	_number = [_number, 3] call CBA_fnc_formatNumber; //format number to string of 3 chars
-	if (count _number > 3) then //remove minus from negative numbers
-	{
+	private _number = [_number, 3] call CBA_fnc_formatNumber;
+	if ((count _number) > 3) then {
 		_number = toArray _number;
 		_number deleteAt 0;
 		_number = toString _number;
 	};
-
-	for "_i" from _selStart to (_selStart + 2) do //set texture
-	{
+	for "_i" from _selStart to (_selStart + 2) do {
 		if (_global) then
 		{
 			_veh setObjectTextureGlobal [_i,format ["\a3pl_cars\common\textures\numbers\%1.paa",(_number select [(_i - _selStart),1])]];
-		} else
-		{
+		} else {
 			_veh setObjectTexture [_i,format ["\a3pl_cars\common\textures\numbers\%1.paa",(_number select [(_i - _selStart),1])]];
 		};
 	};
-
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_MarkHouse",
@@ -2045,22 +1813,20 @@
 ["A3PL_Police_PanicMarker",
 {
 	private _player = param [0,objNull];
-	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 1, 8];
+	playSound3D ["A3PL_Common\effects\panic-button.ogg", player, false, getPosASL player, 5, 1, 15];
 	[localize"STR_NewPolice_31","red"] call A3PL_Player_Notification;
 	[_player,"Panic Button","ColorRed","mil_warning",60] spawn A3PL_Lib_CreateMarker;
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_SeizeItems",
 {
-	private ["_typeOfSeize"];
-	_typeOfSeize = param [0,0];
-	_data = param [1,[]];
-	_addToStorage = [];
+	private _typeOfSeize = param [0,0];
+	private _data = param [1,[]];
+	private _addToStorage = [];
 	if(_typeOfSeize isEqualTo 0) exitWith {};
-
 	switch(_typeOfSeize) do {
 		case 1: {
-			_holders = nearestObjects [player,["groundWeaponHolder"],3];
+			_holders = nearestObjects [player, ["groundWeaponHolder"],3];
 			{
 				{_addToStorage pushback ["weapon", _x, 1];} forEach (weaponCargo _x);
 				{_addToStorage pushback ["magazine", _x, 1];} forEach (magazineCargo _x);
@@ -2074,10 +1840,9 @@
 	};
 
 	{
-		private["_type","_class","_amount"];
-		_type = _x select 0;
-		_class = _x select 1;
-		_amount = _x select 2;
+		private _type = _x select 0;
+		private _class = _x select 1;
+		private _amount = _x select 2;
 		switch(_type) do {
 			case("weapon"): {
 				A3FL_Seize_Storage addWeaponCargoGlobal [_class, _amount];
@@ -2099,8 +1864,7 @@
 
 ["A3PL_Police_Breathalizer",
 {
-	private["_target"];
-	_target = param [0,objNull];
+	private _target = param [0,objNull];
 	[player] remoteExec ["A3PL_Police_BreathalizerReturn",_target];
 	[player_item] call A3PL_Inventory_Clear;
 	[player,"breathalizer",-1] remoteExec ["Server_Inventory_Add",2];
@@ -2108,22 +1872,18 @@
 
 ["A3PL_Police_BreathalizerReturn",
 {
-	private["_cop"];
-	_cop = param [0,objNull];
+	private _cop = param [0,objNull];
 	[format[localize "STR_NewPolice_32",Player_Alcohol,"%"], "blue"] remoteExec ["A3PL_Player_Notification",_cop];
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_RemoveMask",
 {
-	_player = param [0,objNull];
-
-	_mask = goggles _player;
+	private _player = param [0,objNull];
+	private _mask = goggles _player;
 	removeGoggles _player;
-
-	_weaponHolder = createVehicle ["GroundWeaponHolder", getposATL player, [], 0, "CAN_COLLIDE"];
+	private _weaponHolder = createVehicle ["GroundWeaponHolder", getposATL player, [], 0, "CAN_COLLIDE"];
 	_weaponHolder addItemCargoGlobal [_mask,1];
-
-  ["Your mask has been removed", "blue"] remoteExec ["A3PL_Player_Notification",_player];
+	["Your mask has been removed", "blue"] remoteExec ["A3PL_Player_Notification",_player];
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_FakeID",{
@@ -2149,14 +1909,16 @@
 ["A3PL_Police_OpenSquadNb", {
 	private _veh = param [0,objNull];
 	createDialog "Dialog_SquadNb";
+	buttonSetAction [1600, "call A3PL_Police_SaveSquadNb;"];
 	ctrlSetText [1400, _veh getVariable["squadnb",((netId _veh) splitString ":") select 1]];
 	A3PL_SquadNb_Veh = _veh;
 }] call Server_Setup_Compile;
 
 ["A3PL_Police_SaveSquadNb", {
-	private _number = ctrlText 1400;
+	private _number = param[0,""];
 	private _faction = player getVariable["job","unemployed"];
-
+	
+	if(_number isEqualTo "") then {_number = ctrlText 1400;};
 	if((count _number) > 8) exitWith {["You cannot enter more than 8 characters","red"] call A3PL_Player_Notification;};
 
 	if((typeOf A3PL_SquadNb_Veh) IN ["A3PL_Pierce_Rescue","A3PL_Pierce_Pumper","A3PL_Pierce_Ladder","A3PL_Pierce_Heavy_Ladder"]) then {
@@ -2179,4 +1941,106 @@
 	A3PL_SquadNb_Veh setVariable["faction",_faction,true];
 	A3PL_SquadNb_Veh = nil;
 	closeDialog 0;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_EvidenceMarker", {
+	private _obj = param [0,objNull];
+	createDialog "Dialog_SquadNb";
+	buttonSetAction [1600, "call A3PL_Police_EvidenceMarkerSet;"];
+	ctrlSetText [1400, "1"];
+	A3PL_EvidenceMarker = _obj;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_EvidenceMarkerSet", {
+	private _number = ctrlText 1400;
+	if !(_number IN ['1','2','3','4','5','6','7','8','9']) exitWith {["You must enter a number between 1 and 9","red"] call A3PL_Player_Notification;};
+
+	private _texture = format ["\A3FL_Objects\Police\data\EM\%1.paa", _number];
+	A3PL_EvidenceMarker setObjectTextureGlobal [0, _texture];
+
+	A3PL_EvidenceMarker = nil;
+	closeDialog 0;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_SetPowder", {
+	player setVariable["hasPowder",serverTime,true];
+}] call Server_Setup_Compile;
+
+["A3PL_Police_CheckPowder", {
+	private _target = param[0,objNull];
+	private _hasPowder = (serverTime - (_target getVariable["hasPowder",false])) < 1800;
+	private _reference = [getPlayerUID _target] call A3PL_Police_GetGunRef;
+	private _text = if(_hasPowder) then {
+		format["The kit revealed presence of gun powder, reference: %1",_reference];
+	} else {
+		"The kit revealed no presence of gun powder";
+	};
+	[_text,"blue"] call A3PL_Player_Notification;
+	[player_item] call A3PL_Inventory_Clear;
+	[player,"powdertestkit",-1] remoteExec ["Server_Inventory_Add",2];
+}] call Server_Setup_Compile;
+
+["A3PL_Police_DropCasing", {
+	if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
+	private _chance = random 100;
+	if(_chance > 10) exitWith {};
+	private _nearCasings = count(player nearEntities ["A3FL_Bullet_Casings", 10]);
+	if(_nearCasings >= 4) exitWith {};
+	private _weapon = currentWeapon player;
+	private _weaponName = getText (configFile >> "CfgWeapons" >> _weapon >> "displayName");
+	private _reference = [getPlayerUID player] call A3PL_Police_GetGunRef;
+	private _data = format["%1|%2",_weaponName,_reference];
+	private _casing = "A3FL_Bullet_Casings" createVehicle [0,0,0];
+	_casing setVariable["class","bulletcasing",true];
+	_casing setVariable["evidence_data",_data,true];
+	_casing setPosATL(getPosATL player);
+}] call Server_Setup_Compile;
+
+["A3PL_Police_BagEvidence", {
+	private _evidence = param[0,objNull];
+	if (isNull _evidence) exitWith {};
+	if !(["evidence_bag",1] call A3PL_Inventory_Has) exitWith {["You do not have any evidence bag on you","red"] call A3PL_Player_Notification;};
+	["evidence_bag"] call A3PL_Inventory_Use;
+	private _data = _evidence getVariable["evidence_data","no evidence found"];
+	Player_Item setVariable["evidence",_data,true];
+	deleteVehicle _evidence;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_GetGunRef", {
+	private _fullID = (param[0,""]) splitString "";
+	private _ref = "";
+	for "_i" from 8 to 12 do {
+		_ref = format["%1%2",_ref,(_fullID select _i)];
+	};
+	_ref;
+}] call Server_Setup_Compile;
+
+["A3PL_Police_Analyze", {
+	if ((isNull Player_Item) || {!(Player_ItemClass isEqualTo "evidence_bag")}) exitwith {["You do not have an evidence bag to analyze","red"] call A3PL_Player_Notification;};
+	if (npc_evidence getVariable["inUse",false]) exitWith {["The lab technician is already processing evidence","red"] call A3PL_Player_Notification;};
+	private _bag = Player_Item;
+	private _type = Player_Item getVariable["evidence_type",0];
+	private _data = _bag getVariable["evidence",nil];
+	if (isNil "_data") exitWith {["This evidence bag is empty","red"] call A3PL_Player_Notification;};
+	private _split = _data splitString "|";
+	private _text = switch(_type) do {
+		case 0: {
+			format["Weapon used: %1<br/>Powder reference: %2",_split select 0,_split select 1];
+		};
+	};
+
+	npc_evidence setVariable["inUse",true,true];
+
+	if (Player_ActionDoing) exitwith {[localize"STR_NewHunting_Action","red"] call A3PL_Player_Notification;};
+	["Analizing evidence...",90] spawn A3PL_Lib_LoadAction;
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if ((player distance2D npc_evidence) > 5) exitWith {["You went away from the lab technician!", "red"] call A3PL_Player_Notification; Player_ActionInterrupted = true;};
+	};
+	if(Player_ActionInterrupted) exitWith {};
+	npc_evidence setVariable["inUse",false,true];
+	[_text,"blue"] call A3PL_Player_Notification;
+
+	["evidence_bag",-1] call A3PL_Inventory_Add;
+	[] call A3PL_Inventory_Clear;
 }] call Server_Setup_Compile;

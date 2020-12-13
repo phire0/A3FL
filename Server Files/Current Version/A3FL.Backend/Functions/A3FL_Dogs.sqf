@@ -31,6 +31,19 @@
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
+["A3PL_Dogs_ReturnDog",
+{
+	private _dog = (player getVariable ["Player_Dog", objNull]);
+	
+	if (isNull _dog) exitWith {
+		["You do not have a K-9 to return.", "red"] call A3PL_Player_Notification;
+	};
+
+	deleteVehicle _dog;
+	player setVariable ["Player_Dog", objNull];
+	["Your K-9 has been returned to its cage.", "green"] call A3PL_Player_Notification;
+}] call Server_Setup_Compile;
+
 ["A3PL_Dogs_BuyReceive",
 {
 	private _class = param [0,"Alsatian_Sand_F"];
@@ -68,6 +81,8 @@
 						case ("A3PL_Silverado_PD"): {_attachPoint = [0,0.5,-0.7]};
 						case ("A3PL_RBM"): {_attachPoint = [0,0.2,-1.1]};
 						case ("A3PL_Jayhawk"): {_attachPoint = [0,0.2,-1.1]};
+						case ("A3FL_Explorer_Platinum_PD_20"): {_attachPoint = [0,-1,-1.1]};
+						case ("A3FL_Explorer_Platinum_PD_Slicktop_20"): {_attachPoint = [0,-1,-1.1]};
 					};
 					_dog attachto [vehicle player,_attachPoint];
 					_dog playMoveNow "Dog_Sit";

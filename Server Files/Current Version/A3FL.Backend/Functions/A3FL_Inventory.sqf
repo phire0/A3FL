@@ -35,11 +35,14 @@
 ["A3PL_Inventory_Add", {
 	private _class = param [0,""];
 	private _amount = param [1,0];
+	private _bypass = param [2,false];
 	private _exit = false;
-	if(_amount > 0) then {
-		if (([[_class,_amount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {
-			_exit = true;
-			[format [localize"STR_NewInventory_1",Player_MaxWeight],"red"] call A3PL_Player_Notification;
+	if(!_bypass) then {
+		if(_amount > 0) then {
+			if (([[_class,_amount]] call A3PL_Inventory_TotalWeight) > Player_MaxWeight) exitwith {
+				_exit = true;
+				[format [localize"STR_NewInventory_1",Player_MaxWeight],"red"] call A3PL_Player_Notification;
+			};
 		};
 	};
 	if(_exit) exitwith {};
@@ -189,29 +192,28 @@
 	_control = _display displayCtrl 14471;
 	_control ctrlSetText "1";
 
-	_keys = player getVariable "keys";
+	_keys = player getVariable ["keys",[]];
 	if (isNil "_keys") exitwith {};
 	{
 		_count = count _x;
-		if (count _x == 4) then {
-				_index = lbAdd [1900,format ["Greenhouse Key (%1)",_x]];
-				lbSetData [1900, _index,_x];
+		if (count _x isEqualTo 4) then {
+			_index = lbAdd [1900,format ["Greenhouse Key (%1)",_x]];
+			lbSetData [1900, _index,_x];
 		};
-		if (count _x == 5) then {
-				_index = lbAdd [1900,format ["House Key (%1)",_x]];
-				lbSetData [1900, _index,_x];
+		if (count _x isEqualTo 5) then {
+			_index = lbAdd [1900,format ["House Key (%1)",_x]];
+			lbSetData [1900, _index,_x];
 		};
-		if (count _x == 6) then
+		if (count _x isEqualTo 6) then
 		{
 			_index = lbAdd [1900,"Motel Key"];
 			lbSetData [1900, _index,_x];
 		};
-		if (count _x == 8) then {
-				_index = lbAdd [1900,format ["Warehouse Key (%1)",_x]];
-				lbSetData [1900, _index,_x];
+		if (count _x isEqualTo 8) then {
+			_index = lbAdd [1900,format ["Warehouse Key (%1)",_x]];
+			lbSetData [1900, _index,_x];
 		};
-
-	} forEach (player getVariable ["keys",[]]);
+	} forEach _keys;
 
 	if(count(player getVariable ["licenses",[]]) == 0) then {
 		lbAdd [1503,"No License"];
@@ -223,7 +225,7 @@
 
 	_cash = player getVariable "Player_Cash";
 	if (isNil "_cash") exitwith {};
-	if (_cash == 0) exitwith {};
+	if (_cash isEqualTo 0) exitwith {};
 	_index = lbAdd [14571, format["$%1", [player getVariable ["Player_Cash",0]] call A3PL_Lib_MoneyFormat]];
 	lbSetData [14571, _index, "cash"];
 }] call Server_Setup_Compile;
@@ -249,15 +251,13 @@
 	_attach = [_classname, 'attach'] call A3PL_Config_GetItem;
 	_maxTake = [_classname, 'maxTake'] call A3PL_Config_GetItem;
 
-	if ((_selection isEqualTo -1) && (!isNil "_display")) exitWith {};
 	if (_canUse isEqualTo false) exitWith {[localize"STR_NewInventory_4", "red"] call A3PL_Player_Notification;};
 	if ((animationState player) isEqualTo "A3PL_TakenHostage") exitwith {[localize"STR_NewInventory_5","red"] call A3PL_Player_Notification;};
 	if (!(player isEqualTo (vehicle player))) exitwith {[localize"STR_NewInventory_6", "red"] call A3PL_Player_Notification;};
 	if (animationState player IN ["a3pl_handsuptokneel","a3pl_handsupkneelgetcuffed","a3pl_cuff","a3pl_handsupkneelcuffed","a3pl_handsupkneelkicked","a3pl_cuffkickdown","a3pl_idletohandsup","a3pl_kneeltohandsup","a3pl_handsuptokneel","a3pl_handsupkneel"]) exitWith {[localize"STR_NewInventory_7", "red"] call A3PL_Player_Notification;};
 	if (!(isNull Player_Item)) then {[false] call A3PL_Inventory_PutBack;};
 
-	
-	if(_amount < 1) exitWith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
+	if (_amount < 1) exitWith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 	if (!([_classname,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
 
 	_maxTakeErr = false;
@@ -276,12 +276,16 @@
 	} else {
 		Player_Item attachTo [player, _attach, 'RightHand'];
 	};
+	
+	Player_Item setVariable["class",_classname,true];
 
 	if (((vehicle player) isEqualTo player) && (!(animationState player IN ["crew"]))) then {player playMove 'AmovPercMstpSnonWnonDnon_AmovPercMstpSrasWpstDnon';};
 
 	Player_Item setDir _itemDir;
 	Player_ItemClass = _classname;
 	if (!isNil "_display") then {[0] call A3PL_Lib_CloseDialog;};
+	if (_classname isEqualTo "Lifebuoy") then {Player_Item allowDamage false;};
+	if (_classname isEqualTo "evidence_marker") then {[Player_Item] call A3PL_Police_EvidenceMarker;};
 
 	[Player_Item,_attach] spawn A3PL_Placeable_AttachedLoop;
 	_format = format[localize'STR_NewInventory_9', Player_ItemAmount, [Player_ItemClass, 'name'] call A3PL_Config_GetItem];
@@ -294,6 +298,7 @@
 	_displayNotification = [_this, 0, true, [true]] call BIS_fnc_param;
 
 	if (_itemClass isEqualTo "") exitwith {["There is no itemClass assigned", "red"] call A3PL_Player_Notification;};
+	if !((Player_Item getVariable["evidence",""]) isEqualTo "") exitWith {["This bag contains evidence and cannot be put back into your inventory", "red"] call A3PL_Player_Notification;};
 
 	detach Player_Item;
 	deleteVehicle Player_Item;
@@ -312,11 +317,11 @@
 
 ["A3PL_Inventory_Drop", {
 	private _setPos = param [0,true];
-	private _amount = param [1,1];
+	private _amount = param [1,0];
 	private _itemClass = param [2,Player_ItemClass];;
 	private _obj = Player_Item;
 	private _droppedItems = server getVariable 'droppedObjects';
-	if(!isNil 'Player_ItemAmount') then {_amount = Player_ItemAmount;};
+	if(!isNil 'Player_ItemAmount' && {_amount isEqualTo 0}) then {_amount = Player_ItemAmount;};
 
 	if(_amount < 1) exitWith {["Please enter a valid amount","red"] call A3PL_Player_Notification;};
 	if (!([_itemClass,_amount] call A3PL_Inventory_Has)) exitwith {[localize"STR_NewInventory_11","red"] call A3PL_Player_Notification;};
@@ -328,7 +333,7 @@
 	if (_setPos) then
 	{
 		switch(_itemClass) do {
-			case ("FD_Mask"): {
+			case ("fd_mask"): {
 				deleteVehicle _obj;
 				_holder = createVehicle ["GroundWeaponHolder", getposATL player, [], 0, "CAN_COLLIDE"];
 				_holder addItemCargoGlobal ["A3PL_FD_Mask",1];
@@ -349,7 +354,7 @@
 				} else {
 					detach _obj;
 					_obj setPosASL (AGLtoASL (player modelToWorld [0,1,0]));
-				}
+				};
 			};
 			default {
 				detach _obj;
@@ -372,8 +377,10 @@
 	private _obj = param [0,objNull];
 	private _moveToHand = param [1,false];
 	private _amount = _obj getVariable ["amount",1];
-	private _exit = false;
+	private _exitAP = false; // exit if attached to another player
+	private _exitAC = false; // exit if attached to a vehicle
 
+	if(!(call A3PL_Player_AntiSpam)) exitWith {};
 	if((player getVariable ["Cuffed",false]) || (player getVariable ["Zipped",false])) exitWith {};
 	if (isNull _obj) exitwith {[localize"STR_NewInventory_15", "red"] call A3PL_Player_Notification;};
 
@@ -383,11 +390,17 @@
 
 	private _attachedTo = attachedTo _obj;
 	if (!isNull _attachedTo) then {
+		// attached to another player?
 		if ((isPlayer _attachedTo) && (!(_attachedTo isKindOf "Car"))) then {
-			_exit = true;
+			_exitAP = true;
+		};
+		// jerrycan attached to car?
+		if ((_classname isEqualTo "jerrycan") && (_attachedTo isKindOf "Car")) then {
+			_exitAC = true;
 		};
 	};
-	if (_exit) exitwith {[format[localize"STR_NewInventory_18"], "red"] call A3PL_Player_Notification;};
+	if (_exitAP) exitwith {[format[localize"STR_NewInventory_18"], "red"] call A3PL_Player_Notification;};
+	if (_exitAC) exitwith {["You cannot pick up a jerrycan which is being used.", "red"] call A3PL_Player_Notification;};
 	if (((count (_obj getVariable ["ainv",[]])) != 0) OR ((count (_obj getVariable ["finv",[]])) != 0)) exitwith {[_obj] call A3PL_Placeables_Pickup;};
 	
 	private _canPickup = [_classname,"canPickup"] call A3PL_Config_GetItem;
@@ -400,13 +413,22 @@
 		};
 	};
 
+	if ((_classname isEqualTo "evidence_bag") && {!((_obj getVariable["evidence",""]) isEqualTo "")}) exitWith {
+		_attach = [_classname, 'attach'] call A3PL_Config_GetItem;
+		Player_ItemAmount = 1;
+		Player_Item = _obj;
+		Player_Item attachTo [player, _attach, 'RightHand'];
+		Player_Item setDir 0;
+		Player_ItemClass = _classname;
+		[Player_Item,_attach] spawn A3PL_Placeable_AttachedLoop;
+	};
 	if ((_classname isEqualTo "apple") && {!simulationEnabled _obj}) exitwith {[_obj] spawn A3PL_Resources_Picking;};
 	if ((_classname isEqualTo "shrooms") && {!simulationEnabled _obj}) exitwith {[_obj] spawn A3PL_Shrooms_Pick;};
 
 	player playMove 'AmovPercMstpSnonWnonDnon_AinvPercMstpSnonWnonDnon_Putdown';
 
-	if (player_objIntersect getVariable ["inUse",false]) exitWith {};
-	player_objIntersect setVariable ["inUse",true,true];
+	if (_obj getVariable ["inUse",false]) exitWith {};
+	_obj setVariable ["inUse",true,true];
 
 	switch (_classname) do {
 		case "doorkey": {[_obj, player] remoteExecCall ["Server_Housing_PickupKey", 2];};

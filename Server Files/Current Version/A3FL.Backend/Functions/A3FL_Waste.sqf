@@ -28,8 +28,6 @@
 		default {_spawnLoc = [6031.92,7494.859,0];};
 	};
 
-	hint str _spawnLoc;
-
 	["A3PL_P362_Garbage_Truck",_spawnLoc,"waste"] spawn A3PL_Lib_JobVehicle_Assign;
 }] call Server_Setup_Compile;
 

@@ -1354,18 +1354,25 @@
     "",
     localize"STR_INTSECT_ACCPOLDB",
     {
-    	if((typeOf player_objintersect) IN ["Land_A3FL_DOC_Gate","Land_A3PL_CH"]) then {
-    		if (isNull (findDisplay 211) && (player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) then {
-				call A3PL_Police_DatabaseOpen;
-			};
-    	} else {
-    		if (isNull (findDisplay 211) && (player_objintersect animationPhase "Laptop_Top" > 0.5)) then {
-				if ((player getVariable ["job","unemployed"]) IN ["fisd","uscg","fims","doj"]) then {
+		private _job = player getVariable ["job","unemployed"];
+		if((typeOf player_objintersect) IN ["Land_A3FL_DOC_Gate","land_a3pl_ch"]) then {
+			if !(_job IN ["fisd","uscg","fims","doj","fifr"]) exitWith {["Only faction members can use computers in buildings!","red"] call A3PL_Player_Notification;};
+			if (isNull (findDisplay 211)) then {
+				if (_job isEqualTo "fifr") then {
+					call A3PL_FD_DatabaseOpen;
+				} else {
 					call A3PL_Police_DatabaseOpen;
 				};
-				if ((player getVariable ["job","unemployed"]) IN ["fifr"]) then {call A3PL_FD_DatabaseOpen;};
 			};
-    	};
+		} else {
+			if (isNull (findDisplay 211)) then {
+				if (_job isEqualTo "fifr") then {
+					call A3PL_FD_DatabaseOpen;
+				} else {
+					call A3PL_Police_DatabaseOpen;
+				};
+			};
+		};
     }
 ],
 [
@@ -1810,6 +1817,7 @@
 		private _animationName = (_split select 0);
 		if ((_obj animationSourcePhase _animationName) < 0.5) then {
 			[_obj,true,true] remoteExec ["Server_Vehicle_EnableSimulation", 2];
+			sleep 1.2;
 			_obj animateSource [_animationName,1];
 		} else {
 			_obj animateSource [_animationName,0];
@@ -1836,6 +1844,11 @@
     "",
     localize"STR_INTSECT_BUYLOCKER",
     {[player_objintersect] call A3PL_Locker_Rent;}
+],
+[
+	"",
+	localize"STR_INTSECT_SELLLOCKER",
+	{[player_objintersect] call A3PL_Locker_Sell;}
 ],
 [
 	"A3PL_MailTruck",
@@ -1873,7 +1886,6 @@
 	"A3PL_PumpJack",
 	localize"STR_INTSECT_STARTJPUMP",
 	{
-		if (player getVariable ["job","unemployed"] != "oil") exitwith {[localize"STR_QuickActions_Notif_Vehicles_UseExtractor","red"] call A3PL_Player_Notification;};
 		[player_objintersect] call A3PL_JobOil_PumpStart;
 	}
 ],
@@ -2107,6 +2119,7 @@
 		private _veh = player_objintersect;
 		if (isEngineOn _veh) exitwith {
 			_veh engineOn false;
+			player action ["lightOff", _veh];
 			[localize"STR_QuickActions_Notif_Vehicles_EngineOFF", "red"] call A3PL_Player_Notification;
 		};
 		_veh setVariable ["Ignition",true,false];

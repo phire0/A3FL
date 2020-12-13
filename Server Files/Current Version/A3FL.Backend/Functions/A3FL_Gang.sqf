@@ -197,7 +197,7 @@
 
 	if((player getVariable ["job","unemployed"]) IN ["fifr","uscg","fisd","doj","fims"]) exitWith {["You cannot capture a gang hideout while working for a faction!","red"] call A3PL_Player_Notification;};
 	if((currentWeapon player) isEqualTo "") exitwith {["You do not brandish any weapon","red"] call A3PL_Player_Notification;};
-	if((currentWeapon player) IN ["A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
+	if((currentWeapon player) IN ["A3PL_High_Pressure","A3PL_Jaws","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {[localize"STR_NewGang_23","red"] call A3PL_Player_Notification;};
 	if(_obj getVariable ["CaptureInProgress",false]) then {["Someone is already capturing this gang hideout!","red"] call A3PL_Player_Notification;};
 
 	_capturedTime = _obj getVariable["CapturedTime",serverTime-600];
@@ -213,23 +213,21 @@
 
 	_marker = [_obj,"Crime"] call A3PL_Lib_NearestMarker;
 	_marker setMarkerColor "ColorOrange";
-	[format["%1 has started capturing a gang hideout!",_gangName], "yellow"] remoteExec ["A3PL_Player_Notification",-2];
 
 	if (Player_ActionDoing) exitwith {[localize"STR_NewGang_20","red"] call A3PL_Player_Notification;};
 	Player_ActionCompleted = false;
 	["Capturing...",120] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
-	_success = true;
 	while {Player_ActionDoing} do {
-		if (Player_ActionInterrupted) exitWith {_success = false;};
-		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (!((vehicle player) isEqualTo player)) exitwith {_success = false;};
-		if ((player distance _obj) > 30) exitwith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
-		if ((currentWeapon player) isEqualTo "") exitWith {_success = false;Player_ActionInterrupted=true;};
+		if (Player_ActionInterrupted) exitWith {};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {Player_ActionInterrupted = true;};
+		if (!((vehicle player) isEqualTo player)) exitwith {Player_ActionInterrupted = true;};
+		if ((player distance _obj) > 30) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
+		if ((currentWeapon player) isEqualTo "") exitWith {Player_ActionInterrupted = true;};
 	};
 	Player_ActionDoing = false;
-	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification; _obj setVariable ["CaptureInProgress",false,true];};
+	if(Player_ActionInterrupted) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification; _obj setVariable ["CaptureInProgress",false,true];};
 
 	_obj setVariable["captured",_gangID,true];
 	_obj setVariable["capturedName",_gangName,true];
@@ -279,7 +277,7 @@
 	if(_shop IN [Robbable_Shop_3,npc_roadworker_1,npc_fuel_6,npc_hunting,npc_illegal_eq,NPC_Big_Weapon_Dealer,npc_weaponfactory_1]) then {
 		_gangHideout = hideout_obj_3;
 	};
-	if(_shop IN [npc_fuel_10,Low_End_Car_Shop,npc_shopguns]) then {
+	if(_shop IN [npc_fuel_10,npc_shopguns]) then {
 		_gangHideout = hideout_obj_5;
 	};
 	if(_shop IN [npc_perkfurniture_5,npc_perkfurniture_4,npc_perkfurniture_3,Robbable_Shop_5,NPC_general_4,npc_big_dicks_sports,npc_fuel_11,npc_chemicaldealer,npc_fuel_12,NPC_Buckeye]) then {
@@ -319,14 +317,13 @@
 	_obj setVariable ["CaptureInProgress",true,true];
 	["Securing Gang Hideout...",120] spawn A3PL_Lib_LoadAction;
 	waitUntil{Player_ActionDoing};
-	_success = true;
 	while {Player_ActionDoing} do {
-		if (Player_ActionInterrupted) exitWith {_success = false;};
-		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {_success = false;};
-		if (!(vehicle player isEqualTo player)) exitwith {_success = false;};
-		if (player getVariable ["Incapacitated",false]) exitwith {_success = false;};
+		if (Player_ActionInterrupted) exitWith {Player_ActionInterrupted = true;};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {Player_ActionInterrupted = true;};
+		if (!(vehicle player isEqualTo player)) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
 	};
-	if(Player_ActionInterrupted || !_success) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;_obj setVariable ["CaptureInProgress",false,true];};
+	if(Player_ActionInterrupted) exitWith {[localize"STR_NewGang_21","red"] call A3PL_Player_Notification;_obj setVariable ["CaptureInProgress",false,true];};
 
 	private _factionMark = "A3PL_Markers_FISD";
 	if(_faction isEqualTo "uscg") then {_factionMark = "A3PL_Markers_USCG";};

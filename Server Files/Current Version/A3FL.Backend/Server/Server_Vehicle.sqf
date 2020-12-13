@@ -398,7 +398,10 @@
 ["Server_Vehicle_Init_A3PL_Raptor_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Taurus_PD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Taurus_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3FL_Explorer_Platinum_PD_20",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_PD_ST",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3FL_Explorer_Platinum_FD_20",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
+["Server_Vehicle_Init_A3FL_Explorer_Platinum_PD_Slicktop_20",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD_Slicktop;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_FD",{_this call Server_Vehicle_Init_A3PL_Tahoe_PD;},true] call Server_Setup_Compile;
 ["Server_Vehicle_Init_A3PL_Silverado_FD_Brush",{
 	_this call Server_Vehicle_Siren_Init;
@@ -542,9 +545,8 @@
 	private _texture = param [1,""];
 	private _id = _vehicle getVariable ["owner",[]];
 	if(count(_id) isEqualTo 0) exitWith {};
-	if((typeName _texture) isEqualTo "ARRAY") then {_texture = [_texture] call Server_Database_Array;};
+	if(_texture isEqualType []) then {_texture = [_texture] call Server_Database_Array;};
 	_texture = [_texture, "\", "\\"] call CBA_fnc_replace;
-	diag_log str _texture;
 	private _query = format ["UPDATE objects SET color = '%2' WHERE id = '%1'",_id select 1,_texture];
 	[_query,1] spawn Server_Database_Async;
 },true] call Server_Setup_Compile;

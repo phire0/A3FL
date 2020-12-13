@@ -19,8 +19,7 @@
 
 ["A3PL_SFP_CheckIn",
 {
-	private ["_store"];
-	_store = param [0,objNull];
+	private _store = param [0,objNull];
 
 	if(_store getVariable ["checkinCooldown",false]) exitWith{[localize"STR_SFP_Secure","red"];};
 	_store setVariable ["checkinCooldown",true];

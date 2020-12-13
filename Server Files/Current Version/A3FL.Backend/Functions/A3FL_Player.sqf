@@ -28,7 +28,7 @@
 	};
 	// [shrooms,cocaine,weed]
 	Player_Drugs = profileNamespace getVariable ["player_drugs",[0,0,0]];
-	if (!(typeName Player_Drugs == "ARRAY")) then {
+	if (!(Player_Drugs isEqualType [])) then {
 		Player_Drugs = [0,0,0];
 		Player_Drugs = profileNamespace setVariable ["player_drugs",[0,0,0]];
 	};
@@ -38,7 +38,7 @@
 		setTerrainGrid 50;
 	};
 
-	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride","net","jug","jug_green","jug_green_moonshine","ring","ringset","bracelet","crown","necklace","golden_dildo"];
+	Player_illegalItems = ["seed_marijuana","marijuana","cocaine","shrooms","cannabis_bud","cannabis_bud_cured","cannabis_grinded_5g","weed_5g","weed_10g","weed_15g","weed_20g","weed_25g","weed_30g","weed_35g","weed_40g","weed_45g","weed_50g","weed_55g","weed_60g","weed_65g","weed_70g","weed_75g","weed_80g","weed_85g","weed_90g","weed_95g","weed_100g","jug_moonshine","turtle","drill_bit","diamond_ill","diamond_emerald_ill","diamond_ruby_ill","diamond_sapphire_ill","diamond_alex_ill","diamond_aqua_ill","diamond_tourmaline_ill","v_lockpick","zipties","Gunpowder","keycard","coca_paste","cocaine_base","cocaine_hydrochloride","net","jug","jug_green","jug_green_moonshine","ring","ringset","bracelet","crown","necklace","golden_dildo","calcium_carbonate","potassium_permangate","ammonium_hydroxide","acetone","hydrocloric_acid","sulphuric_acid","cyanide_pills"];
 	Player_IllegalPhysicalItems = ["cocaine_brick","distillery","distillery_hose","planter","scale","grinder","cocaine_barrel","fan"];
 	Player_ActionCompleted = true;
 	Player_ActionDoing = false;
@@ -55,8 +55,8 @@
 	A3PL_Player_Vehicles = [];
 
 	//halloween vars
-	A3PL_Halloween_AngelModeEnabled = false;
-	A3PL_Owns_Guardianscript = false;
+	//A3PL_Halloween_AngelModeEnabled = false;
+	//A3PL_Owns_Guardianscript = false;
 
 	//Start defining twitter
 	A3PL_TwitterChatLog = [];
@@ -140,7 +140,7 @@
 //creates an array which drawText will use to draw player tags on the screen, we dont want to run complicated scripts onEachFrame
 ["A3PL_Player_NameTags",
 {
-	private _players = nearestObjects [player, ["C_man_1"], 4];
+	private _players = player nearEntities [["C_man_1"],4];
 	private _players = _players - [player];
 	private _tags = [];
 	private _goggles = ["A3PL_Deadpool_Mask","A3PL_IronMan_Mask","A3PL_Anon_mask","G_Balaclava_blk","G_Balaclava_combat","G_Balaclava_TI_G_tna_F","G_Balaclava_lowprofile","G_Balaclava_oli","G_Balaclava_TI_tna_F","G_Balaclava_TI_G_blk_F","G_Balaclava_TI_blk_F","A3PL_Skull_Mask","A3PL_Watchdogs_Mask","G_Bandanna_aviator","G_Bandanna_blue_aviator","G_Bandanna_orange_aviator","G_Bandanna_pink_aviator","G_Bandanna_red_aviator","G_Bandanna_maroon_aviator","G_Bandanna_white_aviator","G_Bandanna_yellow_aviator","G_Bandanna_black_aviator","G_Bandanna_beast","G_Bandanna_blk","G_Bandanna_oli","G_Bandanna_shades","G_Bandanna_khk","G_Bandanna_tan","G_Bandanna_sport"];
@@ -181,11 +181,10 @@
 //gets nearest businesses, and business items
 ["A3PL_Player_BusinessTags",
 {
-	private ["_bus","_tags","_iTags","_items"];
-	_bus = nearestObjects [player, ["Land_A3PL_Showroom","Land_A3PL_Cinema","Land_A3PL_Gas_Station","Land_A3PL_Garage","land_smallshop_ded_smallshop_01_f","land_smallshop_ded_smallshop_02_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"], 50];
-	_items = nearestObjects [player, [], 10];
-	_tags = [];
-	_iTags = [];
+	private _bus = player nearEntities [["Land_A3PL_Showroom","Land_A3PL_Cinema","Land_A3PL_Gas_Station","Land_A3PL_Garage","land_smallshop_ded_smallshop_01_f","land_smallshop_ded_smallshop_02_f","Land_A3FL_Brick_Shop_1","Land_A3FL_Brick_Shop_2"],50];
+	private _items = player nearEntities [[],10];
+	private _tags = [];
+	private _iTags = [];
 	{
 		_bName = _x getVariable ["bName",""];
 		if (_bName != "") then
@@ -232,7 +231,7 @@
 			_pos = visiblePositionASL _p;
 			_pos set [2, ((_p modelToWorld [0,0,0]) select 2) + 2];
 			if (_p getVariable ["pVar_RedNameOn",false]) then {
-				drawIcon3D ["", [0.98,0,0,1],_pos, 0.2, 0.2, 45,format ["%2 %1 (OOC)",((_x select 0) getvariable["name",name (_x select 0)]), [(_x select 0)] call A3PL_AdminTitle], 1, 0.03, "EtelkaNarrowMediumPro"];
+				drawIcon3D ["", [(_x select 0)] call A3PL_Admin_Color,_pos, 0.2, 0.2, 45,format ["%2 %1 (OOC)",((_x select 0) getvariable["name",name (_x select 0)]), [(_x select 0)] call A3PL_Admin_Title], 1, 0.03, "EtelkaNarrowMediumPro"];
 			} else {
 				drawIcon3D ["", [1, 1, 1, 1],_pos, 0.2, 0.2, 45, _x select 1, 1, 0.03, "EtelkaNarrowMediumPro"];
 			};
@@ -253,11 +252,6 @@
 	private ["_myVersion"];
 	//#include "\x\cba\addons\ui_helper\script_dikCodes.hpp"
 
-	//Whitelist
-	//[player] remoteExec ["Server_Core_WhitelistServer",2];
-
-
-	//do a version check first
 	if ((getNumber (configFile >> "CfgPatches" >> "A3PL_Common" >> "requiredVersion")) < (missionNameSpace getVariable ["Server_ModVersion",0])) exitwith
 	{
 		[] spawn {
@@ -310,21 +304,24 @@
 
 ['A3PL_Player_NewPlayer',{
 	disableSerialization;
-	private ["_display","_control","_sex","_day","_month","_year"];
 
 	waituntil {sleep 0.1; isNull(findDisplay 15)};
 	createDialog "Dialog_NewPlayer";
-	_display = findDisplay 111;
+	private _display = findDisplay 111;
 	noEscape = _display displayAddEventHandler ["KeyDown", "if ((_this select 1) == 1) then {true}"];
-	_sex = _display displayCtrl 1403;
-    _day = _display displayCtrl 1404;
-    _month = _display displayCtrl 1405;
-    _year = _display displayCtrl 1406;
-    _control = _display displayCtrl 2100;
+	
+	private _sex = _display displayCtrl 1403;
+    private _day = _display displayCtrl 1404;
+    private _month = _display displayCtrl 1405;
+    private _year = _display displayCtrl 1406;
+    private _control = _display displayCtrl 2100;
+	
 	_sex lbAdd "Male";
 	_sex lbSetData [(lbSize _sex) - 1, "male"];
 	_sex lbAdd "Female";
 	_sex lbSetData [(lbSize _sex) - 1, "female"];
+	_sex lbAdd "Other";
+	_sex lbSetData [(lbSize _sex) - 1, "other"];
 
 	for "_i" from 1 to 31 do {
 		_day lbAdd str _i;
@@ -336,21 +333,20 @@
 		_month lbSetData [(lbSize _month)-1,str(_l)];
 	};
 
-	for "_k" from 1920 to 2001 do {
-		_value = 2001 - (_k - 1920);
+	for "_k" from 1920 to 2008 do {
+		_value = 2008 - (_k - 1920);
 		_year lbAdd str _value;
 		_year lbSetData [(lbSize _year)-1,str(_value)];
 	};
-	//Structured text
+
 	_control = _display displayCtrl 2100;
 
-	//message
 	if (isNil "A3PL_NewPlayerRequested") then
 	{
-		[localize "STR_PLAYER_PLSENTERDET", "green"] call A3PL_Player_Notification; //System: It looks like you are a new player, please enter your details
+		[localize "STR_PLAYER_PLSENTERDET", "green"] call A3PL_Player_Notification;
 	} else
 	{
-		[localize "STR_PLAYER_NAMEINUSE", "red"] call A3PL_Player_Notification; //System: Server was unable to create your character, maybe the name is already in use?
+		[localize "STR_PLAYER_NAMEINUSE", "red"] call A3PL_Player_Notification;
 	};
 	A3PL_NewPlayerRequested = true;
 }] call Server_Setup_Compile;
@@ -405,8 +401,7 @@
 
 	if (_forbiddenUsed) exitwith
 	{
-		[localize "STR_PLAYER_FORBCHAR", "red"] call A3PL_Player_Notification; //System: You used forbidden characters in your name, please resolve this
-		[localize "STR_PLAYER_CAPITALLETT", "red"] call A3PL_Player_Notification; //System: Do not use capital letters, this will be done automatically
+		["There is an issue with your name, please ensure you only use letters in your name. Additionally, do not use capital letters, we will do this automatically for you.", "red"] call A3PL_Player_Notification;
 	};
 
 	//fix capital letters
@@ -427,16 +422,13 @@
 	};
 
 	[localize"STR_NewPlayer_Welcome1", "green"] call A3PL_Player_Notification;
-	[localize"STR_NewPlayer_Welcome2","green"] call A3PL_Player_Notification;
 	closeDialog 0;
 }] call Server_Setup_Compile;
 
 //check if has enough money
 ['A3PL_Player_HasCash', {
-	private ['_amount', '_cash'];
-
-	_amount = [_this, 0, 0, [0]] call BIS_fnc_param;
-	_cash = player getVariable 'Player_Cash';
+	private _amount = [_this, 0, 0, [0]] call BIS_fnc_param;
+	private _cash = player getVariable 'Player_Cash';
 
 	//Check if player has _amount in cash
 	if (_cash >= _amount) exitWith {true};
@@ -445,10 +437,9 @@
 
 //check if has enough money
 ['A3PL_Player_HasBank', {
-	private ['_amount', '_bank'];
 
-	_amount = [_this, 0, 0, [0]] call BIS_fnc_param;
-	_bank = player getVariable 'Player_Bank';
+	private _amount = [_this, 0, 0, [0]] call BIS_fnc_param;
+	private _bank = player getVariable 'Player_Bank';
 
 	//Check if player has _amount in bank
 	if (_bank >= _amount) exitWith {true};
@@ -458,9 +449,7 @@
 
 //add paycheck money - players have to pick it up from the bank - very simple right now
 ['A3PL_Player_PickupPaycheck', {
-	private ['_paycheckAmount', '_format'];
-
-	_paycheckAmount = Player_Paycheck;
+	private _paycheckAmount = Player_Paycheck;
 
 	//make sure they have a paycheck to pickup
 	if (Player_Paycheck < 1) exitWith
@@ -476,7 +465,7 @@
 	[player, Player_Paycheck] remoteExec ["Server_Player_UpdatePaycheck",2];
 
 	//display notification
-	_format = format[localize "STR_PLAYER_SIGNEDREC", [_paycheckAmount] call A3PL_Lib_FormatNumber]; //I signed my paycheck and received $%1 into my bank account
+	private _format = format[localize "STR_PLAYER_SIGNEDREC", [_paycheckAmount] call A3PL_Lib_FormatNumber]; //I signed my paycheck and received $%1 into my bank account
 	[_format, "green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
 
@@ -496,13 +485,12 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Player_OpenNametag", {
-	private ["_player","_uid","_name","_saved"];
-	_player = param [0,objNull];
-	_uid = getPlayerUID _player;
+	private _player = param [0,objNull];
+	private _uid = getPlayerUID _player;
 
 	A3PL_Nametag_Uid = _uid;
-	_saved = profileNamespace getVariable ["A3FL_NameTags",[]];
-	_name = "";
+	private _saved = profileNamespace getVariable ["A3FL_NameTags",[]];
+	private _name = "";
 
 	{
 		_sUID = _x select 0;
@@ -879,7 +867,13 @@
 	private _houseObj = player getVariable["house",objNull];
 	private _warehouseObj = player getVariable["warehouse",objNull];
 	private _isCG = (player getVariable["faction","citizen"]) isEqualTo "uscg";
-	if(!isNull _houseObj) then {_spawnList pushback ["House",getPosATL _houseObj,1];};
+	if(!isNull _houseObj) then {
+		_ATL = switch(typeOf _houseObj) do {
+			case "Land_Home5y_DED_Home5y_01_F": {[((getPosATL _houseObj) select 0) + 4.5,((getPosATL _houseObj) select 1) - 6,(getPosATL _houseObj) select 2]};
+			default {getPosATL _houseObj};
+		};
+		_spawnList pushback ["House",_ATL,1];
+	};
 	if(!isNull _warehouseObj) then {_spawnList pushback ["Warehouse",getPosATL _warehouseObj,2];};
 	if(_isCG) then {_spawnList pushback ["CG Base",[6513.87,8433.42,0],0];};
 
@@ -936,4 +930,56 @@
 	private _mapControl = _display displayCtrl 1700;
 	_mapControl ctrlMapAnimAdd [1, 0.03, _spawnPos];
 	ctrlMapAnimCommit _mapControl;
+}] call Server_Setup_Compile;
+
+["A3PL_Player_Tackle",
+{
+	private _target = param [0,objNull];
+	private _weapon = currentWeapon player;
+	if (_weapon IN ["","A3FL_Shield","A3FL_PoliceBaton","A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {};
+	if ((!isPlayer _target) || {isNull _target}) exitWith {};
+	A3PL_Tackle = true;
+	[player,"AwopPercMstpSgthWrflDnon_End2"] remoteExec ["A3PL_Lib_SyncAnim",0];
+	sleep 0.08;
+	[] remoteExec ["A3PL_Player_Tackled",_target];
+	sleep 3;
+	A3PL_Tackle = nil;
+}] call Server_Setup_Compile;
+
+["A3PL_Player_Tackled",
+{
+	private _adminMode = player getVariable ["pVar_RedNameOn",false];
+	if(_adminMode) exitWith {};
+	if(!isNil "A3PL_Tackled") exitWith {};
+	A3PL_Tackled = true;
+	player playMoveNow "Incapacitated";
+	disableUserInput true;
+	private _obj = "Land_ClutterCutter_small_F" createVehicle ASLTOATL(visiblePositionASL player);
+	_obj setPosATL ASLToATL(visiblePositionASL player);
+	player attachTo [_obj,[0,0,0]];
+	if (!([player,"head","concussion"] call A3PL_Medical_HasWound)) then {[player,"head","concussion"] call A3PL_Medical_ApplyWound;};
+	sleep 15;
+	[player,""] remoteExec ["A3PL_Lib_SyncAnim",0];
+	player switchMove "AidlPpneMstpSnonWnonDnon_AI";
+	disableUserInput false;
+	detach player;
+	deleteVehicle _obj;
+	A3PL_Tackled = nil;
+}] call Server_Setup_Compile;
+
+["A3PL_Player_GetGift",
+{
+	private _tree = param[0,objNull];
+	if(isNull _tree) exitWith {};
+	private _treeID = ((netId _tree) splitString ":") select 1;
+	private _uid = getPlayerUID player;
+	private _usedList = missionNameSpace getVariable["ChristmasGifts",[]];
+	private _relate = format["%1_%2",_treeID,_uid];
+	if(_relate IN _usedList) exitWith {["You already had a gift from this tree today!","red"] call A3PL_Player_Notification;};
+
+	_usedList pushback _relate;
+	missionNameSpace setVariable["ChristmasGifts",_usedList,true];
+
+	["gift",1] call A3PL_Inventory_Add;
+	["You received 1 gift!","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;

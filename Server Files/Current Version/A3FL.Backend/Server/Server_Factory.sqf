@@ -108,7 +108,7 @@
 		if ((_x select 0) == _type) exitwith {_i = _forEachIndex;};
 	} foreach _storage;
 
-	if (typeName _newArr != "BOOL") then {
+	if (!(_newArr isEqualType true)) then {
 		_newArr = [_newArr, (_item select 0), (_item select 1), true] call BIS_fnc_addToPairs;
 		if (isNil "_i") exitwith {};
 		(_storage select _i) set [1,_newArr];
@@ -120,7 +120,7 @@
 	_query = format ["UPDATE players SET f_storage='%1' WHERE uid='%2'",([_storage] call Server_Database_Array),getPlayerUID _player];
 	[_query,1] spawn Server_Database_Async;
 	
-	if (typeName _newArr isEqualTo "ARRAY") then {
+	if (_newArr isEqualType []) then {
 		_newTotal = 0;
 		{
 			if((_x select 0) isEqualTo (_item select 0)) exitWith {_newTotal = (_x select 1);}
@@ -140,7 +140,7 @@
 	_amount = _item select 1;
 	_storage = _player getVariable ["player_fstorage",[]];
 	_items = [_type,"items",_player] call A3PL_Config_GetPlayerFStorage; //gets an array of items as formatted above
-	if (typeName _storage == "BOOL") then {_storage = []};
+	if (_storage isEqualType true) then {_storage = []};
 
 	//DEAL WITH THE PLAYER_FSTORAGE VARIABLES
 	if (!([_id,_amount,_type,_player] call A3PL_Factory_Has)) exitwith {}; //player doesnt have the item in storage he's trying to craft
@@ -212,9 +212,13 @@
 		{
 			private ["_lp","_pos"];
 			_lp = [_player,_id,"vehicle",false] call Server_Vehicle_Buy;
-			if (_id isKindOf "Ship") then
+			if (_id IN ["A3FL_LCM","A3PL_RHIB","A3PL_Motorboat","A3PL_Yacht","C_Scooter_Transport_01_F"]) then
 			{
-				_pos = [(getpos _player), 20, 100, 0, 2] call BIS_fnc_findSafePos;
+				if(((getpos _player) distance getMarkerPos "Boat_Factory") < 150) then {
+					_pos = [4812.61,5155.29,1];
+				} else {
+					_pos = [(getpos _player), 20, 100, 0, 2] call BIS_fnc_findSafePos;
+				};
 			} else {
 				_pos = (getpos _player) findEmptyPosition [3,65,_id];
 			};

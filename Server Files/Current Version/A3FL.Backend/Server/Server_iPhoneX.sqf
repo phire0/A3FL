@@ -41,9 +41,25 @@
 	private _serialNumber = [];
 	for "_i" from 0 to 14 do {_serialNumber pushBack (selectRandom ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",0,1,2,3,4,5,6,7,8,9]);};
 	_serialNumber = _serialNumber joinString "";
+	// private _delQry = format ["DELETE FROM iphone_phone_numbers WHERE player_id='%1' AND type_id='%2'", _unit, _type];
+	// [_delQry, 1] call Server_Database_Async;
 	private _query = format ["INSERT INTO iphone_phone_numbers (player_id, phone_number, type_id, serial_number) VALUES ('%1', '%2', '%3', '%4')", _unit, _phoneNumber, _type, _serialNumber];
 	[_query,1] call Server_Database_Async;
 },true] call Server_Setup_Compile;
+
+["Server_iPhoneX_RenewSecondary",
+{
+	params[
+		["_unit", objNull, [objNull]],
+		["_newPhoneNumber", "", [""]]
+	];
+
+	if (isNull _unit || _newPhoneNumber isEqualTo "") exitWith {};
+
+	private _query = format ["UPDATE iphone_phone_numbers SET phone_number='%1' WHERE type_id='2' AND player_id='%2'", _newPhoneNumber, getPlayerUID _unit];
+	[_query, 1] call Server_Database_Async;
+	[_unit] call Server_iPhoneX_GetPhoneNumber;
+}, true] call Server_Setup_Compile;
 
 ['Server_iPhoneX_CallSwitchboard',
 {
@@ -281,12 +297,10 @@
 	private _unit = [_this,0,objNull,[objNull]] call BIS_fnc_param;
 	private _from  = [_this,1,"",[""]] call BIS_fnc_param;
 	private _to = [_this,2,"",[""]] call BIS_fnc_param;
-	private _query = format ["DELETE FROM iphone_messages WHERE from_num = '%1' AND to_num = '%2'", _from, _to];
+	private _query = format ["DELETE FROM iphone_conversations WHERE player_id = '%1' AND phone_number_contact = '%2'", getPlayerUID _unit, _to];
 	[_query,1] call Server_Database_Async;
-	private _exists = [A3PL_iPhoneX_ListNumber, _to] call BIS_fnc_findNestedElement;
-	if (!(_exists isEqualTo [])) then {
-		[_from,false] remoteExec ["A3PL_iPhoneX_deleteSMS", ((A3PL_iPhoneX_ListNumber select (_exists select 0)) select 1)];
-	};
+	sleep 1.5;
+	[_unit] call Server_iPhoneX_GetConversations;
 },true] call Server_Setup_Compile;
 
 ['Server_iPhoneX_UpdatePhoneNumberActive',

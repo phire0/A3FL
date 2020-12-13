@@ -8,15 +8,14 @@
 
 ["A3PL_Robberies_RobPort",
 {
-	private ["_port"];
-	_port = param [0,player_objintersect];
+	private _port = param [0,player_objintersect];
 	_cooldown = missionNamespace getVariable ["PortRobberyCooldown",false];
 
 	if (_cooldown) exitwith {["A port has already been robbed recently","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) isEqualTo "") exitwith {["You are not brandishing a firearm","red"] call A3PL_Player_Notification;};
 	if ((currentWeapon player) IN ["A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a port with this weapon!","red"] call A3PL_Player_Notification;};
 
-	_cg = ["uscg"] call A3PL_Lib_FactionPlayers;
+	private _cg = ["uscg"] call A3PL_Lib_FactionPlayers;
 	if ((count _cg) < 2) exitwith {["There must be at least 2 USCG on duty to rob this port!","red"] call A3PL_Player_Notification;};
 
 	missionNamespace setVariable ["PortRobberyCooldown",true,true];
@@ -47,14 +46,12 @@
 
 ["A3PL_Robberies_PortReward",
 {
-	private ["_port","_rewardArray"];
-	_port = param [0,objNull];
-	_itemsArray = [
+	private _port = param [0,objNull];
+	private _itemsArray = [
 		["item","cash",2000 + round(random(10000))],
 		["item","v_lockpick",3],
 		["item","Titanium",14],
 		["item","shark_10lb",4],
-		// ["item","SMG_Part_Body",1],
 		["item","zipties",5],
 		["item","weed_50g",11],
 
@@ -66,7 +63,7 @@
 		["magazine","16Rnd_9x21_Mag",8],
 		["magazine","A3PL_P226_Mag",8]
 	];
-	_rewardArray = [];
+	private _rewardArray = [];
 
 	_chanceNbItems = 5 + round(random 4);
 	for "_i" from 0 to _chanceNbItems do {
@@ -74,11 +71,11 @@
 	};
 
 	{
-		private["_type","_class","_maxAmount","_amount","_enoughtSpace"];
-		_type = _x select 0;
-		_class = _x select 1;
-		_maxAmount = _x select 2;
-		_amount = 1 + round(random _maxAmount);
+		private _type = _x select 0;
+		private _class = _x select 1;
+		private _maxAmount = _x select 2;
+		private _amount = 1 + round(random _maxAmount);
+		private _enoughtSpace = "";
 		switch(_type) do {
 			case("item"): {
 				_enoughtSpace = (([[_class,_amount]] call A3PL_Inventory_TotalWeight) <= Player_MaxWeight);
@@ -103,9 +100,8 @@
 
 ["A3PL_Robberies_PortAlert",
 {
-	private ["_port","_namePos"];
-	_port = param [0,objNull];
-	_namePos = "unknown location";
+	private _port = param [0,objNull];
+	private _namePos = "unknown location";
 	switch(str(_port)) do {
 		case("npc_port_1"): {
 			_namePos = "Stoney Creek";
@@ -130,8 +126,7 @@
 }] call Server_Setup_Compile;
 
 ["A3PL_Robberies_PickSeizure",{
-	private ["_storage"];
-	_storage = param [0,objNull];
+	private _storage = param [0,objNull];
 	_timer = false;
 	if (!isNil {_storage getVariable ["timer",nil]}) then {
 		if (((serverTime - (_storage getVariable ["timer",0]))) < 1800) then {_timer = true};
@@ -141,7 +136,7 @@
 	if (!(vehicle player == player)) exitwith {[localize"STR_CRIMINAL_YOUCANTPICKVEHICLEINTOVEHICLE", "red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {[localize"STR_CRIMINAL_YOUALREADYPICKVEHICLE", "red"] call A3PL_Player_Notification;};
 
-	_fims = ["fims"] call A3PL_Lib_FactionPlayers;
+	private _fims = ["fims"] call A3PL_Lib_FactionPlayers;
 	if ((count _fims) < 5) exitwith {["There must be at least 5 Marshals on duty to rob this!","red"] call A3PL_Player_Notification;};
 
 	[] remoteExec ["A3PL_Robberies_SeizureAlert", _fims];
@@ -209,9 +204,8 @@
 	if ((currentWeapon player) IN ["A3FL_PepperSpray","A3FL_GolfDriver","A3FL_BaseballBat","Rangefinder","hgun_Pistol_Signal_F","A3PL_FireAxe","A3PL_Shovel","A3PL_Pickaxe","A3PL_Golf_Club","A3PL_Jaws","A3PL_High_Pressure","A3PL_Medium_Pressure","A3PL_Low_Pressure","A3PL_Taser","A3PL_FireExtinguisher","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3PL_Predator"]) exitwith {["You cannot rob a port with this weapon!","red"] call A3PL_Player_Notification;};
 	if (Player_ActionDoing) exitwith {["You are already doing something.","red"] call A3PL_Player_Notification;};
 
-	private _requiredCG = 5;
 	private _CG = ["uscg"] call A3PL_Lib_FactionPlayers;
-	if(count(_CG) < _requiredCG) exitWith {["There is not 5 CG available to rob the pirate ship!","red"] call A3PL_Player_Notification;};
+	if(count(_CG) < 5) exitWith {["There is not 5 CG available to rob the pirate ship!","red"] call A3PL_Player_Notification;};
 
 	[] remoteExec ["A3PL_Robberies_PShipRobbed",_CG];
 

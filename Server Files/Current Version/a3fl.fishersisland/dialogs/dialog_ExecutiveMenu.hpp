@@ -154,7 +154,7 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[true] call A3PL_Admin_TakeGear;";
+			action = "[true] spawn A3PL_Admin_TakeGear;";
 		};
 		class Button_SavedGear: RscButton
 		{
@@ -165,18 +165,18 @@ class Dialog_ExecutiveMenu
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "[false] call A3PL_Admin_TakeGear;";
+			action = "[false] spawn A3PL_Admin_TakeGear;";
 		};
-		class Button_Unassigned: RscButton
+		class Button_AdminIsland: RscButton
 		{
 			idc = 1605;
-			text = "";
+			text = "Admin Island";
 			x = 0.536094 * safezoneW + safezoneX;
 			y = 0.401 * safezoneH + safezoneY;
 			w = 0.0515625 * safezoneW;
 			h = 0.022 * safezoneH;
 			sizeEx = .8 * GUI_GRID_H;
-			action = "";
+			action = "call A3PL_Admin_AdminIsland;";
 		};
 		class Button_PlayerHeal: RscButton
 		{

@@ -9,7 +9,8 @@ class Dialog_Roommates
 		class BackPicture: RscPicture
 		{
 			idc = -1;
-			text = "\A3PL_Common\GUI\A3PL_Insurance.paa";
+			// Fix location.
+			text = "\A3PL_Common\GUI\A3FL_Roommates.paa";
 			x = 0 * safezoneW + safezoneX;
 			y = 0 * safezoneH + safezoneY;
 			w = 1 * safezoneW;
@@ -23,24 +24,14 @@ class Dialog_Roommates
 			w = 0.2475 * safezoneW;
 			h = 0.176 * safezoneH;
 		};
-		/* TODO: Remove */
-		class PriceDisplay: RscStructuredText
-		{
-			idc = 1100;
-			x = 0.5 * safezoneW + safezoneX;
-			y = 0.632 * safezoneH + safezoneY;
-			w = 0.128906 * safezoneW;
-			h = 0.022 * safezoneH;
-		};
-		class button_insure: RscButtonEmpty
+		class button_remove: RscButtonEmpty
 		{
 			idc = 1601;
 			x = 0.309219 * safezoneW + safezoneX;
 			y = 0.765 * safezoneH + safezoneY;
 			w = 0.0670312 * safezoneW;
 			h = 0.04 * safezoneH;
-			//action = "call A3PL_Housing_RemoveRoommate;";
-			action = "[player, player getVariable [""house"", objNull]] remoteExec [""Server_Housing_GetRoommates"", 2];";
+			action = "call A3PL_Housing_RemoveRoommate;";
 		};
 		class button_close: RscButtonEmpty
 		{

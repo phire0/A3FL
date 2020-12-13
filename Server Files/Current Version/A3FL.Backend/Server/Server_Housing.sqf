@@ -14,7 +14,7 @@
 	private _uid = param [1,""];
 	private _delete = param [2,true];
 	private _house = _player getVariable ["house",objNull];
-	private _items = nearestObjects [_house,[],30];
+	private _items = nearestObjects [_house, [],30];
 	private _allMembers = _house getVariable["owner",[]];
 	private _isOwner = false;
 	if((_allMembers select 0) isEqualTo _uid) then {_isOwner = true;};
@@ -128,7 +128,7 @@
 		_doorid = _x select 2;
 
 		_near = nearestObjects [_pos, HOUSESLIST, 10,true];
-		if (count _near == 0) then
+		if (count _near isEqualTo 0) then
 		{
 			_query = format ["CALL RemovedHouse('%1');",_pos];
 			[_query,1] spawn Server_Database_Async;
@@ -156,48 +156,41 @@
 //This function will change/buy the ownership of a house
 ["Server_Housing_AssignHouse",
 {
-	private ["_object","_player","_uid","_keyID","_pos","_insert","_var","_signs","_takeMoney","_price"];
-	_object = param [0,objNull];
-	_player = param [1,objNull];
-	_takeMoney = param [2,true];
-	_price = param [3,0];
-	_uid = getPlayerUID _player;
+	private _object = param [0,objNull];
+	private _player = param [1,objNull];
+	private _takeMoney = param [2,true];
+	private _price = param [3,0];
+	private _uid = getPlayerUID _player;
 
 	_object setVariable ["owner",[_uid],true];
 
-	if (_takeMoney) then
-	{
+	if (_takeMoney) then {
 		_player setVariable ["player_bank",((_player getVariable ["player_bank",0]) - _price),true];
 	};
 
-	_keyID = [_player,_object,"",false,"house"] call Server_Housing_CreateKey;
-
-	if (!(_object IN Server_HouseList)) then
-	{
+	private _keyID = [_player,_object,"",false,"house"] call Server_Housing_CreateKey;
+	if (!(_object IN Server_HouseList)) then {
 		Server_HouseList pushback _object;
 	};
 
-	_pos = getpos _object;
-	_uid = [[_uid]] call Server_Database_Array;
-	_insert = format ["INSERT INTO houses (uids,classname,location,doorid,pitems) VALUES ('%1','%2','%3','%4','[]') ON DUPLICATE KEY UPDATE doorID='%3'",_uid,typeOf _object,_pos,_keyID];
+	private _pos = getpos _object;
+	private _uid = [[_uid]] call Server_Database_Array;
+	private _insert = format ["INSERT INTO houses (uids,classname,location,doorid) VALUES ('%1','%2','%3','%4') ON DUPLICATE KEY UPDATE doorID='%4'",_uid,typeOf _object,_pos,_keyID];
 	[_insert,1] spawn Server_Database_Async;
 
 	_player setVariable ["house",_object,true];
-	_var = _player getVariable ["apt",nil];
+	private _var = _player getVariable ["apt",nil];
 	if (!isNil "_var") then
 	{
 		[_player] call Server_Housing_UnAssignApt;
-
 		_player setVariable ["apt",Nil,true];
 		_player setVariable ["aptnumber",Nil,true];
 	};
 
 	_signs = nearestObjects [_object, ["Land_A3PL_EstateSign"], 20];
-	if (count _signs > 0) then
-	{
+	if (count _signs > 0) then {
 		(_signs select 0) setObjectTextureGlobal [0,"\A3PL_Objects\Street\estate_sign\house_rented_co.paa"];
 	};
-
 },true] call Server_Setup_Compile;
 
 //This will set the position of the player to their appartment
@@ -486,7 +479,7 @@
 	_house setVariable ["owner",nil,true];
 	_house setVariable ["doorid",nil,true];
 
-	_furnitures = nearestObjects [_pos, ["Thing"], 100];
+	_furnitures = nearestObjects [_pos, ["Thing"],100];
 	{if((_x getVariable "owner") isEqualTo _uid) then {deleteVehicle _x;};} foreach _furnitures;
 	deleteMarker ([getPos _house, "house"] call A3PL_Lib_NearestMarker);
 
@@ -565,22 +558,88 @@
 	};
 },true] call Server_Setup_Compile;
 
+["Server_Housing_RemoveOfflineKey",
+{
+	params[
+		["_removalID", "", [""]],
+		["_houseID", "", [""]]
+	];
+
+	private _query = format ["SELECT userkey FROM players WHERE uid='%1'", _removalID];
+	private _result = [_query, 2] call Server_Database_Async;
+
+	private _keys = [(([(_result select 0)] call Server_Database_ToArray) - [_houseID])] call Server_Database_Array;
+
+	private _query = format ["UPDATE players SET userkey='%1' WHERE uid='%2'", _keys, _removalID];
+	[_query, 1] call Server_Database_Async;
+}, true] call Server_Setup_Compile;
+
+["Server_Housing_RemoveMemberOffline",
+{
+	params[
+		["_player", objNull, [objNull]],
+		["_removedRoommate", "", [""]]
+	];
+
+	private _house = _player getVariable ["house", objNull];
+	private _members = _house getVariable ["owner", []];
+
+	// If the removed roommate is actually a member of the house
+	if ((_members find _removedRoommate) != -1) then {
+		// Remove from members array
+		_members deleteAt (_members find _removedRoommate);
+		_house setVariable ["owner", _members, true];
+
+		// Prepare members array for query
+		_members = [_members] call Server_Database_Array;
+		
+		// Update in database
+		_query = format ["UPDATE houses SET uids='%1' WHERE location='%2'", _members, (getpos _house)];
+		[_query, 1] call Server_Database_Async;
+
+		// Remove house key from player
+		private _houseID = ((_house getVariable ["doorid", []]) select 1);
+		[_removedRoommate, _houseID] call Server_Housing_RemoveOfflineKey;
+
+		["You removed an offline roommate!", "green"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	} else {
+		["There was an error removing an offline roommate, please try again.", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
+}, true] call Server_Setup_Compile;
+
 ["Server_Housing_GetRoommates",
 {
-	private _player = param[0, objNull];
-	private _house = param[1, objNull];
-	
-	if (isNull _player || isNull _house) exitWith {};
+	//private _player = param[0, objNull];
+	//private _house = param[1, objNull];
 
+	params[
+		["_player", objNull, [objNull]]
+	];
+
+	private _house = _player getVariable ["house", objNull];
+
+	// If the player does not have a house
+	if (isNull _house) exitWith {
+		["You do not appear to have a house, please try again.", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
+
+	// Get the owner array, e.g. ["steamid64_1","steamid64_2",...]
 	private _uids = _house getVariable ["owner", []];
+	
+	// Only the house owner can use this
+	if (!((getPlayerUID _player) isEqualTo (_uids select 0))) exitWith {
+		["Only the house owner can remove roommates.", "red"] remoteExec ["A3PL_Player_Notification", (owner _player)];
+	};
+
 	private _names = [];
 
+	// Loop through each UID and pull their name from the DB
 	{
 		private _query = format ["SELECT name FROM players WHERE uid = '%1'", _x];
 		private _result = [_query, 2] call Server_Database_Async;
 		_names pushBack ([_x, _result select 0]);
 	} foreach _uids;
 
+	// Send the names and IDs back to the client so we can pull up the display
 	[_names] remoteExec ["A3PL_Housing_RemoveRoommateReceive", (owner _player)];
-
 }, true] call Server_Setup_Compile;

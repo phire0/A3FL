@@ -28,9 +28,10 @@ class Dialog_BusinessRent
 			w = 0.135521 * safezoneW;
 			h = 0.0303333 * safezoneH;
 		};
-		class slider_rent: RscSlider
+		class rent_time: RscEdit
 		{
 			idc = 1900;
+			text = "10";
 			x = 0.478907 * safezoneW + safezoneX;
 			y = 0.368926 * safezoneH + safezoneY;
 			w = 0.135053 * safezoneW;
@@ -51,29 +52,25 @@ class Dialog_BusinessRent
 			y = 0.524778 * safezoneH + safezoneY;
 			w = 0.0979167 * safezoneW;
 			h = 0.0376297 * safezoneH;
+			action = "[] call A3PL_Business_Rent";
 		};
 		class button_close: RscButtonEmpty
 		{
-			idc = 1601;
+			idc = -1;
 			x = 0.515469 * safezoneW + safezoneX;
 			y = 0.523741 * safezoneH + safezoneY;
 			w = 0.0979167 * safezoneW;
 			h = 0.0394815 * safezoneH;
-			action = "closeDialog 0";
+			action = "closeDialog 0;";
 		};
 		class button_close2: RscButtonEmpty
 		{
-			idc = 1602;
+			idc = -1;
 			x = 0.597969 * safezoneW + safezoneX;
 			y = 0.225 * safezoneH + safezoneY;
 			w = 0.0265625 * safezoneW;
 			h = 0.0570741 * safezoneH;
 			action = "closeDialog 0;";
 		};
-		////////////////////////////////////////////////////////
-		// GUI EDITOR OUTPUT END
-		////////////////////////////////////////////////////////
-
-
 	};
 };

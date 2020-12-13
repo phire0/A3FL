@@ -66,10 +66,13 @@ class CfgRemoteExec
 		class Server_Storage_ReturnVehicles {allowedTargets = 2;};
 		class Server_Storage_ChangeVehicleName{allowedTargets=2;};
 
+		class Server_Events_CreateZombies{allowedTargets=2;};
+
 		//Admin
 		class A3PL_Admin_UserInputCheck{allowedTargets=0;};
 
 		//Player
+		class A3PL_Player_Tackled{allowedTargets=0;};
 		class A3PL_Player_SpawnMenu{allowedTargets=0;};
 		class A3PL_Player_News{allowedTargets=0;};
 		class A3PL_Player_Notification {allowedTargets = 0;};
@@ -105,6 +108,7 @@ class CfgRemoteExec
 		//Locker
 		class Server_Locker_Save{allowedTargets=2;};
 		class Server_Locker_Insert{allowedTargets=2;};
+		class Server_Locker_Sell{allowedTargets=2;};
 
 		//Fuel
 		class Server_Fuel_Pay{allowedTargets=2;};
@@ -126,6 +130,7 @@ class CfgRemoteExec
 		class A3PL_Housing_AptAssignedMsg {allowedTargets = 0;};
 		class A3PL_Housing_SetMarker{allowedTargets=0;};
 		class A3PL_Housing_RemoveRoommateReceive{allowedTargets=0;};
+		class A3PL_Housing_RemoveRoommate{allowedTargets=0;};
 		class Server_Housing_Sold{allowedTargets=2;};
 		class Server_Housing_dropKey {allowedTargets = 2;};
 		class Server_Housing_PickupKey {allowedTargets = 2;};
@@ -139,6 +144,7 @@ class CfgRemoteExec
 		class Server_Housing_RemoveMember{allowedTargets=2;};
 		class Server_Housing_Initialize{allowedTargets=2;};
 		class Server_Housing_GetRoommates{allowedTargets=2;};
+		class Server_Housing_RemoveMemberOffline{allowedTargets=2;};
 
 		// Warehouses
 		class A3PL_Warehouses_Loaditems {allowedTargets = 0;};
@@ -248,7 +254,6 @@ class CfgRemoteExec
 
 		//Job Mcfisher
 		class A3PL_JobMcfisher_CookBurger {allowedTargets = 0;};
-		class Server_JobMcfisher_combine {allowedTargets = 2;};
 		class Server_JobMcfisher_cookthres {allowedTargets = 2;};
 
 		//Job Fisherman
@@ -372,9 +377,7 @@ class CfgRemoteExec
 		class A3PL_Debug_ExecuteCompiled{allowedTargets=2;};
 
 		//Medical
-		class A3PL_Medical_ApplyPWound{allowedTargets=0;};
-		class A3PL_Medical_Die{allowedTargets=0;};
-		class A3PL_Medical_DeadMarker{allowedTargets=0;};
+		class A3PL_Medical_LimpCheck{allowedTargets=0;};
 
 		//Lib
 		class A3PL_Lib_SyncAnim {allowedTargets = 0;};
@@ -422,6 +425,7 @@ class CfgRemoteExec
 		class A3PL_iPhoneX_DeleteSMS{allowedTargets=2;};
 		class Server_iPhoneX_DeleteContact{allowedTargets=2;};
 		class Server_iPhoneX_AddPhoneNumber{allowedTargets=2;};
+		class Server_iPhoneX_RenewSecondary{allowedTargets=2;};
 		class Server_iPhoneX_NumberIsUsed{allowedTargets=2;};
 		class Server_iPhoneX_GetContacts{allowedTargets=2;};
 		class Server_iPhoneX_GetConversations{allowedTargets=2;};

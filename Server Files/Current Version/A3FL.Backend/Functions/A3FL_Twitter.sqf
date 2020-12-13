@@ -73,6 +73,7 @@
 		_namecolor = "#3d0000";
 		_msgcolor = "#ffbfbf";
 		[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
+		[getPlayerUID player,_msg,_msgcolor,_namepicture,_name,_namecolor,"help"] remoteExec ["Server_Twitter_HandleMsg", 2];
 	};
 	if (((toLower (_splitted select 0) == "/r")) && !_doubleCommand) exitWith {
 		if(!(pVar_AdminTwitter)) exitwith {
@@ -108,6 +109,7 @@
 		_msg = _splitted joinString " ";
 		_messageto = ["reply",_person];
 		[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
+		[getPlayerUID player,_msg,_msgcolor,_namepicture,_name,_namecolor,"help"] remoteExec ["Server_Twitter_HandleMsg", 2];
 	};
 	if (!([] call A3PL_Lib_HasPhone)) exitwith {[localize"STR_EVENTHANDLERS_PHONENEEDED","red"] call A3PL_Player_Notification;};
 	if (((toLower (_splitted select 0) == "/dn")) && !_doubleCommand) exitWith {
@@ -127,7 +129,7 @@
 		_msgcolor = "#ffffff";
 		[_msg,_msgcolor,_namepicture,_name,_namecolor,_messageto,_truecaller] remoteExec ["A3PL_Twitter_NewMsg", -2];
 
-		[getPlayerUID player,_msg,_msgcolor,_namepicture,_name,_namecolor,true] remoteExec ["Server_Twitter_HandleMsg", 2];
+		[getPlayerUID player,_msg,_msgcolor,_namepicture,_name,_namecolor,"darknet"] remoteExec ["Server_Twitter_HandleMsg", 2];
 	};
 	if(!_hasNumber) then {
 		if(pVar_AdminTwitter) then {A3PL_Twitter_Cooldown = 0;};
@@ -192,7 +194,7 @@
 	if (isDedicated) exitWith {};
 	if (isNil "A3PL_TwitterMsg_Array") exitWith {};
 	if (!(profilenamespace getVariable ["A3PL_Twitter_Enabled",true])) exitwith {};
-	if (!(typeName _this == typeName [])) exitWith {};
+	if (!(_this isEqualType [])) exitWith {};
 
 
 	_msg = param [0,""];
@@ -207,7 +209,7 @@
 
 
 	_cancelaction = true;
-	if (typename _messageto == "ARRAY") then {
+	if (_messageto isEqualType []) then {
 		if (_messageto select 0 == "admin") then {
 			if(pVar_AdminTwitter) then {_cancelaction = false;};
 			A3PL_Twitter_ReplyArr = (missionNameSpace getVariable ["A3PL_Twitter_ReplyArr",[]]) + [(_messageto select 1)];
@@ -222,7 +224,7 @@
 		};
 	};
 
-	if (typename _messageto == "STRING") then {
+	if (_messageto isEqualType "") then {
 		if (_messageto == "") then {_cancelaction = false;};
 	};
 

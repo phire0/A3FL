@@ -37,10 +37,9 @@
 	private _vehMags = getMagazineCargo _veh;
 	private _vehBackpacks = getBackpackCargo _veh;
 	private _oldWeapons = getWeaponCargo _veh;
-	private _whitelist = ["srifle_LRR_F","srifle_LRR_SOS_F","A3FL_PepperSpray","A3FL_PoliceBaton","A3PL_High_Pressure","A3PL_Jaws","A3PL_FireAxe","A3PL_FireExtinguisher","A3PL_Pickaxe","A3PL_Shovel","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","hgun_Pistol_Signal_F"];
+	private _whitelist = ["A3FL_Shield","srifle_LRR_F","srifle_LRR_SOS_F","A3FL_PepperSpray","A3FL_PoliceBaton","A3PL_High_Pressure","A3PL_Jaws","A3PL_FireAxe","A3PL_FireExtinguisher","A3PL_Pickaxe","A3PL_Shovel","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","hgun_Pistol_Signal_F"];
 	private _vehWeapons = [[],[]];
 	{
-		diag_log str(_x);
 		if(_x IN _whitelist) then {
 			(_vehWeapons select 0) pushback ((_oldWeapons select 0) select _foreachIndex);
 			(_vehWeapons select 1) pushback ((_oldWeapons select 1) select _foreachIndex);
@@ -122,7 +121,7 @@
 		private _texture = (_db select 1);
 		private _splitted = _texture splitString "";
 		if((_splitted select 0) isEqualTo '[') then {_texture = [_texture] call Server_Database_ToArray;};
-		if(typeName _texture isEqualTo "ARRAY") then {
+		if(_texture isEqualType []) then {
 			{
 				_veh setObjectTextureGlobal[_foreachIndex,_x];
 			} foreach _texture;
@@ -200,7 +199,7 @@
 	private _id = param [2,-1];
 	private _storage = param [3,[]];
 	private _whitelistTrailer = ["A3PL_Ski_Base"];
-	if ((typeName _storage) isEqualTo "ARRAY") exitwith {
+	if (_storage isEqualType []) exitwith {
 		[_class,_player,_id,_storage] call Server_Storage_RetrieveVehiclePos;
 	};
 
@@ -310,7 +309,7 @@
 			sleep 1;
 			_t = _t + 1;
 			if (isNull _veh) exitwith {};
-			if (_t > 119) exitwith {
+			if (_t > 40) exitwith {
 				[3] remoteExec ["A3PL_Storage_CarRetrieveResponse",_player];
 				[format ["UPDATE objects SET plystorage = '1' WHERE id = '%1'",_id],1] spawn Server_Database_Async;
 				Server_Storage_ListVehicles - [_veh];
@@ -328,7 +327,7 @@
 	private _storage = param [1,ObjNull];
 	private _toCompany = param [2,0];
 	private _uid = getPlayerUID _player;
-	private _near = nearestObjects [_player,["Car","Ship","Air","Tank"],25];
+	private _near = _player nearEntities [["Car","Ship","Air","Tank"],25];
 	if ((count _near) isEqualTo 0) exitwith {[7] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
 
 	{
@@ -400,7 +399,7 @@
 	private _toCompany = param [2,0];	
 	private _uid = getPlayerUID _player;
 	if (_storage animationPhase "StorageDoor1" > 0.1) exitwith {[1] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
-	private _near = nearestObjects [_storage,["Car","Ship","Air"],9];
+	private _near = _storage nearEntities [["Car","Ship","Air"],9];
 	private _playerCar = nil;
 	if ((count _near) isEqualTo 0) exitwith {[7] remoteExec ["A3PL_Storage_CarStoreResponse",_player];};
 

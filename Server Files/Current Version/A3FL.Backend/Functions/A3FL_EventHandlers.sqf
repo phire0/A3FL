@@ -89,7 +89,7 @@
 					} else {
 						_bargate animate [_anim,0];
 					};
-				};	
+				};
 			};
 		}, "", [DIK_N, [false, false, false]]] call CBA_fnc_addKeybind;
 
@@ -195,6 +195,16 @@
 			if((vehicle player) isEqualTo player) then {[player,true] call A3PL_Police_Surrender;};
 		}, "", [DIK_B, [true, false, false]]] call CBA_fnc_addKeybind;
 
+		["ArmA 3 Fishers Life","tackle", "Tackle",
+		{
+			if ((player getVariable["Zipped",false]) || (player getVariable["Cuffed",false]) || (player getVariable["dragging",false])) exitWith {};
+			if (!isNull cursorObject && {cursorObject isKindOf "CAManBase"} && {isPlayer cursorObject} && {(cursorObject distance player) < 2} && {(speed cursorObject) < 1}) then {
+				if (((animationState cursorObject) != "Incapacitated") && {currentWeapon player != ""} && {isNil "A3PL_Tackle"} && {isNil "A3PL_Tackled"}) then {
+					[cursorObject] spawn A3PL_Player_Tackle;
+				};
+			};
+		}, "", [DIK_G, [true, false, false]]] call CBA_fnc_addKeybind;
+
 		["ArmA 3 Fishers Life","medical_menu", "Medical Menu",
 		{
 			if (!isNull (findDisplay 73)) exitWith {(findDisplay 73) closeDisplay 0;};
@@ -229,19 +239,18 @@
 
 		["ArmA 3 Fishers Life","vault_key", "Vault Key",
 		{
-			_max_height = 4.3;
+			_max_height = 4.8;
 			if(!(player getVariable["A3PL_Medical_Alive",true])) exitWith {};
-			if(speed player < 8) exitWith {};
+			if((speed player) < 6) exitWith {};
+			if((player getVariable ["Cuffed",true]) || (player getVariable ["Zipped",true])) exitwith {};
 			if((player isEqualTo vehicle player) && (player getvariable ["jump",true]) && (isTouchingGround player)) then  {
 				player setvariable ["jump",false];
-
-				_height = 6-((load player)*10);
+				_height = 6-((load player)*9);
 				_vel = velocity player;
 				_dir = direction player;
 				_speed = 0.4;
 				if (_height > _max_height) then {_height = _max_height};
 				player setVelocity [(_vel select 0)+(sin _dir*_speed),(_vel select 1)+(cos _dir*_speed),(_vel select 2)+_height];
-
 				[player,"AovrPercMrunSrasWrflDf"] remoteExec ["A3PL_Lib_SyncAnim",0];
 				player spawn {sleep 2; player setvariable ["jump",true]};
 			};
@@ -371,24 +380,32 @@
 
 ["A3PL_EventHandlers_Fired",
 {
+	player removeEventhandler["Fired",0];
 	player addEventHandler ["Fired",
 	{
 		private _weapon = param [1,""];
 		private _ammo = param [4,""];
+		private _powderGun = ["hgun_P07_F","hgun_P07_khk_F","hgun_P07_blk_F","hgun_Pistol_heavy_01_F","hgun_ACPC2_F","hgun_Pistol_01_F","hgun_Rook40_F","hgun_Pistol_heavy_02_F","A3FL_Glock17","A3FL_Glock18","A3PL_P226","A3FL_P227","A3FL_Beretta92","A3FL_DesertEagle","SMG_01_F","SMG_02_F","SMG_05_F","A3FL_Mossberg_590k","arifle_AKM_F","A3PL_M16","A3FL_M4","A3FL_UMP","A3FL_Vector","A3FL_MP5K"];
 		if (_weapon IN ["A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3PL_Scypthe"]) then
 		{
 			player playAction "GestureSwing";
 			if(((typeOf player_objintersect) isEqualTo "Land_A3FL_Fishers_Jewelry") && {player_nameintersect IN ["case_break_1","case_break_2","case_break_3","case_break_4","case_break_5","case_break_6","case_break_7","case_break_8","case_break_9"]}) exitWith {
 				call A3PL_Jewelry_GlassDamage;
 			};
-			if (player inArea "LumberJack_Rectangle") then {
-				if (_weapon isEqualTo "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
-			} else {
-				call A3PL_FD_HandleFireAxe;
+			if(_weapon isEqualTo "A3PL_FireAxe") then {
+				if (player inArea "LumberJack_Rectangle") then {
+					if (_weapon isEqualTo "A3PL_FireAxe") then {call A3PL_Lumber_FireAxe;};
+				} else {
+					call A3PL_FD_HandleFireAxe;
+				};
 			};
 		};
 		if (_weapon isEqualTo "A3PL_Jaws") then {call A3PL_FD_HandleJaws;};
 		if (_ammo isEqualTo "A3FL_Mossberg_590K_Breach") then {call A3PL_Police_HandleBreach;};
+		if (_weapon IN _powderGun) then {
+			[] spawn A3PL_Police_SetPowder;
+			call A3PL_Police_DropCasing;
+		};
 	}];
 }] call Server_Setup_Compile;
 
@@ -398,6 +415,10 @@
 
 	if(isNil "A3PL_Manual_KeyDown") then {A3PL_Manual_KeyDown = false};
 
+	private _CommandMode = actionKeys "tacticalView";
+    if (_dikCode in _CommandMode) exitWith {
+        true;
+    };
 	if (_dikCode isEqualTo 59) exitWith {
 		if (pVar_AdminMenuGranted) exitWith {
 			call A3PL_AdminOpen;
@@ -681,10 +702,10 @@
 				{
 					A3PL_HitTime = diag_ticktime;
 					[_unit] spawn A3PL_Medical_Hit;
-				};
-				if((!isNull _instigator) && {!(_instigator isEqualTo _unit)}) then {
-					_unit setVariable ["lastDamage",(_instigator getVariable["db_id","Unknown"]),true];
-					[getPlayerUID _unit,"hitReceived",["Shooter",_instigator getVariable["name","unknwon"],"Bullet",_projectile]] remoteExec ["Server_Log_New",2];
+					if((!isNull _instigator) && {!(_instigator isEqualTo _unit)}) then {
+						_unit setVariable ["lastDamage",(_instigator getVariable["db_id","Unknown"]),true];
+						[getPlayerUID _unit,"hitReceived",["Shooter",_instigator getVariable["name","unknwon"],"Bullet",_projectile]] remoteExec ["Server_Log_New",2];
+					};
 				};
 			};
 		};
@@ -699,7 +720,7 @@
 		if(player getVariable ["pVar_RedNameOn",false]) exitWith {};
 		private _distance = param [2,100];
 		private _weaponClass = param [3,""];
-		private _except = ["A3PL_FireExtinguisher","CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray"];
+		private _except = ["A3PL_FireExtinguisher","CMFlareLauncher","A3PL_Machinery_Bucket","A3PL_Machinery_Pickaxe","A3PL_Taser","A3PL_Taser2","A3PL_High_Pressure","A3PL_FireAxe","A3PL_Pickaxe","A3PL_Shovel","A3PL_Jaws","A3PL_High_Pressure","A3PL_Scythe","A3PL_Paintball_Marker","A3PL_Paintball_Marker_Camo","A3PL_Paintball_Marker_PinkCamo","A3PL_Paintball_Marker_DigitalBlue","A3PL_Paintball_Marker_Green","A3PL_Paintball_Marker_Purple","A3PL_Paintball_Marker_Red","A3PL_Paintball_Marker_Yellow","A3FL_BaseballBat","A3FL_PoliceBaton","A3FL_GolfDriver","A3FL_PepperSpray","A3FL_Shield"];
 		if(_distance <= 25 && (!(_weaponClass IN _except))) then {
 			Player_LockView = true;
 			Player_LockView_Time = time + (2 * 60);

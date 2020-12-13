@@ -73,11 +73,6 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_WeaponIllegalShop",
-	{["Shop_IllegalWeapons"] call A3PL_Shop_Open;}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_SFPShop",
 	{
 		if((player getVariable["job","unemployed"]) != "security") exitWith {[localize"STR_QuickActionsNPC_OnlySecurity","red"] call A3PL_Player_Notification;};
@@ -181,21 +176,8 @@
 ],
 [
 	"",
-	localize"STR_QuickActionsNPC_TakeFuelStationCash",
-	{
-		_station = (nearestobjects [player,["Land_A3PL_Gas_Station"],20]) select 0;
-		[_station,true] spawn A3PL_Store_Robbery_RobStore;
-	}
-],
-[
-	"",
 	localize"STR_QuickActionsNPC_TalkToExterminator",
 	{call A3PL_Exterminator_Start;}
-],
-[
-	"",
-	localize"STR_QuickActionsNPC_StationStore",
-	{["Shop_Fuel"] call A3PL_Shop_Open;}
 ],
 [
 	"",
@@ -219,6 +201,11 @@
 	{call A3PL_Dogs_OpenMenu;}
 ],
 [
+	"A3PL_DogCage",
+	localize"STR_INTSECT_REMOVEK9",
+	{call A3PL_Dogs_ReturnDog;}
+],
+[
 	"",
 	localize"STR_INTSECT_OPIMEXMENU",
 	{call A3PL_IE_Open;}
@@ -227,6 +214,11 @@
 	"",
 	localize"STR_INTSECT_CONVSTOLMONEY",
 	{[player_objintersect] call A3PL_BHeist_ConvertCash;}
+],
+[
+	"",
+	"Find an Illegal Trader for $30k",
+	{call A3PL_Criminal_FindNPC;}
 ],
 [
 	"",
@@ -759,4 +751,9 @@
 	"",
 	localize"STR_QuickActionsNPC_AccessVetementsLunettes",
 	{["Goggle Factory"] call A3PL_Factory_Open;}
+],
+[
+	"",
+	"Analyze Evidence",
+	{call A3PL_Police_Analyze;}
 ]

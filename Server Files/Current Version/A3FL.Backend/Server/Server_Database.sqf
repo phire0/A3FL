@@ -154,14 +154,17 @@
 
 ['Server_Database_EsapeString', {
 	private _string = [_this,0,"",[""]] call BIS_fnc_param;
-	private _filter = ["'","/","`",":","|",";",",","{","}","-","<",">"];
+	private _filter = ["'","/","`",":","|",";",",","{","}","-","<",">","&"];
 	private _string = toArray _string;
+	private _del = [];
 	{
-		if (_x in _filter) then {_string deleteAt _forEachIndex;};
+		if (_x in _filter) then {_del pushback _forEachIndex;};
 	} forEach _string;
+	{
+		_string deleteAt (_x - _forEachIndex);
+	} foreach _del;
 	toString _string;
 }, true] call Server_Setup_Compile;
-
 
 
 // [[123,123]] call Server_Database_ArrayToSqlIN

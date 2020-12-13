@@ -58,15 +58,28 @@
 		default { _return = _config; };
 		case "name": { _return = _config select 1; };
 		case "type": { _return = _config select 2; };
-		case "issuer": { _return = _config select 3; };
+		case "canIssue": { _return = _config select 3; };
+		case "canRevoke": { _return = _config select 4; };
 	};
+	_return;
+}] call Server_Setup_Compile;
+
+["A3PL_Config_LicenseExists",
+{
+	private _class = param [0,""];
+	private _search = param [1,""];
+	private _return = false;
+
+	{
+		if((_x select 0) isEqualTo (toLower(_class))) exitWith {_return = true;};
+	} forEach Config_Licenses;
 	_return;
 }] call Server_Setup_Compile;
 
 ["A3PL_Config_GetPaycheckInfo", {
 	private _class = param [0,""];
 	private _search = param [1,""];
-	private _config = [];
+	private _config = ["",0,0];
 	private _return = "";
 
 	{
@@ -125,18 +138,18 @@
 		if((_x select 0) == _class) exitWith {
 			_return = true;
 		};
-	} forEach Config_Vehicles_Capacity;
+	} forEach Config_Vehicles_Data;
 	_return;
 }] call Server_Setup_Compile;
 
-["A3PL_Config_GetVehicleCapacity", {
+["A3PL_Config_GetVehicleCapacity", { 
 	private _class = param [0,""];
 	private _return = 0;
 	{
 		if((_x select 0) == _class) exitWith {
 			_return = _x select 1;
 		};
-	} forEach Config_Vehicles_Capacity;
+	} forEach Config_Vehicles_Data;
 	_return;
 }] call Server_Setup_Compile;
 
@@ -145,9 +158,9 @@
 	private _return = 0;
 	{
 		if ((_x select 0) == _class) exitWith {
-			_return = _x select 1;
+			_return = _x select 2;
 		};
-	} forEach Config_Vehicles_MSRP;
+	} forEach Config_Vehicles_Data;
 	_return;
 }] call Server_Setup_Compile;
 
@@ -202,20 +215,16 @@
 	{
 		if ((_x select 0) isEqualTo _class) exitWith {_config = _x};
 	} foreach _config;
-	switch (_search) do {
-		case "id": { _return = _config select 0; };
-		case "parent": { _return = _config select 1; };
-		case "name": { _return = _config select 2; };
-		case "img": { _return = _config select 3; };
-		case "class": { _return = _config select 4; };
-		case "type": { _return = _config select 5; };
-		case "craftable": { _return = _config select 6; };
-		case "time": { _return = _config select 7; };
-		case "required": { _return = _config select 8; };
-		case "output": { _return = _config select 9; };
-		case "xp": { _return = _config select 10; };
-		case "level": { _return = _config select 11; };
-		case "desc": { _return = _config select 12; };
+	_return = switch (_search) do {
+		case "id": { _config select 0; };
+		case "class": { _config select 1; };
+		case "type": { _config select 2; };
+		case "time": { _config select 3; };
+		case "required": { _config select 4; };
+		case "output": { _config select 5; };
+		case "xp": { _config select 6; };
+		case "level": { _config select 7; };
+		case "desc": { _config select 8; };
 	};
 	_return;
 }] call Server_Setup_Compile;
@@ -436,7 +445,7 @@
 	private _return = "";
 	{
 		if((_x select 0) == _class) exitWith  {_return = _x select 1;};
-	} forEach Config_Government_Taxes;
+	} forEach (missionNameSpace getVariable ["Config_Government_Taxes",[]]);
 	_return;
 }] call Server_Setup_Compile;
 
@@ -463,7 +472,7 @@
 		};
 	} forEach _config;
 
-	if ((count _rankData) isEqualTo 0) then {_rankData = ["Reserve",[getPlayerUID player],200];};
+	if ((count _rankData) isEqualTo 0) then {_rankData = _config select ((count _config) - 1);};
 	switch (_search) do {
 		default { _return = _rankData; };
 		case "rank": { _return = _rankData select 0; };

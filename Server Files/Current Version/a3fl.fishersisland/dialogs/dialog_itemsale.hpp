@@ -22,79 +22,59 @@ class Dialog_ItemSale
 	onUnload = "";
 	class controls
 	{
-		class static_gui: RscPicture
+		class BackgroundPicture: RscPicture
 		{
-			idc = 1200;
+			idc = -1;
 			text = "\A3PL_Common\GUI\A3PL_ItemSale.paa";
 			x = 0 * safezoneW + safezoneX;
 			y = 0 * safezoneH + safezoneY;
 			w = 1 * safezoneW;
 			h = 1 * safezoneH;
 		};
-		class edit_itemname: RscEdit
-		{
-			idc = 1400;
-			x = 0.448438 * safezoneW + safezoneX;
-			y = 0.400185 * safezoneH + safezoneY;
-			w = 0.165 * safezoneW;
-			h = 0.0311482 * safezoneH;
-		};
-		class edit_price: RscEdit
-		{
-			idc = 1900;
-			x = 0.448438 * safezoneW + safezoneX;
-			y = 0.475333 * safezoneH + safezoneY;
-			w = 0.165 * safezoneW;
-			h = 0.033 * safezoneH;
-		};
-		class struc_info: RscStructuredText
-		{
-			idc = 1100;
-			x = 0.377292 * safezoneW + safezoneX;
-			y = 0.513778 * safezoneH + safezoneY;
-			w = 0.236666 * safezoneW;
-			h = 0.107222 * safezoneH;
-		};
-		class button_sell: RscButtonEmpty
+		class sellbtn: RscButtonEmpty
 		{
 			idc = 1600;
-			x = 0.378854 * safezoneW + safezoneX;
-			y = 0.63837 * safezoneH + safezoneY;
-			w = 0.0979167 * safezoneW;
-			h = 0.0376297 * safezoneH;
+			x = 0.314375 * safezoneW + safezoneX;
+			y = 0.533 * safezoneH + safezoneY;
+			w = 0.061875 * safezoneW;
+			h = 0.033 * safezoneH;
 		};
-		class button_stopsell: RscButtonEmpty
+		class stopbtn: RscButtonEmpty
 		{
 			idc = 1601;
-			x = 0.515469 * safezoneW + safezoneX;
-			y = 0.635778 * safezoneH + safezoneY;
-			w = 0.0979167 * safezoneW;
-			h = 0.0394815 * safezoneH;
+			x = 0.453594 * safezoneW + safezoneX;
+			y = 0.533 * safezoneH + safezoneY;
+			w = 0.0825 * safezoneW;
+			h = 0.033 * safezoneH;
 		};
-		class button_close: RscButtonEmpty
+		class closebtn: RscButtonEmpty
 		{
-			idc = 1602;
-			x = 0.597969 * safezoneW + safezoneX;
-			y = 0.324 * safezoneH + safezoneY;
-			w = 0.0257812 * safezoneW;
-			h = 0.055 * safezoneH;
+			idc = -1;
+			x = 0.62375 * safezoneW + safezoneX;
+			y = 0.533 * safezoneH + safezoneY;
+			w = 0.061875 * safezoneW;
+			h = 0.033 * safezoneH;
 			action = "closeDialog 0;";
 		};
-		class check_business: RscCheckbox
+		class itemdesc: RscEdit
 		{
-			idc = 2800;
-			x = 0.503594 * safezoneW + safezoneX;
-			y = 0.434926 * safezoneH + safezoneY;
-			w = 0.0232291 * safezoneW;
-			h = 0.0404074 * safezoneH;
+			idc = 1400;
+			x = 0.518 * safezoneW + safezoneX;
+			y = 0.335 * safezoneH + safezoneY;
+			w = 0.145 * safezoneW;
+			h = 0.038 * safezoneH;
 		};
-		class check_consumer: RscCheckbox
+		class itemprice: RscEdit
 		{
-			idc = 2801;
-			x = 0.594844 * safezoneW + safezoneX;
-			y = 0.434926 * safezoneH + safezoneY;
-			w = 0.0232291 * safezoneW;
-			h = 0.0404074 * safezoneH;
+			idc = 1900;
+			x = 0.518 * safezoneW + safezoneX;
+			y = 0.4035 * safezoneH + safezoneY;
+			w = 0.145 * safezoneW;
+			h = 0.038 * safezoneH;
 		};
 	};
 };
+
+////////////////////////////////////////////////////////
+// GUI EDITOR OUTPUT START (by Winston, v1.063, #Vizuqi)
+////////////////////////////////////////////////////////

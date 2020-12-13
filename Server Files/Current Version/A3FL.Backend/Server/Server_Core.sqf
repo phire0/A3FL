@@ -149,13 +149,12 @@
 ["Server_Core_Weather",
 {
 	private["_weatherArray","_nextWeather","_chance"];
-	_chance = random(100);
-	_nextweather = "";
-	switch(true) do {
-		case (_chance < 50): {_nextWeather = "sunny";};
-		case (_chance >= 50 && _chance <= 59): {_nextWeather = "thunder";};
-		case (_chance >= 60 && _chance <= 89): {_nextWeather = "rainny";};
-		case (_chance >= 90): {_nextWeather = "foggy";};
+	private _chance = random(100);
+	private _nextWeather = switch(true) do {
+		case (_chance < 50): {"sunny"};
+		case ((_chance >= 50) && {_chance <= 59}): {"thunder"};
+		case ((_chance >= 60) && {_chance <= 89}): {"rainny"};
+		case (_chance >= 90): {"foggy"};
 	};
 	switch(_nextWeather) do {
 		case('sunny'): {
@@ -171,7 +170,7 @@
 			60 setFog 0;
 			60 setOvercast 0.5;
 			60 setLightnings 0;
-			60 setRain 0.9;
+			60 setRain 0.5;
 			60 setWaves 0.3;
 			60 setGusts 0.3;
 		};
@@ -252,7 +251,7 @@
 ["Server_Core_Save",
 {
 	// [] spawn Server_ShopStock_Save;
-	sleep 10;
+	//sleep 10;
 	[] spawn Server_Locker_Save;
 	sleep 10;
 	[] spawn Server_Police_SeizureSave;
@@ -278,11 +277,42 @@
 	_utcTime = "extDB3" callExtension "9:UTC_TIME";
 	_justTime = (parseSimpleArray _utcTime) select 1;
 	_hourMin = [(_justTime select 3),(_justTime select 4)];
-	_restartTimes = [[11,00]];
+	_restartTimes = [[12,00]];
 	{
 		if(_hourMin isEqualTo _x) then {
 			[] spawn Server_Core_RestartTimer;
 			diag_log format ["Announced Restart At: %1",_hourMin];
 		};
 	} forEach _restartTimes;
+},true] call Server_Setup_Compile;
+
+["Server_Core_RanksCleanup",{
+	private _expections = ["76561198070895974","76561198111737316","76561198201783651","76561198021654368","76561198050941799","76561198119637238","76561198258127426"];
+	private _curArray = [] + Server_Government_FactionRanks;
+	private _curFaction = "";
+	private _ranks = [];
+	private _members = [];
+	private _query = "";
+	private _faction = "";
+	private _rsl = [];
+	{
+		_curFaction = _x select 0;
+		_ranks = _x select 1;
+		{
+			_members = _x select 1;
+			{
+				if !(_x IN _expections) then {
+					_query = format["SELECT faction FROM players WHERE uid = '%1'",_x];
+					_rsl = [_query, 2] call Server_Database_Async;
+					if(count _rsl > 0) then {
+						_faction = _rsl select 0;
+						if !(_faction isEqualTo _curFaction) then {
+							[_curFaction,_x] call Server_Government_UnsetRank;
+							sleep 2;
+						};
+					};
+				};
+			} foreach _members;
+		} foreach _ranks;
+	} foreach _curArray;
 },true] call Server_Setup_Compile;

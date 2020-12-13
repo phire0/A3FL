@@ -14,8 +14,7 @@
 	private _hp = _tree getVariable ["hp",5];
 	_hp = _hp - 5;
 	if (_hp <= 0) then {
-		private _nearVeh = nearestObjects [_tree,["Car","Tank"],20,true];
-		hint str(_nearVeh);
+		private _nearVeh = _tree nearEntities [["Car","Tank"],20];
 		{_x allowDamage false;} foreach _nearVeh;
 		_tree setDammage 1;
 		[_tree] spawn

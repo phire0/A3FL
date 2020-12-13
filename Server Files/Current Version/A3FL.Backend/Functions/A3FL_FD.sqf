@@ -69,7 +69,8 @@
 	private _veh = _this select 0;
 	private _type_1 = _this select 1;
 	private _TruckNumber = {(typeOf _x isEqualTo _type_1)} count vehicles;
-	private _TruckNumber1 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _TruckNumber + 6];
+	_TruckNumber = _TruckNumber + 6;
+	private _TruckNumber1 = format ["\A3PL_FD\textures\Truck_Numbers\%1.paa", _TruckNumber];
 	_veh setObjectTextureGlobal [8, _TruckNumber1 ];
 	_veh setVariable["squadnb", _TruckNumber,true];
 }] call Server_Setup_Compile;
@@ -223,7 +224,7 @@
 	_TOEnd = typeOf _end;
 	_TOmyAdapter = typeOf _myAdapter;
 
-	if (!(_TOEnd IN ["A3PL_FD_HoseEnd1_Float","A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_FD_yAdapter","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush"])) exitwith {["You interact with no adapter or hose","red"] call A3PL_Player_Notification;};
+	if (!(_TOEnd IN ["A3PL_FD_HoseEnd1_Float","A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2","A3PL_FD_yAdapter","A3PL_Pierce_Heavy_Ladder","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush","A3FL_T440_Gas_Tanker","A3FL_T440_Water_Tanker"])) exitwith {["You interact with no adapter or hose","red"] call A3PL_Player_Notification;};
 	if (!(_TOmyAdapter IN ["A3PL_FD_HoseEnd1","A3PL_FD_HoseEnd2"])) exitwith {["Vous ne possédez pas le type d'adaptateur correct (signalez-le s'il s'agit d'un bug)","red"] call A3PL_Player_Notification;};
 	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd1") && _TOEnd isEqualTo "A3PL_FD_HoseEnd1_Float") exitwith {["You connect a male adapter to a male adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
 	if ((_TOmyAdapter isEqualTo "A3PL_FD_HoseEnd1") && _TOEnd isEqualTo "A3PL_FD_HoseEnd1") exitwith {["You connect a male adapter to a male adapter, use the other adapter on the other side","red"] call A3PL_Player_Notification;};
@@ -685,7 +686,7 @@
 			};
 		};
 
-		if ((typeOf _attachedTo) IN ["A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush"]) exitwith
+		if ((typeOf _attachedTo) IN ["A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Fuel_Van","A3PL_Silverado_FD_Brush","A3FL_T440_Gas_Tanker"]) exitwith
 		{
 			_latestObject = _attachedTo;
 		};
@@ -712,7 +713,7 @@
 	if (_getAdapter) exitwith {
 		_source = _otherEnd; _source;
 	};
-	if (typeOf _latestObject in ["Land_A3PL_FireHydrant","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Silverado_FD_Brush"]) then {
+	if (typeOf _latestObject in ["Land_A3PL_FireHydrant","A3PL_Pierce_Pumper","A3PL_Tanker_Trailer","A3PL_Silverado_FD_Brush","A3FL_T440_Gas_Tanker"]) then {
 		_source = _latestObject;
 	} else {
 		_source = objNull;
@@ -1045,7 +1046,7 @@
 
 // FIFD COMPUTER
 ['A3PL_FD_ShowHydrant',{
-	private _FireHydrants = nearestobjects [player,["Land_A3PL_FireHydrant"], 800];
+	private _FireHydrants = player nearEntities [["Land_A3PL_FireHydrant"],800];
 	private _markersList = [];
 
 	{
@@ -1055,7 +1056,7 @@
 		_marker = createMarkerLocal [format ["firehydrant_%1",_hydrantID], (getpos _x)];
 		_marker setMarkerShapeLocal "ICON";
 		_marker setMarkerTypeLocal "A3PL_Markers_FIFD";
-		_marker setMarkerTextLocal format["Hydrant #%1",_hydrantID];
+		_marker setMarkerTextLocal format[" Hydrant #%1",_hydrantID];
 		_marker setMarkerColorLocal "ColorWhite";
 		_marker setMarkerAlphaLocal 0.8;
 
@@ -1067,7 +1068,6 @@
 
 ['A3PL_FD_DatabaseArgu',{
 	params[["_edit","",[""]],["_index",0,[0]]];
-
 	private _allowedChars = toArray "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ,";
 	private _checkEdit = toArray _edit;
 	private _forbiddenUsed = false;
@@ -1077,10 +1077,7 @@
 			_forbiddenUsed = true;
 		};
 	} forEach _checkEdit;
-
-	if (_forbiddenUsed) exitWith {
-		"SpecialCharacterError";
-	};
+	if (_forbiddenUsed) exitWith {"SpecialCharacterError";};
 
 	_array = _edit splitString " ";
 	_return = _array select _index;
@@ -1090,111 +1087,90 @@
 ['A3PL_FD_DatabaseEnterReceive',
 {
 	disableSerialization;
-
-	private ["_newstruct","_display","_control"];
 	params["_name","_command",["_return",""]];
-	_output = "";
-	//what command did we use?
-	switch (_command) do {
-
-		case "lookpatient":
-		{
-			if (count _return > 0) then
-			{
-				_output = format ["<t align='center'>Name: %1</t><br /><t align='center'>Sex: %2</t><br /><t align='center'>DOB: %3</t><br /><t align='center'>Passport: %4</t><br />",
+	private _veh = vehicle player;
+	private _output = switch (_command) do {
+		case "lookpatient": {
+			if ((count _return) > 0) then {
+				format ["<t align='center'>Name: %1</t><br /><t align='center'>Sex: %2</t><br /><t align='center'>DOB: %3</t><br /><t align='center'>Passport: %4</t><br />",
 				_name,
 				(_return select 0),
 				(_return select 1),
 				(_return select 2)
 				];
-			} else
-			{
-				_output = format ["Can not find %1 in the database",_name];
+			} else {
+				format ["Can not find %1 in the database",_name];
 			};
 		};
-
-		case "lookhistory":
-		{
-			if (count _return > 0) then
-			{
+		case "lookhistory": {
+			if ((count _return) > 0) then {
 				{
 					_output = _output + (format ["<t align='center'>%1 - %2 at %3 - EMS : %4</t><br />",_x select 5,_x select 3,_x select 2,_x select 4]);
 				} foreach _return;
-			} else
-			{
-				_output = format ["No data in the name of %1 in the database.",_name];
+				_output;
+			} else {
+				format ["No data in the name of %1 in the database.",_name];
 			};
 		};
-		case "addhistory":
-		{
-			_output = _return;
-		};
-		default {_output = "Error - Contact FIFR dev"};
+		case "addhistory": {_return;};
+		default {"Error - Contact FIFR dev"};
 	};
-
-	//Okay lets send output to struct
-	_newstruct = format["%1<br />%2",(player getVariable "FDDatabaseStruc"),_output];
-	player setVariable ["FDDatabaseStruc",_newstruct,false];
+	private _newstruct = format["%1<br />%2",(_veh getVariable "FDDatabaseStruc"),_output];
+	_veh setVariable ["FDDatabaseStruc",_newstruct,false];
 	[_newstruct] call A3PL_FD_UpdateComputer;
-
 }] call Server_Setup_Compile;
 
 ['A3PL_FD_UpdateComputer',
 {
-	params[["_input","",[""]],["_new",false,[false]]];
-
-	_display = findDisplay 211;
-	_control = _display displayCtrl 1100;
-
-	//Max 21 Lines
-	_array = [_input, "<br />"] call CBA_fnc_split;
-
-	if(count _array > 21) then {
-		_remove = (count _array) - 21;
-
+	params[["_input","",[""]]];
+	private _display = findDisplay 211;
+	private _control = _display displayCtrl 1100;
+	private _controlPos = ctrlPosition _control;
+	private _veh = vehicle player;
+	private _array = [_input, "<br />"] call CBA_fnc_split;
+	if(count _array > 50) then {
+		private _remove = (count _array) - 50;
 		for "_i" from 0 to _remove-1 do {
 			_array deleteAt 0;
 		};
 	};
-
-	//Rebuild out text
-	_text = [_array, "<br />"] call CBA_fnc_join;
-
-	player setVariable ["FDDatabaseStruc",_text,false];
-
-	//Update our control
+	private _text = [_array, "<br />"] call CBA_fnc_join;
+	_veh setVariable ["FDDatabaseStruc",_text,true];
 	_control ctrlSetStructuredText parseText _text;
+
+	_newH = ctrlTextHeight _control;
+	_control ctrlSetPosition [_controlPos select 0, _controlPos select 1, _controlPos select 2, _newH];
+	_control ctrlCommit 0;
+
+	private _ctrlGrp = _display displayCtrl 1001;
+	_ctrlGrp ctrlSetAutoScrollSpeed 0.000001;
+	_ctrlGrp ctrlSetAutoScrollDelay 0.000001;
 }] call Server_Setup_Compile;
 
 ['A3PL_FD_DatabaseEnter',
 {
 	private ["_display","_control","_edit","_edit0","_newstruct"];
 	disableSerialization;
-	_display = findDisplay 211;
-
-	_control = _display displayCtrl 1401;
-	_edit = ctrlText _control;
-
-	_newstruct = format["%1<br />%2",(player Getvariable "FDDatabaseStruc"),"> "+_edit];
-	player setVariable ["FDDatabaseStruc",_newstruct,false];
+	private _display = findDisplay 211;
+	private _control = _display displayCtrl 1401;
+	private _edit = ctrlText _control;
+	private _veh = vehicle player;
+	private _newstruct = format["%1<br/>%2",(_veh getVariable "FDDatabaseStruc"),"> "+_edit];
+	_veh setVariable ["FDDatabaseStruc",_newstruct,false];
 
 	[_newstruct] call A3PL_FD_UpdateComputer;
 
-	_control = _display displayCtrl 1401;
+	private _control = _display displayCtrl 1401;
 	_control ctrlSetText "";
-
-	_edit0 = [_edit,0] call A3PL_FD_DatabaseArgu;
-	if ((_edit0 IN ["sendcall","lookpatient","lookhistory","addhistory","clinic","callvfd","clearfires"]) && (!(player getVariable "FDDatabaseLogin"))) exitwith
-	{
-		_newstruct = format["%1<br />%2",(player Getvariable "FDDatabaseStruc"),"Error: You do not have the permission to use that command"];
-		player setVariable ["FDDatabaseStruc",_newstruct,false];
+	private _edit0 = [_edit,0] call A3PL_FD_DatabaseArgu;
+	if (!(_veh getVariable ["FDDatabaseLogin",false]) && {!(_edit0 isEqualTo "login")}) exitwith {
+		_newstruct = format["%1<br />%2",(_veh getVariable "FDDatabaseStruc"),"Error: You do not have the permission to use that command"];
+		_veh setVariable ["FDDatabaseStruc",_newstruct,false];
 		[_newstruct] call A3PL_FD_UpdateComputer;
 	};
-	_output = "";
-	switch (_edit0) do {
-		case "help":
-		{
-			_output = "
+	private _output = switch (_edit0) do {
+		case "help": {
+			"
 			<t align='center'>help - Display commands list</t><br />
 			<t align='center'>clear - Clear the screen</t><br />
 			<t align='center'>login [password] - Login to use the commands</t><br />
@@ -1207,114 +1183,108 @@
 			<t align='center'>wind - Display current wind direction</t><br />
 			<t align='center'>callvfd [message] - Activate VFD Beepers</t><br />
 			<t align='center'>clearfires - Clear Current Fires (High Command Only)</t><br />
+			<t align='center'>pausefires - Pause Current Fires (High Command Only)</t><br />
 			";
 		};
-		case "clear": {_output = "<t align='center'>FISHERS ISLAND FIRE &amp; RESCUE</t><br /><t align='center'>Type 'help' to see all the available commands</t><br />";};
-		case "login":
-		{
-			private ["_pass"];
-			_pass = [_edit,1] call A3PL_FD_DatabaseArgu;
-			if (_pass == "fifrftw") then
-			{
-				player setVariable ["FDDatabaseLogin",true,false];
-				_output = "You are connected";
-			} else
-			{
-				_output = "Error: Wrong password";
+		case "clear": {"<t align='center'>FISHERS ISLAND FIRE &amp; RESCUE</t><br /><t align='center'>Type 'help' to see all the available commands</t><br />";};
+		case "login": {
+			private _pass = [_edit,1] call A3PL_FD_DatabaseArgu;
+			if (_pass isEqualTo "fifrftw") then {
+				_veh setVariable ["FDDatabaseLogin",true,false];
+				"You are connected";
+			} else {
+				"Error: Wrong password";
 			};
 		};
-		case "lookpatient":
-		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
+		case "lookpatient": {
+			private _name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_FD_Database", 2];
-
-			_output = format ["Finding a patient in FIFR Database...",_name];
+			format ["Finding a patient in FIFR Database...",_name];
 		};
-		case "sendcall":
-		{
+		case "sendcall": {
 			["A3PL_Common\effects\firecall.ogg",150,2,10] spawn A3PL_FD_FireStationAlarm;
 		};
-
-		case "wind":
-		{
-			_output = format ["Wind direction: %1",round(windDir)];
+		case "wind": {
+			format ["Wind direction: %1",call A3PL_Lib_GetHeading];
 		};
-
-		case "showhydrant":
-		{
+		case "showhydrant": {
 			[] spawn A3PL_FD_ShowHydrant;
-			_output = format ["Display of the nearest fire hydrants on your map..."];
+			format ["Display of the nearest fire hydrants on your map..."];
 		};
-		case "clinic":
-		{
-			if(A3PL_FD_Clinic) then {
-				_output = format ["Clincics are now closed..."];
-			} else {
-				_output = format ["Clincics are now open..."];
-			};
+		case "clinic": {
 			[] remoteExec ["Server_FD_SwitchClinic",2];
+			if(A3PL_FD_Clinic) then {
+				"Clincics are now closed...";
+			} else {
+				"Clincics are now open...";
+			};			
 		};
-		case "callvfd":
-		{
+		case "callvfd": {
 			[_edit] call A3PL_FD_CallVFD;
-			_output = format ["VFD Beepers activated..."];
+			format ["VFD Beepers activated..."];
 		};
-		case "lookhistory":
-		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
+		case "lookhistory": {
+			private _name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_FD_Database", 2];
-
-			_output = format ["Search of the medical file in progress...",_name];
+			format ["Search of the medical file in progress...",_name];
 		};
 		case "addhistory":
 		{
-			private ["_name"];
-			_name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
-			_place = ([_edit,3] call A3PL_FD_DatabaseArgu);
-
-			_array = _edit splitString " ";
+			private _name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
+			private _place = ([_edit,3] call A3PL_FD_DatabaseArgu);
+			private _array = _edit splitString " ";
 			for "_i" from 1 to 4 do {_array deleteAt 0;};
-
-			_info = [_array," "] call CBA_fnc_join;
-			_issuedBy = player getVariable ["name",name player];
-
+			private _info = [_array," "] call CBA_fnc_join;
+			private _issuedBy = player getVariable ["name",name player];
 			[player,[_name,_place,_info,_issuedBy],_edit0] remoteExec ["Server_FD_Database", 2];
-			_output = format ["Information added to the patient's file...",_name];
+			format ["Information added to the patient's file...",_name];
 		};
 		case "clearfires":
 		{
 			private _isCommand = ["fifr"] call A3PL_Government_isFactionLeader;
 			if (_isCommand) then {
 				call A3PL_Admin_RemoveFire;
-				_output = "Fires have been cleared";
+				"Fires have been cleared";
 			} else {
-				_output = "Error: You are not high command";
+				"Error: You are not high command";
 			};
 		};
-		case "SpecialCharacterError":
+		case "pausefires":
 		{
-			_output = "You cannot enter special characters into the MDT!";
+			private _isCommand = ["fifr"] call A3PL_Government_isFactionLeader;
+			[] remoteExec ["Server_Fire_PauseCheck",2];
+			if (_isCommand) then {
+				[] remoteExec ["Server_Fire_PauseFire", 2];
+				if (!pVar_FiresFrozen) then {
+					"Fires are no longer paused";
+				} else {
+					"Fires are now paused";
+				};
+			} else {
+				"Error: You are not high command";
+			};
 		};
-		default {_output = "Error: Unknown command"};
+		case "SpecialCharacterError": {
+			"You cannot enter special characters into the MDT!";
+		};
+		default {"Error: Unknown command"};
 	};
-
 	_control = _display displayCtrl 1100;
-	if (_edit0 isEqualTo "clear") then {
-		_newstruct = _output;
+	private _newstruct = if (_edit0 isEqualTo "clear") then {
+		_output;
 	} else {
-		_newstruct = format["%1<br />%2",(player getVariable "FDDatabaseStruc"),_output];
+		format["%1<br/>%2",(_veh getVariable "FDDatabaseStruc"),_output];
 	};
-	player setVariable ["FDDatabaseStruc",_newstruct,false];
+	_veh setVariable ["FDDatabaseStruc",_newstruct,false];
 	[_newstruct] call A3PL_FD_UpdateComputer;
 }] call Server_Setup_Compile;
 
 ["A3PL_FD_DatabaseOpen",
 {
-	private _text = "<t align='center'>FISHERS ISLAND FIRE &amp; RESCUE</t><br /><t align='center'>Type 'help' to see all the available commands</t><br />> Please login";
-	player setVariable ["FDDatabaseStruc",_text,false];
-	player setVariable ["FDDatabaseLogin",false,false];
+	private _defText = "<t align='center'>FISHERS ISLAND FIRE &amp; RESCUE</t><br /><t align='center'>Type 'help' to see all the available commands</t><br />> Please login";
+	private _veh = vehicle player;
+	private _text = _veh getVariable ["FDDatabaseStruc",nil];
+	if(isNil "_text") then {_veh setVariable ["FDDatabaseStruc",_defText,true];_text=_defText;};
 	disableSerialization;
 	createDialog "Dialog_PoliceDatabase";
 	private _display = findDisplay 211;
@@ -1347,9 +1317,9 @@
 	private _message = _this select 0;
 	{
 		if(["vfd",_x] call A3PL_DMV_Check) then {
-			[format["VFD BEEPER : %1",_message],"red"] remoteExec ["A3PL_Player_Notification",_x];
-			[format["VFD BEEPER : %1",_message],"red"] remoteExec ["A3PL_Player_Notification",_x];
-			[format["VFD BEEPER : %1",_message],"red"] remoteExec ["A3PL_Player_Notification",_x];
+			[format["VFD PAGER : %1",_message],"red"] remoteExec ["A3PL_Player_Notification",_x];
+			[format["VFD PAGER : %1",_message],"red"] remoteExec ["A3PL_Player_Notification",_x];
+			[format["VFD PAGER : %1",_message],"red"] remoteExec ["A3PL_Player_Notification",_x];
 			playSound3D ["A3PL_Common\GUI\phone\sounds\emergency_sound.ogg", _x, false, getPosASL _x, 5, 1, 5];
 		};
 	} forEach allPlayers;

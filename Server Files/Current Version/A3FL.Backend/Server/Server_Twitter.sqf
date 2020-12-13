@@ -14,13 +14,14 @@
 	private _namepicture = param [3,""];
 	private _name = param [4,""];
 	private _namecolor = param [5,""];
-	private _darknet = param [6,false];
-	private _query = format["INSERT INTO chatlog (name, steamid, chatmessage, messageinfo) VALUES('%1','%2','%3', '%4')",_name,_playerid,([_msg] call Server_Twitter_StripQuotes),([[_namepicture,_namecolor,_msgcolor]] call Server_Database_Array)];
-	if(_darknet) then {
-		_query = format["INSERT INTO darknetlog (name, steamid, chatmessage, messageinfo) VALUES('%1','%2','%3', '%4')",_name,_playerid,([_msg] call Server_Twitter_StripQuotes),([[_namepicture,_namecolor,_msgcolor]] call Server_Database_Array)];
+	private _table = param [6,""];
+	private _query = switch(_table) do {
+		case "darknet": {format["INSERT INTO darknetlog (name, steamid, chatmessage, messageinfo) VALUES('%1','%2','%3', '%4')",_name,_playerid,([_msg] call Server_Twitter_StripQuotes),([[_namepicture,_namecolor,_msgcolor]] call Server_Database_Array)]};
+		case "help": {format["INSERT INTO helplogs (name, steamid, chatmessage, messageinfo) VALUES('%1','%2','%3', '%4')",_name,_playerid,([_msg] call Server_Twitter_StripQuotes),([[_namepicture,_namecolor,_msgcolor]] call Server_Database_Array)]};
+		default {format["INSERT INTO chatlog (name, steamid, chatmessage, messageinfo) VALUES('%1','%2','%3', '%4')",_name,_playerid,([_msg] call Server_Twitter_StripQuotes),([[_namepicture,_namecolor,_msgcolor]] call Server_Database_Array)]};
 	};
 	[_query,1] call Server_Database_Async;
-	if(!_darknet) then {
+	if(_table isEqualTo "") then {
 		if (!isDedicated) then {
 			[_msg,_msgcolor,_namepicture,_name,_namecolor,""] remoteExec ["A3PL_Twitter_NewMsg", 2];
 		} else {

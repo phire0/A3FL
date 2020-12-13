@@ -62,7 +62,7 @@ class Dialog_Medical
 		class struc_heart: RscStructuredText
 		{
 			idc = 1101;
-			text = $STR_MEDICAL_NA; 
+			text = "37"; 
 			x = 0.293125 * safezoneW + safezoneX;
 			y = 0.270852 * safezoneH + safezoneY;
 			w = 0.0685937 * safezoneW;
@@ -71,7 +71,7 @@ class Dialog_Medical
 		class struc_blood: RscStructuredText
 		{
 			idc = 1102;
-			text = $STR_MEDICAL_NA; 
+			text = "120/80"; 
 			x = 0.293229 * safezoneW + safezoneX;
 			y = 0.296556 * safezoneH + safezoneY;
 			w = 0.0685937 * safezoneW;

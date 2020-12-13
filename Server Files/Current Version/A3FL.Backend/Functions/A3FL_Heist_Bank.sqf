@@ -18,7 +18,7 @@
 	createDialog "Dialog_CCTV";
 	private _distance = param [0,10000];
 	private _display = findDisplay 27;
-	A3PL_CCTV_ALL = nearestObjects [player, ["A3PL_CCTV"], _distance];
+	A3PL_CCTV_ALL = player nearEntities [["A3PL_CCTV"],_distance];
 	{
 		private _control = _display displayCtrl _x;
 		{
@@ -237,7 +237,7 @@
 	for "_i" from 0 to 20 do {
 		_bank animate [format ["deposit_%1",_i],0];
 	};
-	{deleteVehicle _x;} foreach (nearestObjects [_bank, ["A3PL_PileCash"], 20]);
+	{deleteVehicle _x;} foreach (_bank nearEntities [["A3PL_PileCash"],20]);
 	[player, 50] call A3PL_Level_AddXP;
 }] call Server_Setup_Compile;
 
@@ -304,7 +304,12 @@
 	private _dMoney = (backpackContainer player) getVariable ["bankCash", 0];
 	private _newMoney = floor(_dMoney - (_dMoney * 0.1));
 
-	if (_newMoney <= 0) exitWith {["All of your money has been destroyed by the water, get fronked!", "red"] call A3PL_Player_Notification;};
+	if (_dMoney <= 0) exitWith {};
+	
+	if (_newMoney <= 0) exitWith {
+		["All of your money has been destroyed by the water, get fronked!", "red"] call A3PL_Player_Notification;
+		(backpackContainer player) setVariable ["bankCash", 0, true];
+	};
 
 	(backpackContainer player) setVariable ["bankCash", _newMoney, true];
 	[format["The water is leaking into your money bag, you now have $%1 left!", _newMoney], "yellow"] call A3PL_Player_Notification;

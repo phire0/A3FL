@@ -180,7 +180,7 @@
             case "door13_button": {_anim = ["door_13","door_14"]};
             case "door13_button2": {_anim = ["door_13","door_14"]};
 		};
-		if (typeName _anim == "ARRAY") exitwith {
+		if (_anim isEqualType []) exitwith {
 			{
 				if (_inter animationPhase _x < 0.1) then {
 					_inter animate [_x,1];
@@ -216,7 +216,7 @@
 			case "door11_button": {_anim = "door11"};
 			case "door11_button2": {_anim = "door11"};
 		};
-		if (typeName _anim == "ARRAY") exitwith {
+		if (_anim isEqualType []) exitwith {
 			{
 				if (_inter animationPhase _x < 0.1) then {
 					_inter animate [_x,1];
@@ -643,6 +643,11 @@
 	"Land_A3PL_EstateSign",
 	localize"STR_INTSECT_SELLHOUSE",
 	{[player_objintersect] call A3PL_RealEstates_Open;}
+],
+[
+	"Land_A3PL_EstateSign",
+	localize"STR_INTSECT_ROOMMATEMGMT",
+	{[player] remoteExec ["Server_Housing_GetRoommates", 2];}
 ],
 [
 	"Land_A3PL_EstateSign",
