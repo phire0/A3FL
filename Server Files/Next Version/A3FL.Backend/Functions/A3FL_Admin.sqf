@@ -920,17 +920,6 @@
 	[player,"admin_reemovefire",["Remove Fire"]] remoteExec ["Server_AdminLoginsert", 2];
 }] call Server_Setup_Compile;
 
-["A3PL_Admin_Debug", {
-	disableSerialization;
-	createDialog "Dialog_AdminDebug";
-	private _display = findDisplay 82;
-	private _control = _display displayCtrl 1600;
-	_control ctrlAddEventHandler ["buttonDown",
-	{
-		call compile (ctrlText 1400);
-	}];
-},false,true] call Server_Setup_Compile;
-
 ["A3PL_Admin_Invisible", {
 	if(player getVariable ["admin_invisible",false]) then {
 		[player,false] remoteExec ["A3PL_Lib_HideObject", 2];
@@ -953,10 +942,8 @@
 	createDialog "Dialog_DeveloperDebug";
 
 	call A3PL_Debug_DropDownList;
-	{lbAdd [2100,_x];} forEach ["Server","Global","All Clients","Local"];
 	ctrlSetText [1400,profileNamespace getVariable ["A3PL_Debug_Main",localize"STR_ADMIN_NOTHINGFORTHEMOMENT"]];
 	(findDisplay 155) displayAddEventHandler ["Unload","call A3PL_Debug_OnUnloadVarCheck"];
-	lbSetCurSel [2100, profileNamespace getVariable["A3PL_LastDebugType",3]];
 }] call Server_Setup_Compile;
 
 ["A3PL_Debug_OnUnloadVarCheck", {
@@ -970,9 +957,8 @@
 
 //Compile BLOCK warning
 ["A3PL_Debug_Execute", {
-	private _display = findDisplay 155;
+	private _chosenExecType = param[0,""];
 	private _debugText = ctrlText 1400;
-	private _chosenExecType = lbText [2100,lbCurSel 2100];
 	private _remoteExecType = switch (_chosenExecType) do {
 		case "Server": {2};
 		case "Global": {0};
@@ -981,7 +967,7 @@
 	};
 	profileNamespace setVariable["A3PL_LastDebugType",lbCurSel 2100];
 	[_debugText] remoteExec ["A3PL_Debug_ExecuteCompiled",_remoteExecType];
-	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText, _chosenExecType]]] remoteExec ["Server_AdminLoginsert", 2];
+	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText, _remoteExecType]]] remoteExec ["Server_AdminLoginsert", 2];
 },false,true] call Server_Setup_Compile;
 
 ["A3PL_Debug_ExecuteCompiled", {

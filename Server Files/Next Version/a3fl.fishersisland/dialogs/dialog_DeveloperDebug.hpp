@@ -7,44 +7,76 @@ class Dialog_DeveloperDebug
 	onUnload = "";
 	class controls
 	{
-		class BG_Debug: IGUIBack
+		////////////////////////////////////////////////////////
+		// GUI EDITOR OUTPUT START (by Winston, v1.063, #Bawubi)
+		////////////////////////////////////////////////////////
+		class IGUIBack_2200: IGUIBack
 		{
 			idc = 2200;
-			x = 0.298909 * safezoneW + safezoneX;
-			y = 0.236 * safezoneH + safezoneY;
-			w = 0.402187 * safezoneW;
-			h = 0.495 * safezoneH;
+			x = 0.25 * safezoneW + safezoneX;
+			y = 0.25 * safezoneH + safezoneY;
+			w = 0.500156 * safezoneW;
+			h = 0.506 * safezoneH;
 		};
-		class B_DebugLocalExecute: RscButton
-		{
-			idc = 1600;
-			text = $STR_DEVDEBUG_GUIEXECUTE; 
-			x = 0.505156 * safezoneW + safezoneX;
-			y = 0.742 * safezoneH + safezoneY;
-			w = 0.12375 * safezoneW;
-			h = 0.022 * safezoneH;
-			sizeEx = 0.8 * GUI_GRID_H;
-			action = "call A3PL_Debug_Execute;";
-		};
-		class F_Debug: RscEdit
+		class DebugText: RscEdit
 		{
 			idc = 1400;
-			x = 0.304062 * safezoneW + safezoneX;
-			y = 0.247 * safezoneH + safezoneY;
-			w = 0.391875 * safezoneW;
-			h = 0.473 * safezoneH;
-			sizeEx = 1 * GUI_GRID_H;
+			x = 0.25 * safezoneW + safezoneX;
+			y = 0.25 * safezoneH + safezoneY;
+			w = 0.5 * safezoneW;
+			h = 0.5 * safezoneH;
 			style = "16";
 			autocomplete = "scripting";
 		};
-		class DL_DebugExecutables: RscCombo
+		class CompileServer: RscButton
 		{
-			idc = 2100;
-			x = 0.371094 * safezoneW + safezoneX;
-			y = 0.742 * safezoneH + safezoneY;
-			w = 0.12375 * safezoneW;
-			h = 0.022 * safezoneH;
-			sizeEx = 0.8 * GUI_GRID_H;
+			idc = -1;
+			text = "SERVER";
+			x = 0.2525 * safezoneW + safezoneX;
+			y = 0.764 * safezoneH + safezoneY;
+			w = 0.0979687 * safezoneW;
+			h = 0.033 * safezoneH;
+			action = "['Server'] call A3PL_Debug_Execute;";
+		};
+		class CompileGlobal: RscButton
+		{
+			idc = -1;
+			text = "GLOBAL";
+			x = 0.391719 * safezoneW + safezoneX;
+			y = 0.764 * safezoneH + safezoneY;
+			w = 0.0979687 * safezoneW;
+			h = 0.033 * safezoneH;
+			action = "['Global'] call A3PL_Debug_Execute;";
+		};
+		class CompileAC: RscButton
+		{
+			idc = -1;
+			text = "ALL CLIENTS";
+			x = 0.525781 * safezoneW + safezoneX;
+			y = 0.764 * safezoneH + safezoneY;
+			w = 0.0979687 * safezoneW;
+			h = 0.033 * safezoneH;
+			action = "['All Clients'] call A3PL_Debug_Execute;";
+		};
+		class CompileLocal: RscButton
+		{
+			idc = -1;
+			text = "LOCAL";
+			x = 0.654688 * safezoneW + safezoneX;
+			y = 0.764 * safezoneH + safezoneY;
+			w = 0.0979687 * safezoneW;
+			h = 0.033 * safezoneH;
+			action = "['Local'] call A3PL_Debug_Execute;";
+		};
+		class ClearDebug: RscButton
+		{
+			idc = -1;
+			text = "CLEAR";
+			x = 0.757813 * safezoneW + safezoneX;
+			y = 0.247 * safezoneH + safezoneY;
+			w = 0.04125 * safezoneW;
+			h = 0.506 * safezoneH;
+			action = "ctrlSetText [1400, ''];";
 		};
 	};
 };

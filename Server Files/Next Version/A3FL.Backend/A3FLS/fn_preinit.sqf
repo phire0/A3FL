@@ -80,9 +80,8 @@ Server_Setup_Compile = {
 
 //Compile BLOCK warning
 ["A3PL_Debug_Execute", {
-	private _display = findDisplay 155;
+	private _chosenExecType = param[0,""];
 	private _debugText = ctrlText 1400;
-	private _chosenExecType = lbText [2100,lbCurSel 2100];
 	private _remoteExecType = switch (_chosenExecType) do {
 		case "Server": {2};
 		case "Global": {0};
@@ -91,7 +90,7 @@ Server_Setup_Compile = {
 	};
 	profileNamespace setVariable["A3PL_LastDebugType",lbCurSel 2100];
 	[_debugText] remoteExec ["A3PL_Debug_ExecuteCompiled",_remoteExecType];
-	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText, _chosenExecType]]] remoteExec ["Server_AdminLoginsert", 2];
+	[player,"DebugExecuted",[format ["Debug: %1 Type: %2",_debugText, _remoteExecType]]] remoteExec ["Server_AdminLoginsert", 2];
 },false,true] call Server_Setup_Compile;
 
 ["A3PL_Debug_ExecuteCompiled", {
