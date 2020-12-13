@@ -1,6 +1,6 @@
 ![Logo](https://www.arma3fisherslife.net/ressources/images/logo_black.png)
-<p align="center"><img src="https://img.shields.io/badge/CURRENT%20VERSION-3.5.0-green.svg?longCache=true&style=for-the-badge" />
-    <img src="https://img.shields.io/badge/UPCOMING%20VERSION-3.5.1-yellow.svg?longCache=true&style=for-the-badge" /></p>
+<p align="center"><img src="https://img.shields.io/badge/CURRENT%20VERSION-3.5.1-green.svg?longCache=true&style=for-the-badge" />
+    <img src="https://img.shields.io/badge/UPCOMING%20VERSION-3.6-yellow.svg?longCache=true&style=for-the-badge" /></p>
 
 # ArmA 3 Fishers Life
 
