@@ -309,7 +309,7 @@
 				_wreckMessage = "CONTRABAND PLANE CRASH";
 				_physicalItems = [["A3FL_Backpack_Money",2],["A3FL_Backpack_Drill",1]];
 				_commonItems = [["zipties",1],["keycard",1],["v_lockpick",1],["cash",1000]];
-				_rareItems = [["drill_bit",1],["cash",5000],["dildo",1],["golden_dildo",1]];
+				_rareItems = [["drill_bit",1],["dildo",1],["golden_dildo",1]];
 				_commonCount = 3 + round(_leoCount / 3);
 				_rareCount = 1 + round(_leoCount / 3);
 
