@@ -25,7 +25,7 @@ Config_Factories =
 		["f_Titanium_Ingot","Titanium_Ingot","item",10,[["Titanium_Ingot_Pellet",1]],256,20,0,"Makes 256 Titanium Ingots"],
 		["f_Iron_Ingot","Iron_Ingot","item",10,[["Iron_Ingot_Pellet",1]],256,20,0,"Makes 256 Iron Ingots"],
 		["f_Coal_Ingot","Coal_Ingot","item",10,[["Coal_Ingot_Pellet",1]],256,20,0,"Makes 256 Coal Ingots"],
-		["f_Aluminium_Ingot","Aluminium_Ingot","item",90,[["Aluminium_Ingot_Pellet",1]],256,20,0,"Makes 256 Aluminum Ingots"],
+		["f_Aluminium_IngotS","Aluminium_Ingot","item",90,[["Aluminium_Ingot_Pellet",1]],256,20,0,"Makes 256 Aluminum Ingots"],
 		["f_Sapphire_Ingot","Sapphire_Ingot","item",10,[["Sapphire_Ingot_Pallet",1]],256,20,0,"Makes 256 Sapphire Ingots"],
 		["f_Vivianite_Ingot","Vivianite_Ingot","item",10,[["Vivianite_Ingot_Pallet",1]],256,20,0,"Makes 256 Vivianite Ingots"],
 		["f_Emerald_Ingot","Emerald_Ingot","item",10,[["Emerald_Ingot_Pallet",1]],256,20,0,"Makes 256 Emerald Ingots"],
