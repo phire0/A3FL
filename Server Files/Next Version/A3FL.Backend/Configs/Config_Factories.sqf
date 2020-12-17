@@ -6,7 +6,7 @@
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
 
-//["factory_ID","classname","type",time,[["required",3],["components",200]],output,xpGain,levelRequired,description]
+//["factory_ID","classname","type",time,[["required",3],["components",200]],output,xpGain,levelRequired,description] 
 Config_Factories =
 [
 	["Chemical Plant",[9983.55,8496.61,0],
