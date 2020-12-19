@@ -153,8 +153,9 @@
 		private _spreadArray = [];
 
 		if ((count _fireArray) > 0) then {_spreadArray pushback (_fireArray select (count _fireArray - 1));};
-		if ((count _fireArray) > 1) then {_spreadArray pushback (_fireArray select (count _fireArray - 2));};
-		if ((count _fireArray) > 2) then {_spreadArray pushback (_fireArray select (count _fireArray - 3));};
+		if (((count _fireArray) > 1) && {_fifr > 5}) then {_spreadArray pushback (_fireArray select (count _fireArray - 2));};
+		if (((count _fireArray) > 2) && {_fifr > 6}) then {_spreadArray pushback (_fireArray select (count _fireArray - 3));};
+		if (((count _fireArray) > 3) && {_fifr > 7}) then {_spreadArray pushback (_fireArray select (count _fireArray - 4));};
 		{
 			private _latestFire = _x;
 			private _newDir = windDir + random(90);

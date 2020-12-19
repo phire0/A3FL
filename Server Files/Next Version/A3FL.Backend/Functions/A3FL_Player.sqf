@@ -983,3 +983,53 @@
 	["gift",1] call A3PL_Inventory_Add;
 	["You received 1 gift!","green"] call A3PL_Player_Notification;
 }] call Server_Setup_Compile;
+
+//https://community.bistudio.com/wiki/magazinesAmmoFull
+["A3PL_Player_RepackMags",
+{
+	if (Player_ActionDoing) exitwith {["You cannot repack magazines while performing another action!","red"] call A3PL_Player_Notification;};
+	private _allMags = magazinesAmmoFull player;
+	if((count _allMags) isEqualTo 0) exitWith {["You don't have any magazines","red"] call A3PL_Player_Notification;};
+	private _toRepack = [];
+	{
+		[_toRepack, _x#0, _x#1,false] call BIS_fnc_addToPairs;
+	} forEach _allMags;
+	if(_toRepack isEqualTo []) exitWith {["All your magazines are already full","red"] call A3PL_Player_Notification;};
+
+	private _finalPack = [];
+	private _ammoCnt = 0;
+	{
+		_ammoCnt = getNumber (configfile >> "CfgMagazines" >> _x#0 >> "count");
+		_bullets = _x#1;
+		for "_i" from 0 to (_x#1/_ammoCnt) do {
+			if(_bullets < _ammoCnt) then {
+				_finalPack pushback [_x#0,_bullets,"Uniform"];
+			} else {
+				_finalPack pushback [_x#0,_ammoCnt,"Uniform"];
+			};			
+			_bullets = _bullets - _ammoCnt;
+			if(_bullets <= 0) exitWith {};
+		};
+	} forEach _toRepack;
+
+	["Repacking magazines...",30] spawn A3PL_Lib_LoadAction;
+	waitUntil{Player_ActionDoing};
+	while {Player_ActionDoing} do {
+		if ((player distance2D _car) > 15) exitwith {Player_ActionInterrupted = true};
+		if (!(player getVariable["A3PL_Medical_Alive",true])) exitWith {Player_ActionInterrupted = true;};
+		if ((vehicle player) != player) exitwith {Player_ActionInterrupted = true;};
+		if (player getVariable ["Incapacitated",false]) exitwith {Player_ActionInterrupted = true;};
+	};
+	if(Player_ActionInterrupted) exitWith {["Magazines rapack interrupted","red"] call A3PL_Player_Notification;};
+
+	{
+		player removeMagazines _x#0;
+	} forEach _finalPack;
+	{
+		switch (_x#2) do {
+			case "Uniform": {(uniformContainer player) addMagazineAmmoCargo [_x#0, 1, _x#1];};
+			case "Vest": {(vestContainer player) addMagazineAmmoCargo [_x#0, 1, _x#1];};
+			case "Backpack": {(backpackContainer player) addMagazineAmmoCargo [_x#0, 1, _x#1];};
+		};
+	} forEach _finalPack;
+}] call Server_Setup_Compile;

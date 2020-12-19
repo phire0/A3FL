@@ -48,7 +48,7 @@
 			case ("Land_A3PL_Ranch3"): {_spawnPos = _intersect modelToWorld [1,6.5,-2]; _dir = _dir - 90;_spawnPos = [_spawnPos select 0,_spawnPos select 1,_spawnPos select 2,_dir];};
 			case ("Land_A3PL_Firestation"): {
 				_pJob = player getVariable["job","unemployed"];
-				if(_pJob isEqualTo "fifr") then {
+				if((["vfd",player] call A3PL_DMV_Check) || (_pJob isEqualTo "fifr")) then {
 					_offset = [-11,-12,-7.5];
 					if (player_NameIntersect isEqualTo "garagedoor2_button") then {_offset = [-4.8,-12,-7.5];};
 					_spawnPos = _intersect modelToWorld _offset;
@@ -169,6 +169,7 @@
 	private _types = ["Car","Ship","Tank","Truck","Plane","Helicopter","Air"];
 	private _near = _intersect nearEntities [_types,30];
 
+	if(((typeOf _intersect) isEqualTo "Land_A3PL_Firestation") && (!((player getVariable["job","unemployed"]) isEqualTo "fifr") && !(["vfd",player] call A3PL_DMV_Check))) exitWith {["Only FIFR and VFD can use this storage!","red"] call A3PL_Player_Notification;};
 	if ((count _near) isEqualTo 0) exitwith {[7] call A3PL_Storage_CarStoreResponse;};
 	[8] call A3PL_Storage_CarStoreResponse;
 

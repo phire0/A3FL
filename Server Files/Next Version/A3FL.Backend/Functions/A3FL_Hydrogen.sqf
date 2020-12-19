@@ -203,7 +203,7 @@
 		};
 
 		_hose attachTo [_intersect,_attachTo,"gasTank"];
-		uiSleep 0.2;
+		sleep 0.2;
 		_hose setVectorDirAndUp _vector;
 		_maxlength = 10;
 	};

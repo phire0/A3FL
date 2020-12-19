@@ -118,7 +118,7 @@
 [
 	"",
 	localize"STR_INTSECT_STOREVEH",
-	{call A3PL_Storage_CarStoreButton;}
+	{[player_objintersect] call A3PL_Storage_CarStoreButton;}
 ],
 [
 	"A3PL_carInfo",

@@ -313,27 +313,32 @@
 			_class = _control lbData (lbCurSel _control);
 			if(isClass (configFile >> "CfgWeapons" >> _class)) then {
 				_itemName = getText (configFile >> "CfgWeapons" >> _class >> "displayName");
+				_accs = ["","",""];
 				{
 					if (_x isEqualTo _class) exitWith {
 						_target removeWeaponGlobal _x;
+						_accs = _target weaponAccessories _class;
 					};
 				} forEach weapons _target;
 				{
 					if (_x isEqualTo _class) exitWith {
 						_target removeItemFromUniform _x;
+						_accs = [_class] call A3PL_Lib_GetWeaponAccsCargo;
 					};
 				} forEach uniformItems _target;
 				{
 					if (_x isEqualTo _class) exitWith {
 						_target removeItemFromVest _x;
+						_accs = [_class] call A3PL_Lib_GetWeaponAccsCargo;
 					};
 				} forEach vestItems _target;
 				{
 					if (_x isEqualTo _class) exitWith {
 						_target removeItemFromBackpack _x;
+						_accs = [_class] call A3PL_Lib_GetWeaponAccsCargo;
 					};
 				} forEach backpackItems _target;
-				_weaponHolder addWeaponCargoGlobal [_class,1];
+				_weaponHolder addWeaponWithAttachmentsCargoGlobal [[_class, _accs select 0, _accs select 1, _accs select 2, [], [], ""], 1];
 			} else {
 				_itemName = getText (configFile >> "CfgMagazines" >> _class >> "displayName");
 				_target removeMagazineGlobal _class;

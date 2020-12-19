@@ -1187,6 +1187,11 @@ A3PL_Interaction_Options =
 		{(Player_ItemClass isEqualTo "cyanide_pills") && {count(nearestObjects [player, ["Land_A3PL_Prison"], 50]) > 0}}
 	],
 	[
+		"Repack Magazines",
+		{call A3PL_Player_RepackMags;},
+		{!((magazines player) isEqualTo [])}
+	],
+	[
 		"Toggle Garage",
 		{
 			private _cursorObject = cursorObject;
@@ -1194,7 +1199,7 @@ A3PL_Interaction_Options =
 			switch (typeOf _cursorObject) do {
 				case "Land_A3PL_Firestation": {
 					private _job = player getVariable["job","unemployed"];
-					if !(_job isEqualTo "fifr") exitWith {["Only FIFR can use the firestation doors","red"] call A3PL_Player_Notification;};
+					if !((["vfd",player] call A3PL_DMV_Check) || (_job isEqualTo "fifr")) exitWith {["Only FIFR can use the firestation doors","red"] call A3PL_Player_Notification;};
 					private _memList = ["garagedoor1_button","garagedoor2_button","door_6","door_7","door_8","door_9","door_2","door_3","door_4","door_5",""];
 					private _lastDist = 100;
 					private _nearest = "";

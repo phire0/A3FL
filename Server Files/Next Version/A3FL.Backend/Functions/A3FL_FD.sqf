@@ -1104,12 +1104,13 @@
 		};
 		case "lookhistory": {
 			if ((count _return) > 0) then {
+				private _data = "";
 				{
-					_output = _output + (format ["<t align='center'>%1 - %2 at %3 - EMS : %4</t><br />",_x select 5,_x select 3,_x select 2,_x select 4]);
+					_data = _data + (format ["<t align='center'>%1 - %2 at %3 - EMS : %4</t><br />",_x select 5,_x select 3,_x select 2,_x select 4]);
 				} foreach _return;
-				_output;
+				_data;
 			} else {
-				format ["No data in the name of %1 in the database.",_name];
+				format ["No medical record for %1.",_name];
 			};
 		};
 		case "addhistory": {_return;};
@@ -1196,6 +1197,11 @@
 				"Error: Wrong password";
 			};
 		};
+		case "logout":
+		{
+			_veh setVariable ["FDDatabaseLogin",false,true];
+			"<t align='center'>FISHERS ISLAND FIRE &amp; RESCUE</t><br /><t align='center'>Type 'help' to see all the available commands</t><br />";
+		};
 		case "lookpatient": {
 			private _name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_FD_Database", 2];
@@ -1226,7 +1232,7 @@
 		case "lookhistory": {
 			private _name = ([_edit,1] call A3PL_FD_DatabaseArgu) + " " + ([_edit,2] call A3PL_FD_DatabaseArgu);
 			[player,_name,_edit0] remoteExec ["Server_FD_Database", 2];
-			format ["Search of the medical file in progress...",_name];
+			format ["Searching medical records...",_name];
 		};
 		case "addhistory":
 		{
@@ -1237,7 +1243,7 @@
 			private _info = [_array," "] call CBA_fnc_join;
 			private _issuedBy = player getVariable ["name",name player];
 			[player,[_name,_place,_info,_issuedBy],_edit0] remoteExec ["Server_FD_Database", 2];
-			format ["Information added to the patient's file...",_name];
+			format ["Information added to the patient's medical record...",_name];
 		};
 		case "clearfires":
 		{

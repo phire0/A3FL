@@ -496,6 +496,7 @@
 	_cam camCommit 0;
 	_cam cameraEffect ["internal", "BACK"];
 	_cam attachto [_logic, [0,5,2]];
+	showCinemaBorder false;
 	private _dir = random 359;
 	private _interval = 0.1;
 	while {!isNull _display} do {

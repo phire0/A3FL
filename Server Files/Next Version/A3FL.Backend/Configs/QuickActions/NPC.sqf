@@ -8,6 +8,11 @@
 
 [
 	"",
+	"Access Criminal Shop",
+	{["Shop_CrimeBase"] call A3PL_Shop_Open;}
+],
+[
+	"",
 	"Big Dicks Sports Store",
 	{["Shop_Big_Dicks_Sports"] call A3PL_Shop_Open;}
 ],

@@ -1475,29 +1475,43 @@
 ["A3PL_Vehicle_Jerrycan",
 {
 	private _veh = param [0,objNull];
-
-	//exits
 	if (isNull _veh) exitwith {};
 	if (typeOf _veh IN ["A3PL_RBM","Heli_Medium01_H","Heli_Medium01_Luxury_H","Heli_Medium01_Military_H","Heli_Medium01_Veteran_H","Heli_Medium01_Coastguard_H","Heli_Medium01_Sheriff_H","Heli_Medium01_Medic_H","Heli_Medium01_H","Heli_Medium01_Luxury_H","Heli_Medium01_Military_H","Heli_Medium01_Veteran_H","Heli_Medium01_Coastguard_H","Heli_Medium01_Sheriff_H","Heli_Medium01_Medic_H","Heli_Medium01_H","Heli_Medium01_Luxury_H","Heli_Medium01_Military_H","Heli_Medium01_Veteran_H","Heli_Medium01_Coastguard_H","Heli_Medium01_Sheriff_H","Heli_Medium01_Medic_H","A3PL_Motorboat","A3PL_RHIB","A3PL_Yacht"]) exitwith {["System:You can't a Jerry Can with this vehicle, it takes avgas (Kerosene)","red"] call A3PL_Player_Notification;};
 	if (player_itemClass != "jerrycan") exitwith {[localize"STR_NewVehicle_48","red"] call A3PL_Player_Notification;};
 	if (!local _veh) exitwith {[localize"STR_NewVehicle_49"] call A3PL_Player_Notification;};
-	//take jerrycan from the player
+
+	private _classname = typeOf _veh;
+	private _vector = [[0,1,0],[1,0,0]];
+	private _vectorEnd = [[0,1,0],[0,0,1]];
+	private _attachTo = _veh selectionPosition "gasTank";
+	switch (true) do
+	{
+		case (_classname IN ["A3PL_Rover","A3PL_P362","A3PL_P362_TowTruck","A3PL_P362_Garbage_Truck","A3PL_BMW_M3","A3PL_911GT2","A3PL_CLS63","A3PL_Urus","A3PL_Taurus","A3PL_Taurus_PD","A3PL_Taurus_PD_ST","A3PL_Taurus_FD","A3FL_BMW_M6","A3FL_Smart_Car","A3FL_Mercedes_Benz_AMG_C63","A3FL_Nissan_GTR","A3FL_Nissan_GTR_LW"]): {
+			_vector = [[0,-1,0],[-1,0,0]];
+			_vectorEnd = [[0,-1,0],[0,0,1]];
+			_attachTo set [0,(_attachTo select 0) + 0.1];
+			_attachTo set [2,(_attachTo select 2) + 0.1];
+		};
+		default {
+			_attachTo set [0,(_attachTo select 0) - 0.3];
+			_attachTo set [2,(_attachTo select 2) + 0.2];
+		};
+	};
+
 	private _jerryCan = Player_Item;
 	[player_itemClass,-1] call A3PL_Inventory_Add;
 	Player_Item = objNull;
 	Player_ItemClass = '';
 
-	//attach jerrycan to vehicle
 	detach _jerryCan;
-	private _attachpoint = _veh selectionPosition "gasTank";
-	_attachpoint set [0,(_attachPoint select 0) - 0.3];
-	_attachpoint set [2,(_attachPoint select 2) + 0.2];
-	_jerryCan attachTo [_veh,_attachpoint];
-	_jerryCan setVectorDirAndUp [[0,1,0],[1,0,0]];
+	_jerryCan attachTo [_veh,_attachTo];
+	sleep 0.2;
+	_jerryCan setVectorDirAndUp _vector;
+
 	playSound3D ["A3PL_Common\effects\gasoline.ogg", _jerrycan, false, getPos _jerryCan, 1.36, 1.1, 0];
-	uiSleep 4.5;
-	_jerryCan setVectorDirAndUp [[0,1,0],[0,0,1]];
-	uiSleep 1;
+	sleep 4.5;
+	_jerryCan setVectorDirAndUp _vectorEnd;
+	sleep 1;
 	deleteVehicle _jerryCan;
 
 	_veh setFuel ((fuel _veh) + 0.25);

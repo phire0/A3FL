@@ -298,6 +298,20 @@ Config_Shops_Items = [
 		],{[3852.065,9212.537,0.168]}
 	],
 
+	["Shop_CrimeBase",[
+			["item","Blueprint_Shemag",1000,-1,0,0],
+			["item","Blueprint_balaclava",1000,-1,0,0],
+			["item","Blueprint_Bandanna",1000,-1,0,0],
+			["item","Blueprint_Rangemaster_belt",1000,-1,0,0],
+			["item","v_lockpick",1350,-1,5],
+			["item","zipties",2500,-1,5],
+			["item","drill_bit",6500,-1,8],
+			["item","keycard",10000,-1,8],
+			["backpack","A3PL_Backpack_Drill",20000,-1,8],
+			["backpack","A3PL_Backpack_Money",6000,-1,8]
+		],{[7652.96,8537.93,0.5]}
+	],
+
 	["Shop_DOC",[
 			["item","breathalizer",10,-1,0],
 			["item","drug_kit",10,-1,0],
@@ -374,7 +388,7 @@ Config_Shops_Items = [
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_TaserMag",80,-1,0],
 			["magazine","A3PL_Taser2_Mag",80,0,0],
-			["magazine","A3FL_Glock18_Mag",150,0,0],
+			["magazine","A3FL_Glock17_Mag",150,0,0],
 			["magazine","16Rnd_9x21_Mag",150,0,0],
 			["magazine","A3PL_P226_Mag",150,-1,0],
 			["magazine","A3FL_P227_Mag",150,-1,0],
@@ -639,7 +653,7 @@ Config_Shops_Items = [
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_TaserMag",100,-1,0],
 			["magazine","A3PL_Taser2_Mag",100,0,0],
-			["magazine","A3FL_Glock18_Mag",150,0,0],
+			["magazine","A3FL_Glock17_Mag",150,0,0],
 			["magazine","16Rnd_9x21_Mag",150,0,0],
 			["magazine","A3PL_P226_Mag",150,-1,0],
 			["magazine","A3FL_P227_Mag",150,-1,0],
@@ -784,7 +798,7 @@ Config_Shops_Items = [
 			["magazine","A3FL_PepperSpray_Mag",50,0,0],
 			["magazine","A3PL_TaserMag",100,-1,0],
 			["magazine","A3PL_Taser2_Mag",100,0,0],
-			["magazine","A3FL_Glock18_Mag",150,0,0],
+			["magazine","A3FL_Glock17_Mag",150,0,0],
 			["magazine","16Rnd_9x21_Mag",150,0,0],
 			["magazine","A3PL_P226_Mag",150,-1,0],
 			["magazine","A3FL_P227_Mag",150,-1,0],

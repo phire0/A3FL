@@ -5,6 +5,7 @@
 	YOU ARE NOT ALLOWED TO COPY OR DISTRIBUTE THE CONTENT OF THIS FILE WITHOUT AUTHOR AGREEMENT
 	More informations : https://www.bistudio.com/community/game-content-usage-rules
 */
+//[player,'driver',true] remoteExec ["Server_DMV_Add",2];
 
 ["A3PL_DMV_Open",
 {
@@ -73,7 +74,6 @@
 	} foreach (_player getVariable ["licenses",[]]);
 }] call Server_Setup_Compile;
 
-//[player,'driver',true] remoteExec ["Server_DMV_Add",2];
 ["A3PL_DMV_Add",
 {
 	if(!(call A3PL_Player_AntiSpam)) exitWith {};
