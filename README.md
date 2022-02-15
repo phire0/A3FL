@@ -4,6 +4,6 @@
 
 # ArmA 3 Fishers Life
 
-This repository contains the framework used to power ArmA 3 Fishers Life.
+This repository contains the framework which used to power ArmA 3 Fishers Life.
 
-You are not allowed to use this framework without the explicit permission of the creators of ArmA 3 Fishers Life.
+This framework is outdated, and was last updated in December 2020.
